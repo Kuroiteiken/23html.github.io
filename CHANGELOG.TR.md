@@ -10,6 +10,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Alt kayıt çubuğu kontrollerinin üst üste binmesini veya taşmasını reddeden
+  Türkçe tarayıcı yerleşim kapsamı eklendi.
 - Normal konumda ve ekran kenarlarında imleci izleyen hover açıklamaları için
   tarayıcı regresyon kapsamı eklendi.
 - Dil JSON'u dışında doğrudan statik ekipman açıklamalarını reddeden kaynak
@@ -48,6 +50,11 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Alt kayıt çubuğu, çevrilmiş etiketlerle çakışan sabit koordinatlar yerine açık
+  bir esnek kontrol grubu etrafında yeniden kuruldu.
+- Sürüm politikası, her küçük değişiklikte sürüm artırmak yerine ilişkili ufak
+  düzeltmeleri ve arayüz iyileştirmelerini mevcut changelog sürümünde gruplayacak
+  şekilde güncellendi.
 - Hover açıklaması konumlandırma ve ekipman yerelleştirme düzeltmeleri için oyun
   v474'e yükseltildi.
 - Kalan 83 statik silah, zırh ve kalkan açıklaması ile biçimlendirilmiş sekiz
@@ -87,6 +94,9 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Otomatik kaydetme etiketi, daraltma kontrolü, sürüm bağlantısı ve kayıt silme
+  eyleminin alt bilgi çubuğunda birleşmesi düzeltildi.
+- Türkçe kayıt silindi onay metni düzeltildi.
 - Standards mode'da birimsiz CSS koordinatları reddedildiği için karakter
   panosunun üzerinde sabitlenen hover açıklamaları düzeltildi.
 - Hover açıklamalarının arayüz ölçeğini hesaba katması, imleci izlemesi ve görünür

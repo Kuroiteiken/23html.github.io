@@ -57,10 +57,12 @@ ekrana sığdırmayı ve proje-alt-yolu changelog bağlantısını kapsar. Hata
 düzeltmeleriyle davranış değişiklikleri deployment öncesinde ilgili regresyon
 kapsamını genişletmelidir.
 
-Tam sayı oyun sürümü hata düzeltmeleri, özellikler ve oyuncuya dönük eklemelerde
-artırılır. `changelog/changelog.html` içindeki en yeni aralığın sonu aynı sürüm
-olmalıdır; otomatik kontroller uyumsuzluğu reddeder. Yalnızca formatlama veya
-dokümantasyon değişiklikleri sürüm artışı gerektirmez.
+Tam sayı oyun sürümü hata düzeltmeleri, özellikler veya oyuncuya dönük eklemeler
+içeren anlamlı yayın kilometre taşlarında artırılır. Birbiriyle ilişkili küçük
+düzeltmeler ve arayüz iyileştirmeleri ayrı sürümler almak yerine mevcut sürüm
+kaydında biriktirilir. `changelog/changelog.html` içindeki en yeni aralığın sonu
+aynı sürüm olmalıdır; otomatik kontroller uyumsuzluğu reddeder. Yalnızca
+formatlama veya dokümantasyon değişiklikleri sürüm artışı gerektirmez.
 
 Kaynakları formatlamak için:
 

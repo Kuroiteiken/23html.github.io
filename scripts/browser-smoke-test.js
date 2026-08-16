@@ -212,6 +212,18 @@ async function main() {
       );
     }
 
+    const saveBarLayout = await runChrome(
+      `${baseUrl}/__test-save-bar-layout.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(saveBarLayout.stderr);
+    assertCommonStartup(saveBarLayout.stdout, port);
+    if (
+      !saveBarLayout.stdout.includes('data-save-bar-controls-separated="true"')
+    ) {
+      throw new Error("The save-bar controls overlap or leave the footer.");
+    }
+
     const recovery = await runChrome(
       `${baseUrl}/__test/corrupt-save`,
       profiles[1],
@@ -224,7 +236,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, save-bar layout, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

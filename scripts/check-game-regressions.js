@@ -65,3 +65,17 @@ if (staticEquipmentDescription.test(equipmentSource)) {
 console.log(
   "Validated hover-description positioning and equipment-description localization.",
 );
+
+const saveBarLayout = [
+  /addElement\(dom\.sl, "div", "save-bar-controls"\)/,
+  /addElement\(dom\.sl_controls, "span", null, "sl"\)/,
+  /addElement\(dom\.autosve, "input", "autosave-toggle"\)/,
+];
+
+if (!saveBarLayout.every((pattern) => pattern.test(interfaceSource))) {
+  throw new Error(
+    "Save-bar regression: autosave, collapse, version, and delete controls must share an explicit layout group.",
+  );
+}
+
+console.log("Validated the grouped save-bar control structure.");

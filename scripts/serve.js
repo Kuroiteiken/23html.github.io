@@ -48,15 +48,13 @@ function createSiteServer(options = {}) {
           enemy.style.display = "";
           enemy.style.left = "457px";
           enemy.style.top = "8px";
-          requestAnimationFrame(() => {
-            const playerBounds = player.getBoundingClientRect();
-            const enemyBounds = enemy.getBoundingClientRect();
-            document.documentElement.dataset.combatPanelsSeparated = String(
-              enemyBounds.left >= playerBounds.right &&
-              playerBounds.left < enemyBounds.left
-            );
-            clearInterval(combatLayoutProbe);
-          });
+          const playerBounds = player.getBoundingClientRect();
+          const enemyBounds = enemy.getBoundingClientRect();
+          document.documentElement.dataset.combatPanelsSeparated = String(
+            enemyBounds.left >= playerBounds.right &&
+            playerBounds.left < enemyBounds.left
+          );
+          clearInterval(combatLayoutProbe);
         }, 10);
       </script>`;
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
@@ -119,6 +117,42 @@ function createSiteServer(options = {}) {
       </script>`;
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
       response.end(index.replace("</body>", `${tooltipProbe}</body>`));
+      return;
+    }
+
+    if (
+      options.enableTestRoutes &&
+      pathname === "/__test-save-bar-layout.html"
+    ) {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      const saveBarProbe = `<script>
+        const saveBarLayoutProbe = setInterval(() => {
+          const bar = document.getElementById("sl");
+          const controls = document.getElementById("save-bar-controls");
+          if (!document.getElementById("ctrmg") || !bar || !controls) return;
+          clearInterval(saveBarLayoutProbe);
+          const barBounds = bar.getBoundingClientRect();
+          const controlBounds = [...controls.children].map((child) =>
+            child.getBoundingClientRect(),
+          );
+          const controlsSeparated = controlBounds.every(
+            (bounds, index) =>
+              index === 0 || bounds.left >= controlBounds[index - 1].right,
+          );
+          const controlsInsideBar = controlBounds.every(
+            (bounds) =>
+              bounds.left >= barBounds.left &&
+              bounds.right <= barBounds.right &&
+              bounds.top >= barBounds.top &&
+              bounds.bottom <= barBounds.bottom,
+          );
+          document.documentElement.dataset.saveBarControlsSeparated = String(
+            controlsSeparated && controlsInsideBar,
+          );
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${saveBarProbe}</body>`));
       return;
     }
 

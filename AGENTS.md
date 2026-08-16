@@ -62,10 +62,12 @@ translation.
 - Register new locale files in `locales/manifest.json`; non-English locales may
   rely on the English fallback while translations are incomplete.
 - Make behavior changes only when they are within the user's requested scope.
-- Increment the integer game version for bug fixes, features, and player-facing
-  additions, and add a matching `previousーcurrent` section at the top of
-  `changelog/changelog.html`. Do not increment it for trivial documentation,
-  formatting, or wording-only changes.
+- Increment the integer game version for meaningful release milestones that
+  contain bug fixes, features, or player-facing additions, and add a matching
+  `previousーcurrent` section at the top of `changelog/changelog.html`. Accumulate
+  small related fixes and UI refinements in the current release entry instead of
+  creating a version for every minor change. Trivial documentation, formatting,
+  or wording-only changes do not require a version increment.
 - Design UI changes to keep the complete fixed-layout game visible in the
   viewport where practical, and test them at reduced viewport sizes.
 - Reply to the repository owner in Turkish. On forks, follow the current user's

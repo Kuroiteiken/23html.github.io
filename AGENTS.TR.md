@@ -62,10 +62,13 @@ ardından bu çeviriyi eşitleyin.
 - Yeni dil dosyalarını `locales/manifest.json` içine kaydedin; eksik çeviriler
   İngilizce fallback kullanabilir.
 - Davranış değişikliklerini yalnızca kullanıcı talebi kapsamındaysa yapın.
-- Hata düzeltmeleri, özellikler ve oyuncuya dönük eklemelerde tam sayı oyun
-  sürümünü artırın ve `changelog/changelog.html` başına eşleşen bir
-  `öncekiーgüncel` bölümü ekleyin. Basit dokümantasyon, formatlama veya yalnızca
-  ifade değişikliklerinde sürümü artırmayın.
+- Hata düzeltmeleri, özellikler veya oyuncuya dönük eklemeler içeren anlamlı yayın
+  kilometre taşlarında tam sayı oyun sürümünü artırın ve
+  `changelog/changelog.html` başına eşleşen bir `öncekiーgüncel` bölümü ekleyin.
+  Her küçük değişiklik için yeni sürüm oluşturmak yerine birbiriyle ilişkili ufak
+  düzeltmeleri ve arayüz iyileştirmelerini mevcut sürüm kaydında biriktirin. Basit
+  dokümantasyon, formatlama veya yalnızca ifade değişiklikleri sürüm artışı
+  gerektirmez.
 - Arayüz değişikliklerini mümkün olduğunca sabit yerleşimli oyunun tamamını
   ekranda tutacak şekilde tasarlayın ve küçük ekran boyutlarında test edin.
 - Repository sahibine Türkçe cevap verin. Forklarda mevcut kullanıcının dil

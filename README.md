@@ -55,10 +55,12 @@ versions, Turkish startup, cached-profile reloads, malformed-save recovery,
 viewport fitting, and project-path changelog links. Bug fixes and behavior
 changes must extend the relevant regression coverage before deployment.
 
-The integer game version is incremented for fixes, features, and player-facing
-additions. The newest `changelog/changelog.html` range must end at the same
-version; automated checks reject a mismatch. Formatting or documentation-only
-changes do not require a version increment.
+The integer game version is incremented at meaningful release milestones that
+contain fixes, features, or player-facing additions. Small related fixes and UI
+refinements are accumulated in the current release entry instead of receiving a
+new version each. The newest `changelog/changelog.html` range must end at the
+same version; automated checks reject a mismatch. Formatting or
+documentation-only changes do not require a version increment.
 
 Format source files with:
 

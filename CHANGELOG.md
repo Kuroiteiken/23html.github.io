@@ -10,6 +10,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added Turkish browser layout coverage that rejects overlapping or overflowing
+  bottom save-bar controls.
 - Added browser regression coverage for pointer-following hover descriptions at
   normal and viewport-edge positions.
 - Added a source regression check that rejects direct static equipment
@@ -46,6 +48,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Rebuilt the bottom save bar around an explicit flexible control group instead
+  of fixed offsets that collide with translated labels.
+- Updated the release policy to group small related fixes and UI refinements into
+  the current changelog release instead of incrementing every minor change.
 - Incremented the game to v474 for hover-description positioning and equipment
   localization fixes.
 - Moved 83 remaining static weapon, armor, and shield descriptions, including
@@ -83,6 +89,9 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Fixed the autosave label, collapse control, version link, and delete action
+  merging together in the bottom information bar.
+- Corrected the Turkish save-deleted confirmation text.
 - Fixed hover descriptions being anchored over the character panel because
   unitless CSS coordinates were rejected in standards mode.
 - Made hover descriptions account for UI scaling, follow the pointer, and flip

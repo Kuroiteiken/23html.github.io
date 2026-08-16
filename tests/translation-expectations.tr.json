@@ -17,5 +17,6 @@
   "runtime.ui.interface.interface.time_slept_f32d21d0": "Toplam uyku süresi",
   "runtime.ui.interface.interface.times_struck_by_lightning_64e90c46": "Yıldırım çarpma sayısı",
   "runtime.ui.interface.interface.times_walked_52c707fc": "Yürüme sayısı",
-  "runtime.ui.interface.interface.cat_pets_13e98483": "Kedi okşama sayısı"
+  "runtime.ui.interface.interface.cat_pets_13e98483": "Kedi okşama sayısı",
+  "runtime.ui.interface.dialogue.save_deleted_dbfb58d6": "Kayıt silindi"
 }

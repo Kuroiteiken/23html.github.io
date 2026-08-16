@@ -2780,26 +2780,18 @@ dom.sl_s.addEventListener("click", () => {
 dom.sl_l = addElement(dom.sl, "span", null, "sl");
 dom.sl_l.innerHTML = i18n.t("runtime.ui.interface.interface.load_5dbc716c");
 dom.sl_l.addEventListener("click", () => load(null, true));
-dom.sl_extra = addElement(dom.sl, "span", null, "sl");
+dom.sl_extra = addElement(dom.sl, "span", "save-status", "sl");
 dom.sl_extra.style.borderLeft = "none";
 dom.sl_extra.innerHTML = i18n.t(
   "runtime.ui.interface.interface.game_not_saved_626be345",
 );
-dom.autosve = addElement(dom.sl, "span", null, "sl");
+dom.sl_controls = addElement(dom.sl, "div", "save-bar-controls");
+dom.autosve = addElement(dom.sl_controls, "span", null, "sl");
 dom.autosve.innerHTML = i18n.t(
   "runtime.ui.interface.interface.autosave_ff6ad920",
 );
-dom.autosve.style.position = "fixed";
-dom.autosve.style.width = "auto";
-dom.autosve.style.right = "139px";
-dom.autosve.style.bottom = "1px";
-dom.autosve.style.paddingRight = "20px";
-dom.autosves = addElement(dom.autosve, "input");
+dom.autosves = addElement(dom.autosve, "input", "autosave-toggle");
 dom.autosves.type = "checkbox";
-dom.autosves.margin = 0;
-dom.autosves.style.position = "fixed";
-if (typeof InstallTrigger === "undefined")
-  dom.autosves.style.bottom = "inherit";
 dom.autosves.addEventListener("click", function () {
   global.flags.autosave = !global.flags.autosave;
   if (global.flags.autosave === true)
@@ -2808,22 +2800,13 @@ dom.autosves.addEventListener("click", function () {
     }, 30000);
   else clearInterval(timers.autos);
 });
-dom.sl_h = addElement(dom.sl, "span", null, "sl");
+dom.sl_h = addElement(dom.sl_controls, "span", null, "sl");
 dom.sl_h.innerHTML = ">>";
-dom.sl_h.style.right = "214px";
-dom.sl_h.style.position = "fixed";
-dom.sl_h.style.width = "auto";
-dom.sl_h.style.bottom = "1px";
 dom.sl_h.addEventListener("click", () => {
   dom.sl.style.display = "none";
   if (dom.sl_h_n) empty(dom.sl_h_n);
-  dom.sl_h_n = addElement(document.body, "span", null, "sl");
+  dom.sl_h_n = addElement(document.body, "span", "save-bar-restore", "sl");
   dom.sl_h_n.innerHTML = "<<";
-  dom.sl_h_n.style.right = 0;
-  dom.sl_h_n.style.position = "absolute";
-  dom.sl_h_n.style.bottom = 0;
-  dom.sl_h_n.style.width = 14;
-  dom.sl_h_n.style.backgroundColor = "lightgrey";
   dom.sl_h_n.addEventListener("click", () => {
     dom.sl.style.display = "";
     empty(dom.sl_h_n);
@@ -2831,25 +2814,17 @@ dom.sl_h.addEventListener("click", () => {
   });
 });
 
-dom.vrs = addElement(dom.sl, "a", null, "sl");
-dom.vrs.style.position = "fixed";
-dom.vrs.style.width = "auto";
+dom.vrs = addElement(dom.sl_controls, "a", null, "sl");
 dom.vrs.innerHTML = "v" + global.ver;
-dom.vrs.style.right = "105px";
-dom.vrs.style.bottom = "1px";
 dom.vrs.style.color = "black";
 dom.vrs.style.textDecoration = "underline";
 dom.vrs.href = new URL("changelog/changelog.html", document.baseURI).href;
 dom.vrs.target = "_blank";
 dom.vrs.rel = "noopener";
-dom.sl_kill = addElement(dom.sl, "span", null, "sl");
-dom.sl_kill.style.position = "fixed";
-dom.sl_kill.style.width = "auto";
+dom.sl_kill = addElement(dom.sl_controls, "span", null, "sl");
 dom.sl_kill.innerHTML = i18n.t(
   "runtime.ui.interface.interface.delete_the_save_b765bc3d",
 );
-dom.sl_kill.style.right = "5px";
-dom.sl_kill.style.bottom = "1px";
 dom.sl_kill.addEventListener("click", () => {
   localStorage.clear();
   msg(i18n.t("runtime.ui.interface.dialogue.save_deleted_dbfb58d6"), "");
