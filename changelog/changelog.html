@@ -235,7 +235,40 @@
       </div>
     </header>
     <main class="changelog" aria-label="Release history">
-      <article class="release release-latest" data-version="474">
+      <article class="release release-latest" data-version="475">
+        <header class="release-header">
+          <div>
+            <span class="release-kicker">Release</span>
+            <h2>v475</h2>
+          </div>
+          <div class="release-meta">
+            <span class="release-range">v474 → v475</span>
+            <time datetime="2026-08-16">2026/08/16</time>
+          </div>
+        </header>
+        <div class="release-changes">
+          Fixed the agility multiplier being reset every time the game was saved
+          and loaded<br />
+          Fixed explored area sizes shifting onto the wrong areas after loading,
+          which lost hunting progress<br />
+          Dying no longer punishes the Death skill; a higher skill now preserves
+          more satiation instead of draining it completely<br />
+          Fixed the "pause next battle" label showing the wrong state after
+          loading a save<br />
+          Damaged saves no longer restore missing statistics as blank values<br />
+          Imported saves are now stored properly instead of being lost on the
+          next reload<br />
+          A save that cannot be read is kept as a backup and reported instead of
+          being replaced silently by a new game<br />
+          Fixed quest tracking removing the wrong background task when a quest
+          was completed or a save was loaded<br />
+          Fixed high resistance skills healing instead of protecting: food
+          poisoning restored satiation and corruption restored health once those
+          resistances passed level 20
+        </div>
+      </article>
+
+      <article class="release" data-version="474">
         <header class="release-header">
           <div>
             <span class="release-kicker">Release</span>
@@ -254,7 +287,26 @@
           Moved the remaining static equipment descriptions into the English and
           Turkish locale files<br />
           Separated the autosave, collapse, version, and delete controls in the
-          bottom information bar
+          bottom information bar<br />
+          Corrected Turkish weekday abbreviations and made Sunday-based gameplay
+          independent of the selected display language<br />
+          Audited 2,177 Turkish content and runtime values in their source-code
+          context, correcting 255 high-confidence translation errors<br />
+          Localized the weekly dojo meal announcement<br />
+          Moved the remaining static accessory descriptions and bonus details
+          into the language files<br />
+          Localized missed-attack combat messages<br />
+          Moved the bottom-bar collapse control directly after Save and Load<br />
+          Fixed empty message-log indicators and kept the clear button inside
+          the message panel<br />
+          Prevented background theme changes from resetting the interface
+          scale<br />
+          Replaced the browser save-deletion prompt with a game-styled,
+          keyboard-accessible confirmation modal<br />
+          Separated the background preset controls for clearer translated
+          labels<br />
+          Localized free-meal reactions, book-reading progress, and basement
+          actions
         </div>
       </article>
 

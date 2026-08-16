@@ -1,6 +1,16 @@
-///////////////////////////////////////////
-//EFF
-///////////////////////////////////////////
+// Status effect definitions and their per-tick handlers: poison, bleeding,
+// corruption, food poisoning, and the temporary buffs applied by items, food,
+// and weather. Loaded before creatures and equipment so both can reference
+// `effect.*` entries directly.
+
+// Resistance skills scale linearly with level, so an unclamped `1 - use()`
+// crosses zero once the skill passes its break-even level and turns damage
+// negative, which heals the target instead of hurting it. Food-poison
+// resistance reaches that point at level 20 and corruption resistance at level
+// 20, so every resistance multiplier is clamped to the 0-1 range here.
+function resistanceFactor(reduction) {
+  return Math.min(1, Math.max(0, 1 - reduction));
+}
 
 function Effect() {
   this.name = "dummy";
@@ -89,7 +99,7 @@ effect.psn.use = function (y, z) {
   if (this.target.id === you.id) {
     if (effect.psnwrd.active === false) {
       giveSkExp(skl.poisr, this.power * 0.1);
-      dmg *= Math.ceil(1 - skl.poisr.use());
+      dmg *= Math.ceil(resistanceFactor(skl.poisr.use()));
       giveSkExp(skl.painr, this.power * 0.05);
       global.stat.dmgrt += dmg;
       if (you.hp - dmg > 0) you.hp -= dmg;
@@ -152,7 +162,7 @@ effect.vnm.use = function (y, z) {
   if (this.target.id === you.id) {
     if (effect.psnwrd2.active === false) {
       giveSkExp(skl.poisr, this.power * 0.1);
-      dmg *= Math.ceil(1 - skl.poisr.use() * 0.3);
+      dmg *= Math.ceil(resistanceFactor(skl.poisr.use() * 0.3));
       giveSkExp(skl.painr, this.power * 0.2);
       global.stat.dmgrt += dmg;
       if (you.hp - dmg > 0) you.hp -= dmg;
@@ -393,13 +403,16 @@ effect.fpn.x = "«";
 effect.fpn.c = "lime";
 effect.fpn.b = "grey";
 effect.fpn.onGive = function () {
-  msg(select(["You feel bad inside", "Your stomach bothers you"]), "green");
+  msg(
+    select(i18n.get("runtime.data.effects.dialogue.food_poison_reactions")),
+    "green",
+  );
 };
 effect.fpn.use = function (y, z) {
   if (you.sat > 0) giveSkExp(skl.fdpnr, 1);
   giveSkExp(skl.painr, 1);
   this.duration--;
-  const dmg = randf(1, 3) * (1 - skl.fdpnr.use());
+  const dmg = randf(1, 3) * resistanceFactor(skl.fdpnr.use());
   if (you.sat > 0) you.sat - dmg >= 0 ? (you.sat -= dmg) : (you.sat = 0);
   dom.d5_1_1.update();
   if (this.duration === 0) {
@@ -562,7 +575,7 @@ effect.bled.use = function (y, z) {
   dmg = Math.ceil(rand(dmg * 0.6, dmg * 1.4));
   if (this.target.id === you.id) {
     giveSkExp(skl.bledr, this.power * 0.1);
-    dmg *= Math.ceil(1 - skl.bledr.use());
+    dmg *= Math.ceil(resistanceFactor(skl.bledr.use()));
     global.stat.dmgrt += dmg;
     if (you.hp - dmg > 0) you.hp -= dmg;
     else {
@@ -730,8 +743,10 @@ effect.invgrt.onGive = function () {
   if (!this.active) {
     msg(
       this.target.id === you.id
-        ? "You become nimble"
-        : this.target.name + " becomes nimble",
+        ? i18n.t("runtime.data.effects.dialogue.player_becomes_nimble")
+        : i18n.t("runtime.data.effects.dialogue.target_becomes_nimble", {
+            name: this.target.name,
+          }),
       "green",
     );
     this.target.aglm += 0.3;
@@ -777,7 +792,7 @@ effect.fei1.use = function (y) {
   this.duration--;
   giveSkExp(skl.crptr, 1);
   giveSkExp(skl.painr, this.power);
-  const dmg = (this.power * 5 * (1 - skl.crptr.lvl * 0.05)) << 0;
+  const dmg = (this.power * 5 * resistanceFactor(skl.crptr.lvl * 0.05)) << 0;
   global.stat.dmgrt += dmg;
   if (you.hp - dmg > 0) you.hp -= dmg;
   else {
@@ -887,7 +902,8 @@ effect.smoke.use = function () {
   if (this.target.id === you.id) {
     if (random() < 0.1) {
       msg(
-        select(["*Cough..*", "*Hack..*", "*Cough-cough..*", "*Khe..*"], "grey"),
+        select(i18n.get("runtime.data.effects.dialogue.cough_reactions")),
+        "grey",
       );
       giveSkExp(skl.painr, rand(0.5, 5));
       if (you.hp > 50) you.hp -= rand(5, 35) + you.hp * rand(0.01, 0.05);

@@ -1,3 +1,8 @@
+// The simulation layer: weather, the world clock, damage resolution, and the
+// recurring tick that drives everything else. `ontick()` advances game time and
+// is the entry point for all periodic world behaviour; the loop that calls it
+// lives at the bottom of this file.
+
 function wManager() {
   const ses = getSeason();
   if (w_manager.duration > 0) w_manager.duration -= global.timescale;
@@ -893,6 +898,9 @@ function getDay(n) {
       ? global.text.d_s[time.day % 7]
       : global.text.d_j[time.day % 7];
 }
+function isDay(dayIndex) {
+  return time.day % 7 === dayIndex;
+}
 function getMonth() {
   return (time.month % 12) + 1;
 }
@@ -1114,11 +1122,40 @@ function lvlup(p, t) {
     if (p.id != you.id) p.exp = (p.exp * (1 + t / 5) + 1) << 0;
     else {
       dom.d3.update();
-      msg("Leveled Up " + you.lvl, "orange");
-      msg("STR +" + Math.round(sb), "darkturquoise");
-      msg_add(" | AGL +" + Math.round(sa), "darkturquoise");
-      msg_add(" | INT +" + Math.round(si), "darkturquoise");
-      msg_add(" | HP +" + hpp, "darkturquoise");
+      msg(
+        i18n.t("runtime.systems.simulation.dialogue.level_up", {
+          level: you.lvl,
+        }),
+        "orange",
+      );
+      msg(
+        i18n.t("runtime.systems.simulation.dialogue.stat_gain", {
+          stat: "STR",
+          amount: Math.round(sb),
+        }),
+        "darkturquoise",
+      );
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.additional_stat_gain", {
+          stat: "AGL",
+          amount: Math.round(sa),
+        }),
+        "darkturquoise",
+      );
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.additional_stat_gain", {
+          stat: "INT",
+          amount: Math.round(si),
+        }),
+        "darkturquoise",
+      );
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.additional_stat_gain", {
+          stat: "HP",
+          amount: hpp,
+        }),
+        "darkturquoise",
+      );
       you.expnext_t = you.expnext();
       if (you.eqp[0].id === 10000) {
         you.eqp[0].cls[2] = (you.lvl / 4) << 0;
@@ -1141,11 +1178,21 @@ function giveExp(exp, r, g, b) {
   if (!b) {
     if (global.flags.m_blh === false)
       if (!g) {
-        msg("EXP: +" + formatw(exp), "hotpink");
+        msg(
+          i18n.t("runtime.systems.simulation.dialogue.exp_gain", {
+            amount: formatw(exp),
+          }),
+          "hotpink",
+        );
         global.stat.exptotl += exp;
       }
   } else {
-    msg("EXP: +" + formatw(exp), "hotpink");
+    msg(
+      i18n.t("runtime.systems.simulation.dialogue.exp_gain", {
+        amount: formatw(exp),
+      }),
+      "hotpink",
+    );
     global.stat.exptotl += exp;
   }
   if (you.exp + exp < you.expnext_t) you.exp += exp;
@@ -1169,9 +1216,9 @@ function giveSkExp(skl, exp, res) {
     if (!scanbyid(you.skls, skl.id)) {
       you.skls.push(skl);
       msg(
-        '<span style="text-shadow:cyan 0px 0px 2px">New Skill Unlocked! <span style="text-shadow:red 0px 0px 2px;color:orange">"' +
-          (!!skl.bname ? skl.bname : skl.name) +
-          '"</span></span>',
+        i18n.t("runtime.systems.simulation.dialogue.skill_unlocked", {
+          skill: !!skl.bname ? skl.bname : skl.name,
+        }),
         "aqua",
         skl,
         6,
@@ -1182,10 +1229,10 @@ function giveSkExp(skl, exp, res) {
       }
     } else {
       msg(
-        'Skill <span style="color:tomato">\'' +
-          (!!skl.bname ? skl.bname : skl.name) +
-          "'</span> Leveled Up: " +
-          skl.lvl,
+        i18n.t("runtime.systems.simulation.dialogue.skill_level_up", {
+          skill: !!skl.bname ? skl.bname : skl.name,
+          level: skl.lvl,
+        }),
         "deepskyblue",
         skl,
         6,
@@ -1197,21 +1244,17 @@ function giveSkExp(skl, exp, res) {
       for (let ss = 0; ss < skl.mlstn.length; ss++)
         if (skl.mlstn[ss].lv === skl.lvl && skl.mlstn[ss].g === false) {
           msg(
-            "NEW PERK UNLOCKED " +
-              '<span style="color:tomato">("' +
-              skl.name +
-              '")<span style="color:orange">lvl: ' +
-              skl.mlstn[ss].lv +
-              "</span></span>",
+            i18n.t("runtime.systems.simulation.dialogue.perk_unlocked", {
+              skill: skl.name,
+              level: skl.mlstn[ss].lv,
+            }),
             "lime",
             {
               x: skl.name,
-              y:
-                "Perk lvl " +
-                skl.mlstn[ss].lv +
-                ': <span style="color:yellow">' +
-                skl.mlstn[ss].p +
-                "</span>",
+              y: i18n.t("runtime.systems.simulation.dialogue.perk_details", {
+                level: skl.mlstn[ss].lv,
+                perk: skl.mlstn[ss].p,
+              }),
             },
             7,
           );
@@ -1237,7 +1280,9 @@ function giveTitle(title, lv) {
     for (const x in global.ttlschk) global.ttlschk[x]();
     if (!lv) {
       msg(
-        "New Title Earned! " + col('"' + title.name + '"', "orange"),
+        i18n.t("runtime.systems.simulation.dialogue.title_earned", {
+          title: col('"' + title.name + '"', "orange"),
+        }),
         "cyan",
         title,
         5,
@@ -1761,19 +1806,22 @@ function printHitMessage(attackerName, ddmg, targetsPlayer) {
   else
     msg(
       (targetsPlayer === true ? attackerName : "") +
-        (targetsPlayer === true ? global.mabl.atrg : "You " + global.mabl.btrg),
+        (targetsPlayer === true
+          ? global.mabl.atrg
+          : i18n.t("runtime.systems.simulation.dialogue.player_action", {
+              action: global.mabl.btrg,
+            })),
     );
   printHitMessageResult(ddmg, targetsPlayer);
 }
 
 function printMultihitMessage(times, attackerName, acc_dmg, targetsPlayer) {
   msg(
-    attackerName +
-      " -> x" +
-      (times - global.miss) +
-      '(<span style="color:lightgrey">' +
-      times +
-      "</span>) for ",
+    i18n.t("runtime.systems.simulation.dialogue.multihit", {
+      attacker: attackerName,
+      hits: times - global.miss,
+      attempts: times,
+    }),
   );
   printHitMessageResult(acc_dmg, targetsPlayer);
   if (time - global.miss > 0) printBodyPartHit(global.target_g);
@@ -1799,21 +1847,27 @@ function doSingleAttack(attacker, defender, isPlayerAttacking) {
 function getlastd() {
   switch (global.atkdfty[0]) {
     case 1:
-      return '<span style="color:black;background-color:yellow">Struck by lightning</span>';
+      return i18n.t("runtime.systems.simulation.casualty.struck_by_lightning");
       break;
     case 2:
       switch (global.atkdfty[1]) {
         case 1:
-          return '<span style="color:red;background-color:darkmagenta">Suffocated from poison</span>';
+          return i18n.t(
+            "runtime.systems.simulation.casualty.suffocated_from_poison",
+          );
           break;
         case 2:
-          return '<span style="color:darkmagenta;">Suffocated from venom</span>';
+          return i18n.t(
+            "runtime.systems.simulation.casualty.suffocated_from_venom",
+          );
           break;
         case 3:
-          return '<span style="color:red;background-color:darkred">Bled out</span>';
+          return i18n.t("runtime.systems.simulation.casualty.bled_out");
           break;
         case 4:
-          return '<span style="color:white;background-color:black">Rotten from corruption</span>';
+          return i18n.t(
+            "runtime.systems.simulation.casualty.rotten_from_corruption",
+          );
           break;
       }
       break;
@@ -1856,7 +1910,9 @@ function getlastd() {
             ";text-shadow:" +
             fc[2] +
             '">' +
-            select(["Slashed", "Lacerated", "Cut down", "Hacked"]) +
+            select(
+              i18n.get("runtime.systems.simulation.casualty.slashing_causes"),
+            ) +
             "</span>";
           break;
         case 1:
@@ -1868,7 +1924,9 @@ function getlastd() {
             ";text-shadow:" +
             fc[2] +
             '">' +
-            select(["Pierced", "Impaled", "Gored"]) +
+            select(
+              i18n.get("runtime.systems.simulation.casualty.piercing_causes"),
+            ) +
             "</span>";
           break;
         case 2:
@@ -1880,20 +1938,25 @@ function getlastd() {
             ";text-shadow:" +
             fc[2] +
             '">' +
-            select(["Smashed", "Crushed", "Destroyed"]) +
+            select(
+              i18n.get("runtime.systems.simulation.casualty.blunt_causes"),
+            ) +
             "</span>";
           break;
       }
-      txt += " by ";
+      let attacker = "";
       for (const a in creature)
         if (creature[a].id === global.atkdftydt.id) {
-          txt += creature[a].name;
+          attacker = creature[a].name;
           break;
         }
-      return txt;
+      return i18n.t("runtime.systems.simulation.casualty.caused_by", {
+        cause: txt,
+        attacker,
+      });
       break;
     default:
-      return "what casualty?";
+      return i18n.t("runtime.systems.simulation.casualty.unknown");
       break;
   }
 }

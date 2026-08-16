@@ -1,3 +1,9 @@
+// Startup and persistence. Declares the global registries every other module
+// writes into, holds the game version, and implements save serialization,
+// restore, and the boot sequence. This file is concatenated first by
+// scripts/build.js, so the globals below exist before any data, system, world,
+// or interface module runs.
+
 var dom = {};
 var global = {};
 var listen = {};
@@ -50,7 +56,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 474;
+global.ver = 475;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -342,7 +348,9 @@ function save(lvr) {
     (a.getMinutes() >= 10 ? a.getMinutes() : "0" + a.getMinutes()) +
     ":" +
     (a.getSeconds() >= 10 ? a.getSeconds() : "0" + a.getSeconds());
-  dom.sl_extra.innerHTML = "Last save: " + global.lst_sve;
+  dom.sl_extra.innerHTML = i18n.t("ui.save.lastSave", {
+    date: global.lst_sve,
+  });
   const o = [];
   for (const obj in you.eqp) {
     o[obj] = you.eqp[obj];
@@ -386,7 +394,7 @@ function save(lvr) {
     inta: you.inta,
     intm: you.intm,
     agla: you.agla,
-    aglm: you.agml,
+    aglm: you.aglm,
     spda: you.spda,
     spdm: you.spdm,
     hpa: you.hpa,
@@ -603,9 +611,23 @@ dom.loadingt.style.fontSize = "4em";
 dom.loadingt.style.position = "absolute";
 dom.loadingt.style.left = window.innerWidth / 2 - 150;
 
+function keepUnreadableSave(saved) {
+  try {
+    window.localStorage.setItem("v0.3.unreadable", saved);
+  } catch (err) {
+    // The backup is best effort; storage may be full or unavailable.
+  }
+  const notice = addElement(document.body, "div", "save-unreadable");
+  notice.innerHTML = i18n.t("ui.save.unreadable");
+}
+
 function load(dt) {
-  var str = dt || window.localStorage.getItem("v0.3");
-  str = b64_to_utf8(str);
+  const saved = dt || window.localStorage.getItem("v0.3");
+  var str = b64_to_utf8(saved);
+  if (saved && !str) {
+    keepUnreadableSave(saved);
+    return;
+  }
   if (str && str != "") {
     dom.error = addElement(document.body, "div");
     dom.error.style.width = "100%";
@@ -644,36 +666,36 @@ function load(dt) {
     global.titles = [];
     you.name = yu_s.name;
     for (const o in ttl) if (ttl[o].id === yu_s.title) you.title = ttl[o];
-    you.lvl = yu_s.lvl;
-    you.exp = yu_s.exp;
-    you.exp_t = yu_s.exp_t;
+    you.lvl = yu_s.lvl || 1;
+    you.exp = yu_s.exp || 0;
+    you.exp_t = yu_s.exp_t || 1;
     you.expnext_t = you.expnext();
-    you.sat = yu_s.sat;
-    you.satmax = yu_s.satmax;
-    you.sat_r = yu_s.sat_r;
+    you.sat = yu_s.sat ?? 200;
+    you.satmax = yu_s.satmax || 200;
+    you.sat_r = yu_s.sat_r || 200;
     you.sata = yu_s.sata || 0;
     you.satm = yu_s.satm || 1;
     you.ki = yu_s.ki || {};
-    you.hp = yu_s.hp;
-    you.hpmax = yu_s.hpmax;
-    you.hp_r = yu_s.hp_r;
+    you.hp = yu_s.hp ?? 39;
+    you.hpmax = yu_s.hpmax || 39;
+    you.hp_r = yu_s.hp_r || 39;
     you.hpa = yu_s.hpa || 0;
     you.hpm = yu_s.hpm || 1;
     you.hp = you.hp > you.hpmax ? you.hpmax : you.hp;
-    you.str = yu_s.str;
-    you.str_r = yu_s.str_r;
+    you.str = yu_s.str || 1;
+    you.str_r = yu_s.str_r || 1;
     you.stra = yu_s.stra || 0;
     you.strm = yu_s.strm || 1;
-    you.agl = yu_s.agl;
-    you.agl_r = yu_s.agl_r;
+    you.agl = yu_s.agl || 1;
+    you.agl_r = yu_s.agl_r || 1;
     you.agla = yu_s.agla || 0;
     you.aglm = yu_s.aglm || 1;
-    you.int = yu_s.int;
-    you.int_r = yu_s.int_r;
+    you.int = yu_s.int || 1;
+    you.int_r = yu_s.int_r || 1;
     you.inta = yu_s.inta || 0;
     you.intm = yu_s.intm || 1;
-    you.spd = yu_s.spd;
-    you.spd_r = yu_s.spd_r;
+    you.spd = yu_s.spd || 1;
+    you.spd_r = yu_s.spd_r || 1;
     you.spda = yu_s.spda || 0;
     you.spdm = yu_s.spdm || 1;
     you.cls = yu_s.cls || [0, 0, 0];
@@ -682,16 +704,15 @@ function load(dt) {
     you.maff = yu_s.maff || [0, 0, 0, 0, 0, 0, 0];
     you.caff = yu_s.caff || [0, 0, 0, 0, 0, 0, 0];
     you.cmaff = yu_s.cmaff || [0, 0, 0, 0, 0, 0, 0];
-    you.luck = yu_s.luck;
-    you.stat_p = yu_s.stat_p;
+    you.luck = yu_s.luck || 1;
+    you.stat_p = yu_s.stat_p || [1, 1, 1, 1];
     you.karma = yu_s.karma || 0;
-    you.wealth = yu_s.wealth;
-    you.crt = yu_s.crt;
+    you.wealth = yu_s.wealth || 0;
+    you.crt = yu_s.crt || 0.008;
     global.flags.loadstate = true;
     for (const a in callback)
-      for (const b in callback[a].hooks)
-        if (callback[a].hooks[b].data.q)
-          callback[a].hooks.splice(callback[a].hooks[b], 1);
+      for (let b = callback[a].hooks.length - 1; b >= 0; b--)
+        if (callback[a].hooks[b].data.q) callback[a].hooks.splice(b, 1);
     for (const obj in item) {
       item[obj].amount = 0;
       item[obj].have = false;
@@ -751,21 +772,20 @@ function load(dt) {
                 skl[b].mlstn[d].f();
                 skl[b].mlstn[d].g = true;
                 msg(
-                  "NEW PERK UNLOCKED " +
-                    '<span style="color:tomato">("' +
-                    skl[b].name +
-                    '")<span style="color:orange">lvl: ' +
-                    skl[b].mlstn[d].lv +
-                    "</span></span>",
+                  i18n.t("runtime.systems.simulation.dialogue.perk_unlocked", {
+                    skill: skl[b].name,
+                    level: skl[b].mlstn[d].lv,
+                  }),
                   "lime",
                   {
                     x: skl[b].name,
-                    y:
-                      "Perk lvl " +
-                      skl[b].mlstn[d].lv +
-                      ': <span style="color:yellow">' +
-                      skl[b].mlstn[d].p +
-                      "</span>",
+                    y: i18n.t(
+                      "runtime.systems.simulation.dialogue.perk_details",
+                      {
+                        level: skl[b].mlstn[d].lv,
+                        perk: skl[b].mlstn[d].p,
+                      },
+                    ),
                   },
                   7,
                 );
@@ -958,7 +978,7 @@ function load(dt) {
     }
     const a5 = JSON.parse(str[7]);
     let xx = 0;
-    for (const o in area) if (a5[xx]) area[o].size = a5[xx++]; //||area[o].size;
+    for (const o in area) if (xx < a5.length) area[o].size = a5[xx++];
     const a8 = JSON.parse(str[8]);
     dar = a8;
     if (a8[0].length != 0)
@@ -1145,8 +1165,8 @@ function load(dt) {
     m_update();
     dom.d7m.update();
     dom.d5_3_1.update();
-    if (global.flags.m_freeze === true) dom.m_b_1_c.innerHTML = "Ｘ";
-    if (global.flags.m_blh === true) dom.m_b_2_c.innerHTML = "Ｘ";
+    if (global.flags.m_freeze === true) dom.m_b_1_c.innerHTML = "×";
+    if (global.flags.m_blh === true) dom.m_b_2_c.innerHTML = "×";
     if (global.flags.jnlu)
       dom.ct_bt6.innerHTML = i18n.t("ui.navigation.journal");
     if (global.flags.asbu)
@@ -1155,6 +1175,11 @@ function load(dt) {
       dom.ct_bt3.innerHTML = i18n.t("ui.navigation.actions");
     if (global.flags.sklu)
       dom.ct_bt2.innerHTML = i18n.t("ui.navigation.skills");
+    dom.d8m1.innerHTML = i18n.t(
+      global.flags.to_pause === true
+        ? "runtime.ui.interface.interface.pause_next_battle_nbspon_ff0ff553"
+        : "runtime.ui.interface.interface.pause_next_battle_nbspoff_1b765858",
+    );
     if (global.flags.m_un === true) {
       dom.mn_2.style.display = "";
       dom.mn_4.style.display = "";
@@ -1174,7 +1199,9 @@ function load(dt) {
     wdrseason(global.flags.ssngaijin);
     if (global.flags.isday === false) dom.d_moon.style.display = "";
     else dom.d_moon.style.display = "none";
-    dom.sl_extra.innerHTML = "Last save: " + global.lst_sve;
+    dom.sl_extra.innerHTML = i18n.t("ui.save.lastSave", {
+      date: global.lst_sve,
+    });
     dom.nthngdsp.style.display = "none";
     dom.ctrwin6.style.display = "none";
     invbtsrst();

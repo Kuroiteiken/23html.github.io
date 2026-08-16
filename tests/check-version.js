@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const root = path.resolve(__dirname, "..");
+const root = path.dirname(__dirname);
 const bootstrap = fs.readFileSync(
   path.join(root, "js", "core", "bootstrap.js"),
   "utf8",

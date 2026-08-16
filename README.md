@@ -52,8 +52,12 @@ npm run test:browser
 
 The browser regression suite covers delayed assets, consistent cache-busting
 versions, Turkish startup, cached-profile reloads, malformed-save recovery,
-viewport fitting, and project-path changelog links. Bug fixes and behavior
-changes must extend the relevant regression coverage before deployment.
+viewport fitting, save-bar layout, locale-independent calendar behavior, and
+project-path changelog links. It also verifies theme scaling, message-log control
+bounds, separated background preset controls, and safe confirmed save deletion.
+The deletion modal checks cover localization, focus restoration, Escape,
+backdrop cancellation, viewport fit, and preference preservation. Bug fixes and
+behavior changes must extend the relevant regression coverage before deployment.
 
 The integer game version is incremented at meaningful release milestones that
 contain fixes, features, or player-facing additions. Small related fixes and UI
@@ -68,6 +72,9 @@ Format source files with:
 npm run format
 ```
 
+Related changes may be accumulated. Ask the repository owner for explicit
+approval before creating a commit or pushing; neither action is automatic.
+
 Do not edit `js/game.js` or `dist/` directly.
 
 ## Languages
@@ -78,6 +85,13 @@ lives in `locales/tr.json`; available languages are registered in
 independently from game saves. Locale validation requires every registered
 language to preserve the full English key structure, interpolation placeholders,
 and HTML formatting tokens.
+
+Machine-assisted translations require a context review by a language-aware
+agent. Abbreviations and short or polysemous labels must preserve their actual UI
+meaning; for example, English `Sun.` in a weekday list means Sunday rather than
+the astronomical sun. Dialogue and action labels must also be checked against
+their surrounding scene, adjacent messages, and resulting game behavior;
+high-risk corrections belong in `tests/translation-expectations.tr.json`.
 
 For testing or sharing a language directly, use the `lang` query parameter, such
 as `?lang=tr`. A valid query selection applies to that page load; changes made in

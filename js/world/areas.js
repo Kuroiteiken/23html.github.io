@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//ZNE
-///////////////////////////////////////////
+// Area definitions: the explorable zones behind each location. An area holds
+// its creature population, its remaining size, its drop table, and the handler
+// that runs when the player finishes exploring it. Area sizes are part of the
+// save, so their order here must stay stable.
 
 function Area() {
   this.name = "Nowhere";

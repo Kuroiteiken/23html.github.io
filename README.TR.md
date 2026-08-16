@@ -53,9 +53,13 @@ npm run test:browser
 
 Tarayıcı regresyon testleri geciken assetleri, tutarlı önbellek sürümlerini,
 Türkçe başlangıcı, önbellekli profille yeniden yüklemeyi, bozuk kayıt kurtarmayı,
-ekrana sığdırmayı ve proje-alt-yolu changelog bağlantısını kapsar. Hata
-düzeltmeleriyle davranış değişiklikleri deployment öncesinde ilgili regresyon
-kapsamını genişletmelidir.
+ekrana sığdırmayı, alt kayıt çubuğu yerleşimini, dilden bağımsız takvim davranışını
+ve proje-alt-yolu changelog bağlantısını kapsar. Tema ölçeğini, mesaj günlüğü
+kontrol sınırlarını, birbirinden ayrılmış arka plan hazır ayarı kontrollerini ve
+onaylı güvenli kayıt silmeyi de doğrular. Hata düzeltmeleriyle davranış
+değişiklikleri deployment öncesinde ilgili regresyon kapsamını genişletmelidir.
+Kayıt silme modalı testleri yerelleştirme, odağı geri getirme, Escape, arka plana
+tıklayarak vazgeçme, ekran sınırlarına sığma ve tercihleri korumayı kapsar.
 
 Tam sayı oyun sürümü hata düzeltmeleri, özellikler veya oyuncuya dönük eklemeler
 içeren anlamlı yayın kilometre taşlarında artırılır. Birbiriyle ilişkili küçük
@@ -70,6 +74,9 @@ Kaynakları formatlamak için:
 npm run format
 ```
 
+İlişkili değişiklikler biriktirilebilir. Commit oluşturmadan veya push yapmadan
+önce repository sahibinden açık onay isteyin; iki işlem de otomatik değildir.
+
 `js/game.js` ve `dist/` doğrudan düzenlenmemelidir.
 
 ## Diller
@@ -79,6 +86,14 @@ kullanılabilir diller ise `locales/manifest.json` içinde tutulur. Dil, Ayarlar
 ekranından değiştirilebilir ve oyun kayıtlarından bağımsız olarak saklanır. Dil
 doğrulaması, kayıtlı her dilin İngilizce anahtar yapısını, değişken yer tutucuları
 ve HTML biçimlendirme parçalarını eksiksiz korumasını zorunlu tutar.
+
+Makine destekli çeviriler, dili bilen bir ajan tarafından bağlamsal olarak
+denetlenmelidir. Kısaltmalar ile kısa veya çok anlamlı etiketler gerçek arayüz
+anlamını korumalıdır; örneğin gün listesindeki İngilizce `Sun.`, astronomik güneşi
+değil Sunday yani Pazar gününü belirtir. Diyalog ve eylem etiketleri çevredeki
+sahne, komşu mesajlar ve ortaya çıkan oyun davranışıyla birlikte kontrol
+edilmeli; yüksek riskli düzeltmeler `tests/translation-expectations.tr.json`
+dosyasına eklenmelidir.
 
 Bir dili doğrudan test etmek veya paylaşmak için `?lang=tr` gibi `lang` sorgu
 parametresini kullanın. Geçerli sorgu seçimi o sayfa yüklemesinde uygulanır;

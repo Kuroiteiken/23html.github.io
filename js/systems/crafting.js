@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//REC
-///////////////////////////////////////////
+// Crafting recipes and the crafting flow. Each recipe lists its ingredients,
+// its results, any tool or skill requirements, and the experience granted when
+// it succeeds. Recipes are learned from books and skill milestones rather than
+// being available from the start.
 
 function Recipe() {
   this.name = "";
@@ -34,7 +35,9 @@ rcp.wp2.res = [{ item: wpn.stk2, amount: 1 }];
 rcp.wp2.onmake = function () {
   giveCrExp(skl.crft, 0.5, 1);
 };
-rcp.wp2.srect = ["Any sharp tool"];
+rcp.wp2.srect = [
+  i18n.t("runtime.systems.crafting.requirements.any_sharp_tool"),
+];
 rcp.wp2.srec = [
   function () {
     for (const hh in inv)
@@ -74,7 +77,9 @@ rcp.borc.res = [{ item: item.borc, amount: 1 }];
 rcp.borc.onmake = function () {
   giveCrExp(skl.cook, 0.5, 1);
 };
-rcp.borc.srect = ["Nearby firesource"];
+rcp.borc.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.borc.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -93,7 +98,9 @@ rcp.begg.res = [{ item: item.begg, amount: 1 }];
 rcp.begg.onmake = function () {
   giveCrExp(skl.cook, 0.2, 1);
 };
-rcp.begg.srect = ["Nearby firesource"];
+rcp.begg.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.begg.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -135,7 +142,9 @@ rcp.rsmt.cmake = function () {
   }
   giveCrExp(skl.cook, 0.2, 1);
 };
-rcp.rsmt.srect = ["Nearby firesource"];
+rcp.rsmt.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.rsmt.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -151,7 +160,9 @@ rcp.segg.res = [{ item: item.segg, amount: 1 }];
 rcp.segg.onmake = function () {
   giveCrExp(skl.cook, 1, 2);
 };
-rcp.segg.srect = ["Nearby firesource"];
+rcp.segg.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.segg.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -170,7 +181,9 @@ rcp.lnch1.res = [{ item: item.lnch1, amount: 1 }];
 rcp.lnch1.onmake = function () {
   giveCrExp(skl.cook, 5, 3);
 };
-rcp.lnch1.srect = ["Nearby firesource"];
+rcp.lnch1.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.lnch1.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -189,7 +202,9 @@ rcp.lnch2.res = [{ item: item.lnch2, amount: 1 }];
 rcp.lnch2.onmake = function () {
   giveCrExp(skl.cook, 8, 3);
 };
-rcp.lnch2.srect = ["Nearby firesource"];
+rcp.lnch2.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.lnch2.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -209,7 +224,9 @@ rcp.lnch3.res = [{ item: item.lnch3, amount: 1 }];
 rcp.lnch3.onmake = function () {
   giveCrExp(skl.cook, 10, 4);
 };
-rcp.lnch3.srect = ["Nearby firesource"];
+rcp.lnch3.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.lnch3.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -228,7 +245,9 @@ rcp.orgs.res = [{ item: item.orgs, amount: 1 }];
 rcp.orgs.onmake = function () {
   giveCrExp(skl.cook, 8, 4);
 };
-rcp.orgs.srect = ["Nearby firesource"];
+rcp.orgs.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.orgs.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -244,7 +263,9 @@ rcp.ffsh1.res = [{ item: item.ffsh1, amount: 1 }];
 rcp.ffsh1.onmake = function () {
   giveCrExp(skl.cook, 2, 2);
 };
-rcp.ffsh1.srect = ["Nearby firesource"];
+rcp.ffsh1.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.ffsh1.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -265,7 +286,9 @@ rcp.ffsh2.res = [{ item: item.ffsh2, amount: 1 }];
 rcp.ffsh2.onmake = function () {
   giveCrExp(skl.cook, 12, 5);
 };
-rcp.ffsh2.srect = ["Nearby firesource"];
+rcp.ffsh2.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.ffsh2.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -284,7 +307,9 @@ rcp.fnori.res = [{ item: item.fnori, amount: 1 }];
 rcp.fnori.onmake = function () {
   giveCrExp(skl.cook, 4, 4);
 };
-rcp.fnori.srect = ["Nearby firesource"];
+rcp.fnori.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.fnori.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -304,7 +329,9 @@ rcp.cbun1.res = [{ item: item.cbun1, amount: 1 }];
 rcp.cbun1.onmake = function () {
   giveCrExp(skl.cook, 5, 3);
 };
-rcp.cbun1.srect = ["Nearby firesource"];
+rcp.cbun1.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.cbun1.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -384,7 +411,9 @@ rcp.hpck.res = [{ item: item.hpck, amount: 1 }];
 rcp.hpck.onmake = function () {
   giveCrExp(skl.cook, 7, 4);
 };
-rcp.hpck.srect = ["Nearby firesource"];
+rcp.hpck.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.hpck.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -423,7 +452,9 @@ rcp.wdl1.res = [{ item: acc.wdl1, amount: 1 }];
 rcp.wdl1.onmake = function () {
   giveCrExp(skl.crft, 3, 2);
 };
-rcp.wdl1.srect = ["Any sharp tool"];
+rcp.wdl1.srect = [
+  i18n.t("runtime.systems.crafting.requirements.any_sharp_tool"),
+];
 rcp.wdl1.srec = [
   function () {
     for (const hh in inv)
@@ -482,7 +513,9 @@ rcp.brd.cmake = function () {
   }
   giveCrExp(skl.cook, 2, 3);
 };
-rcp.brd.srect = ["Nearby firesource"];
+rcp.brd.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.brd.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -502,7 +535,10 @@ rcp.steak.res = [{ item: item.steak, amount: 1 }];
 rcp.steak.onmake = function () {
   giveCrExp(skl.cook, 7);
 };
-rcp.steak.srect = ["Nearby firesource", "Cooking lvl: 3"];
+rcp.steak.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+  i18n.t("runtime.systems.crafting.requirements.cooking_level", { level: 3 }),
+];
 rcp.steak.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -526,7 +562,9 @@ rcp.cnmnb.res = [{ item: item.cnmnb, amount: 1 }];
 rcp.cnmnb.onmake = function () {
   giveCrExp(skl.cook, 6, 5);
 };
-rcp.cnmnb.srect = ["Nearby firesource"];
+rcp.cnmnb.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.cnmnb.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -545,7 +583,9 @@ rcp.brth.res = [{ item: item.brth, amount: 1 }];
 rcp.brth.onmake = function () {
   giveCrExp(skl.cook, 0.5, 2);
 };
-rcp.brth.srect = ["Nearby firesource"];
+rcp.brth.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.brth.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -566,7 +606,9 @@ rcp.eggsp.res = [{ item: item.eggsp, amount: 1 }];
 rcp.eggsp.onmake = function () {
   giveCrExp(skl.cook, 5, 4);
 };
-rcp.eggsp.srect = ["Nearby firesource"];
+rcp.eggsp.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.eggsp.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -587,7 +629,9 @@ rcp.crmchd.res = [{ item: item.crmchd, amount: 1 }];
 rcp.crmchd.onmake = function () {
   giveCrExp(skl.cook, 15);
 };
-rcp.crmchd.srect = ["Nearby firesource"];
+rcp.crmchd.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.crmchd.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -621,7 +665,9 @@ rcp.msoop.res = [{ item: item.msoop, amount: 1 }];
 rcp.msoop.onmake = function () {
   giveCrExp(skl.cook, 4, 3);
 };
-rcp.msoop.srect = ["Nearby firesource"];
+rcp.msoop.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.msoop.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -661,7 +707,9 @@ rcp.bdl1.res = [{ item: acc.bdl1, amount: 1 }];
 rcp.bdl1.onmake = function () {
   giveCrExp(skl.crft, 3, 2);
 };
-rcp.bdl1.srect = ["Any sharp tool"];
+rcp.bdl1.srect = [
+  i18n.t("runtime.systems.crafting.requirements.any_sharp_tool"),
+];
 rcp.bdl1.srec = [
   function () {
     for (const hh in inv)
@@ -691,7 +739,9 @@ rcp.hlstw.res = [{ item: item.hlstw, amount: 1 }];
 rcp.hlstw.onmake = function () {
   giveCrExp(skl.cook, 1, 2);
 };
-rcp.hlstw.srect = ["Nearby firesource"];
+rcp.hlstw.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.hlstw.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -707,7 +757,9 @@ rcp.bcrc.res = [{ item: item.bcrc, amount: 1 }];
 rcp.bcrc.onmake = function () {
   giveCrExp(skl.cook, 1.7, 3);
 };
-rcp.bcrc.srect = ["Nearby firesource"];
+rcp.bcrc.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.bcrc.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -726,7 +778,9 @@ rcp.bcrrt.res = [{ item: item.bcrrt, amount: 1 }];
 rcp.bcrrt.onmake = function () {
   giveCrExp(skl.cook, 0.3, 2);
 };
-rcp.bcrrt.srect = ["Nearby firesource"];
+rcp.bcrrt.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.bcrrt.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;
@@ -800,7 +854,11 @@ rcp.ptchct.onmake = function () {
   giveCrExp(skl.crft, 3, 2);
   giveCrExp(skl.tlrng, 2, 1);
 };
-rcp.ptchct.srect = ["Tailoring tool lvl: 1"];
+rcp.ptchct.srect = [
+  i18n.t("runtime.systems.crafting.requirements.tailoring_tool_level", {
+    level: 1,
+  }),
+];
 rcp.ptchct.srec = [
   function () {
     for (const hh in inv) if (inv[hh].tlrq >= 1) return true;
@@ -820,7 +878,11 @@ rcp.ptchpts.onmake = function () {
   giveCrExp(skl.crft, 2, 2);
   giveCrExp(skl.tlrng, 3, 1);
 };
-rcp.ptchpts.srect = ["Tailoring tool lvl: 1"];
+rcp.ptchpts.srect = [
+  i18n.t("runtime.systems.crafting.requirements.tailoring_tool_level", {
+    level: 1,
+  }),
+];
 rcp.ptchpts.srec = [
   function () {
     for (const hh in inv) if (inv[hh].tlrq >= 1) return true;
@@ -840,7 +902,11 @@ rcp.bblkt.onmake = function () {
   giveCrExp(skl.crft, 4, 2);
   giveCrExp(skl.tlrng, 7, 1);
 };
-rcp.bblkt.srect = ["Tailoring tool lvl: 1"];
+rcp.bblkt.srect = [
+  i18n.t("runtime.systems.crafting.requirements.tailoring_tool_level", {
+    level: 1,
+  }),
+];
 rcp.bblkt.srec = [
   function () {
     for (const hh in inv) if (inv[hh].tlrq >= 1) return true;
@@ -963,7 +1029,9 @@ rcp.bdgh.res = [{ item: item.bdgh, amount: 1 }];
 rcp.bdgh.onmake = function () {
   giveCrExp(skl.crft, 0.5, 2);
 };
-rcp.bdgh.srect = ["Nearby firesource"];
+rcp.bdgh.srect = [
+  i18n.t("runtime.systems.crafting.requirements.nearby_fire_source"),
+];
 rcp.bdgh.srec = [
   function () {
     if (you.mods.ckfre > 0) return true;

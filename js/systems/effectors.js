@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//EFFECTORS
-///////////////////////////////////////////
+// Effectors: environmental modifiers attached to an area. While active, an
+// effector toggles world state such as darkness and is drawn on the map as its
+// own glyph.
+
 function Effector() {
   this.id = 0;
   this.x = "@";

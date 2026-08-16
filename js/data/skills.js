@@ -1,6 +1,8 @@
-///////////////////////////////////////////
-//SKL
-///////////////////////////////////////////
+// Skill definitions. Each skill owns its experience curve, a `use()` formula
+// that other systems call to read the skill's current effect, and a milestone
+// table that grants stat bonuses, titles, or recipes on level-up. `use()`
+// returns raw scaling values, so callers are responsible for clamping them
+// before applying them to damage or resource costs.
 
 function Skill() {
   this.name = "";

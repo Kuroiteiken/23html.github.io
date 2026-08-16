@@ -10,6 +10,14 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added browser regression coverage for message-log control bounds, hidden empty
+  state indicators, theme scale preservation, localized missed-attack messages,
+  and the styled save-deletion modal, including cancel, Escape, backdrop, focus,
+  viewport, localization, and locale-preference preservation checks.
+- Added source and browser regression coverage for separated background preset
+  controls and localized meal, reading-progress, and basement text.
+- Added locale validation for contextual Turkish weekday abbreviations and
+  browser coverage for language-independent Sunday gameplay.
 - Added Turkish browser layout coverage that rejects overlapping or overflowing
   bottom save-bar controls.
 - Added browser regression coverage for pointer-following hover descriptions at
@@ -26,8 +34,9 @@ changes. Player-facing game content and release notes belong in
   consistency, and rendered-version regression coverage.
 - Added automated agreement checks between the integer game version and newest
   HTML changelog release range.
-- Added reviewed Turkish terminology expectations that protect mastery names and
-  other high-risk contextual translations from regression.
+- Added reviewed Turkish terminology expectations that protect mastery names,
+  scene-specific actions, ambiguous content names, and other high-risk
+  contextual translations from regression.
 - Added deployment-time content hashes for CSS, JavaScript, and locale assets.
 - Added direct locale selection through the optional `lang` query parameter and
   browser coverage for a complete Turkish startup.
@@ -48,6 +57,30 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Separated the four background preset controls into bounded grid cells so their
+  translated labels no longer touch.
+- Replaced the browser-native save deletion prompt with an accessible,
+  keyboard-aware confirmation modal styled to match the game interface.
+- Moved free-meal sounds and reactions, book reading progress and duration text,
+  and basement actions from `locations.js` into synchronized locale values.
+- Moved 56 static accessory descriptions and 52 formatted bonus details from
+  JavaScript into synchronized English and Turkish locale values.
+- Moved the save-bar collapse control immediately after Save and Load while
+  retaining autosave, version, and deletion in the trailing action group.
+- Replaced hardcoded English missed-attack log concatenation with an interpolated
+  locale message.
+- Replaced translated weekday-string comparisons with a locale-independent day
+  index helper for weekly game events.
+- Required language-aware agent review for abbreviations and other short or
+  polysemous machine-assisted translations.
+- Audited 2,177 Turkish content, runtime, and location values against their
+  English source and game-code usage, correcting 255 high-confidence literal,
+  inverted, polysemous, terminology, and narrator-voice errors.
+- Required dialogue and action reviews to include the surrounding scene,
+  adjacent messages, and resulting game behavior instead of isolated dictionary
+  meaning.
+- Changed the repository workflow to require owner approval before every commit
+  or push, allowing related work to accumulate between milestones.
 - Rebuilt the bottom save bar around an explicit flexible control group instead
   of fixed offsets that collide with translated labels.
 - Updated the release policy to group small related fixes and UI refinements into
@@ -89,6 +122,44 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Fixed the agility multiplier being serialized from a misspelled property, which
+  silently reset it to `1` on every save and load. Reported by the
+  `lgxnders/proto-homage` fork.
+- Fixed area size restoration skipping the counter for an area of size `0`, which
+  shifted every following area onto the wrong size. Reported by the
+  `MercuriusXeno/23html.github.io` fork.
+- Inverted and clamped the death satiation penalty so a higher Death skill
+  preserves more satiation. The previous formula reached total loss at Death
+  skill level 10 and produced negative satiation beyond it. Direction taken from
+  the `tioluko/23html.github.io` fork, with the clamp added here because the
+  fork's formula refunds satiation past skill level 12.
+- Resynchronized the pause-next-battle label from the restored flag when a save
+  is loaded. Reported by the `MercuriusXeno/23html.github.io` fork.
+- Added defaults for base statistics, satiation, and health during load so a
+  damaged save cannot restore undefined values.
+- Fixed callback detachment passing the hook object to `splice` where an index
+  belongs, which removed the first hook instead of the matching one. Corrected in
+  both `detachCallback` and the quest hook cleanup performed during load.
+- Pointed save import at the live `v0.3` storage key instead of the unused
+  `v0.2a` key, so an imported save survives a reload.
+- Preserved an unreadable save under a backup key and reported it to the player
+  instead of silently starting a new game over it.
+- Clamped every resistance damage reduction through a shared `resistanceFactor`
+  helper. Resistance skills scale linearly, so the previous `1 - use()`
+  multipliers crossed zero and inverted: food-poison and corruption resistance
+  turned their damage negative past level 20, restoring satiation and health
+  instead of reducing the loss.
+- Hid empty message-log state markers, aligned their active state inside the
+  toggle buttons, and kept the clear control within the message panel.
+- Prevented background sliders and presets from removing the body zoom used to
+  fit the complete interface into the viewport.
+- Added a localized confirmation before save deletion and limited deletion to the
+  game save so the language preference remains intact.
+- Fixed `Sun.` being translated as the astronomical “Güneş” instead of the
+  Turkish Sunday abbreviation “Paz.”.
+- Fixed Sunday-only dojo meal behavior depending on the English display label.
+- Moved the hardcoded weekly dojo meal announcement into synchronized English
+  and Turkish locale values.
 - Fixed the autosave label, collapse control, version link, and delete action
   merging together in the bottom information bar.
 - Corrected the Turkish save-deleted confirmation text.

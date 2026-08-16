@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//ZNE SECTOR
-///////////////////////////////////////////
+// Sectors: the regions that group locations together. A sector tracks which of
+// its locations the player has discovered and carries the shared state that
+// applies to every location inside it.
+
 function Sector() {
   this.id = 0;
   this.group = [0];
@@ -57,12 +58,7 @@ sector.home.scout = [
     f: () => {
       const i = select(sector.home.data.ctlt);
       msg(
-        select([
-          "Your cat found something for you",
-          "Another one of your cat's gifts",
-          "Something was lying in the corner of the room. Probably cat's",
-          "Your cat dropped something before you",
-        ]),
+        select(i18n.get("runtime.world.sectors.dialogue.cat_gift_messages")),
         "lime",
       );
       const k = itemgroup[((i + 1) / 10000) << 0];

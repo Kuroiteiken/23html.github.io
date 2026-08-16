@@ -1,3 +1,8 @@
+// Save encoding helpers. Converts the pipe-separated save string to and from
+// Base64 for storage in localStorage and for exported save files. Both
+// conversions return an empty string on failure, so callers must treat that as
+// an unreadable save rather than an empty one.
+
 /**
  *
  *  Base64 encode / decode

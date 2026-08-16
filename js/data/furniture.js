@@ -1,6 +1,6 @@
-///////////////////////////////////////////
-//FURN
-///////////////////////////////////////////
+// Furniture definitions for the player's home. Each piece can be installed into
+// a home slot, ticks with the world clock, and grants bonuses or unlocks
+// actions while it remains in place.
 
 function Furniture() {
   this.name = "";

@@ -10,6 +10,15 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Mesaj günlüğü kontrol sınırları, boş durum göstergelerinin gizlenmesi, tema
+  ölçeğinin korunması, çevrilmiş ıskalama mesajları ve stilli kayıt silme modalı
+  için tarayıcı regresyon kapsamı eklendi. Modal kapsamında vazgeçme, Escape, arka
+  plan, odak, ekran sınırı, yerelleştirme ve dil tercihini koruma denetleniyor.
+- Birbirinden ayrılmış arka plan hazır ayarı kontrolleri ile yerelleştirilmiş
+  yemek, okuma ilerlemesi ve bodrum metinleri için kaynak ve tarayıcı regresyon
+  kapsamı eklendi.
+- Bağlamsal Türkçe gün kısaltmaları için dil doğrulaması ve dilden bağımsız pazar
+  günü oyun davranışı için tarayıcı kapsamı eklendi.
 - Alt kayıt çubuğu kontrollerinin üst üste binmesini veya taşmasını reddeden
   Türkçe tarayıcı yerleşim kapsamı eklendi.
 - Normal konumda ve ekran kenarlarında imleci izleyen hover açıklamaları için
@@ -26,8 +35,9 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   tutarlılığı ve ekranda gösterilen sürüm için regresyon kapsamı eklendi.
 - Tam sayı oyun sürümüyle en yeni HTML changelog sürüm aralığının eşleşmesini
   denetleyen otomatik kontrol eklendi.
-- Ustalık adlarıyla bağlama duyarlı diğer riskli çevirilerin gerilemesini önleyen
-  gözden geçirilmiş Türkçe terim beklentileri eklendi.
+- Ustalık adları, sahneye özgü eylemler, çok anlamlı içerik adları ve bağlama
+  duyarlı diğer riskli çevirilerin gerilemesini önleyen gözden geçirilmiş Türkçe
+  terim beklentileri eklendi.
 - CSS, JavaScript ve dil dosyaları için deployment sırasında içerik özetiyle
   sürümleme eklendi.
 - İsteğe bağlı `lang` sorgu parametresiyle doğrudan dil seçimi ve eksiksiz Türkçe
@@ -50,6 +60,31 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Çevrilmiş etiketlerin birbirine değmemesi için dört arka plan hazır ayarı
+  kontrolü sınırlandırılmış grid hücrelerine ayrıldı.
+- Tarayıcının yerleşik kayıt silme istemi, oyun arayüzüne uygun stillendirilmiş,
+  erişilebilir ve klavye destekli bir onay modalıyla değiştirildi.
+- Ücretsiz yemek sesleri ve tepkileri, kitap okuma ilerlemesi ve süre metinleriyle
+  bodrum eylemleri `locations.js` dosyasından eşlenmiş dil değerlerine taşındı.
+- 56 statik aksesuar açıklaması ve biçimlendirilmiş 52 bonus ayrıntısı
+  JavaScript'ten eşlenmiş İngilizce ve Türkçe dil değerlerine taşındı.
+- Alt çubuk daraltma kontrolü doğrudan Kaydet ve Yükle'nin arkasına taşınırken
+  otomatik kaydetme, sürüm ve silme sondaki eylem grubunda tutuldu.
+- Sabit kodlanmış İngilizce ıskalama günlüğü birleştirmesi, değişken yerleştiren dil
+  mesajıyla değiştirildi.
+- Haftalık oyun olaylarında çevrilmiş gün metni karşılaştırmaları, dilden bağımsız
+  gün indeksi yardımcısıyla değiştirildi.
+- Kısaltmalar ile kısa veya çok anlamlı makine destekli çeviriler için dili bilen
+  ajan denetimi zorunlu hale getirildi.
+- 2.177 Türkçe içerik, çalışma zamanı ve konum değeri İngilizce kaynaklarıyla kod
+  içindeki kullanımlarına göre denetlendi; 255 yüksek güvenli literal, ters
+  anlamlı, çok anlamlı, terim ve anlatıcı hitabı hatası düzeltildi.
+- Diyalog ve eylem denetimlerinin tek başına sözlük anlamı yerine çevredeki sahne,
+  komşu mesajlar ve ortaya çıkan oyun davranışıyla birlikte yapılması zorunlu
+  hâle getirildi.
+- Repository akışı, ilişkili çalışmaların kilometre taşları arasında
+  biriktirilebilmesi ve her commit/push öncesinde sahip onayı alınması şartıyla
+  güncellendi.
 - Alt kayıt çubuğu, çevrilmiş etiketlerle çakışan sabit koordinatlar yerine açık
   bir esnek kontrol grubu etrafında yeniden kuruldu.
 - Sürüm politikası, her küçük değişiklikte sürüm artırmak yerine ilişkili ufak
@@ -94,6 +129,47 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Çeviklik çarpanının yanlış yazılmış bir özellikten kaydedilmesi düzeltildi; bu
+  hata her kayıt ve yüklemede çarpanı sessizce `1` değerine düşürüyordu.
+  `lgxnders/proto-homage` fork'unda tespit edildi.
+- Alan boyutlarının geri yüklenmesinde, boyutu `0` olan bir alanda sayacın
+  ilerlememesi düzeltildi; bu hata sonraki tüm alanlara yanlış boyut atıyordu.
+  `MercuriusXeno/23html.github.io` fork'unda tespit edildi.
+- Ölümdeki tokluk cezası ters çevrildi ve sınırlandırıldı; artık yüksek Ölüm
+  becerisi daha fazla tokluk koruyor. Önceki formül, Ölüm becerisi 10. seviyede
+  tokluğun tamamını siliyor, sonrasında ise negatife düşürüyordu. Yön
+  `tioluko/23html.github.io` fork'undan alındı; fork'un formülü 12. seviyeden
+  sonra tokluk kazandırdığı için sınırlama burada eklendi.
+- Kayıt yüklenirken "sonraki savaşı duraklat" etiketi, geri yüklenen bayrakla
+  yeniden eşitlendi. `MercuriusXeno/23html.github.io` fork'unda tespit edildi.
+- Yükleme sırasında temel istatistikler, tokluk ve can için varsayılan değerler
+  eklendi; böylece hasarlı bir kayıt tanımsız değerler geri yükleyemiyor.
+- Callback ayırma işleminde `splice` çağrısına indeks yerine kanca nesnesinin
+  geçilmesi düzeltildi; bu hata eşleşen kanca yerine ilk kancayı siliyordu. Hem
+  `detachCallback` içinde hem de yükleme sırasındaki görev kancası temizliğinde
+  giderildi.
+- Kayıt içe aktarma, kullanılmayan `v0.2a` anahtarı yerine güncel `v0.3`
+  anahtarına yönlendirildi; böylece içe aktarılan kayıt yeniden yüklemeden sonra
+  da kalıyor.
+- Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
+  önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Tüm direnç hasar azaltmaları ortak bir `resistanceFactor` yardımcısıyla
+  sınırlandırıldı. Direnç becerileri doğrusal ölçeklendiği için önceki
+  `1 - use()` çarpanları sıfırı geçip işaret değiştiriyordu: yiyecek zehri ve
+  yozlaşma direnci 20. seviyeden sonra hasarı negatife çevirip kaybı azaltmak
+  yerine tokluk ve can kazandırıyordu.
+- Boş mesaj günlüğü durum göstergeleri gizlendi, etkin durumları düğmelerin içine
+  hizalandı ve temizleme kontrolü mesaj paneli sınırları içinde tutuldu.
+- Arka plan sürgülerinin ve hazır temaların, arayüzü ekrana sığdıran body zoom
+  değerini kaldırması önlendi.
+- Kayıt silmeden önce yerelleştirilmiş onay eklendi; dil tercihinin korunması için
+  silme işlemi yalnızca oyun kaydıyla sınırlandı.
+- `Sun.` ifadesinin Pazar günü kısaltması olan “Paz.” yerine astronomik “Güneş”
+  olarak çevrilmesi düzeltildi.
+- Yalnızca pazar günü sunulan dojo yemeği davranışının İngilizce görünüm etiketine
+  bağlı olması düzeltildi.
+- Sabit kodlanmış haftalık dojo yemeği duyurusu eşlenmiş İngilizce ve Türkçe dil
+  değerlerine taşındı.
 - Otomatik kaydetme etiketi, daraltma kontrolü, sürüm bağlantısı ve kayıt silme
   eyleminin alt bilgi çubuğunda birleşmesi düzeltildi.
 - Türkçe kayıt silindi onay metni düzeltildi.

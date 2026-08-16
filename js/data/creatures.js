@@ -1,10 +1,10 @@
-///////////////////////////////////////////
-//CRT
-///////////////////////////////////////////
+// Creature definitions. Holds every enemy's stats, elemental affinities, drop
+// table, and combat behaviour, plus the kill bookkeeping that feeds the
+// bestiary and weapon kill counters.
 
 function Creature() {
-  this.name = "Nothing";
-  this.desc = "Empty space";
+  this.name = i18n.t("runtime.data.creatures.interface.default_name");
+  this.desc = i18n.t("runtime.data.creatures.interface.default_description");
   this.type = 3; //h,b,u,e,p,d
   this.id = 0;
   this.lvl = 1;
@@ -94,7 +94,11 @@ function Creature() {
         : (you.eqp[0].data.kills = 1);
     if (this.type !== 2 && this.type !== 4) global.spirits++;
     else if (this.type === 4) global.spirits--;
-    if (global.flags.m_blh === false) msg(this.name + " died ", "burlywood");
+    if (global.flags.m_blh === false)
+      msg(
+        i18n.t("runtime.data.creatures.dialogue.died", { name: this.name }),
+        "burlywood",
+      );
     global.flags.civil = true;
     global.flags.btl = false;
     let df = 1;

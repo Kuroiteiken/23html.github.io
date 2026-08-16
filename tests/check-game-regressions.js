@@ -1,0 +1,424 @@
+const fs = require("fs");
+const path = require("path");
+const espree = require("espree");
+
+const root = path.dirname(__dirname);
+const locations = fs.readFileSync(
+  path.join(root, "js", "world", "locations.js"),
+  "utf8",
+);
+
+const moonBloomLeaveHandler =
+  /chss\.frstn1a4\.onLeave\s*=\s*function\s*\(\)\s*{\s*area\.frstn1a4\.size\s*=\s*rand\(5\)\s*-\s*20;\s*};/;
+
+if (!moonBloomLeaveHandler.test(locations)) {
+  throw new Error(
+    "Moon Bloom regression: leaving frstn1a4 must reduce its randomized area size by 20.",
+  );
+}
+
+console.log("Validated the Moon Bloom area-size regression fix.");
+
+const interfaceSource = fs.readFileSync(
+  path.join(root, "js", "ui", "interface.js"),
+  "utf8",
+);
+const combatPanelLayout = [
+  /addElement\(document\.body, "div", "player-panel", "d combat-panel"\)/,
+  /addElement\(document\.body, "div", "enemy-panel", "d combat-panel"\)/,
+  /dom\.d1m\.style\.top\s*=\s*"8px"/,
+  /dom\.d1m\.style\.left\s*=\s*"457px"/,
+];
+
+if (!combatPanelLayout.every((pattern) => pattern.test(interfaceSource))) {
+  throw new Error(
+    "Combat layout regression: player and enemy panels need unique identities and pixel-based enemy coordinates.",
+  );
+}
+
+console.log("Validated the player/enemy combat-panel positioning contract.");
+
+const tooltipPositioning = [
+  /function positionDescription\(c\)/,
+  /global\.dscr\.style\.left\s*=\s*`\$\{Math\.max\(gap, left\)\}px`/,
+  /global\.dscr\.style\.top\s*=\s*`\$\{Math\.max\(gap, top\)\}px`/,
+  /dm\.addEventListener\("mousemove", \(a\) => \{\s*positionDescription\(a\);/,
+];
+
+if (!tooltipPositioning.every((pattern) => pattern.test(interfaceSource))) {
+  throw new Error(
+    "Tooltip regression: hover descriptions need pixel-based, viewport-aware pointer positioning.",
+  );
+}
+
+const equipmentSource = fs.readFileSync(
+  path.join(root, "js", "data", "equipment.js"),
+  "utf8",
+);
+const itemSource = fs.readFileSync(
+  path.join(root, "js", "data", "items.js"),
+  "utf8",
+);
+const staticEquipmentDescription =
+  /\b(?:wpn|eqp|sld|acc)\.\w+\.desc\s*=\s*["'`]/;
+const staticItemDescription = /\bitem\.\w+\.desc\s*=\s*["'`]/;
+
+if (
+  staticEquipmentDescription.test(equipmentSource) ||
+  staticItemDescription.test(itemSource)
+) {
+  throw new Error(
+    "Localization regression: static item and equipment descriptions must come from locale JSON.",
+  );
+}
+
+console.log(
+  "Validated hover-description positioning and item/equipment-description localization.",
+);
+
+const saveBarLayout = [
+  /addElement\(dom\.sl, "div", "save-bar-controls"\)/,
+  /addElement\(dom\.sl, "span", "save-game", "sl"\)[\s\S]*addElement\(dom\.sl, "span", "load-game", "sl"\)[\s\S]*addElement\(dom\.sl, "span", "save-bar-collapse", "sl"\)/,
+  /addElement\(dom\.autosve, "input", "autosave-toggle"\)/,
+];
+
+if (!saveBarLayout.every((pattern) => pattern.test(interfaceSource))) {
+  throw new Error(
+    "Save-bar regression: collapse must follow save/load, while autosave, version, and delete share an explicit layout group.",
+  );
+}
+
+console.log("Validated the grouped save-bar control structure.");
+
+const bootstrapSource = fs.readFileSync(
+  path.join(root, "js", "core", "bootstrap.js"),
+  "utf8",
+);
+const playerSource = fs.readFileSync(
+  path.join(root, "js", "core", "player.js"),
+  "utf8",
+);
+const playerNamePersistence = [
+  /this\.name\s*=\s*i18n\.t\("runtime\.core\.player\.interface\.name"\)/,
+  /const yu\s*=\s*{\s*name:\s*you\.name,/,
+  /you\.name\s*=\s*yu_s\.name;/,
+];
+
+if (
+  !playerNamePersistence[0].test(playerSource) ||
+  !playerNamePersistence
+    .slice(1)
+    .every((pattern) => pattern.test(bootstrapSource))
+) {
+  throw new Error(
+    "Save regression: the localized player name must remain only a new-game default and custom names must round-trip through save/load.",
+  );
+}
+
+console.log("Validated custom player-name save/load persistence.");
+
+const gameCss = fs.readFileSync(path.join(root, "css", "game.css"), "utf8");
+const uiSafetyContracts = [
+  /addElement\(\s*document\.body,\s*"dialog",\s*"save-delete-modal",\s*"game-modal"/,
+  /dom\.save_delete_modal\.showModal\(\)/,
+  /dom\.save_delete_modal\.addEventListener\("cancel"/,
+  /dom\.save_delete_modal\.addEventListener\("close"/,
+  /localStorage\.removeItem\("v0\.3"\);\s*window\.location\.reload\(\);/,
+  /i18n\.t\("runtime\.ui\.interface\.dialogue\.combat_missed"/,
+  /addElement\(dom\.m_control, "small", "message-log-clear", "bts_m"\)/,
+];
+
+if (
+  !uiSafetyContracts.every((pattern) => pattern.test(interfaceSource)) ||
+  /window\.(?:alert|confirm)\(/.test(interfaceSource) ||
+  /document\.body\.removeAttribute\("style"\)/.test(interfaceSource) ||
+  /\.name \+ " missed"/.test(interfaceSource) ||
+  !/\.bts_m_b:empty\s*{\s*display: none;\s*}/.test(gameCss) ||
+  !/\.game-modal::backdrop\s*{/.test(gameCss) ||
+  !/\.game-modal__button--danger\s*{/.test(gameCss)
+) {
+  throw new Error(
+    "UI safety regression: themes must preserve scale, save deletion must use the accessible game modal, combat misses must localize, and empty log indicators must stay hidden.",
+  );
+}
+
+console.log(
+  "Validated theme, modal save deletion, combat log, and log-control contracts.",
+);
+
+const localizedLocationText = [
+  /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
+  /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.reading_progress"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.reading_duration_hours"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.reading_duration_minutes"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.enter_the_basement"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.examine_basement_door"/,
+];
+const forbiddenLocationText = [
+  "That was good!",
+  "Delicious!",
+  '"Enter the basement"',
+  '"Examine basement door"',
+  "You are reading <span",
+  "hours to finish",
+  "minutes to finish",
+];
+
+if (
+  !localizedLocationText.every((pattern) => pattern.test(locations)) ||
+  forbiddenLocationText.some((text) => locations.includes(text))
+) {
+  throw new Error(
+    "Location localization regression: meal reactions, reading progress, and basement actions must come from locale JSON.",
+  );
+}
+
+const backgroundPresetLayout = [
+  /addElement\(\s*dom\.ct_bt4_03,\s*"div",\s*"background-presets",\s*"opt_v"/,
+  /"background-preset"/,
+  /#background-presets\s*{[^}]*display: grid;[^}]*gap: 4px;/s,
+  /\.background-preset\s*{[^}]*box-sizing: border-box;[^}]*min-width: 0;/s,
+];
+
+if (
+  !backgroundPresetLayout.every((pattern) =>
+    pattern.test(interfaceSource + gameCss),
+  )
+) {
+  throw new Error(
+    "Settings layout regression: background preset controls need bounded, separated grid cells.",
+  );
+}
+
+console.log(
+  "Validated localized location text and separated background preset controls.",
+);
+
+const localizedBedText = [
+  /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.bed_unconscious_messages"/,
+  /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.bed_cat_rest_messages"/,
+  /i18n\.t\("runtime\.world\.locations\.dialogue\.bed_rest_summary"/,
+];
+const forbiddenBedText = [
+  "You lost consciousness...",
+  "You have been knocked out...",
+  "You passed out...",
+  ". Your cat is resting next to you",
+  ". You feel warm",
+  "Great way to pass time",
+];
+
+if (
+  !localizedBedText.every((pattern) => pattern.test(locations)) ||
+  forbiddenBedText.some((text) => locations.includes(text))
+) {
+  throw new Error(
+    "Bed localization regression: unconsciousness, cat-rest, and rest-summary text must come from locale JSON.",
+  );
+}
+
+function collectJavaScriptFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return collectJavaScriptFiles(entryPath);
+    return entry.name.endsWith(".js") && entry.name !== "game.js"
+      ? [entryPath]
+      : [];
+  });
+}
+
+function walkSyntax(node, visit) {
+  if (!node || typeof node !== "object") return;
+  visit(node);
+  for (const value of Object.values(node)) {
+    if (Array.isArray(value))
+      value.forEach((child) => walkSyntax(child, visit));
+    else if (value && typeof value === "object" && value.type)
+      walkSyntax(value, visit);
+  }
+}
+
+const rawTextSelections = [];
+for (const file of collectJavaScriptFiles(path.join(root, "js"))) {
+  const source = fs.readFileSync(file, "utf8");
+  const syntax = espree.parse(source, {
+    ecmaVersion: "latest",
+    loc: true,
+    sourceType: "script",
+  });
+  walkSyntax(syntax, (node) => {
+    if (
+      node.type !== "CallExpression" ||
+      node.callee?.type !== "Identifier" ||
+      node.callee.name !== "select" ||
+      node.arguments[0]?.type !== "ArrayExpression"
+    )
+      return;
+    const containsWords = node.arguments[0].elements.some(
+      (element) =>
+        element?.type === "Literal" &&
+        typeof element.value === "string" &&
+        /[A-Za-z]{2}/.test(element.value),
+    );
+    if (containsWords)
+      rawTextSelections.push(
+        `${path.relative(root, file)}:${node.loc.start.line}`,
+      );
+  });
+}
+
+if (rawTextSelections.length) {
+  throw new Error(
+    `Localization regression: text-valued select arrays must come from locale JSON: ${rawTextSelections.join(", ")}`,
+  );
+}
+
+console.log("Validated localized bed text and randomized text selections.");
+
+const simulationSource = fs.readFileSync(
+  path.join(root, "js", "systems", "simulation.js"),
+  "utf8",
+);
+const plannerSource = fs.readFileSync(
+  path.join(root, "js", "systems", "planner.js"),
+  "utf8",
+);
+const localizedDayComparison = /getDay\([^)]*\)\s*={2,3}\s*["'][^"']+["']/;
+
+if (
+  !/function isDay\(dayIndex\)\s*{\s*return time\.day % 7 === dayIndex;\s*}/.test(
+    simulationSource,
+  ) ||
+  !/if \(isDay\(6\)\) global\.flags\.djmlet = true;/.test(plannerSource) ||
+  !/i18n\.t\("runtime\.world\.locations\.dialogue\.weekly_free_meals"\)/.test(
+    locations,
+  ) ||
+  /col\("Sunday"/.test(locations) ||
+  localizedDayComparison.test(plannerSource) ||
+  localizedDayComparison.test(locations)
+) {
+  throw new Error(
+    "Calendar regression: gameplay must compare locale-independent day indexes, not translated day labels.",
+  );
+}
+
+console.log("Validated locale-independent calendar gameplay checks.");
+
+const titlesSource = fs.readFileSync(
+  path.join(root, "js", "data", "titles.js"),
+  "utf8",
+);
+
+if (
+  /you\.agml\b/.test(bootstrapSource) ||
+  !/aglm: you\.aglm,/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Save regression: the AGL multiplier must be serialized from you.aglm, not the misspelled you.agml.",
+  );
+}
+
+if (
+  !/for \(const o in area\)\s*if \(xx < a5\.length\) area\[o\]\.size = a5\[xx\+\+\];/.test(
+    bootstrapSource,
+  )
+) {
+  throw new Error(
+    "Save regression: area sizes must be restored by array length so an area of size 0 cannot desynchronize the counter.",
+  );
+}
+
+const objectIndexedSplice =
+  /\.splice\(\s*(?:callback\[a\]\.)?(?:callback\.)?hooks\[[a-z]+\]\s*,/;
+
+if (
+  objectIndexedSplice.test(titlesSource) ||
+  objectIndexedSplice.test(bootstrapSource) ||
+  !/callback\.hooks\.splice\(a, 1\)/.test(titlesSource) ||
+  !/callback\[a\]\.hooks\.splice\(b, 1\)/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Callback regression: hooks must be removed by numeric index, never by passing the hook object to splice.",
+  );
+}
+
+if (
+  !/this\.sat \*= Math\.min\(0\.95, 0\.45 \* \(1 \+ skl\.dth\.use\(\)\)\)/.test(
+    playerSource,
+  )
+) {
+  throw new Error(
+    "Death regression: satiation loss must reward the Death skill and stay clamped below a full refund.",
+  );
+}
+
+if (
+  !/dom\.d8m1\.innerHTML = i18n\.t\(\s*global\.flags\.to_pause === true/.test(
+    bootstrapSource,
+  )
+) {
+  throw new Error(
+    "Load regression: the pause-next-battle label must be resynchronized from the restored flag.",
+  );
+}
+
+const guardedBaseStats = [
+  /you\.str_r = yu_s\.str_r \|\| 1;/,
+  /you\.agl_r = yu_s\.agl_r \|\| 1;/,
+  /you\.int_r = yu_s\.int_r \|\| 1;/,
+  /you\.spd_r = yu_s\.spd_r \|\| 1;/,
+  /you\.luck = yu_s\.luck \|\| 1;/,
+  /you\.wealth = yu_s\.wealth \|\| 0;/,
+  /you\.stat_p = yu_s\.stat_p \|\| \[1, 1, 1, 1\];/,
+  /you\.sat = yu_s\.sat \?\? 200;/,
+  /you\.hp = yu_s\.hp \?\? 39;/,
+];
+
+if (!guardedBaseStats.every((pattern) => pattern.test(bootstrapSource))) {
+  throw new Error(
+    "Load regression: base stats need defaults so a damaged save cannot restore undefined values.",
+  );
+}
+
+if (
+  /"v0\.2a"/.test(interfaceSource) ||
+  !/storage\.setItem\("v0\.3", t\)/.test(interfaceSource)
+) {
+  throw new Error(
+    "Import regression: imported saves must persist to the live v0.3 storage key.",
+  );
+}
+
+if (
+  !/function keepUnreadableSave\(saved\)/.test(bootstrapSource) ||
+  !/window\.localStorage\.setItem\("v0\.3\.unreadable", saved\)/.test(
+    bootstrapSource,
+  ) ||
+  !/i18n\.t\("ui\.save\.unreadable"\)/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Save regression: an unreadable save must be preserved as a backup and reported to the player.",
+  );
+}
+
+const effectsSource = fs.readFileSync(
+  path.join(root, "js", "data", "effects.js"),
+  "utf8",
+);
+const unclampedResistance =
+  /\(\s*1 - skl\.[a-z0-9_]+\.(?:use\(\)|lvl \* [0-9.]+)/;
+
+if (
+  !/function resistanceFactor\(reduction\) \{\s*return Math\.min\(1, Math\.max\(0, 1 - reduction\)\);/.test(
+    effectsSource,
+  ) ||
+  unclampedResistance.test(effectsSource)
+) {
+  throw new Error(
+    "Resistance regression: damage reductions must go through resistanceFactor so a high resistance skill cannot heal the target.",
+  );
+}
+
+console.log("Validated save, load, callback, and death-penalty regressions.");
+console.log("Validated clamped resistance damage reductions.");

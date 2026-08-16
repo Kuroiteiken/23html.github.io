@@ -1,11 +1,12 @@
-///////////////////////////////////////////
-//U
-///////////////////////////////////////////
+// Player state. Defines the `You` constructor, the derived-stat recalculation
+// that folds equipment, titles, and effects into the visible values, and the
+// death and revival flow. Loaded after the data modules so the titles, skills,
+// and items referenced here already exist.
 
 function You() {
-  this.name = "You";
+  this.name = i18n.t("runtime.core.player.interface.name");
   this.title = ttl.new;
-  this.desc = "This is you";
+  this.desc = i18n.t("runtime.core.player.interface.description");
   this.id = -1;
   this.type = 0;
   this.rank = function () {
@@ -136,7 +137,10 @@ function You() {
       you.sat / you.satmax > 0.3
         ? giveSkExp(skl.dth, killer.rnk * 10 + 1)
         : giveSkExp(skl.dth, killer.rnk + 1);
-      if (this.sat > 0) this.sat *= 0.55 * (1 - skl.dth.use());
+      // A higher Death skill preserves more satiation, but the multiplier is
+      // kept inside (0, 0.95] so dying can never refund satiation and can never
+      // push it below zero.
+      if (this.sat > 0) this.sat *= Math.min(0.95, 0.45 * (1 + skl.dth.use()));
       giveItem(item.death_b);
       dom.d5_1_1.update();
       global.s_l = 0;

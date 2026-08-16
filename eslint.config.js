@@ -5,7 +5,7 @@ module.exports = defineConfig([
     ignores: ["dist/**", "js/game.js", "node_modules/**"],
   },
   {
-    files: ["js/**/*.js", "scripts/**/*.js"],
+    files: ["js/**/*.js", "scripts/**/*.js", "tests/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "script",

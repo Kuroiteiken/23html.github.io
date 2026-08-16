@@ -6,7 +6,9 @@
   "ui": {
     "common": {
       "close": "Close",
-      "unknown": "???????"
+      "unknown": "???????",
+      "yesLowercase": "yes",
+      "noLowercase": "no"
     },
     "navigation": {
       "actions": "actions",
@@ -20,7 +22,13 @@
       "journal": "J o u r n a l",
       "messageLog": "m e s s a g e　　　l o g",
       "nothingHere": "Nothing here yet",
-      "skillList": "S k i l l　　l i s t"
+      "skillList": "S k i l l　　l i s t",
+      "quests": "Q U E S T S",
+      "bestiary": "B E S T I A R Y",
+      "statistics": "S T A T I S T I C S",
+      "questList": "Q U E S T??L I S T",
+      "stats": "S T A T S",
+      "masteries": "M A S T E R I E S"
     },
     "settings": {
       "backgroundColor": "BG Color",
@@ -41,10 +49,109 @@
         "special": "special",
         "white": "White"
       },
-      "saveInvalid": "Save Invalid"
+      "saveInvalid": "Save Invalid",
+      "deleteSaveTitle": "Delete saved game?",
+      "deleteSaveConfirm": "This permanently removes your saved game. This action cannot be undone.",
+      "cancelDelete": "Cancel",
+      "confirmDelete": "Delete save"
     },
     "world": {
       "location": "Location: "
+    },
+    "quest": {
+      "status": {
+        "completed": "<span style=\"color:lime\"> completed</span>",
+        "inProgress": "<span style=\"color:yellow\"> in progress</span>"
+      },
+      "location": "Location: <span style=\"color:green\">{location}</span>"
+    },
+    "time": {
+      "years": "Years",
+      "months": "Months",
+      "days": "Days"
+    },
+    "save": {
+      "lastSave": "Last save: {date}",
+      "unreadable": "Your saved game could not be read, so a new game was started. The unreadable save was kept as a backup and has not been overwritten."
+    },
+    "hud": {
+      "levelTitle": " lvl:{level} '{title}'",
+      "criticalChance": "Critical chance: {chance}%",
+      "defense": "DEF: {value}",
+      "health": "hp: {current}/{max}",
+      "experience": "exp: {current}/{max}",
+      "energy": "energy: {current}/{max} eff: {efficiency}%",
+      "rank": "rank: {rank}",
+      "area": "Area: {area} / {remaining}",
+      "stat": "{stat}: {value}",
+      "hitAndDodgeChance": "hit chance: {hit} / dodge chance: {dodge}{modifier}",
+      "skillLevel": "{skill} lvl: {level}",
+      "skillExperience": "?exp: {current}/{max}",
+      "skillExperiencePadded": "?exp: {current}/{max}?"
+    },
+    "statDescriptions": {
+      "health": "Physical health points, needed to stay alive. You will probably die if it reaches 0<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
+      "experience": "Physical and combat experience. You will have to work hard to achieve new heights<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>EXP Gain Potential: <span style=\"color:gold\">{potential}%</span><br>Current EXP Gain: <span style=\"color:yellow\">{current}%</span></small>",
+      "energy": "Influences the effectiveness of your actions; eat plenty to keep it full<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Energy Effectiveness: <span style=\"color:deeppink\">{effectiveness}%</span><br>Energy Consumption Rate: <span style=\"color:gold\">{consumption}/s</span></small>",
+      "strength": "Determines physical damage dealt and received<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
+      "agility": "Determines hit and dodge rates<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
+      "intelligence": "Determines magic damage dealt and received<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>"
+    },
+    "itemDescription": {
+      "stat": "{stat}: {value}",
+      "kills": "kills: {kills}",
+      "addToFurnitureList": "<span style=\"color:chartreuse\">Use to add to the furniture list</span>",
+      "owned": "owned: <span style=\"color:{color}\">{state}</span>",
+      "perishable": "<span style=\"color:orange\">perishable</span>",
+      "talentEffect": "<small style=\"color:cyan\">talent effect<br></small><br><small style=\"color:darkorange\">{effect}</small>",
+      "perkLevel": "lvl {level}:<span style=\"color:yellow\"> {perk} </span>"
+    },
+    "crafting": {
+      "repeatable": {
+        "name": "Enable Repeatable Crafting",
+        "currentSpeed": "<span style='color:magenta'>Current speed: </span><span style='color:orange'>{seconds} sec</span>"
+      }
+    },
+    "inventory": {
+      "freshness": {
+        "quantity": {
+          "couple": "a couple",
+          "few": "a few",
+          "some": "some",
+          "multiple": "multiple",
+          "dozens": "dozens",
+          "many": "many"
+        },
+        "state": {
+          "veryFresh": "very fresh",
+          "fresh": "fresh",
+          "aging": "like it is reaching midlife",
+          "goingBadSoon": "will go bad soon",
+          "almostDecayed": "are almost decayed"
+        },
+        "foodLooks": "<span style=\"color:orange\">This food looks <span style=\"color:{color}\">{state}</span>",
+        "unitsLook": "<span style=\"color:orange\"><span style=\"color:cyan\">{quantity}</span> units of this item <span style=\"color:{color}\">{state}</span></span>",
+        "decayEstimate": "<span style=\"color:orange\">Upon examination, about <span style=\"color:cyan\">{amount}</span> units of this item will decay in approximately <span style=\"color:yellow\">{days}</span> days</span>"
+      },
+      "delete": {
+        "description": "Deletes <span style=\"color:cyan\">\"{item}\"</span> permanently",
+        "confirm": "Really destroy \"{item}\"?"
+      },
+      "disassemble": {
+        "description": "Deconstruct <span style=\"color:cyan\">\"{item}\"</span> into:<br>{results}",
+        "confirmEquipped": "You are currently wearing \"<span style=\"color:crimson\">{item}</span>\"<br>Really deconstruct?"
+      }
+    },
+    "cat": {
+      "name": "Name: <span style=\"color:orange\">{name} {sex}</span>",
+      "dayOfBirth": "Day of birth: <span style=\"color:lime\">{date}</span>",
+      "age": "Age: {age}",
+      "patternAndColor": "Pattern: <span style=\"color:cyan\">{pattern}</span> | Color: <span style=\"color:cyan\">{color}</span>",
+      "likes": "Likes: <span style=\"color:lime\">{first}</span> And <span style=\"color:lime\">{second}</span>"
+    },
+    "shop": {
+      "buyingPrice": "&nbspBuying price: ",
+      "reputation": "&nbspReputation: "
     }
   },
   "gameText": {
@@ -1092,13 +1199,19 @@
     },
     "acc": {
       "strawp": {
-        "name": "Straw Pendant"
+        "name": "Straw Pendant",
+        "desc": "You made this yourself!",
+        "bonus": "<span style='color:green'><span style='color:lime'> +50 </span> to max energy<br><span style=\"color: lime\">SPD +1</span></span>"
       },
       "snch": {
-        "name": "Sun Charm"
+        "name": "Sun Charm",
+        "desc": "Little charm with a piece of power of the Sun imbued into it. It absorbs Sun energy",
+        "bonus": "<span style='color:gold'>Raises stats during day</span>"
       },
       "mnch": {
-        "name": "Moon Charm"
+        "name": "Moon Charm",
+        "desc": "Little charm with a piece of power of the Moon imbued into it. It absorbs Moon energy",
+        "bonus": "<span style='color:cyan'>Raises stats during night</span>"
       },
       "mstn": {
         "name": "Mana Stone",
@@ -1185,97 +1298,155 @@
         "desc": "Blackpearl with Berial's soul bound inside. Increases dark affinity"
       },
       "wfng": {
-        "name": "Wolf Fang Necklace"
+        "name": "Wolf Fang Necklace",
+        "desc": "Menacing fang of the wolf, in the form of a pendant. Wearing this can help to repell and scare away minor beasts",
+        "bonus": "<span style=\"color:orange\">Beast Class DEF +15</span>"
       },
       "wfar": {
-        "name": "Wolf Array"
+        "name": "Wolf Array",
+        "desc": "Array composed of interlinked fangs of the wolf. Used by hunters as a mean of protection agains wildlife",
+        "bonus": "<span style=\"color:orange\">Beast Class DEF +30</span>"
       },
       "sshl": {
-        "name": "Star Shell"
+        "name": "Star Shell",
+        "desc": "A little shell with a fraction of power of Space within it. It radiates incomprehencible energy when you touch it",
+        "bonus": "<span style='color:gold'>Raises stats+"
       },
       "qill": {
-        "name": "Quill"
+        "name": "Quill",
+        "desc": "Feather of a large bird, turned into a writing tool ",
+        "bonus": "<span style=\"color:lime\">AGL +5</span>"
       },
       "bink": {
-        "name": "Black Ink"
+        "name": "Black Ink",
+        "desc": "Pitch black Ink, useful in writing. Stains left by it will never come off",
+        "bonus": "<span style=\"color:lime\">INT +3</span>"
       },
       "mink": {
-        "name": "Magic Ink"
+        "name": "Magic Ink",
+        "desc": "Glowing magic ink, used for writing magical and runic inscriptions. ",
+        "bonus": "<span style=\"color:lime\">INT +8</span><br><span style=\"color:lime\">AGL +10</span>"
       },
       "rfot": {
-        "name": "Rabbit Foot"
+        "name": "Rabbit Foot",
+        "desc": "Lucky charm made from a foot of a rabbit. Wearing this gives you a strange feeling of satisfaction",
+        "bonus": "<span style=\"color:gold\">LUCK +2</span>"
       },
       "sdl1": {
-        "name": "Straw Effigy"
+        "name": "Straw Effigy",
+        "desc": "Small handcrafted straw doll. Dolls of this type are used to bind with the souls of the living. Appropriate for Curses and Dark Magic manipulation",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +5</span>"
       },
       "lckcn": {
-        "name": "Lucky Coin"
+        "name": "Lucky Coin",
+        "desc": "Special little coin, unlike any other. You have a feeling you should hold onto it",
+        "bonus": "<span style=\"color:gold\">LUCK +3</span>"
       },
       "cfgn": {
-        "name": "Cat Figurine"
+        "name": "Cat Figurine",
+        "desc": "Small figurine of a cat. It eminates powerful energy",
+        "bonus": "<span style=\"color:deeppink\">Energy Effectiveness +5%</span>"
       },
       "mnknk": {
-        "name": "Maneki-Neko"
+        "name": "Maneki-Neko",
+        "desc": "Little statue of a Divine Cat holding a Coin. This treasure is rumored to bring luck and prosperity to its owner",
+        "bonus": "<span style=\"color:gold\">LUCK +4</span><br><span style=\"color:deeppink\">Energy Effectiveness +10%</span>"
       },
       "wdl1": {
-        "name": "Wood Effigy"
+        "name": "Wood Effigy",
+        "desc": "Small wooden doll with flexible joints. This type can be used, with Dark enchantment, to take control of living things.",
+        "bonus": "<span style=\"color:crimson\">Piercing DEF +5</span><br><span style=\"color:crimson\">Edged DEF +5</span><br><span style=\"color:crimson\">Blunt DEF +5</span>"
       },
       "gdl1": {
-        "name": "Soul Puppet"
+        "name": "Soul Puppet",
+        "desc": "Dolls that could be remotely controlled by one's soul. Employed by spies to infiltrate enemy lines unnoticed",
+        "bonus": "<span style=\"color:crimson\">Piercing DEF +4</span><br><span style=\"color:crimson\">Edged DEF +4</span><br><span style=\"color:crimson\">Blunt DEF +4</span><br><span style=\"color:thistle;text-shadow:blueviolet 0px 0px 5px\">Dark RES +6</span><br><span style=\"color:royalblue;text-shadow:blueviolet 0px 0px 5px\">Evil Class DEF +2</span><br><span style=\"color:hotpink\">Physical DEF +3</span>"
       },
       "rnsn": {
-        "name": "Rain Stone"
+        "name": "Rain Stone",
+        "desc": "This stone, eroded by years of rain, can actually mimic rain to fool plants and animals. For this reason, it's in high demand for horticultural use"
       },
       "hndm": {
-        "name": "Fey Hound Mane"
+        "name": "Fey Hound Mane",
+        "desc": "A tuft of a fey hound's mane, said to ward off evil. It raises resistance to heat and cold"
       },
       "dcpe": {
-        "name": "Deception Eye"
+        "name": "Deception Eye",
+        "desc": "A mysterious gem. It feels like it's looking at something, but you can't really tell"
       },
       "bdl1": {
-        "name": "Bone Doll"
+        "name": "Bone Doll",
+        "desc": "A small doll carved from beast bone. It's a charm that protects the wearer from evil",
+        "bonus": "<span style=\"color:thistle;text-shadow:blueviolet 0px 0px 5px\">Dark RES +5</span><br><span style=\"color:royalblue;text-shadow:blueviolet 0px 0px 5px\">Evil Class DEF +5</span>"
       },
       "fssn": {
-        "name": "Bonefish Spine"
+        "name": "Bonefish Spine",
+        "desc": "A spine taken from a bonefish, which are still keen in undeath. It's said to raise spiritual awareness of the holder"
       },
       "mpst": {
-        "name": "Mortar and Pestle"
+        "name": "Mortar and Pestle",
+        "desc": "A basic stone bowl and a pounder used to mince and crush herbs, seeds, bones and other pharmaceutical oddities",
+        "bonus": "<span style=\"color:deeppink\">Alchemy EXP gain +5%</span><br><br><small style=\"color:deeppink\">Alchemy quality:<span style=\"color:orange\"> 1</span></small>"
       },
       "vtmns": {
-        "name": "Vitamins"
+        "name": "Vitamins",
+        "desc": "A bottle of powerful vitamins, which grant one's body incresed vitality",
+        "bonus": "<span style=\"color:limegreen\">Poison resist +5%</span>"
       },
       "mdcag": {
-        "name": "Adhesive Bandage"
+        "name": "Adhesive Bandage",
+        "desc": "Bandage, boiled in hot water and sterilized using herbs",
+        "bonus": "<span style=\"color:chartreuse\">Bleed resist +5%</span>"
       },
       "mdcbg": {
-        "name": "Medicated Bandage"
+        "name": "Medicated Bandage",
+        "desc": "Sterile bandage soaked in strong medical solution",
+        "bonus": "<span style=\"color:chartreuse\">Bleed resist +8%</span><br><span style=\"color:limegreen\">Poison resist +8%</span>"
       },
       "mshst": {
-        "name": "Retort"
+        "name": "Retort",
+        "desc": "Alchemical vessel used for distilling, important for vapor separation",
+        "bonus": "<span style=\"color:deeppink\">Alchemy EXP gain +10%</span><br><br><small style=\"color:deeppink\">Alchemy quality:<span style=\"color:orange\"> 1</span></small>"
       },
       "mhhst": {
-        "name": "Alembic"
+        "name": "Alembic",
+        "desc": "Alchemical vessel used in distilling, especially useful for cooling",
+        "bonus": "<span style=\"color:deeppink\">Alchemy EXP gain +15%</span><br><br><small style=\"color:deeppink\">Alchemy quality:<span style=\"color:orange\"> 1</span></small>"
       },
       "asfk": {
-        "name": "Alchemical Flask"
+        "name": "Alchemical Flask",
+        "desc": "A sealed flask with some vicious limegreen bubbling liquid moving inside. Opening this thing is a very bad idea",
+        "bonus": "<span style=\"color:chartreuse\">Damage reduction +3%</span>"
       },
       "alseto": {
-        "name": "Basic Alchemy Set"
+        "name": "Basic Alchemy Set",
+        "desc": "Wide variety of aberrant glassware and precision tools for all types of entry level alchemy-based manipulations. A necessity for making basic medicine, pills, poisons, elixirs and everything inbetween",
+        "bonus": "<span style=\"color:deeppink\">Alchemy EXP gain +50%</span><br><br><small style=\"color:deeppink\">Alchemy quality:<span style=\"color:orange\"> 2</span></small><br><br>"
       },
       "csfk": {
-        "name": "Corrupt Flask"
+        "name": "Corrupt Flask",
+        "desc": "Glass container with an evil essence trapped inside of it. It is trying to break free",
+        "bonus": "<span style=\"color:thistle;text-shadow:blueviolet 0px 0px 5px\">Dark RES +10</span>"
       },
       "gsfk": {
-        "name": "Plague Flask"
+        "name": "Plague Flask",
+        "desc": "Locked vessel containing a volatile tissue sample from the plague beast. Should be handled with extreme care and must not be unsealed under any circumstances",
+        "bonus": "<span style=\"color:chartreuse\">Damage reduction +4%</span><br><span style=\"color:thistle;text-shadow:blueviolet 0px 0px 5px\">Dark RES +35</span>"
       },
       "jln1": {
-        "name": "Life Jelly"
+        "name": "Life Jelly",
+        "desc": "Concentrated red jelly. Improves life force",
+        "bonus": "<span style=\"color:chartreuse\">MAX HP +400</span>"
       },
       "jln2": {
-        "name": "Stamina Jelly"
+        "name": "Stamina Jelly",
+        "desc": "Concentrated green jelly. Improves stamina",
+        "bonus": "<span style=\"color:chartreuse\">MAX SAT +100</span>"
       },
       "jln3": {
-        "name": "Vital Jelly"
+        "name": "Vital Jelly",
+        "desc": "Concentrated blue jelly. Improves metabolism",
+        "bonus": "<span style=\"color:chartreuse\">SPD +2</span><br><span style=\"color:crimson\">Energy Consumtion +0.2/s</span>"
       },
       "jln4": {
         "name": "Grand Gelatin",
@@ -1294,16 +1465,24 @@
         "desc": "proc"
       },
       "coring": {
-        "name": "Coin Ring"
+        "name": "Coin Ring",
+        "desc": "Golden ring whith runic engraving of a coin on it. Rumored to attract wealth ",
+        "bonus": "<span style=\"color:orange\">Defeated enemies occasionally drop money</span>"
       },
       "dticket": {
-        "name": "Discount Ticket"
+        "name": "Discount Ticket",
+        "desc": "Small ticket that allows you to buy things for cheaper, if you show it to the shopkeeper. Sometimes given to random customers for promotional purposes ",
+        "bonus": "<span style=\"color:thistle\">Shop price reduction -1%</span>"
       },
       "dcard1": {
-        "name": "Discount Card"
+        "name": "Discount Card",
+        "desc": "A card given to the most loyal customers in popular shops",
+        "bonus": "<span style=\"color:thistle\">Shop price reduction -5%</span>"
       },
       "rgreed": {
-        "name": "Ring of Greed"
+        "name": "Ring of Greed",
+        "desc": "Expensive ring employed by rich merchants and gamblers. Makes you seem like a symbol of authority, brings tremendous luck and helps during negotiations",
+        "bonus": "<span style=\"color:orange\">Defeated enemies sometimes drop money</span><br><span style=\"color:gold\">+15% dropped money</span><br><span style=\"color:thistle\">Shop price reduction -10%</span>"
       },
       "medl1": {
         "name": "Moon Medal",
@@ -1330,65 +1509,101 @@
         "desc": "proc"
       },
       "coindct": {
-        "name": "Coin of Deceit"
+        "name": "Coin of Deceit",
+        "desc": "Crooked tainted coin with seemingly evil aura floating about it",
+        "bonus": "<span style=\"color:royalblue\">Crit Chance +3%</span>"
       },
       "slchth": {
-        "name": "Silencing Sheath"
+        "name": "Silencing Sheath",
+        "desc": "Light conciealed sheath for storing small knives and other assassin tools. Unconspicous and easy to use, it is favoured by the agents of the Underworld",
+        "bonus": "<span style=\"color:mediumpurple\">Crit Damage +15%</span>"
       },
       "rmedlon": {
-        "name": "Ruin Medallion"
+        "name": "Ruin Medallion",
+        "desc": "Evil Medallion imbued with the curse of misforture. Brings terrible luck to everyone around its bearer",
+        "bonus": "<span style=\"color:royalblue\">Crit Chance +6%</span>"
       },
       "mirgmirr": {
-        "name": "Mirage Mirror"
+        "name": "Mirage Mirror",
+        "desc": "Mirror of clouded darkness. It bends light around you.",
+        "bonus": "<span style=\"color:royalblue\">Reduces enemy aggression<br>Auto Dodge +10%</span>"
       },
       "aihomnt": {
-        "name": "Airia Hair Ornament"
+        "name": "Airia Hair Ornament",
+        "desc": "An ornament made of light magic ore. Wraps the wearer with a thin magic barrier",
+        "bonus": "<span style=\"color:royalblue\">Reduces enemy aggression<br>Magic DEF +15</span>"
       },
       "gourd1": {
-        "name": "Gourd"
+        "name": "Gourd",
+        "desc": "One of the oldest crop plants in existence. You can use it to store water... or sake",
+        "bonus": "<span style=\"color:chartreuse\">Max SAT +150</span>"
       },
       "stupa": {
-        "name": "Stupa"
+        "name": "Stupa",
+        "desc": "Stupa are long boards placed next to graves to pay respects to the dead. They are usually to be written with an ink brush",
+        "bonus": "<span style=\"color:ghostwhite;text-shadow:0px 0px 5px royalblue\">Keeps your soul in the mortal world</span><br><span style=\"color:ghostwhite;text-shadow:0px 0px 5px royalblue\">+2% Chance To Avoid Death</span>"
       },
       "wpeny": {
-        "name": "Penny of Wealth"
+        "name": "Penny of Wealth",
+        "desc": "An extra shiny penny, that looks like it's made of gold. It probably isn't, but you feel richer just by holding it",
+        "bonus": "<span style=\"color:orange\">Picking a coin gives you an extra coin<br><span style=\"color:gold\">Greed EXP gain +20%</span></span>"
       },
       "rngsgn": {
         "name": "Signet Ring",
         "desc": "A gold and silver ring with a wide stamp attached to the band. A long time ago, the stamp was legible, but now the pattern is too worn to discern its former use"
       },
       "fmlim": {
-        "name": "Family Heirloom"
+        "name": "Family Heirloom",
+        "desc": "A treasure passed down in your family. This plain looking medalion doesn't look anything special, it appears incomplete with an empty socket in the center. You fail to see any value in this piece of junk",
+        "bonus": "<span style=\"color:chartreuse\">MAX HP +2</span>"
       },
       "pbrs": {
-        "name": "Pet Brush"
+        "name": "Pet Brush",
+        "desc": "Special brush designed for tending to fur of the animals. Cats especially enjoy being brushed by this tool",
+        "bonus": "<span style=\"color:deeppink\">Petting EXP gain +200%</span>"
       },
       "clrpin": {
-        "name": "Clover Pin"
+        "name": "Clover Pin",
+        "desc": "Small golden pin in a shape of a clover. Senior gamblers wear these pins to display their prestige and status",
+        "bonus": "<span style=\"color:gold\">Minor chance for an enemy dropped item to duplicate</span>"
       },
       "prtckst": {
-        "name": "Portable Cooking Set"
+        "name": "Portable Cooking Set",
+        "desc": "Box-sized kit containing every crucial cooking utencil you may need for comfortable and effortless foodmaking session anywhere at any time, complimented with variously sized knives, cutting boards, pots and even everlasting fire burner",
+        "bonus": "<span style=\"color:deeppink\">Cooking EXP gain +200%</span><br><span style=\"color:springgreen\">Allows cooking everywhere</span>"
       },
       "ubrlc": {
-        "name": "Umbrella"
+        "name": "Umbrella",
+        "desc": "Light umbrella with a cloud pattern. Young masters and ladies carry these to display their carefree nature",
+        "bonus": "<span style=\"color:cyan;background-color:blue\">Prevents you from getting rained on</span>"
       },
       "sltbg": {
-        "name": "Bag of Salt"
+        "name": "Bag of Salt",
+        "desc": "Little canvas bag filled with salt. Commoners believe that spreading salt can repel evil, so you can keep some on yourself for protection",
+        "bonus": "<span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Undead Class DEF +12</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Undead Class ATK +8</span>"
       },
       "chlsbd": {
         "name": "Chalice"
       },
       "otpin": {
-        "name": "Sword Medal"
+        "name": "Sword Medal",
+        "desc": "Wearable ornament in the shape of a sword. Even if ranking the lowest, it serves as a proof of one's affiliation with dojo and martial arts in general",
+        "bonus": "<span style=\"color:magenta\"> EXP Gain +25%<br>All masteries EXP Gain +10%</span>"
       },
       "fmlim2": {
-        "name": "Family Heirloom+"
+        "name": "Family Heirloom+",
+        "desc": "You reinforced your family pendant's string with straw to prevent possible breaking. It looks even more lame like this",
+        "bonus": "<span style=\"color:chartreuse\">MAX HP +5<br>Max SAT +25<br>SPD +1</span>"
       },
       "gpin": {
-        "name": "Fighter Insignia"
+        "name": "Fighter Insignia",
+        "desc": "Ring tempered by unending fighter spirit, was formerly owned by a rookie knight",
+        "bonus": "<span style=\"color:chartreuse\">STR +20<br>AGL +5</span>"
       },
       "ndlb": {
-        "name": "Wooden Needle"
+        "name": "Wooden Needle",
+        "desc": "Very primitive needle crafted from tough wood. Despite its simplicity, the craftsmanship is quiet nice",
+        "bonus": "<span style=\"color:magenta\">Tailoring EXP Gain +10%</span><br><br><small style=\"color:deeppink\">Tailoring quality:<span style=\"color:orange\"> 1</span></small>"
       }
     },
     "furniture": {
@@ -1449,776 +1664,1028 @@
         "desc": "Amplifies surrounding awareness and perception senses"
       },
       "hrb1": {
-        "name": "Cure Grass"
+        "name": "Cure Grass",
+        "desc": "Herb with minor healing properties. Has to be processed before use. Can somewhat speed up recovery of tiny cuts and bruises if applied directly{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "atd1": {
-        "name": "Herbal Antidote"
+        "name": "Herbal Antidote",
+        "desc": "Bundle of certain common herbs, mixed together. Tastes incredibly bitter, but helps to detoxify blood from containments{separator}<span style='color:lime'> Neautralizes the effects of weak poisons </span>"
       },
       "psnwrd": {
-        "name": "Poison Ward"
+        "name": "Poison Ward",
+        "desc": "Solution developed to protect residents from diseases during times of plague{separator}<span style='color:lime'> Grants invulnerability to poisons for a few hours </span>"
       },
       "hlpd": {
-        "name": "Low-grade Healing Powder"
+        "name": "Low-grade Healing Powder",
+        "desc": "Finely crushed cure grass. Used as a base to make weak medicine{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "smm": {
-        "name": "Stomach Medicine"
+        "name": "Stomach Medicine",
+        "desc": "Mixture of ginger, bittervine,  and other herbs. Destroys toxins in one's body{separator}<span style='color:lime'> Alliviates food poisoning </span>"
       },
       "sp1": {
-        "name": "Low-grade Spirit Pill"
+        "name": "Low-grade Spirit Pill",
+        "desc": "Tiny cheap spirit pill, made from condensed Ki. Lowest type, given to weak people and children to nourish their bodies.{separator}<span style='color:orange'> Grants +500 EXP </span>"
       },
       "sp2": {
-        "name": "Mid-grade Spirit Pill"
+        "name": "Mid-grade Spirit Pill",
+        "desc": "Small cheap spirit pill, made from condensed Ki. Developed to help young martial artists to go through their training{separator}<span style='color:orange'> Grants +2500 EXP </span>"
       },
       "sp3": {
-        "name": "High-grade Spirit Pill"
+        "name": "High-grade Spirit Pill",
+        "desc": "Small spirit pill, made from condensed Ki. Given to young warriors as energy supplement{separator}<span style='color:orange'> Grants +15000 EXP </span>"
       },
       "lsrd": {
-        "name": "Life Shard"
+        "name": "Life Shard",
+        "desc": "A fragment of living energy, trapped within a crystallic shell. Absorbing these slightly increases lifespan{separator}<span style='color:hotpink'> Increases HP by +2 permanently </span>"
       },
       "hptn1": {
-        "name": "Lesser Healing Potion"
+        "name": "Lesser Healing Potion",
+        "desc": "Weakest healing potion you can possibly find. Nearly useless for actual healing, but can act as a headache reliever{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "lckl": {
-        "name": "Lucky Clover"
+        "name": "Lucky Clover",
+        "desc": "Clover of the rare breed. Whoever is able to find even one will be blessed by the Gods of Luck{separator}<span style=\"color: red\">L</span><span style=\"color: orange\">U</span><span style=\"color: gold\">C</span><span style=\"color: YELLOW\">K +1</span>"
       },
       "wstn1": {
-        "name": "Grey Whetsone"
+        "name": "Grey Whetsone",
+        "desc": "Cheap and crude piece of whetstone. Not nearly good enough to maintain the life of a weapon, you can at least scrap off dirt and blood with it{separator}<span style=\"color: lightgreen\">Repairs equipped Weapon for <span style=\"color: lime\">+2 DP</span></span>"
       },
       "bdgh": {
-        "name": "Bandage"
+        "name": "Bandage",
+        "desc": "Clean piece of thin sturdy cloth, perfect for wrapping and securing open wounds{separator}<span style=\"color:lime\">Somewhat stops bleeding</span>"
       },
       "amshrm": {
-        "name": "Asura Mushroom"
+        "name": "Asura Mushroom",
+        "desc": "The ultimate mushroom of the mushroom world. Eating it makes you feel a mysterious kind of vitality{separator}<span style=\"color: springgreen\">Permanently increases STR by +5</span>"
       },
       "akhrb": {
-        "name": "Aspha Herb"
+        "name": "Aspha Herb",
+        "desc": "Diet-oriented vegetable with misleading effect. It was such a terrible taste and bitter texture that no one would willingly eat them{separator}<span style=\"color: orange\">Makes you feel bad</span>"
       },
       "cndl": {
         "name": "Candle",
         "desc": "A tall wax candle, made to burn for a very long time"
       },
       "incsk": {
-        "name": "Incense Stick"
+        "name": "Incense Stick",
+        "desc": "A stick of aromatic incense. It calms your soul and mind{separator}<span style=\"color: skyblue\">Doubles meditation gain<br>Doubles cultivation gain</span>"
       },
       "sp0a": {
-        "name": "Spirit Opening Powder"
+        "name": "Spirit Opening Powder",
+        "desc": "Powder refined from blood of the wyrm. Has potential to improve internal energy{separator}<span style='color:orange'> Grants +95000 EXP </span><br><span style='color:deeppink'>EXP Gain +1%</span>"
       },
       "smkbmb": {
-        "name": "Smoke Bomb"
+        "name": "Smoke Bomb",
+        "desc": "Pellets that release thick smog when crushed. Can create a smokescreen to help you escape from danger{separator}<span style='color:springgreen'>Bypasses current enemy</span>"
       },
       "svial1": {
         "name": "Skeleton Vial",
         "desc": "Summons a lvl 10 Skeleton"
       },
       "mpwdr": {
-        "name": "Monster Powder"
+        "name": "Monster Powder",
+        "desc": "Dried and grounded sunbloom mixed with red salts, it emits aura often mistaken for soul energy that attracts nearby creatures<br>{separator}<span style='color:seagreen'>Increases area size by 5</span>"
       },
       "smbpll": {
-        "name": "Slumber Pill"
+        "name": "Slumber Pill",
+        "desc": "Pill with a strong sedative effect. Normally used by sick and old people to treat insomnia, if they can afford it. Has other uses if you are creative enough{separator}<span style='color:lightgrey'>Makes you sleep through 18 hours in an instant</span>"
       },
       "lifedr": {
-        "name": "Life Drop"
+        "name": "Life Drop",
+        "desc": "A single drop of revitalizing liquid. Consuming even such a meager amount has a miraclous effect on the lifeforce of a mortal{separator}<span style='color:hotpink'> Increases HP by +40 permanently </span><br><span style='color:lime'>HP growth rate +2%</span>"
       },
       "mnblm": {
-        "name": "Moonbloom"
+        "name": "Moonbloom",
+        "desc": "A yellow flower which is said to bud on new moons. The flower' nectar is the favourite of spirits and is effective for recovering from exhaustion, but only by refining it into a pill or elixir is it possible to draw out its full potential, which makes it prized by alchemists{separator}<span style='color:hotpink'> Increases SAT by +2 permanently </span>"
       },
       "hptn2": {
-        "name": "Minor Healing Potion"
+        "name": "Minor Healing Potion",
+        "desc": "Healing potion with weak healing powers. It is usually used by commoners as first aid before deciding whether to go see a doctor or not{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "hptn3": {
-        "name": "Healing Potion"
+        "name": "Healing Potion",
+        "desc": "Startand healing potion of common quality. It can heal wounds, bruises, burns, sprains and other minor injuries. Novice adventurers and hunters should carry a few of these at all times{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "hptn4": {
-        "name": "Major Healing Potion"
+        "name": "Major Healing Potion",
+        "desc": "Potions given to the knights in times of war. Can heal moderate wounds and dull out the pain. These potions sneak their way into the market by all kinds of illegal means, yet actually selling them isn't prohibited{separator}Restores<span style='color:lime'> {val} </span>health"
       },
       "lsstn": {
-        "name": "Life Stone"
+        "name": "Life Stone",
+        "desc": "Life vessel that lost its energy and became impure, now looks like an ordinary small pebble and serves very little purpose. Can be absorbed for minor health benefits{separator}<span style='color:hotpink'> Increases HP by +25 permanently </span>"
       },
       "bltrt": {
-        "name": "Bloat Root"
+        "name": "Bloat Root",
+        "desc": "Unremarkable looking grey root that is bland and tasteless, but eating it makes you feel full. It doesn't seem to have any other qualities, hovewer{separator}Restores<span style='color:lime'> 100 </span>energy"
       },
       "feip1": {
         "name": "Fei Pill",
         "desc": "When an alchemist miserably fails to produce a pill, this waste is created. Compound of ruined medical materials is full of poison and impurities, it can be used to kill those with weak constitution. However, it is not useless, and can be absorbed for raw ki if one endures the pain and survives after consuming it"
       },
       "stthbm1": {
-        "name": "Morgia"
+        "name": "Morgia",
+        "desc": "Herb of might. This fiery herb is rumored to improve muscle density{separator}<span style=\"color: springgreen\">Permanently increases STR by +1</span>"
       },
       "stthbm2": {
-        "name": "Springsweed"
+        "name": "Springsweed",
+        "desc": "Herb of swiftness. Loved by Serpents, this herb slightly raises one's reaction time{separator}<span style=\"color: springgreen\">Permanently increases SPD by +1</span>"
       },
       "stthbm3": {
-        "name": "Clearbane"
+        "name": "Clearbane",
+        "desc": "Herb of clarity. This herb is often used in making of high quality incense{separator}<span style=\"color: springgreen\">Permanently increases INT by +1</span>"
       },
       "stthbm4": {
-        "name": "Drakevine"
+        "name": "Drakevine",
+        "desc": "Herb of flexibility. There are rumors of an old hermit growing these herbs under the hidden mountain{separator}<span style=\"color: springgreen\">Permanently increases AGL by +1</span>"
       },
       "bmsmktt": {
         "name": "Smoke Pellet Cluster",
         "desc": "Repurposed smoke bomb, made by concentrating multiple volatile components together, making the moke several times more hazardous, but not enough to cause real damage to a living person. Since the ignition period from such a modification is much longer, it has fewer uses than a regular smoke bomb"
       },
       "appl": {
-        "name": "Apple"
+        "name": "Apple",
+        "desc": "Juicy red fruit. Makes a fine breakfast if you have nothing else...{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brd": {
-        "name": "Bread"
+        "name": "Bread",
+        "desc": "Simple loaf of bread, baked with care. It's crunchy and smells nice{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "crrt": {
-        "name": "Carrot"
+        "name": "Carrot",
+        "desc": "It gets very sweet when boiled{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "potat": {
-        "name": "Potato"
+        "name": "Potato",
+        "desc": "Universal vegetable that can be prepared in hundreds different ways{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "eggn": {
-        "name": "Egg"
+        "name": "Egg",
+        "desc": "Whole chicken egg, very nutritious{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mlkn": {
-        "name": "Milk"
+        "name": "Milk",
+        "desc": "Power potion for your bones{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rwmt1": {
-        "name": "Raw Meat"
+        "name": "Raw Meat",
+        "desc": "Edible part of some animal, has to be cooked before consumption{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rice": {
-        "name": "Rice"
+        "name": "Rice",
+        "desc": "Clean rice grains. Healthy and delicious when cooked, but awful to eat in dry state{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "borc": {
-        "name": "Steamed Rice"
+        "name": "Steamed Rice",
+        "desc": "Fluffy rice. Simple dish that tastes good{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "begg": {
-        "name": "Boiled Egg"
+        "name": "Boiled Egg",
+        "desc": "Hard/soft-boiled egg, you aren't sure. Will fill you up either way{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "kit": {
-        "name": "Kikatsugan"
+        "name": "Kikatsugan",
+        "desc": "Ninja ration consisting mostly of cereals that, according to esoteric scrolls, <span style='color:orange'>\"Could sustain one in both mind and body with only three grains per day\"</span>{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bac": {
-        "name": "Bacon"
+        "name": "Bacon",
+        "desc": "The food of kings{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bgt": {
-        "name": "Baguette"
+        "name": "Baguette",
+        "desc": "A very long bread{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bhd": {
-        "name": "Hardtack"
+        "name": "Hardtack",
+        "desc": "A dry and virtually tasteless bread product capable of remaining edible without spoilage for vast lengths of time{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "spb": {
-        "name": "Spoiled Bread"
+        "name": "Spoiled Bread",
+        "desc": " Piece of old stale bread covered in mold. Takes courage to eat{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wsb": {
-        "name": "Wastebread"
+        "name": "Wastebread",
+        "desc": "When flour becomes a commodity to deal with, wayfarers and the poor resort to mix it with leftovers of other ingredients and bake it all into bread{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "onn": {
-        "name": "Onion"
+        "name": "Onion",
+        "desc": "Vegetable cultivated since ancient times. Enhances the dish in various ways, also makes you cry{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sgr": {
-        "name": "Sugar"
+        "name": "Sugar",
+        "desc": "Sweet little crystals. Kids love treats made out of them{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wht": {
-        "name": "Wheat"
+        "name": "Wheat",
+        "desc": "Raw wheat. While not very tasty, powder made out of them is the main ingredient in breadmaking{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "tmt": {
-        "name": "Tomato"
+        "name": "Tomato",
+        "desc": "Soursweet juicy edible, has many uses in cooking. Rumored to be poisonous{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cbg": {
-        "name": "Cabbage"
+        "name": "Cabbage",
+        "desc": "Crisp layered vegetable. Used in variety of dishes{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mshr": {
-        "name": "Mushroom"
+        "name": "Mushroom",
+        "desc": "Common edible mushroom. When cooked with the right ingredients, the flavour of this mushroom is not so common{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bnn": {
-        "name": "Banana"
+        "name": "Banana",
+        "desc": "Fruit full of potassium. Originaly cultivated as staple food, but eventually gained popularity{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wbrs": {
-        "name": "Wild Berries"
+        "name": "Wild Berries",
+        "desc": "Wide selection of various edible berries collected from the forest{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "strwb": {
-        "name": "Strawberry"
+        "name": "Strawberry",
+        "desc": "Heap of plump red berries. They are sweet and popular with children and royalty{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "orng": {
-        "name": "Orange"
+        "name": "Orange",
+        "desc": "Fragnant citruis, can be either sour or sweet depending where it was cultivated{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ches": {
-        "name": "Cheese"
+        "name": "Cheese",
+        "desc": "Fermented cow milk. Despite having strong smell it is a tasty and popular product. Can be eaten raw{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ltcc": {
-        "name": "Lettuce"
+        "name": "Lettuce",
+        "desc": "Watery leaves, usually used in salads{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brly": {
-        "name": "Barley"
+        "name": "Barley",
+        "desc": "Grainy cereal used for malting. A staple of brewing everywhere. It can also be ground into flour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "grlc": {
-        "name": "Garlic"
+        "name": "Garlic",
+        "desc": "A pungent garlic, popular as a seasoning for its strong flavor{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "pmpk": {
-        "name": "Pumpkin"
+        "name": "Pumpkin",
+        "desc": "A large vegetable, about the size of your head. Not very tasty raw, but is great for cooking{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "lmn": {
-        "name": "Lemon"
+        "name": "Lemon",
+        "desc": "Very sour citrus. Can be eaten if you really want{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "grp": {
-        "name": "Grapes"
+        "name": "Grapes",
+        "desc": "A cluster of juicy grapes. If you ferment them they'll turn into wine{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "pnpl": {
-        "name": "Pineapple"
+        "name": "Pineapple",
+        "desc": "A large, spiky pineapple. A bit sour, though{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rsmt": {
-        "name": "Roasted Meat"
+        "name": "Roasted Meat",
+        "desc": "Simple slab of meat, roasted on an open fire without any seasoning. Tastes pretty good nonetheless{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "tbrwd": {
-        "name": "Tea"
+        "name": "Tea",
+        "desc": "The beverage of gentlemen everywhere, made from applying hot water to leaves of the tea plant. Often used during the ceremonies as a social supplement{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "htbrwd": {
-        "name": "Herbal Tea"
+        "name": "Herbal Tea",
+        "desc": "Healthy beverage brewed from various herbs, has a powerful relaxation effect{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "segg": {
-        "name": "Scrambled Eggs"
+        "name": "Scrambled Eggs",
+        "desc": "Fluffy and delicious scrambled eggs{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "irntl": {
-        "name": "Indigo Rantil"
+        "name": "Indigo Rantil",
+        "desc": "Wierd wine mixed with whiskey and rum{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wine1": {
-        "name": "One-year Wine"
+        "name": "One-year Wine",
+        "desc": "Barely reached the standard, maybe you should keep it for longer{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wines1": {
-        "name": "Valens"
+        "name": "Valens",
+        "desc": "A Celtic red wine with delicate, yet robust, flavour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wines2": {
-        "name": "Prudens"
+        "name": "Prudens",
+        "desc": "The most elegant red wine, with gentle flavour and bouquet{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wines3": {
-        "name": "Volare"
+        "name": "Volare",
+        "desc": "A Celtic white wine known for its honey-like fragrance{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wines4": {
-        "name": "Audentia"
+        "name": "Audentia",
+        "desc": "A Celtic quality sweet wine allowed to age to perfection{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wines5": {
-        "name": "Virtus"
+        "name": "Virtus",
+        "desc": "A sparkling wine made from a blend of three grapes{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "acrn": {
-        "name": "Acorn"
+        "name": "Acorn",
+        "desc": "A handful of acorns, still in their shells. Squirrels like them, but they're not very good for you to eat in this state{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wine2": {
-        "name": "Three-year Wine"
+        "name": "Three-year Wine",
+        "desc": "Delicious wine kept for more than 3 years{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "winec1": {
-        "name": "Cheap Red Wine"
+        "name": "Cheap Red Wine",
+        "desc": "Very rough wine made from fermeted fruit{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "winec2": {
-        "name": "Cheap White Wine"
+        "name": "Cheap White Wine",
+        "desc": "Light wine, prepared only recently{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ske": {
-        "name": "Sake"
+        "name": "Sake",
+        "desc": "Eastern rice wine, popular past-time drink{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "pske": {
-        "name": "Premium Sake"
+        "name": "Premium Sake",
+        "desc": "Rich Sake with strong foundation, flavorful and fragnant. Valued in high society for its presige status{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cbun1": {
-        "name": "Steamed Bun"
+        "name": "Steamed Bun",
+        "desc": "Plain round bun, very soft and filling{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cbun2": {
-        "name": "Red Bean Bun"
+        "name": "Red Bean Bun",
+        "desc": "Bun with red beans added to it, resulting in rich flavour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cbun3": {
-        "name": "Pork Bun"
+        "name": "Pork Bun",
+        "desc": "Delicious treat with pork meat inside of it, fine addition to your dinner{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "scak": {
-        "name": "Strawberry Shortcake"
+        "name": "Strawberry Shortcake",
+        "desc": "Sweet cake with cream and strawberries, has a soft texture and melts in your mouth{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "atrt": {
-        "name": "Apple Tart"
+        "name": "Apple Tart",
+        "desc": "Crunchy small cake baked with apples{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "strt": {
-        "name": "Strawberry Tart"
+        "name": "Strawberry Tart",
+        "desc": "Sweet pastry with strawberries added on top{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ccak": {
-        "name": "Cheesecake"
+        "name": "Cheesecake",
+        "desc": "Delicious sweet dessert prepared in multiple layers. With fruit jam on top!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "icrm": {
-        "name": "Ice Cream"
+        "name": "Ice Cream",
+        "desc": "A sweet, frozen food made of milk with rich amounts of sugar. Gets very popular during Summer{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "lnch1": {
-        "name": "Bacon and Eggs"
+        "name": "Bacon and Eggs",
+        "desc": "Breakfast of choice and a part of your morning ritual, very filling{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "lnch2": {
-        "name": "Morning Set"
+        "name": "Morning Set",
+        "desc": "Eggs and toast. Goes best with Coffee{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "lnch3": {
-        "name": "Lunch Set"
+        "name": "Lunch Set",
+        "desc": "Hefty combination of meat, eggs and a toast.{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "orgs": {
-        "name": "Onion Rings"
+        "name": "Onion Rings",
+        "desc": "Golden slices of onion, buttered and fried in flour. Crunchy!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fsh1": {
-        "name": "Fish"
+        "name": "Fish",
+        "desc": "Freshly caught fish. Makes a passable meal raw{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fsh2": {
-        "name": "Fish Fillet"
+        "name": "Fish Fillet",
+        "desc": "The fillet of fish, ready to be cooked{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ffsh1": {
-        "name": "Cooked Fish"
+        "name": "Cooked Fish",
+        "desc": "Evenly fried delicious fish. It has a very deicious aroma{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ffsh2": {
-        "name": "Batter Fried Fish"
+        "name": "Batter Fried Fish",
+        "desc": "A delicious golden brown serving of crispy fried fish{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ssm": {
-        "name": "Sashimi"
+        "name": "Sashimi",
+        "desc": "Little fish slices, served with tangly dip sauce{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dssm": {
-        "name": "Deluxe Sashimi"
+        "name": "Deluxe Sashimi",
+        "desc": "Delicious slivers of thinly sliced raw fish and tasty vegetables{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mkzs": {
-        "name": "Makizushi"
+        "name": "Makizushi",
+        "desc": "Delicious fish slices wrapped in tasty sushi rice and rolled up in a healthy nori{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "nori": {
-        "name": "Nori"
+        "name": "Nori",
+        "desc": "Pages of dried seaweed, very healthy and tastes like ocean{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fnori": {
-        "name": "Fried Nori"
+        "name": "Fried Nori",
+        "desc": "Sheets of nori friend with salt, giving it an entirely new taste. An incredibly delicios and popular snack{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "swtch1": {
-        "name": "Sandwich"
+        "name": "Sandwich",
+        "desc": "Two peices of bread and a slice of cheese inbetween. Simple and tasty{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jll": {
-        "name": "Jelly"
+        "name": "Jelly",
+        "desc": "Should you really be eating this stuff?{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "flr": {
-        "name": "Flour"
+        "name": "Flour",
+        "desc": "This enriched white flour is useful for baking{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "pcns": {
-        "name": "Pine Nuts"
+        "name": "Pine Nuts",
+        "desc": "A handful of tasty crunchy nuts from a pinecone{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dgh": {
-        "name": "Dough"
+        "name": "Dough",
+        "desc": "Flour mixed with water, kneaded into a gooey paste.  This dough can be used to bake bread more efficiently than with just flour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "hzlnt": {
-        "name": "Hazelnuts"
+        "name": "Hazelnuts",
+        "desc": "Popular forest nuts, still in their shells. They smell like the woods they come from{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "hpck": {
-        "name": "Hippo Cookie"
+        "name": "Hippo Cookie",
+        "desc": "Soft cookies in a shape of a cute hippo, baked with milk and hazelnuts. Very popular with children and adults alike{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dfrt": {
-        "name": "Dried Fruit"
+        "name": "Dried Fruit",
+        "desc": "Fruit roughly chopped and sun-dried, prepared as marching rations for the rangers{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brdb": {
-        "name": "Burnt Bread"
+        "name": "Burnt Bread",
+        "desc": "Completely ruined and unappetizing loaf of charred bread. You can still eat it, but you probably won't enjoy it{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "spcn": {
-        "name": "Soft Windflower"
+        "name": "Soft Windflower",
+        "desc": "Wild vegetable that goes well with meat. {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "hney": {
-        "name": "Honey"
+        "name": "Honey",
+        "desc": "Sweet sticky syrup that bees make. Can be turned into candy, but also very good by itself{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brise": {
-        "name": "Bad Rice"
+        "name": "Bad Rice",
+        "desc": "Old spoiled rice that's gone bad and turned yellow. Desperate food{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "steak": {
-        "name": "Steak"
+        "name": "Steak",
+        "desc": "Quality steak seared to perfection with a sprinkle of salt and generous twist of pepper. The delicious aroma is enough to make you drool{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "spc1": {
-        "name": "Black Pepper"
+        "name": "Black Pepper",
+        "desc": "Small black berries with pungent aroma. Perfect for spicing food up{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cnmn": {
-        "name": "Cinnamon"
+        "name": "Cinnamon",
+        "desc": "Bark sticks from the Cinnamon tree. Fragnant and good for your health{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bttr": {
-        "name": "Butter"
+        "name": "Butter",
+        "desc": "Small brick of creamy butter, made from churned cow milk {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cnmnb": {
-        "name": "Cinnamon Bun"
+        "name": "Cinnamon Bun",
+        "desc": "Fluffy sweet pastry bun with aromatic cinnamon powder sprinkled on top of it. Rare treat everyone can enjoy {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brth": {
-        "name": "Broth"
+        "name": "Broth",
+        "desc": "Tasty and healthy meat broth. Used mainly for cooking soups, but can be consumed as is{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "eggsp": {
-        "name": "Egg Soup"
+        "name": "Egg Soup",
+        "desc": "Popular soup made from delicious broth and eggs. It's a great meal to start your day with{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "scln": {
-        "name": "Scallion"
+        "name": "Scallion",
+        "desc": "Green scallions, also known as spring onions. Slightly spicy and fragnant, they help to bring out the taste of the soups{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "crmchd": {
-        "name": "Creamy Chowder"
+        "name": "Creamy Chowder",
+        "desc": "Delicious meat howder with milk, cheese and potato flakes. You can practically taste the chef's skill{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "chklt": {
-        "name": "Chocolate"
+        "name": "Chocolate",
+        "desc": "Ground cacao beans solidified into a sweet, tasty treat{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fegg": {
-        "name": "Fried Egg"
+        "name": "Fried Egg",
+        "desc": "An egg, simply fried as is. It's pretty good{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "crn": {
-        "name": "Corn"
+        "name": "Corn",
+        "desc": "Golden kernels, attached to a cob. Practically inedible like this{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bcrn": {
-        "name": "Butter Corn"
+        "name": "Butter Corn",
+        "desc": "Golden brown corn fried in generous amount of butter. Very tasty{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "pcrn": {
-        "name": "Popcorn"
+        "name": "Popcorn",
+        "desc": "Corn kernels, roasted under high heat. They make a *pop* sound and explode into little edible clouds{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cpcrn": {
-        "name": "Salted Popcorn"
+        "name": "Salted Popcorn",
+        "desc": "Regular popcorn, but slightly salted for extra taste{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fbrd": {
-        "name": "Flatbread"
+        "name": "Flatbread",
+        "desc": "Primitive unleavened bread{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "gcce": {
-        "name": "Ginger Cookie"
+        "name": "Ginger Cookie",
+        "desc": "Spiced cookies baked from a batter of flour, molasses and ginger powder{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bcrc": {
-        "name": "Bone Cracker"
+        "name": "Bone Cracker",
+        "desc": "Bones of some kind, baked until crisp{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "snkb": {
-        "name": "Snack Bar"
+        "name": "Snack Bar",
+        "desc": "Fruit, sugar, and grain meal mixed and molded before being backed into a stcik-shaped pastry{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dmtp": {
-        "name": "Deluxe Meat Pie"
+        "name": "Deluxe Meat Pie",
+        "desc": "Premium pie with abudance of various meats, best eaten hot! Extremely filling{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "lkmc": {
-        "name": "Lokum"
+        "name": "Lokum",
+        "desc": "Grain meal cooked down, mixed with mashed fruits and then cooled to produce a soft candy{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "vgsn": {
-        "name": "Vegetable Sandwich"
+        "name": "Vegetable Sandwich",
+        "desc": "A sandwich with sliced cucumber filling. Tastes slightly bland{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "stgp": {
-        "name": "Stargazing Pie"
+        "name": "Stargazing Pie",
+        "desc": "A pie containing a whole fish romantically gazing up at the stars{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "tdpps": {
-        "name": "Tallow Drops"
+        "name": "Tallow Drops",
+        "desc": "Nourishing tallow, molded into lozenges. Subtly sweet{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "chstn": {
-        "name": "Chestnuts"
+        "name": "Chestnuts",
+        "desc": "Delicious acorns which release more flavour the more one chews on them{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "prfd": {
-        "name": "Prison Food"
+        "name": "Prison Food",
+        "desc": "This jail level delicacy is nutritious, generously portioned and inexpensive. But it doesn't taste good{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "brmt": {
-        "name": "Burnt Meat"
+        "name": "Burnt Meat",
+        "desc": "Coal-looking overcooked chunk of meat. Mildly nutritious but awful to eat{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mbsps": {
-        "name": "Mebaspa Sandwich"
+        "name": "Mebaspa Sandwich",
+        "desc": "Ordinary bread with meatballs and spaghetti put in it, it's extremely high on cholesterol. Weird skeleton kid invented this dish{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "spgt": {
-        "name": "Spaghetti and Meatballs"
+        "name": "Spaghetti and Meatballs",
+        "desc": "Long noodles with meat and meatsauce. Renown food from some far off land{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mnj1": {
-        "name": "Manjū"
+        "name": "Manjū",
+        "desc": "Popular traditional eastern confection, kneaded boiled bun with the variety of sweet fillings within in{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mnj2": {
-        "name": "Alcoholic Manjū"
+        "name": "Alcoholic Manjū",
+        "desc": "Manjū bun with delicious sake added to it{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ntea1": {
-        "name": "Landen Flower Tea"
+        "name": "Landen Flower Tea",
+        "desc": "Rare herbal tea created by a talented pharmacist. It calms and relaxes those who drink it.{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jrk1": {
-        "name": "Beef Jerky"
+        "name": "Beef Jerky",
+        "desc": "Perfectly dried strips of meat. The taste is not bad, this jerky can be kept edible for years{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jrk2": {
-        "name": "Spicy Jerky"
+        "name": "Spicy Jerky",
+        "desc": "Valuable jerky, enriched and improved. Salted and spiced into a filling and tasty travel food{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ongr": {
-        "name": "Onigiri"
+        "name": "Onigiri",
+        "desc": "A simple portable food consisting of cooked rice rolled into a ball and seasoned with salt{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rbmb": {
-        "name": "Rice Bomb"
+        "name": "Rice Bomb",
+        "desc": "A grilled onigiri with a miso-ginger glaze that creates explosion of flavour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mchii": {
-        "name": "Mochi"
+        "name": "Mochi",
+        "desc": "Dumpling made with kneaded mochi rice flour{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mchai": {
-        "name": "Kuzumochi"
+        "name": "Kuzumochi",
+        "desc": "Variation of mochi, made by glazing grilled rice flour with kudzu sauce{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "igum": {
-        "name": "Ice Gummy"
+        "name": "Ice Gummy",
+        "desc": "A refreshing snack made from larvae suspended in fruit juice gelatin{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "msoop": {
-        "name": "Mushroom Soup"
+        "name": "Mushroom Soup",
+        "desc": "Refreshing soup made of chopped mushrooms, potatoes and onions boiled together{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rmn1": {
-        "name": "Chashu Ramen"
+        "name": "Chashu Ramen",
+        "desc": "This ramen features fresh soy sauce broth and deliciously textured chashu pork {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rmn2": {
-        "name": "Miso Ramen"
+        "name": "Miso Ramen",
+        "desc": "Miso and pork mixed with spicy vegetables makes for a succulent soup you'd want to eat again{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rmn3": {
-        "name": "Tonkotsu Ramen"
+        "name": "Tonkotsu Ramen",
+        "desc": "This delicious tonkotsu ramen is a rich pork-infused soup made from finest ingredients{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sqdyak": {
-        "name": "Squid Yakisoba"
+        "name": "Squid Yakisoba",
+        "desc": "Tender, delicious yakisoba noodles are combined with tasty squid making a filling and enjoyable meal{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mtbeer": {
-        "name": "Malt Beer"
+        "name": "Malt Beer",
+        "desc": "This beer has a pleasant aftertaste and depth of flavor that only 100% barley malts can provide{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dbeer": {
-        "name": "Draft Beer"
+        "name": "Draft Beer",
+        "desc": "A medium-sized mug of draft beet that many like to start with. Its creamy head and crisp taste are perfect after a day of hard work {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ootee": {
-        "name": "Oolong Tea"
+        "name": "Oolong Tea",
+        "desc": "Oolong tea, famous for its thick, rich flavor and light aftertaste, is the quintessential non-alcoholic drink. Enjoy its exquisite fragrance and flavor{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "krcsal": {
-        "name": "Kotchori Salad"
+        "name": "Kotchori Salad",
+        "desc": "Kotchori salad brimming with eastern bunching onions! The peppery dressing drizzled on top and pungent onion flavor match all manners of drings{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "emdm": {
-        "name": "Edamame"
+        "name": "Edamame",
+        "desc": "These soybeans in a pod are pretty much the default snack when drinking{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "skplt": {
-        "name": "Skewer Platter"
+        "name": "Skewer Platter",
+        "desc": "A plate of five different skewers. The secret to their popularity is the special spicy miso{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "skwre": {
-        "name": "Eastern Chicken Skewer"
+        "name": "Eastern Chicken Skewer",
+        "desc": "Chicken sourced from domestic farms makes for a firm, juicy kebab with unique richness of flavor{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "smfro": {
-        "name": "Smelt Fish with Roe"
+        "name": "Smelt Fish with Roe",
+        "desc": "The burst of flavor from the roe with over many who try this perfectly grilled with delicacy{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "fsqdnr": {
-        "name": "Fried Squid with Nori"
+        "name": "Fried Squid with Nori",
+        "desc": "A dish found on the meny of many izakaya. Fans can never get enough of the nori fragrance and firm squid flesh{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sltyak": {
-        "name": "Salted Yakisoba"
+        "name": "Salted Yakisoba",
+        "desc": "This addictive yakisoba dish mixes a rich, salty sauce with piquant eastern onions, and can be eaten as a meal or a snack with drinks{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jcmncc": {
-        "name": "Juicy Mince Cutlet"
+        "name": "Juicy Mince Cutlet",
+        "desc": "This popular mince cutlet is packed with meaty goodness that fills your mouth each time you take a bite{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sbeanf": {
-        "name": "Stir-Fried Bean Sprouts"
+        "name": "Stir-Fried Bean Sprouts",
+        "desc": "A simple dish taht cahmpiions the humble bean sprout, accented with a peppery punch. Once you start earing it, it's hard to put down{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "mgpch": {
-        "name": "Mango & Peach Sherbet"
+        "name": "Mango & Peach Sherbet",
+        "desc": "No matter how much you've already eaten, it's always seary to make room for this tropical sherbet dessert{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "maitake": {
-        "name": "Maitake"
+        "name": "Maitake",
+        "desc": "Maitake mushrooms are a delectable addition to hotpots{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "odens": {
-        "name": "Oden Soup"
+        "name": "Oden Soup",
+        "desc": "There is more than enough of this piping hot oden assortment to satisfy your hunger. Perfect for a colkd winter evening{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "onign1": {
-        "name": "Seaweed Onigiri"
+        "name": "Seaweed Onigiri",
+        "desc": "Seaweed boiled in soy sauce is in the center of this onigiri{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "onign2": {
-        "name": "Tuna Onigiri"
+        "name": "Tuna Onigiri",
+        "desc": "This nigiri has tuna dressing with maynnaise in the middle{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "onign3": {
-        "name": "Salmon Onigiri"
+        "name": "Salmon Onigiri",
+        "desc": "Old standard salmon onigiri, belowed by old and young for generations{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "syakis": {
-        "name": "Special Yakisoba"
+        "name": "Special Yakisoba",
+        "desc": "Yakisoba with cabbage and pork. The smell of the sauce is mouth-watering{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "kkbin": {
-        "name": "Kakubin"
+        "name": "Kakubin",
+        "desc": "The most popular whisky in the East. It has a sweet aroma and is thick on the palate, with a smooth, rich taste{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "blsho": {
-        "name": "Barley Shochu"
+        "name": "Barley Shochu",
+        "desc": "This barley shochy has a dry state popular with experienced drinkers{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "scwhi": {
-        "name": "Scotch Whisky"
+        "name": "Scotch Whisky",
+        "desc": "This whisky has a high alcohol content, so be careful not to drink too much{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cham1": {
-        "name": "Satoyu Champon"
+        "name": "Satoyu Champon",
+        "desc": "The flavors of Satoyu condensed into one dish. The rich soup is made with fresh vegetables and a wealth of of ohter ingredients{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cham2": {
-        "name": "Vegetable Champon"
+        "name": "Vegetable Champon",
+        "desc": "This dish features seven different vegetables, and contains double the cabbage, bean sprouts, and onionof the standard champion{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cham3": {
-        "name": "Spicy Champon"
+        "name": "Spicy Champon",
+        "desc": "Eye-popping champon with homemade spicy miso{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "cham4": {
-        "name": "Light Champon"
+        "name": "Light Champon",
+        "desc": "A small serving of champon that is popular with women. Just the thing when you are only a little hungry{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sudon1": {
-        "name": "Satoyu Saraudon"
+        "name": "Satoyu Saraudon",
+        "desc": "Extra thin, crispy deep-fried noodles packed with flavor, and topped with vegetable in a thick, silky sauce that melts in your mouth {separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sudon2": {
-        "name": "Vegetable Saraudon"
+        "name": "Vegetable Saraudon",
+        "desc": "A sister dish to the popular Vegetable Champon. Eat it with a dressing of your choice{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sudon3": {
-        "name": "Thick Saraudon"
+        "name": "Thick Saraudon",
+        "desc": "Soft, thisk, flavorsome noodle make for a filling treat. Big plate is enough to satiate you for a whole day!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sudon4": {
-        "name": "Light Saraudon"
+        "name": "Light Saraudon",
+        "desc": "A small plate of udon that hits the spot when you feel like a snack{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "goza": {
-        "name": "Gyoza"
+        "name": "Gyoza",
+        "desc": "Fried dumplings with a rich meat filling. The skin has rice flour blended in for amazing crispiness{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "dfrch": {
-        "name": "Deep Fried Chicken"
+        "name": "Deep Fried Chicken",
+        "desc": "Fried chicken made with thigh meat. it's crunchy on the outside and juicy in the middle. Finger-smacking good!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ynasl": {
-        "name": "Yuona Salad"
+        "name": "Yuona Salad",
+        "desc": "Thin, deep-fried noodles topped with dressing and fresh vegetables{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ramen1": {
-        "name": "Shoyu Ramen"
+        "name": "Shoyu Ramen",
+        "desc": "Famous shoyu ramen. Thick soba noodles in the soy sauce based soup, improved with rich selection of vegetables. Delicious!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ramen2": {
-        "name": "Negi Ramen"
+        "name": "Negi Ramen",
+        "desc": "Classic shoyu ramen topped with piquant eastern onions{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ramen3": {
-        "name": "Chashu Ramen"
+        "name": "Chashu Ramen",
+        "desc": "Tasty ramen topped with succulent, thin slices of roast pork{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ramen4": {
-        "name": "Negi Chashu Ramen"
+        "name": "Negi Chashu Ramen",
+        "desc": "This exquisit ramen features a hefty helping of spicy eastern onions and slices of roast pork{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bffbl": {
-        "name": "Beef Bowl"
+        "name": "Beef Bowl",
+        "desc": "A hearty beef bowl made with top quality eastern beef{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sposs": {
-        "name": "Sweet Potato Shochu"
+        "name": "Sweet Potato Shochu",
+        "desc": "A sweet potato shochu that succeeds in bringing out the flavors of its ingredients{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban1": {
-        "name": "Soba in Hot Broth"
+        "name": "Soba in Hot Broth",
+        "desc": "This house classic features freshly-boiled soba noodles served in a piping hot homemade soup{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban2": {
-        "name": "Chilled Soba"
+        "name": "Chilled Soba",
+        "desc": "Delicious soba noodles rinsed in water after cooking to stop them becoming too soft, served with a special dipping sauce{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban3": {
-        "name": "Chilled Tanuki Soba"
+        "name": "Chilled Tanuki Soba",
+        "desc": "Freshly cooked soba noodles topped with chilled sauce and bits of fried tenpura batter. This is a firm favourite among population{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban4": {
-        "name": "Chilled Kitsune Soba"
+        "name": "Chilled Kitsune Soba",
+        "desc": "Freshly cooked soba noodles topped with chilled sauce and house made fried tofu cut into easy-to-eat pieces{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban5": {
-        "name": "Egg & Tenpura Soba"
+        "name": "Egg & Tenpura Soba",
+        "desc": "Hot soba noodles served with soft-boiled egg and vegetable tenpura. This dish is a perennial favorite{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban6": {
-        "name": "Special Fuji Soba"
+        "name": "Special Fuji Soba",
+        "desc": "Hot soba noodles topped with a lavish amount of fried tenpura batter and fried tofu, along with soft-bioled egg and \"kamaboko\" fish cake{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban7": {
-        "name": "Yuzu Chicken & Spinach Soba"
+        "name": "Yuzu Chicken & Spinach Soba",
+        "desc": "A vibrant dish of hot soba noodles topped with spinach and pieces of steamed chicken, accented with the subtle fragrance of yuzu{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "katubo": {
-        "name": "Fried Pork Cutlet Bowl"
+        "name": "Fried Pork Cutlet Bowl",
+        "desc": "This classic dish features a thick, crunchy pork cutlet topped with sauce and lightly cooked egg. It is made to order for maximum freshness{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "curry1": {
-        "name": "Curry & Rice"
+        "name": "Curry & Rice",
+        "desc": "Mild curry and rice. This curry is made with the house's special roux and sauce, and is petfect for those who don't like too much spice{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "soban8": {
-        "name": "Pickled Ginger Soba"
+        "name": "Pickled Ginger Soba",
+        "desc": "Hot soba noodles served with tenpura containing copious amounts of red pickled ginger for a pleasant meal that warms the soul{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "yktr": {
-        "name": "Yakitori"
+        "name": "Yakitori",
+        "desc": "This charcoal-grilled chicken on a skewer has a savory smell that is out of this world{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "tegs": {
-        "name": "Tuna & Egg Sandwich"
+        "name": "Tuna & Egg Sandwich",
+        "desc": "This sandwich features an egg-mayo mix with tuna on white bread{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "tamag": {
-        "name": "Tamago"
+        "name": "Tamago",
+        "desc": "Delicate and tasty egg sushi{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "magr": {
-        "name": "Maguro"
+        "name": "Maguro",
+        "desc": "Top-grade bluefin tuna sushi{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ameb": {
-        "name": "Ama-Ebi"
+        "name": "Ama-Ebi",
+        "desc": "This tender, sweet shrimp will melt in your mouth. It's unbelievably fresh!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "engw": {
-        "name": "Engawa"
+        "name": "Engawa",
+        "desc": "Tastiest engawa sushi made from eastern flounder{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "skmsk": {
-        "name": "Seki Mackerel"
+        "name": "Seki Mackerel",
+        "desc": "Not all mackerel are created equal. This premium mackerel is packed with tasty fish oil{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "namatk": {
-        "name": "Namatako"
+        "name": "Namatako",
+        "desc": "Octopus sushi of the highest grade. The more you chew, the better it tastes. That's proof of quality{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "hirame": {
-        "name": "Hirame"
+        "name": "Hirame",
+        "desc": "This halibut is a popular sushi topping. Its sweet white meat doesn't have a trace of fishiness{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "shmaj": {
-        "name": "Shima-Aji"
+        "name": "Shima-Aji",
+        "desc": "The king of horse mackerel! It's a summer fish best eaten as sashimi or sushi{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "kndma": {
-        "name": "Kinmedai"
+        "name": "Kinmedai",
+        "desc": " The shiny color of this splendid alfonsino is a feast for the eyes. It's fatty and melts in your mouth{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "ikura": {
-        "name": "Ikura"
+        "name": "Ikura",
+        "desc": " Top quality salmon roe wrapped in nori. The best there is!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "akagi": {
-        "name": "Akagai"
+        "name": "Akagai",
+        "desc": "Popular sushi toping made from ark clams. Also known as \"bloody clams\" because they have red blood{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "otor": {
-        "name": "Otoro"
+        "name": "Otoro",
+        "desc": "This is the richest cut from the top-grade bluefin tuna. The taste alone will leave you hungry for more{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "awabi": {
-        "name": "Awabi"
+        "name": "Awabi",
+        "desc": "Highest quality abalone with the taste out of this world. Premium snack for those who can afford it{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "uni": {
-        "name": "Uni"
+        "name": "Uni",
+        "desc": "Exquisit sea urchin meat of the most excellent kind, wrapped in nori. As fresh as can be{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "klbi1": {
-        "name": "Kalbi"
+        "name": "Kalbi",
+        "desc": "This beef rib meat is popular for its incredibly rich flavor{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "klbi2": {
-        "name": "Grade A Kalbi"
+        "name": "Grade A Kalbi",
+        "desc": "Top-grade meat is selected from only the rarest, choicest cuts of beef rib{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "srln1": {
-        "name": "Sirloin"
+        "name": "Sirloin",
+        "desc": "Light and relatively low fat sirloin beef steak with spices{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "srln2": {
-        "name": "Grade A Sirloin"
+        "name": "Grade A Sirloin",
+        "desc": "Incredible top-grade beef sirloin prized for its unparalleled taste and quality{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sfdpl": {
-        "name": "Seafood Platter"
+        "name": "Seafood Platter",
+        "desc": "A plate of the sea's delicious bounty, including shrimp, scallops, and squid{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "kmchc": {
-        "name": "Kimchi Combo"
+        "name": "Kimchi Combo",
+        "desc": "A tantalizing combo dish of kimchi made from eastern cabbage, cucumbers, daikon and more{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "stnkbb": {
-        "name": "Stone Cooked Bibimbap"
+        "name": "Stone Cooked Bibimbap",
+        "desc": "Very hot bowl of bibimbap with special spicy sweed kochujang sauce. Roasted to a golden brown for an irresistable taste{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "spcbef": {
-        "name": "Spicy Beef Soup"
+        "name": "Spicy Beef Soup",
+        "desc": "Spicy hot beef soup with rice and noodles. It has a very homemade feeling to it{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "binigiri": {
-        "name": "Giant Nigiri"
+        "name": "Giant Nigiri",
+        "desc": "This nigiri looks way to big to eat. Who made this thing?{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "infpdps": {
-        "name": "Inferno Pepper Dumpling"
+        "name": "Inferno Pepper Dumpling",
+        "desc": "These special dumplings are so hot and addictive that you won't be able to talk for a week{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "daikn": {
-        "name": "Daikon"
+        "name": "Daikon",
+        "desc": "A still-juicy daikon radish. It's not spicy and can be eaten raw{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bonig": {
-        "name": "Rotten Onigiri"
+        "name": "Rotten Onigiri",
+        "desc": "This riceball has gone bad. You normally wouldn't eat this, but when you run out of food even this looks delicious{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wdaikn": {
-        "name": "Wihered Daikon"
+        "name": "Wihered Daikon",
+        "desc": "A daikon radish that has withered in the sun. It's still edible, but it's kinda sad{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "oppr": {
-        "name": "Oni Pepper"
+        "name": "Oni Pepper",
+        "desc": "An extremely spicy pepper that makes you erupt in sweat and make an expression like an oni. It hurts more coming out than going in{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jdaik": {
-        "name": "Jumbo Daikon"
+        "name": "Jumbo Daikon",
+        "desc": "A huge, rare daikon radish. Stews made with this daikon are delicious. You can put some miso paste on it to eat raw{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bmshrm": {
-        "name": "Big Mushroom"
+        "name": "Big Mushroom",
+        "desc": "A big, juicy mushroom that sucked up lots of nutrients. It doesn't taste ordinary. It can be stewed, roasted, fried or eaten raw{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "hlstw": {
-        "name": "Healing Stew"
+        "name": "Healing Stew",
+        "desc": "Tasteless soup made by boiling heaps of cure grass in water. Healing only in name, it is known that exposing cure grass to high temperatures destroys any healing properties of the product{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "bcrrt": {
-        "name": "Boiled Carrot"
+        "name": "Boiled Carrot",
+        "desc": "Regular carrot, boiled in water. It is sweet but not all that tasty, actually{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "jsdch": {
-        "name": "Jelly Sandwich"
+        "name": "Jelly Sandwich",
+        "desc": "Awful sandwich that doesn't taste like anything. It is filling, at the very least{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "agrns": {
-        "name": "Assorted Grains"
+        "name": "Assorted Grains",
+        "desc": "Buckwheat, sunflower seeds, oats, rye... Various grains, seeds and nuts in very small quantities as such making them not very useful for pretty much anything{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "eggfrc": {
-        "name": "Egg Fried Rice"
+        "name": "Egg Fried Rice",
+        "desc": "Stir fried egg cooked together with golden rice. Excellent and refreshing dish{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "thme": {
-        "name": "Thyme"
+        "name": "Thyme",
+        "desc": "A stalk of aromatic thyme, often used in medicine as a complimentary herb. Can be made into a relaxing tea or antiseptic{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "wldhrbs": {
-        "name": "Wild Herbs"
+        "name": "Wild Herbs",
+        "desc": "A tasty collection of wild herbs including violet, sassafras, mint, clover, purslane, and fireweed{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "meffg": {
-        "name": "Meat Effigy"
+        "name": "Meat Effigy",
+        "desc": "Strange edible effigy made of who knows what. It tastes like regular jerky{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "rtnmt": {
-        "name": "Rotten Meat"
+        "name": "Rotten Meat",
+        "desc": "Greenish grey organic mass that was once something edible, now isn't good for pretty much anything{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "appljc": {
-        "name": "Apple Juice"
+        "name": "Apple Juice",
+        "desc": "Freshly-squeezed from real apples!{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "frtplp": {
-        "name": "Juice Pulp"
+        "name": "Juice Pulp",
+        "desc": "Left-over byproduct from juicing the fruit.  Not very tasty, but contains a lot of healthy fiber{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "klngbr": {
-        "name": "Kaoliang"
+        "name": "Kaoliang",
+        "desc": "Strong traditional liquor with a tangy taste and important role during social gatherings{separator}Restores<span style='color:lime'> {val} </span>energy"
       },
       "sbone": {
         "name": "Small Bone",
@@ -2313,10 +2780,13 @@
         "desc": ""
       },
       "key0": {
-        "name": "Rusty Key"
+        "name": "Rusty Key",
+        "desc": "Scummy old key. What could it be for?",
+        "desc_basement": "Scummy old key. You can open your basement with it"
       },
       "ywlt": {
-        "name": "Woven Wallet"
+        "name": "Woven Wallet",
+        "desc": "This is your personal wallet, you received it as a gift{separator}<span style='color:orange'>You can feel coinage inside</spam>"
       },
       "hnhn": {
         "name": "Teruterubōzu",
@@ -2327,7 +2797,8 @@
         "desc": "A spiny pod from a pine tree.  Dry seeds rattle around inside when you shake it"
       },
       "pbl": {
-        "name": "Pebble"
+        "name": "Pebble",
+        "desc": "A tiny useless stone, found everywhere. Can be thrown to create distraction{separator}<span style=\"color:yellow\">+5 Throwing Damage</span>"
       },
       "ptng1": {
         "name": "Tattered Painting",
@@ -2358,7 +2829,8 @@
         "desc": "A length of sturdy rope, for tying things up"
       },
       "mcps": {
-        "name": "Clay Milk Cap"
+        "name": "Clay Milk Cap",
+        "desc": "Milk caps made from packed clay. Children like to play with these{separator}<span style=\"color:yellow\">+9 Throwing Damage</span>"
       },
       "stdst": {
         "name": "Stardust",
@@ -2399,7 +2871,8 @@
         "desc": "Spirit shard of concentrated Demonic power"
       },
       "toolbx": {
-        "name": "Toolbox"
+        "name": "Toolbox",
+        "desc": "Metal box with a variety of fine tools inside, multipurpose knives, mallets, pincers, chisels and a few more. Used for precision work and tinkering with simple and complex objects{separator}<span style=\"color:chartreuse\">Allows deconstruction of items and equipment when kept in inventory</span>"
       },
       "cpdst": {
         "name": "Corpse Dust",
@@ -2477,32 +2950,40 @@
         "desc": "Tiny scrap of paper with information. You wrote it yourself to remember things."
       },
       "skl1": {
-        "name": "P Skillbook (Swords)"
+        "name": "P Skillbook (Swords)",
+        "desc": "Entry level practitioner skillbook about sword combat{separator}<span style=\"color:deeppink\">Sword Mastery EXP gain +5%</span>"
       },
       "skl2": {
-        "name": "P Skillbook (Knives)"
+        "name": "P Skillbook (Knives)",
+        "desc": "Entry level practitioner skillbook about knife combat{separator}<span style=\"color:deeppink\">Knife Mastery EXP gain +5%</span>"
       },
       "skl3": {
-        "name": "P Skillbook (Axes)"
+        "name": "P Skillbook (Axes)",
+        "desc": "Entry level practitioner skillbook about axe combat{separator}<span style=\"color:deeppink\">Axe Mastery EXP gain +5%</span>"
       },
       "skl4": {
-        "name": "P Skillbook (Spears)"
+        "name": "P Skillbook (Spears)",
+        "desc": "Entry level practitioner skillbook about spear combat{separator}<span style=\"color:deeppink\">Polearm Mastery EXP gain +5%</span>"
       },
       "skl5": {
-        "name": "P Skillbook (Hammers)"
+        "name": "P Skillbook (Hammers)",
+        "desc": "Entry level practitioner skillbook about hammer combat{separator}<span style=\"color:deeppink\">Hammer Mastery EXP gain +5%</span>"
       },
       "skl6": {
-        "name": "P Skillbook (Martial)"
+        "name": "P Skillbook (Martial)",
+        "desc": "Entry level practitioner skillbook about unarmed combat{separator}<span style=\"color:deeppink\">Martial Mastery EXP gain +5%</span>"
       },
       "bstr": {
-        "name": "\"Animalis Vicipaedia\""
+        "name": "\"Animalis Vicipaedia\"",
+        "desc": "Heavy Hunter's Encyclopedia. There are a few entries about wild life, beasts, and mythical creatures you can encounter, the other pages are blank. You feel the urge to fill them in{separator}<span style=\"color:lime\">Unlocks Bestiary</span>"
       },
       "tbrwdb": {
         "name": "\"The Art of Teabrewing\"",
         "desc": "Informative little book in detail describing the ways of teamaking, starting from precise amounts and proportions, specific water temperatures, correct tableware, to the defferent styles and etiquette"
       },
       "msc1": {
-        "name": "\"Book of Fairy Tales\""
+        "name": "\"Book of Fairy Tales\"",
+        "desc": "An amusing collection of folklore featuring the usual cast of fairies and demons{separator}<span style=\"color:limegreen\">{extra}</span>"
       },
       "bcpn": {
         "name": "\"Cooking with Poison\"",
@@ -2533,22 +3014,28 @@
         "desc": "Looks like a page from someone's notebook, marked \"H\", poorly written in bad handwriting. It lists several simple things you can cook and make from widely available cheap materials"
       },
       "skl1a": {
-        "name": "\"Bladesman Manual\""
+        "name": "\"Bladesman Manual\"",
+        "desc": "Technique book full of fundamental knowledge about swordfighting{separator}<span style=\"color:deeppink\">Sword Mastery EXP gain +15%</span>"
       },
       "skl2a": {
-        "name": "\"Assassin Manual\""
+        "name": "\"Assassin Manual\"",
+        "desc": "Technique book full of fundamental knowledge about kinfefighting{separator}<span style=\"color:deeppink\">Knife Mastery EXP gain +15%</span>"
       },
       "skl3a": {
-        "name": "\"Axeman Manual\""
+        "name": "\"Axeman Manual\"",
+        "desc": "Technique book full of fundamental knowledge about axefighting{separator}<span style=\"color:deeppink\">Axe Mastery EXP gain +15%</span>"
       },
       "skl4a": {
-        "name": "\"Lancer Manual\""
+        "name": "\"Lancer Manual\"",
+        "desc": "Technique book full of fundamental knowledge about spearfighting{separator}<span style=\"color:deeppink\">Polearm Mastery EXP gain +15%</span>"
       },
       "skl5a": {
-        "name": "\"Clubber Manual\""
+        "name": "\"Clubber Manual\"",
+        "desc": "Technique book full of fundamental knowledge about bluntfighting{separator}<span style=\"color:deeppink\">Hammer Mastery EXP gain +15%</span>"
       },
       "skl6a": {
-        "name": "\"Brawler Manual\""
+        "name": "\"Brawler Manual\"",
+        "desc": "Technique book full of fundamental knowledge about fistfighting{separator}<span style=\"color:deeppink\">Martial Mastery EXP gain +15%</span>"
       },
       "brdbn": {
         "name": "\"Your First Bread\"",
@@ -2559,13 +3046,16 @@
         "desc": "Some nonsence illustration with a name, featuring a group of peasants in rags posing awkwardly. What even is this?"
       },
       "pdeedhs": {
-        "name": "\"Property Deed\""
+        "name": "\"Property Deed\"",
+        "desc": "This old looking legal document indentifies you as a sole owner of this broken down hut you live in. It was passed down to you by your ancestors, you speculate{separator}<span style=\"color:lime\">Allows you to list and examine your possessions</span>"
       },
       "fgtsb1": {
-        "name": "\"Street Fighting\""
+        "name": "\"Street Fighting\"",
+        "desc": "Someone's observational notes of street gangs and their violent encounters. There's an amusing essay about dirty tricks in the front section{separator}<span style=\"color:deeppink\">Fighting EXP gain +15%</span>"
       },
       "jnlbk": {
-        "name": "\"Empty Journal\""
+        "name": "\"Empty Journal\"",
+        "desc": "Dusty old tome, pure as snow and untainted by ink. Feels like it was purified by magic. When you gaze upon it, you are compelled to record your encounters and anything else that you find important and crucial for your adventures{separator}<span style=\"color:lime\">Unlocks Journal</span>"
       }
     },
     "quest": {
@@ -3603,13 +4093,22 @@
         "dialogue": {
           "you_avoid_death_d751acb1": "You avoid death...",
           "you_ran_out_of_your_smoked_up_house_a870053b": "You ran out of your smoked up house"
+        },
+        "interface": {
+          "name": "You",
+          "description": "This is you"
         }
       }
     },
     "data": {
       "creatures": {
         "dialogue": {
-          "area_cleared_3e728563": "Area cleared"
+          "area_cleared_3e728563": "Area cleared",
+          "died": "{name} died"
+        },
+        "interface": {
+          "default_name": "Nothing",
+          "default_description": "Empty space"
         }
       },
       "effects": {
@@ -3637,7 +4136,19 @@
           "you_breathe_heavily_8c0f968b": "You breathe heavily",
           "your_lungs_feel_lighter_8420cdef": "Your lungs feel lighter",
           "sharp_pain_stings_you_307985a8": "Sharp pain stings you",
-          "you_aren_t_freezing_anymore_8a412ad4": "You aren't freezing anymore"
+          "you_aren_t_freezing_anymore_8a412ad4": "You aren't freezing anymore",
+          "food_poison_reactions": [
+            "You feel bad inside",
+            "Your stomach bothers you"
+          ],
+          "player_becomes_nimble": "You become nimble",
+          "target_becomes_nimble": "{name} becomes nimble",
+          "cough_reactions": [
+            "*Cough..*",
+            "*Hack..*",
+            "*Cough-cough..*",
+            "*Khe..*"
+          ]
         }
       },
       "equipment": {
@@ -3723,7 +4234,25 @@
           "you_already_know_how_to_make_lesser_potions_d77c7b1d": "You already know how to make lesser potions",
           "you_already_know_how_to_sharpen_sticks_dcee0801": "You already know how to sharpen sticks",
           "right_you_could_go_to_the_marketplace_dd0b11b4": "Right, you could go to the marketplace",
-          "journal_unlocked_01c245e7": "Journal Unlocked!"
+          "journal_unlocked_01c245e7": "Journal Unlocked!",
+          "restored_hp": "Restored {amount} hp",
+          "restored_energy": "Restored {amount} energy",
+          "repaired_item": "You repaired {item} slightly",
+          "nausea_reactions": [
+            "You retch..",
+            "You feel like vomiting..",
+            "You feel sick..",
+            "Your insides turn just by looking at this thing..",
+            "You immediately spit it out..",
+            "Your body rejects this..",
+            "Your body screams.."
+          ],
+          "roll_result": "You roll <span style=\"color:red\">{result}</span>",
+          "basement_key_survived": "Thankfully it did not break apart when you used it",
+          "basement_key_familiar": "It looks familiar...",
+          "pine_cone_reactions": ["*Crack..* ", "*Crunch..* ", "*Pop..* "],
+          "threw_item": "You threw {item} into the distance",
+          "knot_practice": "You practiced knot tying for a short while and made <span style=\"color:orange\">\"{knot}\"</span>!"
         },
         "interface": {
           "nbsp_e9caec8e": "<span style=\"color:grey;font-size:1.2em\">&nbsp煙<span>"
@@ -3734,7 +4263,9 @@
           "10_item_found_897eabe9": "10 item found",
           "done_e5fd9cfe": "done",
           "you_hear_a_piercing_wail_6db06040": "You hear a piercing wail",
-          "quest_completed_36971938": "Quest completed: "
+          "quest_completed_36971938": "Quest completed: ",
+          "quest_accepted": "Quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
+          "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>"
         }
       },
       "titles": {
@@ -3755,17 +4286,36 @@
           "you_can_t_see_anything_5275568b": "You can't see anything",
           "there_doesn_t_seem_to_be_anything_of_737e54b8": "There doesn't seem to be anything of interest around..",
           "you_have_already_explored_this_area_b8d27079": "You have already explored this area",
-          "you_re_already_injured_46390abb": "You're already injured"
+          "you_re_already_injured_46390abb": "You're already injured",
+          "self_injury": "You {action} your {bodyPart}",
+          "self_injury_actions": ["stab", "slash"],
+          "self_injury_body_parts": [
+            "hand",
+            "chest",
+            "leg",
+            "palm",
+            "arm",
+            "foot"
+          ],
+          "new_action_learned": "You learned a new action: <span style=\"color:tomato\">\"{action}\"</span>"
         }
       },
       "crafting": {
         "dialogue": {
           "it_didn_t_turn_out_very_well_ef183a42": "It didn't turn out very well..."
+        },
+        "requirements": {
+          "any_sharp_tool": "Any sharp tool",
+          "nearby_fire_source": "Nearby fire source",
+          "cooking_level": "Cooking lvl: {level}",
+          "tailoring_tool_level": "Tailoring tool lvl: {level}"
         }
       },
       "planner": {
         "dialogue": {
-          "done_e5fd9cfe": "done"
+          "done_e5fd9cfe": "done",
+          "item_spoiled": "Your <span style=\"color:cyan\">x{amount}</span> <span style=\"color: orange\">{item}</span> {state}!",
+          "spoil_states": ["rotted away", "went bad", "spoiled"]
         }
       },
       "simulation": {
@@ -3797,10 +4347,46 @@
           "l_hand_7177bbdd": " (L hand)",
           "r_hand_9f6e57e4": " (R hand)",
           "legs_91543f22": " (legs)",
-          "crit_e443ee79": " CRIT! "
+          "crit_e443ee79": " CRIT! ",
+          "level_up": "Leveled Up {level}",
+          "stat_gain": "{stat} +{amount}",
+          "additional_stat_gain": " | {stat} +{amount}",
+          "exp_gain": "EXP: +{amount}",
+          "skill_unlocked": "<span style=\"text-shadow:cyan 0px 0px 2px\">New Skill Unlocked! <span style=\"text-shadow:red 0px 0px 2px;color:orange\">\"{skill}\"</span></span>",
+          "skill_level_up": "Skill <span style=\"color:tomato\">'{skill}'</span> Leveled Up: {level}",
+          "perk_unlocked": "NEW PERK UNLOCKED <span style=\"color:tomato\">(\"{skill}\")<span style=\"color:orange\">lvl: {level}</span></span>",
+          "perk_details": "Perk lvl {level}: <span style=\"color:yellow\">{perk}</span>",
+          "title_earned": "New Title Earned! {title}",
+          "player_action": "You {action}",
+          "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) for "
         },
         "description": {
           "lunar_phase_0004b314": "Lunar Phase"
+        },
+        "casualty": {
+          "struck_by_lightning": "<span style=\"color:black;background-color:yellow\">Struck by lightning</span>",
+          "suffocated_from_poison": "<span style=\"color:red;background-color:darkmagenta\">Suffocated from poison</span>",
+          "suffocated_from_venom": "<span style=\"color:darkmagenta;\">Suffocated from venom</span>",
+          "bled_out": "<span style=\"color:red;background-color:darkred\">Bled out</span>",
+          "rotten_from_corruption": "<span style=\"color:white;background-color:black\">Rotten from corruption</span>",
+          "slashing_causes": ["Slashed", "Lacerated", "Cut down", "Hacked"],
+          "piercing_causes": ["Pierced", "Impaled", "Gored"],
+          "blunt_causes": ["Smashed", "Crushed", "Destroyed"],
+          "caused_by": "{cause} by {attacker}",
+          "unknown": "what casualty?"
+        }
+      },
+      "abilities": {
+        "combat": {
+          "bites_player": " <span style=\"color:hotpink\">bites you</span> -> ",
+          "rusty_stab_player": " <span style=\"color:magenta\">stabs you with something rusty</span> -> ",
+          "scratches_player": " <span style=\"color:hotpink\">scratches you</span> -> ",
+          "electrocutes_player": " <span style=\"color:yellow\">electrocutes you</span> -> ",
+          "electrocutes_enemy": " <span style=\"color:yellow\">electrocute the enemy</span> -> ",
+          "double_stabs_player": " <span style=\"color:pink\">double-stabs you</span> -> ",
+          "double_stabs_enemy": " <span style=\"color:pink\">double-stab the enemy</span> -> ",
+          "poison_bites_player": " <span style=\"color:magenta\">bites you</span> -> ",
+          "bashes_player": " <span style=\"color:lightgrey\">bashes you</span> -> "
         }
       }
     },
@@ -3989,6 +4575,7 @@
         },
         "dialogue": {
           "save_deleted_dbfb58d6": "Save deleted",
+          "combat_missed": "{name} missed",
           "whw_06a9c666": "wHw",
           "you_may_want_to_wake_up_first_014dee64": "You may want to wake up first",
           "you_re_too_busy_fighting_711d00d5": "You're too busy fighting",
@@ -3999,7 +4586,12 @@
           "new_blueprint_unlocked_8d90820c": "New blueprint unlocked: ",
           "text_a979ef10": "+",
           "return_5ced966d": "\"<= Return\"",
-          "thank_you_for_your_patronage_1b0cefa7": "Thank you for your patronage!"
+          "thank_you_for_your_patronage_1b0cefa7": "Thank you for your patronage!",
+          "player_hit": "You hit {enemy} for <span style=\"color:hotpink\">{damage}</span> damage",
+          "new_item_obtained_single": "New item obtained: <span style=\"color:coral\">{item}</span>",
+          "new_item_obtained": "New item obtained: <span style=\"color:coral\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
+          "item_acquired": "Item acquired: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
+          "furniture_acquired": "Furniture acquired: <span style=\"color:orange\">\"{furniture}\"</span>"
         }
       }
     },
@@ -4011,6 +4603,87 @@
       },
       "locations": {
         "dialogue": {
+          "instructor_course_reward": "\"Instructor: {praise} {work} kid! Here's the reward for completing the course\"",
+          "instructor_praise_words": ["Good", "Nice", "Great", "Excellent"],
+          "instructor_work_words": ["job", "work"],
+          "dojo_return_ambient_messages": [
+            "\"Instructor: Back already?\"",
+            "You notice other dojo disciples diligently train",
+            "Pieces of broken training dummies are scattered on the floor"
+          ],
+          "instructor_return_items_offer": "\"Instructor: For all your stuff I can fetch you {amount} {coin} copper. How does that sound?\"",
+          "hand_strength_intro": "Try out punching this {dummy} to measure the power of your fist!",
+          "indestructible_dummy_name": "Indestructible Dummy",
+          "head_hunter_busy_ambient_messages": [
+            "You sight the hunter thinking deeply about something",
+            "You hear mumbling"
+          ],
+          "head_hunter_room_ambient_messages": [
+            "You see a variety of bows and other hunting tools arranged on the table and hanging from the walls",
+            "You notice the head hunter maintaining his hunting gear",
+            "The smell of beef jerky assaults your nose"
+          ],
+          "sell_firewood_action": "\"Sell firewood {coin}\"",
+          "head_hunter_yamato_first_weapon_advice": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: You're still going around without a proper weapon? That won't do, catch this. It isn't much, but a bit better than you being nearly empty-handed. Once you return, check the {noticeBoard} by the village center. You never know whether something important is happening on the outskirts, but it will almost certainly be written there. You may find a job offer or two, or see pleas from fellow villagers asking for help with mundane things; consider those as well",
+          "notice_board_name": "Notice Board",
+          "firewood_quest_remaining": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: You found some already? You still need {remaining} more bundles of firewood to finish the task",
+          "meat_quest_remaining": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Oh, so you managed to hunt down some of the animals. You still need {remaining} more chunks of meat to finish the job. Hurry before it goes bad!",
+          "heavy_rain_flooded_streets": "It's pouring so hard that the streets are completely flooded. There's no one around{extra}",
+          "heavy_rain_daytime_suffix": ", except for a few kids",
+          "guard_bored_messages": [
+            "Right...",
+            "This is boring",
+            "*whistle*",
+            "Ah...",
+            "...",
+            "Yeah...",
+            "Mhm...",
+            "Yawn..."
+          ],
+          "grocery_old_lady_greeting": "Old Lady: {greeting}",
+          "grocery_old_lady_greetings": [
+            "These are very fresh, buy some!",
+            "Freshest vegetables for the lowest price!",
+            "Try a few and you'll want even more!"
+          ],
+          "market_coin_find_messages": [
+            "You notice a coin on the ground!",
+            "You pick a coin from under the counter",
+            "You snatch a coin while no one is looking"
+          ],
+          "sleeping_shopkeeper_greeting": "Sleeping Old Man: {greeting}",
+          "sleeping_shopkeeper_greetings": [
+            "...Welcome",
+            "...",
+            "zzz...",
+            "A customer? Pick what you want",
+            "Take your time"
+          ],
+          "sell_straw_baskets_action": "\"Sell straw baskets {coin}\"",
+          "sleeping_shopkeeper_basket_offer": "Sleeping Old Man: You made these, kid? Hahaha, alright, I'll take them off your hands. 15 {coin} each!",
+          "sleeping_shopkeeper_basement_smoke_offer": "Sleeping Old Man: Your basement is in bad shape? The same has been happening to other folks lately; it's not just you. Something is drilling underground right into people's homes, and then you get a cellar full of rats. A complete travesty! Some speculate there's a monster cave nearby, but nothing has been found yet. Don't fret, though; there is a solution. Smoke the pests out. Light this bag and toss it in, the deeper the better. Your entire place will fill with smog, so you'll have to leave for a few hours. Then you'll have a clean, monster-free basement at your disposal. The price is 5 {coin} silver",
+          "herbalist_greeting": "Herbalist: {greeting}",
+          "herbalist_greetings": [
+            "Injured? Come in, I'll give you a checkup",
+            "Yes, yes...",
+            "Don't neglect your well-being; stock up on anything you need"
+          ],
+          "sell_cure_grass_action": "\"Sell cure grass {coin}\"",
+          "herbalist_cure_grass_offer": "Herbalist: Yes indeed, if you have any cure grass to sell, by all means bring it here; you can never have too much. I will take bundles of 50 for 15 {coin}",
+          "street_merchant_welcome": "Street Merchant Ran: Welcome! What would you like?",
+          "child_trader_welcome": "Hey, I've got some good stuff for you",
+          "child_trader_hidden_book_offer": "So you want something from the hidden stash, huh? Good eye! You're one of the dojo runts, and I've got just what someone like you needs. One book, 3 silver {coin}. So, what do you say?",
+          "child_trader_second_hidden_offer": "Alright, there's something else for you, snatched from some sleeping guy, and I bet it would be useful to you. Similar deal: 5 silver {coin}",
+          "home_safe_rest_summary": "You feel safe. You can rest here. {extra}",
+          "pet_named_cat_action": "\"Pet {name}\"",
+          "basement_darkness_warning": "{description}. You can't see anything in this darkness; it would be better to find a light source",
+          "basement_debris_search": "You glance around and find mountains of broken crates, shelves, boxes, furniture, and other decaying goods. Don't expect to find anything of great value among this trash. Perhaps you can salvage at least something if you look carefully enough{chestHint}",
+          "basement_giant_chest_hint": ", like that giant chest over there",
+          "fireplace_summary": "Comfy fireplace. {extra}<br>{fuelStatus}",
+          "fireplace_add_fuel_actions": [
+            "\"Toss {fuel} into the fireplace\"",
+            "\"Throw {fuel} into the fireplace\""
+          ],
           "dojo_training_area_815c8f3c": "Dojo, training area",
           "kid_711a26c9": "???: Kid",
           "text_32bd7431": "\"...\"",
@@ -4088,6 +4761,20 @@
           "claim_your_rewards_153f54d3": "\"Claim your rewards!\"",
           "as_long_as_you_keep_gaining_experience_and_22acce4c": "As long as you keep gaining experience and train hard, dojo will provide you with gifts and money! Don't miss out!",
           "get_your_grub_at_the_canteen_39a14ea2": "\"Get your grub at the canteen!\"",
+          "weekly_free_meals": "Our generous dojo provides <span style=\"color:lime\">Free Meals</span> to every attending low-class disciple every <span style=\"color:yellow\">Sunday</span>! Get in time for your weekly menu!",
+          "free_meal_eating_sounds": [
+            "*Chow*",
+            "*Munch*",
+            "*Crunch*",
+            "*Gulp*"
+          ],
+          "free_meal_reactions": [
+            "That was good!",
+            "Delicious!",
+            "A little dry but, that will do",
+            "Tasty!",
+            "Phew, I needed that!"
+          ],
           "measure_your_power_26da9fa0": "\"Measure your power!\"",
           "give_it_a_try_7616a870": "\"Give it a try\"",
           "instructor_great_job_smashing_that_golem_this_golem_d7da8bdd": "Instructor: Great job smashing that golem! This golem is one of the weakest types around, but even he can become a huge trouble if you're not giving it your best. Now, grab this and proceed with your training",
@@ -4310,6 +4997,9 @@
           "claim_your_hardearned_reward_1ed71094": "\"Claim your hardearned reward\"",
           "you_feel_more_peaceful_04e11bf4": "You feel more peaceful",
           "stop_reading_90693f3a": "\"Stop reading\"",
+          "reading_progress": "You are reading <span style=\"color:orange\">{book}</span><br>It will take you about <span style=\"color:lime\">{duration}</span>",
+          "reading_duration_hours": "{count} hours to finish",
+          "reading_duration_minutes": "{count} minutes to finish",
           "your_home_03e89418": "Your Home",
           "your_humble_abode_you_can_rest_here_d6c4fff3": "Your humble abode. You can rest here. ",
           "examine_your_bag_2f8e4a92": "\"Examine your bag\"",
@@ -4323,6 +5013,8 @@
           "click_da9e93d9": "*click...* ",
           "the_door_has_opened_61b00f24": "The door has opened",
           "it_s_locked_fa34cbc0": "It's locked",
+          "enter_the_basement": "\"Enter the basement\"",
+          "examine_basement_door": "\"Examine basement door\"",
           "furniture_list_ad8ce9d9": " \"Furniture list\"",
           "examine_fireplace_86d8ade3": "\"Examine Fireplace\"",
           "access_storagebox_d2101360": "\"Access Storagebox\"",
@@ -4353,6 +5045,16 @@
           "among_the_rabble_and_remains_of_collapsed_bookshelves_793ca3a6": "Among the rabble and remains of collapsed bookshelves you decide to confirm if anything survived. Rotten and soaked in basement juices books seems unsalvagable, bookshelves as well, you can't even tell if they are made of wood anymore. One of the books was incased into a small mound formed by rocks and sand, it seems surprisingly fine",
           "i_m_taking_this_45f828ff": "\"<= I'm taking this\"",
           "your_home_bed_fa15732f": "Your Home, Bed",
+          "bed_unconscious_messages": [
+            "You lost consciousness...",
+            "You have been knocked out...",
+            "You passed out..."
+          ],
+          "bed_cat_rest_messages": [
+            ". Your cat is resting next to you",
+            ". You feel warm"
+          ],
+          "bed_rest_summary": "Great way to pass time{extra}",
           "get_up_3fdf06df": "\"<= Get up\"",
           "your_home_fireplace_9a8e298d": "Your Home, Fireplace",
           "retrieve_spare_firewood_you_have_a_feeling_you_f63de8d0": "\"Retrieve spare firewood. You have a feeling you'll need it\"",
@@ -4395,8 +5097,25 @@
           "catacombs_the_end_of_journey_5607474f": "Catacombs, The End Of Journey"
         },
         "interface": {
+          "items_returned_to_dojo": "{count} Items returned back to dojo",
+          "hand_strength_result": "{impact} Your approximate hand strength is measured in: <br><br><span style=\"border:1px dashed yellow;padding:6px\">{value}</span><br><br>",
+          "hand_strength_impact_messages": [
+            "Wham!",
+            "Slap!",
+            "Hit!",
+            "Punch!",
+            "Hack!"
+          ],
+          "hand_strength_value_kg": "{value}kg",
+          "cat_pet_count": "There is a cat. Pets: {count}",
           "sorry_you_can_t_afford_that_30498aa1": "Sorry you can't afford that!",
           "bring_money_next_time_7a51ad8c": "Bring money next time"
+        },
+        "fireplaceFuel": {
+          "firewood": "some firewood",
+          "coal": "some coal",
+          "charcoal": "some charcoal",
+          "stick": "a stick"
         }
       },
       "sectors": {
@@ -4404,6 +5123,12 @@
           "nbsp_e9caec8e": "<span style=\"color:grey;font-size:1.2em\">&nbsp煙<span>"
         },
         "dialogue": {
+          "cat_gift_messages": [
+            "Your cat found something for you",
+            "Another one of your cat's gifts",
+            "Something was lying in the corner of the room. Probably the cat's",
+            "Your cat dropped something before you"
+          ],
           "area_explored_82dc9682": "Area Explored!"
         }
       }

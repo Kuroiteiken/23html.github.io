@@ -42,11 +42,18 @@ translation.
 7. Run `npm run test:browser` when Chrome or Chromium is available.
 8. Before every commit and push, update both the player-facing HTML changelog and
    the English/Turkish repository changelogs for the changes being published.
-9. Create and push periodic milestone commits during ongoing development after
-   the required changelog updates and validation succeed.
+9. Accumulate related changes when useful. Before starting a comprehensive or
+   high-risk development phase, finish the current stable batch, update its
+   changelogs, run the required tests, and create a descriptive checkpoint
+   commit. This is standing authorization for those clean checkpoint commits.
+   Never push until the repository owner gives an explicit final instruction.
 10. Add or update regression tests for every bug fix and behavior change. A
     deploy must not proceed while relevant loading, cache, save, locale, or UI
     scenarios remain untested or failing.
+11. When player-facing strings are added or changed, scan the complete related
+    source group for remaining raw strings, migrate them through
+    `locales/en.json` and `locales/tr.json`, and add regression coverage for the
+    migrated scope.
 
 ## Compatibility rules
 
@@ -57,8 +64,39 @@ translation.
 - Moving globals into module scope or enabling strict mode requires a separate,
   deliberate migration.
 - Keep files in UTF-8 and do not introduce mojibake.
-- Put new player-facing shared UI text in `locales/en.json`, reference it through
-  `i18n.t()` or `i18n.get()`, and preserve translation keys across locales.
+- Every new or changed player-facing string must come from `locales/en.json` and
+  `locales/tr.json`, be referenced through `i18n.t()` or `i18n.get()`, and
+  preserve its translation key across locales. Do not introduce player-facing
+  raw strings in JavaScript or HTML.
+- Have a language-aware agent contextually review machine-assisted translations,
+  especially abbreviations, calendar terms, directions, statistics, equipment,
+  and other short or polysemous labels. Translate what the source abbreviation
+  means in context; never expand it into an unrelated literal word.
+- Keep the Turkish game glossary consistent: translate gameplay `perk` as
+  `yetenek`, not `avantaj`, including names, descriptions, and unlock messages.
+- Have a language-aware agent contextually review every new or changed locale
+  key, not only bulk machine-assisted translations.
+- Keep the established Turkish gameplay terms stable. Translate `perk` as
+  “Avantaj”; do not render it as “Yetenek”, which the skills panel already uses.
+- Review dialogue and action labels together with their source-code scene,
+  adjacent messages, and resulting game behavior. Do not approve an isolated
+  dictionary translation when the interaction gives the phrase a narrower
+  meaning; lock high-risk corrections in the translation expectation tests.
+- Evaluate sentence structure as part of that contextual review: verify subject
+  and object roles, word order, tone, and how placeholders join the surrounding
+  text. Preserving a token is not sufficient if the rendered sentence becomes
+  ungrammatical. For example, a fireplace message containing `{fuel}` must read
+  naturally for every fuel value inserted into it; apply this principle to all
+  placeholder-based text rather than treating that example as a special case.
+- Treat a translation key rendered literally in the UI, message log, tooltip,
+  hover content, or any other player-facing surface as a bug. Prevent this with
+  fallback tests, locale-schema/key-parity tests, and browser tests that exercise
+  the affected surface.
+- A completed broad localization audit is only a snapshot. Any later source or
+  locale change invalidates the reviewed status of its affected scope, so scan
+  and contextually review that scope again. The earlier 2,177-locale-entry and
+  255-raw-string audit is recorded as the reason for this recurring workflow,
+  not as a permanent completion milestone.
 - Register new locale files in `locales/manifest.json`; non-English locales may
   rely on the English fallback while translations are incomplete.
 - Make behavior changes only when they are within the user's requested scope.

@@ -2,14 +2,13 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { execFile } = require("child_process");
-const { createSiteServer } = require("./serve");
+const { createSiteServer } = require("../scripts/serve");
+
+const root = path.dirname(__dirname);
 
 const gameVersion = Number(
   fs
-    .readFileSync(
-      path.resolve(__dirname, "..", "js", "core", "bootstrap.js"),
-      "utf8",
-    )
+    .readFileSync(path.join(root, "js", "core", "bootstrap.js"), "utf8")
     .match(/global\.ver\s*=\s*(\d+);/)[1],
 );
 
@@ -151,6 +150,7 @@ async function main() {
   const profiles = [
     fs.mkdtempSync(path.join(os.tmpdir(), "proto23-browser-")),
     fs.mkdtempSync(path.join(os.tmpdir(), "proto23-recovery-")),
+    fs.mkdtempSync(path.join(os.tmpdir(), "proto23-localization-")),
   ];
 
   try {
@@ -224,6 +224,79 @@ async function main() {
       throw new Error("The save-bar controls overlap or leave the footer.");
     }
 
+    const uiSafety = await runChrome(
+      `${baseUrl}/__test-ui-safety.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(uiSafety.stderr);
+    assertCommonStartup(uiSafety.stdout, port);
+    if (!uiSafety.stdout.includes('data-ui-safety-verified="true"')) {
+      throw new Error(
+        "Theme scaling, background presets, save deletion modal, localized misses, or message-log controls regressed.",
+      );
+    }
+    if (!uiSafety.stdout.includes('data-background-presets-separated="true"')) {
+      throw new Error("The background preset controls overlap or touch.");
+    }
+    if (!uiSafety.stdout.includes('data-save-delete-modal-verified="true"')) {
+      throw new Error(
+        "The save deletion modal does not fit, localize, or cancel safely.",
+      );
+    }
+
+    const saveDeleteReload = await runChrome(
+      `${baseUrl}/__test-save-delete-reload.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(saveDeleteReload.stderr);
+    assertCommonStartup(saveDeleteReload.stdout, port);
+    if (!saveDeleteReload.stdout.includes('data-save-delete-reloaded="true"')) {
+      throw new Error(
+        "Confirmed save deletion did not reload into a fresh game while preserving the locale.",
+      );
+    }
+
+    const calendarLocale = await runChrome(
+      `${baseUrl}/__test-calendar-locale.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(calendarLocale.stderr);
+    assertCommonStartup(calendarLocale.stdout, port);
+    if (!calendarLocale.stdout.includes('data-calendar-locale-safe="true"')) {
+      throw new Error(
+        "Turkish calendar labels changed locale-independent Sunday behavior.",
+      );
+    }
+
+    const localizationIntegrity = await runChrome(
+      `${baseUrl}/__test-localization-integrity.html`,
+      profiles[2],
+    );
+    assertNoUnexpectedErrors(localizationIntegrity.stderr);
+    assertCommonStartup(localizationIntegrity.stdout, port);
+    if (
+      !localizationIntegrity.stdout.includes('data-locale-key-leak-free="true"')
+    ) {
+      const details = localizationIntegrity.stdout.match(
+        /data-locale-key-leak-details="[^"]*"/,
+      );
+      throw new Error(
+        `A literal locale key reached visible UI, log, or hover text: ${details?.[0] ?? "probe incomplete"}`,
+      );
+    }
+    if (
+      !localizationIntegrity.stdout.includes(
+        'data-player-name-persistence="true"',
+      )
+    ) {
+      const details = localizationIntegrity.stdout.match(
+        /data-player-name-details="[^"]*"/,
+      );
+      throw new Error(
+        `The custom player name was replaced during save/load or locale reload: ${details?.[0] ?? "probe incomplete"}`,
+      );
+    }
+
     const recovery = await runChrome(
       `${baseUrl}/__test/corrupt-save`,
       profiles[1],
@@ -236,7 +309,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, save-bar layout, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, save-bar layout, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

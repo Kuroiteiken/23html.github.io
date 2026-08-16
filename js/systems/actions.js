@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//ACT
-///////////////////////////////////////////
+// Action definitions: the ongoing activities the player can start, such as
+// training, working, and resting. Only one action runs at a time, tracked by
+// `global.current_a`; `cond()` decides whether it can be started, and
+// `activate`/`deactivate` manage the timers that advance it.
 
 function Action() {
   this.name = "dummy";
@@ -205,10 +206,14 @@ act.demo2.use = function () {
   const f = findbyid(you.eff, effect.bled.id);
   if (!f) {
     msg(
-      "You " +
-        select(["stab", "slash"]) +
-        " your " +
-        select(["hand", "chest", "leg", "palm", "arm", "foot"]),
+      i18n.t("runtime.systems.actions.dialogue.self_injury", {
+        action: select(
+          i18n.get("runtime.systems.actions.dialogue.self_injury_actions"),
+        ),
+        bodyPart: select(
+          i18n.get("runtime.systems.actions.dialogue.self_injury_body_parts"),
+        ),
+      }),
       "red",
     );
   } else
@@ -228,9 +233,9 @@ function giveAction(a) {
       dom.ct_bt3.innerHTML = i18n.t("ui.navigation.actions");
     }
     msg(
-      'You learned a new action: <span style="color:tomato">"' +
-        a.name +
-        '"</span>',
+      i18n.t("runtime.systems.actions.dialogue.new_action_learned", {
+        action: a.name,
+      }),
       "lime",
       a,
       9,

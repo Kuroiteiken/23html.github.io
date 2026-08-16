@@ -1,6 +1,8 @@
-///////////////////////////////////////////
-//TTL
-///////////////////////////////////////////
+// Title definitions and the game's callback hooks. A title is cosmetic unless
+// it defines a `talent()`, which is applied once when the title is first
+// earned. The `callbackManager` at the end of this file is the shared event
+// mechanism other systems subscribe to; `callback.onDeath` is currently its
+// only hook.
 
 function Title(id) {
   this.name;
@@ -672,9 +674,8 @@ function attachCallback(callback, what, data) {
 }
 
 function detachCallback(callback, what) {
-  for (const a in callback.hooks)
-    if (callback.hooks[a].id === what)
-      callback.hooks.splice(callback.hooks[a], 1);
+  for (let a = callback.hooks.length - 1; a >= 0; a--)
+    if (callback.hooks[a].id === what) callback.hooks.splice(a, 1);
 }
 
 /*attachCallback(callback.onDeath,{

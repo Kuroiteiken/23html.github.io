@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//ITM
-///////////////////////////////////////////
+// Item definitions: consumables, crafting materials, books, and quest items.
+// Each entry carries its stack behaviour, rarity, and the `use` handler that
+// runs when the player consumes or reads it. Display names and descriptions
+// come from the locale files.
 
 function Item() {
   this.name = "dummy";
@@ -32,19 +33,20 @@ item.hrb1 = new Item();
 item.hrb1.id = 3001;
 item.hrb1.name = i18n.t("content.item.hrb1.name");
 item.hrb1.val = 7;
-item.hrb1.desc =
-  "Herb with minor healing properties. Has to be processed before use. Can somewhat speed up recovery of tiny cuts and bruises if applied directly" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hrb1.val +
-  " </span>health";
+item.hrb1.desc = i18n.t("content.item.hrb1.desc", {
+  separator: dom.dseparator,
+  val: item.hrb1.val,
+});
 item.hrb1.stype = 4;
 item.hrb1.use = function () {
   global.stat.medst++;
   you.hp + this.val > you.hpmax ? (you.hp = you.hpmax) : (you.hp += this.val);
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 item.hrb1.onGet = function () {
   if (this.amount >= 50) {
@@ -56,10 +58,9 @@ item.hrb1.onGet = function () {
 item.atd1 = new Item();
 item.atd1.id = 3002;
 item.atd1.name = i18n.t("content.item.atd1.name");
-item.atd1.desc =
-  "Bundle of certain common herbs, mixed together. Tastes incredibly bitter, but helps to detoxify blood from containments" +
-  dom.dseparator +
-  "<span style='color:lime'> Neautralizes the effects of weak poisons </span>";
+item.atd1.desc = i18n.t("content.item.atd1.desc", {
+  separator: dom.dseparator,
+});
 item.atd1.stype = 4;
 item.atd1.use = function () {
   global.stat.medst++;
@@ -88,10 +89,9 @@ item.atd1.use = function () {
 item.psnwrd = new Item();
 item.psnwrd.id = 3003;
 item.psnwrd.name = i18n.t("content.item.psnwrd.name");
-item.psnwrd.desc =
-  "Solution developed to protect residents from diseases during times of plague" +
-  dom.dseparator +
-  "<span style='color:lime'> Grants invulnerability to poisons for a few hours </span>";
+item.psnwrd.desc = i18n.t("content.item.psnwrd.desc", {
+  separator: dom.dseparator,
+});
 item.psnwrd.stype = 4;
 item.psnwrd.rar = 2;
 item.psnwrd.use = function () {
@@ -105,28 +105,26 @@ item.hlpd = new Item();
 item.hlpd.id = 3004;
 item.hlpd.name = i18n.t("content.item.hlpd.name");
 item.hlpd.val = 16;
-item.hlpd.desc =
-  "Finely crushed cure grass. Used as a base to make weak medicine" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hlpd.val +
-  " </span>health";
+item.hlpd.desc = i18n.t("content.item.hlpd.desc", {
+  separator: dom.dseparator,
+  val: item.hlpd.val,
+});
 item.hlpd.stype = 4;
 item.hlpd.use = function () {
   global.stat.medst++;
   you.hp + this.val > you.hpmax ? (you.hp = you.hpmax) : (you.hp += this.val);
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.smm = new Item();
 item.smm.id = 3005;
 item.smm.name = i18n.t("content.item.smm.name");
-item.smm.desc =
-  "Mixture of ginger, bittervine,  and other herbs. Destroys toxins in one's body" +
-  dom.dseparator +
-  "<span style='color:lime'> Alliviates food poisoning </span>";
+item.smm.desc = i18n.t("content.item.smm.desc", { separator: dom.dseparator });
 item.smm.stype = 4;
 item.smm.use = function () {
   global.stat.medst++;
@@ -155,10 +153,7 @@ item.smm.use = function () {
 item.sp1 = new Item();
 item.sp1.id = 3006;
 item.sp1.name = i18n.t("content.item.sp1.name");
-item.sp1.desc =
-  "Tiny cheap spirit pill, made from condensed Ki. Lowest type, given to weak people and children to nourish their bodies." +
-  dom.dseparator +
-  "<span style='color:orange'> Grants +500 EXP </span>";
+item.sp1.desc = i18n.t("content.item.sp1.desc", { separator: dom.dseparator });
 item.sp1.stype = 4;
 item.sp1.use = function () {
   giveExp(500, true, true, true);
@@ -170,10 +165,7 @@ item.sp1.use = function () {
 item.sp2 = new Item();
 item.sp2.id = 3007;
 item.sp2.name = i18n.t("content.item.sp2.name");
-item.sp2.desc =
-  "Small cheap spirit pill, made from condensed Ki. Developed to help young martial artists to go through their training" +
-  dom.dseparator +
-  "<span style='color:orange'> Grants +2500 EXP </span>";
+item.sp2.desc = i18n.t("content.item.sp2.desc", { separator: dom.dseparator });
 item.sp2.stype = 4;
 item.sp2.use = function () {
   giveExp(2500, true, true, true);
@@ -185,10 +177,7 @@ item.sp2.use = function () {
 item.sp3 = new Item();
 item.sp3.id = 3008;
 item.sp3.name = i18n.t("content.item.sp3.name");
-item.sp3.desc =
-  "Small spirit pill, made from condensed Ki. Given to young warriors as energy supplement" +
-  dom.dseparator +
-  "<span style='color:orange'> Grants +15000 EXP </span>";
+item.sp3.desc = i18n.t("content.item.sp3.desc", { separator: dom.dseparator });
 item.sp3.stype = 4;
 item.sp3.use = function () {
   giveExp(15000, true, true, true);
@@ -200,10 +189,9 @@ item.sp3.use = function () {
 item.lsrd = new Item();
 item.lsrd.id = 3009;
 item.lsrd.name = i18n.t("content.item.lsrd.name");
-item.lsrd.desc =
-  "A fragment of living energy, trapped within a crystallic shell. Absorbing these slightly increases lifespan" +
-  dom.dseparator +
-  "<span style='color:hotpink'> Increases HP by +2 permanently </span>";
+item.lsrd.desc = i18n.t("content.item.lsrd.desc", {
+  separator: dom.dseparator,
+});
 item.lsrd.stype = 4;
 item.lsrd.use = function () {
   you.hpmax += 2;
@@ -223,12 +211,10 @@ item.hptn1 = new Item();
 item.hptn1.id = 3010;
 item.hptn1.name = i18n.t("content.item.hptn1.name");
 item.hptn1.val = 50;
-item.hptn1.desc =
-  "Weakest healing potion you can possibly find. Nearly useless for actual healing, but can act as a headache reliever" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hptn1.val +
-  " </span>health";
+item.hptn1.desc = i18n.t("content.item.hptn1.desc", {
+  separator: dom.dseparator,
+  val: item.hptn1.val,
+});
 item.hptn1.stype = 4;
 item.hptn1.use = function () {
   you.hp + this.val > you.hpmax ? (you.hp = you.hpmax) : (you.hp += this.val);
@@ -236,16 +222,18 @@ item.hptn1.use = function () {
   global.stat.medst++;
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lckl = new Item();
 item.lckl.id = 3011;
 item.lckl.name = i18n.t("content.item.lckl.name");
-item.lckl.desc =
-  "Clover of the rare breed. Whoever is able to find even one will be blessed by the Gods of Luck" +
-  dom.dseparator +
-  '<span style="color: red">L</span><span style="color: orange">U</span><span style="color: gold">C</span><span style="color: YELLOW">K +1</span>';
+item.lckl.desc = i18n.t("content.item.lckl.desc", {
+  separator: dom.dseparator,
+});
 item.lckl.stype = 4;
 item.lckl.rar = 4;
 item.lckl.onGet = function () {
@@ -266,10 +254,9 @@ item.lckl.use = function (x) {
 item.wstn1 = new Item();
 item.wstn1.id = 3012;
 item.wstn1.name = i18n.t("content.item.wstn1.name");
-item.wstn1.desc =
-  "Cheap and crude piece of whetstone. Not nearly good enough to maintain the life of a weapon, you can at least scrap off dirt and blood with it" +
-  dom.dseparator +
-  '<span style="color: lightgreen">Repairs equipped Weapon for <span style="color: lime">+2 DP</span></span>';
+item.wstn1.desc = i18n.t("content.item.wstn1.desc", {
+  separator: dom.dseparator,
+});
 item.wstn1.stype = 4;
 item.wstn1.use = function (x) {
   if (you.eqp[0].id === 10000)
@@ -281,7 +268,12 @@ item.wstn1.use = function (x) {
     you.eqp[0].dp + 2 >= you.eqp[0].dpmax
       ? (you.eqp[0].dp = you.eqp[0].dpmax)
       : (you.eqp[0].dp += 2);
-    msg("You've repaired " + you.eqp[0].name + " slightly", "yellow");
+    msg(
+      i18n.t("runtime.data.items.dialogue.repaired_item", {
+        item: you.eqp[0].name,
+      }),
+      "yellow",
+    );
     this.amount--;
   }
 };
@@ -289,10 +281,9 @@ item.wstn1.use = function (x) {
 item.bdgh = new Item();
 item.bdgh.id = 3013;
 item.bdgh.name = i18n.t("content.item.bdgh.name");
-item.bdgh.desc =
-  "Clean piece of thin sturdy cloth, perfect for wrapping and securing open wounds" +
-  dom.dseparator +
-  '<span style="color:lime">Somewhat stops bleeding</span>';
+item.bdgh.desc = i18n.t("content.item.bdgh.desc", {
+  separator: dom.dseparator,
+});
 item.bdgh.stype = 4;
 item.bdgh.use = function () {
   if (!effect.bled.active) {
@@ -321,10 +312,9 @@ item.bdgh.onGet = function () {
 item.amshrm = new Item();
 item.amshrm.id = 3014;
 item.amshrm.name = i18n.t("content.item.amshrm.name");
-item.amshrm.desc =
-  "The ultimate mushroom of the mushroom world. Eating it makes you feel a mysterious kind of vitality" +
-  dom.dseparator +
-  '<span style="color: springgreen">Permanently increases STR by +5</span>';
+item.amshrm.desc = i18n.t("content.item.amshrm.desc", {
+  separator: dom.dseparator,
+});
 item.amshrm.stype = 4;
 item.amshrm.rar = 4;
 item.amshrm.use = function (x) {
@@ -344,10 +334,9 @@ item.amshrm.use = function (x) {
 item.akhrb = new Item();
 item.akhrb.id = 3015;
 item.akhrb.name = i18n.t("content.item.akhrb.name");
-item.akhrb.desc =
-  "Diet-oriented vegetable with misleading effect. It was such a terrible taste and bitter texture that no one would willingly eat them" +
-  dom.dseparator +
-  '<span style="color: orange">Makes you feel bad</span>';
+item.akhrb.desc = i18n.t("content.item.akhrb.desc", {
+  separator: dom.dseparator,
+});
 item.akhrb.stype = 4;
 item.akhrb.rar = 2;
 item.akhrb.use = function (x) {
@@ -365,15 +354,7 @@ item.akhrb.use = function (x) {
       this.amount--;
     } else {
       msg(
-        select([
-          "You retch..",
-          "You feel like vomiting..",
-          "You feel sick..",
-          "Your insides turn just by looking at this thing..",
-          "You immidiately spit it out..",
-          "Your body rejects this..",
-          "Your body screams..",
-        ]),
+        select(i18n.get("runtime.data.items.dialogue.nausea_reactions")),
         "grey",
       );
     }
@@ -397,10 +378,9 @@ item.cndl.use = function (x) {
 item.incsk = new Item();
 item.incsk.id = 3017;
 item.incsk.name = i18n.t("content.item.incsk.name");
-item.incsk.desc =
-  "A stick of aromatic incense. It calms your soul and mind" +
-  dom.dseparator +
-  '<span style="color: skyblue">Doubles meditation gain<br>Doubles cultivation gain</span>';
+item.incsk.desc = i18n.t("content.item.incsk.desc", {
+  separator: dom.dseparator,
+});
 item.incsk.stype = 4;
 item.incsk.use = function (x) {
   if (effect.incsk.active === true) effect.insck.duration = 600;
@@ -411,10 +391,9 @@ item.incsk.use = function (x) {
 item.sp0a = new Item();
 item.sp0a.id = 3018;
 item.sp0a.name = i18n.t("content.item.sp0a.name");
-item.sp0a.desc =
-  "Powder refined from blood of the wyrm. Has potential to improve internal energy" +
-  dom.dseparator +
-  "<span style='color:orange'> Grants +95000 EXP </span><br><span style='color:deeppink'>EXP Gain +1%</span>";
+item.sp0a.desc = i18n.t("content.item.sp0a.desc", {
+  separator: dom.dseparator,
+});
 item.sp0a.stype = 4;
 item.sp0a.rar = 2;
 item.sp0a.use = function () {
@@ -427,10 +406,9 @@ item.sp0a.use = function () {
 item.smkbmb = new Item();
 item.smkbmb.id = 3019;
 item.smkbmb.name = i18n.t("content.item.smkbmb.name");
-item.smkbmb.desc =
-  "Pellets that release thick smog when crushed. Can create a smokescreen to help you escape from danger" +
-  dom.dseparator +
-  "<span style='color:springgreen'>Bypasses current enemy</span>";
+item.smkbmb.desc = i18n.t("content.item.smkbmb.desc", {
+  separator: dom.dseparator,
+});
 item.smkbmb.stype = 4;
 item.smkbmb.use = function () {
   if (global.flags.civil === true && global.flags.btl === false) {
@@ -524,10 +502,9 @@ item.svial1.use = function () {
 item.mpwdr = new Item();
 item.mpwdr.id = 3021;
 item.mpwdr.name = i18n.t("content.item.mpwdr.name");
-item.mpwdr.desc =
-  "Dried and grounded sunbloom mixed with red salts, it emits aura often mistaken for soul energy that attracts nearby creatures<br>" +
-  dom.dseparator +
-  "<span style='color:seagreen'>Increases area size by 5</span>";
+item.mpwdr.desc = i18n.t("content.item.mpwdr.desc", {
+  separator: dom.dseparator,
+});
 item.mpwdr.stype = 4;
 item.mpwdr.use = function () {
   if (
@@ -558,10 +535,9 @@ item.mpwdr.use = function () {
 item.smbpll = new Item();
 item.smbpll.id = 3022;
 item.smbpll.name = i18n.t("content.item.smbpll.name");
-item.smbpll.desc =
-  "Pill with a strong sedative effect. Normally used by sick and old people to treat insomnia, if they can afford it. Has other uses if you are creative enough" +
-  dom.dseparator +
-  "<span style='color:lightgrey'>Makes you sleep through 18 hours in an instant</span>";
+item.smbpll.desc = i18n.t("content.item.smbpll.desc", {
+  separator: dom.dseparator,
+});
 item.smbpll.stype = 4;
 item.smbpll.use = function (x) {
   if (
@@ -594,10 +570,9 @@ item.smbpll.use = function (x) {
 item.lifedr = new Item();
 item.lifedr.id = 3023;
 item.lifedr.name = i18n.t("content.item.lifedr.name");
-item.lifedr.desc =
-  "A single drop of revitalizing liquid. Consuming even such a meager amount has a miraclous effect on the lifeforce of a mortal" +
-  dom.dseparator +
-  "<span style='color:hotpink'> Increases HP by +40 permanently </span><br><span style='color:lime'>HP growth rate +2%</span>";
+item.lifedr.desc = i18n.t("content.item.lifedr.desc", {
+  separator: dom.dseparator,
+});
 item.lifedr.stype = 4;
 item.lifedr.rar = 2;
 item.lifedr.use = function () {
@@ -622,10 +597,9 @@ item.lifedr.use = function () {
 item.mnblm = new Item();
 item.mnblm.id = 3024;
 item.mnblm.name = i18n.t("content.item.mnblm.name");
-item.mnblm.desc =
-  "A yellow flower which is said to bud on new moons. The flower' nectar is the favourite of spirits and is effective for recovering from exhaustion, but only by refining it into a pill or elixir is it possible to draw out its full potential, which makes it prized by alchemists" +
-  dom.dseparator +
-  "<span style='color:hotpink'> Increases SAT by +2 permanently </span>";
+item.mnblm.desc = i18n.t("content.item.mnblm.desc", {
+  separator: dom.dseparator,
+});
 item.mnblm.stype = 4;
 item.mnblm.rar = 2;
 item.mnblm.use = function () {
@@ -646,12 +620,10 @@ item.hptn2 = new Item();
 item.hptn2.id = 3025;
 item.hptn2.name = i18n.t("content.item.hptn2.name");
 item.hptn2.val = 450;
-item.hptn2.desc =
-  "Healing potion with weak healing powers. It is usually used by commoners as first aid before deciding whether to go see a doctor or not" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hptn2.val +
-  " </span>health";
+item.hptn2.desc = i18n.t("content.item.hptn2.desc", {
+  separator: dom.dseparator,
+  val: item.hptn2.val,
+});
 item.hptn2.stype = 4;
 item.hptn2.use = function () {
   you.hp + this.val > you.hpmax ? (you.hp = you.hpmax) : (you.hp += this.val);
@@ -659,19 +631,20 @@ item.hptn2.use = function () {
   global.stat.medst++;
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.hptn3 = new Item();
 item.hptn3.id = 3026;
 item.hptn3.name = i18n.t("content.item.hptn3.name");
 item.hptn3.val = 2100;
-item.hptn3.desc =
-  "Startand healing potion of common quality. It can heal wounds, bruises, burns, sprains and other minor injuries. Novice adventurers and hunters should carry a few of these at all times" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hptn3.val +
-  " </span>health";
+item.hptn3.desc = i18n.t("content.item.hptn3.desc", {
+  separator: dom.dseparator,
+  val: item.hptn3.val,
+});
 item.hptn3.stype = 4;
 item.hptn3.use = function () {
   you.hp + this.val > you.hpmax ? (you.hp = you.hpmax) : (you.hp += this.val);
@@ -679,19 +652,20 @@ item.hptn3.use = function () {
   global.stat.medst++;
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.hptn4 = new Item();
 item.hptn4.id = 3027;
 item.hptn4.name = i18n.t("content.item.hptn4.name");
 item.hptn4.val = 7900;
-item.hptn4.desc =
-  "Potions given to the knights in times of war. Can heal moderate wounds and dull out the pain. These potions sneak their way into the market by all kinds of illegal means, yet actually selling them isn't prohibited" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hptn4.val +
-  " </span>health";
+item.hptn4.desc = i18n.t("content.item.hptn4.desc", {
+  separator: dom.dseparator,
+  val: item.hptn4.val,
+});
 item.hptn4.stype = 4;
 item.hptn4.rar = 2;
 item.hptn4.use = function () {
@@ -700,16 +674,18 @@ item.hptn4.use = function () {
   global.stat.medst++;
   this.amount--;
   dom.d5_1_1.update();
-  msg("Restored " + this.val + " hp", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_hp", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lsstn = new Item();
 item.lsstn.id = 3028;
 item.lsstn.name = i18n.t("content.item.lsstn.name");
-item.lsstn.desc =
-  "Life vessel that lost its energy and became impure, now looks like an ordinary small pebble and serves very little purpose. Can be absorbed for minor health benefits" +
-  dom.dseparator +
-  "<span style='color:hotpink'> Increases HP by +25 permanently </span>";
+item.lsstn.desc = i18n.t("content.item.lsstn.desc", {
+  separator: dom.dseparator,
+});
 item.lsstn.stype = 4;
 item.lsstn.use = function () {
   you.hpmax += 25;
@@ -728,10 +704,9 @@ item.lsstn.use = function () {
 item.bltrt = new Item();
 item.bltrt.id = 3029;
 item.bltrt.name = i18n.t("content.item.bltrt.name");
-item.bltrt.desc =
-  "Unremarkable looking grey root that is bland and tasteless, but eating it makes you feel full. It doesn't seem to have any other qualities, hovewer" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> 100 </span>energy";
+item.bltrt.desc = i18n.t("content.item.bltrt.desc", {
+  separator: dom.dseparator,
+});
 item.bltrt.stype = 4;
 item.bltrt.rar = 2;
 item.bltrt.use = function () {
@@ -758,10 +733,9 @@ item.feip1.use = function () {
 item.stthbm1 = new Item();
 item.stthbm1.id = 3031;
 item.stthbm1.name = i18n.t("content.item.stthbm1.name");
-item.stthbm1.desc =
-  "Herb of might. This fiery herb is rumored to improve muscle density" +
-  dom.dseparator +
-  '<span style="color: springgreen">Permanently increases STR by +1</span>';
+item.stthbm1.desc = i18n.t("content.item.stthbm1.desc", {
+  separator: dom.dseparator,
+});
 item.stthbm1.stype = 4;
 item.stthbm1.rar = 2;
 item.stthbm1.use = function (x) {
@@ -781,10 +755,9 @@ item.stthbm1.use = function (x) {
 item.stthbm2 = new Item();
 item.stthbm2.id = 3032;
 item.stthbm2.name = i18n.t("content.item.stthbm2.name");
-item.stthbm2.desc =
-  "Herb of swiftness. Loved by Serpents, this herb slightly raises one's reaction time" +
-  dom.dseparator +
-  '<span style="color: springgreen">Permanently increases SPD by +1</span>';
+item.stthbm2.desc = i18n.t("content.item.stthbm2.desc", {
+  separator: dom.dseparator,
+});
 item.stthbm2.stype = 4;
 item.stthbm2.rar = 2;
 item.stthbm2.use = function (x) {
@@ -804,10 +777,9 @@ item.stthbm2.use = function (x) {
 item.stthbm3 = new Item();
 item.stthbm3.id = 3033;
 item.stthbm3.name = i18n.t("content.item.stthbm3.name");
-item.stthbm3.desc =
-  "Herb of clarity. This herb is often used in making of high quality incense" +
-  dom.dseparator +
-  '<span style="color: springgreen">Permanently increases INT by +1</span>';
+item.stthbm3.desc = i18n.t("content.item.stthbm3.desc", {
+  separator: dom.dseparator,
+});
 item.stthbm3.stype = 4;
 item.stthbm3.rar = 2;
 item.stthbm3.use = function (x) {
@@ -827,10 +799,9 @@ item.stthbm3.use = function (x) {
 item.stthbm4 = new Item();
 item.stthbm4.id = 3034;
 item.stthbm4.name = i18n.t("content.item.stthbm4.name");
-item.stthbm4.desc =
-  "Herb of flexibility. There are rumors of an old hermit growing these herbs under the hidden mountain" +
-  dom.dseparator +
-  '<span style="color: springgreen">Permanently increases AGL by +1</span>';
+item.stthbm4.desc = i18n.t("content.item.stthbm4.desc", {
+  separator: dom.dseparator,
+});
 item.stthbm4.stype = 4;
 item.stthbm4.rar = 2;
 item.stthbm4.use = function (x) {
@@ -879,12 +850,10 @@ item.appl = new Item();
 item.appl.id = 1;
 item.appl.name = i18n.t("content.item.appl.name");
 item.appl.val = 7;
-item.appl.desc =
-  "Juicy red fruit. Makes a fine breakfast if you have nothing else..." +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.appl.val +
-  " </span>energy";
+item.appl.desc = i18n.t("content.item.appl.desc", {
+  separator: dom.dseparator,
+  val: item.appl.val,
+});
 item.appl.stype = 4;
 item.appl.use = function () {
   you.sat + this.val > you.satmax
@@ -894,19 +863,20 @@ item.appl.use = function () {
   dom.d5_3_1.update();
   skl.glt.use(2);
   global.stat.fooda++;
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brd = new Item();
 item.brd.id = 2;
 item.brd.name = i18n.t("content.item.brd.name");
 item.brd.val = 14;
-item.brd.desc =
-  "Simple loaf of bread, baked with care. It's crunchy and smells nice" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brd.val +
-  " </span>energy";
+item.brd.desc = i18n.t("content.item.brd.desc", {
+  separator: dom.dseparator,
+  val: item.brd.val,
+});
 item.brd.stype = 4;
 item.brd.rot = [0.15, 0.25, 0.05, 0.15];
 item.brd.use = function () {
@@ -917,7 +887,10 @@ item.brd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 item.brd.onChange = function (x, y) {
   if (y) return [item.spb, x];
@@ -928,12 +901,10 @@ item.crrt = new Item();
 item.crrt.id = 3;
 item.crrt.name = i18n.t("content.item.crrt.name");
 item.crrt.val = 5;
-item.crrt.desc =
-  "It gets very sweet when boiled" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.crrt.val +
-  " </span>energy";
+item.crrt.desc = i18n.t("content.item.crrt.desc", {
+  separator: dom.dseparator,
+  val: item.crrt.val,
+});
 item.crrt.stype = 4;
 item.crrt.use = function () {
   you.sat + this.val > you.satmax
@@ -943,7 +914,10 @@ item.crrt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 item.crrt.onGet = function () {
   if (this.amount >= 20) {
@@ -956,12 +930,10 @@ item.potat = new Item();
 item.potat.id = 4;
 item.potat.name = i18n.t("content.item.potat.name");
 item.potat.val = 7;
-item.potat.desc =
-  "Universal vegetable that can be prepared in hundreds different ways" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.potat.val +
-  " </span>energy";
+item.potat.desc = i18n.t("content.item.potat.desc", {
+  separator: dom.dseparator,
+  val: item.potat.val,
+});
 item.potat.stype = 4;
 item.potat.use = function () {
   if (random() < 0.1) {
@@ -975,19 +947,20 @@ item.potat.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.eggn = new Item();
 item.eggn.id = 5;
 item.eggn.name = i18n.t("content.item.eggn.name");
 item.eggn.val = 4;
-item.eggn.desc =
-  "Whole chicken egg, very nutritious" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.eggn.val +
-  " </span>energy";
+item.eggn.desc = i18n.t("content.item.eggn.desc", {
+  separator: dom.dseparator,
+  val: item.eggn.val,
+});
 item.eggn.stype = 4;
 item.eggn.use = function () {
   you.sat + this.val > you.satmax
@@ -997,19 +970,20 @@ item.eggn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mlkn = new Item();
 item.mlkn.id = 6;
 item.mlkn.name = i18n.t("content.item.mlkn.name");
 item.mlkn.val = 8;
-item.mlkn.desc =
-  "Power potion for your bones" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mlkn.val +
-  " </span>energy";
+item.mlkn.desc = i18n.t("content.item.mlkn.desc", {
+  separator: dom.dseparator,
+  val: item.mlkn.val,
+});
 item.mlkn.stype = 4;
 item.mlkn.use = function () {
   you.sat + this.val > you.satmax
@@ -1019,19 +993,20 @@ item.mlkn.use = function () {
   global.stat.foodb++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rwmt1 = new Item();
 item.rwmt1.id = 7;
 item.rwmt1.name = i18n.t("content.item.rwmt1.name");
 item.rwmt1.val = 11;
-item.rwmt1.desc =
-  "Edible part of some animal, has to be cooked before consumption" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rwmt1.val +
-  " </span>energy";
+item.rwmt1.desc = i18n.t("content.item.rwmt1.desc", {
+  separator: dom.dseparator,
+  val: item.rwmt1.val,
+});
 item.rwmt1.stype = 4;
 item.rwmt1.rot = [0.25, 0.45, 0.1, 0.2];
 item.rwmt1.onGet = function () {
@@ -1052,7 +1027,10 @@ item.rwmt1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 item.rwmt1.onChange = function (x, y) {
   if (y) return [item.rtnmt, x];
@@ -1063,12 +1041,10 @@ item.rice = new Item();
 item.rice.id = 8;
 item.rice.name = i18n.t("content.item.rice.name");
 item.rice.val = 2;
-item.rice.desc =
-  "Clean rice grains. Healthy and delicious when cooked, but awful to eat in dry state" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rice.val +
-  " </span>energy";
+item.rice.desc = i18n.t("content.item.rice.desc", {
+  separator: dom.dseparator,
+  val: item.rice.val,
+});
 item.rice.stype = 4;
 item.rice.use = function () {
   you.sat + this.val > you.satmax
@@ -1078,19 +1054,20 @@ item.rice.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.borc = new Item();
 item.borc.id = 9;
 item.borc.name = i18n.t("content.item.borc.name");
 item.borc.val = 18;
-item.borc.desc =
-  "Fluffy rice. Simple dish that tastes good" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.borc.val +
-  " </span>energy";
+item.borc.desc = i18n.t("content.item.borc.desc", {
+  separator: dom.dseparator,
+  val: item.borc.val,
+});
 item.borc.stype = 4;
 item.borc.use = function () {
   you.sat + this.val > you.satmax
@@ -1100,19 +1077,20 @@ item.borc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.begg = new Item();
 item.begg.id = 10;
 item.begg.name = i18n.t("content.item.begg.name");
 item.begg.val = 7;
-item.begg.desc =
-  "Hard/soft-boiled egg, you aren't sure. Will fill you up either way" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.begg.val +
-  " </span>energy";
+item.begg.desc = i18n.t("content.item.begg.desc", {
+  separator: dom.dseparator,
+  val: item.begg.val,
+});
 item.begg.stype = 4;
 item.begg.use = function () {
   you.sat + this.val > you.satmax
@@ -1122,19 +1100,20 @@ item.begg.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.kit = new Item();
 item.kit.id = 11;
 item.kit.name = i18n.t("content.item.kit.name");
 item.kit.val = 800;
-item.kit.desc =
-  "Ninja ration consisting mostly of cereals that, according to esoteric scrolls, <span style='color:orange'>\"Could sustain one in both mind and body with only three grains per day\"</span>" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.kit.val +
-  " </span>energy";
+item.kit.desc = i18n.t("content.item.kit.desc", {
+  separator: dom.dseparator,
+  val: item.kit.val,
+});
 item.kit.stype = 4;
 item.kit.rar = 4;
 item.kit.use = function () {
@@ -1145,19 +1124,20 @@ item.kit.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bac = new Item();
 item.bac.id = 12;
 item.bac.name = i18n.t("content.item.bac.name");
 item.bac.val = 12;
-item.bac.desc =
-  "The food of kings" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bac.val +
-  " </span>energy";
+item.bac.desc = i18n.t("content.item.bac.desc", {
+  separator: dom.dseparator,
+  val: item.bac.val,
+});
 item.bac.stype = 4;
 item.bac.use = function () {
   you.sat + this.val > you.satmax
@@ -1167,19 +1147,20 @@ item.bac.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bgt = new Item();
 item.bgt.id = 13;
 item.bgt.name = i18n.t("content.item.bgt.name");
 item.bgt.val = 17;
-item.bgt.desc =
-  "A very long bread" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bgt.val +
-  " </span>energy";
+item.bgt.desc = i18n.t("content.item.bgt.desc", {
+  separator: dom.dseparator,
+  val: item.bgt.val,
+});
 item.bgt.stype = 4;
 item.bgt.use = function () {
   you.sat + this.val > you.satmax
@@ -1189,19 +1170,20 @@ item.bgt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bhd = new Item();
 item.bhd.id = 14;
 item.bhd.name = i18n.t("content.item.bhd.name");
 item.bhd.val = 6;
-item.bhd.desc =
-  "A dry and virtually tasteless bread product capable of remaining edible without spoilage for vast lengths of time" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bhd.val +
-  " </span>energy";
+item.bhd.desc = i18n.t("content.item.bhd.desc", {
+  separator: dom.dseparator,
+  val: item.bhd.val,
+});
 item.bhd.stype = 4;
 item.bhd.use = function () {
   you.sat + this.val > you.satmax
@@ -1211,19 +1193,20 @@ item.bhd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.spb = new Item();
 item.spb.id = 15;
 item.spb.name = i18n.t("content.item.spb.name");
 item.spb.val = 8;
-item.spb.desc =
-  " Piece of old stale bread covered in mold. Takes courage to eat" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.spb.val +
-  " </span>energy";
+item.spb.desc = i18n.t("content.item.spb.desc", {
+  separator: dom.dseparator,
+  val: item.spb.val,
+});
 item.spb.stype = 4;
 item.spb.rar = 0;
 item.spb.use = function () {
@@ -1239,19 +1222,20 @@ item.spb.use = function () {
   global.stat.foodt++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wsb = new Item();
 item.wsb.id = 16;
 item.wsb.name = i18n.t("content.item.wsb.name");
 item.wsb.val = 11;
-item.wsb.desc =
-  "When flour becomes a commodity to deal with, wayfarers and the poor resort to mix it with leftovers of other ingredients and bake it all into bread" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wsb.val +
-  " </span>energy";
+item.wsb.desc = i18n.t("content.item.wsb.desc", {
+  separator: dom.dseparator,
+  val: item.wsb.val,
+});
 item.wsb.stype = 4;
 item.wsb.use = function () {
   you.sat + this.val > you.satmax
@@ -1261,19 +1245,20 @@ item.wsb.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.onn = new Item();
 item.onn.id = 17;
 item.onn.name = i18n.t("content.item.onn.name");
 item.onn.val = 3;
-item.onn.desc =
-  "Vegetable cultivated since ancient times. Enhances the dish in various ways, also makes you cry" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.onn.val +
-  " </span>energy";
+item.onn.desc = i18n.t("content.item.onn.desc", {
+  separator: dom.dseparator,
+  val: item.onn.val,
+});
 item.onn.stype = 4;
 item.onn.use = function () {
   you.sat + this.val > you.satmax
@@ -1283,19 +1268,20 @@ item.onn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.sgr = new Item();
 item.sgr.id = 18;
 item.sgr.name = i18n.t("content.item.sgr.name");
 item.sgr.val = 1;
-item.sgr.desc =
-  "Sweet little crystals. Kids love treats made out of them" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sgr.val +
-  " </span>energy";
+item.sgr.desc = i18n.t("content.item.sgr.desc", {
+  separator: dom.dseparator,
+  val: item.sgr.val,
+});
 item.sgr.stype = 4;
 item.sgr.use = function () {
   you.sat + this.val > you.satmax
@@ -1305,19 +1291,20 @@ item.sgr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wht = new Item();
 item.wht.id = 19;
 item.wht.name = i18n.t("content.item.wht.name");
 item.wht.val = 1;
-item.wht.desc =
-  "Raw wheat. While not very tasty, powder made out of them is the main ingredient in breadmaking" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wht.val +
-  " </span>energy";
+item.wht.desc = i18n.t("content.item.wht.desc", {
+  separator: dom.dseparator,
+  val: item.wht.val,
+});
 item.wht.stype = 4;
 item.wht.use = function () {
   you.sat + this.val > you.satmax
@@ -1327,19 +1314,20 @@ item.wht.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.tmt = new Item();
 item.tmt.id = 20;
 item.tmt.name = i18n.t("content.item.tmt.name");
 item.tmt.val = 8;
-item.tmt.desc =
-  "Soursweet juicy edible, has many uses in cooking. Rumored to be poisonous" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.tmt.val +
-  " </span>energy";
+item.tmt.desc = i18n.t("content.item.tmt.desc", {
+  separator: dom.dseparator,
+  val: item.tmt.val,
+});
 item.tmt.stype = 4;
 item.tmt.use = function () {
   you.sat + this.val > you.satmax
@@ -1349,19 +1337,20 @@ item.tmt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cbg = new Item();
 item.cbg.id = 21;
 item.cbg.name = i18n.t("content.item.cbg.name");
 item.cbg.val = 12;
-item.cbg.desc =
-  "Crisp layered vegetable. Used in variety of dishes" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cbg.val +
-  " </span>energy";
+item.cbg.desc = i18n.t("content.item.cbg.desc", {
+  separator: dom.dseparator,
+  val: item.cbg.val,
+});
 item.cbg.stype = 4;
 item.cbg.use = function () {
   you.sat + this.val > you.satmax
@@ -1371,19 +1360,20 @@ item.cbg.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mshr = new Item();
 item.mshr.id = 22;
 item.mshr.name = i18n.t("content.item.mshr.name");
 item.mshr.val = 5;
-item.mshr.desc =
-  "Common edible mushroom. When cooked with the right ingredients, the flavour of this mushroom is not so common" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mshr.val +
-  " </span>energy";
+item.mshr.desc = i18n.t("content.item.mshr.desc", {
+  separator: dom.dseparator,
+  val: item.mshr.val,
+});
 item.mshr.stype = 4;
 item.mshr.use = function () {
   you.sat + this.val > you.satmax
@@ -1393,19 +1383,20 @@ item.mshr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bnn = new Item();
 item.bnn.id = 23;
 item.bnn.name = i18n.t("content.item.bnn.name");
 item.bnn.val = 8;
-item.bnn.desc =
-  "Fruit full of potassium. Originaly cultivated as staple food, but eventually gained popularity" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bnn.val +
-  " </span>energy";
+item.bnn.desc = i18n.t("content.item.bnn.desc", {
+  separator: dom.dseparator,
+  val: item.bnn.val,
+});
 item.bnn.stype = 4;
 item.bnn.use = function () {
   you.sat + this.val > you.satmax
@@ -1415,19 +1406,20 @@ item.bnn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wbrs = new Item();
 item.wbrs.id = 24;
 item.wbrs.name = i18n.t("content.item.wbrs.name");
 item.wbrs.val = 7;
-item.wbrs.desc =
-  "Wide selection of various edible berries collected from the forest" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wbrs.val +
-  " </span>energy";
+item.wbrs.desc = i18n.t("content.item.wbrs.desc", {
+  separator: dom.dseparator,
+  val: item.wbrs.val,
+});
 item.wbrs.stype = 4;
 item.wbrs.use = function () {
   you.sat + this.val > you.satmax
@@ -1437,19 +1429,20 @@ item.wbrs.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.strwb = new Item();
 item.strwb.id = 25;
 item.strwb.name = i18n.t("content.item.strwb.name");
 item.strwb.val = 18;
-item.strwb.desc =
-  "Heap of plump red berries. They are sweet and popular with children and royalty" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.strwb.val +
-  " </span>energy";
+item.strwb.desc = i18n.t("content.item.strwb.desc", {
+  separator: dom.dseparator,
+  val: item.strwb.val,
+});
 item.strwb.stype = 4;
 item.strwb.use = function () {
   you.sat + this.val > you.satmax
@@ -1459,19 +1452,20 @@ item.strwb.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.orng = new Item();
 item.orng.id = 26;
 item.orng.name = i18n.t("content.item.orng.name");
 item.orng.val = 9;
-item.orng.desc =
-  "Fragnant citruis, can be either sour or sweet depending where it was cultivated" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.orng.val +
-  " </span>energy";
+item.orng.desc = i18n.t("content.item.orng.desc", {
+  separator: dom.dseparator,
+  val: item.orng.val,
+});
 item.orng.stype = 4;
 item.orng.use = function () {
   you.sat + this.val > you.satmax
@@ -1481,19 +1475,20 @@ item.orng.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ches = new Item();
 item.ches.id = 27;
 item.ches.name = i18n.t("content.item.ches.name");
 item.ches.val = 13;
-item.ches.desc =
-  "Fermented cow milk. Despite having strong smell it is a tasty and popular product. Can be eaten raw" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ches.val +
-  " </span>energy";
+item.ches.desc = i18n.t("content.item.ches.desc", {
+  separator: dom.dseparator,
+  val: item.ches.val,
+});
 item.ches.stype = 4;
 item.ches.use = function () {
   you.sat + this.val > you.satmax
@@ -1503,19 +1498,20 @@ item.ches.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ltcc = new Item();
 item.ltcc.id = 28;
 item.ltcc.name = i18n.t("content.item.ltcc.name");
 item.ltcc.val = 2;
-item.ltcc.desc =
-  "Watery leaves, usually used in salads" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ltcc.val +
-  " </span>energy";
+item.ltcc.desc = i18n.t("content.item.ltcc.desc", {
+  separator: dom.dseparator,
+  val: item.ltcc.val,
+});
 item.ltcc.stype = 4;
 item.ltcc.use = function () {
   you.sat + this.val > you.satmax
@@ -1525,19 +1521,20 @@ item.ltcc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brly = new Item();
 item.brly.id = 29;
 item.brly.name = i18n.t("content.item.brly.name");
 item.brly.val = 2;
-item.brly.desc =
-  "Grainy cereal used for malting. A staple of brewing everywhere. It can also be ground into flour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brly.val +
-  " </span>energy";
+item.brly.desc = i18n.t("content.item.brly.desc", {
+  separator: dom.dseparator,
+  val: item.brly.val,
+});
 item.brly.stype = 4;
 item.brly.use = function () {
   you.sat + this.val > you.satmax
@@ -1547,19 +1544,20 @@ item.brly.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.grlc = new Item();
 item.grlc.id = 30;
 item.grlc.name = i18n.t("content.item.grlc.name");
 item.grlc.val = 6;
-item.grlc.desc =
-  "A pungent garlic, popular as a seasoning for its strong flavor" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.grlc.val +
-  " </span>energy";
+item.grlc.desc = i18n.t("content.item.grlc.desc", {
+  separator: dom.dseparator,
+  val: item.grlc.val,
+});
 item.grlc.stype = 4;
 item.grlc.use = function () {
   you.sat + this.val > you.satmax
@@ -1569,19 +1567,20 @@ item.grlc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.pmpk = new Item();
 item.pmpk.id = 31;
 item.pmpk.name = i18n.t("content.item.pmpk.name");
 item.pmpk.val = 12;
-item.pmpk.desc =
-  "A large vegetable, about the size of your head. Not very tasty raw, but is great for cooking" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.pmpk.val +
-  " </span>energy";
+item.pmpk.desc = i18n.t("content.item.pmpk.desc", {
+  separator: dom.dseparator,
+  val: item.pmpk.val,
+});
 item.pmpk.stype = 4;
 item.pmpk.use = function () {
   you.sat + this.val > you.satmax
@@ -1591,19 +1590,20 @@ item.pmpk.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lmn = new Item();
 item.lmn.id = 32;
 item.lmn.name = i18n.t("content.item.lmn.name");
 item.lmn.val = 8;
-item.lmn.desc =
-  "Very sour citrus. Can be eaten if you really want" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.lmn.val +
-  " </span>energy";
+item.lmn.desc = i18n.t("content.item.lmn.desc", {
+  separator: dom.dseparator,
+  val: item.lmn.val,
+});
 item.lmn.stype = 4;
 item.lmn.use = function () {
   you.sat + this.val > you.satmax
@@ -1613,19 +1613,20 @@ item.lmn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.grp = new Item();
 item.grp.id = 33;
 item.grp.name = i18n.t("content.item.grp.name");
 item.grp.val = 8;
-item.grp.desc =
-  "A cluster of juicy grapes. If you ferment them they'll turn into wine" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.grp.val +
-  " </span>energy";
+item.grp.desc = i18n.t("content.item.grp.desc", {
+  separator: dom.dseparator,
+  val: item.grp.val,
+});
 item.grp.stype = 4;
 item.grp.use = function () {
   you.sat + this.val > you.satmax
@@ -1635,19 +1636,20 @@ item.grp.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.pnpl = new Item();
 item.pnpl.id = 34;
 item.pnpl.name = i18n.t("content.item.pnpl.name");
 item.pnpl.val = 12;
-item.pnpl.desc =
-  "A large, spiky pineapple. A bit sour, though" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.pnpl.val +
-  " </span>energy";
+item.pnpl.desc = i18n.t("content.item.pnpl.desc", {
+  separator: dom.dseparator,
+  val: item.pnpl.val,
+});
 item.pnpl.stype = 4;
 item.pnpl.use = function () {
   you.sat + this.val > you.satmax
@@ -1657,7 +1659,10 @@ item.pnpl.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rsmt = new Item();
@@ -1665,12 +1670,10 @@ item.rsmt.id = 35;
 item.rsmt.name = i18n.t("content.item.rsmt.name");
 item.rsmt.val = 15;
 item.rsmt.rot = [0.1, 0.25, 0.05, 0.15];
-item.rsmt.desc =
-  "Simple slab of meat, roasted on an open fire without any seasoning. Tastes pretty good nonetheless" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rsmt.val +
-  " </span>energy";
+item.rsmt.desc = i18n.t("content.item.rsmt.desc", {
+  separator: dom.dseparator,
+  val: item.rsmt.val,
+});
 item.rsmt.stype = 4;
 item.rsmt.use = function () {
   you.sat + this.val > you.satmax
@@ -1680,19 +1683,20 @@ item.rsmt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.tbrwd = new Item();
 item.tbrwd.id = 36;
 item.tbrwd.name = i18n.t("content.item.tbrwd.name");
 item.tbrwd.val = 20;
-item.tbrwd.desc =
-  "The beverage of gentlemen everywhere, made from applying hot water to leaves of the tea plant. Often used during the ceremonies as a social supplement" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.tbrwd.val +
-  " </span>energy";
+item.tbrwd.desc = i18n.t("content.item.tbrwd.desc", {
+  separator: dom.dseparator,
+  val: item.tbrwd.val,
+});
 item.tbrwd.stype = 4;
 item.tbrwd.use = function () {
   you.sat + this.val > you.satmax
@@ -1702,19 +1706,20 @@ item.tbrwd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.htbrwd = new Item();
 item.htbrwd.id = 37;
 item.htbrwd.name = i18n.t("content.item.htbrwd.name");
 item.htbrwd.val = 16;
-item.htbrwd.desc =
-  "Healthy beverage brewed from various herbs, has a powerful relaxation effect" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.htbrwd.val +
-  " </span>energy";
+item.htbrwd.desc = i18n.t("content.item.htbrwd.desc", {
+  separator: dom.dseparator,
+  val: item.htbrwd.val,
+});
 item.htbrwd.stype = 4;
 item.htbrwd.use = function () {
   you.sat + this.val > you.satmax
@@ -1724,19 +1729,20 @@ item.htbrwd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.segg = new Item();
 item.segg.id = 38;
 item.segg.name = i18n.t("content.item.segg.name");
 item.segg.val = 20;
-item.segg.desc =
-  "Fluffy and delicious scrambled eggs" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.segg.val +
-  " </span>energy";
+item.segg.desc = i18n.t("content.item.segg.desc", {
+  separator: dom.dseparator,
+  val: item.segg.val,
+});
 item.segg.stype = 4;
 item.segg.use = function () {
   you.sat + this.val > you.satmax
@@ -1746,19 +1752,20 @@ item.segg.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.irntl = new Item();
 item.irntl.id = 39;
 item.irntl.name = i18n.t("content.item.irntl.name");
 item.irntl.val = 31;
-item.irntl.desc =
-  "Wierd wine mixed with whiskey and rum" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.irntl.val +
-  " </span>energy";
+item.irntl.desc = i18n.t("content.item.irntl.desc", {
+  separator: dom.dseparator,
+  val: item.irntl.val,
+});
 item.irntl.stype = 4;
 item.irntl.rar = 2;
 item.irntl.use = function () {
@@ -1773,19 +1780,20 @@ item.irntl.use = function () {
   else effect.drunk.duration += 75;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wine1 = new Item();
 item.wine1.id = 40;
 item.wine1.name = i18n.t("content.item.wine1.name");
 item.wine1.val = 12;
-item.wine1.desc =
-  "Barely reached the standard, maybe you should keep it for longer" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wine1.val +
-  " </span>energy";
+item.wine1.desc = i18n.t("content.item.wine1.desc", {
+  separator: dom.dseparator,
+  val: item.wine1.val,
+});
 item.wine1.stype = 4;
 item.wine1.use = function () {
   you.sat + this.val > you.satmax
@@ -1799,19 +1807,20 @@ item.wine1.use = function () {
   else effect.drunk.duration += 35;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wines1 = new Item();
 item.wines1.id = 41;
 item.wines1.name = i18n.t("content.item.wines1.name");
 item.wines1.val = 100;
-item.wines1.desc =
-  "A Celtic red wine with delicate, yet robust, flavour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wines1.val +
-  " </span>energy";
+item.wines1.desc = i18n.t("content.item.wines1.desc", {
+  separator: dom.dseparator,
+  val: item.wines1.val,
+});
 item.wines1.stype = 4;
 item.wines1.rar = 4;
 item.wines1.use = function () {
@@ -1823,19 +1832,20 @@ item.wines1.use = function () {
   global.stat.foodal++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wines2 = new Item();
 item.wines2.id = 42;
 item.wines2.name = i18n.t("content.item.wines2.name");
 item.wines2.val = 100;
-item.wines2.desc =
-  "The most elegant red wine, with gentle flavour and bouquet" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wines2.val +
-  " </span>energy";
+item.wines2.desc = i18n.t("content.item.wines2.desc", {
+  separator: dom.dseparator,
+  val: item.wines2.val,
+});
 item.wines2.stype = 4;
 item.wines2.rar = 4;
 item.wines2.use = function () {
@@ -1847,19 +1857,20 @@ item.wines2.use = function () {
   global.stat.foodal++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wines3 = new Item();
 item.wines3.id = 43;
 item.wines3.name = i18n.t("content.item.wines3.name");
 item.wines3.val = 100;
-item.wines3.desc =
-  "A Celtic white wine known for its honey-like fragrance" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wines3.val +
-  " </span>energy";
+item.wines3.desc = i18n.t("content.item.wines3.desc", {
+  separator: dom.dseparator,
+  val: item.wines3.val,
+});
 item.wines3.stype = 4;
 item.wines3.rar = 4;
 item.wines3.use = function () {
@@ -1871,19 +1882,20 @@ item.wines3.use = function () {
   global.stat.foodal++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wines4 = new Item();
 item.wines4.id = 44;
 item.wines4.name = i18n.t("content.item.wines4.name");
 item.wines4.val = 100;
-item.wines4.desc =
-  "A Celtic quality sweet wine allowed to age to perfection" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wines4.val +
-  " </span>energy";
+item.wines4.desc = i18n.t("content.item.wines4.desc", {
+  separator: dom.dseparator,
+  val: item.wines4.val,
+});
 item.wines4.stype = 4;
 item.wines4.rar = 4;
 item.wines4.use = function () {
@@ -1895,19 +1907,20 @@ item.wines4.use = function () {
   global.stat.foodal++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wines5 = new Item();
 item.wines5.id = 45;
 item.wines5.name = i18n.t("content.item.wines5.name");
 item.wines5.val = 100;
-item.wines5.desc =
-  "A sparkling wine made from a blend of three grapes" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wines5.val +
-  " </span>energy";
+item.wines5.desc = i18n.t("content.item.wines5.desc", {
+  separator: dom.dseparator,
+  val: item.wines5.val,
+});
 item.wines5.stype = 4;
 item.wines5.rar = 4;
 item.wines5.use = function () {
@@ -1919,19 +1932,20 @@ item.wines5.use = function () {
   global.stat.foodal++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.acrn = new Item();
 item.acrn.id = 46;
 item.acrn.name = i18n.t("content.item.acrn.name");
 item.acrn.val = 4;
-item.acrn.desc =
-  "A handful of acorns, still in their shells. Squirrels like them, but they're not very good for you to eat in this state" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.acrn.val +
-  " </span>energy";
+item.acrn.desc = i18n.t("content.item.acrn.desc", {
+  separator: dom.dseparator,
+  val: item.acrn.val,
+});
 item.acrn.stype = 4;
 item.acrn.use = function () {
   if (random() < 0.4) {
@@ -1945,19 +1959,20 @@ item.acrn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wine2 = new Item();
 item.wine2.id = 47;
 item.wine2.name = i18n.t("content.item.wine2.name");
 item.wine2.val = 24;
-item.wine2.desc =
-  "Delicious wine kept for more than 3 years" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wine2.val +
-  " </span>energy";
+item.wine2.desc = i18n.t("content.item.wine2.desc", {
+  separator: dom.dseparator,
+  val: item.wine2.val,
+});
 item.wine2.stype = 4;
 item.wine2.rar = 2;
 item.wine2.use = function () {
@@ -1972,19 +1987,20 @@ item.wine2.use = function () {
   else effect.drunk.duration += 45;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.winec1 = new Item();
 item.winec1.id = 48;
 item.winec1.name = i18n.t("content.item.winec1.name");
 item.winec1.val = 8;
-item.winec1.desc =
-  "Very rough wine made from fermeted fruit" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.winec1.val +
-  " </span>energy";
+item.winec1.desc = i18n.t("content.item.winec1.desc", {
+  separator: dom.dseparator,
+  val: item.winec1.val,
+});
 item.winec1.stype = 4;
 item.winec1.use = function () {
   you.sat + this.val > you.satmax
@@ -1998,19 +2014,20 @@ item.winec1.use = function () {
   else effect.drunk.duration += 33;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.winec2 = new Item();
 item.winec2.id = 49;
 item.winec2.name = i18n.t("content.item.winec2.name");
 item.winec2.val = 12;
-item.winec2.desc =
-  "Light wine, prepared only recently" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.winec2.val +
-  " </span>energy";
+item.winec2.desc = i18n.t("content.item.winec2.desc", {
+  separator: dom.dseparator,
+  val: item.winec2.val,
+});
 item.winec2.stype = 4;
 item.winec2.use = function () {
   you.sat + this.val > you.satmax
@@ -2022,7 +2039,10 @@ item.winec2.use = function () {
   giveSkExp(skl.drka, 8);
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   if (effect.drunk.active === false) giveEff(you, effect.drunk, 60);
   else effect.drunk.duration += 35;
 };
@@ -2031,12 +2051,10 @@ item.ske = new Item();
 item.ske.id = 50;
 item.ske.name = i18n.t("content.item.ske.name");
 item.ske.val = 31;
-item.ske.desc =
-  "Eastern rice wine, popular past-time drink" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ske.val +
-  " </span>energy";
+item.ske.desc = i18n.t("content.item.ske.desc", {
+  separator: dom.dseparator,
+  val: item.ske.val,
+});
 item.ske.stype = 4;
 item.ske.rar = 2;
 item.ske.use = function () {
@@ -2051,19 +2069,20 @@ item.ske.use = function () {
   else effect.drunk.duration += 115;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.pske = new Item();
 item.pske.id = 51;
 item.pske.name = i18n.t("content.item.pske.name");
 item.pske.val = 51;
-item.pske.desc =
-  "Rich Sake with strong foundation, flavorful and fragnant. Valued in high society for its presige status" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.pske.val +
-  " </span>energy";
+item.pske.desc = i18n.t("content.item.pske.desc", {
+  separator: dom.dseparator,
+  val: item.pske.val,
+});
 item.pske.stype = 4;
 item.pske.rar = 3;
 item.pske.use = function () {
@@ -2078,19 +2097,20 @@ item.pske.use = function () {
   else effect.drunk.duration += 190;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cbun1 = new Item();
 item.cbun1.id = 52;
 item.cbun1.name = i18n.t("content.item.cbun1.name");
 item.cbun1.val = 19;
-item.cbun1.desc =
-  "Plain round bun, very soft and filling" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cbun1.val +
-  " </span>energy";
+item.cbun1.desc = i18n.t("content.item.cbun1.desc", {
+  separator: dom.dseparator,
+  val: item.cbun1.val,
+});
 item.cbun1.stype = 4;
 item.cbun1.use = function () {
   you.sat + this.val > you.satmax
@@ -2100,19 +2120,20 @@ item.cbun1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cbun2 = new Item();
 item.cbun2.id = 53;
 item.cbun2.name = i18n.t("content.item.cbun2.name");
 item.cbun2.val = 29;
-item.cbun2.desc =
-  "Bun with red beans added to it, resulting in rich flavour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cbun2.val +
-  " </span>energy";
+item.cbun2.desc = i18n.t("content.item.cbun2.desc", {
+  separator: dom.dseparator,
+  val: item.cbun2.val,
+});
 item.cbun2.stype = 4;
 item.cbun2.use = function () {
   you.sat + this.val > you.satmax
@@ -2122,19 +2143,20 @@ item.cbun2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cbun3 = new Item();
 item.cbun3.id = 54;
 item.cbun3.name = i18n.t("content.item.cbun3.name");
 item.cbun3.val = 34;
-item.cbun3.desc =
-  "Delicious treat with pork meat inside of it, fine addition to your dinner" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cbun3.val +
-  " </span>energy";
+item.cbun3.desc = i18n.t("content.item.cbun3.desc", {
+  separator: dom.dseparator,
+  val: item.cbun3.val,
+});
 item.cbun3.stype = 4;
 item.cbun3.rar = 2;
 item.cbun3.use = function () {
@@ -2145,19 +2167,20 @@ item.cbun3.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.scak = new Item();
 item.scak.id = 55;
 item.scak.name = i18n.t("content.item.scak.name");
 item.scak.val = 39;
-item.scak.desc =
-  "Sweet cake with cream and strawberries, has a soft texture and melts in your mouth" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.scak.val +
-  " </span>energy";
+item.scak.desc = i18n.t("content.item.scak.desc", {
+  separator: dom.dseparator,
+  val: item.scak.val,
+});
 item.scak.stype = 4;
 item.scak.use = function () {
   you.sat + this.val > you.satmax
@@ -2167,19 +2190,20 @@ item.scak.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.atrt = new Item();
 item.atrt.id = 56;
 item.atrt.name = i18n.t("content.item.atrt.name");
 item.atrt.val = 29;
-item.atrt.desc =
-  "Crunchy small cake baked with apples" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.atrt.val +
-  " </span>energy";
+item.atrt.desc = i18n.t("content.item.atrt.desc", {
+  separator: dom.dseparator,
+  val: item.atrt.val,
+});
 item.atrt.stype = 4;
 item.atrt.use = function () {
   you.sat + this.val > you.satmax
@@ -2189,19 +2213,20 @@ item.atrt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.strt = new Item();
 item.strt.id = 57;
 item.strt.name = i18n.t("content.item.strt.name");
 item.strt.val = 38;
-item.strt.desc =
-  "Sweet pastry with strawberries added on top" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.strt.val +
-  " </span>energy";
+item.strt.desc = i18n.t("content.item.strt.desc", {
+  separator: dom.dseparator,
+  val: item.strt.val,
+});
 item.strt.stype = 4;
 item.strt.rar = 2;
 item.strt.use = function () {
@@ -2212,19 +2237,20 @@ item.strt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ccak = new Item();
 item.ccak.id = 58;
 item.ccak.name = i18n.t("content.item.ccak.name");
 item.ccak.val = 52;
-item.ccak.desc =
-  "Delicious sweet dessert prepared in multiple layers. With fruit jam on top!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ccak.val +
-  " </span>energy";
+item.ccak.desc = i18n.t("content.item.ccak.desc", {
+  separator: dom.dseparator,
+  val: item.ccak.val,
+});
 item.ccak.stype = 4;
 item.ccak.rar = 2;
 item.ccak.use = function () {
@@ -2235,19 +2261,20 @@ item.ccak.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.icrm = new Item();
 item.icrm.id = 59;
 item.icrm.name = i18n.t("content.item.icrm.name");
 item.icrm.val = 19;
-item.icrm.desc =
-  "A sweet, frozen food made of milk with rich amounts of sugar. Gets very popular during Summer" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.icrm.val +
-  " </span>energy";
+item.icrm.desc = i18n.t("content.item.icrm.desc", {
+  separator: dom.dseparator,
+  val: item.icrm.val,
+});
 item.icrm.stype = 4;
 item.icrm.use = function () {
   you.sat + this.val > you.satmax
@@ -2257,19 +2284,20 @@ item.icrm.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lnch1 = new Item();
 item.lnch1.id = 60;
 item.lnch1.name = i18n.t("content.item.lnch1.name");
 item.lnch1.val = 40;
-item.lnch1.desc =
-  "Breakfast of choice and a part of your morning ritual, very filling" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.lnch1.val +
-  " </span>energy";
+item.lnch1.desc = i18n.t("content.item.lnch1.desc", {
+  separator: dom.dseparator,
+  val: item.lnch1.val,
+});
 item.lnch1.stype = 4;
 item.lnch1.use = function () {
   you.sat + this.val > you.satmax
@@ -2279,19 +2307,20 @@ item.lnch1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lnch2 = new Item();
 item.lnch2.id = 61;
 item.lnch2.name = i18n.t("content.item.lnch2.name");
 item.lnch2.val = 47;
-item.lnch2.desc =
-  "Eggs and toast. Goes best with Coffee" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.lnch2.val +
-  " </span>energy";
+item.lnch2.desc = i18n.t("content.item.lnch2.desc", {
+  separator: dom.dseparator,
+  val: item.lnch2.val,
+});
 item.lnch2.stype = 4;
 item.lnch2.rar = 2;
 item.lnch2.use = function () {
@@ -2302,19 +2331,20 @@ item.lnch2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lnch3 = new Item();
 item.lnch3.id = 62;
 item.lnch3.name = i18n.t("content.item.lnch3.name");
 item.lnch3.val = 58;
-item.lnch3.desc =
-  "Hefty combination of meat, eggs and a toast." +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.lnch3.val +
-  " </span>energy";
+item.lnch3.desc = i18n.t("content.item.lnch3.desc", {
+  separator: dom.dseparator,
+  val: item.lnch3.val,
+});
 item.lnch3.stype = 4;
 item.lnch3.rar = 2;
 item.lnch3.use = function () {
@@ -2325,19 +2355,20 @@ item.lnch3.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.orgs = new Item();
 item.orgs.id = 63;
 item.orgs.name = i18n.t("content.item.orgs.name");
 item.orgs.val = 20;
-item.orgs.desc =
-  "Golden slices of onion, buttered and fried in flour. Crunchy!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.orgs.val +
-  " </span>energy";
+item.orgs.desc = i18n.t("content.item.orgs.desc", {
+  separator: dom.dseparator,
+  val: item.orgs.val,
+});
 item.orgs.stype = 4;
 item.orgs.use = function () {
   you.sat + this.val > you.satmax
@@ -2347,19 +2378,20 @@ item.orgs.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fsh1 = new Item();
 item.fsh1.id = 65;
 item.fsh1.name = i18n.t("content.item.fsh1.name");
 item.fsh1.val = 15;
-item.fsh1.desc =
-  "Freshly caught fish. Makes a passable meal raw" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fsh1.val +
-  " </span>energy";
+item.fsh1.desc = i18n.t("content.item.fsh1.desc", {
+  separator: dom.dseparator,
+  val: item.fsh1.val,
+});
 item.fsh1.stype = 4;
 item.fsh1.use = function () {
   if (random() < 0.1) {
@@ -2373,19 +2405,20 @@ item.fsh1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fsh2 = new Item();
 item.fsh2.id = 66;
 item.fsh2.name = i18n.t("content.item.fsh2.name");
 item.fsh2.val = 6;
-item.fsh2.desc =
-  "The fillet of fish, ready to be cooked" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fsh2.val +
-  " </span>energy";
+item.fsh2.desc = i18n.t("content.item.fsh2.desc", {
+  separator: dom.dseparator,
+  val: item.fsh2.val,
+});
 item.fsh2.stype = 4;
 item.fsh2.use = function () {
   if (random() < 0.05) {
@@ -2399,19 +2432,20 @@ item.fsh2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ffsh1 = new Item();
 item.ffsh1.id = 67;
 item.ffsh1.name = i18n.t("content.item.ffsh1.name");
 item.ffsh1.val = 19;
-item.ffsh1.desc =
-  "Evenly fried delicious fish. It has a very deicious aroma" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ffsh1.val +
-  " </span>energy";
+item.ffsh1.desc = i18n.t("content.item.ffsh1.desc", {
+  separator: dom.dseparator,
+  val: item.ffsh1.val,
+});
 item.ffsh1.stype = 4;
 item.ffsh1.use = function () {
   you.sat + this.val > you.satmax
@@ -2421,19 +2455,20 @@ item.ffsh1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ffsh2 = new Item();
 item.ffsh2.id = 68;
 item.ffsh2.name = i18n.t("content.item.ffsh2.name");
 item.ffsh2.val = 42;
-item.ffsh2.desc =
-  "A delicious golden brown serving of crispy fried fish" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ffsh2.val +
-  " </span>energy";
+item.ffsh2.desc = i18n.t("content.item.ffsh2.desc", {
+  separator: dom.dseparator,
+  val: item.ffsh2.val,
+});
 item.ffsh2.stype = 4;
 item.ffsh2.rar = 2;
 item.ffsh2.use = function () {
@@ -2444,19 +2479,20 @@ item.ffsh2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ssm = new Item();
 item.ssm.id = 69;
 item.ssm.name = i18n.t("content.item.ssm.name");
 item.ssm.val = 17;
-item.ssm.desc =
-  "Little fish slices, served with tangly dip sauce" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ssm.val +
-  " </span>energy";
+item.ssm.desc = i18n.t("content.item.ssm.desc", {
+  separator: dom.dseparator,
+  val: item.ssm.val,
+});
 item.ssm.stype = 4;
 item.ssm.rar = 2;
 item.ssm.use = function () {
@@ -2467,19 +2503,20 @@ item.ssm.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.dssm = new Item();
 item.dssm.id = 70;
 item.dssm.name = i18n.t("content.item.dssm.name");
 item.dssm.val = 43; // fish soy cucum lettuc
-item.dssm.desc =
-  "Delicious slivers of thinly sliced raw fish and tasty vegetables" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dssm.val +
-  " </span>energy";
+item.dssm.desc = i18n.t("content.item.dssm.desc", {
+  separator: dom.dseparator,
+  val: item.dssm.val,
+});
 item.dssm.stype = 4;
 item.dssm.rar = 2;
 item.dssm.use = function () {
@@ -2490,19 +2527,20 @@ item.dssm.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mkzs = new Item();
 item.mkzs.id = 71;
 item.mkzs.name = i18n.t("content.item.mkzs.name");
 item.mkzs.val = 35;
-item.mkzs.desc =
-  "Delicious fish slices wrapped in tasty sushi rice and rolled up in a healthy nori" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mkzs.val +
-  " </span>energy";
+item.mkzs.desc = i18n.t("content.item.mkzs.desc", {
+  separator: dom.dseparator,
+  val: item.mkzs.val,
+});
 item.mkzs.stype = 4;
 item.mkzs.rar = 2;
 item.mkzs.use = function () {
@@ -2513,19 +2551,20 @@ item.mkzs.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.nori = new Item();
 item.nori.id = 72;
 item.nori.name = i18n.t("content.item.nori.name");
 item.nori.val = 10;
-item.nori.desc =
-  "Pages of dried seaweed, very healthy and tastes like ocean" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.nori.val +
-  " </span>energy";
+item.nori.desc = i18n.t("content.item.nori.desc", {
+  separator: dom.dseparator,
+  val: item.nori.val,
+});
 item.nori.stype = 4;
 item.nori.use = function () {
   you.sat + this.val > you.satmax
@@ -2535,19 +2574,20 @@ item.nori.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fnori = new Item();
 item.fnori.id = 73;
 item.fnori.name = i18n.t("content.item.fnori.name");
 item.fnori.val = 20;
-item.fnori.desc =
-  "Sheets of nori friend with salt, giving it an entirely new taste. An incredibly delicios and popular snack" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fnori.val +
-  " </span>energy";
+item.fnori.desc = i18n.t("content.item.fnori.desc", {
+  separator: dom.dseparator,
+  val: item.fnori.val,
+});
 item.fnori.stype = 4;
 item.fnori.use = function () {
   you.sat + this.val > you.satmax
@@ -2557,19 +2597,20 @@ item.fnori.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.swtch1 = new Item();
 item.swtch1.id = 74;
 item.swtch1.name = i18n.t("content.item.swtch1.name");
 item.swtch1.val = 40;
-item.swtch1.desc =
-  "Two peices of bread and a slice of cheese inbetween. Simple and tasty" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.swtch1.val +
-  " </span>energy";
+item.swtch1.desc = i18n.t("content.item.swtch1.desc", {
+  separator: dom.dseparator,
+  val: item.swtch1.val,
+});
 item.swtch1.stype = 4;
 item.swtch1.use = function () {
   you.sat + this.val > you.satmax
@@ -2579,19 +2620,20 @@ item.swtch1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.jll = new Item();
 item.jll.id = 75;
 item.jll.name = i18n.t("content.item.jll.name");
 item.jll.val = 6;
-item.jll.desc =
-  "Should you really be eating this stuff?" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jll.val +
-  " </span>energy";
+item.jll.desc = i18n.t("content.item.jll.desc", {
+  separator: dom.dseparator,
+  val: item.jll.val,
+});
 item.jll.stype = 4;
 item.jll.use = function () {
   you.sat + this.val > you.satmax
@@ -2601,19 +2643,20 @@ item.jll.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.flr = new Item();
 item.flr.id = 76;
 item.flr.name = i18n.t("content.item.flr.name");
 item.flr.val = 1;
-item.flr.desc =
-  "This enriched white flour is useful for baking" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.flr.val +
-  " </span>energy";
+item.flr.desc = i18n.t("content.item.flr.desc", {
+  separator: dom.dseparator,
+  val: item.flr.val,
+});
 item.flr.stype = 4;
 item.flr.use = function () {
   you.sat + this.val > you.satmax
@@ -2623,19 +2666,20 @@ item.flr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.pcns = new Item();
 item.pcns.id = 77;
 item.pcns.name = i18n.t("content.item.pcns.name");
 item.pcns.val = 4;
-item.pcns.desc =
-  "A handful of tasty crunchy nuts from a pinecone" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.pcns.val +
-  " </span>energy";
+item.pcns.desc = i18n.t("content.item.pcns.desc", {
+  separator: dom.dseparator,
+  val: item.pcns.val,
+});
 item.pcns.stype = 4;
 item.pcns.use = function () {
   you.sat + this.val > you.satmax
@@ -2645,19 +2689,20 @@ item.pcns.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.dgh = new Item();
 item.dgh.id = 78;
 item.dgh.name = i18n.t("content.item.dgh.name");
 item.dgh.val = 4;
-item.dgh.desc =
-  "Flour mixed with water, kneaded into a gooey paste.  This dough can be used to bake bread more efficiently than with just flour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dgh.val +
-  " </span>energy";
+item.dgh.desc = i18n.t("content.item.dgh.desc", {
+  separator: dom.dseparator,
+  val: item.dgh.val,
+});
 item.dgh.stype = 4;
 item.dgh.use = function () {
   you.sat + this.val > you.satmax
@@ -2667,19 +2712,20 @@ item.dgh.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.hzlnt = new Item();
 item.hzlnt.id = 79;
 item.hzlnt.name = i18n.t("content.item.hzlnt.name");
 item.hzlnt.val = 6;
-item.hzlnt.desc =
-  "Popular forest nuts, still in their shells. They smell like the woods they come from" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hzlnt.val +
-  " </span>energy";
+item.hzlnt.desc = i18n.t("content.item.hzlnt.desc", {
+  separator: dom.dseparator,
+  val: item.hzlnt.val,
+});
 item.hzlnt.stype = 4;
 item.hzlnt.use = function () {
   you.sat + this.val > you.satmax
@@ -2689,19 +2735,20 @@ item.hzlnt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.hpck = new Item();
 item.hpck.id = 80;
 item.hpck.name = i18n.t("content.item.hpck.name");
 item.hpck.val = 33;
-item.hpck.desc =
-  "Soft cookies in a shape of a cute hippo, baked with milk and hazelnuts. Very popular with children and adults alike" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hpck.val +
-  " </span>energy";
+item.hpck.desc = i18n.t("content.item.hpck.desc", {
+  separator: dom.dseparator,
+  val: item.hpck.val,
+});
 item.hpck.stype = 4;
 item.hpck.rar = 2;
 item.hpck.use = function () {
@@ -2712,19 +2759,20 @@ item.hpck.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.dfrt = new Item();
 item.dfrt.id = 81;
 item.dfrt.name = i18n.t("content.item.dfrt.name");
 item.dfrt.val = 12;
-item.dfrt.desc =
-  "Fruit roughly chopped and sun-dried, prepared as marching rations for the rangers" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dfrt.val +
-  " </span>energy";
+item.dfrt.desc = i18n.t("content.item.dfrt.desc", {
+  separator: dom.dseparator,
+  val: item.dfrt.val,
+});
 item.dfrt.stype = 4;
 item.dfrt.use = function () {
   you.sat + this.val > you.satmax
@@ -2734,19 +2782,20 @@ item.dfrt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brdb = new Item();
 item.brdb.id = 82;
 item.brdb.name = i18n.t("content.item.brdb.name");
 item.brdb.val = 4;
-item.brdb.desc =
-  "Completely ruined and unappetizing loaf of charred bread. You can still eat it, but you probably won't enjoy it" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brdb.val +
-  " </span>energy";
+item.brdb.desc = i18n.t("content.item.brdb.desc", {
+  separator: dom.dseparator,
+  val: item.brdb.val,
+});
 item.brdb.stype = 4;
 item.brdb.rar = 0;
 item.brdb.use = function () {
@@ -2758,19 +2807,20 @@ item.brdb.use = function () {
   global.stat.foodt++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.spcn = new Item();
 item.spcn.id = 83; //Pukusakina
 item.spcn.name = i18n.t("content.item.spcn.name");
 item.spcn.val = 5;
-item.spcn.desc =
-  "Wild vegetable that goes well with meat. " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.spcn.val +
-  " </span>energy";
+item.spcn.desc = i18n.t("content.item.spcn.desc", {
+  separator: dom.dseparator,
+  val: item.spcn.val,
+});
 item.spcn.stype = 4;
 item.spcn.use = function () {
   you.sat + this.val > you.satmax
@@ -2780,19 +2830,20 @@ item.spcn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.hney = new Item();
 item.hney.id = 84;
 item.hney.name = i18n.t("content.item.hney.name");
 item.hney.val = 11;
-item.hney.desc =
-  "Sweet sticky syrup that bees make. Can be turned into candy, but also very good by itself" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hney.val +
-  " </span>energy";
+item.hney.desc = i18n.t("content.item.hney.desc", {
+  separator: dom.dseparator,
+  val: item.hney.val,
+});
 item.hney.stype = 4;
 item.hney.use = function () {
   you.sat + this.val > you.satmax
@@ -2802,19 +2853,20 @@ item.hney.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brise = new Item();
 item.brise.id = 85;
 item.brise.name = i18n.t("content.item.brise.name");
 item.brise.val = 8;
-item.brise.desc =
-  "Old spoiled rice that's gone bad and turned yellow. Desperate food" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brise.val +
-  " </span>energy";
+item.brise.desc = i18n.t("content.item.brise.desc", {
+  separator: dom.dseparator,
+  val: item.brise.val,
+});
 item.brise.stype = 4;
 item.brise.rar = 0;
 item.brise.use = function () {
@@ -2830,19 +2882,20 @@ item.brise.use = function () {
   global.stat.foodt++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.steak = new Item();
 item.steak.id = 86;
 item.steak.name = i18n.t("content.item.steak.name");
 item.steak.val = 50;
-item.steak.desc =
-  "Quality steak seared to perfection with a sprinkle of salt and generous twist of pepper. The delicious aroma is enough to make you drool" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.steak.val +
-  " </span>energy";
+item.steak.desc = i18n.t("content.item.steak.desc", {
+  separator: dom.dseparator,
+  val: item.steak.val,
+});
 item.steak.stype = 4;
 item.steak.rar = 2;
 item.steak.use = function () {
@@ -2853,19 +2906,20 @@ item.steak.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.spc1 = new Item();
 item.spc1.id = 87;
 item.spc1.name = i18n.t("content.item.spc1.name");
 item.spc1.val = 2;
-item.spc1.desc =
-  "Small black berries with pungent aroma. Perfect for spicing food up" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.spc1.val +
-  " </span>energy";
+item.spc1.desc = i18n.t("content.item.spc1.desc", {
+  separator: dom.dseparator,
+  val: item.spc1.val,
+});
 item.spc1.stype = 4;
 item.spc1.rar = 2;
 item.spc1.use = function () {
@@ -2876,19 +2930,20 @@ item.spc1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cnmn = new Item();
 item.cnmn.id = 88;
 item.cnmn.name = i18n.t("content.item.cnmn.name");
 item.cnmn.val = 3;
-item.cnmn.desc =
-  "Bark sticks from the Cinnamon tree. Fragnant and good for your health" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cnmn.val +
-  " </span>energy";
+item.cnmn.desc = i18n.t("content.item.cnmn.desc", {
+  separator: dom.dseparator,
+  val: item.cnmn.val,
+});
 item.cnmn.stype = 4;
 item.cnmn.use = function () {
   you.sat + this.val > you.satmax
@@ -2898,19 +2953,20 @@ item.cnmn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bttr = new Item();
 item.bttr.id = 89;
 item.bttr.name = i18n.t("content.item.bttr.name");
 item.bttr.val = 8;
-item.bttr.desc =
-  "Small brick of creamy butter, made from churned cow milk " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bttr.val +
-  " </span>energy";
+item.bttr.desc = i18n.t("content.item.bttr.desc", {
+  separator: dom.dseparator,
+  val: item.bttr.val,
+});
 item.bttr.stype = 4;
 item.bttr.use = function () {
   you.sat + this.val > you.satmax
@@ -2920,19 +2976,20 @@ item.bttr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cnmnb = new Item();
 item.cnmnb.id = 90;
 item.cnmnb.name = i18n.t("content.item.cnmnb.name");
 item.cnmnb.val = 36;
-item.cnmnb.desc =
-  "Fluffy sweet pastry bun with aromatic cinnamon powder sprinkled on top of it. Rare treat everyone can enjoy " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cnmnb.val +
-  " </span>energy";
+item.cnmnb.desc = i18n.t("content.item.cnmnb.desc", {
+  separator: dom.dseparator,
+  val: item.cnmnb.val,
+});
 item.cnmnb.stype = 4;
 item.cnmnb.rar = 2;
 item.cnmnb.use = function () {
@@ -2943,19 +3000,20 @@ item.cnmnb.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brth = new Item();
 item.brth.id = 91;
 item.brth.name = i18n.t("content.item.brth.name");
 item.brth.val = 16;
-item.brth.desc =
-  "Tasty and healthy meat broth. Used mainly for cooking soups, but can be consumed as is" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brth.val +
-  " </span>energy";
+item.brth.desc = i18n.t("content.item.brth.desc", {
+  separator: dom.dseparator,
+  val: item.brth.val,
+});
 item.brth.stype = 4;
 item.brth.use = function () {
   you.sat + this.val > you.satmax
@@ -2965,19 +3023,20 @@ item.brth.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.eggsp = new Item();
 item.eggsp.id = 92;
 item.eggsp.name = i18n.t("content.item.eggsp.name");
 item.eggsp.val = 46;
-item.eggsp.desc =
-  "Popular soup made from delicious broth and eggs. It's a great meal to start your day with" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.eggsp.val +
-  " </span>energy";
+item.eggsp.desc = i18n.t("content.item.eggsp.desc", {
+  separator: dom.dseparator,
+  val: item.eggsp.val,
+});
 item.eggsp.stype = 4;
 item.eggsp.rar = 2;
 item.eggsp.use = function () {
@@ -2988,19 +3047,20 @@ item.eggsp.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.scln = new Item();
 item.scln.id = 93;
 item.scln.name = i18n.t("content.item.scln.name");
 item.scln.val = 4;
-item.scln.desc =
-  "Green scallions, also known as spring onions. Slightly spicy and fragnant, they help to bring out the taste of the soups" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.scln.val +
-  " </span>energy";
+item.scln.desc = i18n.t("content.item.scln.desc", {
+  separator: dom.dseparator,
+  val: item.scln.val,
+});
 item.scln.stype = 4;
 item.scln.use = function () {
   you.sat + this.val > you.satmax
@@ -3010,19 +3070,20 @@ item.scln.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.crmchd = new Item();
 item.crmchd.id = 94;
 item.crmchd.name = i18n.t("content.item.crmchd.name");
 item.crmchd.val = 62;
-item.crmchd.desc =
-  "Delicious meat howder with milk, cheese and potato flakes. You can practically taste the chef's skill" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.crmchd.val +
-  " </span>energy";
+item.crmchd.desc = i18n.t("content.item.crmchd.desc", {
+  separator: dom.dseparator,
+  val: item.crmchd.val,
+});
 item.crmchd.stype = 4;
 item.crmchd.rar = 2;
 item.crmchd.use = function () {
@@ -3033,19 +3094,20 @@ item.crmchd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.chklt = new Item();
 item.chklt.id = 95;
 item.chklt.name = i18n.t("content.item.chklt.name");
 item.chklt.val = 9;
-item.chklt.desc =
-  "Ground cacao beans solidified into a sweet, tasty treat" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.chklt.val +
-  " </span>energy";
+item.chklt.desc = i18n.t("content.item.chklt.desc", {
+  separator: dom.dseparator,
+  val: item.chklt.val,
+});
 item.chklt.stype = 4;
 item.chklt.use = function () {
   you.sat + this.val > you.satmax
@@ -3055,19 +3117,20 @@ item.chklt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fegg = new Item();
 item.fegg.id = 96;
 item.fegg.name = i18n.t("content.item.fegg.name");
 item.fegg.val = 9;
-item.fegg.desc =
-  "An egg, simply fried as is. It's pretty good" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fegg.val +
-  " </span>energy";
+item.fegg.desc = i18n.t("content.item.fegg.desc", {
+  separator: dom.dseparator,
+  val: item.fegg.val,
+});
 item.fegg.stype = 4;
 item.fegg.use = function () {
   you.sat + this.val > you.satmax
@@ -3077,19 +3140,20 @@ item.fegg.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.crn = new Item();
 item.crn.id = 97;
 item.crn.name = i18n.t("content.item.crn.name");
 item.crn.val = 3;
-item.crn.desc =
-  "Golden kernels, attached to a cob. Practically inedible like this" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.crn.val +
-  " </span>energy";
+item.crn.desc = i18n.t("content.item.crn.desc", {
+  separator: dom.dseparator,
+  val: item.crn.val,
+});
 item.crn.stype = 4;
 item.crn.use = function () {
   you.sat + this.val > you.satmax
@@ -3099,19 +3163,20 @@ item.crn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bcrn = new Item();
 item.bcrn.id = 98;
 item.bcrn.name = i18n.t("content.item.bcrn.name");
 item.bcrn.val = 25;
-item.bcrn.desc =
-  "Golden brown corn fried in generous amount of butter. Very tasty" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bcrn.val +
-  " </span>energy";
+item.bcrn.desc = i18n.t("content.item.bcrn.desc", {
+  separator: dom.dseparator,
+  val: item.bcrn.val,
+});
 item.bcrn.stype = 4;
 item.bcrn.use = function () {
   you.sat + this.val > you.satmax
@@ -3121,19 +3186,20 @@ item.bcrn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.pcrn = new Item();
 item.pcrn.id = 99;
 item.pcrn.name = i18n.t("content.item.pcrn.name");
 item.pcrn.val = 10;
-item.pcrn.desc =
-  "Corn kernels, roasted under high heat. They make a *pop* sound and explode into little edible clouds" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.pcrn.val +
-  " </span>energy";
+item.pcrn.desc = i18n.t("content.item.pcrn.desc", {
+  separator: dom.dseparator,
+  val: item.pcrn.val,
+});
 item.pcrn.stype = 4;
 item.pcrn.use = function () {
   you.sat + this.val > you.satmax
@@ -3143,19 +3209,20 @@ item.pcrn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.cpcrn = new Item();
 item.cpcrn.id = 100;
 item.cpcrn.name = i18n.t("content.item.cpcrn.name");
 item.cpcrn.val = 15;
-item.cpcrn.desc =
-  "Regular popcorn, but slightly salted for extra taste" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cpcrn.val +
-  " </span>energy";
+item.cpcrn.desc = i18n.t("content.item.cpcrn.desc", {
+  separator: dom.dseparator,
+  val: item.cpcrn.val,
+});
 item.cpcrn.stype = 4;
 item.cpcrn.use = function () {
   you.sat + this.val > you.satmax
@@ -3165,19 +3232,20 @@ item.cpcrn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fbrd = new Item();
 item.fbrd.id = 101;
 item.fbrd.name = i18n.t("content.item.fbrd.name");
 item.fbrd.val = 12;
-item.fbrd.desc =
-  "Primitive unleavened bread" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fbrd.val +
-  " </span>energy";
+item.fbrd.desc = i18n.t("content.item.fbrd.desc", {
+  separator: dom.dseparator,
+  val: item.fbrd.val,
+});
 item.fbrd.stype = 4;
 item.fbrd.use = function () {
   you.sat + this.val > you.satmax
@@ -3187,19 +3255,20 @@ item.fbrd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.gcce = new Item();
 item.gcce.id = 102;
 item.gcce.name = i18n.t("content.item.gcce.name");
 item.gcce.val = 25;
-item.gcce.desc =
-  "Spiced cookies baked from a batter of flour, molasses and ginger powder" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.gcce.val +
-  " </span>energy";
+item.gcce.desc = i18n.t("content.item.gcce.desc", {
+  separator: dom.dseparator,
+  val: item.gcce.val,
+});
 item.gcce.stype = 4;
 item.gcce.rar = 2;
 item.gcce.use = function () {
@@ -3210,19 +3279,20 @@ item.gcce.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.bcrc = new Item();
 item.bcrc.id = 103;
 item.bcrc.name = i18n.t("content.item.bcrc.name");
 item.bcrc.val = 12;
-item.bcrc.desc =
-  "Bones of some kind, baked until crisp" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bcrc.val +
-  " </span>energy";
+item.bcrc.desc = i18n.t("content.item.bcrc.desc", {
+  separator: dom.dseparator,
+  val: item.bcrc.val,
+});
 item.bcrc.stype = 4;
 item.bcrc.use = function () {
   you.sat + this.val > you.satmax
@@ -3232,19 +3302,20 @@ item.bcrc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.snkb = new Item();
 item.snkb.id = 104;
 item.snkb.name = i18n.t("content.item.snkb.name");
 item.snkb.val = 30;
-item.snkb.desc =
-  "Fruit, sugar, and grain meal mixed and molded before being backed into a stcik-shaped pastry" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.snkb.val +
-  " </span>energy";
+item.snkb.desc = i18n.t("content.item.snkb.desc", {
+  separator: dom.dseparator,
+  val: item.snkb.val,
+});
 item.snkb.stype = 4;
 item.snkb.use = function () {
   you.sat + this.val > you.satmax
@@ -3254,19 +3325,20 @@ item.snkb.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.dmtp = new Item();
 item.dmtp.id = 105;
 item.dmtp.name = i18n.t("content.item.dmtp.name");
 item.dmtp.val = 60;
-item.dmtp.desc =
-  "Premium pie with abudance of various meats, best eaten hot! Extremely filling" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dmtp.val +
-  " </span>energy";
+item.dmtp.desc = i18n.t("content.item.dmtp.desc", {
+  separator: dom.dseparator,
+  val: item.dmtp.val,
+});
 item.dmtp.rar = 2;
 item.dmtp.stype = 4;
 item.dmtp.use = function () {
@@ -3277,19 +3349,20 @@ item.dmtp.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.lkmc = new Item();
 item.lkmc.id = 106;
 item.lkmc.name = i18n.t("content.item.lkmc.name");
 item.lkmc.val = 29;
-item.lkmc.desc =
-  "Grain meal cooked down, mixed with mashed fruits and then cooled to produce a soft candy" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.lkmc.val +
-  " </span>energy";
+item.lkmc.desc = i18n.t("content.item.lkmc.desc", {
+  separator: dom.dseparator,
+  val: item.lkmc.val,
+});
 item.lkmc.stype = 4;
 item.lkmc.use = function () {
   you.sat + this.val > you.satmax
@@ -3299,19 +3372,20 @@ item.lkmc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.vgsn = new Item();
 item.vgsn.id = 107;
 item.vgsn.name = i18n.t("content.item.vgsn.name");
 item.vgsn.val = 35;
-item.vgsn.desc =
-  "A sandwich with sliced cucumber filling. Tastes slightly bland" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.vgsn.val +
-  " </span>energy";
+item.vgsn.desc = i18n.t("content.item.vgsn.desc", {
+  separator: dom.dseparator,
+  val: item.vgsn.val,
+});
 item.vgsn.stype = 4;
 item.vgsn.use = function () {
   you.sat + this.val > you.satmax
@@ -3321,19 +3395,20 @@ item.vgsn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.stgp = new Item();
 item.stgp.id = 108;
 item.stgp.name = i18n.t("content.item.stgp.name");
 item.stgp.val = 55;
-item.stgp.desc =
-  "A pie containing a whole fish romantically gazing up at the stars" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.stgp.val +
-  " </span>energy";
+item.stgp.desc = i18n.t("content.item.stgp.desc", {
+  separator: dom.dseparator,
+  val: item.stgp.val,
+});
 item.stgp.stype = 4;
 item.stgp.use = function () {
   you.sat + this.val > you.satmax
@@ -3343,19 +3418,20 @@ item.stgp.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.tdpps = new Item();
 item.tdpps.id = 109;
 item.tdpps.name = i18n.t("content.item.tdpps.name");
 item.tdpps.val = 33;
-item.tdpps.desc =
-  "Nourishing tallow, molded into lozenges. Subtly sweet" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.tdpps.val +
-  " </span>energy";
+item.tdpps.desc = i18n.t("content.item.tdpps.desc", {
+  separator: dom.dseparator,
+  val: item.tdpps.val,
+});
 item.tdpps.stype = 4;
 item.tdpps.use = function () {
   you.sat + this.val > you.satmax
@@ -3365,19 +3441,20 @@ item.tdpps.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.chstn = new Item();
 item.chstn.id = 110;
 item.chstn.name = i18n.t("content.item.chstn.name");
 item.chstn.val = 5;
-item.chstn.desc =
-  "Delicious acorns which release more flavour the more one chews on them" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.chstn.val +
-  " </span>energy";
+item.chstn.desc = i18n.t("content.item.chstn.desc", {
+  separator: dom.dseparator,
+  val: item.chstn.val,
+});
 item.chstn.stype = 4;
 item.chstn.use = function () {
   you.sat + this.val > you.satmax
@@ -3387,19 +3464,20 @@ item.chstn.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.prfd = new Item();
 item.prfd.id = 111;
 item.prfd.name = i18n.t("content.item.prfd.name");
 item.prfd.val = 22;
-item.prfd.desc =
-  "This jail level delicacy is nutritious, generously portioned and inexpensive. But it doesn't taste good" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.prfd.val +
-  " </span>energy";
+item.prfd.desc = i18n.t("content.item.prfd.desc", {
+  separator: dom.dseparator,
+  val: item.prfd.val,
+});
 item.prfd.stype = 4;
 item.prfd.rar = 0;
 item.prfd.use = function () {
@@ -3410,19 +3488,20 @@ item.prfd.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.brmt = new Item();
 item.brmt.id = 112;
 item.brmt.name = i18n.t("content.item.brmt.name");
 item.brmt.val = 7;
-item.brmt.desc =
-  "Coal-looking overcooked chunk of meat. Mildly nutritious but awful to eat" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.brmt.val +
-  " </span>energy";
+item.brmt.desc = i18n.t("content.item.brmt.desc", {
+  separator: dom.dseparator,
+  val: item.brmt.val,
+});
 item.brmt.stype = 4;
 item.brmt.rar = 0;
 item.brmt.use = function () {
@@ -3434,19 +3513,20 @@ item.brmt.use = function () {
   global.stat.foodt++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mbsps = new Item();
 item.mbsps.id = 113;
 item.mbsps.name = i18n.t("content.item.mbsps.name");
 item.mbsps.val = 52;
-item.mbsps.desc =
-  "Ordinary bread with meatballs and spaghetti put in it, it's extremely high on cholesterol. Weird skeleton kid invented this dish" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mbsps.val +
-  " </span>energy";
+item.mbsps.desc = i18n.t("content.item.mbsps.desc", {
+  separator: dom.dseparator,
+  val: item.mbsps.val,
+});
 item.mbsps.stype = 4;
 item.mbsps.use = function () {
   you.sat + this.val > you.satmax
@@ -3456,19 +3536,20 @@ item.mbsps.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.spgt = new Item();
 item.spgt.id = 114;
 item.spgt.name = i18n.t("content.item.spgt.name");
 item.spgt.val = 33;
-item.spgt.desc =
-  "Long noodles with meat and meatsauce. Renown food from some far off land" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.spgt.val +
-  " </span>energy";
+item.spgt.desc = i18n.t("content.item.spgt.desc", {
+  separator: dom.dseparator,
+  val: item.spgt.val,
+});
 item.spgt.stype = 4;
 item.spgt.use = function () {
   you.sat + this.val > you.satmax
@@ -3478,19 +3559,20 @@ item.spgt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mnj1 = new Item();
 item.mnj1.id = 115;
 item.mnj1.name = i18n.t("content.item.mnj1.name");
 item.mnj1.val = 26;
-item.mnj1.desc =
-  "Popular traditional eastern confection, kneaded boiled bun with the variety of sweet fillings within in" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mnj1.val +
-  " </span>energy";
+item.mnj1.desc = i18n.t("content.item.mnj1.desc", {
+  separator: dom.dseparator,
+  val: item.mnj1.val,
+});
 item.mnj1.stype = 4;
 item.mnj1.use = function () {
   you.sat + this.val > you.satmax
@@ -3500,19 +3582,20 @@ item.mnj1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mnj2 = new Item();
 item.mnj2.id = 116;
 item.mnj2.name = i18n.t("content.item.mnj2.name");
 item.mnj2.val = 38;
-item.mnj2.desc =
-  "Manjū bun with delicious sake added to it" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mnj2.val +
-  " </span>energy";
+item.mnj2.desc = i18n.t("content.item.mnj2.desc", {
+  separator: dom.dseparator,
+  val: item.mnj2.val,
+});
 item.mnj2.rar = 2;
 item.mnj2.stype = 4;
 item.mnj2.use = function () {
@@ -3525,19 +3608,20 @@ item.mnj2.use = function () {
   giveSkExp(skl.drka, 10);
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ntea1 = new Item();
 item.ntea1.id = 117;
 item.ntea1.name = i18n.t("content.item.ntea1.name");
 item.ntea1.val = 26;
-item.ntea1.desc =
-  "Rare herbal tea created by a talented pharmacist. It calms and relaxes those who drink it." +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ntea1.val +
-  " </span>energy";
+item.ntea1.desc = i18n.t("content.item.ntea1.desc", {
+  separator: dom.dseparator,
+  val: item.ntea1.val,
+});
 item.ntea1.rar = 2;
 item.ntea1.stype = 4;
 item.ntea1.use = function () {
@@ -3548,19 +3632,20 @@ item.ntea1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.jrk1 = new Item();
 item.jrk1.id = 118;
 item.jrk1.name = i18n.t("content.item.jrk1.name");
 item.jrk1.val = 18;
-item.jrk1.desc =
-  "Perfectly dried strips of meat. The taste is not bad, this jerky can be kept edible for years" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jrk1.val +
-  " </span>energy";
+item.jrk1.desc = i18n.t("content.item.jrk1.desc", {
+  separator: dom.dseparator,
+  val: item.jrk1.val,
+});
 item.jrk1.stype = 4;
 item.jrk1.use = function () {
   you.sat + this.val > you.satmax
@@ -3570,19 +3655,20 @@ item.jrk1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.jrk2 = new Item();
 item.jrk2.id = 119;
 item.jrk2.name = i18n.t("content.item.jrk2.name");
 item.jrk2.val = 30;
-item.jrk2.desc =
-  "Valuable jerky, enriched and improved. Salted and spiced into a filling and tasty travel food" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jrk2.val +
-  " </span>energy";
+item.jrk2.desc = i18n.t("content.item.jrk2.desc", {
+  separator: dom.dseparator,
+  val: item.jrk2.val,
+});
 item.jrk2.stype = 4;
 item.jrk2.use = function () {
   you.sat + this.val > you.satmax
@@ -3592,19 +3678,20 @@ item.jrk2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ongr = new Item();
 item.ongr.id = 120;
 item.ongr.name = i18n.t("content.item.ongr.name");
 item.ongr.val = 25;
-item.ongr.desc =
-  "A simple portable food consisting of cooked rice rolled into a ball and seasoned with salt" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ongr.val +
-  " </span>energy";
+item.ongr.desc = i18n.t("content.item.ongr.desc", {
+  separator: dom.dseparator,
+  val: item.ongr.val,
+});
 item.ongr.stype = 4;
 item.ongr.use = function () {
   you.sat + this.val > you.satmax
@@ -3614,19 +3701,20 @@ item.ongr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rbmb = new Item();
 item.rbmb.id = 121;
 item.rbmb.name = i18n.t("content.item.rbmb.name");
 item.rbmb.val = 33;
-item.rbmb.desc =
-  "A grilled onigiri with a miso-ginger glaze that creates explosion of flavour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rbmb.val +
-  " </span>energy";
+item.rbmb.desc = i18n.t("content.item.rbmb.desc", {
+  separator: dom.dseparator,
+  val: item.rbmb.val,
+});
 item.rbmb.stype = 4;
 item.rbmb.use = function () {
   you.sat + this.val > you.satmax
@@ -3636,19 +3724,20 @@ item.rbmb.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mchii = new Item();
 item.mchii.id = 122;
 item.mchii.name = i18n.t("content.item.mchii.name");
 item.mchii.val = 22;
-item.mchii.desc =
-  "Dumpling made with kneaded mochi rice flour" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mchii.val +
-  " </span>energy";
+item.mchii.desc = i18n.t("content.item.mchii.desc", {
+  separator: dom.dseparator,
+  val: item.mchii.val,
+});
 item.mchii.stype = 4;
 item.mchii.use = function () {
   you.sat + this.val > you.satmax
@@ -3658,19 +3747,20 @@ item.mchii.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mchai = new Item();
 item.mchai.id = 123;
 item.mchai.name = i18n.t("content.item.mchai.name");
 item.mchai.val = 29;
-item.mchai.desc =
-  "Variation of mochi, made by glazing grilled rice flour with kudzu sauce" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mchai.val +
-  " </span>energy";
+item.mchai.desc = i18n.t("content.item.mchai.desc", {
+  separator: dom.dseparator,
+  val: item.mchai.val,
+});
 item.mchai.stype = 4;
 item.mchai.use = function () {
   you.sat + this.val > you.satmax
@@ -3680,19 +3770,20 @@ item.mchai.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.igum = new Item();
 item.igum.id = 124;
 item.igum.name = i18n.t("content.item.igum.name");
 item.igum.val = 17;
-item.igum.desc =
-  "A refreshing snack made from larvae suspended in fruit juice gelatin" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.igum.val +
-  " </span>energy";
+item.igum.desc = i18n.t("content.item.igum.desc", {
+  separator: dom.dseparator,
+  val: item.igum.val,
+});
 item.igum.stype = 4;
 item.igum.use = function () {
   you.sat + this.val > you.satmax
@@ -3702,19 +3793,20 @@ item.igum.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.msoop = new Item();
 item.msoop.id = 125;
 item.msoop.name = i18n.t("content.item.msoop.name");
 item.msoop.val = 37;
-item.msoop.desc =
-  "Refreshing soup made of chopped mushrooms, potatoes and onions boiled together" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.msoop.val +
-  " </span>energy";
+item.msoop.desc = i18n.t("content.item.msoop.desc", {
+  separator: dom.dseparator,
+  val: item.msoop.val,
+});
 item.msoop.stype = 4;
 item.msoop.use = function () {
   you.sat + this.val > you.satmax
@@ -3724,19 +3816,20 @@ item.msoop.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rmn1 = new Item();
 item.rmn1.id = 126;
 item.rmn1.name = i18n.t("content.item.rmn1.name");
 item.rmn1.val = 41;
-item.rmn1.desc =
-  "This ramen features fresh soy sauce broth and deliciously textured chashu pork " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rmn1.val +
-  " </span>energy";
+item.rmn1.desc = i18n.t("content.item.rmn1.desc", {
+  separator: dom.dseparator,
+  val: item.rmn1.val,
+});
 item.rmn1.stype = 4;
 item.rmn1.use = function () {
   you.sat + this.val > you.satmax
@@ -3746,19 +3839,20 @@ item.rmn1.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rmn2 = new Item();
 item.rmn2.id = 127;
 item.rmn2.name = i18n.t("content.item.rmn2.name");
 item.rmn2.val = 44;
-item.rmn2.desc =
-  "Miso and pork mixed with spicy vegetables makes for a succulent soup you'd want to eat again" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rmn2.val +
-  " </span>energy";
+item.rmn2.desc = i18n.t("content.item.rmn2.desc", {
+  separator: dom.dseparator,
+  val: item.rmn2.val,
+});
 item.rmn2.stype = 4;
 item.rmn2.use = function () {
   you.sat + this.val > you.satmax
@@ -3768,19 +3862,20 @@ item.rmn2.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rmn3 = new Item();
 item.rmn3.id = 128;
 item.rmn3.name = i18n.t("content.item.rmn3.name");
 item.rmn3.val = 48;
-item.rmn3.desc =
-  "This delicious tonkotsu ramen is a rich pork-infused soup made from finest ingredients" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rmn3.val +
-  " </span>energy";
+item.rmn3.desc = i18n.t("content.item.rmn3.desc", {
+  separator: dom.dseparator,
+  val: item.rmn3.val,
+});
 item.rmn3.stype = 4;
 item.rmn3.use = function () {
   you.sat + this.val > you.satmax
@@ -3790,19 +3885,20 @@ item.rmn3.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.sqdyak = new Item();
 item.sqdyak.id = 129;
 item.sqdyak.name = i18n.t("content.item.sqdyak.name");
 item.sqdyak.val = 43;
-item.sqdyak.desc =
-  "Tender, delicious yakisoba noodles are combined with tasty squid making a filling and enjoyable meal" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sqdyak.val +
-  " </span>energy";
+item.sqdyak.desc = i18n.t("content.item.sqdyak.desc", {
+  separator: dom.dseparator,
+  val: item.sqdyak.val,
+});
 item.sqdyak.stype = 4;
 item.sqdyak.use = function () {
   you.sat + this.val > you.satmax
@@ -3812,19 +3908,20 @@ item.sqdyak.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.mtbeer = new Item();
 item.mtbeer.id = 130;
 item.mtbeer.name = i18n.t("content.item.mtbeer.name");
 item.mtbeer.val = 18;
-item.mtbeer.desc =
-  "This beer has a pleasant aftertaste and depth of flavor that only 100% barley malts can provide" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mtbeer.val +
-  " </span>energy";
+item.mtbeer.desc = i18n.t("content.item.mtbeer.desc", {
+  separator: dom.dseparator,
+  val: item.mtbeer.val,
+});
 item.mtbeer.stype = 4;
 item.mtbeer.use = function () {
   you.sat + this.val > you.satmax
@@ -3838,19 +3935,20 @@ item.mtbeer.use = function () {
   else effect.drunk.duration += 20;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.dbeer = new Item();
 item.dbeer.id = 131;
 item.dbeer.name = i18n.t("content.item.dbeer.name");
 item.dbeer.val = 15;
-item.dbeer.desc =
-  "A medium-sized mug of draft beet that many like to start with. Its creamy head and crisp taste are perfect after a day of hard work " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dbeer.val +
-  " </span>energy";
+item.dbeer.desc = i18n.t("content.item.dbeer.desc", {
+  separator: dom.dseparator,
+  val: item.dbeer.val,
+});
 item.dbeer.stype = 4;
 item.dbeer.use = function () {
   you.sat + this.val > you.satmax
@@ -3864,19 +3962,20 @@ item.dbeer.use = function () {
   else effect.drunk.duration += 31;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.ootee = new Item();
 item.ootee.id = 132;
 item.ootee.name = i18n.t("content.item.ootee.name");
 item.ootee.val = 25;
-item.ootee.desc =
-  "Oolong tea, famous for its thick, rich flavor and light aftertaste, is the quintessential non-alcoholic drink. Enjoy its exquisite fragrance and flavor" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ootee.val +
-  " </span>energy";
+item.ootee.desc = i18n.t("content.item.ootee.desc", {
+  separator: dom.dseparator,
+  val: item.ootee.val,
+});
 item.ootee.stype = 4;
 item.ootee.use = function () {
   you.sat + this.val > you.satmax
@@ -3886,19 +3985,20 @@ item.ootee.use = function () {
   global.stat.foodb++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.krcsal = new Item();
 item.krcsal.id = 133;
 item.krcsal.name = i18n.t("content.item.krcsal.name");
 item.krcsal.val = 49;
-item.krcsal.desc =
-  "Kotchori salad brimming with eastern bunching onions! The peppery dressing drizzled on top and pungent onion flavor match all manners of drings" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.krcsal.val +
-  " </span>energy";
+item.krcsal.desc = i18n.t("content.item.krcsal.desc", {
+  separator: dom.dseparator,
+  val: item.krcsal.val,
+});
 item.krcsal.stype = 4;
 item.krcsal.use = function () {
   you.sat + this.val > you.satmax
@@ -3908,19 +4008,20 @@ item.krcsal.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.emdm = new Item();
 item.emdm.id = 134;
 item.emdm.name = i18n.t("content.item.emdm.name");
 item.emdm.val = 21;
-item.emdm.desc =
-  "These soybeans in a pod are pretty much the default snack when drinking" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.emdm.val +
-  " </span>energy";
+item.emdm.desc = i18n.t("content.item.emdm.desc", {
+  separator: dom.dseparator,
+  val: item.emdm.val,
+});
 item.emdm.stype = 4;
 item.emdm.use = function () {
   you.sat + this.val > you.satmax
@@ -3930,19 +4031,20 @@ item.emdm.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.skplt = new Item();
 item.skplt.id = 135;
 item.skplt.name = i18n.t("content.item.skplt.name");
 item.skplt.val = 61;
-item.skplt.desc =
-  "A plate of five different skewers. The secret to their popularity is the special spicy miso" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.skplt.val +
-  " </span>energy";
+item.skplt.desc = i18n.t("content.item.skplt.desc", {
+  separator: dom.dseparator,
+  val: item.skplt.val,
+});
 item.skplt.stype = 4;
 item.skplt.rar = 2;
 item.skplt.use = function () {
@@ -3953,19 +4055,20 @@ item.skplt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.skwre = new Item();
 item.skwre.id = 136;
 item.skwre.name = i18n.t("content.item.skwre.name");
 item.skwre.val = 39;
-item.skwre.desc =
-  "Chicken sourced from domestic farms makes for a firm, juicy kebab with unique richness of flavor" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.skwre.val +
-  " </span>energy";
+item.skwre.desc = i18n.t("content.item.skwre.desc", {
+  separator: dom.dseparator,
+  val: item.skwre.val,
+});
 item.skwre.stype = 4;
 item.skwre.use = function () {
   you.sat + this.val > you.satmax
@@ -3975,19 +4078,20 @@ item.skwre.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.smfro = new Item();
 item.smfro.id = 137;
 item.smfro.name = i18n.t("content.item.smfro.name");
 item.smfro.val = 34;
-item.smfro.desc =
-  "The burst of flavor from the roe with over many who try this perfectly grilled with delicacy" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.smfro.val +
-  " </span>energy";
+item.smfro.desc = i18n.t("content.item.smfro.desc", {
+  separator: dom.dseparator,
+  val: item.smfro.val,
+});
 item.smfro.stype = 4;
 item.smfro.use = function () {
   you.sat + this.val > you.satmax
@@ -3997,19 +4101,20 @@ item.smfro.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.fsqdnr = new Item();
 item.fsqdnr.id = 138;
 item.fsqdnr.name = i18n.t("content.item.fsqdnr.name");
 item.fsqdnr.val = 44;
-item.fsqdnr.desc =
-  "A dish found on the meny of many izakaya. Fans can never get enough of the nori fragrance and firm squid flesh" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.fsqdnr.val +
-  " </span>energy";
+item.fsqdnr.desc = i18n.t("content.item.fsqdnr.desc", {
+  separator: dom.dseparator,
+  val: item.fsqdnr.val,
+});
 item.fsqdnr.stype = 4;
 item.fsqdnr.use = function () {
   you.sat + this.val > you.satmax
@@ -4019,19 +4124,20 @@ item.fsqdnr.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.sltyak = new Item();
 item.sltyak.id = 139;
 item.sltyak.name = i18n.t("content.item.sltyak.name");
 item.sltyak.val = 39;
-item.sltyak.desc =
-  "This addictive yakisoba dish mixes a rich, salty sauce with piquant eastern onions, and can be eaten as a meal or a snack with drinks" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sltyak.val +
-  " </span>energy";
+item.sltyak.desc = i18n.t("content.item.sltyak.desc", {
+  separator: dom.dseparator,
+  val: item.sltyak.val,
+});
 item.sltyak.stype = 4;
 item.sltyak.use = function () {
   you.sat + this.val > you.satmax
@@ -4041,19 +4147,20 @@ item.sltyak.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.jcmncc = new Item();
 item.jcmncc.id = 140;
 item.jcmncc.name = i18n.t("content.item.jcmncc.name");
 item.jcmncc.val = 45;
-item.jcmncc.desc =
-  "This popular mince cutlet is packed with meaty goodness that fills your mouth each time you take a bite" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jcmncc.val +
-  " </span>energy";
+item.jcmncc.desc = i18n.t("content.item.jcmncc.desc", {
+  separator: dom.dseparator,
+  val: item.jcmncc.val,
+});
 item.jcmncc.stype = 4;
 item.jcmncc.use = function () {
   you.sat + this.val > you.satmax
@@ -4062,7 +4169,10 @@ item.jcmncc.use = function () {
   skl.glt.use(6);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4070,12 +4180,10 @@ item.sbeanf = new Item();
 item.sbeanf.id = 141;
 item.sbeanf.name = i18n.t("content.item.sbeanf.name");
 item.sbeanf.val = 37;
-item.sbeanf.desc =
-  "A simple dish taht cahmpiions the humble bean sprout, accented with a peppery punch. Once you start earing it, it's hard to put down" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sbeanf.val +
-  " </span>energy";
+item.sbeanf.desc = i18n.t("content.item.sbeanf.desc", {
+  separator: dom.dseparator,
+  val: item.sbeanf.val,
+});
 item.sbeanf.stype = 4;
 item.sbeanf.use = function () {
   you.sat + this.val > you.satmax
@@ -4084,7 +4192,10 @@ item.sbeanf.use = function () {
   skl.glt.use(4);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4092,12 +4203,10 @@ item.mgpch = new Item();
 item.mgpch.id = 142;
 item.mgpch.name = i18n.t("content.item.mgpch.name");
 item.mgpch.val = 29;
-item.mgpch.desc =
-  "No matter how much you've already eaten, it's always seary to make room for this tropical sherbet dessert" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.mgpch.val +
-  " </span>energy";
+item.mgpch.desc = i18n.t("content.item.mgpch.desc", {
+  separator: dom.dseparator,
+  val: item.mgpch.val,
+});
 item.mgpch.stype = 4;
 item.mgpch.use = function () {
   you.sat + this.val > you.satmax
@@ -4106,7 +4215,10 @@ item.mgpch.use = function () {
   skl.glt.use(3);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4114,12 +4226,10 @@ item.maitake = new Item();
 item.maitake.id = 143;
 item.maitake.name = i18n.t("content.item.maitake.name");
 item.maitake.val = 7;
-item.maitake.desc =
-  "Maitake mushrooms are a delectable addition to hotpots" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.maitake.val +
-  " </span>energy";
+item.maitake.desc = i18n.t("content.item.maitake.desc", {
+  separator: dom.dseparator,
+  val: item.maitake.val,
+});
 item.maitake.stype = 4;
 item.maitake.use = function () {
   you.sat + this.val > you.satmax
@@ -4128,7 +4238,10 @@ item.maitake.use = function () {
   skl.glt.use(2);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4136,12 +4249,10 @@ item.odens = new Item();
 item.odens.id = 144;
 item.odens.name = i18n.t("content.item.odens.name");
 item.odens.val = 40;
-item.odens.desc =
-  "There is more than enough of this piping hot oden assortment to satisfy your hunger. Perfect for a colkd winter evening" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.odens.val +
-  " </span>energy";
+item.odens.desc = i18n.t("content.item.odens.desc", {
+  separator: dom.dseparator,
+  val: item.odens.val,
+});
 item.odens.stype = 4;
 item.odens.use = function () {
   you.sat + this.val > you.satmax
@@ -4150,7 +4261,10 @@ item.odens.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4158,12 +4272,10 @@ item.onign1 = new Item();
 item.onign1.id = 145;
 item.onign1.name = i18n.t("content.item.onign1.name");
 item.onign1.val = 30;
-item.onign1.desc =
-  "Seaweed boiled in soy sauce is in the center of this onigiri" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.onign1.val +
-  " </span>energy";
+item.onign1.desc = i18n.t("content.item.onign1.desc", {
+  separator: dom.dseparator,
+  val: item.onign1.val,
+});
 item.onign1.stype = 4;
 item.onign1.use = function () {
   you.sat + this.val > you.satmax
@@ -4172,7 +4284,10 @@ item.onign1.use = function () {
   skl.glt.use(3);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4180,12 +4295,10 @@ item.onign2 = new Item();
 item.onign2.id = 146;
 item.onign2.name = i18n.t("content.item.onign2.name");
 item.onign2.val = 36;
-item.onign2.desc =
-  "This nigiri has tuna dressing with maynnaise in the middle" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.onign2.val +
-  " </span>energy";
+item.onign2.desc = i18n.t("content.item.onign2.desc", {
+  separator: dom.dseparator,
+  val: item.onign2.val,
+});
 item.onign2.stype = 4;
 item.onign2.use = function () {
   you.sat + this.val > you.satmax
@@ -4194,7 +4307,10 @@ item.onign2.use = function () {
   skl.glt.use(4);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4202,12 +4318,10 @@ item.onign3 = new Item();
 item.onign3.id = 147;
 item.onign3.name = i18n.t("content.item.onign3.name");
 item.onign3.val = 38;
-item.onign3.desc =
-  "Old standard salmon onigiri, belowed by old and young for generations" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.onign3.val +
-  " </span>energy";
+item.onign3.desc = i18n.t("content.item.onign3.desc", {
+  separator: dom.dseparator,
+  val: item.onign3.val,
+});
 item.onign3.stype = 4;
 item.onign3.use = function () {
   you.sat + this.val > you.satmax
@@ -4216,7 +4330,10 @@ item.onign3.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4224,12 +4341,10 @@ item.syakis = new Item();
 item.syakis.id = 148;
 item.syakis.name = i18n.t("content.item.syakis.name");
 item.syakis.val = 50;
-item.syakis.desc =
-  "Yakisoba with cabbage and pork. The smell of the sauce is mouth-watering" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.syakis.val +
-  " </span>energy";
+item.syakis.desc = i18n.t("content.item.syakis.desc", {
+  separator: dom.dseparator,
+  val: item.syakis.val,
+});
 item.syakis.stype = 4;
 item.syakis.use = function () {
   you.sat + this.val > you.satmax
@@ -4238,7 +4353,10 @@ item.syakis.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4246,12 +4364,10 @@ item.kkbin = new Item();
 item.kkbin.id = 149;
 item.kkbin.name = i18n.t("content.item.kkbin.name");
 item.kkbin.val = 25;
-item.kkbin.desc =
-  "The most popular whisky in the East. It has a sweet aroma and is thick on the palate, with a smooth, rich taste" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.kkbin.val +
-  " </span>energy";
+item.kkbin.desc = i18n.t("content.item.kkbin.desc", {
+  separator: dom.dseparator,
+  val: item.kkbin.val,
+});
 item.kkbin.stype = 4;
 item.kkbin.use = function () {
   you.sat + this.val > you.satmax
@@ -4264,7 +4380,10 @@ item.kkbin.use = function () {
   if (effect.drunk.active === false) giveEff(you, effect.drunk, 80);
   else effect.drunk.duration += 50;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4272,12 +4391,10 @@ item.blsho = new Item();
 item.blsho.id = 150;
 item.blsho.name = i18n.t("content.item.blsho.name");
 item.blsho.val = 39;
-item.blsho.desc =
-  "This barley shochy has a dry state popular with experienced drinkers" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.blsho.val +
-  " </span>energy";
+item.blsho.desc = i18n.t("content.item.blsho.desc", {
+  separator: dom.dseparator,
+  val: item.blsho.val,
+});
 item.blsho.stype = 4;
 item.blsho.use = function () {
   you.sat + this.val > you.satmax
@@ -4290,7 +4407,10 @@ item.blsho.use = function () {
   if (effect.drunk.active === false) giveEff(you, effect.drunk, 72);
   else effect.drunk.duration += 36;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4298,12 +4418,10 @@ item.scwhi = new Item();
 item.scwhi.id = 151;
 item.scwhi.name = i18n.t("content.item.scwhi.name");
 item.scwhi.val = 40;
-item.scwhi.desc =
-  "This whisky has a high alcohol content, so be careful not to drink too much" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.scwhi.val +
-  " </span>energy";
+item.scwhi.desc = i18n.t("content.item.scwhi.desc", {
+  separator: dom.dseparator,
+  val: item.scwhi.val,
+});
 item.scwhi.stype = 4;
 item.scwhi.use = function () {
   you.sat + this.val > you.satmax
@@ -4316,7 +4434,10 @@ item.scwhi.use = function () {
   if (effect.drunk.active === false) giveEff(you, effect.drunk, 140);
   else effect.drunk.duration += 70;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4324,12 +4445,10 @@ item.cham1 = new Item();
 item.cham1.id = 152;
 item.cham1.name = i18n.t("content.item.cham1.name");
 item.cham1.val = 45;
-item.cham1.desc =
-  "The flavors of Satoyu condensed into one dish. The rich soup is made with fresh vegetables and a wealth of of ohter ingredients" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cham1.val +
-  " </span>energy";
+item.cham1.desc = i18n.t("content.item.cham1.desc", {
+  separator: dom.dseparator,
+  val: item.cham1.val,
+});
 item.cham1.stype = 4;
 item.cham1.use = function () {
   you.sat + this.val > you.satmax
@@ -4338,7 +4457,10 @@ item.cham1.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4346,12 +4468,10 @@ item.cham2 = new Item();
 item.cham2.id = 153;
 item.cham2.name = i18n.t("content.item.cham2.name");
 item.cham2.val = 48;
-item.cham2.desc =
-  "This dish features seven different vegetables, and contains double the cabbage, bean sprouts, and onionof the standard champion" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cham2.val +
-  " </span>energy";
+item.cham2.desc = i18n.t("content.item.cham2.desc", {
+  separator: dom.dseparator,
+  val: item.cham2.val,
+});
 item.cham2.stype = 4;
 item.cham2.rar = 2;
 item.cham2.use = function () {
@@ -4361,7 +4481,10 @@ item.cham2.use = function () {
   skl.glt.use(11);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4369,12 +4492,10 @@ item.cham3 = new Item();
 item.cham3.id = 154;
 item.cham3.name = i18n.t("content.item.cham3.name");
 item.cham3.val = 42;
-item.cham3.desc =
-  "Eye-popping champon with homemade spicy miso" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cham3.val +
-  " </span>energy";
+item.cham3.desc = i18n.t("content.item.cham3.desc", {
+  separator: dom.dseparator,
+  val: item.cham3.val,
+});
 item.cham3.stype = 4;
 item.cham3.use = function () {
   you.sat + this.val > you.satmax
@@ -4383,7 +4504,10 @@ item.cham3.use = function () {
   skl.glt.use(14);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4391,12 +4515,10 @@ item.cham4 = new Item();
 item.cham4.id = 155;
 item.cham4.name = i18n.t("content.item.cham4.name");
 item.cham4.val = 26;
-item.cham4.desc =
-  "A small serving of champon that is popular with women. Just the thing when you are only a little hungry" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.cham4.val +
-  " </span>energy";
+item.cham4.desc = i18n.t("content.item.cham4.desc", {
+  separator: dom.dseparator,
+  val: item.cham4.val,
+});
 item.cham4.stype = 4;
 item.cham4.use = function () {
   you.sat + this.val > you.satmax
@@ -4405,7 +4527,10 @@ item.cham4.use = function () {
   skl.glt.use(7);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4413,12 +4538,10 @@ item.sudon1 = new Item();
 item.sudon1.id = 156;
 item.sudon1.name = i18n.t("content.item.sudon1.name");
 item.sudon1.val = 47;
-item.sudon1.desc =
-  "Extra thin, crispy deep-fried noodles packed with flavor, and topped with vegetable in a thick, silky sauce that melts in your mouth " +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sudon1.val +
-  " </span>energy";
+item.sudon1.desc = i18n.t("content.item.sudon1.desc", {
+  separator: dom.dseparator,
+  val: item.sudon1.val,
+});
 item.sudon1.stype = 4;
 item.sudon1.use = function () {
   you.sat + this.val > you.satmax
@@ -4427,7 +4550,10 @@ item.sudon1.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4435,12 +4561,10 @@ item.sudon2 = new Item();
 item.sudon2.id = 157;
 item.sudon2.name = i18n.t("content.item.sudon2.name");
 item.sudon2.val = 42;
-item.sudon2.desc =
-  "A sister dish to the popular Vegetable Champon. Eat it with a dressing of your choice" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sudon2.val +
-  " </span>energy";
+item.sudon2.desc = i18n.t("content.item.sudon2.desc", {
+  separator: dom.dseparator,
+  val: item.sudon2.val,
+});
 item.sudon2.stype = 4;
 item.sudon2.use = function () {
   you.sat + this.val > you.satmax
@@ -4449,7 +4573,10 @@ item.sudon2.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4457,12 +4584,10 @@ item.sudon3 = new Item();
 item.sudon3.id = 158;
 item.sudon3.name = i18n.t("content.item.sudon3.name");
 item.sudon3.val = 50;
-item.sudon3.desc =
-  "Soft, thisk, flavorsome noodle make for a filling treat. Big plate is enough to satiate you for a whole day!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sudon3.val +
-  " </span>energy";
+item.sudon3.desc = i18n.t("content.item.sudon3.desc", {
+  separator: dom.dseparator,
+  val: item.sudon3.val,
+});
 item.sudon3.stype = 4;
 item.sudon3.rar = 2;
 item.sudon3.use = function () {
@@ -4472,7 +4597,10 @@ item.sudon3.use = function () {
   skl.glt.use(10);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4480,12 +4608,10 @@ item.sudon4 = new Item();
 item.sudon4.id = 159;
 item.sudon4.name = i18n.t("content.item.sudon4.name");
 item.sudon4.val = 25;
-item.sudon4.desc =
-  "A small plate of udon that hits the spot when you feel like a snack" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sudon4.val +
-  " </span>energy";
+item.sudon4.desc = i18n.t("content.item.sudon4.desc", {
+  separator: dom.dseparator,
+  val: item.sudon4.val,
+});
 item.sudon4.stype = 4;
 item.sudon4.use = function () {
   you.sat + this.val > you.satmax
@@ -4494,7 +4620,10 @@ item.sudon4.use = function () {
   skl.glt.use(6);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4502,12 +4631,10 @@ item.goza = new Item();
 item.goza.id = 160;
 item.goza.name = i18n.t("content.item.goza.name");
 item.goza.val = 37;
-item.goza.desc =
-  "Fried dumplings with a rich meat filling. The skin has rice flour blended in for amazing crispiness" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.goza.val +
-  " </span>energy";
+item.goza.desc = i18n.t("content.item.goza.desc", {
+  separator: dom.dseparator,
+  val: item.goza.val,
+});
 item.goza.stype = 4;
 item.goza.use = function () {
   you.sat + this.val > you.satmax
@@ -4516,7 +4643,10 @@ item.goza.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4524,12 +4654,10 @@ item.dfrch = new Item();
 item.dfrch.id = 161;
 item.dfrch.name = i18n.t("content.item.dfrch.name");
 item.dfrch.val = 48;
-item.dfrch.desc =
-  "Fried chicken made with thigh meat. it's crunchy on the outside and juicy in the middle. Finger-smacking good!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.dfrch.val +
-  " </span>energy";
+item.dfrch.desc = i18n.t("content.item.dfrch.desc", {
+  separator: dom.dseparator,
+  val: item.dfrch.val,
+});
 item.dfrch.stype = 4;
 item.dfrch.use = function () {
   you.sat + this.val > you.satmax
@@ -4538,7 +4666,10 @@ item.dfrch.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4546,12 +4677,10 @@ item.ynasl = new Item();
 item.ynasl.id = 162;
 item.ynasl.name = i18n.t("content.item.ynasl.name");
 item.ynasl.val = 29;
-item.ynasl.desc =
-  "Thin, deep-fried noodles topped with dressing and fresh vegetables" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ynasl.val +
-  " </span>energy";
+item.ynasl.desc = i18n.t("content.item.ynasl.desc", {
+  separator: dom.dseparator,
+  val: item.ynasl.val,
+});
 item.ynasl.stype = 4;
 item.ynasl.use = function () {
   you.sat + this.val > you.satmax
@@ -4560,7 +4689,10 @@ item.ynasl.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4568,12 +4700,10 @@ item.ramen1 = new Item();
 item.ramen1.id = 163;
 item.ramen1.name = i18n.t("content.item.ramen1.name");
 item.ramen1.val = 40;
-item.ramen1.desc =
-  "Famous shoyu ramen. Thick soba noodles in the soy sauce based soup, improved with rich selection of vegetables. Delicious!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ramen1.val +
-  " </span>energy";
+item.ramen1.desc = i18n.t("content.item.ramen1.desc", {
+  separator: dom.dseparator,
+  val: item.ramen1.val,
+});
 item.ramen1.stype = 4;
 item.ramen1.use = function () {
   you.sat + this.val > you.satmax
@@ -4582,7 +4712,10 @@ item.ramen1.use = function () {
   skl.glt.use(7);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4590,12 +4723,10 @@ item.ramen2 = new Item();
 item.ramen2.id = 164;
 item.ramen2.name = i18n.t("content.item.ramen2.name");
 item.ramen2.val = 42;
-item.ramen2.desc =
-  "Classic shoyu ramen topped with piquant eastern onions" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ramen2.val +
-  " </span>energy";
+item.ramen2.desc = i18n.t("content.item.ramen2.desc", {
+  separator: dom.dseparator,
+  val: item.ramen2.val,
+});
 item.ramen2.stype = 4;
 item.ramen2.use = function () {
   you.sat + this.val > you.satmax
@@ -4604,7 +4735,10 @@ item.ramen2.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4612,12 +4746,10 @@ item.ramen3 = new Item();
 item.ramen3.id = 165;
 item.ramen3.name = i18n.t("content.item.ramen3.name");
 item.ramen3.val = 50;
-item.ramen3.desc =
-  "Tasty ramen topped with succulent, thin slices of roast pork" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ramen3.val +
-  " </span>energy";
+item.ramen3.desc = i18n.t("content.item.ramen3.desc", {
+  separator: dom.dseparator,
+  val: item.ramen3.val,
+});
 item.ramen3.stype = 4;
 item.ramen3.use = function () {
   you.sat + this.val > you.satmax
@@ -4626,7 +4758,10 @@ item.ramen3.use = function () {
   skl.glt.use(10);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4634,12 +4769,10 @@ item.ramen4 = new Item();
 item.ramen4.id = 166;
 item.ramen4.name = i18n.t("content.item.ramen4.name");
 item.ramen4.val = 66;
-item.ramen4.desc =
-  "This exquisit ramen features a hefty helping of spicy eastern onions and slices of roast pork" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ramen4.val +
-  " </span>energy";
+item.ramen4.desc = i18n.t("content.item.ramen4.desc", {
+  separator: dom.dseparator,
+  val: item.ramen4.val,
+});
 item.ramen4.stype = 4;
 item.ramen4.rare = 2;
 item.ramen4.use = function () {
@@ -4649,7 +4782,10 @@ item.ramen4.use = function () {
   skl.glt.use(12);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4657,12 +4793,10 @@ item.bffbl = new Item();
 item.bffbl.id = 167;
 item.bffbl.name = i18n.t("content.item.bffbl.name");
 item.bffbl.val = 48;
-item.bffbl.desc =
-  "A hearty beef bowl made with top quality eastern beef" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bffbl.val +
-  " </span>energy";
+item.bffbl.desc = i18n.t("content.item.bffbl.desc", {
+  separator: dom.dseparator,
+  val: item.bffbl.val,
+});
 item.bffbl.stype = 4;
 item.bffbl.use = function () {
   you.sat + this.val > you.satmax
@@ -4671,7 +4805,10 @@ item.bffbl.use = function () {
   skl.glt.use(7);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4679,12 +4816,10 @@ item.sposs = new Item();
 item.sposs.id = 168;
 item.sposs.name = i18n.t("content.item.sposs.name");
 item.sposs.val = 33;
-item.sposs.desc =
-  "A sweet potato shochu that succeeds in bringing out the flavors of its ingredients" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sposs.val +
-  " </span>energy";
+item.sposs.desc = i18n.t("content.item.sposs.desc", {
+  separator: dom.dseparator,
+  val: item.sposs.val,
+});
 item.sposs.stype = 4;
 item.sposs.use = function () {
   you.sat + this.val > you.satmax
@@ -4697,7 +4832,10 @@ item.sposs.use = function () {
   if (effect.drunk.active === false) giveEff(you, effect.drunk, 92);
   else effect.drunk.duration += 41;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4705,12 +4843,10 @@ item.soban1 = new Item();
 item.soban1.id = 169;
 item.soban1.name = i18n.t("content.item.soban1.name");
 item.soban1.val = 40;
-item.soban1.desc =
-  "This house classic features freshly-boiled soba noodles served in a piping hot homemade soup" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban1.val +
-  " </span>energy";
+item.soban1.desc = i18n.t("content.item.soban1.desc", {
+  separator: dom.dseparator,
+  val: item.soban1.val,
+});
 item.soban1.stype = 4;
 item.soban1.use = function () {
   you.sat + this.val > you.satmax
@@ -4719,7 +4855,10 @@ item.soban1.use = function () {
   skl.glt.use(6);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4727,12 +4866,10 @@ item.soban2 = new Item();
 item.soban2.id = 170;
 item.soban2.name = i18n.t("content.item.soban2.name");
 item.soban2.val = 44;
-item.soban2.desc =
-  "Delicious soba noodles rinsed in water after cooking to stop them becoming too soft, served with a special dipping sauce" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban2.val +
-  " </span>energy";
+item.soban2.desc = i18n.t("content.item.soban2.desc", {
+  separator: dom.dseparator,
+  val: item.soban2.val,
+});
 item.soban2.stype = 4;
 item.soban2.use = function () {
   you.sat + this.val > you.satmax
@@ -4741,7 +4878,10 @@ item.soban2.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4749,12 +4889,10 @@ item.soban3 = new Item();
 item.soban3.id = 171;
 item.soban3.name = i18n.t("content.item.soban3.name");
 item.soban3.val = 46;
-item.soban3.desc =
-  "Freshly cooked soba noodles topped with chilled sauce and bits of fried tenpura batter. This is a firm favourite among population" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban3.val +
-  " </span>energy";
+item.soban3.desc = i18n.t("content.item.soban3.desc", {
+  separator: dom.dseparator,
+  val: item.soban3.val,
+});
 item.soban3.stype = 4;
 item.soban3.use = function () {
   you.sat + this.val > you.satmax
@@ -4763,7 +4901,10 @@ item.soban3.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4771,12 +4912,10 @@ item.soban4 = new Item();
 item.soban4.id = 172;
 item.soban4.name = i18n.t("content.item.soban4.name");
 item.soban4.val = 48;
-item.soban4.desc =
-  "Freshly cooked soba noodles topped with chilled sauce and house made fried tofu cut into easy-to-eat pieces" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban4.val +
-  " </span>energy";
+item.soban4.desc = i18n.t("content.item.soban4.desc", {
+  separator: dom.dseparator,
+  val: item.soban4.val,
+});
 item.soban4.stype = 4;
 item.soban4.use = function () {
   you.sat + this.val > you.satmax
@@ -4785,7 +4924,10 @@ item.soban4.use = function () {
   skl.glt.use(10);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4793,12 +4935,10 @@ item.soban5 = new Item();
 item.soban5.id = 173;
 item.soban5.name = i18n.t("content.item.soban5.name");
 item.soban5.val = 52;
-item.soban5.desc =
-  "Hot soba noodles served with soft-boiled egg and vegetable tenpura. This dish is a perennial favorite" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban5.val +
-  " </span>energy";
+item.soban5.desc = i18n.t("content.item.soban5.desc", {
+  separator: dom.dseparator,
+  val: item.soban5.val,
+});
 item.soban5.stype = 4;
 item.soban5.use = function () {
   you.sat + this.val > you.satmax
@@ -4807,7 +4947,10 @@ item.soban5.use = function () {
   skl.glt.use(11);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4815,12 +4958,10 @@ item.soban6 = new Item();
 item.soban6.id = 174;
 item.soban6.name = i18n.t("content.item.soban6.name");
 item.soban6.val = 60;
-item.soban6.desc =
-  'Hot soba noodles topped with a lavish amount of fried tenpura batter and fried tofu, along with soft-bioled egg and "kamaboko" fish cake' +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban6.val +
-  " </span>energy";
+item.soban6.desc = i18n.t("content.item.soban6.desc", {
+  separator: dom.dseparator,
+  val: item.soban6.val,
+});
 item.soban6.stype = 4;
 item.soban6.rar = 2;
 item.soban6.use = function () {
@@ -4830,7 +4971,10 @@ item.soban6.use = function () {
   skl.glt.use(15);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4838,12 +4982,10 @@ item.soban7 = new Item();
 item.soban7.id = 175;
 item.soban7.name = i18n.t("content.item.soban7.name");
 item.soban7.val = 50;
-item.soban7.desc =
-  "A vibrant dish of hot soba noodles topped with spinach and pieces of steamed chicken, accented with the subtle fragrance of yuzu" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban7.val +
-  " </span>energy";
+item.soban7.desc = i18n.t("content.item.soban7.desc", {
+  separator: dom.dseparator,
+  val: item.soban7.val,
+});
 item.soban7.stype = 4;
 item.soban7.use = function () {
   you.sat + this.val > you.satmax
@@ -4852,7 +4994,10 @@ item.soban7.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4860,12 +5005,10 @@ item.katubo = new Item();
 item.katubo.id = 176;
 item.katubo.name = i18n.t("content.item.katubo.name");
 item.katubo.val = 58;
-item.katubo.desc =
-  "This classic dish features a thick, crunchy pork cutlet topped with sauce and lightly cooked egg. It is made to order for maximum freshness" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.katubo.val +
-  " </span>energy";
+item.katubo.desc = i18n.t("content.item.katubo.desc", {
+  separator: dom.dseparator,
+  val: item.katubo.val,
+});
 item.katubo.stype = 4;
 item.katubo.use = function () {
   you.sat + this.val > you.satmax
@@ -4874,7 +5017,10 @@ item.katubo.use = function () {
   skl.glt.use(11);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4882,12 +5028,10 @@ item.curry1 = new Item();
 item.curry1.id = 177;
 item.curry1.name = i18n.t("content.item.curry1.name");
 item.curry1.val = 50;
-item.curry1.desc =
-  "Mild curry and rice. This curry is made with the house's special roux and sauce, and is petfect for those who don't like too much spice" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.curry1.val +
-  " </span>energy";
+item.curry1.desc = i18n.t("content.item.curry1.desc", {
+  separator: dom.dseparator,
+  val: item.curry1.val,
+});
 item.curry1.stype = 4;
 item.curry1.use = function () {
   you.sat + this.val > you.satmax
@@ -4896,7 +5040,10 @@ item.curry1.use = function () {
   skl.glt.use(14);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4904,12 +5051,10 @@ item.soban8 = new Item();
 item.soban8.id = 178;
 item.soban8.name = i18n.t("content.item.soban8.name");
 item.soban8.val = 56;
-item.soban8.desc =
-  "Hot soba noodles served with tenpura containing copious amounts of red pickled ginger for a pleasant meal that warms the soul" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.soban8.val +
-  " </span>energy";
+item.soban8.desc = i18n.t("content.item.soban8.desc", {
+  separator: dom.dseparator,
+  val: item.soban8.val,
+});
 item.soban8.stype = 4;
 item.soban8.use = function () {
   you.sat + this.val > you.satmax
@@ -4918,7 +5063,10 @@ item.soban8.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4926,12 +5074,10 @@ item.yktr = new Item();
 item.yktr.id = 179;
 item.yktr.name = i18n.t("content.item.yktr.name");
 item.yktr.val = 48;
-item.yktr.desc =
-  "This charcoal-grilled chicken on a skewer has a savory smell that is out of this world" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.yktr.val +
-  " </span>energy";
+item.yktr.desc = i18n.t("content.item.yktr.desc", {
+  separator: dom.dseparator,
+  val: item.yktr.val,
+});
 item.yktr.stype = 4;
 item.yktr.use = function () {
   you.sat + this.val > you.satmax
@@ -4940,7 +5086,10 @@ item.yktr.use = function () {
   skl.glt.use(6);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4948,12 +5097,10 @@ item.tegs = new Item();
 item.tegs.id = 180;
 item.tegs.name = i18n.t("content.item.tegs.name");
 item.tegs.val = 45;
-item.tegs.desc =
-  "This sandwich features an egg-mayo mix with tuna on white bread" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.tegs.val +
-  " </span>energy";
+item.tegs.desc = i18n.t("content.item.tegs.desc", {
+  separator: dom.dseparator,
+  val: item.tegs.val,
+});
 item.tegs.stype = 4;
 item.tegs.use = function () {
   you.sat + this.val > you.satmax
@@ -4962,7 +5109,10 @@ item.tegs.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4970,12 +5120,10 @@ item.tamag = new Item();
 item.tamag.id = 181;
 item.tamag.name = i18n.t("content.item.tamag.name");
 item.tamag.val = 15;
-item.tamag.desc =
-  "Delicate and tasty egg sushi" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.tamag.val +
-  " </span>energy";
+item.tamag.desc = i18n.t("content.item.tamag.desc", {
+  separator: dom.dseparator,
+  val: item.tamag.val,
+});
 item.tamag.stype = 4;
 item.tamag.use = function () {
   you.sat + this.val > you.satmax
@@ -4984,7 +5132,10 @@ item.tamag.use = function () {
   skl.glt.use(3);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -4992,12 +5143,10 @@ item.magr = new Item();
 item.magr.id = 182;
 item.magr.name = i18n.t("content.item.magr.name");
 item.magr.val = 26;
-item.magr.desc =
-  "Top-grade bluefin tuna sushi" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.magr.val +
-  " </span>energy";
+item.magr.desc = i18n.t("content.item.magr.desc", {
+  separator: dom.dseparator,
+  val: item.magr.val,
+});
 item.magr.stype = 4;
 item.magr.use = function () {
   you.sat + this.val > you.satmax
@@ -5006,7 +5155,10 @@ item.magr.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5014,12 +5166,10 @@ item.ameb = new Item();
 item.ameb.id = 183;
 item.ameb.name = i18n.t("content.item.ameb.name");
 item.ameb.val = 24;
-item.ameb.desc =
-  "This tender, sweet shrimp will melt in your mouth. It's unbelievably fresh!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ameb.val +
-  " </span>energy";
+item.ameb.desc = i18n.t("content.item.ameb.desc", {
+  separator: dom.dseparator,
+  val: item.ameb.val,
+});
 item.ameb.stype = 4;
 item.ameb.use = function () {
   you.sat + this.val > you.satmax
@@ -5028,7 +5178,10 @@ item.ameb.use = function () {
   skl.glt.use(4);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5036,12 +5189,10 @@ item.engw = new Item();
 item.engw.id = 184;
 item.engw.name = i18n.t("content.item.engw.name");
 item.engw.val = 32;
-item.engw.desc =
-  "Tastiest engawa sushi made from eastern flounder" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.engw.val +
-  " </span>energy";
+item.engw.desc = i18n.t("content.item.engw.desc", {
+  separator: dom.dseparator,
+  val: item.engw.val,
+});
 item.engw.stype = 4;
 item.engw.use = function () {
   you.sat + this.val > you.satmax
@@ -5050,7 +5201,10 @@ item.engw.use = function () {
   skl.glt.use(5);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5058,12 +5212,10 @@ item.skmsk = new Item();
 item.skmsk.id = 185;
 item.skmsk.name = i18n.t("content.item.skmsk.name");
 item.skmsk.val = 30;
-item.skmsk.desc =
-  "Not all mackerel are created equal. This premium mackerel is packed with tasty fish oil" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.skmsk.val +
-  " </span>energy";
+item.skmsk.desc = i18n.t("content.item.skmsk.desc", {
+  separator: dom.dseparator,
+  val: item.skmsk.val,
+});
 item.skmsk.stype = 4;
 item.skmsk.use = function () {
   you.sat + this.val > you.satmax
@@ -5072,7 +5224,10 @@ item.skmsk.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5080,12 +5235,10 @@ item.namatk = new Item();
 item.namatk.id = 186;
 item.namatk.name = i18n.t("content.item.namatk.name");
 item.namatk.val = 29;
-item.namatk.desc =
-  "Octopus sushi of the highest grade. The more you chew, the better it tastes. That's proof of quality" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.namatk.val +
-  " </span>energy";
+item.namatk.desc = i18n.t("content.item.namatk.desc", {
+  separator: dom.dseparator,
+  val: item.namatk.val,
+});
 item.namatk.stype = 4;
 item.namatk.use = function () {
   you.sat + this.val > you.satmax
@@ -5094,7 +5247,10 @@ item.namatk.use = function () {
   skl.glt.use(7);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5102,12 +5258,10 @@ item.hirame = new Item();
 item.hirame.id = 187;
 item.hirame.name = i18n.t("content.item.hirame.name");
 item.hirame.val = 37;
-item.hirame.desc =
-  "This halibut is a popular sushi topping. Its sweet white meat doesn't have a trace of fishiness" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hirame.val +
-  " </span>energy";
+item.hirame.desc = i18n.t("content.item.hirame.desc", {
+  separator: dom.dseparator,
+  val: item.hirame.val,
+});
 item.hirame.stype = 4;
 item.hirame.use = function () {
   you.sat + this.val > you.satmax
@@ -5116,7 +5270,10 @@ item.hirame.use = function () {
   skl.glt.use(9);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5124,12 +5281,10 @@ item.shmaj = new Item();
 item.shmaj.id = 188;
 item.shmaj.name = i18n.t("content.item.shmaj.name");
 item.shmaj.val = 33;
-item.shmaj.desc =
-  "The king of horse mackerel! It's a summer fish best eaten as sashimi or sushi" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.shmaj.val +
-  " </span>energy";
+item.shmaj.desc = i18n.t("content.item.shmaj.desc", {
+  separator: dom.dseparator,
+  val: item.shmaj.val,
+});
 item.shmaj.stype = 4;
 item.shmaj.use = function () {
   you.sat + this.val > you.satmax
@@ -5138,7 +5293,10 @@ item.shmaj.use = function () {
   skl.glt.use(6);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5146,12 +5304,10 @@ item.kndma = new Item();
 item.kndma.id = 189;
 item.kndma.name = i18n.t("content.item.kndma.name");
 item.kndma.val = 38;
-item.kndma.desc =
-  " The shiny color of this splendid alfonsino is a feast for the eyes. It's fatty and melts in your mouth" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.kndma.val +
-  " </span>energy";
+item.kndma.desc = i18n.t("content.item.kndma.desc", {
+  separator: dom.dseparator,
+  val: item.kndma.val,
+});
 item.kndma.stype = 4;
 item.kndma.use = function () {
   you.sat + this.val > you.satmax
@@ -5160,7 +5316,10 @@ item.kndma.use = function () {
   skl.glt.use(7);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5168,12 +5327,10 @@ item.ikura = new Item();
 item.ikura.id = 190;
 item.ikura.name = i18n.t("content.item.ikura.name");
 item.ikura.val = 40;
-item.ikura.desc =
-  " Top quality salmon roe wrapped in nori. The best there is!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.ikura.val +
-  " </span>energy";
+item.ikura.desc = i18n.t("content.item.ikura.desc", {
+  separator: dom.dseparator,
+  val: item.ikura.val,
+});
 item.ikura.stype = 4;
 item.ikura.use = function () {
   you.sat + this.val > you.satmax
@@ -5182,7 +5339,10 @@ item.ikura.use = function () {
   skl.glt.use(10);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5190,12 +5350,10 @@ item.akagi = new Item();
 item.akagi.id = 191;
 item.akagi.name = i18n.t("content.item.akagi.name");
 item.akagi.val = 37;
-item.akagi.desc =
-  'Popular sushi toping made from ark clams. Also known as "bloody clams" because they have red blood' +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.akagi.val +
-  " </span>energy";
+item.akagi.desc = i18n.t("content.item.akagi.desc", {
+  separator: dom.dseparator,
+  val: item.akagi.val,
+});
 item.akagi.stype = 4;
 item.akagi.use = function () {
   you.sat + this.val > you.satmax
@@ -5204,7 +5362,10 @@ item.akagi.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5212,12 +5373,10 @@ item.otor = new Item();
 item.otor.id = 192;
 item.otor.name = i18n.t("content.item.otor.name");
 item.otor.val = 45;
-item.otor.desc =
-  "This is the richest cut from the top-grade bluefin tuna. The taste alone will leave you hungry for more" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.otor.val +
-  " </span>energy";
+item.otor.desc = i18n.t("content.item.otor.desc", {
+  separator: dom.dseparator,
+  val: item.otor.val,
+});
 item.otor.stype = 4;
 item.otor.rar = 2;
 item.otor.use = function () {
@@ -5227,7 +5386,10 @@ item.otor.use = function () {
   skl.glt.use(12);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5235,12 +5397,10 @@ item.awabi = new Item();
 item.awabi.id = 193;
 item.awabi.name = i18n.t("content.item.awabi.name");
 item.awabi.val = 56;
-item.awabi.desc =
-  "Highest quality abalone with the taste out of this world. Premium snack for those who can afford it" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.awabi.val +
-  " </span>energy";
+item.awabi.desc = i18n.t("content.item.awabi.desc", {
+  separator: dom.dseparator,
+  val: item.awabi.val,
+});
 item.awabi.stype = 4;
 item.awabi.rar = 2;
 item.awabi.use = function () {
@@ -5250,7 +5410,10 @@ item.awabi.use = function () {
   skl.glt.use(13);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5258,12 +5421,10 @@ item.uni = new Item();
 item.uni.id = 194;
 item.uni.name = i18n.t("content.item.uni.name");
 item.uni.val = 60;
-item.uni.desc =
-  "Exquisit sea urchin meat of the most excellent kind, wrapped in nori. As fresh as can be" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.uni.val +
-  " </span>energy";
+item.uni.desc = i18n.t("content.item.uni.desc", {
+  separator: dom.dseparator,
+  val: item.uni.val,
+});
 item.uni.stype = 4;
 item.uni.rar = 3;
 item.uni.use = function () {
@@ -5273,7 +5434,10 @@ item.uni.use = function () {
   skl.glt.use(16);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5281,12 +5445,10 @@ item.klbi1 = new Item();
 item.klbi1.id = 195;
 item.klbi1.name = i18n.t("content.item.klbi1.name");
 item.klbi1.val = 48;
-item.klbi1.desc =
-  "This beef rib meat is popular for its incredibly rich flavor" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.klbi1.val +
-  " </span>energy";
+item.klbi1.desc = i18n.t("content.item.klbi1.desc", {
+  separator: dom.dseparator,
+  val: item.klbi1.val,
+});
 item.klbi1.stype = 4;
 item.klbi1.use = function () {
   you.sat + this.val > you.satmax
@@ -5295,7 +5457,10 @@ item.klbi1.use = function () {
   skl.glt.use(10);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5303,12 +5468,10 @@ item.klbi2 = new Item();
 item.klbi2.id = 196;
 item.klbi2.name = i18n.t("content.item.klbi2.name");
 item.klbi2.val = 55;
-item.klbi2.desc =
-  "Top-grade meat is selected from only the rarest, choicest cuts of beef rib" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.klbi2.val +
-  " </span>energy";
+item.klbi2.desc = i18n.t("content.item.klbi2.desc", {
+  separator: dom.dseparator,
+  val: item.klbi2.val,
+});
 item.klbi2.stype = 4;
 item.klbi2.rar = 2;
 item.klbi2.use = function () {
@@ -5318,7 +5481,10 @@ item.klbi2.use = function () {
   skl.glt.use(25);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5326,12 +5492,10 @@ item.srln1 = new Item();
 item.srln1.id = 197;
 item.srln1.name = i18n.t("content.item.srln1.name");
 item.srln1.val = 52;
-item.srln1.desc =
-  "Light and relatively low fat sirloin beef steak with spices" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.srln1.val +
-  " </span>energy";
+item.srln1.desc = i18n.t("content.item.srln1.desc", {
+  separator: dom.dseparator,
+  val: item.srln1.val,
+});
 item.srln1.stype = 4;
 item.srln1.use = function () {
   you.sat + this.val > you.satmax
@@ -5340,7 +5504,10 @@ item.srln1.use = function () {
   skl.glt.use(12);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5348,12 +5515,10 @@ item.srln2 = new Item();
 item.srln2.id = 198;
 item.srln2.name = i18n.t("content.item.srln2.name");
 item.srln2.val = 66;
-item.srln2.desc =
-  "Incredible top-grade beef sirloin prized for its unparalleled taste and quality" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.srln2.val +
-  " </span>energy";
+item.srln2.desc = i18n.t("content.item.srln2.desc", {
+  separator: dom.dseparator,
+  val: item.srln2.val,
+});
 item.srln2.stype = 4;
 item.srln2.rar = 2;
 item.srln2.use = function () {
@@ -5363,7 +5528,10 @@ item.srln2.use = function () {
   skl.glt.use(28);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5371,12 +5539,10 @@ item.sfdpl = new Item();
 item.sfdpl.id = 199;
 item.sfdpl.name = i18n.t("content.item.sfdpl.name");
 item.sfdpl.val = 57;
-item.sfdpl.desc =
-  "A plate of the sea's delicious bounty, including shrimp, scallops, and squid" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.sfdpl.val +
-  " </span>energy";
+item.sfdpl.desc = i18n.t("content.item.sfdpl.desc", {
+  separator: dom.dseparator,
+  val: item.sfdpl.val,
+});
 item.sfdpl.stype = 4;
 item.sfdpl.use = function () {
   you.sat + this.val > you.satmax
@@ -5385,7 +5551,10 @@ item.sfdpl.use = function () {
   skl.glt.use(38);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5393,12 +5562,10 @@ item.kmchc = new Item();
 item.kmchc.id = 200;
 item.kmchc.name = i18n.t("content.item.kmchc.name");
 item.kmchc.val = 63;
-item.kmchc.desc =
-  "A tantalizing combo dish of kimchi made from eastern cabbage, cucumbers, daikon and more" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.kmchc.val +
-  " </span>energy";
+item.kmchc.desc = i18n.t("content.item.kmchc.desc", {
+  separator: dom.dseparator,
+  val: item.kmchc.val,
+});
 item.kmchc.stype = 4;
 item.kmchc.use = function () {
   you.sat + this.val > you.satmax
@@ -5407,7 +5574,10 @@ item.kmchc.use = function () {
   skl.glt.use(20);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5415,12 +5585,10 @@ item.stnkbb = new Item();
 item.stnkbb.id = 201;
 item.stnkbb.name = i18n.t("content.item.stnkbb.name");
 item.stnkbb.val = 68;
-item.stnkbb.desc =
-  "Very hot bowl of bibimbap with special spicy sweed kochujang sauce. Roasted to a golden brown for an irresistable taste" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.stnkbb.val +
-  " </span>energy";
+item.stnkbb.desc = i18n.t("content.item.stnkbb.desc", {
+  separator: dom.dseparator,
+  val: item.stnkbb.val,
+});
 item.stnkbb.stype = 4;
 item.stnkbb.use = function () {
   you.sat + this.val > you.satmax
@@ -5429,7 +5597,10 @@ item.stnkbb.use = function () {
   skl.glt.use(32);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5437,12 +5608,10 @@ item.spcbef = new Item();
 item.spcbef.id = 202;
 item.spcbef.name = i18n.t("content.item.spcbef.name");
 item.spcbef.val = 49;
-item.spcbef.desc =
-  "Spicy hot beef soup with rice and noodles. It has a very homemade feeling to it" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.spcbef.val +
-  " </span>energy";
+item.spcbef.desc = i18n.t("content.item.spcbef.desc", {
+  separator: dom.dseparator,
+  val: item.spcbef.val,
+});
 item.spcbef.stype = 4;
 item.spcbef.use = function () {
   you.sat + this.val > you.satmax
@@ -5451,7 +5620,10 @@ item.spcbef.use = function () {
   skl.glt.use(39);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5459,12 +5631,10 @@ item.binigiri = new Item();
 item.binigiri.id = 203;
 item.binigiri.name = i18n.t("content.item.binigiri.name");
 item.binigiri.val = 88;
-item.binigiri.desc =
-  "This nigiri looks way to big to eat. Who made this thing?" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.binigiri.val +
-  " </span>energy";
+item.binigiri.desc = i18n.t("content.item.binigiri.desc", {
+  separator: dom.dseparator,
+  val: item.binigiri.val,
+});
 item.binigiri.stype = 4;
 item.binigiri.rar = 3;
 item.binigiri.use = function () {
@@ -5474,7 +5644,10 @@ item.binigiri.use = function () {
   skl.glt.use(48);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5482,12 +5655,10 @@ item.infpdps = new Item();
 item.infpdps.id = 204;
 item.infpdps.name = i18n.t("content.item.infpdps.name");
 item.infpdps.val = 66;
-item.infpdps.desc =
-  "These special dumplings are so hot and addictive that you won't be able to talk for a week" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.infpdps.val +
-  " </span>energy";
+item.infpdps.desc = i18n.t("content.item.infpdps.desc", {
+  separator: dom.dseparator,
+  val: item.infpdps.val,
+});
 item.infpdps.stype = 4;
 item.infpdps.rar = 3;
 item.infpdps.use = function () {
@@ -5497,7 +5668,10 @@ item.infpdps.use = function () {
   skl.glt.use(62);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5505,12 +5679,10 @@ item.daikn = new Item();
 item.daikn.id = 205;
 item.daikn.name = i18n.t("content.item.daikn.name");
 item.daikn.val = 6;
-item.daikn.desc =
-  "A still-juicy daikon radish. It's not spicy and can be eaten raw" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.daikn.val +
-  " </span>energy";
+item.daikn.desc = i18n.t("content.item.daikn.desc", {
+  separator: dom.dseparator,
+  val: item.daikn.val,
+});
 item.daikn.stype = 4;
 item.daikn.use = function () {
   you.sat + this.val > you.satmax
@@ -5519,7 +5691,10 @@ item.daikn.use = function () {
   skl.glt.use(3);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5527,12 +5702,10 @@ item.bonig = new Item();
 item.bonig.id = 206;
 item.bonig.name = i18n.t("content.item.bonig.name");
 item.bonig.val = 19;
-item.bonig.desc =
-  "This riceball has gone bad. You normally wouldn't eat this, but when you run out of food even this looks delicious" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bonig.val +
-  " </span>energy";
+item.bonig.desc = i18n.t("content.item.bonig.desc", {
+  separator: dom.dseparator,
+  val: item.bonig.val,
+});
 item.bonig.stype = 4;
 item.bonig.rar = 0;
 item.bonig.use = function () {
@@ -5547,7 +5720,10 @@ item.bonig.use = function () {
   global.stat.fooda++;
   global.stat.foodt++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5555,12 +5731,10 @@ item.wdaikn = new Item();
 item.wdaikn.id = 207;
 item.wdaikn.name = i18n.t("content.item.wdaikn.name");
 item.wdaikn.val = 4;
-item.wdaikn.desc =
-  "A daikon radish that has withered in the sun. It's still edible, but it's kinda sad" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wdaikn.val +
-  " </span>energy";
+item.wdaikn.desc = i18n.t("content.item.wdaikn.desc", {
+  separator: dom.dseparator,
+  val: item.wdaikn.val,
+});
 item.wdaikn.stype = 4;
 item.wdaikn.rar = 0;
 item.wdaikn.use = function () {
@@ -5570,7 +5744,10 @@ item.wdaikn.use = function () {
   skl.glt.use(4);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5578,12 +5755,10 @@ item.oppr = new Item();
 item.oppr.id = 208;
 item.oppr.name = i18n.t("content.item.oppr.name");
 item.oppr.val = 42;
-item.oppr.desc =
-  "An extremely spicy pepper that makes you erupt in sweat and make an expression like an oni. It hurts more coming out than going in" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.oppr.val +
-  " </span>energy";
+item.oppr.desc = i18n.t("content.item.oppr.desc", {
+  separator: dom.dseparator,
+  val: item.oppr.val,
+});
 item.oppr.stype = 4;
 item.oppr.rar = 2;
 item.oppr.use = function () {
@@ -5593,7 +5768,10 @@ item.oppr.use = function () {
   skl.glt.use(42);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5601,12 +5779,10 @@ item.jdaik = new Item();
 item.jdaik.id = 209;
 item.jdaik.name = i18n.t("content.item.jdaik.name");
 item.jdaik.val = 50;
-item.jdaik.desc =
-  "A huge, rare daikon radish. Stews made with this daikon are delicious. You can put some miso paste on it to eat raw" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jdaik.val +
-  " </span>energy";
+item.jdaik.desc = i18n.t("content.item.jdaik.desc", {
+  separator: dom.dseparator,
+  val: item.jdaik.val,
+});
 item.jdaik.stype = 4;
 item.jdaik.rar = 2;
 item.jdaik.use = function () {
@@ -5616,7 +5792,10 @@ item.jdaik.use = function () {
   skl.glt.use(35);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5624,12 +5803,10 @@ item.bmshrm = new Item();
 item.bmshrm.id = 210;
 item.bmshrm.name = i18n.t("content.item.bmshrm.name");
 item.bmshrm.val = 33;
-item.bmshrm.desc =
-  "A big, juicy mushroom that sucked up lots of nutrients. It doesn't taste ordinary. It can be stewed, roasted, fried or eaten raw" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bmshrm.val +
-  " </span>energy";
+item.bmshrm.desc = i18n.t("content.item.bmshrm.desc", {
+  separator: dom.dseparator,
+  val: item.bmshrm.val,
+});
 item.bmshrm.stype = 4;
 item.bmshrm.rar = 2;
 item.bmshrm.use = function () {
@@ -5639,7 +5816,10 @@ item.bmshrm.use = function () {
   skl.glt.use(16);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5647,12 +5827,10 @@ item.hlstw = new Item();
 item.hlstw.id = 211;
 item.hlstw.name = i18n.t("content.item.hlstw.name");
 item.hlstw.val = 18;
-item.hlstw.desc =
-  "Tasteless soup made by boiling heaps of cure grass in water. Healing only in name, it is known that exposing cure grass to high temperatures destroys any healing properties of the product" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.hlstw.val +
-  " </span>energy";
+item.hlstw.desc = i18n.t("content.item.hlstw.desc", {
+  separator: dom.dseparator,
+  val: item.hlstw.val,
+});
 item.hlstw.stype = 4;
 item.hlstw.use = function () {
   you.sat + this.val > you.satmax
@@ -5661,7 +5839,10 @@ item.hlstw.use = function () {
   skl.glt.use(8);
   global.stat.fooda++;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
   this.amount--;
 };
 
@@ -5669,12 +5850,10 @@ item.bcrrt = new Item();
 item.bcrrt.id = 212;
 item.bcrrt.name = i18n.t("content.item.bcrrt.name");
 item.bcrrt.val = 9;
-item.bcrrt.desc =
-  "Regular carrot, boiled in water. It is sweet but not all that tasty, actually" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.bcrrt.val +
-  " </span>energy";
+item.bcrrt.desc = i18n.t("content.item.bcrrt.desc", {
+  separator: dom.dseparator,
+  val: item.bcrrt.val,
+});
 item.bcrrt.stype = 4;
 item.bcrrt.use = function () {
   you.sat + this.val > you.satmax
@@ -5684,19 +5863,20 @@ item.bcrrt.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.jsdch = new Item();
 item.jsdch.id = 213;
 item.jsdch.name = i18n.t("content.item.jsdch.name");
 item.jsdch.val = 27;
-item.jsdch.desc =
-  "Awful sandwich that doesn't taste like anything. It is filling, at the very least" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.jsdch.val +
-  " </span>energy";
+item.jsdch.desc = i18n.t("content.item.jsdch.desc", {
+  separator: dom.dseparator,
+  val: item.jsdch.val,
+});
 item.jsdch.stype = 4;
 item.jsdch.use = function () {
   you.sat + this.val > you.satmax
@@ -5706,19 +5886,20 @@ item.jsdch.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.agrns = new Item();
 item.agrns.id = 214;
 item.agrns.name = i18n.t("content.item.agrns.name");
 item.agrns.val = 3;
-item.agrns.desc =
-  "Buckwheat, sunflower seeds, oats, rye... Various grains, seeds and nuts in very small quantities as such making them not very useful for pretty much anything" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.agrns.val +
-  " </span>energy";
+item.agrns.desc = i18n.t("content.item.agrns.desc", {
+  separator: dom.dseparator,
+  val: item.agrns.val,
+});
 item.agrns.stype = 4;
 item.agrns.use = function () {
   you.sat + this.val > you.satmax
@@ -5728,7 +5909,10 @@ item.agrns.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 item.agrns.onGet = function () {
   if (this.amount >= 10) {
@@ -5741,12 +5925,10 @@ item.eggfrc = new Item();
 item.eggfrc.id = 215;
 item.eggfrc.name = i18n.t("content.item.eggfrc.name");
 item.eggfrc.val = 33;
-item.eggfrc.desc =
-  "Stir fried egg cooked together with golden rice. Excellent and refreshing dish" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.eggfrc.val +
-  " </span>energy";
+item.eggfrc.desc = i18n.t("content.item.eggfrc.desc", {
+  separator: dom.dseparator,
+  val: item.eggfrc.val,
+});
 item.eggfrc.stype = 4;
 item.eggfrc.use = function () {
   you.sat + this.val > you.satmax
@@ -5756,19 +5938,20 @@ item.eggfrc.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.thme = new Item();
 item.thme.id = 216;
 item.thme.name = i18n.t("content.item.thme.name");
 item.thme.val = 2;
-item.thme.desc =
-  "A stalk of aromatic thyme, often used in medicine as a complimentary herb. Can be made into a relaxing tea or antiseptic" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.thme.val +
-  " </span>energy";
+item.thme.desc = i18n.t("content.item.thme.desc", {
+  separator: dom.dseparator,
+  val: item.thme.val,
+});
 item.thme.stype = 4;
 item.thme.use = function () {
   you.sat + this.val > you.satmax
@@ -5778,19 +5961,20 @@ item.thme.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.wldhrbs = new Item();
 item.wldhrbs.id = 217;
 item.wldhrbs.name = i18n.t("content.item.wldhrbs.name");
 item.wldhrbs.val = 1;
-item.wldhrbs.desc =
-  "A tasty collection of wild herbs including violet, sassafras, mint, clover, purslane, and fireweed" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.wldhrbs.val +
-  " </span>energy";
+item.wldhrbs.desc = i18n.t("content.item.wldhrbs.desc", {
+  separator: dom.dseparator,
+  val: item.wldhrbs.val,
+});
 item.wldhrbs.stype = 4;
 item.wldhrbs.use = function () {
   you.sat + this.val > you.satmax
@@ -5800,19 +5984,20 @@ item.wldhrbs.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.meffg = new Item();
 item.meffg.id = 218;
 item.meffg.name = i18n.t("content.item.meffg.name");
 item.meffg.val = 28;
-item.meffg.desc =
-  "Strange edible effigy made of who knows what. It tastes like regular jerky" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.meffg.val +
-  " </span>energy";
+item.meffg.desc = i18n.t("content.item.meffg.desc", {
+  separator: dom.dseparator,
+  val: item.meffg.val,
+});
 item.meffg.stype = 4;
 item.meffg.use = function () {
   you.sat + this.val > you.satmax
@@ -5822,7 +6007,10 @@ item.meffg.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.rtnmt = new Item();
@@ -5830,12 +6018,10 @@ item.rtnmt.id = 219;
 item.rtnmt.name = i18n.t("content.item.rtnmt.name");
 item.rtnmt.val = 4;
 item.rtnmt.rar = 0;
-item.rtnmt.desc =
-  "Greenish grey organic mass that was once something edible, now isn't good for pretty much anything" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.rtnmt.val +
-  " </span>energy";
+item.rtnmt.desc = i18n.t("content.item.rtnmt.desc", {
+  separator: dom.dseparator,
+  val: item.rtnmt.val,
+});
 item.rtnmt.stype = 4;
 item.rtnmt.rot = [0.4, 0.8, 0.3, 0.6];
 item.rtnmt.use = function () {
@@ -5851,19 +6037,20 @@ item.rtnmt.use = function () {
   global.stat.foodt++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.appljc = new Item();
 item.appljc.id = 220;
 item.appljc.name = i18n.t("content.item.appljc.name");
 item.appljc.val = 18;
-item.appljc.desc =
-  "Freshly-squeezed from real apples!" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.appljc.val +
-  " </span>energy";
+item.appljc.desc = i18n.t("content.item.appljc.desc", {
+  separator: dom.dseparator,
+  val: item.appljc.val,
+});
 item.appljc.stype = 4;
 item.appljc.use = function () {
   you.sat + this.val > you.satmax
@@ -5874,7 +6061,10 @@ item.appljc.use = function () {
   global.stat.foodb++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.frtplp = new Item();
@@ -5882,12 +6072,10 @@ item.frtplp.id = 221;
 item.frtplp.name = i18n.t("content.item.frtplp.name");
 item.frtplp.val = 9;
 item.frtplp.rot = [0.05, 0.15, 0.05, 0.15];
-item.frtplp.desc =
-  "Left-over byproduct from juicing the fruit.  Not very tasty, but contains a lot of healthy fiber" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.frtplp.val +
-  " </span>energy";
+item.frtplp.desc = i18n.t("content.item.frtplp.desc", {
+  separator: dom.dseparator,
+  val: item.frtplp.val,
+});
 item.frtplp.stype = 4;
 item.frtplp.use = function () {
   you.sat + this.val > you.satmax
@@ -5897,19 +6085,20 @@ item.frtplp.use = function () {
   global.stat.fooda++;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.klngbr = new Item();
 item.klngbr.id = 222;
 item.klngbr.name = i18n.t("content.item.klngbr.name");
 item.klngbr.val = 52;
-item.klngbr.desc =
-  "Strong traditional liquor with a tangy taste and important role during social gatherings" +
-  dom.dseparator +
-  "Restores<span style='color:lime'> " +
-  item.klngbr.val +
-  " </span>energy";
+item.klngbr.desc = i18n.t("content.item.klngbr.desc", {
+  separator: dom.dseparator,
+  val: item.klngbr.val,
+});
 item.klngbr.stype = 4;
 item.klngbr.use = function () {
   you.sat + this.val > you.satmax
@@ -5923,7 +6112,10 @@ item.klngbr.use = function () {
   else effect.drunk.duration += 40;
   this.amount--;
   dom.d5_3_1.update();
-  msg("Restored " + this.val + " energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
+    "lime",
+  );
 };
 
 item.sbone = new Item();
@@ -5981,7 +6173,7 @@ item.d6.use = function () {
   const r = rand(1, 6);
   global.stat.die_p += r;
   global.stat.die_p_t += r;
-  msg('You roll <span style="color:red">' + r + "</span>");
+  msg(i18n.t("runtime.data.items.dialogue.roll_result", { result: r }));
   skl.dice.use(1);
   if (random() < 0.05) {
     this.amount--;
@@ -6176,19 +6368,18 @@ item.key0 = new Item();
 item.key0.id = 5023;
 item.key0.name = i18n.t("content.item.key0.name");
 item.key0.desc = function () {
-  return (
-    "Scummy old key. " +
-    (global.flags.hbs1
-      ? "You can open your basement with it"
-      : "What could it be for?")
+  return i18n.t(
+    global.flags.hbs1
+      ? "content.item.key0.desc_basement"
+      : "content.item.key0.desc",
   );
 };
 item.key0.stype = 5;
 item.key0.use = function () {
   msg(
     global.flags.hbs1
-      ? "Thankfully it didn't break apart when you used it"
-      : "It looks familiar...",
+      ? i18n.t("runtime.data.items.dialogue.basement_key_survived")
+      : i18n.t("runtime.data.items.dialogue.basement_key_familiar"),
     "lightgrey",
   );
 };
@@ -6196,10 +6387,9 @@ item.key0.use = function () {
 item.ywlt = new Item();
 item.ywlt.id = 5024;
 item.ywlt.name = i18n.t("content.item.ywlt.name");
-item.ywlt.desc =
-  "This is your personal wallet, you received it as a gift" +
-  dom.dseparator +
-  "<span style='color:orange'>You can feel coinage inside</spam>";
+item.ywlt.desc = i18n.t("content.item.ywlt.desc", {
+  separator: dom.dseparator,
+});
 item.ywlt.stype = 4;
 item.ywlt.rar = 2;
 item.ywlt.use = function (x) {
@@ -6228,7 +6418,10 @@ item.pcn.name = i18n.t("content.item.pcn.name");
 item.pcn.desc = i18n.t("content.item.pcn.desc");
 item.pcn.stype = 4;
 item.pcn.use = function (x) {
-  msg(select(["*Crack..* ", "*Crunch..* ", "*Pop..* "]), "lightgrey");
+  msg(
+    select(i18n.get("runtime.data.items.dialogue.pine_cone_reactions")),
+    "lightgrey",
+  );
   if (random() <= 0.3 + skl.dice.lvl * 0.03) {
     msg_add(
       i18n.t(
@@ -6251,17 +6444,17 @@ item.pcn.use = function (x) {
 item.pbl = new Item();
 item.pbl.id = 5027;
 item.pbl.name = i18n.t("content.item.pbl.name");
-item.pbl.desc =
-  "A tiny useless stone, found everywhere. Can be thrown to create distraction" +
-  dom.dseparator +
-  '<span style="color:yellow">+5 Throwing Damage</span>';
+item.pbl.desc = i18n.t("content.item.pbl.desc", { separator: dom.dseparator });
 item.pbl.stype = 2;
 item.pbl.c = "yellow";
 item.pbl.use = function () {
   if (this.disabled !== true) {
     this.disabled = true;
     if (global.flags.civil === true || global.flags.btl === false) {
-      msg("You threw " + this.name + " into the distance", "grey");
+      msg(
+        i18n.t("runtime.data.items.dialogue.threw_item", { item: this.name }),
+        "grey",
+      );
       giveSkExp(skl.thr, 1);
     } else tattack(5, 1, 1);
     this.amount--;
@@ -6357,9 +6550,9 @@ item.rope.desc = i18n.t("content.item.rope.desc");
 item.rope.stype = 5;
 item.rope.use = function () {
   msg(
-    'You practiced knot tying for a short while and made <span style="color:orange">"' +
-      select(global.text.kntsct) +
-      '"</span>!',
+    i18n.t("runtime.data.items.dialogue.knot_practice", {
+      knot: select(global.text.kntsct),
+    }),
     "springgreen",
   );
 };
@@ -6367,17 +6560,19 @@ item.rope.use = function () {
 item.mcps = new Item();
 item.mcps.id = 5035;
 item.mcps.name = i18n.t("content.item.mcps.name");
-item.mcps.desc =
-  "Milk caps made from packed clay. Children like to play with these" +
-  dom.dseparator +
-  '<span style="color:yellow">+9 Throwing Damage</span>';
+item.mcps.desc = i18n.t("content.item.mcps.desc", {
+  separator: dom.dseparator,
+});
 item.mcps.stype = 2;
 item.mcps.c = "yellow";
 item.mcps.use = function () {
   if (this.disabled !== true) {
     this.disabled = true;
     if (global.flags.civil === true || global.flags.btl === false) {
-      msg("You threw " + this.name + " into the distance", "grey");
+      msg(
+        i18n.t("runtime.data.items.dialogue.threw_item", { item: this.name }),
+        "grey",
+      );
       giveSkExp(skl.thr, 1);
     } else tattack(9, 1, 1);
     this.amount--;
@@ -6488,10 +6683,9 @@ item.ess6.rar = 2;
 item.toolbx = new Item();
 item.toolbx.id = 5046;
 item.toolbx.name = i18n.t("content.item.toolbx.name");
-item.toolbx.desc =
-  "Metal box with a variety of fine tools inside, multipurpose knives, mallets, pincers, chisels and a few more. Used for precision work and tinkering with simple and complex objects" +
-  dom.dseparator +
-  '<span style="color:chartreuse">Allows deconstruction of items and equipment when kept in inventory</span>';
+item.toolbx.desc = i18n.t("content.item.toolbx.desc", {
+  separator: dom.dseparator,
+});
 item.toolbx.stype = 5;
 item.toolbx.use = function () {
   if (random() < 0.1)
@@ -6770,10 +6964,9 @@ item.ip1.use = function () {
 item.skl1 = new Item();
 item.skl1.id = 9001;
 item.skl1.name = i18n.t("content.item.skl1.name");
-item.skl1.desc =
-  "Entry level practitioner skillbook about sword combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Sword Mastery EXP gain +5%</span>';
+item.skl1.desc = i18n.t("content.item.skl1.desc", {
+  separator: dom.dseparator,
+});
 item.skl1.stype = 4;
 item.skl1.data.time = HOUR * 4;
 item.skl1.use = function () {
@@ -6792,10 +6985,9 @@ item.skl1.use = function () {
 item.skl2 = new Item();
 item.skl2.id = 9002;
 item.skl2.name = i18n.t("content.item.skl2.name");
-item.skl2.desc =
-  "Entry level practitioner skillbook about knife combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Knife Mastery EXP gain +5%</span>';
+item.skl2.desc = i18n.t("content.item.skl2.desc", {
+  separator: dom.dseparator,
+});
 item.skl2.stype = 4;
 item.skl2.data.time = HOUR * 4;
 item.skl2.use = function () {
@@ -6814,10 +7006,9 @@ item.skl2.use = function () {
 item.skl3 = new Item();
 item.skl3.id = 9003;
 item.skl3.name = i18n.t("content.item.skl3.name");
-item.skl3.desc =
-  "Entry level practitioner skillbook about axe combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Axe Mastery EXP gain +5%</span>';
+item.skl3.desc = i18n.t("content.item.skl3.desc", {
+  separator: dom.dseparator,
+});
 item.skl3.stype = 4;
 item.skl3.data.time = HOUR * 4;
 item.skl3.use = function () {
@@ -6836,10 +7027,9 @@ item.skl3.use = function () {
 item.skl4 = new Item();
 item.skl4.id = 9004;
 item.skl4.name = i18n.t("content.item.skl4.name");
-item.skl4.desc =
-  "Entry level practitioner skillbook about spear combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Polearm Mastery EXP gain +5%</span>';
+item.skl4.desc = i18n.t("content.item.skl4.desc", {
+  separator: dom.dseparator,
+});
 item.skl4.stype = 4;
 item.skl4.data.time = HOUR * 4;
 item.skl4.use = function () {
@@ -6858,10 +7048,9 @@ item.skl4.use = function () {
 item.skl5 = new Item();
 item.skl5.id = 9005;
 item.skl5.name = i18n.t("content.item.skl5.name");
-item.skl5.desc =
-  "Entry level practitioner skillbook about hammer combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Hammer Mastery EXP gain +5%</span>';
+item.skl5.desc = i18n.t("content.item.skl5.desc", {
+  separator: dom.dseparator,
+});
 item.skl5.stype = 4;
 item.skl5.data.time = HOUR * 4;
 item.skl5.use = function () {
@@ -6880,10 +7069,9 @@ item.skl5.use = function () {
 item.skl6 = new Item();
 item.skl6.id = 9006;
 item.skl6.name = i18n.t("content.item.skl6.name");
-item.skl6.desc =
-  "Entry level practitioner skillbook about unarmed combat" +
-  dom.dseparator +
-  '<span style="color:deeppink">Martial Mastery EXP gain +5%</span>';
+item.skl6.desc = i18n.t("content.item.skl6.desc", {
+  separator: dom.dseparator,
+});
 item.skl6.stype = 4;
 item.skl6.data.time = HOUR * 4;
 item.skl6.use = function () {
@@ -6903,10 +7091,9 @@ item.bstr = new Item();
 item.bstr.id = 9007;
 item.bstr.name = i18n.t("content.item.bstr.name");
 item.bstr.rar = 2;
-item.bstr.desc =
-  "Heavy Hunter's Encyclopedia. There are a few entries about wild life, beasts, and mythical creatures you can encounter, the other pages are blank. You feel the urge to fill them in" +
-  dom.dseparator +
-  '<span style="color:lime">Unlocks Bestiary</span>';
+item.bstr.desc = i18n.t("content.item.bstr.desc", {
+  separator: dom.dseparator,
+});
 item.bstr.stype = 4;
 item.bstr.data.time = HOUR * 17;
 item.bstr.use = function () {
@@ -6920,7 +7107,7 @@ item.bstr.use = function () {
       this.amount--;
       global.flags.bstu = true;
       this.data.finished = true;
-      if (dom.jlbrw1s2) dom.jlbrw1s2.innerHTML = "B E S T I A R Y";
+      if (dom.jlbrw1s2) dom.jlbrw1s2.innerHTML = i18n.t("ui.panels.bestiary");
     } else chss.trd.sl(this);
   }
 };
@@ -6953,13 +7140,10 @@ item.msc1.data.bid = _rand(global.text.mscbkatxt.length - 1);
 item.msc1.data.exp = _rand(500, 10000);
 item.msc1.save = true;
 item.msc1.desc = function () {
-  return (
-    "An amusing collection of folklore featuring the usual cast of fairies and demons" +
-    dom.dseparator +
-    '<span style="color:limegreen">' +
-    global.text.mscbkatxt[this.data.bid] +
-    "</span>"
-  );
+  return i18n.t("content.item.msc1.desc", {
+    separator: dom.dseparator,
+    extra: global.text.mscbkatxt[this.data.bid],
+  });
 };
 item.msc1.stype = 4;
 item.msc1.data.time = HOUR * 6;
@@ -6969,12 +7153,10 @@ item.msc1.use = function () {
       giveExp(this.data.exp || 500, true, true, true);
       this.data.bid = rand(global.text.mscbkatxt.length - 1);
       this.data.exp = rand(500, 5000);
-      this.desc =
-        "An amusing collection of folklore featuring the usual cast of fairies and demons" +
-        dom.dseparator +
-        '<span style="color:limegreen">' +
-        global.text.mscbkatxt[item.msc1.data.bid] +
-        "</span>";
+      this.desc = i18n.t("content.item.msc1.desc", {
+        separator: dom.dseparator,
+        extra: global.text.mscbkatxt[item.msc1.data.bid],
+      });
       this.data.time = this.data.timep = rand(2, 10) * HOUR;
       this.data.bid = rand(global.text.mscbkatxt.length - 1);
       this.data.finished = true;
@@ -7179,10 +7361,9 @@ item.skl1a = new Item();
 item.skl1a.id = 9017;
 item.skl1a.name = i18n.t("content.item.skl1a.name");
 item.skl1a.rar = 2;
-item.skl1a.desc =
-  "Technique book full of fundamental knowledge about swordfighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Sword Mastery EXP gain +15%</span>';
+item.skl1a.desc = i18n.t("content.item.skl1a.desc", {
+  separator: dom.dseparator,
+});
 item.skl1a.stype = 4;
 item.skl1a.data.time = HOUR * 14;
 item.skl1a.use = function () {
@@ -7202,10 +7383,9 @@ item.skl2a = new Item();
 item.skl2a.id = 9018;
 item.skl2a.name = i18n.t("content.item.skl2a.name");
 item.skl2a.rar = 2;
-item.skl2a.desc =
-  "Technique book full of fundamental knowledge about kinfefighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Knife Mastery EXP gain +15%</span>';
+item.skl2a.desc = i18n.t("content.item.skl2a.desc", {
+  separator: dom.dseparator,
+});
 item.skl2a.stype = 4;
 item.skl2a.data.time = HOUR * 14;
 item.skl2a.use = function () {
@@ -7225,10 +7405,9 @@ item.skl3a = new Item();
 item.skl3a.id = 9019;
 item.skl3a.name = i18n.t("content.item.skl3a.name");
 item.skl3a.rar = 2;
-item.skl3a.desc =
-  "Technique book full of fundamental knowledge about axefighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Axe Mastery EXP gain +15%</span>';
+item.skl3a.desc = i18n.t("content.item.skl3a.desc", {
+  separator: dom.dseparator,
+});
 item.skl3a.stype = 4;
 item.skl3a.data.time = HOUR * 14;
 item.skl3a.use = function () {
@@ -7248,10 +7427,9 @@ item.skl4a = new Item();
 item.skl4a.id = 9020;
 item.skl4a.name = i18n.t("content.item.skl4a.name");
 item.skl4a.rar = 2;
-item.skl4a.desc =
-  "Technique book full of fundamental knowledge about spearfighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Polearm Mastery EXP gain +15%</span>';
+item.skl4a.desc = i18n.t("content.item.skl4a.desc", {
+  separator: dom.dseparator,
+});
 item.skl4a.stype = 4;
 item.skl4a.data.time = HOUR * 14;
 item.skl4a.use = function () {
@@ -7271,10 +7449,9 @@ item.skl5a = new Item();
 item.skl5a.id = 9021;
 item.skl5a.name = i18n.t("content.item.skl5a.name");
 item.skl5a.rar = 2;
-item.skl5a.desc =
-  "Technique book full of fundamental knowledge about bluntfighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Hammer Mastery EXP gain +15%</span>';
+item.skl5a.desc = i18n.t("content.item.skl5a.desc", {
+  separator: dom.dseparator,
+});
 item.skl5a.stype = 4;
 item.skl5a.data.time = HOUR * 14;
 item.skl5a.use = function () {
@@ -7294,10 +7471,9 @@ item.skl6a = new Item();
 item.skl6a.id = 9022;
 item.skl6a.name = i18n.t("content.item.skl6a.name");
 item.skl6a.rar = 2;
-item.skl6a.desc =
-  "Technique book full of fundamental knowledge about fistfighting" +
-  dom.dseparator +
-  '<span style="color:deeppink">Martial Mastery EXP gain +15%</span>';
+item.skl6a.desc = i18n.t("content.item.skl6a.desc", {
+  separator: dom.dseparator,
+});
 item.skl6a.stype = 4;
 item.skl6a.data.time = HOUR * 14;
 item.skl6a.use = function () {
@@ -7370,10 +7546,9 @@ item.pdeedhs = new Item();
 item.pdeedhs.id = 9025;
 item.pdeedhs.name = i18n.t("content.item.pdeedhs.name");
 item.pdeedhs.rar = 2;
-item.pdeedhs.desc =
-  "This old looking legal document indentifies you as a sole owner of this broken down hut you live in. It was passed down to you by your ancestors, you speculate" +
-  dom.dseparator +
-  '<span style="color:lime">Allows you to list and examine your possessions</span>';
+item.pdeedhs.desc = i18n.t("content.item.pdeedhs.desc", {
+  separator: dom.dseparator,
+});
 item.pdeedhs.stype = 4;
 item.pdeedhs.data.time = 30;
 item.pdeedhs.use = function () {
@@ -7390,10 +7565,9 @@ item.pdeedhs.use = function () {
 item.fgtsb1 = new Item();
 item.fgtsb1.id = 9026;
 item.fgtsb1.name = i18n.t("content.item.fgtsb1.name");
-item.fgtsb1.desc =
-  "Someone's observational notes of street gangs and their violent encounters. There's an amusing essay about dirty tricks in the front section" +
-  dom.dseparator +
-  '<span style="color:deeppink">Fighting EXP gain +15%</span>';
+item.fgtsb1.desc = i18n.t("content.item.fgtsb1.desc", {
+  separator: dom.dseparator,
+});
 item.fgtsb1.stype = 4;
 item.fgtsb1.data.time = HOUR * 6;
 item.fgtsb1.use = function () {
@@ -7411,10 +7585,9 @@ item.fgtsb1.use = function () {
 item.jnlbk = new Item();
 item.jnlbk.id = 9027;
 item.jnlbk.name = i18n.t("content.item.jnlbk.name");
-item.jnlbk.desc =
-  "Dusty old tome, pure as snow and untainted by ink. Feels like it was purified by magic. When you gaze upon it, you are compelled to record your encounters and anything else that you find important and crucial for your adventures" +
-  dom.dseparator +
-  '<span style="color:lime">Unlocks Journal</span>';
+item.jnlbk.desc = i18n.t("content.item.jnlbk.desc", {
+  separator: dom.dseparator,
+});
 item.jnlbk.stype = 4;
 item.jnlbk.data.time = HOUR * 4;
 item.jnlbk.use = function () {

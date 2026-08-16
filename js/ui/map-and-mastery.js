@@ -1,3 +1,6 @@
+// Map rendering and the mastery panel. Draws explored areas onto a canvas and
+// builds the mastery tree the player spends training progress in.
+
 function _drawmap(mapdata) {
   if (test.maps.gui) {
     empty(test.maps.gui);
@@ -208,7 +211,7 @@ function _drawmwindow() {
   test.mguid = addElement(test.mguic, "div");
   test.mguid.style.height = 20;
   test.mguid.style.borderBottom = "2px solid rgb(0,40,64)";
-  test.mguid.innerHTML = "M A S T E R I E S";
+  test.mguid.innerHTML = i18n.t("ui.panels.masteries");
   test.mguid.style.color = "lime";
   test.mguid.style.textAlign = "center";
   test.mguidk = addElement(test.mguid, "div");

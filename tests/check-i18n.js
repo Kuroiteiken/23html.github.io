@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const root = path.resolve(__dirname, "..");
+const root = path.dirname(__dirname);
 const localeRoot = path.join(root, "locales");
 const manifest = JSON.parse(
   fs.readFileSync(path.join(localeRoot, "manifest.json"), "utf8"),
@@ -106,6 +106,48 @@ if (changedReviewedTranslations.length) {
     `Reviewed Turkish translations changed: ${changedReviewedTranslations
       .map(([key]) => key)
       .join(", ")}`,
+  );
+}
+
+const suspiciousTurkishQuestionMarks = [...collectLeaves(turkish)].filter(
+  ([key, value]) => {
+    const englishValue = englishLeaves.get(key);
+    const insideWord = /\p{L}\?\p{L}/u.test(value);
+    const wordInitialPattern = /(?:^|[\s>])\?(?=\p{L}{2})/u;
+    const missingWordInitial =
+      wordInitialPattern.test(value) &&
+      (typeof englishValue !== "string" ||
+        !wordInitialPattern.test(englishValue));
+    return insideWord || missingWordInitial;
+  },
+);
+if (suspiciousTurkishQuestionMarks.length) {
+  throw new Error(
+    `Turkish translations contain probable UTF-8 replacement question marks: ${suspiciousTurkishQuestionMarks
+      .slice(0, 30)
+      .map(([key]) => key)
+      .join(
+        ", ",
+      )}${suspiciousTurkishQuestionMarks.length > 30 ? ` (+${suspiciousTurkishQuestionMarks.length - 30} more)` : ""}`,
+  );
+}
+
+const expectedTurkishDayAbbreviations = [
+  "Pzt.",
+  "Sal.",
+  "Çar.",
+  "Per.",
+  "Cum.",
+  "Cmt.",
+  "Paz.",
+];
+if (
+  JSON.stringify(turkish.gameText.d_s) !==
+  JSON.stringify(expectedTurkishDayAbbreviations)
+) {
+  throw new Error(
+    "Turkish day abbreviations must be contextual calendar abbreviations: " +
+      expectedTurkishDayAbbreviations.join(", "),
   );
 }
 

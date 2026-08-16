@@ -1,4 +1,7 @@
-/////plans/////
+// Deferred plans and shared DOM helpers. A `Plan` schedules work to run on a
+// later tick instead of immediately. This file also defines `addElement`, the
+// element factory that every interface module builds its DOM through.
+
 function Plan() {
   this.id = 0;
   this.f = function () {};
@@ -41,13 +44,13 @@ planner.chkrot.f = function () {
         removeItem(itm);
       }
       msg(
-        'Your <span style="color:cyan">x' +
-          am +
-          '</span> <span style="color: orange">' +
-          itm.name +
-          "</span> " +
-          select(["rotted away", "went bad", "spoiled"]) +
-          "!",
+        i18n.t("runtime.systems.planner.dialogue.item_spoiled", {
+          amount: am,
+          item: itm.name,
+          state: select(
+            i18n.get("runtime.systems.planner.dialogue.spoil_states"),
+          ),
+        }),
         "yellow",
         null,
         null,
@@ -87,13 +90,13 @@ planner.imorph.f = function () {
               planner.imorph.data.items.indexOf(itm),
             );
           msg(
-            'Your <span style="color:cyan">x' +
-              am +
-              '</span> <span style="color: orange">' +
-              itm.name +
-              "</span> " +
-              select(["rotted away", "went bad", "spoiled"]) +
-              "!",
+            i18n.t("runtime.systems.planner.dialogue.item_spoiled", {
+              amount: am,
+              item: itm.name,
+              state: select(
+                i18n.get("runtime.systems.planner.dialogue.spoil_states"),
+              ),
+            }),
             "yellow",
             null,
             null,
@@ -169,7 +172,7 @@ addPlan(planner.itmwear);
 planner.djfood = new Plan();
 planner.djfood.id = 1;
 planner.djfood.f = function () {
-  if (getDay(1) === "Sunday") global.flags.djmlet = true;
+  if (isDay(6)) global.flags.djmlet = true;
 };
 addPlan(planner.djfood);
 

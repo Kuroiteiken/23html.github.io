@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//QST
-///////////////////////////////////////////
+// Quest definitions and the accept/complete lifecycle. Each quest tracks its
+// own progress in `data`, reports it through `goals()` and `goalsf()`, and
+// grants its rewards through `rwd()`. Quests that watch for world events attach
+// themselves to the callback hooks declared in js/data/titles.js.
 
 function Quest() {
   this.name = "dummy";
@@ -187,11 +188,12 @@ function giveQst(q) {
     q.init();
     q.data.started = true;
     msg(
-      (q.repeatable ? '<span style="color:cyan">Repeatable</span> q' : "Q") +
-        "uest accepted: " +
-        '<span style="color:orange">"' +
-        q.name +
-        '"</span>',
+      i18n.t(
+        q.repeatable
+          ? "runtime.data.quests.dialogue.repeatable_quest_accepted"
+          : "runtime.data.quests.dialogue.quest_accepted",
+        { quest: q.name },
+      ),
       "lightblue",
       q,
       8,

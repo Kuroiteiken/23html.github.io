@@ -1,3 +1,8 @@
+// Location scenes. A `Chs` is one place the player can stand: `sl()` rebuilds
+// its description and choices every time the scene is shown, while `onEnter`,
+// `onLeave`, and `onScout` react to movement. This is where the game's dialogue
+// and branching live; all of its text comes from the locale files.
+
 function Chs() {
   this.ttl;
   this.sl = function () {};
@@ -147,11 +152,14 @@ chss.t2.sl = function () {
   global.lst_loc = 103;
   global.flags.inside = true;
   chs(
-    '"Instructor: ' +
-      select(["Good", "Nice", "Great", "Excellent"]) +
-      " " +
-      select(["job", "work"]) +
-      " kid! Here's the reward for completing the course\"",
+    i18n.t("runtime.world.locations.dialogue.instructor_course_reward", {
+      praise: select(
+        i18n.get("runtime.world.locations.dialogue.instructor_praise_words"),
+      ),
+      work: select(
+        i18n.get("runtime.world.locations.dialogue.instructor_work_words"),
+      ),
+    }),
     true,
     "lime",
   );
@@ -294,11 +302,11 @@ chss.t3.sl = () => {
       });
     } else {
       chs(
-        select([
-          '"Instructor: Back already?"',
-          "You notice other dojo disciples diligently train",
-          "Pieces of broken training dummies are scattered on the floor",
-        ]),
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.dojo_return_ambient_messages",
+          ),
+        ),
         true,
       );
       chs(
@@ -495,11 +503,10 @@ chss.t3.sl = () => {
               );
             else {
               chs(
-                '"Instructor: For all your stuff I can fetch you ' +
-                  dlr +
-                  " " +
-                  dom.coincopper +
-                  ' copper. How does that sound?"',
+                i18n.t(
+                  "runtime.world.locations.dialogue.instructor_return_items_offer",
+                  { amount: dlr, coin: dom.coincopper },
+                ),
                 true,
               );
               chs(
@@ -508,7 +515,10 @@ chss.t3.sl = () => {
                 "lime",
               ).addEventListener("click", () => {
                 msg(
-                  stash.length + " Items returned back to dojo",
+                  i18n.t(
+                    "runtime.world.locations.interface.items_returned_to_dojo",
+                    { count: stash.length },
+                  ),
                   "ghostwhite",
                 );
                 global.stat.ivtntdj += stash.length;
@@ -532,7 +542,7 @@ chss.t3.sl = () => {
             smove(chss.t3, false);
           });
         });
-      if (global.flags.djmlet && getDay(1) == "Sunday") {
+      if (global.flags.djmlet && isDay(6)) {
         chs(
           i18n.t(
             "runtime.world.locations.dialogue.grab_a_serving_of_free_food_e8073a5c",
@@ -540,16 +550,21 @@ chss.t3.sl = () => {
           false,
           "lime",
         ).addEventListener("click", () => {
-          if (getDay(1) == "Sunday") {
-            msg(select(["*Chow*", "*Munch*", "*Crunch*", "*Gulp*"]), "lime");
+          if (isDay(6)) {
             msg(
-              select([
-                "That was good!",
-                "Delicious!",
-                "A little dry but, that will do",
-                "Tasty!",
-                "Phew, I needed that!",
-              ]),
+              select(
+                i18n.get(
+                  "runtime.world.locations.dialogue.free_meal_eating_sounds",
+                ),
+              ),
+              "lime",
+            );
+            msg(
+              select(
+                i18n.get(
+                  "runtime.world.locations.dialogue.free_meal_reactions",
+                ),
+              ),
               "lime",
             );
             you.sat = you.satmax;
@@ -945,14 +960,7 @@ chss.djinf.sl = () => {
     ),
     false,
   ).addEventListener("click", () => {
-    chs(
-      "Our generous dojo provides " +
-        col("Free Meals", "lime") +
-        " to every attending low-class disciple every " +
-        col("Sunday", "yellow") +
-        "! Get in time for your weekly menu!",
-      true,
-    );
+    chs(i18n.t("runtime.world.locations.dialogue.weekly_free_meals"), true);
     chs(
       i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
       false,
@@ -965,9 +973,12 @@ chss.djinf.sl = () => {
     false,
   ).addEventListener("click", () => {
     const v = chs(
-      "Try out punching this " +
-        col("Indestructable Dummy", "orange") +
-        " to measure the power of your fist!",
+      i18n.t("runtime.world.locations.dialogue.hand_strength_intro", {
+        dummy: col(
+          i18n.t("runtime.world.locations.dialogue.indestructible_dummy_name"),
+          "orange",
+        ),
+      }),
       true,
     );
     chs(
@@ -976,11 +987,22 @@ chss.djinf.sl = () => {
     ).addEventListener("click", () => {
       you.stat_r();
       const hs = handStr();
-      v.innerHTML =
-        select(["Wham!", "Slap!", "Hit!", "Punch!", "Hack!"]) +
-        ' Your approximate hand strength is measured in: <br><br><span style="border:1px dashed yellow;padding:6px">' +
-        col(format3(hs.toString()) + "kg", "springgreen") +
-        "</span><br><br>";
+      v.innerHTML = i18n.t(
+        "runtime.world.locations.interface.hand_strength_result",
+        {
+          impact: select(
+            i18n.get(
+              "runtime.world.locations.interface.hand_strength_impact_messages",
+            ),
+          ),
+          value: col(
+            i18n.t("runtime.world.locations.interface.hand_strength_value_kg", {
+              value: format3(hs.toString()),
+            }),
+            "springgreen",
+          ),
+        },
+      );
       for (const x in global.htrchl) global.htrchl[x](hs);
     });
     chs(
@@ -1436,18 +1458,19 @@ chss.frstn1b1.sl = () => {
   } else
     global.flags.wkrtndrt && random() > 0.5
       ? chs(
-          select([
-            "You sight the hunter thinking deeply about something",
-            "You hear mumbling",
-          ]),
+          select(
+            i18n.get(
+              "runtime.world.locations.dialogue.head_hunter_busy_ambient_messages",
+            ),
+          ),
           true,
         )
       : chs(
-          select([
-            "You see a variety of bows and other hunting tools arranged on the table and hanging from the walls",
-            "You notice head hunter maintaining his hunting gear",
-            "The smell of beef jerky assaults your nose",
-          ]),
+          select(
+            i18n.get(
+              "runtime.world.locations.dialogue.head_hunter_room_ambient_messages",
+            ),
+          ),
           true,
         );
   chs(
@@ -1464,12 +1487,14 @@ chss.frstn1b1.sl = () => {
     smove(chss.htrtch0, false);
   });
   if (quest.fwd1.data.done === true) {
-    chs('"Sell firewood ' + dom.coincopper + '"', false).addEventListener(
-      "click",
-      () => {
-        smove(chss.frstn1b1s, false);
-      },
-    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.sell_firewood_action", {
+        coin: dom.coincopper,
+      }),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.frstn1b1s, false);
+    });
   }
   if (item.hbtsvr.have)
     chs(
@@ -1504,9 +1529,15 @@ chss.frstn1b1.sl = () => {
     !global.flags.frstn1b1g1
   ) {
     chs(
-      "<span style=\"color:limegreen\">Head Hunter Yamato</span>: You're still going around without a proper weapon? That won't do, catch this. It isn't much, but a bit better than you being nearly emptyhanded. Once you return back you should check the " +
-        col("Notice Board", "lime") +
-        " by the village center, you never know if something important is happening in the ouskirts that you aren't aware of, but it will almost certainly be written there. You may find a job offer or two, or see pleads of fellow villagers asking for help with mundane things, consider those as well",
+      i18n.t(
+        "runtime.world.locations.dialogue.head_hunter_yamato_first_weapon_advice",
+        {
+          noticeBoard: col(
+            i18n.t("runtime.world.locations.dialogue.notice_board_name"),
+            "lime",
+          ),
+        },
+      ),
       true,
     );
     chs(
@@ -1970,9 +2001,10 @@ chss.frstn1b1j.sl = () => {
           );
         else if (item.fwd1.amount < 10)
           chs(
-            '<span style="color:limegreen">Head Hunter Yamato</span>: You found some already? You still need ' +
-              (10 - item.fwd1.amount) +
-              " more bundles of firewood to finish the task",
+            i18n.t(
+              "runtime.world.locations.dialogue.firewood_quest_remaining",
+              { remaining: 10 - item.fwd1.amount },
+            ),
             true,
           );
         else
@@ -2066,9 +2098,9 @@ chss.frstn1b1j.sl = () => {
           );
         else if (item.rwmt1.amount < 10)
           chs(
-            '<span style="color:limegreen">Head Hunter Yamato</span>: Oh, so you managed to hunt down some of the animals. You still need ' +
-              (10 - item.rwmt1.amount) +
-              " more chunks of meat to end he job. Hurry up before it goes bad!",
+            i18n.t("runtime.world.locations.dialogue.meat_quest_remaining", {
+              remaining: 10 - item.rwmt1.amount,
+            }),
             true,
           );
         else
@@ -2336,8 +2368,14 @@ chss.lsmain1.sl = () => {
     );
   else if (isWeather(weather.heavyrain) || isWeather(weather.thunder))
     chs(
-      "It's pouring so hard the streets are completely flooded. There's noone around " +
-        (getHour() > 6 && getHour() < 21 ? "except for a few kids" : ""),
+      i18n.t("runtime.world.locations.dialogue.heavy_rain_flooded_streets", {
+        extra:
+          getHour() > 6 && getHour() < 21
+            ? i18n.t(
+                "runtime.world.locations.dialogue.heavy_rain_daytime_suffix",
+              )
+            : "",
+      }),
       true,
     );
   else if (isWeather(weather.misty) || isWeather(weather.foggy))
@@ -2646,16 +2684,7 @@ chss.jbgd1.sl = () => {
     false,
   ).addEventListener("click", () => {
     msg(
-      select([
-        "Right...",
-        "This is boring",
-        "*whistle*",
-        "Ah...",
-        "...",
-        "Yeah...",
-        "Mhm...",
-        "Yawn..",
-      ]),
+      select(i18n.get("runtime.world.locations.dialogue.guard_bored_messages")),
       "lightgrey",
     );
   });
@@ -2677,16 +2706,9 @@ chss.jbgd1.onEnter = function () {
       giveSkExp(skl.ptnc, 0.08);
       if (random() <= 0.01)
         msg(
-          select([
-            "Right...",
-            "This is boring",
-            "*whistle*",
-            "Ah...",
-            "...",
-            "Yeah...",
-            "Mhm...",
-            "Yawn...",
-          ]),
+          select(
+            i18n.get("runtime.world.locations.dialogue.guard_bored_messages"),
+          ),
           "lightgrey",
         );
       if (random() <= 0.0005 + skl.seye.lvl * 0.0002) {
@@ -2737,12 +2759,11 @@ chss.grc1.sl = () => {
   );
   global.lst_loc = 128;
   chs(
-    "Old Lady: " +
-      select([
-        "These are very fresh, buy some!",
-        "Freshest vegetables for the lowest price!",
-        "Try a few and you'll want even more!",
-      ]),
+    i18n.t("runtime.world.locations.dialogue.grocery_old_lady_greeting", {
+      greeting: select(
+        i18n.get("runtime.world.locations.dialogue.grocery_old_lady_greetings"),
+      ),
+    }),
     true,
   );
   chs(
@@ -2798,11 +2819,11 @@ chss.grc1.scout = [
     c: 0.01,
     f: () => {
       msg(
-        select([
-          "You notice a coin on the ground!",
-          "You pick a coin from under the counter",
-          "You snatch a coin while no one is looking",
-        ]),
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.market_coin_find_messages",
+          ),
+        ),
         "lime",
       );
       giveItem(select([item.cp, item.cn, item.cq, item.cd]));
@@ -2827,14 +2848,13 @@ chss.gens1.sl = () => {
   );
   global.lst_loc = 129;
   chs(
-    "Sleeping Old Man: " +
-      select([
-        "...Welcome",
-        "...",
-        "zzz...",
-        "A customer? Pick what you want",
-        "Take your time",
-      ]),
+    i18n.t("runtime.world.locations.dialogue.sleeping_shopkeeper_greeting", {
+      greeting: select(
+        i18n.get(
+          "runtime.world.locations.dialogue.sleeping_shopkeeper_greetings",
+        ),
+      ),
+    }),
     true,
   );
   chs(
@@ -2872,38 +2892,41 @@ chss.gens1.sl = () => {
     });
   });
   if (item.wvbkt.have)
-    chs('"Sell straw baskets ' + dom.coincopper + '"', false).addEventListener(
-      "click",
-      () => {
-        chs(
-          "Sleeping Old Man: You made these, kid? Hahaha, alright, i'll take them off your hands. 15 " +
-            dom.coincopper +
-            " each!",
-          true,
-        );
-        chs(
-          i18n.t("runtime.world.locations.dialogue.sell_your_goods_df98aadf"),
-          false,
-          "lime",
-        ).addEventListener("click", () => {
-          if (item.wvbkt.amount > 0) {
-            giveWealth(item.wvbkt.amount * 15);
-            item.wvbkt.amount = 0;
-            removeItem(item.wvbkt);
-            smove(chss.gens1, false);
-          } else {
-            smove(chss.gens1, false);
-            msg(i18n.t("runtime.world.locations.dialogue.text_5bab61eb"));
-          }
-        });
-        chs(
-          i18n.t("runtime.world.locations.dialogue.maybe_next_time_b3689181"),
-          false,
-        ).addEventListener("click", () => {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.sell_straw_baskets_action", {
+        coin: dom.coincopper,
+      }),
+      false,
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t(
+          "runtime.world.locations.dialogue.sleeping_shopkeeper_basket_offer",
+          { coin: dom.coincopper },
+        ),
+        true,
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.sell_your_goods_df98aadf"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        if (item.wvbkt.amount > 0) {
+          giveWealth(item.wvbkt.amount * 15);
+          item.wvbkt.amount = 0;
+          removeItem(item.wvbkt);
           smove(chss.gens1, false);
-        });
-      },
-    );
+        } else {
+          smove(chss.gens1, false);
+          msg(i18n.t("runtime.world.locations.dialogue.text_5bab61eb"));
+        }
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.maybe_next_time_b3689181"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.gens1, false);
+      });
+    });
   if (area.hmbsmnt.size >= 1000 && global.flags.hbs1 && !global.flags.bmntsmkgt)
     chs(
       i18n.t("runtime.world.locations.dialogue.infestation_problem_84399037"),
@@ -2911,9 +2934,10 @@ chss.gens1.sl = () => {
       "grey",
     ).addEventListener("click", () => {
       chs(
-        "Sleeping Old Man: Your basement is in bad shape? Same been happening to the other folks lately, it's not just you. Something is drilling through the underground right into people's homes! And then you get a cellar full of rats. A complete travesty! Some speculate there's a monster cave nearby, but nothing was found yet. But don't fret, there is a solution for you - you smoke the pests out. Light this bag and toss it in, the deeper the better. Your entire place will be filled with smog, so you will have to leave and stay out for a few hours, then you'll have a clean and monster free basement at your disposal. 5 " +
-          dom.coinsilver +
-          " silver the price",
+        i18n.t(
+          "runtime.world.locations.dialogue.sleeping_shopkeeper_basement_smoke_offer",
+          { coin: dom.coinsilver },
+        ),
         true,
       );
       if (you.wealth >= SILVER * 5)
@@ -2954,11 +2978,11 @@ chss.gens1.scout = [
     c: 0.01,
     f: () => {
       msg(
-        select([
-          "You notice a coin on the ground!",
-          "You pick a coin from under the counter",
-          "You snatch a coin while no one is looking",
-        ]),
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.market_coin_find_messages",
+          ),
+        ),
         "lime",
       );
       giveItem(select([item.cp, item.cn, item.cq, item.cd]));
@@ -2981,12 +3005,11 @@ chss.pha1.sl = () => {
   );
   global.lst_loc = 166;
   chs(
-    "Herbalist: " +
-      select([
-        "Injured? Come in, I'll give you a check up",
-        "Yes yes..",
-        "Don't neglect your well being, stack on anything you will need",
-      ]),
+    i18n.t("runtime.world.locations.dialogue.herbalist_greeting", {
+      greeting: select(
+        i18n.get("runtime.world.locations.dialogue.herbalist_greetings"),
+      ),
+    }),
     true,
   );
   chs(
@@ -3024,67 +3047,70 @@ chss.pha1.sl = () => {
     });
   });
   if (item.hrb1.amount >= 50)
-    chs('"Sell cure grass ' + dom.coincopper + '"', false).addEventListener(
-      "click",
-      () => {
-        chs(
-          "Herbalist: Yes indeed, if you have any cure grass to sell, by all means bring it here, you can never have too much. I will take bundles of 50 for 15 " +
-            dom.coincopper,
-          true,
-        );
-        chs(
-          i18n.t("runtime.world.locations.dialogue.sell_your_goods_df98aadf"),
-          false,
-          "lime",
-        ).addEventListener("click", () => {
-          if (item.hrb1.amount >= 50) {
-            global.stat.hbhbsld++;
-            giveWealth(15);
-            item.hrb1.amount -= 50;
-            reduce(item.hrb1);
-            if (global.stat.hbhbsld >= 7 && !global.flags.hbhbgft) {
-              chs(
+    chs(
+      i18n.t("runtime.world.locations.dialogue.sell_cure_grass_action", {
+        coin: dom.coincopper,
+      }),
+      false,
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.herbalist_cure_grass_offer", {
+          coin: dom.coincopper,
+        }),
+        true,
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.sell_your_goods_df98aadf"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        if (item.hrb1.amount >= 50) {
+          global.stat.hbhbsld++;
+          giveWealth(15);
+          item.hrb1.amount -= 50;
+          reduce(item.hrb1);
+          if (global.stat.hbhbsld >= 7 && !global.flags.hbhbgft) {
+            chs(
+              i18n.t(
+                "runtime.world.locations.dialogue.herbalist_you_were_such_a_great_help_bringing_54533523",
+              ),
+              true,
+            );
+            chs(
+              i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+              false,
+              "lime",
+            ).addEventListener("click", () => {
+              giveItem(item.hptn1, 15);
+              giveItem(item.hptn2, 3);
+              vendor.pha1.data.rep =
+                vendor.pha1.data.rep + 10 > 100
+                  ? 100
+                  : vendor.pha1.data.rep + 10;
+              msg(
                 i18n.t(
-                  "runtime.world.locations.dialogue.herbalist_you_were_such_a_great_help_bringing_54533523",
+                  "runtime.world.locations.dialogue.the_herbalist_likes_you_a_bit_more_d2c5b9ed",
                 ),
-                true,
-              );
-              chs(
-                i18n.t("runtime.world.locations.dialogue.accept_997df079"),
-                false,
                 "lime",
-              ).addEventListener("click", () => {
-                giveItem(item.hptn1, 15);
-                giveItem(item.hptn2, 3);
-                vendor.pha1.data.rep =
-                  vendor.pha1.data.rep + 10 > 100
-                    ? 100
-                    : vendor.pha1.data.rep + 10;
-                msg(
-                  i18n.t(
-                    "runtime.world.locations.dialogue.the_herbalist_likes_you_a_bit_more_d2c5b9ed",
-                  ),
-                  "lime",
-                );
-                global.flags.hbhbgft = true;
-                smove(chss.pha1, false);
-                return;
-              });
-            }
-            if (item.hrb1.amount < 50) smove(chss.pha1, false);
-          } else {
-            smove(chss.pha1, false);
-            msg(i18n.t("runtime.world.locations.dialogue.text_5bab61eb"));
+              );
+              global.flags.hbhbgft = true;
+              smove(chss.pha1, false);
+              return;
+            });
           }
-        });
-        chs(
-          i18n.t("runtime.world.locations.dialogue.rather_not_42a4bfe4"),
-          false,
-        ).addEventListener("click", () => {
+          if (item.hrb1.amount < 50) smove(chss.pha1, false);
+        } else {
           smove(chss.pha1, false);
-        });
-      },
-    );
+          msg(i18n.t("runtime.world.locations.dialogue.text_5bab61eb"));
+        }
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.rather_not_42a4bfe4"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.pha1, false);
+      });
+    });
   if (item.htrsvr.have)
     chs(
       i18n.t("runtime.world.locations.dialogue.deliver_the_bag_5e408fc4"),
@@ -3130,11 +3156,11 @@ chss.pha1.scout = [
     c: 0.01,
     f: () => {
       msg(
-        select([
-          "You notice a coin on the ground!",
-          "You pick a coin from under the counter",
-          "You snatch a coin while no one is looking",
-        ]),
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.market_coin_find_messages",
+          ),
+        ),
         "lime",
       );
       giveItem(select([item.cp, item.cn, item.cq, item.cd]));
@@ -3173,7 +3199,7 @@ chss.vndr1.sl = () => {
       smove(chss.lsmain1, false);
     }
   });
-  const hi = "Street Merchant Ran: Welcome! What would you like?";
+  const hi = i18n.t("runtime.world.locations.dialogue.street_merchant_welcome");
   dom.vndr1 = chs(hi, true);
   for (let ost = 0; ost < vendor.stvr1.stock.length; ost++) {
     const itm = vendor.stvr1.stock[ost];
@@ -3251,7 +3277,7 @@ chss.vndrkd1.sl = () => {
       smove(chss.lsmain1, false);
     }
   });
-  const hi = "Hey, I've got some good stuff for you";
+  const hi = i18n.t("runtime.world.locations.dialogue.child_trader_welcome");
   dom.vndr1 = chs(hi, true);
   for (let ost = 0; ost < vendor.kid1.stock.length; ost++) {
     const itm = vendor.kid1.stock[ost];
@@ -3303,9 +3329,10 @@ chss.vndrkd1.sl = () => {
       "darkgrey",
     ).addEventListener("click", () => {
       chs(
-        "So you want something from the hidden stash, huh? Good eye! You are one of the dojo runts, I've got just what someone like you needs. One book, 3 silver" +
-          dom.coinsilver +
-          ". So, watcha say?",
+        i18n.t(
+          "runtime.world.locations.dialogue.child_trader_hidden_book_offer",
+          { coin: dom.coinsilver },
+        ),
         true,
       );
       chs(
@@ -3376,8 +3403,10 @@ chss.vndrkd1.sl = () => {
       "darkgrey",
     ).addEventListener("click", () => {
       chs(
-        "Alright, there's something else for you, snatched from some sleeping guy and I bet would be useful for you. Similar deal, 5 silver" +
-          dom.coinsilver,
+        i18n.t(
+          "runtime.world.locations.dialogue.child_trader_second_hidden_offer",
+          { coin: dom.coinsilver },
+        ),
         true,
       );
       chs(
@@ -3500,6 +3529,58 @@ chss.tst.sl = () => {
   });
 };
 
+function showCatPetReaction(anchor, reaction) {
+  const reactionElement = addElement(
+    document.body,
+    "span",
+    null,
+    "cat-pet-reaction",
+  );
+  reactionElement.textContent = reaction;
+
+  const scale = Number.parseFloat(document.body.style.zoom) || 1;
+  const measuredAnchorRect = anchor.getBoundingClientRect();
+  const anchorRect = {
+    left: measuredAnchorRect.left / scale,
+    top: measuredAnchorRect.top / scale,
+    width: measuredAnchorRect.width / scale,
+  };
+  const viewportWidth = window.innerWidth / scale;
+  const viewportMargin = 8 / scale;
+  const anchorGap = 6 / scale;
+  const maximumLeft = Math.max(
+    viewportMargin,
+    viewportWidth - reactionElement.offsetWidth - viewportMargin,
+  );
+  const left = Math.min(
+    maximumLeft,
+    Math.max(
+      viewportMargin,
+      anchorRect.left + (anchorRect.width - reactionElement.offsetWidth) / 2,
+    ),
+  );
+  const top = Math.max(
+    viewportMargin,
+    anchorRect.top - reactionElement.offsetHeight - anchorGap,
+  );
+
+  reactionElement.style.left = left + "px";
+  reactionElement.style.top = top + "px";
+  reactionElement.style.setProperty(
+    "--cat-reaction-rise",
+    Math.min(48, Math.max(0, top - viewportMargin)) + "px",
+  );
+
+  const removeReaction = () => {
+    clearTimeout(cleanupTimer);
+    reactionElement.remove();
+  };
+  reactionElement.addEventListener("animationend", removeReaction, {
+    once: true,
+  });
+  const cleanupTimer = setTimeout(removeReaction, 2400);
+}
+
 chss.cat1 = new Chs();
 chss.cat1.id = 107;
 addtosector(sector.vcent, chss.cat1);
@@ -3511,37 +3592,25 @@ chss.cat1.sl = () => {
         i18n.t("runtime.world.locations.dialogue.there_is_a_cat_1b5af153"),
         true,
       )
-    : chs("There is a cat. Pets: " + global.stat.cat_c, true);
+    : chs(
+        i18n.t("runtime.world.locations.interface.cat_pet_count", {
+          count: global.stat.cat_c,
+        }),
+        true,
+      );
   chs(
     i18n.t("runtime.world.locations.dialogue.pet_the_cat_80e6fbdc"),
     false,
   ).addEventListener("click", (x) => {
-    const a = addElement(document.body, "span");
-    a.style.pointerEvents = "none";
-    a.style.position = "absolute";
-    a.style.color = "lime";
-    a.innerHTML = select([":3", "'w'", "'ω'", "(=・∀・=)", "*ﾟヮﾟ"]);
-    a.style.top = -55;
-    a.style.left = -55;
-    a.style.fontSize = "1.25em";
-    a.style.textShadow = "2px 2px 1px blue";
-    a.posx = x.clientX - 20;
-    a.posy = x.clientY - 20;
-    a.spos = randf(-1, 1);
-    let t = 0;
-    const g = setInterval(() => {
-      t++;
-      a.style.top = a.posy - 2 * t;
-      a.style.left = a.posx + Math.sin(t / 5 + a.spos) * 15;
-      a.style.opacity = (110 - t) / 110;
-      if (t === 110) {
-        clearInterval(g);
-        document.body.removeChild(a);
-      }
-    }, 20);
+    showCatPetReaction(
+      x.currentTarget,
+      select([":3", "'w'", "'ω'", "(=・∀・=)", "*ﾟヮﾟ"]),
+    );
     global.stat.cat_c++;
     if (global.stat.cat_c < 333) skl.pet.use();
-    w.innerHTML = "There is a cat. Pets: " + global.stat.cat_c;
+    w.innerHTML = i18n.t("runtime.world.locations.interface.cat_pet_count", {
+      count: global.stat.cat_c,
+    });
     if (global.stat.cat_c >= 100) {
       if (!global.flags.cat_g) {
         clr_chs(2);
@@ -3907,6 +3976,22 @@ chss.xpgdqt1.sl = () => {
 chss.trd = new Chs();
 chss.trd.id = 109;
 chss.trd.sl = function (b, x) {
+  function readingProgress(remaining) {
+    const usesHours = remaining > HOUR;
+    const count = usesHours ? (remaining / HOUR) << 0 : remaining << 0;
+    const duration = usesHours
+      ? i18n.t("runtime.world.locations.dialogue.reading_duration_hours", {
+          count,
+        })
+      : i18n.t("runtime.world.locations.dialogue.reading_duration_minutes", {
+          count,
+        });
+    return i18n.t("runtime.world.locations.dialogue.reading_progress", {
+      book: b.name,
+      duration,
+    });
+  }
+
   global.flags.rdng = true;
   const rd = skl.rdg.use();
   b.data.timep = b.data.timep || 0;
@@ -3915,16 +4000,9 @@ chss.trd.sl = function (b, x) {
     (1 / (1 + rd / 10) - 1) / you.mods.rdgrt;
   let c = b.cmax - b.data.timep;
   if (c < 0) c = 0;
-  let ttxt;
-  if (c > HOUR) ttxt = ((c / HOUR) << 0) + "</span> hours to finish";
-  else ttxt = (c << 0) + "</span> minutes to finish";
   dom.trdc = chs("", true);
   dom.trd = addElement(dom.trdc, "span");
-  dom.trd.innerHTML =
-    'You are reading <span style="color:orange">' +
-    b.name +
-    '</span><br>It will take you about <span style="color:lime">' +
-    ttxt;
+  dom.trd.innerHTML = readingProgress(c);
   dom.trddots = addElement(dom.trdc, "span");
   dom.trddots.frames = ["", ".", "..", "..."];
   dom.trddots.frame = 0;
@@ -3944,14 +4022,7 @@ chss.trd.sl = function (b, x) {
       (1 / (1 + rd / 10) - 1) / you.mods.rdgrt;
     let c = b.cmax - b.data.timep;
     if (c < 0) c = 0;
-    let ttxt;
-    if (c > HOUR) ttxt = ((c / HOUR) << 0) + "</span> hours to finish";
-    else ttxt = (c << 0) + "</span> minutes to finish";
-    dom.trd.innerHTML =
-      'You are reading <span style="color:orange">' +
-      b.name +
-      '</span><br>It will take you about <span style="color:lime">' +
-      ttxt;
+    dom.trd.innerHTML = readingProgress(c);
     if (++b.data.timep >= b.cmax) {
       clearInterval(timers.rdng);
       clearInterval(timers.rdngdots);
@@ -3990,7 +4061,9 @@ chss.home.sl = () => {
   else {
     if (!global.text.hmcttt) global.text.hmcttt = i18n.get("gameText.hmcttt");
     chs(
-      "You feel safe. You can rest here. " + select(global.text.hmcttt),
+      i18n.t("runtime.world.locations.dialogue.home_safe_rest_summary", {
+        extra: select(global.text.hmcttt),
+      }),
       true,
     );
   }
@@ -4065,8 +4138,8 @@ chss.home.sl = () => {
     });
   chs(
     global.flags.hbs1 === true
-      ? '"Enter the basement"'
-      : '"Examine basement door"',
+      ? i18n.t("runtime.world.locations.dialogue.enter_the_basement")
+      : i18n.t("runtime.world.locations.dialogue.examine_basement_door"),
     false,
   ).addEventListener("click", () => {
     if (!global.flags.hbs1) {
@@ -4185,36 +4258,21 @@ chss.home.sl = () => {
             smove(chss.home, false);
           });
         });
-      dom.ctspcl = chs('"Pet ' + tcat.data.name + '"', false);
+      dom.ctspcl = chs(
+        i18n.t("runtime.world.locations.dialogue.pet_named_cat_action", {
+          name: tcat.data.name,
+        }),
+        false,
+      );
       dom.ctspcl.addEventListener("click", (x) => {
-        const a = addElement(document.body, "span");
         global.stat.cat_c++;
         for (const x in global.cptchk) global.cptchk[x]();
-        a.style.pointerEvents = "none";
-        a.style.position = "absolute";
-        a.style.color = "lime";
-        a.innerHTML =
+        showCatPetReaction(
+          x.currentTarget,
           tcat.data.mood > 0.2
             ? select([":3", "'w'", "'ω'", "(=・∀・=)", "*ﾟヮﾟ"])
-            : select(["¦3", "ーωー", "( ˘ω˘)", "(´-ω-`)", "(。-∀-)"]);
-        a.style.top = -55;
-        a.style.left = -55;
-        a.style.fontSize = "1.25em";
-        a.style.textShadow = "2px 2px 1px blue";
-        a.posx = x.clientX - 20;
-        a.posy = x.clientY - 20;
-        a.spos = randf(-1, 1);
-        let t = 0;
-        const g = setInterval(() => {
-          t++;
-          a.style.top = a.posy - 2 * t;
-          a.style.left = a.posx + Math.sin(t / 5 + a.spos) * 15;
-          a.style.opacity = (110 - t) / 110;
-          if (t === 110) {
-            clearInterval(g);
-            document.body.removeChild(a);
-          }
-        }, 20);
+            : select(["¦3", "ーωー", "( ˘ω˘)", "(´-ω-`)", "(。-∀-)"]),
+        );
         tcat.data.mood = tcat.data.mood - 0.01 <= 0 ? 0 : tcat.data.mood - 0.01;
         if (tcat.data.mood >= 0.01) skl.pet.use();
       });
@@ -4298,8 +4356,9 @@ chss.bsmnthm1.sl = () => {
   } else {
     if (!cansee())
       chs(
-        select(global.text.bsseldark) +
-          ". You can't see anything in this darkness, it'll be better if you find a lightsource",
+        i18n.t("runtime.world.locations.dialogue.basement_darkness_warning", {
+          description: select(global.text.bsseldark),
+        }),
         true,
         "darkgrey",
       );
@@ -4328,10 +4387,16 @@ chss.bsmnthm1.sl = () => {
             });
           } else {
             chs(
-              "You glance around and find mountains of broken crates, shelves, boxes, furniture and other decaying goods. Don't expect to find anything of great value amongst this trash. Perhaps you can salvage at least something if you look careful enough" +
-                (!global.flags.bsmntchstgt
-                  ? ", like that giant chest over there"
-                  : ""),
+              i18n.t(
+                "runtime.world.locations.dialogue.basement_debris_search",
+                {
+                  chestHint: !global.flags.bsmntchstgt
+                    ? i18n.t(
+                        "runtime.world.locations.dialogue.basement_giant_chest_hint",
+                      )
+                    : "",
+                },
+              ),
               true,
               "orange",
             );
@@ -4497,18 +4562,21 @@ chss.hbed.sl = () => {
   let extra = "";
   if (you.alive === false) {
     chs(
-      select([
-        "You lost consciousness...",
-        "You have been knocked out...",
-        "You passed out...",
-      ]),
+      select(
+        i18n.get("runtime.world.locations.dialogue.bed_unconscious_messages"),
+      ),
       true,
     );
     you.alive = true;
   } else {
     if (global.flags.catget)
-      extra = select([". Your cat is resting next to you", ". You feel warm"]);
-    chs("Great way to pass time" + extra, true);
+      extra = select(
+        i18n.get("runtime.world.locations.dialogue.bed_cat_rest_messages"),
+      );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.bed_rest_summary", { extra }),
+      true,
+    );
   }
   chs(
     i18n.t("runtime.world.locations.dialogue.get_up_3fdf06df"),
@@ -4555,13 +4623,29 @@ chss.ofrplc.sl = () => {
   //dom.d_lctt.innerHTML+='<span style="color:orange;font-size:1.2em">&nbspⓞ<span>'
   const its = [];
   if (findbyid(inv, item.fwd1.id))
-    its.push([findbyid(inv, item.fwd1.id), "some firewood", 30]);
+    its.push([
+      findbyid(inv, item.fwd1.id),
+      i18n.t("runtime.world.locations.fireplaceFuel.firewood"),
+      30,
+    ]);
   if (findbyid(inv, item.coal1.id))
-    its.push([findbyid(inv, item.coal1.id), "some coal", 300]);
+    its.push([
+      findbyid(inv, item.coal1.id),
+      i18n.t("runtime.world.locations.fireplaceFuel.coal"),
+      300,
+    ]);
   if (findbyid(inv, item.coal2.id))
-    its.push([findbyid(inv, item.coal2.id), "some charcoal", 300]);
+    its.push([
+      findbyid(inv, item.coal2.id),
+      i18n.t("runtime.world.locations.fireplaceFuel.charcoal"),
+      300,
+    ]);
   if (findbyid(inv, wpn.stk1.id))
-    its.push([findbyid(inv, wpn.stk1.id), "a stick", 15]);
+    its.push([
+      findbyid(inv, wpn.stk1.id),
+      i18n.t("runtime.world.locations.fireplaceFuel.stick"),
+      15,
+    ]);
   if (!global.text.fplcextra)
     global.text.fplcextra = i18n.get("gameText.fplcextra");
   if (!global.text.frplcfrextra)
@@ -4575,7 +4659,10 @@ chss.ofrplc.sl = () => {
     textra0 = global.text.frplcfrextra[2];
   else if (fire.data.fuel >= 540) textra0 = global.text.frplcfrextra[3];
   dom.frpls = chs(
-    "Comfy fireplace. " + (select(global.text.fplcextra) + "<br>" + textra0),
+    i18n.t("runtime.world.locations.dialogue.fireplace_summary", {
+      extra: select(global.text.fplcextra),
+      fuelStatus: textra0,
+    }),
     true,
   );
   if (!global.flags.fplcgtwd)
@@ -4597,7 +4684,14 @@ chss.ofrplc.sl = () => {
     });
   for (const a in its) {
     chs(
-      '"' + select(["Toss ", "Throw "]) + its[a][1] + ' into the fireplace"',
+      i18n.format(
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.fireplace_add_fuel_actions",
+          ),
+        ),
+        { fuel: its[a][1] },
+      ),
       false,
     ).addEventListener("click", function () {
       its[a][0].amount--;

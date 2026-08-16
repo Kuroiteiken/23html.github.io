@@ -1,3 +1,9 @@
+// Locale bootstrap. Loads the locale manifest and message files, exposes the
+// global `i18n` helper, then injects the game bundle. It must run before the
+// bundle because modules call `i18n.t()` while defining their content. The
+// deploy asset version is read from this script's own URL and forwarded to every
+// request it makes, so a release cannot mix cached files from an older build.
+
 (function bootstrapInternationalization() {
   const storageKey = "proto23.locale";
   const loaderUrl = new URL(document.currentScript.src, window.location.href);

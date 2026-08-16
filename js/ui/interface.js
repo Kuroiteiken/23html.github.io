@@ -1,6 +1,9 @@
-///////////////////////////////////////////
-//DOM
-///////////////////////////////////////////
+// Interface construction and rendering. Builds the panels, inventory, crafting
+// and settings windows, hover tooltips, message log, and save bar, and holds
+// the update functions the rest of the game calls to refresh them. This module
+// runs after the data and world modules, so everything it renders already
+// exists by the time the DOM is built.
+
 dom.d0 = addElement(document.body, "div", "player-panel", "d combat-panel");
 if (!global.flags.aw_u) dom.d0.style.display = "none";
 dom.d1 = addElement(dom.d0, "div");
@@ -21,7 +24,10 @@ dom.d2_a.addEventListener("focusout", function () {
 });
 addDesc(dom.d2c, null, 2, you.name, you.desc);
 dom.d3 = addElement(dom.d1, "div", null, "d3");
-dom.d3.innerHTML = " lvl:" + you.lvl + " '" + you.title.name + "'";
+dom.d3.innerHTML = i18n.t("ui.hud.levelTitle", {
+  level: you.lvl,
+  title: you.title.name,
+});
 dom.d3.addEventListener("click", function () {
   if (!global.flags.ttlscrnopn) {
     global.flags.ttlscrnopn = true;
@@ -47,7 +53,10 @@ dom.d3.addEventListener("click", function () {
         you.title = title;
         empty(dom.ttlcont);
         document.body.removeChild(dom.ttlcont);
-        dom.d3.innerHTML = " lvl:" + you.lvl + " '" + you.title.name + "'";
+        dom.d3.innerHTML = i18n.t("ui.hud.levelTitle", {
+          level: you.lvl,
+          title: you.title.name,
+        });
         empty(global.dscr);
         global.dscr.style.display = "none";
         global.flags.ttlscrnopn = false;
@@ -66,11 +75,9 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.health_3703cd21"),
   function () {
-    return (
-      'Physical health points, needed to stay alive. You will probably die if it reaches 0<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
-      ((you.stat_p[0] * 100) << 0) +
-      "%</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.health", {
+      potential: (you.stat_p[0] * 100) << 0,
+    });
   },
   true,
 );
@@ -80,13 +87,10 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.experience_5b5aafe6"),
   function () {
-    return (
-      'Physical and combat experience. You\'ll have to work hard to achieve new heights<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>EXP Gain Potential: <span style="color:gold">' +
-      ((you.exp_t * 100) << 0) +
-      '%</span><br>Current EXP Gain: <span style="color:yellow">' +
-      ((you.exp_t * 100 * you.efficiency()) << 0) +
-      "%</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.experience", {
+      potential: (you.exp_t * 100) << 0,
+      current: (you.exp_t * 100 * you.efficiency()) << 0,
+    });
   },
   true,
 );
@@ -101,13 +105,10 @@ addDesc(
     if (global.flags.iscold === true)
       lose += effect.cold.duration / 1000 / (1 + skl.coldr.lvl * 0.05);
     lose = ((lose * 100) << 0) / 100;
-    return (
-      'Influences the effectiveness of your actions, eat a lot to keep it full<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Energy Effectiveness: <span style="color:deeppink">' +
-      (((you.mods.sbonus + 1) * 100) << 0) +
-      '%</span><br>Energy Consumption Rate: <span style="color:gold">' +
-      lose +
-      "/s</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.energy", {
+      effectiveness: ((you.mods.sbonus + 1) * 100) << 0,
+      consumption: lose,
+    });
   },
   true,
 );
@@ -135,11 +136,9 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.physical_strength_9965efa3"),
   function () {
-    return (
-      'Determines physical damage dealt and received<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
-      ((you.stat_p[1] * 100) << 0) +
-      "%</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.strength", {
+      potential: (you.stat_p[1] * 100) << 0,
+    });
   },
   true,
 );
@@ -149,11 +148,9 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.agility_0fc9a6ed"),
   function () {
-    return (
-      'Determines hit/dodge rate<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
-      ((you.stat_p[2] * 100) << 0) +
-      "%</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.agility", {
+      potential: (you.stat_p[2] * 100) << 0,
+    });
   },
   true,
 );
@@ -163,11 +160,9 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.mental_acuity_7e567d10"),
   function () {
-    return (
-      'Determines magic damage dealt and received<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
-      ((you.stat_p[3] * 100) << 0) +
-      "%</span></small>"
-    );
+    return i18n.t("ui.statDescriptions.intelligence", {
+      potential: (you.stat_p[3] * 100) << 0,
+    });
   },
   true,
 );
@@ -243,69 +238,70 @@ dom.d8.style.paddingTop = "5px";
 dom.d8_2 = addElement(dom.d1, "div");
 dom.d8_2.style.fontSize = ".7em";
 if (typeof InstallTrigger == "undefined") dom.d8_2.style.paddingTop = "5px";
-dom.d8_2.innerHTML =
-  "Critical chance: " + (you.mods.crflt + you.crt) * 100 + "%";
+dom.d8_2.innerHTML = i18n.t("ui.hud.criticalChance", {
+  chance: (you.mods.crflt + you.crt) * 100,
+});
 dom.d7_slot_3.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
-  this.innerHTML =
-    "DEF: " +
-    Math.round(
+  this.innerHTML = i18n.t("ui.hud.defense", {
+    value: Math.round(
       you.eqp[2].str * (you.eqp[2].dp / you.eqp[2].dpmax) +
         you.str_r +
         you.eqp[1].str * (you.eqp[1].dp / you.eqp[1].dpmax),
-    );
+    ),
+  });
 });
 dom.d7_slot_3.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
 });
 dom.d7_slot_4.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
-  this.innerHTML =
-    "DEF: " +
-    Math.round(
+  this.innerHTML = i18n.t("ui.hud.defense", {
+    value: Math.round(
       you.eqp[3].str * (you.eqp[3].dp / you.eqp[3].dpmax) +
         you.str_r +
         you.eqp[1].str * (you.eqp[1].dp / you.eqp[1].dpmax),
-    );
+    ),
+  });
 });
 dom.d7_slot_4.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
 });
 dom.d7_slot_5.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
-  this.innerHTML =
-    "DEF: " +
-    Math.round(
+  this.innerHTML = i18n.t("ui.hud.defense", {
+    value: Math.round(
       you.eqp[4].str * (you.eqp[4].dp / you.eqp[4].dpmax) +
         you.str_r +
         you.eqp[1].str * (you.eqp[1].dp / you.eqp[1].dpmax),
-    );
+    ),
+  });
 });
 dom.d7_slot_5.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
 });
 dom.d7_slot_6.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
-  this.innerHTML =
-    "DEF: " +
-    Math.round(
+  this.innerHTML = i18n.t("ui.hud.defense", {
+    value: Math.round(
       you.eqp[5].str * (you.eqp[5].dp / you.eqp[5].dpmax) +
         you.str_r +
         you.eqp[1].str * (you.eqp[1].dp / you.eqp[1].dpmax),
-    );
+    ),
+  });
 });
 dom.d7_slot_6.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
 });
 dom.d7_slot_7.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
-  this.innerHTML =
-    "DEF: " +
-    Math.round(
+  this.innerHTML = i18n.t("ui.hud.defense", {
+    value: Math.round(
       you.eqp[6].str * (you.eqp[6].dp / you.eqp[6].dpmax) +
         you.str_r +
         you.eqp[1].str * (you.eqp[1].dp / you.eqp[1].dpmax),
-    );
+    ),
+  });
 });
 dom.d7_slot_7.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
@@ -337,11 +333,10 @@ dom.d5_2m = addElement(dom.d1m, "div", null, "exp");
 dom.d5_1_1m = addElement(dom.d5_1m, "div", "hpp");
 dom.d5_2_1m = addElement(dom.d5_2m, "div");
 dom.d5_1_1m.update = function () {
-  this.innerHTML =
-    "hp: " +
-    format3(global.current_m.hp.toString()) +
-    "/" +
-    format3(global.current_m.hpmax.toString());
+  this.innerHTML = i18n.t("ui.hud.health", {
+    current: format3(global.current_m.hp.toString()),
+    max: format3(global.current_m.hpmax.toString()),
+  });
   dom.d5_1m.style.width =
     (100 * global.current_m.hp) / global.current_m.hpmax + "%";
 };
@@ -352,7 +347,9 @@ dom.d4_3m = addElement(dom.d4m, "span", null, "dd");
 dom.d4_4m = addElement(dom.d4m, "span", null, "dd");
 dom.d9m = addElement(dom.d1m, "div");
 dom.d9m.update = function () {
-  this.innerHTML = "rank: " + global.text.eranks[global.current_m.rnk];
+  this.innerHTML = i18n.t("ui.hud.rank", {
+    rank: global.text.eranks[global.current_m.rnk],
+  });
   if (global.current_m.rnk <= 4) this.style.color = "lightgrey";
   else if (global.current_m.rnk > 4 && global.current_m.rnk <= 7)
     this.style.color = "white";
@@ -398,10 +395,10 @@ dom.d8m2.addEventListener("click", function () {
 dom.d7m_c = addElement(dom.d1m, "div", "ainfo");
 dom.d7m = addElement(dom.d7m_c, "small");
 dom.d7m.update = function () {
-  global.current_z.size >= 0
-    ? (this.innerHTML =
-        "Area: " + global.current_z.name + " / " + global.current_z.size)
-    : (this.innerHTML = "Area: " + global.current_z.name + " / " + "∞");
+  this.innerHTML = i18n.t("ui.hud.area", {
+    area: global.current_z.name,
+    remaining: global.current_z.size >= 0 ? global.current_z.size : "∞",
+  });
 };
 dom.d7m.update();
 dom.inv_ctx = addElement(document.body, "div", "inv");
@@ -847,15 +844,19 @@ dom.ct_bt2.addEventListener("click", function () {
           }
         }
         for (let n = 1; n < you.skls.length + 1; n++) {
-          dom.skcon.children[n - 1].children[0].innerHTML =
-            you.skls[n - 1].name + " lvl: " + you.skls[n - 1].lvl;
+          dom.skcon.children[n - 1].children[0].innerHTML = i18n.t(
+            "ui.hud.skillLevel",
+            { skill: you.skls[n - 1].name, level: you.skls[n - 1].lvl },
+          );
           dom.skcon.children[n - 1].children[0].style.fontSize =
             you.skls[n - 1].sp;
-          dom.skcon.children[n - 1].children[1].innerHTML =
-            "　exp: " +
-            formatw(Math.floor(you.skls[n - 1].exp)) +
-            "/" +
-            formatw(you.skls[n - 1].expnext_t);
+          dom.skcon.children[n - 1].children[1].innerHTML = i18n.t(
+            "ui.hud.skillExperience",
+            {
+              current: formatw(Math.floor(you.skls[n - 1].exp)),
+              max: formatw(you.skls[n - 1].expnext_t),
+            },
+          );
           dom.skcon.children[n - 1].children[2].children[0].style.width =
             (you.skls[n - 1].exp / you.skls[n - 1].expnext_t) * 100 + "%";
           //if(you.skls[n-1].lastupd&&you.skls[n-1].lastupd-time.minute>=1) dom.skcon.children[n-1].children[2].children[0].style.backgroundColor='limegreen'; else dom.skcon.children[n-1].children[2].children[0].style.backgroundColor='yellow';
@@ -905,11 +906,13 @@ dom.ct_bt6.addEventListener("click", function () {
     this.jlbrw2s2 = addElement(this.jlbrw2, "div", "jcell4", "jcell");
     this.jlbod.style.height = 100;
     this.jlbod.style.width = "100%";
-    dom.jlbrw1s1.innerHTML = "Q U E S T S";
+    dom.jlbrw1s1.innerHTML = i18n.t("ui.panels.quests");
     dom.jlbrw1s2.innerHTML =
-      global.flags.bstu === true ? "B E S T I A R Y" : "????????????";
+      global.flags.bstu === true
+        ? i18n.t("ui.panels.bestiary")
+        : "????????????";
     this.jlbrw2s1.innerHTML = "????????????";
-    this.jlbrw2s2.innerHTML = "S T A T I S T I C S";
+    this.jlbrw2s2.innerHTML = i18n.t("ui.panels.statistics");
     dom.jlbrw1s1.addEventListener("click", () => {
       empty(dom.ctrwin6);
       global.lw_op = -1;
@@ -920,7 +923,7 @@ dom.ct_bt6.addEventListener("click", function () {
       });
       dom.qstbody = addElement(dom.ctrwin6, "div");
       this.qstlbl = addElement(dom.qstbody, "div");
-      this.qstlbl.innerHTML = "Q U E S T　　L I S T";
+      this.qstlbl.innerHTML = i18n.t("ui.panels.questList");
       this.qstlbl.style.textAlign = "center";
       this.qstlbl.style.padding = 7;
       this.qstlbl.style.background = "linear-gradient(180deg,#182347,#13152f)";
@@ -1013,15 +1016,16 @@ dom.ct_bt6.addEventListener("click", function () {
             rar +
             "</small>]" +
             (qsts[a].data.done && !qsts[a].data.started
-              ? '<span style="color:lime"> completed</span>'
-              : '<span style="color:yellow"> in progress</span>');
+              ? i18n.t("ui.quest.status.completed")
+              : i18n.t("ui.quest.status.inProgress"));
           this.qlabl.style.padding = 6;
           this.qlabl.style.borderBottom = "dotted 2px #2b408a";
           this.qlabl.style.backgroundColor = "#12152f";
           this.qlabl.style.display = "inherit";
           this.qstatba = addElement(this.qmain, "small");
-          this.qstatba.innerHTML =
-            'Location: <span style="color:green">' + qsts[a].loc + "</span>";
+          this.qstatba.innerHTML = i18n.t("ui.quest.location", {
+            location: qsts[a].loc,
+          });
           this.qstatba.style.borderBottom = "1px solid #2b408a";
           this.qstatba.style.display = "block";
           this.qdsc = addElement(this.qmain, "div");
@@ -1212,7 +1216,7 @@ dom.ct_bt6.addEventListener("click", function () {
       dom.ch_1.style.background =
         "linear-gradient(0deg, rgb(24, 18, 51), rgb(0, 44, 87))";
       dom.flsthdr = addElement(dom.ch_1, "div");
-      dom.flsthdr.innerHTML = "S T A T S";
+      dom.flsthdr.innerHTML = i18n.t("ui.panels.stats");
       dom.flsthdr.style.background =
         "linear-gradient(0deg,rgb(21, 17, 49),rgb(0, 42, 85))";
       dom.flsthdr.style.borderBottom = "1px #44c dashed";
@@ -1245,17 +1249,23 @@ dom.ct_bt6.addEventListener("click", function () {
         (br >= YEAR
           ? '<span style="color:orange">' +
             ((br / YEAR) << 0) +
-            "</span> Years "
+            "</span> " +
+            i18n.t("ui.time.years") +
+            " "
           : "") +
         (br >= MONTH
           ? '<span style="color:yellow">' +
             (((br / MONTH) << 0) % 12) +
-            "</span> Months "
+            "</span> " +
+            i18n.t("ui.time.months") +
+            " "
           : "") +
         (br >= DAY
           ? '<span style="color:lime">' +
             (((br / DAY) << 0) % 30) +
-            "</span> Days "
+            "</span> " +
+            i18n.t("ui.time.days") +
+            " "
           : "") +
         (((br / HOUR) % 24) << 0) +
         ":" +
@@ -1282,17 +1292,23 @@ dom.ct_bt6.addEventListener("click", function () {
           (br >= YEAR
             ? '<span style="color:orange">' +
               ((br / YEAR) << 0) +
-              "</span> Years "
+              "</span> " +
+              i18n.t("ui.time.years") +
+              " "
             : "") +
           (br >= MONTH
             ? '<span style="color:yellow">' +
               (((br / MONTH) << 0) % 12) +
-              "</span> Months "
+              "</span> " +
+              i18n.t("ui.time.months") +
+              " "
             : "") +
           (br >= DAY
             ? '<span style="color:lime">' +
               (((br / DAY) << 0) % 30) +
-              "</span> Days "
+              "</span> " +
+              i18n.t("ui.time.days") +
+              " "
             : "") +
           (((br / HOUR) % 24) << 0) +
           ":" +
@@ -1310,17 +1326,23 @@ dom.ct_bt6.addEventListener("click", function () {
           (br >= YEAR
             ? '<span style="color:orange">' +
               ((br / YEAR) << 0) +
-              "</span> Years "
+              "</span> " +
+              i18n.t("ui.time.years") +
+              " "
             : "") +
           (br >= MONTH
             ? '<span style="color:yellow">' +
               (((br / MONTH) << 0) % 12) +
-              "</span> Months "
+              "</span> " +
+              i18n.t("ui.time.months") +
+              " "
             : "") +
           (br >= DAY
             ? '<span style="color:lime">' +
               (((br / DAY) << 0) % 30) +
-              "</span> Days "
+              "</span> " +
+              i18n.t("ui.time.days") +
+              " "
             : "") +
           (((br / HOUR) % 24) << 0) +
           ":" +
@@ -1687,17 +1709,23 @@ dom.ct_bt6.addEventListener("click", function () {
           (br >= YEAR
             ? '<span style="color:orange">' +
               ((br / YEAR) << 0) +
-              "</span> Years "
+              "</span> " +
+              i18n.t("ui.time.years") +
+              " "
             : "") +
           (br >= MONTH
             ? '<span style="color:yellow">' +
               (((br / MONTH) << 0) % 12) +
-              "</span> Months "
+              "</span> " +
+              i18n.t("ui.time.months") +
+              " "
             : "") +
           (br >= DAY
             ? '<span style="color:lime">' +
               (((br / DAY) << 0) % 30) +
-              "</span> Days "
+              "</span> " +
+              i18n.t("ui.time.days") +
+              " "
             : "") +
           (((br / HOUR) % 24) << 0) +
           ":" +
@@ -2133,7 +2161,7 @@ dom.ct_bt4_21b.max = 255;
 dom.ct_bt4_21b.style.width = "85px";
 dom.ct_bt4_21b.style.height = "16px";
 dom.ct_bt4_21b.addEventListener("input", function () {
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   global.flags.bgspc = false;
   global.bg_r = this.value;
   document.body.style.backgroundColor =
@@ -2150,7 +2178,7 @@ dom.ct_bt4_22b.max = 255;
 dom.ct_bt4_22b.style.width = "85px";
 dom.ct_bt4_22b.style.left = "367px";
 dom.ct_bt4_22b.addEventListener("input", function () {
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   global.flags.bgspc = false;
   global.bg_g = this.value;
   document.body.style.backgroundColor =
@@ -2167,7 +2195,7 @@ dom.ct_bt4_23b.max = 255;
 dom.ct_bt4_23b.style.width = "85px";
 dom.ct_bt4_23b.style.left = "459px";
 dom.ct_bt4_23b.addEventListener("input", function () {
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   global.flags.bgspc = false;
   global.bg_b = this.value;
   document.body.style.backgroundColor =
@@ -2196,21 +2224,36 @@ dom.ct_bt4_33b.style.left = "459px";
 dom.ct_bt4_03 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_03a = addElement(dom.ct_bt4_03, "div", null, "opt_t");
 dom.ct_bt4_03a.innerHTML = i18n.t("ui.settings.backgroundPresets");
-dom.ct_bt4_03b = addElement(dom.ct_bt4_03, "div", null, "opt_v");
-dom.ct_bt4_03b.style.width = 274;
-dom.ct_bt4_03b.style.height = 20;
-dom.ct_bt4_03b.style.display = "flex";
-dom.ct_bt4_03b.style.padding = 0;
-dom.ct_bt4_03b.style.textAlign = "center";
-dom.ct_bt4_03b1 = addElement(dom.ct_bt4_03b, "small");
-dom.ct_bt4_03b2 = addElement(dom.ct_bt4_03b, "small");
-dom.ct_bt4_03b3 = addElement(dom.ct_bt4_03b, "small");
-dom.ct_bt4_03b4 = addElement(dom.ct_bt4_03b, "small");
-dom.ct_bt4_03b1.style.width =
-  dom.ct_bt4_03b2.style.width =
-  dom.ct_bt4_03b3.style.width =
-  dom.ct_bt4_03b4.style.width =
-    "25%";
+dom.ct_bt4_03b = addElement(
+  dom.ct_bt4_03,
+  "div",
+  "background-presets",
+  "opt_v",
+);
+dom.ct_bt4_03b1 = addElement(
+  dom.ct_bt4_03b,
+  "small",
+  null,
+  "background-preset",
+);
+dom.ct_bt4_03b2 = addElement(
+  dom.ct_bt4_03b,
+  "small",
+  null,
+  "background-preset",
+);
+dom.ct_bt4_03b3 = addElement(
+  dom.ct_bt4_03b,
+  "small",
+  null,
+  "background-preset",
+);
+dom.ct_bt4_03b4 = addElement(
+  dom.ct_bt4_03b,
+  "small",
+  null,
+  "background-preset",
+);
 dom.ct_bt4_03b1.innerHTML = i18n.t("ui.settings.presets.white");
 dom.ct_bt4_03b2.innerHTML = i18n.t("ui.settings.presets.grey");
 dom.ct_bt4_03b3.innerHTML = i18n.t("ui.settings.presets.night");
@@ -2227,7 +2270,7 @@ dom.ct_bt4_03b1.addEventListener("click", function () {
   global.bg_r = 255;
   global.bg_g = 255;
   global.bg_b = 255;
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   dom.ct_bt4_31b.innerHTML = 255;
   dom.ct_bt4_32b.innerHTML = 255;
   dom.ct_bt4_33b.innerHTML = 255;
@@ -2242,7 +2285,7 @@ dom.ct_bt4_03b2.addEventListener("click", function () {
   global.bg_r = 188;
   global.bg_g = 188;
   global.bg_b = 188;
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   dom.ct_bt4_31b.innerHTML = 188;
   dom.ct_bt4_32b.innerHTML = 188;
   dom.ct_bt4_33b.innerHTML = 188;
@@ -2257,7 +2300,7 @@ dom.ct_bt4_03b3.addEventListener("click", function () {
   global.bg_r = 18;
   global.bg_g = 18;
   global.bg_b = 46;
-  document.body.removeAttribute("style");
+  document.body.style.background = "";
   dom.ct_bt4_31b.innerHTML = 18;
   dom.ct_bt4_32b.innerHTML = 18;
   dom.ct_bt4_33b.innerHTML = 46;
@@ -2398,7 +2441,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
       const t = dom.ct_bt4_5b_nbc.value;
       bt = b64_to_utf8(dom.ct_bt4_5b_nbc.value);
       if (/savevalid/g.test(bt)) {
-        storage.setItem("v0.2a", t);
+        storage.setItem("v0.3", t);
         load(t);
         global.flags.impatv = false;
         empty(dom.ct_bt4_5b_nc);
@@ -2440,7 +2483,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
         const t = b64_to_utf8(r.result);
         if (/savevalid/g.test(t)) {
           dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.loadSuccessful");
-          storage.setItem("v0.2a", r.result);
+          storage.setItem("v0.3", r.result);
           load(r.result);
           global.flags.impatv = false;
           empty(dom.ct_bt4_5b_nc);
@@ -2476,7 +2519,7 @@ dom.mstt.style.fontSize = "1.1em";
 dom.mstt.style.borderBottom = "dashed 2px RoyalBlue";
 dom.mscont = addElement(dom.gmsgs, "div", "mscont");
 dom.m_control = addElement(dom.gmsgs, "div", "m_control");
-dom.m_b_1 = addElement(dom.m_control, "small", null, "bts_m");
+dom.m_b_1 = addElement(dom.m_control, "small", "message-log-freeze", "bts_m");
 dom.m_b_1.innerHTML = i18n.t(
   "runtime.ui.interface.interface.freeze_messagelog_5b9b78fb",
 );
@@ -2484,33 +2527,30 @@ dom.m_b_1_c = addElement(dom.m_b_1, "span", null, "bts_m_b");
 dom.m_b_1.addEventListener("click", () => {
   if (global.flags.m_freeze === false) {
     global.flags.m_freeze = true;
-    dom.m_b_1_c.innerHTML = "Ｘ";
+    dom.m_b_1_c.innerHTML = "×";
   } else {
     global.flags.m_freeze = false;
     dom.m_b_1_c.innerHTML = "";
   }
 });
 
-dom.m_b_2 = addElement(dom.m_control, "small", null, "bts_m");
+dom.m_b_2 = addElement(dom.m_control, "small", "combat-log-toggle", "bts_m");
 dom.m_b_2.innerHTML = i18n.t(
   "runtime.ui.interface.interface.stop_combatlog_6a75a8e3",
 );
-dom.m_b_2.style.left = "19px";
 dom.m_b_2_c = addElement(dom.m_b_2, "span", null, "bts_m_b");
 dom.m_b_2.addEventListener("click", () => {
   if (global.flags.m_blh === false) {
     global.flags.m_blh = true;
-    dom.m_b_2_c.innerHTML = "Ｘ";
+    dom.m_b_2_c.innerHTML = "×";
   } else {
     global.flags.m_blh = false;
     dom.m_b_2_c.innerHTML = "";
   }
 });
-dom.m_b_3 = addElement(dom.m_control, "small", null, "bts_m");
+dom.m_b_3 = addElement(dom.m_control, "small", "message-log-clear", "bts_m");
 dom.m_b_3.innerHTML = i18n.t("runtime.ui.interface.interface.clr_ea010417");
-dom.m_b_3.style.width = "36px";
 dom.m_b_3.style.borderRight = "none";
-dom.m_b_3.style.left = "38px";
 dom.m_b_3.style.textAlign = "center";
 dom.m_b_3.addEventListener("click", () => {
   empty(dom.mscont);
@@ -2709,36 +2749,39 @@ dom.inv_btn_3_b.addEventListener("click", function () {
   isort(global.sm);
 });
 dom.d3.update = function () {
-  this.innerHTML = " lvl:" + you.lvl + " '" + you.title.name + "'";
+  this.innerHTML = i18n.t("ui.hud.levelTitle", {
+    level: you.lvl,
+    title: you.title.name,
+  });
 };
 dom.d5_1_1.update = function () {
-  this.innerHTML =
-    "hp: " + format3(you.hp.toString()) + "/" + format3(you.hpmax.toString());
+  this.innerHTML = i18n.t("ui.hud.health", {
+    current: format3(you.hp.toString()),
+    max: format3(you.hpmax.toString()),
+  });
   dom.d5_1.style.width = (100 * you.hp) / you.hpmax + "%";
 };
 dom.d5_2_1.update = function () {
-  this.innerHTML =
-    "exp: " +
-    format3(Math.round(you.exp).toString()) +
-    "/" +
-    format3(you.expnext_t.toString());
+  this.innerHTML = i18n.t("ui.hud.experience", {
+    current: format3(Math.round(you.exp).toString()),
+    max: format3(you.expnext_t.toString()),
+  });
   dom.d5_2.style.width = (100 * you.exp) / you.expnext_t + "%";
 };
 dom.d5_2_1.update();
 dom.d5_3_1.update = function () {
-  this.innerHTML =
-    "energy: " +
-    format3(Math.round(you.sat).toString()) +
-    "/" +
-    format3(you.satmax.toString()) +
-    " eff: " +
-    Math.round(you.efficiency() * 100) +
-    "%";
+  this.innerHTML = i18n.t("ui.hud.energy", {
+    current: format3(Math.round(you.sat).toString()),
+    max: format3(you.satmax.toString()),
+    efficiency: Math.round(you.efficiency() * 100),
+  });
   dom.d5_3.style.width =
     you.sat >= 0 ? (100 * you.sat) / you.satmax + "%" : "0%";
 };
 dom.d6.update = function () {
-  this.innerHTML = "rank: " + format3(you.rank().toString());
+  this.innerHTML = i18n.t("ui.hud.rank", {
+    rank: format3(you.rank().toString()),
+  });
 };
 dom.d6.update();
 dom.hit_c = function () {
@@ -2749,22 +2792,24 @@ dom.hit_c = function () {
   else if (hit_a < 0) hit_a = 0;
   if (hit_b > 100) hit_b = 100;
   else if (hit_b < 0) hit_b = 0;
-  dom.d8.innerHTML =
-    'hit chance: <span style="color:' +
-    (drk ? "darkgrey" : "") +
-    '">' +
-    Math.round(hit_a * (drk ? 0.3 + skl.ntst.lvl * 0.07 : 1)) +
-    "%</span> / dodge chance: " +
-    (100 - Math.round(hit_b)) +
-    "%" +
-    (you.mods.ddgmod !== 0
-      ? '(<span style="color:orange">' + you.mods.ddgmod * 100 + "%</span>)"
-      : "");
+  dom.d8.innerHTML = i18n.t("ui.hud.hitAndDodgeChance", {
+    hit:
+      '<span style="color:' +
+      (drk ? "darkgrey" : "") +
+      '">' +
+      Math.round(hit_a * (drk ? 0.3 + skl.ntst.lvl * 0.07 : 1)) +
+      "%</span>",
+    dodge: 100 - Math.round(hit_b) + "%",
+    modifier:
+      you.mods.ddgmod !== 0
+        ? '(<span style="color:orange">' + you.mods.ddgmod * 100 + "%</span>)"
+        : "",
+  });
 };
 
 dom.sl = addElement(document.body, "div", "sl", "noselect");
 dom.sl.style.zIndex = 10000;
-dom.sl_s = addElement(dom.sl, "span", null, "sl");
+dom.sl_s = addElement(dom.sl, "span", "save-game", "sl");
 dom.sl_s.innerHTML = i18n.t("runtime.ui.interface.interface.save_13a4a113");
 dom.sl_s.addEventListener("click", () => {
   save();
@@ -2777,9 +2822,22 @@ dom.sl_s.addEventListener("click", () => {
     dom.sl.removeChild(j);
   }, 500);
 });
-dom.sl_l = addElement(dom.sl, "span", null, "sl");
+dom.sl_l = addElement(dom.sl, "span", "load-game", "sl");
 dom.sl_l.innerHTML = i18n.t("runtime.ui.interface.interface.load_5dbc716c");
 dom.sl_l.addEventListener("click", () => load(null, true));
+dom.sl_h = addElement(dom.sl, "span", "save-bar-collapse", "sl");
+dom.sl_h.innerHTML = ">>";
+dom.sl_h.addEventListener("click", () => {
+  dom.sl.style.display = "none";
+  if (dom.sl_h_n) empty(dom.sl_h_n);
+  dom.sl_h_n = addElement(document.body, "span", "save-bar-restore", "sl");
+  dom.sl_h_n.innerHTML = "<<";
+  dom.sl_h_n.addEventListener("click", () => {
+    dom.sl.style.display = "";
+    empty(dom.sl_h_n);
+    document.body.removeChild(dom.sl_h_n);
+  });
+});
 dom.sl_extra = addElement(dom.sl, "span", "save-status", "sl");
 dom.sl_extra.style.borderLeft = "none";
 dom.sl_extra.innerHTML = i18n.t(
@@ -2800,19 +2858,6 @@ dom.autosves.addEventListener("click", function () {
     }, 30000);
   else clearInterval(timers.autos);
 });
-dom.sl_h = addElement(dom.sl_controls, "span", null, "sl");
-dom.sl_h.innerHTML = ">>";
-dom.sl_h.addEventListener("click", () => {
-  dom.sl.style.display = "none";
-  if (dom.sl_h_n) empty(dom.sl_h_n);
-  dom.sl_h_n = addElement(document.body, "span", "save-bar-restore", "sl");
-  dom.sl_h_n.innerHTML = "<<";
-  dom.sl_h_n.addEventListener("click", () => {
-    dom.sl.style.display = "";
-    empty(dom.sl_h_n);
-    document.body.removeChild(dom.sl_h_n);
-  });
-});
 
 dom.vrs = addElement(dom.sl_controls, "a", null, "sl");
 dom.vrs.innerHTML = "v" + global.ver;
@@ -2825,25 +2870,126 @@ dom.sl_kill = addElement(dom.sl_controls, "span", null, "sl");
 dom.sl_kill.innerHTML = i18n.t(
   "runtime.ui.interface.interface.delete_the_save_b765bc3d",
 );
-dom.sl_kill.addEventListener("click", () => {
-  localStorage.clear();
-  msg(i18n.t("runtime.ui.interface.dialogue.save_deleted_dbfb58d6"), "");
+dom.sl_kill.tabIndex = 0;
+dom.sl_kill.setAttribute("role", "button");
+
+dom.save_delete_modal = addElement(
+  document.body,
+  "dialog",
+  "save-delete-modal",
+  "game-modal",
+);
+dom.save_delete_modal.setAttribute("aria-labelledby", "save-delete-title");
+dom.save_delete_modal.setAttribute("aria-describedby", "save-delete-message");
+dom.save_delete_modal.setAttribute("aria-modal", "true");
+dom.save_delete_header = addElement(
+  dom.save_delete_modal,
+  "div",
+  null,
+  "game-modal__header",
+);
+dom.save_delete_title = addElement(
+  dom.save_delete_header,
+  "strong",
+  "save-delete-title",
+);
+dom.save_delete_title.textContent = i18n.t("ui.settings.deleteSaveTitle");
+dom.save_delete_message = addElement(
+  dom.save_delete_modal,
+  "p",
+  "save-delete-message",
+  "game-modal__message",
+);
+dom.save_delete_message.textContent = i18n.t("ui.settings.deleteSaveConfirm");
+dom.save_delete_actions = addElement(
+  dom.save_delete_modal,
+  "div",
+  null,
+  "game-modal__actions",
+);
+dom.save_delete_cancel = addElement(
+  dom.save_delete_actions,
+  "button",
+  "save-delete-cancel",
+  "game-modal__button",
+);
+dom.save_delete_cancel.type = "button";
+dom.save_delete_cancel.textContent = i18n.t("ui.settings.cancelDelete");
+dom.save_delete_confirm = addElement(
+  dom.save_delete_actions,
+  "button",
+  "save-delete-confirm",
+  "game-modal__button game-modal__button--danger",
+);
+dom.save_delete_confirm.type = "button";
+dom.save_delete_confirm.textContent = i18n.t("ui.settings.confirmDelete");
+
+let saveDeleteRestoreFocus;
+function closeSaveDeleteModal() {
+  if (dom.save_delete_modal.open) dom.save_delete_modal.close();
+}
+function openSaveDeleteModal() {
+  saveDeleteRestoreFocus = document.activeElement;
+  if (!dom.save_delete_modal.open) dom.save_delete_modal.showModal();
+  dom.save_delete_cancel.focus();
+}
+
+dom.sl_kill.addEventListener("click", openSaveDeleteModal);
+dom.sl_kill.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  openSaveDeleteModal();
+});
+dom.save_delete_cancel.addEventListener("click", closeSaveDeleteModal);
+dom.save_delete_modal.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeSaveDeleteModal();
+});
+dom.save_delete_modal.addEventListener("click", (event) => {
+  if (event.target !== dom.save_delete_modal) return;
+  const bounds = dom.save_delete_modal.getBoundingClientRect();
+  if (
+    event.clientX < bounds.left ||
+    event.clientX > bounds.right ||
+    event.clientY < bounds.top ||
+    event.clientY > bounds.bottom
+  )
+    closeSaveDeleteModal();
+});
+dom.save_delete_modal.addEventListener("close", () => {
+  saveDeleteRestoreFocus?.focus();
+  saveDeleteRestoreFocus = null;
+});
+dom.save_delete_confirm.addEventListener("click", () => {
+  localStorage.removeItem("v0.3");
+  window.location.reload();
 });
 
 function update_db() {
-  dom.d4_1.innerHTML = "STR: " + Math.round(you.str_d);
-  dom.d4_2.innerHTML = "AGL: " + Math.round(you.agl_d);
-  dom.d4_3.innerHTML = "INT: " + Math.round(you.int_d);
-  dom.d4_4.innerHTML = "SPD: " + you.spd;
+  dom.d4_1.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "STR",
+    value: Math.round(you.str_d),
+  });
+  dom.d4_2.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "AGL",
+    value: Math.round(you.agl_d),
+  });
+  dom.d4_3.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "INT",
+    value: Math.round(you.int_d),
+  });
+  dom.d4_4.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "SPD",
+    value: you.spd,
+  });
 }
 update_db();
 
 function update_d() {
-  dom.d5_1_1m.innerHTML =
-    "hp: " +
-    format3(global.current_m.hp.toString()) +
-    "/" +
-    format3(global.current_m.hpmax.toString());
+  dom.d5_1_1m.innerHTML = i18n.t("ui.hud.health", {
+    current: format3(global.current_m.hp.toString()),
+    max: format3(global.current_m.hpmax.toString()),
+  });
   dom.d5_1m.style.width =
     (100 * global.current_m.hp) / global.current_m.hpmax + "%";
   dom.hit_c();
@@ -2859,11 +3005,26 @@ function update_m() {
   let mtp = global.text.mtp[global.current_m.type];
   if (global.current_m.id >= 1)
     mtp += global.current_m.sex === true ? " ♂" : " ♀";
-  dom.d3m.innerHTML = " lvl:" + global.current_m.lvl + " '" + mtp + "'";
-  dom.d4_1m.innerHTML = "STR: " + Math.round(global.current_m.str);
-  dom.d4_2m.innerHTML = "AGL: " + Math.round(global.current_m.agl);
-  dom.d4_3m.innerHTML = "INT: " + Math.round(global.current_m.int);
-  dom.d4_4m.innerHTML = "SPD: " + global.current_m.spd;
+  dom.d3m.innerHTML = i18n.t("ui.hud.levelTitle", {
+    level: global.current_m.lvl,
+    title: mtp,
+  });
+  dom.d4_1m.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "STR",
+    value: Math.round(global.current_m.str),
+  });
+  dom.d4_2m.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "AGL",
+    value: Math.round(global.current_m.agl),
+  });
+  dom.d4_3m.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "INT",
+    value: Math.round(global.current_m.int),
+  });
+  dom.d4_4m.innerHTML = i18n.t("ui.hud.stat", {
+    stat: "SPD",
+    value: global.current_m.spd,
+  });
   dom.d9m.update();
 }
 
@@ -2969,37 +3130,57 @@ function dscr(c, what, type, ttl, dsc, id) {
     if (what.slot > 0) {
       if (what.slot === 1) {
         if (what.str > 0)
-          this.text.innerHTML +=
-            "STR: <span style='color:lime'> +" + what.str + "</span><br>";
+          this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+            stat: "STR",
+            value: "<span style='color:lime'> +" + what.str + "</span><br>",
+          });
         else if (what.str < 0)
-          this.text.innerHTML +=
-            "STR: <span style='color:red'>" + what.str + "</span><br>";
+          this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+            stat: "STR",
+            value: "<span style='color:red'>" + what.str + "</span><br>",
+          });
       } else {
         if (what.str > 0)
-          this.text.innerHTML +=
-            "DEF: <span style='color:lime'> +" + what.str + "</span><br>";
+          this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+            stat: "DEF",
+            value: "<span style='color:lime'> +" + what.str + "</span><br>",
+          });
         else if (what.str < 0)
-          this.text.innerHTML +=
-            "DEF: <span style='color:red'>" + what.str + "</span><br>";
+          this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+            stat: "DEF",
+            value: "<span style='color:red'>" + what.str + "</span><br>",
+          });
       }
       if (what.agl > 0)
-        this.text.innerHTML +=
-          "AGL: <span style='color:lime'> +" + what.agl + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "AGL",
+          value: "<span style='color:lime'> +" + what.agl + "</span><br>",
+        });
       else if (what.agl < 0)
-        this.text.innerHTML +=
-          "AGL: <span style='color:red'>" + what.agl + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "AGL",
+          value: "<span style='color:red'>" + what.agl + "</span><br>",
+        });
       if (what.int > 0)
-        this.text.innerHTML +=
-          "INT: <span style='color:lime'> +" + what.int + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "INT",
+          value: "<span style='color:lime'> +" + what.int + "</span><br>",
+        });
       else if (what.int < 0)
-        this.text.innerHTML +=
-          "INT: <span style='color:red'>" + what.int + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "INT",
+          value: "<span style='color:red'>" + what.int + "</span><br>",
+        });
       if (what.spd > 0)
-        this.text.innerHTML +=
-          "SPD: <span style='color:lime'> +" + what.spd + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "SPD",
+          value: "<span style='color:lime'> +" + what.spd + "</span><br>",
+        });
       else if (what.spd < 0)
-        this.text.innerHTML +=
-          "SPD: <span style='color:red'>" + what.spd + "</span><br>";
+        this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
+          stat: "SPD",
+          value: "<span style='color:red'>" + what.spd + "</span><br>",
+        });
 
       if (what.slot < 8) {
         this.dp_c = addElement(global.dscr, "div", "dr_l");
@@ -3155,13 +3336,20 @@ function dscr(c, what, type, ttl, dsc, id) {
             break;
         }
       if (what.data.kills) {
-        const sp = addElement(this.sltic, "small");
-        sp.style.position = "absolute";
-        sp.style.right = 6;
-        sp.innerHTML = "kills: " + col(what.data.kills, "yellow");
+        const sp = addElement(
+          this.sltic,
+          "small",
+          null,
+          "item-description-kills",
+        );
+        sp.innerHTML = i18n.t("ui.itemDescription.kills", {
+          kills: col(what.data.kills, "yellow"),
+        });
         clearInterval(timers.wpnkilsch);
         timers.wpnkilsch = setInterval(function () {
-          sp.innerHTML = "kills: " + col(what.data.kills, "yellow");
+          sp.innerHTML = i18n.t("ui.itemDescription.kills", {
+            kills: col(what.data.kills, "yellow"),
+          });
         }, 1000);
       }
     } else {
@@ -3174,8 +3362,7 @@ function dscr(c, what, type, ttl, dsc, id) {
           "runtime.ui.interface.interface.furniture_fe8691c1",
         );
         this.text.innerHTML +=
-          dom.dseparator +
-          '<span style="color:chartreuse">Use to add to the furniture list</span>';
+          dom.dseparator + i18n.t("ui.itemDescription.addToFurnitureList");
         if (what.parent) {
           let owned = false;
           const sp = addElement(this.sltic, "small");
@@ -3186,20 +3373,19 @@ function dscr(c, what, type, ttl, dsc, id) {
               owned = true;
               break;
             }
-          sp.innerHTML =
-            'owned: <span style="color:' +
-            (owned ? "lime" : "red") +
-            '">' +
-            (owned ? "yes" : "no") +
-            "</span>";
+          sp.innerHTML = i18n.t("ui.itemDescription.owned", {
+            color: owned ? "lime" : "red",
+            state: i18n.t(
+              owned ? "ui.common.yesLowercase" : "ui.common.noLowercase",
+            ),
+          });
         }
       } else if (what.id < 3000) {
         slti.innerHTML += i18n.t(
           "runtime.ui.interface.interface.food_35b25929",
         );
         if (what.rot)
-          slti.innerHTML +=
-            "(" + '<span style="color:orange">perishable</span>' + ")";
+          slti.innerHTML += "(" + i18n.t("ui.itemDescription.perishable") + ")";
       } else if (what.id >= 3000 && what.id < 5000)
         slti.innerHTML += i18n.t(
           "runtime.ui.interface.interface.medicine_tool_c2e6c5a1",
@@ -3342,14 +3528,12 @@ function dscr(c, what, type, ttl, dsc, id) {
     if (t.talent)
       this.text.innerHTML +=
         dom.dseparator +
-        '<small style="color:cyan">talent effect<br></small><br><small style="color:darkorange">' +
-        t.tdesc +
-        "</small>";
+        i18n.t("ui.itemDescription.talentEffect", { effect: t.tdesc });
     this.dl = addElement(global.dscr, "small");
     this.dl.style.position = "relative";
     this.dl.style.display = "flex";
     this.dl.innerHTML =
-      "<br>Rank: " +
+      i18n.t("runtime.ui.interface.interface.rank_b4d80d7b") +
       (ttl === true
         ? you.title.id === 0
           ? "0"
@@ -3380,20 +3564,16 @@ function dscr(c, what, type, ttl, dsc, id) {
       for (let k = 0; k < what.mlstn.length; k++)
         if (what.mlstn[k].g === true) {
           this.prk = addElement(global.dscr, "div", "d_t");
-          this.prk.innerHTML =
-            "lvl " +
-            what.mlstn[k].lv +
-            ':<span style="color:yellow"> ' +
-            what.mlstn[k].p +
-            " </span>";
+          this.prk.innerHTML = i18n.t("ui.itemDescription.perkLevel", {
+            level: what.mlstn[k].lv,
+            perk: what.mlstn[k].p,
+          });
         } else {
           this.prk = addElement(global.dscr, "div", "d_t");
-          this.prk.innerHTML =
-            "lvl " +
-            what.mlstn[k].lv +
-            ':<span style="color:yellow"> ' +
-            "??????????" +
-            " </span>";
+          this.prk.innerHTML = i18n.t("ui.itemDescription.perkLevel", {
+            level: what.mlstn[k].lv,
+            perk: "??????????",
+          });
           return;
         }
     }
@@ -3804,7 +3984,12 @@ function fght(att, def) {
         if (hts === 1) printHitMessage(inn.name, acc_dmg, !isyouinn);
         else printMultihitMessage(hts, inn.name, acc_dmg, !isyouinn);
       } else if (global.flags.m_blh === false)
-        msg(inn.name + " missed", "grey");
+        msg(
+          i18n.t("runtime.ui.interface.dialogue.combat_missed", {
+            name: inn.name,
+          }),
+          "grey",
+        );
       if (sc.hp <= 0 && sc.alive === true) {
         global.atkdfty = [3, global.atkdftydt];
         sc.onDeath(inn);
@@ -3896,7 +4081,12 @@ function attack(att, def, atk, power) {
             !global.flags.multih &&
             global.flags.m_blh === false
           )
-            msg(att.name + " missed", "grey");
+            msg(
+              i18n.t("runtime.ui.interface.dialogue.combat_missed", {
+                name: att.name,
+              }),
+              "grey",
+            );
           global.flags.msd = true;
           giveSkExp(skl.evas, 0.5);
           return 0;
@@ -3912,18 +4102,17 @@ function attack(att, def, atk, power) {
     )
       printHitMessage(att.name, dmg, att.id === you.id ? false : true);
     if (isyou === true) {
-      dom.d8_2.innerHTML =
-        "Critical chance: " +
-        Math.round(
-          you.mods.crflt * 1000 +
-            ((you.crt * (2 - (you.sat / you.satmax + you.mods.sbonus) * 2) +
-              you.crt) *
-              (you.luck / 25 + 1) +
-              skl.seye.use()) *
-              1000,
-        ) /
-          10 +
-        "%";
+      dom.d8_2.innerHTML = i18n.t("ui.hud.criticalChance", {
+        chance:
+          Math.round(
+            you.mods.crflt * 1000 +
+              ((you.crt * (2 - (you.sat / you.satmax + you.mods.sbonus) * 2) +
+                you.crt) *
+                (you.luck / 25 + 1) +
+                skl.seye.use()) *
+                1000,
+          ) / 10,
+      });
       if (you.eqp[0].id != 10000)
         you.eqp[0].dp > 0 ? (you.eqp[0].dp -= 0.008) : (you.eqp[0].dp = 0);
       global.stat.dmgdt += dmg;
@@ -3955,7 +4144,12 @@ function attack(att, def, atk, power) {
       !global.flags.multih &&
       global.flags.m_blh === false
     )
-      msg(att.name + " missed", "grey");
+      msg(
+        i18n.t("runtime.ui.interface.dialogue.combat_missed", {
+          name: att.name,
+        }),
+        "grey",
+      );
     global.flags.msd = true;
     if (dk) giveSkExp(skl.ntst, 0.01);
     if (!isyou) global.stat.dodgt++;
@@ -3994,11 +4188,10 @@ function tattack(pow, type, e) {
     global.stat.dmgdt += dmg;
     if (!global.flags.m_blh)
       msg(
-        "You hit " +
-          global.current_m.name +
-          ' for <span style="color:hotpink">' +
-          dmg +
-          "</span> damage",
+        i18n.t("runtime.ui.interface.dialogue.player_hit", {
+          enemy: global.current_m.name,
+          damage: dmg,
+        }),
         "yellow",
       );
     global.current_m.hp -= dmg;
@@ -4016,7 +4209,13 @@ function tattack(pow, type, e) {
       }, 60);
     }
   } else {
-    if (global.flags.m_blh === false) msg(you.name + " missed", "grey");
+    if (global.flags.m_blh === false)
+      msg(
+        i18n.t("runtime.ui.interface.dialogue.combat_missed", {
+          name: you.name,
+        }),
+        "grey",
+      );
   }
 }
 
@@ -4397,7 +4596,12 @@ function renderRcp(rcp) {
     test = make(rcp, true);
     global.curr_r = rcp;
     empty(dom.ct_bt1_2);
-    this.ct_bt1_2a = addElement(dom.ct_bt1_2, "div");
+    this.ct_bt1_2a = addElement(
+      dom.ct_bt1_2,
+      "div",
+      null,
+      "crafting-requirements-title",
+    );
     this.ct_bt1_2a.innerHTML = i18n.t(
       "runtime.ui.interface.interface.reagents_required_345c3a08",
     );
@@ -4419,13 +4623,11 @@ function renderRcp(rcp) {
       addDesc(
         this.ct_bt1_2at,
         {
-          name: "Enable Repeatable Crafting",
+          name: i18n.t("ui.crafting.repeatable.name"),
           desc() {
-            const txt =
-              "<span style='color:magenta'>Current speed: </span><span style='color:orange'>" +
-              (tm / 1000).toFixed(2) +
-              " sec</span>";
-            return txt;
+            return i18n.t("ui.crafting.repeatable.currentSpeed", {
+              seconds: (tm / 1000).toFixed(2),
+            });
           },
         },
         9,
@@ -4445,8 +4647,12 @@ function renderRcp(rcp) {
     }
     rcp._t2 = [];
     for (let g = 0; g < rcp.rec.length; g++) {
-      this.ct_bt1_2bc = addElement(dom.ct_bt1_2, "small");
-      this.ct_bt1_2bc.style.display = "flex";
+      this.ct_bt1_2bc = addElement(
+        dom.ct_bt1_2,
+        "small",
+        null,
+        "crafting-reagent-row",
+      );
       this.ct_bt1_2bc1 = addElement(this.ct_bt1_2bc, "div", null, "rgt_ics");
       this.ct_bt1_2bc2 = addElement(this.ct_bt1_2bc, "div", null, "rgt_ics");
       rcp._t2[g] = this.ct_bt1_2bc2;
@@ -4485,23 +4691,22 @@ function renderRcp(rcp) {
       this.ct_bt1_2bc2.style.borderRight = "none";
       this.ct_bt1_2bc2.style.textAlign = "center";
     }
-    this.ct_bt1_2c = addElement(dom.ct_bt1_2, "div");
+    this.ct_bt1_2c = addElement(
+      dom.ct_bt1_2,
+      "div",
+      null,
+      "crafting-section-title",
+    );
     this.ct_bt1_2c.innerHTML = i18n.t(
       "runtime.ui.interface.interface.output_1029d676",
     );
-    this.ct_bt1_2c.style.width = "55%";
-    this.ct_bt1_2c.style.position = "absolute";
-    this.ct_bt1_2c.style.borderTop = "1px solid #3e4092";
-    this.ct_bt1_2c.style.borderBottom = "1px solid #3e4092";
-    this.ct_bt1_2c.style.bottom = 71;
-    this.ct_bt1_2c.style.textAlign = "center";
     for (const g in rcp.res) {
-      this.ct_bt1_2cc = addElement(dom.ct_bt1_2, "small");
-      this.ct_bt1_2cc.style.display = "flex";
-      this.ct_bt1_2cc.style.position = "absolute";
-      this.ct_bt1_2cc.style.bottom =
-        typeof InstallTrigger !== "undefined" ? 48 - g * 21 : 50 - g * 21;
-      this.ct_bt1_2cc.style.width = "55%";
+      this.ct_bt1_2cc = addElement(
+        dom.ct_bt1_2,
+        "small",
+        null,
+        "crafting-output-row",
+      );
       this.ct_bt1_2cc1 = addElement(this.ct_bt1_2cc, "div", "toh", "rgt_ics");
       this.ct_bt1_2cc2 = addElement(this.ct_bt1_2cc, "div", null, "rgt_ics");
       if (rcp.allow === true) {
@@ -4520,27 +4725,24 @@ function renderRcp(rcp) {
       this.ct_bt1_2cc2.style.textAlign = "center";
       this.ct_bt1_2cc2.style.borderRight = "none";
       this.ct_bt1_2cc1.style.paddingLeft = "8px";
-      this.ct_bt1_2cc2.style.width = "27.5%";
-      this.ct_bt1_2cc1.style.width = "75%";
     }
     if (rcp.srect != null) {
       const l = test.o.length;
-      this.ct_bt1_3c = addElement(dom.ct_bt1_2, "div");
+      this.ct_bt1_3c = addElement(
+        dom.ct_bt1_2,
+        "div",
+        null,
+        "crafting-section-title",
+      );
       this.ct_bt1_3c.innerHTML = i18n.t(
         "runtime.ui.interface.interface.tools_needed_9b4a1645",
       );
-      this.ct_bt1_3c.style.width = "55%";
-      this.ct_bt1_3c.style.position = "absolute";
-      this.ct_bt1_3c.style.borderTop = "1px solid #3e4092";
-      this.ct_bt1_3c.style.borderBottom = "1px solid #3e4092";
-      this.ct_bt1_3c.style.bottom = 115 + (((l - 1) / 2) << 0) * 15;
-      this.ct_bt1_3c.style.textAlign = "center"; // bluh!!!
-      this.ct_bt1_3cc = addElement(dom.ct_bt1_2, "small"); //this.ct_bt1_3cc.style.fontSize='.8em';
-      this.ct_bt1_3cc.style.width = "55%";
-      this.ct_bt1_3cc.style.position = "absolute";
-      this.ct_bt1_3cc.style.top = 250 - (((l - 1) / 2) << 0) * 15;
-      this.ct_bt1_3cc.style.textAlign = "left";
-      this.ct_bt1_3cc.style.left = "255px";
+      this.ct_bt1_3cc = addElement(
+        dom.ct_bt1_2,
+        "small",
+        null,
+        "crafting-tools-list",
+      );
       if (l > 1) {
         for (const nu in test.o) {
           if (test.o[nu] === 1)
@@ -4702,15 +4904,16 @@ function renderSkl(skl) {
   this.skwmm1 = addElement(this.skwmmc, "small");
   if (skl.sp) this.skwmm1.style.fontSize = skl.sp;
   this.skwmm1.style.width = "32%";
-  this.skwmm1.innerHTML = skl.name + " lvl: " + skl.lvl;
+  this.skwmm1.innerHTML = i18n.t("ui.hud.skillLevel", {
+    skill: skl.name,
+    level: skl.lvl,
+  });
   this.skwmm1.style.borderRight = "1px solid #46a";
   this.skwmm2 = addElement(this.skwmmc, "small");
-  this.skwmm2.innerHTML =
-    "　exp: " +
-    formatw(Math.round(skl.exp)) +
-    "/" +
-    formatw(skl.expnext_t) +
-    "　";
+  this.skwmm2.innerHTML = i18n.t("ui.hud.skillExperiencePadded", {
+    current: formatw(Math.round(skl.exp)),
+    max: formatw(skl.expnext_t),
+  });
   this.skwmm2.style.borderRight = "1px solid #46a";
   this.skwmm2.style.fontSize = ".8em";
   this.skwmm2.style.width = "170px";
@@ -5268,7 +5471,9 @@ function giveItem(obj, am, ignore, flag) {
       if (tmp.dss) nitm.dss = tmp.dss;
       inv.push(nitm);
       msg(
-        'New item obtained: <span style="color:coral">' + nitm.name + "</span>",
+        i18n.t("runtime.ui.interface.dialogue.new_item_obtained_single", {
+          item: nitm.name,
+        }),
         "cyan",
         obj,
       );
@@ -5300,11 +5505,10 @@ function giveItem(obj, am, ignore, flag) {
     inv.push(obj);
     obj.amount += am;
     msg(
-      'New item obtained: <span style="color:coral">' +
-        obj.name +
-        '</span><span style="color:lime"> x' +
-        am +
-        "</span>",
+      i18n.t("runtime.ui.interface.dialogue.new_item_obtained", {
+        item: obj.name,
+        amount: am,
+      }),
       "cyan",
       obj,
     );
@@ -5314,11 +5518,10 @@ function giveItem(obj, am, ignore, flag) {
   } else {
     obj.amount += am;
     msg(
-      'Item Acquired: <span style="color:chartreuse">' +
-        obj.name +
-        '</span><span style="color:lime"> x' +
-        am +
-        "</span>",
+      i18n.t("runtime.ui.interface.dialogue.item_acquired", {
+        item: obj.name,
+        amount: am,
+      }),
       "cyan",
       obj,
     );
@@ -5439,46 +5642,45 @@ function descsinfo(id) {
           dt = "";
           rt = "";
           c = "";
-          if (ds < 5) dt = "a couple";
-          else if (ds < 10) dt = "a few";
-          else if (ds < 30) dt = "some";
-          else if (ds < 50) dt = "multiple";
-          else if (ds < 100) dt = "dozens";
-          else dt = "many";
+          if (ds < 5) dt = i18n.t("ui.inventory.freshness.quantity.couple");
+          else if (ds < 10) dt = i18n.t("ui.inventory.freshness.quantity.few");
+          else if (ds < 30) dt = i18n.t("ui.inventory.freshness.quantity.some");
+          else if (ds < 50)
+            dt = i18n.t("ui.inventory.freshness.quantity.multiple");
+          else if (ds < 100)
+            dt = i18n.t("ui.inventory.freshness.quantity.dozens");
+          else dt = i18n.t("ui.inventory.freshness.quantity.many");
           if (rs < 0.1) {
-            rt = "very fresh";
+            rt = i18n.t("ui.inventory.freshness.state.veryFresh");
             c = "lime";
           } else if (rs < 0.2) {
-            rt = "fresh";
+            rt = i18n.t("ui.inventory.freshness.state.fresh");
             c = "limegreen";
           } else if (rs < 0.5) {
-            rt = "like it's reaching midlife";
+            rt = i18n.t("ui.inventory.freshness.state.aging");
             c = "yellow";
           } else if (rs < 0.75) {
-            rt = "will go bad soon";
+            rt = i18n.t("ui.inventory.freshness.state.goingBadSoon");
             c = "grey";
           } else if (rs < 1) {
-            rt = "are almost decayed";
+            rt = i18n.t("ui.inventory.freshness.state.almostDecayed");
             c = "red";
           }
           if (rs < 0.5)
             dom.dscshe.innerHTML =
               dom.dseparator +
-              '<span style="color:orange">This food looks <span style="color:' +
-              c +
-              '">' +
-              rt +
-              "</span>";
+              i18n.t("ui.inventory.freshness.foodLooks", {
+                color: c,
+                state: rt,
+              });
           else
             dom.dscshe.innerHTML =
               dom.dseparator +
-              '<span style="color:orange"><span style="color:cyan">' +
-              dt +
-              '</span> units of this item <span style="color:' +
-              c +
-              '">' +
-              rt +
-              "</span></span>";
+              i18n.t("ui.inventory.freshness.unitsLook", {
+                quantity: dt,
+                color: c,
+                state: rt,
+              });
           break;
         case 2:
           ds = Math.ceil(itm.amount * ((itm.rot[2] + itm.rot[3]) / 2));
@@ -5487,11 +5689,10 @@ function descsinfo(id) {
           );
           dom.dscshe.innerHTML =
             dom.dseparator +
-            '<span style="color:orange">Upon examination, about <span style="color:cyan">' +
-            ds +
-            '</span> units of this item will decay in approximately <span style="color:yellow">' +
-            rs +
-            "</span> days</span>";
+            i18n.t("ui.inventory.freshness.decayEstimate", {
+              amount: ds,
+              days: rs,
+            });
           break;
       }
       dom.dscshe.style.paddingTop = 20;
@@ -5527,9 +5728,7 @@ function renderItem(obj) {
         null,
         2,
         i18n.t("runtime.ui.interface.description.throw_away_1e7f6dff"),
-        'Deletes <span style="color:cyan">\"' +
-          obj.name +
-          '\"</span> permanently',
+        i18n.t("ui.inventory.delete.description", { item: obj.name }),
       );
       dom.inv_del.addEventListener("click", () => {
         if (obj.data.uid === you.eqp[obj.slot - 1].data.uid) {
@@ -5552,7 +5751,9 @@ function renderItem(obj) {
           prm2.style.backgroundColor = "lightgrey";
           const pin = addElement(prm2, "div");
           pin.style.height = 32;
-          pin.innerHTML = 'Really destroy \"' + obj.name + '\"\?';
+          pin.innerHTML = i18n.t("ui.inventory.delete.confirm", {
+            item: obj.name,
+          });
           pin.style.textAlign = "center";
           pin.style.width = "100%";
           pin.style.borderBottom = "2px solid black";
@@ -5685,10 +5886,10 @@ function renderItem(obj) {
         null,
         2,
         i18n.t("runtime.ui.interface.description.disassemble_f96ef843"),
-        'Deconstruct <span style="color:cyan">\"' +
-          obj.name +
-          '\"</span> into:<br>' +
-          t,
+        i18n.t("ui.inventory.disassemble.description", {
+          item: obj.name,
+          results: t,
+        }),
       );
       dom.inv_dss.addEventListener("click", () => {
         if (obj.slot && obj.data.uid === you.eqp[obj.slot - 1].data.uid) {
@@ -5711,10 +5912,9 @@ function renderItem(obj) {
           prm2.style.backgroundColor = "lightgrey";
           const pin = addElement(prm2, "div");
           pin.style.height = 42;
-          pin.innerHTML =
-            'You are currently wearing \"<span style="color:crimson">' +
-            obj.name +
-            '</span>\"<br>Really deconstruct?';
+          pin.innerHTML = i18n.t("ui.inventory.disassemble.confirmEquipped", {
+            item: obj.name,
+          });
           pin.style.textAlign = "center";
           pin.style.width = "100%";
           pin.style.borderBottom = "2px solid black";
@@ -5929,71 +6129,80 @@ function chs_spec(type, x) {
         dom.ch_1 = addElement(dom.ctr_2, "div", "chs");
         dom.ch_1.style.height = "200px";
         dom.ch_1_1 = addElement(dom.ch_1, "div", null, "chs_s");
-        dom.ch_1_1.innerHTML =
-          'Name: <span style="color:orange">' +
-          c.data.name +
-          (c.data.sex === true ? " ♂" : " ♀") +
-          "</span>";
+        dom.ch_1_1.innerHTML = i18n.t("ui.cat.name", {
+          name: c.data.name,
+          sex: c.data.sex === true ? "♂" : "♀",
+        });
         dom.ch_1_1.style.marginTop = -17;
         dom.ch_1_12 = addElement(dom.ch_1, "div", null, "chs_s");
-        dom.ch_1_12.innerHTML =
-          'Day of birth: <span style="color:lime">' +
-          (((br / YEAR) << 0) +
+        dom.ch_1_12.innerHTML = i18n.t("ui.cat.dayOfBirth", {
+          date:
+            ((br / YEAR) << 0) +
             "/" +
             ((((br / MONTH) << 0) % 12) + 1) +
             "/" +
-            ((((br / DAY) << 0) % 30) + 1)) +
-          "</span>";
+            ((((br / DAY) << 0) % 30) + 1),
+        });
         dom.ch_1_2 = addElement(dom.ch_1, "div", null, "chs_s");
-        dom.ch_1_2.innerHTML =
-          "Age: " +
-          (c.data.age >= YEAR
-            ? '<span style="color:orange">' +
-              ((c.data.age / YEAR) << 0) +
-              "</span> Years "
-            : "") +
-          (c.data.age >= MONTH
-            ? '<span style="color:yellow">' +
-              (((c.data.age / MONTH) << 0) % 12) +
-              "</span> Months "
-            : "") +
-          (c.data.age >= DAY
-            ? '<span style="color:lime">' +
-              (((c.data.age / DAY) << 0) % 30) +
-              "</span> Days "
-            : "");
-        dom.ch_1_3 = addElement(dom.ch_1, "div", null, "chs_s");
-        dom.ch_1_3.innerHTML =
-          'Pattern: <span style="color:cyan">' +
-          global.text.cfp[c.data.p] +
-          '</span> | Color: <span style="color:cyan">' +
-          global.text.cfc[c.data.c] +
-          "</span>";
-        dom.ch_1_4 = addElement(dom.ch_1, "div", null, "chs_s");
-        dom.ch_1_4.innerHTML =
-          'Likes: <span style="color:lime">' +
-          global.text.cln[c.data.l1] +
-          '</span> And <span style="color:lime">' +
-          global.text.cln[c.data.l2] +
-          "</span>";
-        timers.caupd = setInterval(() => {
-          dom.ch_1_2.innerHTML =
-            "Age: " +
+        dom.ch_1_2.innerHTML = i18n.t("ui.cat.age", {
+          age:
             (c.data.age >= YEAR
               ? '<span style="color:orange">' +
                 ((c.data.age / YEAR) << 0) +
-                "</span> Years "
+                "</span> " +
+                i18n.t("ui.time.years") +
+                " "
               : "") +
             (c.data.age >= MONTH
               ? '<span style="color:yellow">' +
                 (((c.data.age / MONTH) << 0) % 12) +
-                "</span> Months "
+                "</span> " +
+                i18n.t("ui.time.months") +
+                " "
               : "") +
             (c.data.age >= DAY
               ? '<span style="color:lime">' +
                 (((c.data.age / DAY) << 0) % 30) +
-                "</span> Days "
-              : "");
+                "</span> " +
+                i18n.t("ui.time.days") +
+                " "
+              : ""),
+        });
+        dom.ch_1_3 = addElement(dom.ch_1, "div", null, "chs_s");
+        dom.ch_1_3.innerHTML = i18n.t("ui.cat.patternAndColor", {
+          pattern: global.text.cfp[c.data.p],
+          color: global.text.cfc[c.data.c],
+        });
+        dom.ch_1_4 = addElement(dom.ch_1, "div", null, "chs_s");
+        dom.ch_1_4.innerHTML = i18n.t("ui.cat.likes", {
+          first: global.text.cln[c.data.l1],
+          second: global.text.cln[c.data.l2],
+        });
+        timers.caupd = setInterval(() => {
+          dom.ch_1_2.innerHTML = i18n.t("ui.cat.age", {
+            age:
+              (c.data.age >= YEAR
+                ? '<span style="color:orange">' +
+                  ((c.data.age / YEAR) << 0) +
+                  "</span> " +
+                  i18n.t("ui.time.years") +
+                  " "
+                : "") +
+              (c.data.age >= MONTH
+                ? '<span style="color:yellow">' +
+                  (((c.data.age / MONTH) << 0) % 12) +
+                  "</span> " +
+                  i18n.t("ui.time.months") +
+                  " "
+                : "") +
+              (c.data.age >= DAY
+                ? '<span style="color:lime">' +
+                  (((c.data.age / DAY) << 0) % 30) +
+                  "</span> " +
+                  i18n.t("ui.time.days") +
+                  " "
+                : ""),
+          });
         }, 1000);
       }
       break;
@@ -6112,7 +6321,8 @@ function chs_spec(type, x) {
         //dom.ch_1e1.style.textAlign='center'; dom.ch_1e1.style.color='white'; dom.ch_1e1.style.fontFamily='MS Gothic';
         //dom.ch_1e1.style.backgroundColor='transparent'
         dom.ch_1e.innerHTML =
-          '&nbspBuying price: <span style="color:lime">' +
+          i18n.t("ui.shop.buyingPrice") +
+          '<span style="color:lime">' +
           Math.round(
             (you.mods.infsrate - skl.trad.use()) *
               x.infl *
@@ -6123,7 +6333,7 @@ function chs_spec(type, x) {
             100 +
           "%</span>";
         dom.ch_2e.innerHTML =
-          "&nbspReputation: " + col(x.data.rep << 0, "lime");
+          i18n.t("ui.shop.reputation") + col(x.data.rep << 0, "lime");
       }
       break;
     case 5:
@@ -6216,7 +6426,8 @@ function recshop() {
       rendershopitem(dom.ch_1h, global.shprf.stock[it], global.shprf);
     }
     dom.ch_1e.innerHTML =
-      '&nbspBuying price: <span style="color:lime">' +
+      i18n.t("ui.shop.buyingPrice") +
+      '<span style="color:lime">' +
       Math.round(
         (you.mods.infsrate - skl.trad.use()) *
           global.shprf.infl *
@@ -6227,7 +6438,7 @@ function recshop() {
         100 +
       "%</span>";
     dom.ch_2e.innerHTML =
-      "&nbspReputation: " + col(global.shprf.data.rep << 0, "lime");
+      i18n.t("ui.shop.reputation") + col(global.shprf.data.rep << 0, "lime");
   }
 }
 
@@ -6592,7 +6803,8 @@ function buycbs(itm, vnd) {
   if (you.wealth < p * 10 || itm[1] < 10) dom.ch_etn1b3.style.color = "grey";
   if (you.wealth < p || itm[1] <= 0) dom.ch_etn1b4.style.color = "grey";
   dom.ch_1e.innerHTML =
-    '&nbspBuying price: <span style="color:lime">' +
+    i18n.t("ui.shop.buyingPrice") +
+    '<span style="color:lime">' +
     Math.round(
       (you.mods.infsrate - skl.trad.use()) *
         vnd.infl *
@@ -6602,7 +6814,8 @@ function buycbs(itm, vnd) {
     ) /
       100 +
     "%</span>";
-  dom.ch_2e.innerHTML = "&nbspReputation: " + col(vnd.data.rep << 0, "lime");
+  dom.ch_2e.innerHTML =
+    i18n.t("ui.shop.reputation") + col(vnd.data.rep << 0, "lime");
   for (let i = 0; i < vnd.stock.length; i++) {
     if (
       you.wealth <
@@ -7027,9 +7240,9 @@ function giveFurniture(frt, l, show) {
   const frn = l === true ? copy(frt) : frt;
   if (show !== false)
     msg(
-      'Furniture Acquired: <span style="color:orange">"' +
-        frt.name +
-        '"</span>',
+      i18n.t("runtime.ui.interface.dialogue.furniture_acquired", {
+        furniture: frt.name,
+      }),
       "yellow",
       frt,
       9,

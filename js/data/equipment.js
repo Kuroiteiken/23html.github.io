@@ -1,6 +1,7 @@
-///////////////////////////////////////////
-//EQP
-///////////////////////////////////////////
+// Equipment definitions: weapons, armour, shields, and accessories. Each entry
+// carries its slot, stat bonuses, damage classes, elemental affinities,
+// durability, and the hooks that run when it is equipped or removed. Display
+// names and descriptions come from the locale files.
 
 function Eqp() {
   this.name = "nothing";
@@ -1163,9 +1164,9 @@ acc.strawp = new Eqp();
 acc.strawp.id = 40001;
 acc.strawp.name = i18n.t("content.acc.strawp.name");
 acc.strawp.desc =
-  "You made this yourself!" +
+  i18n.t("content.acc.strawp.desc") +
   dom.dseparator +
-  "<span style='color:green'><span style='color:lime'> +50 </span> to max energy<br><span style=\"color: lime\">SPD +1</span></span>";
+  i18n.t("content.acc.strawp.bonus");
 acc.strawp.slot = 8;
 acc.strawp.stype = 3;
 //acc.strawp.eff[0]=effect.strawp;
@@ -1190,9 +1191,9 @@ acc.snch = new Eqp();
 acc.snch.id = 40002;
 acc.snch.name = i18n.t("content.acc.snch.name");
 acc.snch.desc =
-  "Little charm with a piece of power of the Sun imbued into it. It absorbs Sun energy" +
+  i18n.t("content.acc.snch.desc") +
   dom.dseparator +
-  "<span style='color:gold'>Raises stats during day</span>";
+  i18n.t("content.acc.snch.bonus");
 acc.snch.slot = 8;
 acc.snch.stype = 3;
 acc.snch.eff[0] = effect.snch;
@@ -1211,9 +1212,9 @@ acc.mnch = new Eqp();
 acc.mnch.id = 40003;
 acc.mnch.name = i18n.t("content.acc.mnch.name");
 acc.mnch.desc =
-  "Little charm with a piece of power of the Moon imbued into it. It absorbs Moon energy" +
+  i18n.t("content.acc.mnch.desc") +
   dom.dseparator +
-  "<span style='color:cyan'>Raises stats during night</span>";
+  i18n.t("content.acc.mnch.bonus");
 acc.mnch.slot = 8;
 acc.mnch.stype = 3;
 acc.mnch.eff[0] = effect.mnch;
@@ -1398,9 +1399,9 @@ acc.wfng = new Eqp();
 acc.wfng.id = 40025;
 acc.wfng.name = i18n.t("content.acc.wfng.name");
 acc.wfng.desc =
-  "Menacing fang of the wolf, in the form of a pendant. Wearing this can help to repell and scare away minor beasts" +
+  i18n.t("content.acc.wfng.desc") +
   dom.dseparator +
-  '<span style="color:orange">Beast Class DEF +15</span>';
+  i18n.t("content.acc.wfng.bonus");
 acc.wfng.slot = 8;
 acc.wfng.stype = 3;
 acc.wfng.oneq = function () {
@@ -1421,9 +1422,9 @@ acc.wfar = new Eqp();
 acc.wfar.id = 40026;
 acc.wfar.name = i18n.t("content.acc.wfar.name");
 acc.wfar.desc =
-  "Array composed of interlinked fangs of the wolf. Used by hunters as a mean of protection agains wildlife" +
+  i18n.t("content.acc.wfar.desc") +
   dom.dseparator +
-  '<span style="color:orange">Beast Class DEF +30</span>';
+  i18n.t("content.acc.wfar.bonus");
 acc.wfar.slot = 8;
 acc.wfar.stype = 3;
 acc.wfar.rar = 2;
@@ -1438,9 +1439,9 @@ acc.sshl = new Eqp();
 acc.sshl.id = 40027;
 acc.sshl.name = i18n.t("content.acc.sshl.name");
 acc.sshl.desc =
-  "A little shell with a fraction of power of Space within it. It radiates incomprehencible energy when you touch it" +
+  i18n.t("content.acc.sshl.desc") +
   dom.dseparator +
-  "<span style='color:gold'>Raises stats+";
+  i18n.t("content.acc.sshl.bonus");
 acc.sshl.slot = 8;
 acc.sshl.stype = 3;
 acc.sshl.rar = 2;
@@ -1451,9 +1452,9 @@ acc.qill = new Eqp();
 acc.qill.id = 40028;
 acc.qill.name = i18n.t("content.acc.qill.name");
 acc.qill.desc =
-  "Feather of a large bird, turned into a writing tool " +
+  i18n.t("content.acc.qill.desc") +
   dom.dseparator +
-  '<span style="color:lime">AGL +5</span>';
+  i18n.t("content.acc.qill.bonus");
 acc.qill.slot = 8;
 acc.qill.stype = 3;
 acc.qill.oneq = function () {
@@ -1473,9 +1474,9 @@ acc.bink = new Eqp();
 acc.bink.id = 40029;
 acc.bink.name = i18n.t("content.acc.bink.name");
 acc.bink.desc =
-  "Pitch black Ink, useful in writing. Stains left by it will never come off" +
+  i18n.t("content.acc.bink.desc") +
   dom.dseparator +
-  '<span style="color:lime">INT +3</span>';
+  i18n.t("content.acc.bink.bonus");
 acc.bink.slot = 8;
 acc.bink.stype = 3;
 acc.bink.oneq = function () {
@@ -1495,9 +1496,9 @@ acc.mink = new Eqp();
 acc.mink.id = 40030;
 acc.mink.name = i18n.t("content.acc.mink.name");
 acc.mink.desc =
-  "Glowing magic ink, used for writing magical and runic inscriptions. " +
+  i18n.t("content.acc.mink.desc") +
   dom.dseparator +
-  '<span style="color:lime">INT +8</span><br><span style="color:lime">AGL +10</span>';
+  i18n.t("content.acc.mink.bonus");
 acc.mink.slot = 8;
 acc.mink.stype = 3;
 acc.mink.rar = 2;
@@ -1514,9 +1515,9 @@ acc.rfot = new Eqp();
 acc.rfot.id = 40031;
 acc.rfot.name = i18n.t("content.acc.rfot.name");
 acc.rfot.desc =
-  "Lucky charm made from a foot of a rabbit. Wearing this gives you a strange feeling of satisfaction" +
+  i18n.t("content.acc.rfot.desc") +
   dom.dseparator +
-  '<span style="color:gold">LUCK +2</span>';
+  i18n.t("content.acc.rfot.bonus");
 acc.rfot.slot = 8;
 acc.rfot.stype = 3;
 acc.rfot.rar = 2;
@@ -1531,9 +1532,9 @@ acc.sdl1 = new Eqp();
 acc.sdl1.id = 40032;
 acc.sdl1.name = i18n.t("content.acc.sdl1.name");
 acc.sdl1.desc =
-  "Small handcrafted straw doll. Dolls of this type are used to bind with the souls of the living. Appropriate for Curses and Dark Magic manipulation" +
+  i18n.t("content.acc.sdl1.desc") +
   dom.dseparator +
-  '<span style="color:hotpink">Physical DEF +5</span>';
+  i18n.t("content.acc.sdl1.bonus");
 acc.sdl1.slot = 8;
 acc.sdl1.stype = 3;
 acc.sdl1.oneq = function () {
@@ -1553,9 +1554,9 @@ acc.lckcn = new Eqp();
 acc.lckcn.id = 40033;
 acc.lckcn.name = i18n.t("content.acc.lckcn.name");
 acc.lckcn.desc =
-  "Special little coin, unlike any other. You have a feeling you should hold onto it" +
+  i18n.t("content.acc.lckcn.desc") +
   dom.dseparator +
-  '<span style="color:gold">LUCK +3</span>';
+  i18n.t("content.acc.lckcn.bonus");
 acc.lckcn.slot = 8;
 acc.lckcn.stype = 3;
 acc.lckcn.oneq = function () {
@@ -1575,9 +1576,9 @@ acc.cfgn = new Eqp();
 acc.cfgn.id = 40034;
 acc.cfgn.name = i18n.t("content.acc.cfgn.name");
 acc.cfgn.desc =
-  "Small figurine of a cat. It eminates powerful energy" +
+  i18n.t("content.acc.cfgn.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Energy Effectiveness +5%</span>';
+  i18n.t("content.acc.cfgn.bonus");
 acc.cfgn.slot = 8;
 acc.cfgn.stype = 3;
 acc.cfgn.oneq = function () {
@@ -1597,9 +1598,9 @@ acc.mnknk = new Eqp();
 acc.mnknk.id = 40035;
 acc.mnknk.name = i18n.t("content.acc.mnknk.name");
 acc.mnknk.desc =
-  "Little statue of a Divine Cat holding a Coin. This treasure is rumored to bring luck and prosperity to its owner" +
+  i18n.t("content.acc.mnknk.desc") +
   dom.dseparator +
-  '<span style="color:gold">LUCK +4</span><br><span style="color:deeppink">Energy Effectiveness +10%</span>';
+  i18n.t("content.acc.mnknk.bonus");
 acc.mnknk.slot = 8;
 acc.mnknk.stype = 3;
 acc.mnknk.rar = 2;
@@ -1616,9 +1617,9 @@ acc.wdl1 = new Eqp();
 acc.wdl1.id = 40036;
 acc.wdl1.name = i18n.t("content.acc.wdl1.name");
 acc.wdl1.desc =
-  "Small wooden doll with flexible joints. This type can be used, with Dark enchantment, to take control of living things." +
+  i18n.t("content.acc.wdl1.desc") +
   dom.dseparator +
-  '<span style="color:crimson">Piercing DEF +5</span><br><span style="color:crimson">Edged DEF +5</span><br><span style="color:crimson">Blunt DEF +5</span>';
+  i18n.t("content.acc.wdl1.bonus");
 acc.wdl1.ccls = [5, 5, 5];
 acc.wdl1.slot = 8;
 acc.wdl1.stype = 3;
@@ -1641,9 +1642,9 @@ acc.gdl1 = new Eqp();
 acc.gdl1.id = 40037;
 acc.gdl1.name = i18n.t("content.acc.gdl1.name");
 acc.gdl1.desc =
-  "Dolls that could be remotely controlled by one's soul. Employed by spies to infiltrate enemy lines unnoticed" +
+  i18n.t("content.acc.gdl1.desc") +
   dom.dseparator +
-  '<span style="color:crimson">Piercing DEF +4</span><br><span style="color:crimson">Edged DEF +4</span><br><span style="color:crimson">Blunt DEF +4</span><br><span style="color:thistle;text-shadow:blueviolet 0px 0px 5px">Dark RES +6</span><br><span style="color:royalblue;text-shadow:blueviolet 0px 0px 5px">Evil Class DEF +2</span><br><span style="color:hotpink">Physical DEF +3</span>';
+  i18n.t("content.acc.gdl1.bonus");
 acc.gdl1.ccls = [4, 4, 4];
 acc.gdl1.slot = 8;
 acc.gdl1.stype = 3;
@@ -1666,30 +1667,21 @@ acc.gdl1.onuneq = function () {
 acc.rnsn = new Eqp();
 acc.rnsn.id = 40038;
 acc.rnsn.name = i18n.t("content.acc.rnsn.name");
-acc.rnsn.desc =
-  "This stone, eroded by years of rain, can actually mimic rain to fool plants and animals. For this reason, it's in high demand for horticultural use" +
-  dom.dseparator +
-  "";
+acc.rnsn.desc = i18n.t("content.acc.rnsn.desc") + dom.dseparator;
 acc.rnsn.slot = 8;
 acc.rnsn.stype = 3;
 
 acc.hndm = new Eqp();
 acc.hndm.id = 40039;
 acc.hndm.name = i18n.t("content.acc.hndm.name");
-acc.hndm.desc =
-  "A tuft of a fey hound's mane, said to ward off evil. It raises resistance to heat and cold" +
-  dom.dseparator +
-  "";
+acc.hndm.desc = i18n.t("content.acc.hndm.desc") + dom.dseparator;
 acc.hndm.slot = 8;
 acc.hndm.stype = 3;
 
 acc.dcpe = new Eqp();
 acc.dcpe.id = 40040;
 acc.dcpe.name = i18n.t("content.acc.dcpe.name");
-acc.dcpe.desc =
-  "A mysterious gem. It feels like it's looking at something, but you can't really tell" +
-  dom.dseparator +
-  "";
+acc.dcpe.desc = i18n.t("content.acc.dcpe.desc") + dom.dseparator;
 acc.dcpe.slot = 8;
 acc.dcpe.stype = 3;
 
@@ -1697,9 +1689,9 @@ acc.bdl1 = new Eqp();
 acc.bdl1.id = 40041;
 acc.bdl1.name = i18n.t("content.acc.bdl1.name");
 acc.bdl1.desc =
-  "A small doll carved from beast bone. It's a charm that protects the wearer from evil" +
+  i18n.t("content.acc.bdl1.desc") +
   dom.dseparator +
-  '<span style="color:thistle;text-shadow:blueviolet 0px 0px 5px">Dark RES +5</span><br><span style="color:royalblue;text-shadow:blueviolet 0px 0px 5px">Evil Class DEF +5</span>';
+  i18n.t("content.acc.bdl1.bonus");
 acc.bdl1.slot = 8;
 acc.bdl1.stype = 3;
 acc.bdl1.oneq = function () {
@@ -1720,10 +1712,7 @@ acc.bdl1.onGet = function () {
 acc.fssn = new Eqp();
 acc.fssn.id = 40042;
 acc.fssn.name = i18n.t("content.acc.fssn.name");
-acc.fssn.desc =
-  "A spine taken from a bonefish, which are still keen in undeath. It's said to raise spiritual awareness of the holder" +
-  dom.dseparator +
-  "";
+acc.fssn.desc = i18n.t("content.acc.fssn.desc") + dom.dseparator;
 acc.fssn.slot = 8;
 acc.fssn.stype = 3;
 
@@ -1731,9 +1720,9 @@ acc.mpst = new Eqp();
 acc.mpst.id = 40043;
 acc.mpst.name = i18n.t("content.acc.mpst.name");
 acc.mpst.desc =
-  "A basic stone bowl and a pounder used to mince and crush herbs, seeds, bones and other pharmaceutical oddities" +
+  i18n.t("content.acc.mpst.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Alchemy EXP gain +5%</span><br><br><small style="color:deeppink">Alchemy quality:<span style="color:orange"> 1</span></small>';
+  i18n.t("content.acc.mpst.bonus");
 acc.mpst.slot = 8;
 acc.mpst.alchq = 1;
 acc.mpst.stype = 3;
@@ -1754,9 +1743,9 @@ acc.vtmns = new Eqp();
 acc.vtmns.id = 40044;
 acc.vtmns.name = i18n.t("content.acc.vtmns.name");
 acc.vtmns.desc =
-  "A bottle of powerful vitamins, which grant one's body incresed vitality" +
+  i18n.t("content.acc.vtmns.desc") +
   dom.dseparator +
-  '<span style="color:limegreen">Poison resist +5%</span>';
+  i18n.t("content.acc.vtmns.bonus");
 acc.vtmns.slot = 8;
 acc.vtmns.stype = 3;
 acc.vtmns.oneq = function () {
@@ -1776,9 +1765,9 @@ acc.mdcag = new Eqp();
 acc.mdcag.id = 40045;
 acc.mdcag.name = i18n.t("content.acc.mdcag.name");
 acc.mdcag.desc =
-  "Bandage, boiled in hot water and sterilized using herbs" +
+  i18n.t("content.acc.mdcag.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">Bleed resist +5%</span>';
+  i18n.t("content.acc.mdcag.bonus");
 acc.mdcag.slot = 8;
 acc.mdcag.stype = 3;
 acc.mdcag.oneq = function () {
@@ -1798,9 +1787,9 @@ acc.mdcbg = new Eqp();
 acc.mdcbg.id = 40046;
 acc.mdcbg.name = i18n.t("content.acc.mdcbg.name");
 acc.mdcbg.desc =
-  "Sterile bandage soaked in strong medical solution" +
+  i18n.t("content.acc.mdcbg.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">Bleed resist +8%</span><br><span style="color:limegreen">Poison resist +8%</span>';
+  i18n.t("content.acc.mdcbg.bonus");
 acc.mdcbg.slot = 8;
 acc.mdcbg.stype = 3;
 acc.mdcbg.rar = 2;
@@ -1817,9 +1806,9 @@ acc.mshst = new Eqp();
 acc.mshst.id = 40047; //🝪
 acc.mshst.name = i18n.t("content.acc.mshst.name");
 acc.mshst.desc =
-  "Alchemical vessel used for distilling, important for vapor separation" +
+  i18n.t("content.acc.mshst.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Alchemy EXP gain +10%</span><br><br><small style="color:deeppink">Alchemy quality:<span style="color:orange"> 1</span></small>';
+  i18n.t("content.acc.mshst.bonus");
 acc.mshst.slot = 8;
 acc.mshst.alchq = 1;
 acc.mshst.stype = 3;
@@ -1840,9 +1829,9 @@ acc.mhhst = new Eqp();
 acc.mhhst.id = 40048;
 acc.mhhst.name = i18n.t("content.acc.mhhst.name");
 acc.mhhst.desc =
-  "Alchemical vessel used in distilling, especially useful for cooling" +
+  i18n.t("content.acc.mhhst.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Alchemy EXP gain +15%</span><br><br><small style="color:deeppink">Alchemy quality:<span style="color:orange"> 1</span></small>';
+  i18n.t("content.acc.mhhst.bonus");
 acc.mhhst.slot = 8;
 acc.mhhst.alchq = 1;
 acc.mhhst.stype = 3;
@@ -1863,9 +1852,9 @@ acc.asfk = new Eqp();
 acc.asfk.id = 40049;
 acc.asfk.name = i18n.t("content.acc.asfk.name");
 acc.asfk.desc =
-  "A sealed flask with some vicious limegreen bubbling liquid moving inside. Opening this thing is a very bad idea" +
+  i18n.t("content.acc.asfk.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">Damage reduction +3%</span>';
+  i18n.t("content.acc.asfk.bonus");
 acc.asfk.slot = 8;
 acc.asfk.stype = 3;
 acc.asfk.oneq = function () {
@@ -1879,9 +1868,9 @@ acc.alseto = new Eqp();
 acc.alseto.id = 40050;
 acc.alseto.name = i18n.t("content.acc.alseto.name");
 acc.alseto.desc =
-  "Wide variety of aberrant glassware and precision tools for all types of entry level alchemy-based manipulations. A necessity for making basic medicine, pills, poisons, elixirs and everything inbetween" +
+  i18n.t("content.acc.alseto.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Alchemy EXP gain +50%</span><br><br><small style="color:deeppink">Alchemy quality:<span style="color:orange"> 2</span></small><br><br>';
+  i18n.t("content.acc.alseto.bonus");
 acc.alseto.slot = 8;
 acc.alseto.alchq = 2;
 acc.alseto.stype = 3;
@@ -1898,9 +1887,9 @@ acc.csfk = new Eqp();
 acc.csfk.id = 40051;
 acc.csfk.name = i18n.t("content.acc.csfk.name");
 acc.csfk.desc =
-  "Glass container with an evil essence trapped inside of it. It is trying to break free" +
+  i18n.t("content.acc.csfk.desc") +
   dom.dseparator +
-  '<span style="color:thistle;text-shadow:blueviolet 0px 0px 5px">Dark RES +10</span>';
+  i18n.t("content.acc.csfk.bonus");
 acc.csfk.slot = 8;
 acc.csfk.stype = 3;
 acc.csfk.oneq = function () {
@@ -1914,9 +1903,9 @@ acc.gsfk = new Eqp();
 acc.gsfk.id = 40052;
 acc.gsfk.name = i18n.t("content.acc.gsfk.name");
 acc.gsfk.desc =
-  "Locked vessel containing a volatile tissue sample from the plague beast. Should be handled with extreme care and must not be unsealed under any circumstances" +
+  i18n.t("content.acc.gsfk.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">Damage reduction +4%</span><br><span style="color:thistle;text-shadow:blueviolet 0px 0px 5px">Dark RES +35</span>';
+  i18n.t("content.acc.gsfk.bonus");
 acc.gsfk.slot = 8;
 acc.gsfk.stype = 3;
 acc.gsfk.rar = 2;
@@ -1933,9 +1922,9 @@ acc.jln1 = new Eqp();
 acc.jln1.id = 40053;
 acc.jln1.name = i18n.t("content.acc.jln1.name");
 acc.jln1.desc =
-  "Concentrated red jelly. Improves life force" +
+  i18n.t("content.acc.jln1.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">MAX HP +400</span>';
+  i18n.t("content.acc.jln1.bonus");
 acc.jln1.slot = 8;
 acc.jln1.stype = 3;
 acc.jln1.oneq = function () {
@@ -1949,9 +1938,9 @@ acc.jln2 = new Eqp();
 acc.jln2.id = 40054;
 acc.jln2.name = i18n.t("content.acc.jln2.name");
 acc.jln2.desc =
-  "Concentrated green jelly. Improves stamina" +
+  i18n.t("content.acc.jln2.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">MAX SAT +100</span>';
+  i18n.t("content.acc.jln2.bonus");
 acc.jln2.slot = 8;
 acc.jln2.stype = 3;
 acc.jln2.oneq = function () {
@@ -1967,9 +1956,9 @@ acc.jln3 = new Eqp();
 acc.jln3.id = 40055;
 acc.jln3.name = i18n.t("content.acc.jln3.name");
 acc.jln3.desc =
-  "Concentrated blue jelly. Improves metabolism" +
+  i18n.t("content.acc.jln3.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">SPD +2</span><br><span style="color:crimson">Energy Consumtion +0.2\/s</span>';
+  i18n.t("content.acc.jln3.bonus");
 acc.jln3.slot = 8;
 acc.jln3.stype = 3;
 acc.jln3.oneq = function () {
@@ -2023,9 +2012,9 @@ acc.coring = new Eqp();
 acc.coring.id = 40060;
 acc.coring.name = i18n.t("content.acc.coring.name");
 acc.coring.desc =
-  "Golden ring whith runic engraving of a coin on it. Rumored to attract wealth " +
+  i18n.t("content.acc.coring.desc") +
   dom.dseparator +
-  '<span style="color:orange">Defeated enemies occasionally drop money</span>';
+  i18n.t("content.acc.coring.bonus");
 acc.coring.slot = 8;
 acc.coring.stype = 3;
 acc.coring.rar = 2;
@@ -2040,9 +2029,9 @@ acc.dticket = new Eqp();
 acc.dticket.id = 40061;
 acc.dticket.name = i18n.t("content.acc.dticket.name");
 acc.dticket.desc =
-  "Small ticket that allows you to buy things for cheaper, if you show it to the shopkeeper. Sometimes given to random customers for promotional purposes " +
+  i18n.t("content.acc.dticket.desc") +
   dom.dseparator +
-  '<span style="color:thistle">Shop price reduction -1%</span>';
+  i18n.t("content.acc.dticket.bonus");
 acc.dticket.slot = 8;
 acc.dticket.stype = 3;
 acc.dticket.onGet = function () {
@@ -2063,9 +2052,9 @@ acc.dcard1 = new Eqp();
 acc.dcard1.id = 40062;
 acc.dcard1.name = i18n.t("content.acc.dcard1.name");
 acc.dcard1.desc =
-  "A card given to the most loyal customers in popular shops" +
+  i18n.t("content.acc.dcard1.desc") +
   dom.dseparator +
-  '<span style="color:thistle">Shop price reduction -5%</span>';
+  i18n.t("content.acc.dcard1.bonus");
 acc.dcard1.slot = 8;
 acc.dcard1.stype = 3;
 acc.dcard1.rar = 2;
@@ -2082,9 +2071,9 @@ acc.rgreed = new Eqp();
 acc.rgreed.id = 40063;
 acc.rgreed.name = i18n.t("content.acc.rgreed.name");
 acc.rgreed.desc =
-  "Expensive ring employed by rich merchants and gamblers. Makes you seem like a symbol of authority, brings tremendous luck and helps during negotiations" +
+  i18n.t("content.acc.rgreed.desc") +
   dom.dseparator +
-  '<span style="color:orange">Defeated enemies sometimes drop money</span><br><span style="color:gold">+15% dropped money</span><br><span style="color:thistle">Shop price reduction -10%</span>';
+  i18n.t("content.acc.rgreed.bonus");
 acc.rgreed.slot = 8;
 acc.rgreed.stype = 3;
 acc.rgreed.rar = 3;
@@ -2147,9 +2136,9 @@ acc.coindct = new Eqp();
 acc.coindct.id = 40070;
 acc.coindct.name = i18n.t("content.acc.coindct.name");
 acc.coindct.desc =
-  "Crooked tainted coin with seemingly evil aura floating about it" +
+  i18n.t("content.acc.coindct.desc") +
   dom.dseparator +
-  '<span style="color:royalblue">Crit Chance +3%</span>';
+  i18n.t("content.acc.coindct.bonus");
 acc.coindct.slot = 8;
 acc.coindct.stype = 3;
 acc.coindct.oneq = function () {
@@ -2163,9 +2152,9 @@ acc.slchth = new Eqp();
 acc.slchth.id = 40071;
 acc.slchth.name = i18n.t("content.acc.slchth.name");
 acc.slchth.desc =
-  "Light conciealed sheath for storing small knives and other assassin tools. Unconspicous and easy to use, it is favoured by the agents of the Underworld" +
+  i18n.t("content.acc.slchth.desc") +
   dom.dseparator +
-  '<span style="color:mediumpurple">Crit Damage +15%</span>';
+  i18n.t("content.acc.slchth.bonus");
 acc.slchth.slot = 8;
 acc.slchth.stype = 3;
 acc.slchth.oneq = function () {
@@ -2179,9 +2168,9 @@ acc.rmedlon = new Eqp();
 acc.rmedlon.id = 40072;
 acc.rmedlon.name = i18n.t("content.acc.rmedlon.name");
 acc.rmedlon.desc =
-  "Evil Medallion imbued with the curse of misforture. Brings terrible luck to everyone around its bearer" +
+  i18n.t("content.acc.rmedlon.desc") +
   dom.dseparator +
-  '<span style="color:royalblue">Crit Chance +6%</span>';
+  i18n.t("content.acc.rmedlon.bonus");
 acc.rmedlon.slot = 8;
 acc.rmedlon.stype = 3;
 acc.rmedlon.rar = 2;
@@ -2196,9 +2185,9 @@ acc.mirgmirr = new Eqp();
 acc.mirgmirr.id = 40073;
 acc.mirgmirr.name = i18n.t("content.acc.mirgmirr.name");
 acc.mirgmirr.desc =
-  "Mirror of clouded darkness. It bends light around you." +
+  i18n.t("content.acc.mirgmirr.desc") +
   dom.dseparator +
-  '<span style="color:royalblue">Reduces enemy aggression<br>Auto Dodge +10%</span>';
+  i18n.t("content.acc.mirgmirr.bonus");
 acc.mirgmirr.slot = 8;
 acc.mirgmirr.stype = 3;
 acc.mirgmirr.oneq = function () {
@@ -2212,9 +2201,9 @@ acc.aihomnt = new Eqp();
 acc.aihomnt.id = 40074;
 acc.aihomnt.name = i18n.t("content.acc.aihomnt.name");
 acc.aihomnt.desc =
-  "An ornament made of light magic ore. Wraps the wearer with a thin magic barrier" +
+  i18n.t("content.acc.aihomnt.desc") +
   dom.dseparator +
-  '<span style="color:royalblue">Reduces enemy aggression<br>Magic DEF +15</span>';
+  i18n.t("content.acc.aihomnt.bonus");
 acc.aihomnt.slot = 8;
 acc.aihomnt.stype = 3;
 acc.aihomnt.oneq = function () {};
@@ -2224,9 +2213,9 @@ acc.gourd1 = new Eqp();
 acc.gourd1.id = 40075;
 acc.gourd1.name = i18n.t("content.acc.gourd1.name");
 acc.gourd1.desc =
-  "One of the oldest crop plants in existence. You can use it to store water... or sake" +
+  i18n.t("content.acc.gourd1.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">Max SAT +150</span>';
+  i18n.t("content.acc.gourd1.bonus");
 acc.gourd1.slot = 8;
 acc.gourd1.stype = 3;
 acc.gourd1.oneq = function () {
@@ -2242,9 +2231,9 @@ acc.stupa = new Eqp();
 acc.stupa.id = 40076;
 acc.stupa.name = i18n.t("content.acc.stupa.name");
 acc.stupa.desc =
-  "Stupa are long boards placed next to graves to pay respects to the dead. They are usually to be written with an ink brush" +
+  i18n.t("content.acc.stupa.desc") +
   dom.dseparator +
-  '<span style="color:ghostwhite;text-shadow:0px 0px 5px royalblue">Keeps your soul in the mortal world</span><br><span style="color:ghostwhite;text-shadow:0px 0px 5px royalblue">+2% Chance To Avoid Death</span>';
+  i18n.t("content.acc.stupa.bonus");
 acc.stupa.slot = 8;
 acc.stupa.stype = 3;
 acc.stupa.oneq = function () {
@@ -2258,9 +2247,9 @@ acc.wpeny = new Eqp();
 acc.wpeny.id = 40077;
 acc.wpeny.name = i18n.t("content.acc.wpeny.name");
 acc.wpeny.desc =
-  "An extra shiny penny, that looks like it's made of gold. It probably isn't, but you feel richer just by holding it" +
+  i18n.t("content.acc.wpeny.desc") +
   dom.dseparator +
-  '<span style="color:orange">Picking a coin gives you an extra coin<br><span style="color:gold">Greed EXP gain +20%</span></span>';
+  i18n.t("content.acc.wpeny.bonus");
 acc.wpeny.slot = 8;
 acc.wpeny.stype = 3;
 acc.wpeny.oneq = function () {
@@ -2284,9 +2273,9 @@ acc.fmlim.id = 40079;
 acc.fmlim.important = true;
 acc.fmlim.name = i18n.t("content.acc.fmlim.name");
 acc.fmlim.desc =
-  "A treasure passed down in your family. This plain looking medalion doesn't look anything special, it appears incomplete with an empty socket in the center. You fail to see any value in this piece of junk" +
+  i18n.t("content.acc.fmlim.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">MAX HP +2</span>';
+  i18n.t("content.acc.fmlim.bonus");
 acc.fmlim.slot = 8;
 acc.fmlim.stype = 3;
 acc.fmlim.oneq = function () {
@@ -2306,9 +2295,9 @@ acc.pbrs = new Eqp();
 acc.pbrs.id = 40080;
 acc.pbrs.name = i18n.t("content.acc.pbrs.name");
 acc.pbrs.desc =
-  "Special brush designed for tending to fur of the animals. Cats especially enjoy being brushed by this tool" +
+  i18n.t("content.acc.pbrs.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Petting EXP gain +200%</span>';
+  i18n.t("content.acc.pbrs.bonus");
 acc.pbrs.slot = 8;
 acc.pbrs.stype = 3;
 acc.pbrs.oneq = function () {
@@ -2322,9 +2311,9 @@ acc.clrpin = new Eqp();
 acc.clrpin.id = 40081;
 acc.clrpin.name = i18n.t("content.acc.clrpin.name");
 acc.clrpin.desc =
-  "Small golden pin in a shape of a clover. Senior gamblers wear these pins to display their prestige and status" +
+  i18n.t("content.acc.clrpin.desc") +
   dom.dseparator +
-  '<span style="color:gold">Minor chance for an enemy dropped item to duplicate</span>';
+  i18n.t("content.acc.clrpin.bonus");
 acc.clrpin.slot = 8;
 acc.clrpin.stype = 3;
 acc.clrpin.rar = 4;
@@ -2339,9 +2328,9 @@ acc.prtckst = new Eqp();
 acc.prtckst.id = 40082;
 acc.prtckst.name = i18n.t("content.acc.prtckst.name");
 acc.prtckst.desc =
-  "Box-sized kit containing every crucial cooking utencil you may need for comfortable and effortless foodmaking session anywhere at any time, complimented with variously sized knives, cutting boards, pots and even everlasting fire burner" +
+  i18n.t("content.acc.prtckst.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Cooking EXP gain +200%</span><br><span style="color:springgreen">Allows cooking everywhere</span>';
+  i18n.t("content.acc.prtckst.bonus");
 acc.prtckst.slot = 8;
 acc.prtckst.stype = 3;
 acc.prtckst.rar = 3;
@@ -2358,9 +2347,9 @@ acc.ubrlc = new Eqp();
 acc.ubrlc.id = 40083;
 acc.ubrlc.name = i18n.t("content.acc.ubrlc.name");
 acc.ubrlc.desc =
-  "Light umbrella with a cloud pattern. Young masters and ladies carry these to display their carefree nature" +
+  i18n.t("content.acc.ubrlc.desc") +
   dom.dseparator +
-  '<span style="color:cyan;background-color:blue">Prevents you from getting rained on</span>';
+  i18n.t("content.acc.ubrlc.bonus");
 acc.ubrlc.slot = 8;
 acc.ubrlc.stype = 3;
 acc.ubrlc.oneq = function () {
@@ -2374,9 +2363,9 @@ acc.sltbg = new Eqp();
 acc.sltbg.id = 40084;
 acc.sltbg.name = i18n.t("content.acc.sltbg.name");
 acc.sltbg.desc =
-  "Little canvas bag filled with salt. Commoners believe that spreading salt can repel evil, so you can keep some on yourself for protection" +
+  i18n.t("content.acc.sltbg.desc") +
   dom.dseparator +
-  '<span style="color:tomato;text-shadow:blueviolet 0px 0px 5px">Undead Class DEF +12</span><br><span style="color:tomato;text-shadow:blueviolet 0px 0px 5px">Undead Class ATK +8</span>';
+  i18n.t("content.acc.sltbg.bonus");
 acc.sltbg.slot = 8;
 acc.sltbg.stype = 3;
 acc.sltbg.oneq = function () {
@@ -2421,9 +2410,9 @@ acc.otpin = new Eqp();
 acc.otpin.id = 40086;
 acc.otpin.name = i18n.t("content.acc.otpin.name");
 acc.otpin.desc =
-  "Wearable ornament in the shape of a sword. Even if ranking the lowest, it serves as a proof of one's affiliation with dojo and martial arts in general" +
+  i18n.t("content.acc.otpin.desc") +
   dom.dseparator +
-  '<span style="color:magenta"> EXP Gain +25%<br>All masteries EXP Gain +10%</span>';
+  i18n.t("content.acc.otpin.bonus");
 acc.otpin.slot = 8;
 acc.otpin.stype = 3;
 acc.otpin.oneq = function () {
@@ -2454,9 +2443,9 @@ acc.fmlim2.id = 40087;
 acc.fmlim2.important = true;
 acc.fmlim2.name = i18n.t("content.acc.fmlim2.name");
 acc.fmlim2.desc =
-  "You reinforced your family pendant's string with straw to prevent possible breaking. It looks even more lame like this" +
+  i18n.t("content.acc.fmlim2.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">MAX HP +5<br>Max SAT +25<br>SPD +1</span>';
+  i18n.t("content.acc.fmlim2.bonus");
 acc.fmlim2.slot = 8;
 acc.fmlim2.stype = 3;
 acc.fmlim2.oneq = function () {
@@ -2474,9 +2463,9 @@ acc.gpin = new Eqp();
 acc.gpin.id = 40088;
 acc.gpin.name = i18n.t("content.acc.gpin.name");
 acc.gpin.desc =
-  "Ring tempered by unending fighter spirit, was formerly owned by a rookie knight" +
+  i18n.t("content.acc.gpin.desc") +
   dom.dseparator +
-  '<span style="color:chartreuse">STR +20<br>AGL +5</span>';
+  i18n.t("content.acc.gpin.bonus");
 acc.gpin.slot = 8;
 acc.gpin.stype = 3;
 acc.gpin.oneq = function () {
@@ -2492,9 +2481,9 @@ acc.ndlb = new Eqp();
 acc.ndlb.id = 40089;
 acc.ndlb.name = i18n.t("content.acc.ndlb.name");
 acc.ndlb.desc =
-  "Very primitive needle crafted from tough wood. Despite its simplicity, the craftsmanship is quiet nice" +
+  i18n.t("content.acc.ndlb.desc") +
   dom.dseparator +
-  '<span style="color:magenta">Tailoring EXP Gain +10%</span><br><br><small style="color:deeppink">Tailoring quality:<span style="color:orange"> 1</span></small>';
+  i18n.t("content.acc.ndlb.bonus");
 acc.ndlb.slot = 8;
 acc.ndlb.tlrq = 1;
 acc.ndlb.stype = 3;

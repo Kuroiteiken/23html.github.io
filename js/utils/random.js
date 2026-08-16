@@ -1,3 +1,8 @@
+// Random number helpers. `rand` and `randf` are the integer and float rolls the
+// rest of the game uses; both draw from the seeded Mersenne Twister defined
+// below so a run can be reproduced from its seed. `_rand` bypasses the seeded
+// generator and uses `Math.random` directly.
+
 function rand(max, min) {
   if (min) return Math.round(random() * (max - min) + min);
   else return Math.round(random() * max);
