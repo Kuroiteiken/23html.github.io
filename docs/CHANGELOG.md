@@ -160,6 +160,19 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Made autosave configurable and moved it into a `proto23.autosave` preference.
+  The interval was a `30000` literal duplicated between the toggle and the load
+  path, so nothing could change it; the toggle also created a second interval
+  without clearing the first, and the load path only ever ticked the checkbox
+  on. There is now one `restartAutosave` helper, a Settings row for the
+  interval, and a default of 15 seconds.
+- Rebuilt the inventory panel as a flex column. `#inv_ctx_b` had no rule at all,
+  so `#inv_con`'s `height: 86%` had no definite parent to resolve against and a
+  long item list grew behind the absolutely positioned sort bar. The list now
+  occupies exactly the space between the filter and sort bars.
+- Corrected the Turkish for "Shady Kid", which used the shadow sense of the word
+  rather than the suspicious one. "The Shaded Path" keeps the shadow sense,
+  which is correct there.
 - Gave the message log a history that survives a reload. The log was rendered
   straight into the DOM with no backing store and was emptied on every load, so
   nothing outlived a refresh. Rendered rows are now serialized under a

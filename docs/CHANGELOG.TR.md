@@ -169,6 +169,20 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Otomatik kayıt yapılandırılabilir hale getirildi ve `proto23.autosave`
+  tercihine taşındı. Aralık, hem düğmede hem yükleme yolunda tekrarlanan bir
+  `30000` sabitiydi, bu yüzden hiçbir şey onu değiştiremiyordu; düğme ayrıca
+  öncekini temizlemeden ikinci bir zamanlayıcı kuruyor ve yükleme yolu kutuyu
+  yalnızca işaretliyordu. Artık tek bir `restartAutosave` yardımcısı, ayarlarda
+  bir aralık satırı ve 15 saniyelik bir varsayılan var.
+- Envanter paneli esnek sütun olarak yeniden kuruldu. `#inv_ctx_b` için hiç kural
+  yoktu, bu yüzden `#inv_con` üzerindeki `height: 86%` çözülecek kesin bir üst
+  yükseklik bulamıyordu ve uzun bir eşya listesi, mutlak konumlanmış sıralama
+  çubuğunun arkasına doğru büyüyordu. Liste artık filtre ve sıralama çubukları
+  arasındaki alanı birebir kaplıyor.
+- "Shady Kid" ifadesinin Türkçesi düzeltildi; kelimenin gölge anlamı yerine
+  şüpheli anlamı kullanılmalıydı. "Gölgeli Yol" ise gölge anlamını koruyor,
+  orada doğru olan bu.
 - Mesaj günlüğüne, sayfa yenilemesinden sağ çıkan bir geçmiş verildi. Günlük
   doğrudan DOM'a çiziliyordu, arkasında hiçbir veri yapısı yoktu ve her yüklemede
   boşaltılıyordu; bu yüzden hiçbir şey yenilemeden sonra kalmıyordu. Çizilen

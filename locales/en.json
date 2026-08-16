@@ -54,7 +54,8 @@
       "deleteSaveTitle": "Delete saved game?",
       "deleteSaveConfirm": "This permanently removes your saved game. This action cannot be undone.",
       "cancelDelete": "Cancel",
-      "confirmDelete": "Delete save"
+      "confirmDelete": "Delete save",
+      "autosaveInterval": "Autosave interval (seconds)"
     },
     "world": {
       "location": "Location: "

@@ -415,7 +415,7 @@ dom.d7m.update = function () {
 dom.d7m.update();
 dom.inv_ctx = addElement(document.body, "div", "inv");
 if (!global.flags.aw_u) dom.inv_ctx.style.display = "none";
-dom.inventory = addElement(dom.inv_ctx, "div");
+dom.inventory = addElement(dom.inv_ctx, "div", "inv_body");
 dom.inv_control = addElement(dom.inventory, "div", "inv_control");
 dom.inv_btn_1 = addElement(dom.inv_control, "div", null, "bts");
 dom.inv_btn_2 = addElement(dom.inv_control, "div", null, "bts");
@@ -2145,6 +2145,64 @@ dom.ct_bt4_0b.value = i18n.currentLocale;
 dom.ct_bt4_0b.addEventListener("change", function () {
   i18n.setLocale(this.value);
 });
+// Autosave is a preference too, so it lives beside the other preferences rather
+// than only inside the save. The interval was previously a 30000 literal
+// duplicated between the toggle and the load path, which meant nothing could
+// change it and the toggle leaked a timer whenever it was switched on twice.
+const autosaveStorageKey = "proto23.autosave";
+const autosaveDefaultSeconds = 15;
+const autosaveMinSeconds = 5;
+const autosaveMaxSeconds = 600;
+
+function autosaveSeconds() {
+  return Math.min(
+    autosaveMaxSeconds,
+    Math.max(
+      autosaveMinSeconds,
+      Number(global.autosave_seconds) || autosaveDefaultSeconds,
+    ),
+  );
+}
+
+function restartAutosave() {
+  clearInterval(timers.autos);
+  if (global.flags.autosave !== true) return;
+  timers.autos = setInterval(function () {
+    save(true);
+  }, autosaveSeconds() * 1000);
+}
+
+function storeAutosavePreference() {
+  try {
+    window.localStorage.setItem(
+      autosaveStorageKey,
+      JSON.stringify({
+        enabled: global.flags.autosave === true,
+        seconds: autosaveSeconds(),
+      }),
+    );
+  } catch (err) {
+    // Storing the preference is best effort.
+  }
+}
+
+function restoreAutosavePreference() {
+  let stored = null;
+  try {
+    stored = JSON.parse(window.localStorage.getItem(autosaveStorageKey));
+  } catch (err) {
+    stored = null;
+  }
+  if (stored) {
+    global.flags.autosave = stored.enabled === true;
+    global.autosave_seconds = stored.seconds;
+  }
+  global.autosave_seconds = autosaveSeconds();
+  dom.autosves.checked = global.flags.autosave === true;
+  dom.ct_bt4_11b.value = global.autosave_seconds;
+  restartAutosave();
+}
+
 dom.ct_bt4_1 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_1a = addElement(dom.ct_bt4_1, "div", null, "opt_t");
 dom.ct_bt4_1a.innerHTML = i18n.t("ui.settings.messageLogLimit");
@@ -2162,6 +2220,24 @@ dom.ct_bt4_1b.addEventListener("change", function () {
   trimMessageLog();
   storeMessageLog();
 });
+
+dom.ct_bt4_11 = addElement(dom.ctrwin4, "div", null, "opt_c");
+dom.ct_bt4_11a = addElement(dom.ct_bt4_11, "div", null, "opt_t");
+dom.ct_bt4_11a.innerHTML = i18n.t("ui.settings.autosaveInterval");
+dom.ct_bt4_11b = addElement(dom.ct_bt4_11, "input", null, "opt_v");
+dom.ct_bt4_11b.type = "number";
+dom.ct_bt4_11b.min = autosaveMinSeconds;
+dom.ct_bt4_11b.max = autosaveMaxSeconds;
+dom.ct_bt4_11b.value = autosaveSeconds();
+dom.ct_bt4_11b.addEventListener("change", function () {
+  global.autosave_seconds = Number(this.value);
+  this.value = autosaveSeconds();
+  global.autosave_seconds = autosaveSeconds();
+  // Rebuild immediately so a shorter interval takes effect without a reload.
+  restartAutosave();
+  storeAutosavePreference();
+});
+
 function rstcrtthg() {
   for (const a in global.spbtsr) global.spbtsr[a].style.color = "inherit";
 }
@@ -2884,13 +2960,10 @@ dom.autosve.innerHTML = i18n.t(
 );
 dom.autosves = addElement(dom.autosve, "input", "autosave-toggle");
 dom.autosves.type = "checkbox";
-dom.autosves.addEventListener("click", function () {
-  global.flags.autosave = !global.flags.autosave;
-  if (global.flags.autosave === true)
-    timers.autos = setInterval(function () {
-      save(true);
-    }, 30000);
-  else clearInterval(timers.autos);
+dom.autosves.addEventListener("change", function () {
+  global.flags.autosave = this.checked;
+  restartAutosave();
+  storeAutosavePreference();
 });
 
 dom.vrs = addElement(dom.sl_controls, "a", null, "sl");

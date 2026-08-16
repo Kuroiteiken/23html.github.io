@@ -54,7 +54,8 @@
       "deleteSaveTitle": "Kayıtlı oyun silinsin mi?",
       "deleteSaveConfirm": "Kayıtlı oyun kalıcı olarak silinecek. Bu işlem geri alınamaz.",
       "cancelDelete": "Vazgeç",
-      "confirmDelete": "Kaydı sil"
+      "confirmDelete": "Kaydı sil",
+      "autosaveInterval": "Otomatik kayıt aralığı (saniye)"
     },
     "world": {
       "location": "Konum: "
@@ -5183,7 +5184,7 @@
           "text_5bab61eb": "?",
           "passerby_looking_for_the_foodstand_guy_he_took_814f3bc4": "\"Yoldan geçen: Yiyecek satıcısını mı arıyorsunuz? Eşyalarını aldı ve güneye gitti. Yaptığı yiyecekleri satmak için bir yerden bir yere gittiği söyleniyor, onu yakın zamanda tekrar göreceğimizden şüpheliyiz\"",
           "well_then_1aa6e0a2": "Peki o zaman..",
-          "shady_kid_6c0aa84d": "\"=> Gölgeli Çocuk\"",
+          "shady_kid_6c0aa84d": "\"=> Şüpheli Çocuk\"",
           "approach_the_cat_615ce225": "\"=> Kediye yaklaş\"",
           "paper_boy_hey_this_is_for_you_44337a5e": "Gazeteci Çocuk: Hey, bu senin için!",
           "village_center_marketplace_a6fb36a7": "Köy Merkezi, Pazar Yeri",

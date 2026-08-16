@@ -571,4 +571,42 @@ if (
 console.log(
   "Validated the shared confirmation modal, callback hooks, save version, and sharing metadata.",
 );
+const autosavePreference = [
+  /const autosaveStorageKey = "proto23\.autosave";/,
+  /const autosaveDefaultSeconds = 15;/,
+  /function restartAutosave\(\)/,
+  /clearInterval\(timers\.autos\);\s*if \(global\.flags\.autosave !== true\) return;/,
+  /dom\.autosves\.checked = global\.flags\.autosave === true;/,
+  /i18n\.t\("ui\.settings\.autosaveInterval"\)/,
+];
+
+if (
+  !autosavePreference.every((pattern) => pattern.test(interfaceSource)) ||
+  /}, 30000\);/.test(interfaceSource) ||
+  /}, 30000\);/.test(bootstrapSource) ||
+  !/restoreAutosavePreference\(\);/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Autosave regression: the interval must come from one configurable preference, rebuild the timer on change, and resynchronize its control on load.",
+  );
+}
+
+const inventoryLayout = [
+  /#inv \{[^}]*display: flex;[^}]*flex-direction: column;/s,
+  /#inv_body \{[^}]*flex: 1;[^}]*min-height: 0;/s,
+  /#inv_ctx_b \{[^}]*flex: 1;[^}]*min-height: 0;/s,
+  /#inv_con \{[^}]*flex: 1;[^}]*min-height: 0;[^}]*overflow: auto;/s,
+];
+
+if (
+  !inventoryLayout.every((pattern) => pattern.test(gameCss)) ||
+  /#inv_control_b \{[^}]*position: absolute;/s.test(gameCss) ||
+  !/addElement\(dom\.inv_ctx, "div", "inv_body"\)/.test(interfaceSource)
+) {
+  throw new Error(
+    "Inventory regression: the item list must occupy the space between the filter and sort bars instead of growing behind an absolutely positioned bar.",
+  );
+}
+
 console.log("Validated message-log history and background preference storage.");
+console.log("Validated the autosave preference and inventory panel layout.");

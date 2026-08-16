@@ -829,31 +829,51 @@ input:focus {
 #message-log-clear {
   flex: 0 0 42px;
 }
+
+/* The panel is a column: filter bar, scrolling item list, sort bar. The list is
+   the only part that scrolls, so a long inventory can no longer grow behind the
+   sort bar the way it did while that bar was positioned absolutely over a list
+   whose percentage height had no definite parent to resolve against. */
 #inv {
+  display: flex;
+  flex-direction: column;
   color: rgb(188 254 254);
   width: 330px;
   height: 430px;
   border: solid 3px black;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
   resize: vertical;
   top: 337px;
 }
+#inv_body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+#inv_ctx_b {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
 #inv_control {
   display: flex;
+  flex: none;
   border-bottom: solid 2px grey;
 }
 #inv_control_b {
-  position: absolute;
   display: flex;
+  flex: none;
   width: 100%;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
-  bottom: 7px;
 }
 #inv_con {
+  flex: 1;
+  min-height: 0;
   overflow: auto;
-  height: 86%;
   position: relative;
 }
 #eq_w {

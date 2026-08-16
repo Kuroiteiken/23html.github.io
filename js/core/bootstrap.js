@@ -197,6 +197,7 @@ global.spirits = 100;
 global.bestiary = [{ a: false }];
 global.shortcuts = [];
 global.msgs_max = 36;
+global.autosave_seconds = 15;
 global.locale = i18n.currentLocale;
 global.text = {};
 global.text.nt = [
@@ -1280,12 +1281,10 @@ function load(dt) {
     document.body.removeChild(dom.error);
     kill(dom.error);
   }
-  if (global.flags.autosave === true) {
-    dom.autosves.checked = true;
-    timers.autos = setInterval(function () {
-      save(true);
-    }, 30000);
-  }
+  // Autosave is a preference rather than run state, so a stored choice wins
+  // over whatever the save carried. This also re-arms the timer and, unlike the
+  // previous code, unchecks the box when autosave is off.
+  restoreAutosavePreference();
   //if(global.flags.msgtm===true)dom.ct_bt4_61b.checked=true;
   ////patch things
   if (skl.pet.lvl >= 10) giveTitle(ttl.pet3);
