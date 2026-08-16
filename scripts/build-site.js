@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const root = path.resolve(__dirname, "..");
 const output = path.join(root, "dist");
 const files = ["index.html", "favicon.ico", "ctst.png", "laugh6.wav"];
-const directories = ["changelog", "css", "locales"];
+const directories = ["changelog", "css", "icons", "locales"];
 
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(path.join(output, "js"), { recursive: true });

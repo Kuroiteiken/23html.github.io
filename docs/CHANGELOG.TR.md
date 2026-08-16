@@ -169,6 +169,16 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Oyun, oyuncuya görünen her yüzeyde **Echoes Beneath** olarak yeniden
+  adlandırıldı: sayfa başlığı, paylaşım meta etiketleri, changelog sayfası ve dışa
+  aktarılan kayıt dosyası adı. Bu fork, üstkaynak `Proto23` oyununun fork'u olarak
+  başladı ve repository adını koruyor. `Proto23` ayrıca teknik tanımlayıcılarda
+  kalıyor: npm paket adı, `proto23.locale` tercih anahtarı, canlı yeniden yükleme
+  betiğinin id'si ve test dizini önekleri. Böylece mevcut kayıtlar ve saklanan dil
+  tercihleri çalışmaya devam ediyor.
+- Yer tutucu favicon, `assets/icon.png` dosyasından üretilen ikonla değiştirildi;
+  ayrıca `icons/` altına 192 piksellik ikon, Apple dokunma ikonu ve paylaşım
+  görseli eklendi ve bunlar artık dağıtımda yayınlanıyor.
 - Yok etme ve parçalama onaylarının arkasındaki elle konumlandırılmış katmanlar
   ortak modalla değiştirildi. İkisi de birimsiz CSS değerleri ve sabit 1300
   piksellik bir merkez kullanıyordu, bu yüzden ekran dışında veya hiç boyutsuz

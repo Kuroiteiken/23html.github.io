@@ -151,7 +151,7 @@ async function main() {
 
   server.listen(port, "127.0.0.1", () => {
     console.log(
-      `Proto23 development server: http://127.0.0.1:${server.address().port}`,
+      `Echoes Beneath development server: http://127.0.0.1:${server.address().port}`,
     );
     console.log(
       "Watching application sources; successful rebuilds reload the browser.",

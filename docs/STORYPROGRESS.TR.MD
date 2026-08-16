@@ -6,14 +6,14 @@ Görevin mevcut oyunun hikâyesini yeniden yazmak değil, **mevcut hikâyenin bi
 
 Yeni hikâye oluştururken mevcut oyunun:
 
-* karakterlerini,
-* dünyasını,
-* lore'unu,
-* quest geçmişini,
-* NPC ilişkilerini,
-* item açıklamalarını,
-* dialogue hook'larını,
-* yarım kalmış bölgelerini
+- karakterlerini,
+- dünyasını,
+- lore'unu,
+- quest geçmişini,
+- NPC ilişkilerini,
+- item açıklamalarını,
+- dialogue hook'larını,
+- yarım kalmış bölgelerini
 
 **canon** kabul et.
 
@@ -35,21 +35,21 @@ dosyalarını incele.
 
 Ardından hikâyeyle ilişkili kaynakları tara:
 
-* `js/data/quests.js`
-* `js/world/areas.js`
-* `js/world/locations.js`
-* sector tanımları
-* creature/enemy verileri
-* item verileri
-* title sistemi
-* locale dosyaları
-* Yamato diyalogları
-* Hunter's Lodge
-* Southern Forest
-* Catacombs
-* basement
-* marketplace
-* mevcut NPC tanımları
+- `js/data/quests.js`
+- `js/world/areas.js`
+- `js/world/locations.js`
+- sector tanımları
+- creature/enemy verileri
+- item verileri
+- title sistemi
+- locale dosyaları
+- Yamato diyalogları
+- Hunter's Lodge
+- Southern Forest
+- Catacombs
+- basement
+- marketplace
+- mevcut NPC tanımları
 
 Kodda ve mevcut metinlerde bulunan gerçek içerik **canon** kabul edilir.
 
@@ -112,9 +112,9 @@ Repository'yi inceleyerek tüm unresolved story thread'leri doğrula.
 
 Yamato daha önce öldürülen kurtların ardından daha güçlü bir yaratığın:
 
-* sürünün lideri olabileceğini,
-* altındaki kurtların ölümüne öfkelenmiş olabileceğini,
-* meselenin hızlı şekilde çözülmesi gerektiğini
+- sürünün lideri olabileceğini,
+- altındaki kurtların ölümüne öfkelenmiş olabileceğini,
+- meselenin hızlı şekilde çözülmesi gerektiğini
 
 belirtmiştir.
 
@@ -158,12 +158,12 @@ Bu hook'u kullan.
 
 Başlangıçta olay küçük belirtiler halinde ortaya çıksın:
 
-* geceleri zeminin altından sesler,
-* cellar duvarlarında çatlaklar,
-* kaybolan eşyalar,
-* garip titreşimler,
-* bazı evlerin altından gelen kokular,
-* marketplace çevresindeki söylentiler.
+- geceleri zeminin altından sesler,
+- cellar duvarlarında çatlaklar,
+- kaybolan eşyalar,
+- garip titreşimler,
+- bazı evlerin altından gelen kokular,
+- marketplace çevresindeki söylentiler.
 
 İlk başta bunun monster activity olup olmadığı bile kesin olmasın.
 
@@ -207,13 +207,13 @@ Bu hikâyeyi uzun vadeli bir mystery arc olarak geliştir.
 
 Oyuncu zaman içinde:
 
-* Dein'e ait izler,
-* eski hunter işaretleri,
-* terk edilmiş kamp alanları,
-* kırılmış ekipman,
-* tanık anlatıları,
-* çelişkili bilgiler,
-* yanlış ipuçları
+- Dein'e ait izler,
+- eski hunter işaretleri,
+- terk edilmiş kamp alanları,
+- kırılmış ekipman,
+- tanık anlatıları,
+- çelişkili bilgiler,
+- yanlış ipuçları
 
 bulabilir.
 
@@ -287,29 +287,29 @@ Yan görevlerin tamamı grind görevi olmamalı.
 
 Şu türleri karıştır:
 
-* investigation
-* hunt
-* exploration
-* NPC drama
-* moral choice
-* mystery
-* retrieval
-* survival
-* dungeon event
-* village problem
-* hunter story
-* marketplace incident
+- investigation
+- hunt
+- exploration
+- NPC drama
+- moral choice
+- mystery
+- retrieval
+- survival
+- dungeon event
+- village problem
+- hunter story
+- marketplace incident
 
 Her side quest için:
 
-* Quest adı
-* Başlangıç NPC'si
-* Hook
-* Objective
-* Twist
-* Reward
-* Ana hikâyeyle ilişkisi
-* Daha sonra kullanılabilecek story hook
+- Quest adı
+- Başlangıç NPC'si
+- Hook
+- Objective
+- Twist
+- Reward
+- Ana hikâyeyle ilişkisi
+- Daha sonra kullanılabilecek story hook
 
 belirt.
 
@@ -331,11 +331,11 @@ Ancak herkes oyuncuyu övmemeli.
 
 Bazı NPC'ler:
 
-* abartabilir,
-* şüphe edebilir,
-* kıskanabilir,
-* alay edebilir,
-* oyuncudan çekinebilir.
+- abartabilir,
+- şüphe edebilir,
+- kıskanabilir,
+- alay edebilir,
+- oyuncudan çekinebilir.
 
 Böylece village yaşayan bir yer gibi hissetsin.
 
@@ -417,16 +417,16 @@ Mevcut hikâyeyi kronolojik olarak çıkar.
 
 Hikâyeye bağlanabilecek mevcut:
 
-* quests
-* scenes
-* areas
-* sectors
-* creatures
-* items
-* titles
-* NPCs
-* dialogue hooks
-* mechanics
+- quests
+- scenes
+- areas
+- sectors
+- creatures
+- items
+- titles
+- NPCs
+- dialogue hooks
+- mechanics
 
 listele.
 
@@ -436,12 +436,12 @@ Yeni ana hikâyeyi chapter bazında tasarla.
 
 Her chapter için:
 
-* başlangıç
-* ana olay
-* conflict
-* reveal
-* climax
-* sonraki chapter hook
+- başlangıç
+- ana olay
+- conflict
+- reveal
+- climax
+- sonraki chapter hook
 
 ver.
 
@@ -461,12 +461,12 @@ Hangi mevcut içeriğin nerede kullanılacağını listele.
 
 Gerçekten eklenmesi gereken yeni:
 
-* scenes
-* NPCs
-* quests
-* enemies
-* items
-* dialogue
+- scenes
+- NPCs
+- quests
+- enemies
+- items
+- dialogue
 
 varsa ayrı göster.
 
@@ -525,12 +525,12 @@ güncellenecek.
 
 Özellikle şunlar her zaman doğru kalmalı:
 
-* current story endpoint
-* reachable quest chain
-* unresolved threads
-* connected content
-* future hooks
-* dependency graph
+- current story endpoint
+- reachable quest chain
+- unresolved threads
+- connected content
+- future hooks
+- dependency graph
 
 ---
 

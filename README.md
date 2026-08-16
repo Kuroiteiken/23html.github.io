@@ -1,9 +1,14 @@
-# Proto23
+# Echoes Beneath
 
 [Türkçe](README.TR.md)
 
-Proto23 is an early-stage browser game that does not require a backend. This
-repository also contains the static site published through GitHub Pages.
+Echoes Beneath is an early-stage browser game that does not require a backend.
+This repository also contains the static site published through GitHub Pages.
+
+The project began as a fork of the upstream `Proto23` game, and the repository
+keeps that name. `Proto23` still appears in technical identifiers such as the npm
+package name and the stored language-preference key, which are deliberately left
+unchanged so existing saves and preferences keep working.
 
 ## Getting started
 

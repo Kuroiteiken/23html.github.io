@@ -559,7 +559,7 @@ function createSiteServer(options = {}) {
 
 if (require.main === module) {
   createSiteServer().listen(port, "127.0.0.1", () => {
-    console.log(`Proto23 is available at http://127.0.0.1:${port}`);
+    console.log(`Echoes Beneath is available at http://127.0.0.1:${port}`);
   });
 }
 

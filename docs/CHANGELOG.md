@@ -160,6 +160,16 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Renamed the game to **Echoes Beneath** in every player-facing surface: the
+  page title, the sharing metadata, the changelog page, and the exported save
+  filename. This fork began as a fork of the upstream `Proto23` game and keeps
+  that name for the repository. `Proto23` also remains in technical identifiers,
+  specifically the npm package name, the `proto23.locale` preference key, the
+  live-reload script id, and test fixture prefixes, so existing saves and stored
+  language preferences keep working.
+- Replaced the placeholder favicon with an icon generated from `assets/icon.png`,
+  and added a 192px icon, an Apple touch icon, and a share image under `icons/`,
+  which the deployment now publishes.
 - Replaced the hand-positioned overlays behind the destroy and disassemble
   confirmations with the shared modal. Both used unitless CSS values and a
   hard-coded 1300px centre, so they rendered off-screen or with no size at all.

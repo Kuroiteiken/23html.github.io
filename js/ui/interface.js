@@ -2387,7 +2387,7 @@ dom.ct_bt4_5a.addEventListener("click", function () {
           (a.getMinutes() >= 10 ? a.getMinutes() : "0" + a.getMinutes()) +
           "_" +
           (a.getSeconds() >= 10 ? a.getSeconds() : "0" + a.getSeconds())) +
-        " [Proto23]";
+        " [Echoes Beneath]";
       temp.click();
     });
     dom.ct_bt4_5a_nhx = addElement(dom.ct_bt4_5a_nh, "div");

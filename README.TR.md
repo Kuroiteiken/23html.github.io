@@ -1,10 +1,15 @@
-# Proto23
+# Echoes Beneath
 
 [English](README.md)
 
-Proto23, herhangi bir backend gerektirmeden tarayıcıda çalışan erken aşama bir
-oyundur. Repository aynı zamanda GitHub Pages üzerinden yayınlanacak statik siteyi
-içerir.
+Echoes Beneath, herhangi bir backend gerektirmeden tarayıcıda çalışan erken
+aşama bir oyundur. Repository aynı zamanda GitHub Pages üzerinden yayınlanacak
+statik siteyi içerir.
+
+Proje, üstkaynak `Proto23` oyununun bir fork'u olarak başladı ve repository bu
+adı koruyor. `Proto23`, npm paket adı ve saklanan dil tercihi anahtarı gibi
+teknik tanımlayıcılarda hâlâ geçiyor; mevcut kayıtlar ve tercihler çalışmaya
+devam etsin diye bunlar bilinçli olarak değiştirilmedi.
 
 ## Başlangıç
 

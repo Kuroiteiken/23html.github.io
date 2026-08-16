@@ -484,16 +484,44 @@ if (
 
 const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const sharingMetadata = [
+  /<title>Echoes Beneath<\/title>/,
   /<meta\s+name="description"/,
   /<meta\s+name="theme-color" content="#002840" \/>/,
-  /<meta\s+property="og:title" content="Proto23" \/>/,
+  /<meta\s+property="og:title" content="Echoes Beneath" \/>/,
   /<meta\s+property="og:description"/,
+  /<meta\s+property="og:image" content="icons\/og-image\.jpg" \/>/,
   /<meta\s+name="twitter:card"/,
+  /<link rel="shortcut icon" href="favicon\.ico"/,
+  /<link\s+rel="icon"[^>]*href="icons\/icon-192\.png"/,
+  /<link rel="apple-touch-icon" href="icons\/apple-touch-icon\.png" \/>/,
 ];
 
-if (!sharingMetadata.every((pattern) => pattern.test(indexHtml))) {
+if (
+  !sharingMetadata.every((pattern) => pattern.test(indexHtml)) ||
+  /Proto23/.test(indexHtml)
+) {
   throw new Error(
-    "Metadata regression: index.html must carry a description, theme colour, and Open Graph tags for shared links.",
+    "Metadata regression: index.html must present the game as Echoes Beneath and carry its description, theme colour, icons, and Open Graph tags.",
+  );
+}
+
+for (const icon of [
+  "favicon.ico",
+  "icons/icon-192.png",
+  "icons/apple-touch-icon.png",
+  "icons/og-image.jpg",
+]) {
+  if (!fs.existsSync(path.join(root, icon)))
+    throw new Error(`Metadata regression: ${icon} is referenced but missing.`);
+}
+
+if (
+  !/const directories = \["changelog", "css", "icons", "locales"\];/.test(
+    fs.readFileSync(path.join(root, "scripts", "build-site.js"), "utf8"),
+  )
+) {
+  throw new Error(
+    "Deploy regression: the icons directory must be copied into the published site.",
   );
 }
 
