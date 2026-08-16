@@ -55,6 +55,19 @@ function createSiteServer(options = {}) {
       return;
     }
 
+    if (options.enableTestRoutes && pathname === "/__test/unreadable-save") {
+      // Not decodable at all, unlike /__test/corrupt-save which decodes and
+      // then fails to parse. This exercises the backup-and-report path.
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(`<!doctype html>
+        <meta charset="UTF-8">
+        <script>
+          localStorage.setItem("v0.3", "!!!!");
+          location.replace("/?lang=tr");
+        </script>`);
+      return;
+    }
+
     if (options.enableTestRoutes && pathname === "/__test-combat-layout.html") {
       const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
       const layoutProbe = `<script>

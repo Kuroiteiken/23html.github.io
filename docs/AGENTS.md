@@ -85,6 +85,11 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
   key, not only bulk machine-assisted translations.
 - Keep the established Turkish gameplay terms stable. Translate `perk` as
   “Avantaj”; do not render it as “Yetenek”, which the skills panel already uses.
+- Write Turkish action labels as imperatives, not verbal nouns. In Turkish the
+  `-ma`/`-me` suffix is both a verbal noun and the negative imperative, so a
+  menu entry translated as a verbal noun reads as an instruction not to do the
+  thing: “Satın alma” reads as “do not buy”, and the correct label is “Satın
+  al”. Check every action label, button, and choice for this collision.
 - Review dialogue and action labels together with their source-code scene,
   adjacent messages, and resulting game behavior. Do not approve an isolated
   dictionary translation when the interaction gives the phrase a narrower

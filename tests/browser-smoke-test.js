@@ -307,9 +307,24 @@ async function main() {
       throw new Error("A malformed save did not show the recovery message.");
     }
 
+    const unreadable = await runChrome(
+      `${baseUrl}/__test/unreadable-save`,
+      profiles[1],
+    );
+    assertNoUnexpectedErrors(unreadable.stderr, true);
+    // assertCommonStartup also fails if the loading screen is still up, which
+    // is the regression this scenario exists to catch: reporting the unreadable
+    // save must not skip the startup teardown.
+    assertCommonStartup(unreadable.stdout, port);
+    if (!unreadable.stdout.includes('id="save-unreadable"')) {
+      throw new Error(
+        "An unreadable save did not report itself to the player.",
+      );
+    }
+
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, save-bar layout, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

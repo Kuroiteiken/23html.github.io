@@ -82,6 +82,11 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
   anahtarını dili bilen bir ajana bağlamsal olarak denetletin.
 - Yerleşik Türkçe oyun terimlerini sabit tutun. `perk` terimini “Avantaj” olarak
   çevirin; beceriler panelinin zaten kullandığı “Yetenek” karşılığını kullanmayın.
+- Türkçe eylem etiketlerini isim-fiil değil, emir kipiyle yazın. Türkçede
+  `-ma`/`-me` eki hem isim-fiil hem olumsuz emir olduğu için, isim-fiil olarak
+  çevrilen bir menü girdisi “bunu yapma” talimatı gibi okunur: “Satın alma”
+  ifadesi “satın alma!” diye anlaşılır, doğrusu “Satın al” olur. Her eylem
+  etiketini, düğmeyi ve seçeneği bu çakışmaya karşı kontrol edin.
 - Diyalog ve eylem etiketlerini kaynak koddaki sahne, komşu mesajlar ve eylemin
   oyun içindeki sonucuyla birlikte inceleyin. Etkileşim ifadeye daha dar bir anlam
   veriyorsa tek başına sözlük çevirisini onaylamayın; yüksek riskli düzeltmeleri

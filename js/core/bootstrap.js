@@ -602,7 +602,7 @@ dom.loading.style.width = "100%";
 dom.loading.style.height = "100%";
 dom.loading.style.position = "absolute";
 dom.loading.style.backgroundColor = "lightgrey";
-dom.loading.style.margin = -8;
+dom.loading.style.margin = "-8px";
 dom.loadingt = addElement(document.body, "div");
 dom.loadingt.id = "loading-text";
 dom.loadingt.style.zIndex = 9998;
@@ -610,10 +610,10 @@ dom.loadingt.innerHTML = i18n.t(
   "runtime.core.bootstrap.interface.loading_bb8af242",
 );
 dom.loadingt.style.textAlign = "center";
-dom.loadingt.style.top = window.innerHeight / 2 - 50;
+dom.loadingt.style.top = window.innerHeight / 2 - 50 + "px";
 dom.loadingt.style.fontSize = "4em";
 dom.loadingt.style.position = "absolute";
-dom.loadingt.style.left = window.innerWidth / 2 - 150;
+dom.loadingt.style.left = window.innerWidth / 2 - 150 + "px";
 
 function keepUnreadableSave(saved) {
   try {
@@ -623,13 +623,28 @@ function keepUnreadableSave(saved) {
   }
   const notice = addElement(document.body, "div", "save-unreadable");
   notice.innerHTML = i18n.t("ui.save.unreadable");
+  notice.tabIndex = 0;
+  notice.setAttribute("role", "button");
+  notice.title = i18n.t("ui.common.close");
+  const dismiss = () => notice.remove();
+  notice.addEventListener("click", dismiss);
+  notice.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " " && event.key !== "Escape")
+      return;
+    event.preventDefault();
+    dismiss();
+  });
 }
 
 function load(dt) {
   const saved = dt || window.localStorage.getItem("v0.3");
   var str = b64_to_utf8(saved);
   if (saved && !str) {
+    // The save could not be decoded. Report it, keep the original bytes, and
+    // fall through to a new game — the loading screen still has to come down,
+    // which is why this cannot simply return.
     keepUnreadableSave(saved);
+    clearLoadingScreen();
     return;
   }
   if (str && str != "") {
@@ -1187,6 +1202,10 @@ function load(dt) {
       dom.ct_bt3.innerHTML = i18n.t("ui.navigation.actions");
     if (global.flags.sklu)
       dom.ct_bt2.innerHTML = i18n.t("ui.navigation.skills");
+    // `grd_s` rides along in the saved flags, so the control and the rendered
+    // gradients have to be brought back in step with it after a restore.
+    dom.ct_bt4_41b.checked = global.flags.grd_s === false;
+    if (dom.ct_bt4_41b.checked) nograd(true);
     dom.d8m1.innerHTML = i18n.t(
       global.flags.to_pause === true
         ? "runtime.ui.interface.interface.pause_next_battle_nbspon_ff0ff553"

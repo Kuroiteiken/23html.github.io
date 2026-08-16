@@ -88,7 +88,14 @@
       "hitAndDodgeChance": "hit chance: {hit} / dodge chance: {dodge}{modifier}",
       "skillLevel": "{skill} lvl: {level}",
       "skillExperience": "?exp: {current}/{max}",
-      "skillExperiencePadded": "?exp: {current}/{max}?"
+      "skillExperiencePadded": "?exp: {current}/{max}?",
+      "abbr": {
+        "str": "STR",
+        "agl": "AGL",
+        "int": "INT",
+        "spd": "SPD",
+        "luck": "LUCK"
+      }
     },
     "statDescriptions": {
       "health": "Physical health points, needed to stay alive. You will probably die if it reaches 0<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
@@ -96,7 +103,9 @@
       "energy": "Influences the effectiveness of your actions; eat plenty to keep it full<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Energy Effectiveness: <span style=\"color:deeppink\">{effectiveness}%</span><br>Energy Consumption Rate: <span style=\"color:gold\">{consumption}/s</span></small>",
       "strength": "Determines physical damage dealt and received<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
       "agility": "Determines hit and dodge rates<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
-      "intelligence": "Determines magic damage dealt and received<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>"
+      "intelligence": "Determines magic damage dealt and received<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\">?</div><br><small>Growth Potential: <span style=\"color:lime\">{potential}%</span></small>",
+      "luck": "Improves rare drop chances, scavenging results, and how often luck turns a roll in your favour",
+      "luckTitle": "Fortune"
     },
     "itemDescription": {
       "stat": "{stat}: {value}",
@@ -3087,81 +3096,260 @@
     },
     "skl": {
       "fgt": {
-        "name": "Fighting"
+        "name": "Fighting",
+        "desc": "Ability to perform better in a fight",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases overall attack power</small>",
+        "mlstn": {
+          "lv2": "EXP Gain +2%",
+          "lv5": "STR +1, New Title",
+          "lv8": "EXP Gain +3%",
+          "lv10": "EXP Gain +5%, Energy Effectiveness +1%, New Title",
+          "lv11": "All Masteries EXP Gain +10%",
+          "lv12": "STR +1, War EXP Gain +5%, New Title",
+          "lv13": "AGL +2",
+          "lv14": "EXP Gain +6%",
+          "lv15": "EXP Gain +8%, All Masteries EXP Gain +10%, New Title"
+        }
       },
       "unc": {
-        "name": "Unarmed M"
+        "name": "Unarmed M",
+        "bname": "Unarmed Mastery",
+        "desc": "Mastery of unarmed combat",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when fighting unarmed</small>",
+        "mlstn": {
+          "lv2": "STR +1",
+          "lv5": "AGL +1, New Title",
+          "lv8": "EXP Gain +1%",
+          "lv10": "EXP Gain +5%, Energy Effectiveness +2%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "srdc": {
-        "name": "Sword M"
+        "name": "Sword M",
+        "bname": "Sword Mastery",
+        "desc": "Ability to fight using swords",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding a sword</small>",
+        "mlstn": {
+          "lv1": "STR +1",
+          "lv3": "AGL +1",
+          "lv5": "STR +1, AGL +1, New Title",
+          "lv8": "EXP Gain +3%",
+          "lv10": "EXP Gain +5%, Energy Effectiveness +1%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "knfc": {
-        "name": "Knife M"
+        "name": "Knife M",
+        "bname": "Knife Mastery",
+        "desc": "Ability to fight using knives and daggers",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding a knife</small>",
+        "mlstn": {
+          "lv2": "AGL +1",
+          "lv3": "AGL +2, EXP Gain +1%",
+          "lv5": "STR +1, New Title",
+          "lv8": "AGL +1, STR +1, EXP Gain +2%",
+          "lv10": "Critical Damage +10%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "axc": {
-        "name": "Axe M"
+        "name": "Axe M",
+        "bname": "Axe Mastery",
+        "desc": "Ability to fight using axes",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding an axe</small>",
+        "mlstn": {
+          "lv2": "STR +1",
+          "lv3": "STR +1, EXP Gain +2%",
+          "lv5": "HP +30, Blunt DEF +1, New Title",
+          "lv8": "AGL +1, STR +1, EXP Gain +2%",
+          "lv10": "Energy Effectiveness +2%, STR training Potential +5%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "plrmc": {
-        "name": "Polearm M"
+        "name": "Polearm M",
+        "bname": "Polearm Mastery",
+        "desc": "Ability to fight using polearms and lances",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding a spear/polearm</small>",
+        "mlstn": {
+          "lv2": "AGL +1",
+          "lv3": "AGL +1, EXP Gain +1%",
+          "lv5": "STR +1, Pierce DEF +1, New Title",
+          "lv8": "STR +2, EXP Gain +3%",
+          "lv10": "Physical Resistance +1%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "hmrc": {
-        "name": "Hammer M"
+        "name": "Hammer M",
+        "bname": "Hammer Mastery",
+        "desc": "Ability to fight using blunt weaponry",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding a club/hammer</small>",
+        "mlstn": {
+          "lv2": "AGL +1, EXP Gain +1%",
+          "lv4": "STR +1",
+          "lv5": "STR +1, New Title",
+          "lv8": "STR +1, EXP Gain +3%",
+          "lv10": "STR +3, EXP Gain +3%, New Title",
+          "lv11": "Fighting EXP Gain +3%"
+        }
       },
       "stfc": {
         "name": "Staff M",
+        "bname": "Staff Mastery",
         "desc": "Ability to fight using staves and wands"
       },
       "shdc": {
         "name": "Shield M",
-        "desc": "Ability to use shields better"
+        "bname": "Shield Mastery",
+        "desc": "Ability to use shields better",
+        "mlstn": {
+          "lv2": "EXP Gain +3%, Pain Resistance EXP Gain +1%",
+          "lv4": "HP +12, Pain Resistance EXP Gain +2%",
+          "lv5": "STR +1, Pain Resistance EXP Gain +7%, New Title",
+          "lv8": "AGL +2, EXP Gain +5%",
+          "lv10": "HP +30, STR +2, AGL +2, New Title",
+          "lv11": "Fighting EXP Gain +8%"
+        }
       },
       "sleep": {
-        "name": "Sleeping"
+        "name": "Sleeping",
+        "desc": "The rest of Body",
+        "bonus": "<small style=\"color:darkorange\">Increases health gain during sleep</small>",
+        "mlstn": {
+          "lv2": "HP +2",
+          "lv4": "HP +5",
+          "lv5": "HP +10, Patience EXP Gain +5%, New Title",
+          "lv6": "HP +12",
+          "lv7": "HP +15",
+          "lv8": "HP +20",
+          "lv9": "Patience EXP Gain +10%, HP +25",
+          "lv10": "HP +30, Death EXP Gain +10%, New Title",
+          "lv11": "HP +35",
+          "lv12": "HP +50"
+        }
       },
       "seye": {
-        "name": "Sharp Eye"
+        "name": "Sharp Eye",
+        "desc": "Ability to notice weak points",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases critical probability</small>",
+        "mlstn": {
+          "lv1": "AGL +1",
+          "lv3": "STR +1, EXP Gain +4%, New Title",
+          "lv4": "Perception EXP Gain +5%, Critical Damage +2%, EXP Gain +6%",
+          "lv5": "All Masteries EXP Gain +5%, Fighting EXP Gain +5%, New Title",
+          "lv6": "Evasion EXP Gain +8%, Critical Damage +8%, War EXP Gain +7%",
+          "lv7": "EXP Gain +7%, STR +2, Perception EXP Gain +10%, Energy Effectiveness +1%",
+          "lv8": "Physical ATK +5, New Title"
+        }
       },
       "pet": {
-        "name": "Patting"
+        "name": "Patting",
+        "desc": "Mastery of petting animals",
+        "bonus": "<small style=\"color:darkorange\">Makes animals love you</small>",
+        "mlstn": {
+          "lv2": "LUCK +1",
+          "lv4": "AGL +1",
+          "lv5": "Energy Effectiveness +1%, New Title",
+          "lv6": "HP +33",
+          "lv7": "AGL +2",
+          "lv8": "EXP Gain +10%, Beast Class DEF +3, New Title",
+          "lv9": "Unarmed Mastery EXP gain +10%",
+          "lv10": "INT +3, New Title"
+        }
       },
       "walk": {
         "name": "Walking",
-        "desc": "Ability to walk"
+        "desc": "Ability to walk",
+        "mlstn": {
+          "lv1": "AGL +1",
+          "lv3": "HP +5, New Title",
+          "lv4": "HP +8, SAT +6",
+          "lv5": "HP +10, SAT +8, New Title",
+          "lv6": "HP +12, EXP Gain +3%, HP Training Potential +3%",
+          "lv7": "Toughness EXP Gain +10%, STR +1, SAT +10, EXP Gain +3%, STR Training Potential +3%",
+          "lv8": "Evasion EXP Gain +5%, HP +15, AGL +2, EXP Gain +3%, AGL Training Potential +3%",
+          "lv9": "HP +8, SAT +8, EXP Gain +6%",
+          "lv10": "HP +10, SAT 10, SPD +1, New Title"
+        }
       },
       "dice": {
         "name": "Gambling",
-        "desc": "Skill of chances"
+        "desc": "Skill of chances",
+        "mlstn": {
+          "lv1": "LUCK +1",
+          "lv3": "AGL +2"
+        }
       },
       "glt": {
         "name": "Gluttony",
-        "desc": "Mastery of eating"
+        "desc": "Mastery of eating",
+        "mlstn": {
+          "lv1": "SAT +5",
+          "lv2": "SAT +5, HP +5",
+          "lv3": "SAT +10, HP +5, New Title",
+          "lv4": "SAT +10, HP +5, Survival EXP Gain +5%",
+          "lv5": "SAT +10, HP +10",
+          "lv6": "SAT +10, HP +15",
+          "lv7": "SAT +10, HP +20, New Title",
+          "lv8": "SAT +15, HP +25",
+          "lv9": "SAT +15, HP +35, Survival EXP Gain +15%",
+          "lv10": "EXP Gain +13%, SAT +20, HP +40, New Title",
+          "lv11": "SAT +25, HP +50",
+          "lv12": "SAT +25, HP +60",
+          "lv13": "SAT +25, HP +70"
+        }
       },
       "rdg": {
-        "name": "Literacy"
+        "name": "Literacy",
+        "desc": "Understanding of meaning behind texts",
+        "bonus": "<small style=\"color:darkorange\">Improves reading speed</small>",
+        "mlstn": {
+          "lv2": "INT +1",
+          "lv3": "EXP Gain +2%, New Title",
+          "lv4": "INT +1, EXP Gain +2%",
+          "lv5": "EXP Gain +3%, INT +1, New Title"
+        }
       },
       "cook": {
-        "name": "Cooking"
+        "name": "Cooking",
+        "desc": "The art of Cooking",
+        "bonus": "<small style=\"color:darkorange\">Reduces chances to cook a failed product</small>",
+        "mlstn": {
+          "lv1": "INT +1, AGL +1",
+          "lv2": "STR +1, EXP Gain +5%, New Title"
+        }
       },
       "mdt": {
         "name": "Meditation",
         "desc": "The rest of Mind"
       },
       "crft": {
-        "name": "Crafting"
+        "name": "Crafting",
+        "desc": "The art of Creation",
+        "bonus": "<small style=\"color:darkorange\">Makes autocrafting faster</small>"
       },
       "alch": {
         "name": "Alchemy",
-        "desc": "Knowledge of medicine and alchemical transmutation"
+        "desc": "Knowledge of medicine and alchemical transmutation",
+        "mlstn": {
+          "lv1": "INT +1"
+        }
       },
       "thr": {
-        "name": "Throwing"
+        "name": "Throwing",
+        "desc": "Mastery of throwing",
+        "bonus": "<small style=\"color:darkorange\">Decreases waiting time between throws<br>Slightly increases throwing damage</small>"
       },
       "bwc": {
         "name": "Ranged M",
+        "bname": "Ranged Mastery",
         "desc": "Ability to utilize bows and crossbows in combat"
       },
       "ntst": {
-        "name": "Nightsight"
+        "name": "Nightsight",
+        "desc": "Ability to see better in the darkness",
+        "bonus": "<small style=\"color:darkorange\">Mitigates hit penalty while fighting in darkness</small>"
       },
       "evas": {
         "name": "Evasion",
@@ -3172,51 +3360,115 @@
         "desc": "The power of possessions"
       },
       "dngs": {
-        "name": "Danger Sense"
+        "name": "Danger Sense",
+        "desc": "Ability to detect and avoid danger",
+        "bonus": "<small style=\"color:darkorange\">Slightly decreases critical damage received</small>",
+        "mlstn": {
+          "lv1": "EXP Gain +3%",
+          "lv2": "AGL +1, Pain Resistance EXP Gain +3%",
+          "lv3": "Fighting EXP Gain +10%, New Title",
+          "lv4": "EXP Gain +5%, Evasion EXP Gain +10%, STR +1",
+          "lv5": "AGL +2, Energy Effectiveness +1%, Sharp Eye EXP Gain +10%, New Title"
+        }
       },
       "painr": {
-        "name": "Pain Resistance"
+        "name": "Pain Resistance",
+        "desc": "Ability to tolerate physical harm",
+        "bonus": "<small style=\"color:darkorange\">Slightly decreases damage received</small>",
+        "mlstn": {
+          "lv1": "EXP Gain +1%",
+          "lv3": "EXP Gain +2%, AGL +1",
+          "lv5": "EXP Gain +5%, STR +1, New Title",
+          "lv6": "Danger Sense EXP Gain +10%"
+        }
       },
       "poisr": {
-        "name": "Poison Resistance"
+        "name": "Poison Resistance",
+        "desc": "Ability to tolerate harmful poisons",
+        "bonus": "<small style=\"color:darkorange\">Increases probability to avoid being poisoned</small>"
       },
       "fdpnr": {
-        "name": "Survival"
+        "name": "Survival",
+        "desc": "Ability to safely digest dangerous food",
+        "bonus": "<small style=\"color:darkorange\">Reduces energy loss from food poisoning</small>",
+        "mlstn": {
+          "lv1": "EXP Gain +3%",
+          "lv2": "SAT +15, HP +30, Gluttony EXP Gain +5%",
+          "lv3": "EXP Gain +5%, STR +1, Drinking EXP Gain +10%, New Title",
+          "lv5": "EXP Gain +7%, Pain Resistance EXP Gain +10%, Gluttony EXP Gain +10%, New Title",
+          "lv6": "Elusion EXP Gain +15%, STR +2, HP +100",
+          "lv7": "EXP Gain +10%, STR +1, Poison Resistance EXP Gain +10%, Gluttony EXP Gain +15%,",
+          "lv8": "Damage Reduction +1%, Pain Resistance EXP Gain +20%, Poison Resistance EXP Gain +20%, New Title"
+        }
       },
       "war": {
-        "name": "War"
+        "name": "War",
+        "desc": "Mastery of destruction and military tactics",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases crit damage</small>"
       },
       "stel": {
         "name": "Stealing",
         "desc": "Ability to pilfer"
       },
       "dth": {
-        "name": "Death"
+        "name": "Death",
+        "desc": "Ability to cling to your fate",
+        "bonus": "<small style=\"color:darkorange\">Reduces energy loss on death</small>",
+        "mlstn": {
+          "lv1": "HP +20",
+          "lv3": "EXP Gain +3%, Pain Resistance EXP Gain +5%, New Title",
+          "lv5": "EXP Gain +5%, Toughness EXP Gain +10%",
+          "lv7": "STR +2, Danger Sense EXP Gain +15%, New Title",
+          "lv9": "SAT +15, Pain Resistance EXP Gain +10%, New Title",
+          "lv10": "Survival EXP Gain +10%, , New Title"
+        }
       },
       "rtr": {
         "name": "Elusion",
         "desc": "Ability to escape danger"
       },
       "fmn": {
-        "name": "Famine"
+        "name": "Famine",
+        "desc": "Ability to go by without any sustenance",
+        "bonus": "<small style=\"color:darkorange\">Increases lower energy effectiveness bonus</small>",
+        "mlstn": {
+          "lv1": "EXP Gain +1%",
+          "lv3": "SAT +5, HP +5, Gluttony EXP Gain +3%, New Title",
+          "lv5": "STR +1, Toughness EXP Gain +3%",
+          "lv7": "AGL +2, HP +15, Survival EXP Gain +15%, New Title",
+          "lv9": "SAT +10, Death EXP Gain +5%, Gluttony EXP Gain +7%",
+          "lv10": ", New Title"
+        }
       },
       "abw": {
-        "name": "Water Absorption"
+        "name": "Water Absorption",
+        "desc": "Ability to absorb Water Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Reduces energy loss when wet<br>Provides minor protection from water-based attacks</small>"
       },
       "abf": {
-        "name": "Fire Absorption"
+        "name": "Fire Absorption",
+        "desc": "Ability to absorb Fire Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Provides minor protection from fire-based attacks</small>"
       },
       "aba": {
-        "name": "Air Absorption"
+        "name": "Air Absorption",
+        "desc": "Ability to absorb Air Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Provides minor protection from air-based attacks</small>"
       },
       "abe": {
-        "name": "Earth Absorption"
+        "name": "Earth Absorption",
+        "desc": "Ability to absorb Earth Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Provides minor protection from earth-based attacks</small>"
       },
       "abl": {
-        "name": "Light Absorption"
+        "name": "Light Absorption",
+        "desc": "Ability to absorb Holy Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Provides minor protection from holy attacks</small>"
       },
       "abd": {
-        "name": "Dark Absorption"
+        "name": "Dark Absorption",
+        "desc": "Ability to absorb Dark Ki and assimilate it within your body",
+        "bonus": "<small style=\"color:darkorange\">Provides minor protection from Dark attacks</small>"
       },
       "hvt": {
         "name": "Foraging",
@@ -3239,23 +3491,34 @@
         "desc": "Ability to resist temptation of worldly possessions"
       },
       "bledr": {
-        "name": "Bleeding Resistance"
+        "name": "Bleeding Resistance",
+        "desc": "Ability to keep going with blood loss",
+        "bonus": "<small style=\"color:darkorange\">Wounds bleed less</small>"
       },
       "twoh": {
-        "name": "Two Handed M"
+        "name": "Two Handed M",
+        "bname": "Two Handed Mastery",
+        "desc": "Ability to fight using heavy two handed weapons",
+        "bonus": "<small style=\"color:darkorange\">Slightly increases attack power when holding a two handed weapon</small>"
       },
       "trad": {
-        "name": "Trading"
+        "name": "Trading",
+        "desc": "Ability to exchange wealth for goods and services",
+        "bonus": "<small style=\"color:darkorange\">Slightly shifts shop prices in your favour</small>"
       },
       "swm": {
         "name": "Swimming",
         "desc": "Ability to dive and traverse waters"
       },
       "dssmb": {
-        "name": "Disassembly"
+        "name": "Disassembly",
+        "desc": "Ability to deconstruct goods into raw spare parts",
+        "bonus": "<small style=\"color:darkorange\">Increases yield from deconstructed items</small>"
       },
       "tghs": {
-        "name": "Toughness"
+        "name": "Toughness",
+        "desc": "Durability of one's body",
+        "bonus": "<small style=\"color:darkorange\">Slightly improves physical defence</small>"
       },
       "drka": {
         "name": "Drinking",
@@ -3282,13 +3545,19 @@
         "desc": "Abillity to sew and create produce out of cloth"
       },
       "crptr": {
-        "name": "Corruption Resistance"
+        "name": "Corruption Resistance",
+        "desc": "Ability to resist the corruption of flesh",
+        "bonus": "<small style=\"color:darkorange\">Mitigates corruption and fei damage</small>"
       },
       "hst": {
-        "name": "Harvesting"
+        "name": "Harvesting",
+        "desc": "Ability to find and collect usable materials from the surroundings",
+        "bonus": "<small style=\"color:darkorange\">Increases chances of obtaining area loot</small>"
       },
       "coldr": {
-        "name": "Cold Resistance"
+        "name": "Cold Resistance",
+        "desc": "Ability to tolerate harsh and cold temperatures",
+        "bonus": "<small style=\"color:darkorange\">Slightly decreases energy loss when cold</small>"
       }
     },
     "ttl": {

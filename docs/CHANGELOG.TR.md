@@ -169,6 +169,35 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Çıplak sayı atayan 104 stil satırına `px` birimi eklendi. Birimsiz bir CSS
+  uzunluğu geçersizdir ve sessizce atılır, yani bu tanımların hiçbiri işe
+  yaramıyordu. Görünmeyen yok etme onayı, ürün adının üstüne binen market
+  düğmeleri ve okunamayan dayanıklılık göstergesi hep bu tek hata sınıfındandı.
+  Kalan beş çıplak atama geçerli: `skl.sp` zaten `".66em"` tutuyor, `chs()`
+  işlevinin `size` ve `slimsize` parametreleri hiçbir çağıran tarafından
+  geçilmiyor ve biri yorum satırında.
+- `js/ui/map-and-mastery.js` içindeki tekrarlanmış ipucu konumlandırması
+  `positionDescription` çağrısıyla değiştirildi. Kopya birimsiz değer atadığı
+  için ipucunu hiç hareket ettirmiyordu.
+- `js/data/skills.js` içinde kalan tüm gömülü metinler dil dosyalarına taşındı:
+  134 avantaj etiketi, 36 açıklama ve 10 ustalık adı; dil başına 216 anahtar
+  eklendi. Kilometre taşı etiketleri `content.skl.<id>.mlstn.lv<N>` deseniyle
+  anahtarlandı.
+- Üst bardaki stat kısaltmaları yerelleştirildi; kaynakta İngilizce sabit
+  değerlerdi, oysa avantaj metinleri Türkçe kısaltmaları kullanıyordu.
+- Kritik şans satırının yanına Şans göstergesi eklendi. Şans, unvanlar ve beceri
+  kilometre taşlarıyla artıyor ve kritik ile düşme atışlarını besliyordu, ancak
+  arayüzün hiçbir yerinde gösterilmiyordu.
+- Bir kayıt çözülemediğinde yükleme ekranının hiç kalkmaması düzeltildi.
+  Bildir-ve-devam et yolu, açılış temizliği çalışmadan geri dönüyordu.
+  Çözülemeyen bir kaydı kapsayan tarayıcı senaryosu eklendi; mevcut bozuk kayıt
+  senaryosu bu yola ulaşmıyordu, çünkü onun verisi sorunsuz çözülüp yalnızca
+  ayrıştırmada başarısız oluyor.
+- "Degradeleri yok et" ayarının, kutu yerine kayıtlı bayraktan hareket etmesi
+  düzeltildi; kayıt yüklendiğinde hem kontrol hem de çizilen degradeler geri
+  getiriliyor.
+- Degrade ve otomatik kayıt kutularına temaya uygun bir kontrol verildi;
+  öncesinde `<select>` için yazılmış sınıfı taşıyan yerel bir checkbox'tı.
 - Oyun, oyuncuya görünen her yüzeyde **Echoes Beneath** olarak yeniden
   adlandırıldı: sayfa başlığı, paylaşım meta etiketleri, changelog sayfası ve dışa
   aktarılan kayıt dosyası adı. Bu fork, üstkaynak `Proto23` oyununun fork'u olarak

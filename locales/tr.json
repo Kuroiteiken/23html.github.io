@@ -88,7 +88,14 @@
       "hitAndDodgeChance": "isabet şansı: {hit} / kaçınma şansı: {dodge}{modifier}",
       "skillLevel": "{skill} sv: {level}",
       "skillExperience": "DP: {current}/{max}",
-      "skillExperiencePadded": " DP: {current}/{max} "
+      "skillExperiencePadded": " DP: {current}/{max} ",
+      "abbr": {
+        "str": "GÜÇ",
+        "agl": "ÇEV",
+        "int": "ZEK",
+        "spd": "HIZ",
+        "luck": "ŞANS"
+      }
     },
     "statDescriptions": {
       "health": "Hayatta kalmak için gereken sağlık puanlarıdır. 0 olduğunda büyük olasılıkla ölürsün<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Gelişim Potansiyeli: <span style=\"color:lime\">%{potential}</span></small>",
@@ -96,7 +103,9 @@
       "energy": "Eylemlerinin verimini etkiler; dolu tutmak için iyi beslen<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Enerji Verimi: <span style=\"color:deeppink\">%{effectiveness}</span><br>Enerji Tüketim Hızı: <span style=\"color:gold\">{consumption}/sn</span></small>",
       "strength": "Verilen ve alınan fiziksel hasarı belirler<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Gelişim Potansiyeli: <span style=\"color:lime\">%{potential}</span></small>",
       "agility": "İsabet ve kaçınma oranlarını belirler<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Gelişim Potansiyeli: <span style=\"color:lime\">%{potential}</span></small>",
-      "intelligence": "Verilen ve alınan büyü hasarını belirler<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Gelişim Potansiyeli: <span style=\"color:lime\">%{potential}</span></small>"
+      "intelligence": "Verilen ve alınan büyü hasarını belirler<div style=\"  border-bottom: 1px solid grey;width:100%;height:8px\"></div><br><small>Gelişim Potansiyeli: <span style=\"color:lime\">%{potential}</span></small>",
+      "luck": "Nadir eşya düşme ihtimalini, toplayıcılık sonuçlarını ve zarın senden yana dönme sıklığını artırır",
+      "luckTitle": "Talih"
     },
     "itemDescription": {
       "stat": "{stat}: {value}",
@@ -3087,81 +3096,260 @@
     },
     "skl": {
       "fgt": {
-        "name": "Dövüş"
+        "name": "Dövüş",
+        "desc": "Dövüşte daha iyi performans gösterme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Genel saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "DP Kazanımı +2%",
+          "lv5": "GÜÇ +1, Yeni Unvan",
+          "lv8": "DP Kazanımı +3%",
+          "lv10": "DP Kazanımı +5%, Enerji Etkinliği +1%, Yeni Unvan",
+          "lv11": "Tüm ustalıkların DP kazanımı +10%",
+          "lv12": "GÜÇ +1, Savaş DP kazanımı +5%, Yeni Unvan",
+          "lv13": "ÇEV +2",
+          "lv14": "DP Kazanımı +6%",
+          "lv15": "DP Kazanımı +8%, Tüm ustalıkların DP kazanımı +10%, Yeni Unvan"
+        }
       },
       "unc": {
-        "name": "Silahsız Dövüş Ustalığı"
+        "name": "Silahsız Dövüş Ustalığı",
+        "bname": "Silahsız Dövüş Ustalığı",
+        "desc": "Silahsız dövüş ustalığı",
+        "bonus": "<small style=\"color:darkorange\">Silahsız dövüşürken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "GÜÇ +1",
+          "lv5": "ÇEV +1, Yeni Unvan",
+          "lv8": "DP Kazanımı +1%",
+          "lv10": "DP Kazanımı +5%, Enerji Etkinliği +2%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "srdc": {
-        "name": "Kılıç Ustalığı"
+        "name": "Kılıç Ustalığı",
+        "bname": "Kılıç Ustalığı",
+        "desc": "Kılıçlarla savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde kılıç varken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv1": "GÜÇ +1",
+          "lv3": "ÇEV +1",
+          "lv5": "GÜÇ +1, ÇEV +1, Yeni Unvan",
+          "lv8": "DP Kazanımı +3%",
+          "lv10": "DP Kazanımı +5%, Enerji Etkinliği +1%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "knfc": {
-        "name": "Bıçak Ustalığı"
+        "name": "Bıçak Ustalığı",
+        "bname": "Bıçak Ustalığı",
+        "desc": "Bıçak ve hançerlerle savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde bıçak varken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "ÇEV +1",
+          "lv3": "ÇEV +2, DP Kazanımı +1%",
+          "lv5": "GÜÇ +1, Yeni Unvan",
+          "lv8": "ÇEV +1, GÜÇ +1, DP Kazanımı +2%",
+          "lv10": "Kritik Hasarı +10%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "axc": {
-        "name": "Balta Ustalığı"
+        "name": "Balta Ustalığı",
+        "bname": "Balta Ustalığı",
+        "desc": "Baltalarla savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde balta varken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "GÜÇ +1",
+          "lv3": "GÜÇ +1, DP Kazanımı +2%",
+          "lv5": "CAN +30, Künt SAV +1, Yeni Unvan",
+          "lv8": "ÇEV +1, GÜÇ +1, DP Kazanımı +2%",
+          "lv10": "Enerji Etkinliği +2%, GÜÇ Gelişim Potansiyeli +5%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "plrmc": {
-        "name": "Sırıklı Silah Ustalığı"
+        "name": "Sırıklı Silah Ustalığı",
+        "bname": "Sırıklı Silah Ustalığı",
+        "desc": "Sırıklı silahlar ve mızraklarla savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde mızrak/sırıklı silah varken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "ÇEV +1",
+          "lv3": "ÇEV +1, DP Kazanımı +1%",
+          "lv5": "GÜÇ +1, Delici SAV +1, Yeni Unvan",
+          "lv8": "GÜÇ +2, DP Kazanımı +3%",
+          "lv10": "Fiziksel Direnç +1%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "hmrc": {
-        "name": "Çekiç Ustalığı"
+        "name": "Çekiç Ustalığı",
+        "bname": "Çekiç Ustalığı",
+        "desc": "Künt silahlarla savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde sopa/çekiç varken saldırı gücünü hafifçe artırır</small>",
+        "mlstn": {
+          "lv2": "ÇEV +1, DP Kazanımı +1%",
+          "lv4": "GÜÇ +1",
+          "lv5": "GÜÇ +1, Yeni Unvan",
+          "lv8": "GÜÇ +1, DP Kazanımı +3%",
+          "lv10": "GÜÇ +3, DP Kazanımı +3%, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +3%"
+        }
       },
       "stfc": {
         "name": "Asa Ustalığı",
+        "bname": "Asa Ustalığı",
         "desc": "Asa ve değneklerle savaşma yeteneği"
       },
       "shdc": {
         "name": "Kalkan Ustalığı",
-        "desc": "Kalkanları daha iyi kullanma yeteneği"
+        "bname": "Kalkan Ustalığı",
+        "desc": "Kalkanları daha iyi kullanma yeteneği",
+        "mlstn": {
+          "lv2": "DP Kazanımı +3%, Ağrı Direnci DP kazanımı +1%",
+          "lv4": "CAN +12, Ağrı Direnci DP kazanımı +2%",
+          "lv5": "GÜÇ +1, Ağrı Direnci DP kazanımı +7%, Yeni Unvan",
+          "lv8": "ÇEV +2, DP Kazanımı +5%",
+          "lv10": "CAN +30, GÜÇ +2, ÇEV +2, Yeni Unvan",
+          "lv11": "Dövüş DP kazanımı +8%"
+        }
       },
       "sleep": {
-        "name": "Uyuma"
+        "name": "Uyuma",
+        "desc": "Bedenin dinlenmesi",
+        "bonus": "<small style=\"color:darkorange\">Uyku sırasında kazanılan canı artırır</small>",
+        "mlstn": {
+          "lv2": "CAN +2",
+          "lv4": "CAN +5",
+          "lv5": "CAN +10, Sabır DP kazanımı +5%, Yeni Unvan",
+          "lv6": "CAN +12",
+          "lv7": "CAN +15",
+          "lv8": "CAN +20",
+          "lv9": "Sabır DP kazanımı +10%, CAN +25",
+          "lv10": "CAN +30, Ölüm DP kazanımı +10%, Yeni Unvan",
+          "lv11": "CAN +35",
+          "lv12": "CAN +50"
+        }
       },
       "seye": {
-        "name": "Keskin Göz"
+        "name": "Keskin Göz",
+        "desc": "Zayıf noktaları fark etme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Kritik şansını hafifçe artırır</small>",
+        "mlstn": {
+          "lv1": "ÇEV +1",
+          "lv3": "GÜÇ +1, DP Kazanımı +4%, Yeni Unvan",
+          "lv4": "Algı DP kazanımı +5%, Kritik Hasarı +2%, DP Kazanımı +6%",
+          "lv5": "Tüm ustalıkların DP kazanımı +5%, Dövüş DP kazanımı +5%, Yeni Unvan",
+          "lv6": "Kaçınma DP kazanımı +8%, Kritik Hasarı +8%, Savaş DP kazanımı +7%",
+          "lv7": "DP Kazanımı +7%, GÜÇ +2, Algı DP kazanımı +10%, Enerji Etkinliği +1%",
+          "lv8": "Fiziksel SAL +5, Yeni Unvan"
+        }
       },
       "pet": {
-        "name": "Okşama"
+        "name": "Okşama",
+        "desc": "Hayvanları okşama ustalığı",
+        "bonus": "<small style=\"color:darkorange\">Hayvanların seni sevmesini sağlar</small>",
+        "mlstn": {
+          "lv2": "ŞANS +1",
+          "lv4": "ÇEV +1",
+          "lv5": "Enerji Etkinliği +1%, Yeni Unvan",
+          "lv6": "CAN +33",
+          "lv7": "ÇEV +2",
+          "lv8": "DP Kazanımı +10%, Canavar Sınıfı SAV +3, Yeni Unvan",
+          "lv9": "Silahsız Dövüş Ustalığı DP kazanımı +10%",
+          "lv10": "ZEK +3, Yeni Unvan"
+        }
       },
       "walk": {
         "name": "Yürüyüş",
-        "desc": "Yürüme yeteneği"
+        "desc": "Yürüme yeteneği",
+        "mlstn": {
+          "lv1": "ÇEV +1",
+          "lv3": "CAN +5, Yeni Unvan",
+          "lv4": "CAN +8, TOKLUK +6",
+          "lv5": "CAN +10, TOKLUK +8, Yeni Unvan",
+          "lv6": "CAN +12, DP Kazanımı +3%, CAN Gelişim Potansiyeli +3%",
+          "lv7": "Dayanıklılık DP kazanımı +10%, GÜÇ +1, TOKLUK +10, DP Kazanımı +3%, GÜÇ Gelişim Potansiyeli +3%",
+          "lv8": "Kaçınma DP kazanımı +5%, CAN +15, ÇEV +2, DP Kazanımı +3%, ÇEV Gelişim Potansiyeli +3%",
+          "lv9": "CAN +8, TOKLUK +8, DP Kazanımı +6%",
+          "lv10": "CAN +10, TOKLUK 10, HIZ +1, Yeni Unvan"
+        }
       },
       "dice": {
         "name": "Kumar",
-        "desc": "Şans becerisi"
+        "desc": "Şans becerisi",
+        "mlstn": {
+          "lv1": "ŞANS +1",
+          "lv3": "ÇEV +2"
+        }
       },
       "glt": {
         "name": "Oburluk",
-        "desc": "Yemek yeme ustalığı"
+        "desc": "Yemek yeme ustalığı",
+        "mlstn": {
+          "lv1": "TOKLUK +5",
+          "lv2": "TOKLUK +5, CAN +5",
+          "lv3": "TOKLUK +10, CAN +5, Yeni Unvan",
+          "lv4": "TOKLUK +10, CAN +5, Hayatta kalma DP kazanımı +5%",
+          "lv5": "TOKLUK +10, CAN +10",
+          "lv6": "TOKLUK +10, CAN +15",
+          "lv7": "TOKLUK +10, CAN +20, Yeni Unvan",
+          "lv8": "TOKLUK +15, CAN +25",
+          "lv9": "TOKLUK +15, CAN +35, Hayatta kalma DP kazanımı +15%",
+          "lv10": "DP Kazanımı +13%, TOKLUK +20, CAN +40, Yeni Unvan",
+          "lv11": "TOKLUK +25, CAN +50",
+          "lv12": "TOKLUK +25, CAN +60",
+          "lv13": "TOKLUK +25, CAN +70"
+        }
       },
       "rdg": {
-        "name": "Okuryazarlık"
+        "name": "Okuryazarlık",
+        "desc": "Metinlerin ardındaki anlamı kavrama",
+        "bonus": "<small style=\"color:darkorange\">Okuma hızını artırır</small>",
+        "mlstn": {
+          "lv2": "ZEK +1",
+          "lv3": "DP Kazanımı +2%, Yeni Unvan",
+          "lv4": "ZEK +1, DP Kazanımı +2%",
+          "lv5": "DP Kazanımı +3%, ZEK +1, Yeni Unvan"
+        }
       },
       "cook": {
-        "name": "Yemek Pişirme"
+        "name": "Yemek Pişirme",
+        "desc": "Yemek pişirme sanatı",
+        "bonus": "<small style=\"color:darkorange\">Başarısız ürün pişirme olasılığını azaltır</small>",
+        "mlstn": {
+          "lv1": "ZEK +1, ÇEV +1",
+          "lv2": "GÜÇ +1, DP Kazanımı +5%, Yeni Unvan"
+        }
       },
       "mdt": {
         "name": "Meditasyon",
         "desc": "Zihnin dinlenmesi"
       },
       "crft": {
-        "name": "Zanaatkârlık"
+        "name": "Zanaatkârlık",
+        "desc": "Yaratma sanatı",
+        "bonus": "<small style=\"color:darkorange\">Otomatik üretimi hızlandırır</small>"
       },
       "alch": {
         "name": "Simya",
-        "desc": "Tıp ve simyasal dönüşüm bilgisi"
+        "desc": "Tıp ve simyasal dönüşüm bilgisi",
+        "mlstn": {
+          "lv1": "ZEK +1"
+        }
       },
       "thr": {
-        "name": "Fırlatma"
+        "name": "Fırlatma",
+        "desc": "Fırlatma ustalığı",
+        "bonus": "<small style=\"color:darkorange\">Fırlatmalar arasındaki bekleme süresini azaltır<br>Fırlatma hasarını hafifçe artırır</small>"
       },
       "bwc": {
         "name": "Menzilli Silah Ustalığı",
+        "bname": "Menzilli Silah Ustalığı",
         "desc": "Savaşta yay ve arbalet kullanma yeteneği"
       },
       "ntst": {
-        "name": "Gece görüşü"
+        "name": "Gece görüşü",
+        "desc": "Karanlıkta daha iyi görme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Karanlıkta savaşırken isabet cezasını hafifletir</small>"
       },
       "evas": {
         "name": "Kaçınma",
@@ -3172,51 +3360,115 @@
         "desc": "Mülkiyetin gücü"
       },
       "dngs": {
-        "name": "Tehlike Algısı"
+        "name": "Tehlike Algısı",
+        "desc": "Tehlikeyi sezme ve ondan kaçınma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Alınan kritik hasarı hafifçe azaltır</small>",
+        "mlstn": {
+          "lv1": "DP Kazanımı +3%",
+          "lv2": "ÇEV +1, Ağrı Direnci DP kazanımı +3%",
+          "lv3": "Dövüş DP kazanımı +10%, Yeni Unvan",
+          "lv4": "DP Kazanımı +5%, Kaçınma DP kazanımı +10%, GÜÇ +1",
+          "lv5": "ÇEV +2, Enerji Etkinliği +1%, Keskin Göz DP kazanımı +10%, Yeni Unvan"
+        }
       },
       "painr": {
-        "name": "Ağrı Direnci"
+        "name": "Ağrı Direnci",
+        "desc": "Fiziksel zarara katlanma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Alınan hasarı hafifçe azaltır</small>",
+        "mlstn": {
+          "lv1": "DP Kazanımı +1%",
+          "lv3": "DP Kazanımı +2%, ÇEV +1",
+          "lv5": "DP Kazanımı +5%, GÜÇ +1, Yeni Unvan",
+          "lv6": "Tehlike Algısı DP kazanımı +10%"
+        }
       },
       "poisr": {
-        "name": "Zehir Direnci"
+        "name": "Zehir Direnci",
+        "desc": "Zararlı zehirlere katlanma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Zehirlenmekten kaçınma olasılığını artırır</small>"
       },
       "fdpnr": {
-        "name": "Hayatta kalma"
+        "name": "Hayatta kalma",
+        "desc": "Tehlikeli yiyecekleri güvenle sindirme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Gıda zehirlenmesinden kaynaklanan enerji kaybını azaltır</small>",
+        "mlstn": {
+          "lv1": "DP Kazanımı +3%",
+          "lv2": "TOKLUK +15, CAN +30, Oburluk DP kazanımı +5%",
+          "lv3": "DP Kazanımı +5%, GÜÇ +1, İçki İçme DP kazanımı +10%, Yeni Unvan",
+          "lv5": "DP Kazanımı +7%, Ağrı Direnci DP kazanımı +10%, Oburluk DP kazanımı +10%, Yeni Unvan",
+          "lv6": "Kaçınma DP kazanımı +15%, GÜÇ +2, CAN +100",
+          "lv7": "DP Kazanımı +10%, GÜÇ +1, Zehir Direnci DP kazanımı +10%, Oburluk DP kazanımı +15%,",
+          "lv8": "Hasar Azaltma +1%, Ağrı Direnci DP kazanımı +20%, Zehir Direnci DP kazanımı +20%, Yeni Unvan"
+        }
       },
       "war": {
-        "name": "Savaş"
+        "name": "Savaş",
+        "desc": "Yıkım ve askerî taktik ustalığı",
+        "bonus": "<small style=\"color:darkorange\">Kritik hasarı hafifçe artırır</small>"
       },
       "stel": {
         "name": "Hırsızlık",
         "desc": "Hırsızlık yapma yeteneği"
       },
       "dth": {
-        "name": "Ölüm"
+        "name": "Ölüm",
+        "desc": "Kaderine tutunma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Ölümde yaşanan enerji kaybını azaltır</small>",
+        "mlstn": {
+          "lv1": "CAN +20",
+          "lv3": "DP Kazanımı +3%, Ağrı Direnci DP kazanımı +5%, Yeni Unvan",
+          "lv5": "DP Kazanımı +5%, Dayanıklılık DP kazanımı +10%",
+          "lv7": "GÜÇ +2, Tehlike Algısı DP kazanımı +15%, Yeni Unvan",
+          "lv9": "TOKLUK +15, Ağrı Direnci DP kazanımı +10%, Yeni Unvan",
+          "lv10": "Hayatta kalma DP kazanımı +10%, , Yeni Unvan"
+        }
       },
       "rtr": {
         "name": "Kaçınma",
         "desc": "Tehlikeden kaçma yeteneği"
       },
       "fmn": {
-        "name": "Kıtlık"
+        "name": "Kıtlık",
+        "desc": "Hiçbir besin almadan idare etme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Düşük enerjiyken alınan etkinlik bonusunu artırır</small>",
+        "mlstn": {
+          "lv1": "DP Kazanımı +1%",
+          "lv3": "TOKLUK +5, CAN +5, Oburluk DP kazanımı +3%, Yeni Unvan",
+          "lv5": "GÜÇ +1, Dayanıklılık DP kazanımı +3%",
+          "lv7": "ÇEV +2, CAN +15, Hayatta kalma DP kazanımı +15%, Yeni Unvan",
+          "lv9": "TOKLUK +10, Ölüm DP kazanımı +5%, Oburluk DP kazanımı +7%",
+          "lv10": ", Yeni Unvan"
+        }
       },
       "abw": {
-        "name": "Su Soğurma"
+        "name": "Su Soğurma",
+        "desc": "Su Ki'sini soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Islakken yaşanan enerji kaybını azaltır<br>Su temelli saldırılara karşı hafif koruma sağlar</small>"
       },
       "abf": {
-        "name": "Ateş Soğurma"
+        "name": "Ateş Soğurma",
+        "desc": "Ateş Ki'sini soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Ateş temelli saldırılara karşı hafif koruma sağlar</small>"
       },
       "aba": {
-        "name": "Hava Soğurma"
+        "name": "Hava Soğurma",
+        "desc": "Hava Ki'sini soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Hava temelli saldırılara karşı hafif koruma sağlar</small>"
       },
       "abe": {
-        "name": "Toprak Soğurma"
+        "name": "Toprak Soğurma",
+        "desc": "Toprak Ki'sini soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Toprak temelli saldırılara karşı hafif koruma sağlar</small>"
       },
       "abl": {
-        "name": "Işık Soğurma"
+        "name": "Işık Soğurma",
+        "desc": "Kutsal Ki'yi soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Kutsal saldırılara karşı hafif koruma sağlar</small>"
       },
       "abd": {
-        "name": "Karanlık Soğurma"
+        "name": "Karanlık Soğurma",
+        "desc": "Karanlık Ki'sini soğurup bedenine katma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Karanlık saldırılara karşı hafif koruma sağlar</small>"
       },
       "hvt": {
         "name": "Toplayıcılık",
@@ -3239,23 +3491,34 @@
         "desc": "Dünyevi malların cazibesine direnme yeteneği"
       },
       "bledr": {
-        "name": "Kanama Direnci"
+        "name": "Kanama Direnci",
+        "desc": "Kan kaybına rağmen devam edebilme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Yaralar daha az kanar</small>"
       },
       "twoh": {
-        "name": "Çift El Ustalığı"
+        "name": "Çift El Ustalığı",
+        "bname": "Çift El Ustalığı",
+        "desc": "Ağır çift el silahlarıyla savaşma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Elinde çift el silahı varken saldırı gücünü hafifçe artırır</small>"
       },
       "trad": {
-        "name": "Ticaret"
+        "name": "Ticaret",
+        "desc": "Serveti mal ve hizmetle takas etme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Dükkân fiyatlarını hafifçe lehine çevirir</small>"
       },
       "swm": {
         "name": "Yüzme",
         "desc": "Sulara dalma ve geçme yeteneği"
       },
       "dssmb": {
-        "name": "Sökme"
+        "name": "Sökme",
+        "desc": "Eşyaları ham yedek parçalara ayırma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Sökülen eşyalardan elde edilen verimi artırır</small>"
       },
       "tghs": {
-        "name": "Dayanıklılık"
+        "name": "Dayanıklılık",
+        "desc": "Bedenin dayanıklılığı",
+        "bonus": "<small style=\"color:darkorange\">Fiziksel savunmayı hafifçe iyileştirir</small>"
       },
       "drka": {
         "name": "İçki İçme",
@@ -3282,13 +3545,19 @@
         "desc": "Kumaştan dikiş dikme ve ürün oluşturma yeteneği"
       },
       "crptr": {
-        "name": "Yozlaşma Direnci"
+        "name": "Yozlaşma Direnci",
+        "desc": "Etin yozlaşmasına direnme yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Yozlaşma ve fei hasarını hafifletir</small>"
       },
       "hst": {
-        "name": "Hasat"
+        "name": "Hasat",
+        "desc": "Çevreden kullanılabilir malzemeleri bulup toplama yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Bölge ganimeti elde etme şansını artırır</small>"
       },
       "coldr": {
-        "name": "Soğuk Direnci"
+        "name": "Soğuk Direnci",
+        "desc": "Sert ve soğuk havalara katlanma yeteneği",
+        "bonus": "<small style=\"color:darkorange\">Üşürken yaşanan enerji kaybını hafifçe azaltır</small>"
       }
     },
     "ttl": {

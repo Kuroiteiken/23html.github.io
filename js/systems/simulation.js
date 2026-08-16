@@ -1979,8 +1979,8 @@ function draggable(root, target) {
 
 function draggablemove(x) {
   if (global.ctarget) {
-    global.ctarget.style.left = x.clientX - global.croot.boxoffsetx;
-    global.ctarget.style.top = x.clientY - global.croot.boxoffsety;
+    global.ctarget.style.left = x.clientX - global.croot.boxoffsetx + "px";
+    global.ctarget.style.top = x.clientY - global.croot.boxoffsety + "px";
   }
 }
 

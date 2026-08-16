@@ -200,16 +200,16 @@ function _drawmwindow() {
     delete test.mguic;
   }
   test.mguic = addElement(document.body, "div");
-  test.mguic.style.height = 500;
-  test.mguic.style.width = 500;
-  test.mguic.style.padding = 2;
+  test.mguic.style.height = "500px";
+  test.mguic.style.width = "500px";
+  test.mguic.style.padding = "2px";
   test.mguic.style.position = "absolute";
-  test.mguic.style.top = 100;
-  test.mguic.style.left = 100;
+  test.mguic.style.top = "100px";
+  test.mguic.style.left = "100px";
   test.mguic.style.border = "2px solid black";
   test.mguic.style.backgroundColor = "#558";
   test.mguid = addElement(test.mguic, "div");
-  test.mguid.style.height = 20;
+  test.mguid.style.height = "20px";
   test.mguid.style.borderBottom = "2px solid rgb(0,40,64)";
   test.mguid.innerHTML = i18n.t("ui.panels.masteries");
   test.mguid.style.color = "lime";
@@ -252,32 +252,10 @@ function _drawmwindow() {
         xy.offsetY < m.y + 53
       ) {
         if (test.mgui.selected && test.mgui.selected.id === m.id) {
-          global.dscr.style.top =
-            global.dscr.clientHeight + 60 + xy.clientY >
-            document.body.clientHeight
-              ? xy.clientY +
-                30 +
-                global.dscr.clientHeight -
-                (xy.clientY +
-                  30 +
-                  global.dscr.clientHeight -
-                  document.body.clientHeight) -
-                global.dscr.clientHeight -
-                30
-              : xy.clientY + 30;
-          global.dscr.style.left =
-            global.dscr.clientWidth + 60 + xy.clientX >
-            document.body.clientWidth
-              ? xy.clientX +
-                30 +
-                global.dscr.clientWidth -
-                (xy.clientX +
-                  30 +
-                  global.dscr.clientWidth -
-                  document.body.clientWidth) -
-                global.dscr.clientWidth -
-                30
-              : xy.clientX + 30;
+          // Reuse the interface's viewport-aware placement instead of the
+          // duplicate arithmetic that used to live here, which assigned
+          // unitless numbers and was therefore discarded by the browser.
+          positionDescription(xy);
           return;
         }
         test.mgui.selected = m;

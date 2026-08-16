@@ -38,7 +38,7 @@ dom.d3.addEventListener("click", function () {
     );
     dom.ttlbd = addElement(dom.ttlcont, "div");
     dom.ttlbd.style.overflow = "auto";
-    dom.ttlbd.style.maxHeight = window.innerHeight - 130;
+    dom.ttlbd.style.maxHeight = window.innerHeight - 130 + "px";
     for (const obj in global.titles) {
       this.ttlent = addElement(dom.ttlbd, "div", null, "youttl");
       const title = global.titles[obj];
@@ -241,6 +241,18 @@ if (typeof InstallTrigger == "undefined") dom.d8_2.style.paddingTop = "5px";
 dom.d8_2.innerHTML = i18n.t("ui.hud.criticalChance", {
   chance: (you.mods.crflt + you.crt) * 100,
 });
+// Luck sits with the derived chances rather than with the combat stats: it is
+// not a stat the player trains, and it feeds the critical and drop rolls shown
+// on this line.
+dom.d8_3 = addElement(dom.d1, "div");
+dom.d8_3.style.fontSize = ".7em";
+addDesc(
+  dom.d8_3,
+  null,
+  2,
+  i18n.t("ui.statDescriptions.luckTitle"),
+  i18n.t("ui.statDescriptions.luck"),
+);
 dom.d7_slot_3.addEventListener("mouseenter", function () {
   global._tad = this.innerHTML;
   this.innerHTML = i18n.t("ui.hud.defense", {
@@ -312,7 +324,7 @@ dom.d101m = addElement(dom.d1m, "div", "se_i");
 dom.d1m.style.top = "8px";
 dom.d1m.style.left = "457px";
 dom.d1m.style.position = "absolute";
-dom.d101m.style.top = 264;
+dom.d101m.style.top = "264px";
 global.special_x = dom.d1m.style.left;
 global.special_y = dom.d1m.style.top;
 
@@ -455,8 +467,8 @@ dom.ctrwin6.style.display = "none";
 dom.ctrwin7 = addElement(dom.ctrmg_cb, "div", null, "ctrwinbx");
 dom.ctrwin7.style.display = "none";
 dom.nthngdsp = addElement(dom.ctrmg_cb, "div");
-dom.nthngdsp.style.top = 200;
-dom.nthngdsp.style.left = 210;
+dom.nthngdsp.style.top = "200px";
+dom.nthngdsp.style.left = "210px";
 dom.nthngdsp.style.position = "relative";
 dom.nthngdsp.style.color = "grey";
 dom.nthngdsp.innerHTML = i18n.t("ui.panels.nothingHere");
@@ -467,7 +479,7 @@ dom.ctr_1a = addElement(dom.ctr_1, "div");
 dom.d_weather = addElement(dom.ctr_1a, "div", "ctr_w");
 dom.d_weathers = addElement(dom.d_weather, "small");
 dom.d_weathert = addElement(dom.d_weather, "span");
-dom.d_weathers.style.marginRight = 5;
+dom.d_weathers.style.marginRight = "5px";
 dom.d_weathers.addEventListener("click", () => {
   global.flags.ssngaijin = !global.flags.ssngaijin;
   wdrseason(global.flags.ssngaijin);
@@ -477,10 +489,10 @@ dom.d_anomaly = addElement(dom.d_weather, "span");
 dom.d_anomaly.innerHTML = "";
 if (typeof InstallTrigger == "undefined") {
   dom.d_anomaly.style.float = "right";
-  dom.d_anomaly.style.top = -4;
+  dom.d_anomaly.style.top = "-4px";
   dom.d_anomaly.style.position = "relative";
   dom.d_moon.style.float = "right";
-  dom.d_moon.style.top = -4;
+  dom.d_moon.style.top = "-4px";
   dom.d_moon.style.position = "relative";
 }
 dom.d_time = addElement(dom.ctr_1a, "div", "ctr_t");
@@ -495,8 +507,8 @@ dom.d_lct.style.display = "none";
 dom.d_lct.innerHTML = i18n.t("ui.world.location");
 dom.d_lctc = addElement(dom.d_lct, "div");
 dom.d_lctc.style.fontSize = "0.85em";
-dom.d_lctc.style.paddingTop = 7;
-dom.d_lctc.style.marginLeft = -1;
+dom.d_lctc.style.paddingTop = "7px";
+dom.d_lctc.style.marginLeft = "-1px";
 dom.d_lctc.style.display = "flex";
 dom.d_lctt = addElement(dom.d_lctc, "span");
 dom.d_lctte = addElement(dom.d_lctc, "span");
@@ -613,9 +625,9 @@ dom.ct_bt3.addEventListener("click", () => {
       this.acch_e.style.float = "right";
       this.acch_e.style.display = "flex";
       this.acch_e.style.position = "relative";
-      this.acch_e.style.top = -6;
-      this.acch_e.style.right = -2;
-      this.acch_e.style.height = 20;
+      this.acch_e.style.top = "-6px";
+      this.acch_e.style.right = "-2px";
+      this.acch_e.style.height = "20px";
       dom.acccon = addElement(dom.ctrwin5, "div");
       empty(dom.acccon);
       for (const a in acts) {
@@ -710,9 +722,9 @@ dom.ct_bt2.addEventListener("click", function () {
       this.skwm_e.style.float = "right";
       this.skwm_e.style.display = "flex";
       this.skwm_e.style.position = "relative";
-      this.skwm_e.style.top = -6;
-      this.skwm_e.style.right = -2;
-      this.skwm_e.style.height = 20;
+      this.skwm_e.style.top = "-6px";
+      this.skwm_e.style.right = "-2px";
+      this.skwm_e.style.height = "20px";
       this.skwm_e_btn_1_b = addElement(this.skwm_e, "div", null, "bts_b");
       this.skwm_e_btn_1_b.innerHTML = "A-Z";
       this.skwm_e_btn_1_b.style.border = "1px solid #46a";
@@ -826,7 +838,7 @@ dom.ct_bt2.addEventListener("click", function () {
       );
       dom.skcon = addElement(dom.ctrwin3, "div");
       dom.skcon.style.overflow = "auto";
-      dom.skcon.style.height = 335;
+      dom.skcon.style.height = "335px";
       dom.skcon.style.width = "100%";
       for (let m = 0; m < you.skls.length; m++) {
         renderSkl(you.skls[m]);
@@ -894,7 +906,7 @@ dom.ct_bt6.addEventListener("click", function () {
     this.jlbl.style.backgroundColor = "#050730";
     this.jlbl.style.borderBottom = "1px solid rgb(12,86,195)";
     this.jlmain = addElement(dom.ctrwin6, "div");
-    this.jlmain.style.height = 336;
+    this.jlmain.style.height = "336px";
     this.jlmain.style.background =
       "linear-gradient(0deg, rgb(35, 67, 125), rgb(19, 18, 97))";
     this.jlbod = addElement(this.jlmain, "div");
@@ -904,7 +916,7 @@ dom.ct_bt6.addEventListener("click", function () {
     this.jlbrw2 = addElement(this.jlbod, "div", null, "jrow");
     this.jlbrw2s1 = addElement(this.jlbrw2, "div", "jcell3", "jcell");
     this.jlbrw2s2 = addElement(this.jlbrw2, "div", "jcell4", "jcell");
-    this.jlbod.style.height = 100;
+    this.jlbod.style.height = "100px";
     this.jlbod.style.width = "100%";
     dom.jlbrw1s1.innerHTML = i18n.t("ui.panels.quests");
     dom.jlbrw1s2.innerHTML =
@@ -925,7 +937,7 @@ dom.ct_bt6.addEventListener("click", function () {
       this.qstlbl = addElement(dom.qstbody, "div");
       this.qstlbl.innerHTML = i18n.t("ui.panels.questList");
       this.qstlbl.style.textAlign = "center";
-      this.qstlbl.style.padding = 7;
+      this.qstlbl.style.padding = "7px";
       this.qstlbl.style.background = "linear-gradient(180deg,#182347,#13152f)";
       for (const a in qsts) {
         let c,
@@ -997,7 +1009,7 @@ dom.ct_bt6.addEventListener("click", function () {
         this.qstcell.addEventListener("click", function () {
           empty(dom.qstbody);
           this.qmain = addElement(dom.qstbody, "div");
-          this.qmain.style.height = 359;
+          this.qmain.style.height = "359px";
           this.qmain.style.width = "100%";
           this.qmain.style.background =
             "linear-gradient(180deg,#040b2d,#29071c)";
@@ -1018,7 +1030,7 @@ dom.ct_bt6.addEventListener("click", function () {
             (qsts[a].data.done && !qsts[a].data.started
               ? i18n.t("ui.quest.status.completed")
               : i18n.t("ui.quest.status.inProgress"));
-          this.qlabl.style.padding = 6;
+          this.qlabl.style.padding = "6px";
           this.qlabl.style.borderBottom = "dotted 2px #2b408a";
           this.qlabl.style.backgroundColor = "#12152f";
           this.qlabl.style.display = "inherit";
@@ -1030,7 +1042,7 @@ dom.ct_bt6.addEventListener("click", function () {
           this.qstatba.style.display = "block";
           this.qdsc = addElement(this.qmain, "div");
           this.qdsc.innerHTML = qsts[a].desc;
-          this.qdsc.style.padding = 12;
+          this.qdsc.style.padding = "12px";
           this.qdsc.style.borderBottom = "dotted 2px #2b408a";
           this.qdsc.style.color = "#f7ff82";
           this.qtodo = addElement(this.qmain, "div");
@@ -1038,7 +1050,7 @@ dom.ct_bt6.addEventListener("click", function () {
             qsts[a].data.done && !qsts[a].data.started
               ? qsts[a].goalsf()
               : qsts[a].goals();
-          this.qtodo.style.padding = 6;
+          this.qtodo.style.padding = "6px";
           this.qtodo.innerHTML = i18n.t(
             "runtime.ui.interface.interface.objectives_0421b15e",
           );
@@ -1048,7 +1060,7 @@ dom.ct_bt6.addEventListener("click", function () {
           this.qgoalbod.style.borderBottom = "dotted 2px #2b408a";
           for (const b in goals) {
             this.qtodoitm = addElement(this.qgoalbod, "div");
-            this.qtodoitm.style.padding = 4;
+            this.qtodoitm.style.padding = "4px";
             this.qtodoitm.style.fontSize = "smaller";
             this.qtodoitm.style.backgroundColor = "#182247";
             this.qtodoitm.style.borderTop = "1px solid #3b3158";
@@ -1220,9 +1232,9 @@ dom.ct_bt6.addEventListener("click", function () {
       dom.flsthdr.style.background =
         "linear-gradient(0deg,rgb(21, 17, 49),rgb(0, 42, 85))";
       dom.flsthdr.style.borderBottom = "1px #44c dashed";
-      dom.flsthdr.style.padding = 2;
+      dom.flsthdr.style.padding = "2px";
       dom.flsthdr.style.fontSize = "small";
-      dom.flsthdr.style.height = 18;
+      dom.flsthdr.style.height = "18px";
       dom.statbod = addElement(dom.ch_1, "div");
       dom.statbod.style.overflow = "auto";
       dom.statbod.style.maxHeight = "93%";
@@ -2002,7 +2014,7 @@ dom.ct_bt1_1_ncont.style.height = "100%";
 dom.ct_bt1_1_ncont.style.width = "45%";
 dom.ct_bt1_1_cont = addElement(dom.ct_bt1_1_ncont, "div");
 dom.ct_bt1_1 = addElement(dom.ct_bt1_1_ncont, "div", "crf_l");
-dom.ct_bt1_1.style.height = 343;
+dom.ct_bt1_1.style.height = "343px";
 dom.ct_bt1_1.style.width = "100%";
 dom.ct_bt1_1_cont.style.bottom = 0;
 dom.ct_bt1_1_cont.style.borderBottom = "1px solid cornflowerblue ";
@@ -2327,10 +2339,14 @@ dom.ct_bt4_03b4.addEventListener("click", function () {
 dom.ct_bt4_4 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_4a = addElement(dom.ct_bt4_4, "div", null, "opt_t");
 dom.ct_bt4_4a.innerHTML = i18n.t("ui.settings.destroyGradients");
-dom.ct_bt4_41b = addElement(dom.ct_bt4_4, "input", null, "opt_v");
+dom.ct_bt4_41b = addElement(dom.ct_bt4_4, "input", null, "opt_toggle");
 dom.ct_bt4_41b.type = "checkbox";
-dom.ct_bt4_41b.addEventListener("click", () => {
-  nograd(global.flags.grd_s);
+// `nograd(true)` flattens the gradients and records `grd_s = false`, so the box
+// being checked means "gradients destroyed". Read the box rather than the flag:
+// deriving the action from the flag desynchronises the two as soon as the flag
+// is restored from a save without the box being updated.
+dom.ct_bt4_41b.addEventListener("change", function () {
+  nograd(this.checked);
 });
 dom.ct_bt4_5 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_5a = addElement(dom.ct_bt4_5, "div", null, "opt_ta");
@@ -2343,19 +2359,19 @@ dom.ct_bt4_5a.addEventListener("click", function () {
     global.flags.expatv = true;
     dom.ct_bt4_5a_nc = addElement(document.body, "div");
     dom.ct_bt4_5a_nc.style.position = "absolute";
-    dom.ct_bt4_5a_nc.style.padding = 2;
-    dom.ct_bt4_5a_nc.style.top = 370;
-    dom.ct_bt4_5a_nc.style.left = 330;
-    dom.ct_bt4_5a_nc.style.width = 600;
-    dom.ct_bt4_5a_nc.style.height = 400;
+    dom.ct_bt4_5a_nc.style.padding = "2px";
+    dom.ct_bt4_5a_nc.style.top = "370px";
+    dom.ct_bt4_5a_nc.style.left = "330px";
+    dom.ct_bt4_5a_nc.style.width = "600px";
+    dom.ct_bt4_5a_nc.style.height = "400px";
     dom.ct_bt4_5a_nc.style.border = "2px solid black";
     dom.ct_bt4_5a_nc.style.backgroundColor = "lightgrey";
     dom.ct_bt4_5a_nh = addElement(dom.ct_bt4_5a_nc, "div");
-    dom.ct_bt4_5a_nh.style.height = 20;
+    dom.ct_bt4_5a_nh.style.height = "20px";
     dom.ct_bt4_5a_nh.style.borderBottom = "2px solid black";
     dom.ct_bt4_5a_nhv = addElement(dom.ct_bt4_5a_nh, "div");
     dom.ct_bt4_5a_nhv.style.float = "left";
-    dom.ct_bt4_5a_nhv.style.marginRight = 6;
+    dom.ct_bt4_5a_nhv.style.marginRight = "6px";
     dom.ct_bt4_5a_nhv.style.backgroundColor = "grey";
     dom.ct_bt4_5a_nhv.innerHTML = i18n.t("ui.settings.exportAsText");
     dom.ct_bt4_5a_nhv.addEventListener("click", function () {
@@ -2416,22 +2432,22 @@ dom.ct_bt4_5b.addEventListener("click", function () {
     global.flags.impatv = true;
     dom.ct_bt4_5b_nc = addElement(document.body, "div");
     dom.ct_bt4_5b_nc.style.position = "absolute";
-    dom.ct_bt4_5b_nc.style.padding = 2;
-    dom.ct_bt4_5b_nc.style.top = 370;
-    dom.ct_bt4_5b_nc.style.left = 330;
-    dom.ct_bt4_5b_nc.style.width = 600;
-    dom.ct_bt4_5b_nc.style.height = 400;
+    dom.ct_bt4_5b_nc.style.padding = "2px";
+    dom.ct_bt4_5b_nc.style.top = "370px";
+    dom.ct_bt4_5b_nc.style.left = "330px";
+    dom.ct_bt4_5b_nc.style.width = "600px";
+    dom.ct_bt4_5b_nc.style.height = "400px";
     dom.ct_bt4_5b_nc.style.border = "2px solid black";
     dom.ct_bt4_5b_nc.style.backgroundColor = "lightgrey";
     dom.ct_bt4_5b_nh = addElement(dom.ct_bt4_5b_nc, "div");
-    dom.ct_bt4_5b_nh.style.height = 20;
+    dom.ct_bt4_5b_nh.style.height = "20px";
     dom.ct_bt4_5b_nh.style.borderBottom = "2px solid black";
     dom.ct_bt4_5b_nhv = addElement(dom.ct_bt4_5b_nh, "div");
     draggable(dom.ct_bt4_5b_nh, dom.ct_bt4_5b_nc);
     dom.ct_bt4_5b_nhv.style.float = "left";
     dom.ct_bt4_5b_nhv.style.backgroundColor = "grey";
     dom.ct_bt4_5b_nhv.innerHTML = i18n.t("ui.settings.importAsText");
-    dom.ct_bt4_5b_nhv.style.marginRight = 6;
+    dom.ct_bt4_5b_nhv.style.marginRight = "6px";
     dom.ct_bt4_5b_nhv.addEventListener("click", function () {
       if (dom.ct_bt4_5b_nbc.value == "" || dom.ct_bt4_5b_nbc.value == "?") {
         dom.ct_bt4_5b_nbc.value = "?";
@@ -2471,10 +2487,10 @@ dom.ct_bt4_5b.addEventListener("click", function () {
     dom.ct_bt4_5b_nhz2.type = "file";
     dom.ct_bt4_5b_nhz2.style.opacity = 0;
     dom.ct_bt4_5b_nhz2.style.position = "absolute";
-    dom.ct_bt4_5b_nhz2.style.left = 128;
-    dom.ct_bt4_5b_nhz2.style.width = 81;
+    dom.ct_bt4_5b_nhz2.style.left = "128px";
+    dom.ct_bt4_5b_nhz2.style.width = "81px";
     dom.ct_bt4_5b_nhz2.style.top = 0;
-    dom.ct_bt4_5b_nhz2.style.height = 18;
+    dom.ct_bt4_5b_nhz2.style.height = "18px";
     dom.ct_bt4_5b_nhz2.addEventListener("change", function () {
       const r = new FileReader();
       r.readAsText(this.files[0]);
@@ -3036,20 +3052,24 @@ dom.save_delete_confirm.addEventListener("click", () => {
 
 function update_db() {
   dom.d4_1.innerHTML = i18n.t("ui.hud.stat", {
-    stat: "STR",
+    stat: i18n.t("ui.hud.abbr.str"),
     value: Math.round(you.str_d),
   });
   dom.d4_2.innerHTML = i18n.t("ui.hud.stat", {
-    stat: "AGL",
+    stat: i18n.t("ui.hud.abbr.agl"),
     value: Math.round(you.agl_d),
   });
   dom.d4_3.innerHTML = i18n.t("ui.hud.stat", {
-    stat: "INT",
+    stat: i18n.t("ui.hud.abbr.int"),
     value: Math.round(you.int_d),
   });
   dom.d4_4.innerHTML = i18n.t("ui.hud.stat", {
-    stat: "SPD",
+    stat: i18n.t("ui.hud.abbr.spd"),
     value: you.spd,
+  });
+  dom.d8_3.innerHTML = i18n.t("ui.hud.stat", {
+    stat: i18n.t("ui.hud.abbr.luck"),
+    value: Math.round(you.luck),
   });
 }
 update_db();
@@ -3262,8 +3282,8 @@ function dscr(c, what, type, ttl, dsc, id) {
         this.dp_mn.innerHTML = ((what.dp * 10) << 0) / 10 + "\/" + what.dpmax;
         this.dp_mn.style.textShadow = "1px 1px black"; //this.dp_mn.style.backgroundColor='rgba(102, 51, 153,.8)';
         this.dp_mn.style.position = "inherit";
-        this.dp_mn.style.top = -4; //this.dp_mn.style.border='1px black solid';
-        this.dp_mn.style.padding = 1;
+        this.dp_mn.style.top = "-4px"; //this.dp_mn.style.border='1px black solid';
+        this.dp_mn.style.padding = "1px";
         this.dp_mn.style.left = "35%";
         const dp = (what.dp * 100) / what.dpmax;
         this.dp_m.style.width = dp + "%";
@@ -3436,7 +3456,7 @@ function dscr(c, what, type, ttl, dsc, id) {
           let owned = false;
           const sp = addElement(this.sltic, "small");
           sp.style.position = "absolute";
-          sp.style.right = 6;
+          sp.style.right = "6px";
           for (const a in furn)
             if (furn[a].id === what.parent.id) {
               owned = true;
@@ -3474,7 +3494,7 @@ function dscr(c, what, type, ttl, dsc, id) {
         "runtime.ui.interface.interface.tried_3b655872",
       );
       dom.dtrd.style.position = "relative";
-      dom.dtrd.style.right = 1;
+      dom.dtrd.style.right = "1px";
       dom.dtrd.style.float = "right";
       if (what.data.tried === true)
         dom.dtrd.innerHTML += i18n.t(
@@ -3491,7 +3511,7 @@ function dscr(c, what, type, ttl, dsc, id) {
         "runtime.ui.interface.interface.read_a91c5789",
       );
       dom.dtrd.style.position = "relative";
-      dom.dtrd.style.right = 1;
+      dom.dtrd.style.right = "1px";
       dom.dtrd.style.float = "right";
       if (what.data.finished === true)
         dom.dtrd.innerHTML += i18n.t(
@@ -3510,7 +3530,7 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.rar.style.position = "relative";
     this.rar.style.float = "left";
     for (let i = 0; i < what.rar; i++) this.rar.innerHTML += " ★ ";
-    dom.dscshe = addElement(global.dscr, "div"); //dom.dscshe.innerHTML = dom.dseparator+'2323'; dom.dscshe.style.paddingTop=20;
+    dom.dscshe = addElement(global.dscr, "div"); //dom.dscshe.innerHTML = dom.dseparator+'2323'; dom.dscshe.style.paddingTop="20px";
     global.shiftitem = { item: what };
   } else if (type === 2) {
     this.label = addElement(global.dscr, "div", "d_l");
@@ -3620,7 +3640,7 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.label.innerHTML = !!what.bname ? what.bname : what.name;
     this.sp = addElement(this.label, "small");
     this.sp.style.position = "absolute";
-    this.sp.style.right = 6;
+    this.sp.style.right = "6px";
     this.sp.innerHTML = "Ｐ: " + col(Math.round(what.p * 100) + "%", "magenta");
     this.text = addElement(global.dscr, "div", "d_t");
     this.text.innerHTML = what.desc;
@@ -3663,8 +3683,8 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.dl.innerHTML = i18n.t("runtime.ui.interface.interface.rank_b4d80d7b");
     this.db = addElement(this.dl, "div");
     for (let i = 0; i < what.rar; i++) this.db.innerHTML += "★";
-    this.db.style.paddingTop = 12;
-    this.db.style.paddingLeft = 6;
+    this.db.style.paddingTop = "12px";
+    this.db.style.paddingLeft = "6px";
     switch (what.rar) {
       case 0: {
         this.label.style.color = this.db.style.color = "grey";
@@ -3795,8 +3815,8 @@ function dscr(c, what, type, ttl, dsc, id) {
               this.dcell1b = addElement(this.dcell1, "small");
               this.dcell1b.style.color = "inherit";
               this.dcell1b.style.position = "absolute";
-              this.dcell1b.style.right = 70;
-              this.dcell1b.style.paddingTop = 2;
+              this.dcell1b.style.right = "70px";
+              this.dcell1b.style.paddingTop = "2px";
               this.dcell1b.innerHTML = what.drop[b].max;
               if (what.drop[b].min && what.drop[b].min !== what.drop[b].max)
                 this.dcell1b.innerHTML += "-" + what.drop[b].min;
@@ -4484,8 +4504,8 @@ function dumb(x) {
       arr[m].obj = addElement(document.body, "span", null, "shn");
       arr[m].obj.style.pointerEvents = "none";
       arr[m].obj.innerHTML = select(["x", "X", "*", "#", "$"]);
-      arr[m].obj.style.top = -55;
-      arr[m].obj.style.left = -55;
+      arr[m].obj.style.top = "-55px";
+      arr[m].obj.style.left = "-55px";
       arr[m].posx = x.clientX;
       arr[m].posy = x.clientY;
       arr[m].accx = rand(-10, 10);
@@ -4495,8 +4515,8 @@ function dumb(x) {
     const g = setInterval(() => {
       t++;
       for (let m = 0; m < 5; m++) {
-        arr[m].obj.style.top = arr[m].posy - (arr[m].accy - t) * t * 0.4;
-        arr[m].obj.style.left = arr[m].posx + arr[m].accx * t * 0.5;
+        arr[m].obj.style.top = arr[m].posy - (arr[m].accy - t) * t * 0.4 + "px";
+        arr[m].obj.style.left = arr[m].posx + arr[m].accx * t * 0.5 + "px";
         arr[m].obj.style.opacity = (30 - t) / 30;
       }
       if (t === 30) {
@@ -4512,9 +4532,9 @@ function mf(num, index) {
   const c = ["rgb(255, 116, 63)", "rgb(192, 192, 192)", "rgb(255, 215, 0)"];
   d.style.position = "absolute";
   d.style.opacity = 1;
-  d.style.width = 100;
-  d.style.top = 755;
-  d.style.left = 328 - 50 * index;
+  d.style.width = "100px";
+  d.style.top = "755px";
+  d.style.left = 328 - 50 * index + "px";
   d.innerHTML =
     '<span style="color: ' +
     c[index - 1] +
@@ -4658,7 +4678,7 @@ function renderRcp(rcp) {
     dom.spcldom = dom.ct_bt1_1_mc;
     dom.spcldom.rcp = rcp;
     dom.rcpcurar.style.position = "absolute";
-    dom.rcpcurar.style.right = 2;
+    dom.rcpcurar.style.right = "2px";
     dom.rcpcurar.style.color = "rgb(188,254,254)";
   }
   dom.ct_bt1_1_mc.addEventListener("mouseenter", function () {
@@ -4841,7 +4861,7 @@ function renderRcp(rcp) {
     dom.spcldom = this;
     dom.spcldom.rcp = rcp;
     dom.rcpcurar.style.position = "absolute";
-    dom.rcpcurar.style.right = 2;
+    dom.rcpcurar.style.right = "2px";
     dom.rcpcurar.style.color = "rgb(188,254,254)";
   });
   dom.ct_bt1_1_mc.addEventListener("click", function () {
@@ -5094,13 +5114,13 @@ function removeEff(e, t) {
 
 function effdfix() {
   if (you.eff.length >= 21) {
-    dom.d7.style.height = 104;
+    dom.d7.style.height = "104px";
     for (let i = 0; i < document.getElementsByClassName("se_ia").length; i++)
       document.getElementsByClassName("se_ia")[i].style.display =
         "inline-block";
     document.getElementById("se_i").style.display = "block";
   } else {
-    dom.d7.style.height = 125;
+    dom.d7.style.height = "125px";
     for (let i = 0; i < document.getElementsByClassName("se_ia").length; i++)
       document.getElementsByClassName("se_ia")[i].style.display = "";
     document.getElementById("se_i").style.display = "flex";
@@ -5765,7 +5785,7 @@ function descsinfo(id) {
             });
           break;
       }
-      dom.dscshe.style.paddingTop = 20;
+      dom.dscshe.style.paddingTop = "20px";
     }
 }
 
@@ -5773,9 +5793,9 @@ function renderItem(obj) {
   const inv_slot_c = addElement(dom.inv_con, "div", null, "noout");
   const inv_slot = addElement(inv_slot_c, "div", null, "inv_slot noout");
   /*switch(obj.wtype){
-    case 1:var z= icon(inv_slot,2,1,18,18);z.style.paddingRight=2;break;
-    case 2:var z= icon(inv_slot,4,1,18,18);z.style.paddingRight=2;break;
-    case 3:var z= icon(inv_slot,3,1,18,18);z.style.paddingRight=2;break;
+    case 1:var z= icon(inv_slot,2,1,18,18);z.style.paddingRight="2px";break;
+    case 2:var z= icon(inv_slot,4,1,18,18);z.style.paddingRight="2px";break;
+    case 3:var z= icon(inv_slot,3,1,18,18);z.style.paddingRight="2px";break;
   }*/
   const inv_name = addElement(inv_slot, "span");
   inv_name.innerHTML = obj.name;
@@ -5877,8 +5897,9 @@ function renderItem(obj) {
     if (obj.dss && item.toolbx.have) {
       dom.inv_dss = addElement(inv_slot_c, "span", null, "dss_b");
       dom.inv_dss.innerHTML = "∥";
-      if (!obj.slot) dom.inv_dss.style.left = 242;
-      else if (obj.slot === 5 || obj.slot === 6) dom.inv_dss.style.left = 208;
+      if (!obj.slot) dom.inv_dss.style.left = "242px";
+      else if (obj.slot === 5 || obj.slot === 6)
+        dom.inv_dss.style.left = "208px";
       let t = "";
       for (const a in obj.dss) {
         let am = obj.dss[a].amount;
@@ -6093,7 +6114,7 @@ function chs_spec(type, x) {
           name: c.data.name,
           sex: c.data.sex === true ? "♂" : "♀",
         });
-        dom.ch_1_1.style.marginTop = -17;
+        dom.ch_1_1.style.marginTop = "-17px";
         dom.ch_1_12 = addElement(dom.ch_1, "div", null, "chs_s");
         dom.ch_1_12.innerHTML = i18n.t("ui.cat.dayOfBirth", {
           date:
@@ -6179,16 +6200,16 @@ function chs_spec(type, x) {
           "runtime.ui.interface.interface.furniture_owned_7537016a",
         );
         dom.flsthdra.style.position = "relative";
-        dom.flsthdra.style.left = 120;
+        dom.flsthdra.style.left = "120px";
         dom.flsthdr.style.borderBottom = "1px #44c solid";
-        dom.flsthdr.style.padding = 2;
+        dom.flsthdr.style.padding = "2px";
         dom.flsthdrbc = addElement(dom.flsthdr, "div");
         dom.flsthdrb = addElement(dom.flsthdrbc, "small");
         dom.flsthdrb.innerHTML = i18n.t(
           "runtime.ui.interface.interface.home_rating_10df78c8",
         );
-        dom.flsthdrbc.style.left = 237;
-        dom.flsthdrb.style.paddingLeft = 6;
+        dom.flsthdrbc.style.left = "237px";
+        dom.flsthdrb.style.paddingLeft = "6px";
         dom.flsthdrbc.style.position = "relative";
         dom.flsthdrbc.style.borderLeft = "1px solid rgb(68, 68, 204)";
         dom.flsthdrbb = addElement(dom.flsthdrbc, "small");
@@ -6223,13 +6244,13 @@ function chs_spec(type, x) {
         dom.invp2 = addElement(dom.ch_1a, "div");
         dom.invp1.style.width = dom.invp2.style.width = "50%";
         dom.invp2noth = addElement(dom.ctr_2, "div");
-        dom.invp2noth.style.top = 150;
+        dom.invp2noth.style.top = "150px";
         dom.invp2noth.style.position = "absolute";
         dom.invp2noth.style.color = "grey";
         dom.invp2noth.innerHTML = i18n.t(
           "runtime.ui.interface.interface.nothing_in_the_box_yet_fbe1b207",
         );
-        dom.invp2noth.style.left = 301;
+        dom.invp2noth.style.left = "301px";
         dom.invp2noth.style.pointerEvents = "none";
         for (const obj in inv) rendertrunkitem(dom.invp1, inv[obj]);
         for (const obj in x.c)
@@ -6243,8 +6264,8 @@ function chs_spec(type, x) {
             },
           });
         if (x.c.length > 0) dom.invp2noth.style.display = "none";
-        if (inv.length >= 21) dom.invp2noth.style.left = 301;
-        else dom.invp2noth.style.left = 314;
+        if (inv.length >= 21) dom.invp2noth.style.left = "301px";
+        else dom.invp2noth.style.left = "314px";
       }
       break;
     case 4:
@@ -6258,7 +6279,7 @@ function chs_spec(type, x) {
         dom.flsthdr = addElement(dom.ch_1, "div");
         dom.flsthdr.innerHTML = x.name;
         dom.flsthdr.style.borderBottom = "1px #44c solid";
-        dom.flsthdr.style.padding = 2;
+        dom.flsthdr.style.padding = "2px";
         dom.ch_1h = addElement(dom.ch_1, "div");
         dom.ch_1h.style.textAlign = "left";
         dom.ch_1h.style.display = "block";
@@ -6276,8 +6297,8 @@ function chs_spec(type, x) {
         dom.ch_1e.style.float = dom.ch_1e.style.textAlign = "left";
         dom.ch_2e = addElement(dom.ch_1c, "small"); //dom.ch_1e.style.border='1px solid #9485ed';
         dom.ch_2e.style.float = dom.ch_2e.style.textAlign = "right";
-        dom.ch_2e.style.paddingRight = 6;
-        //dom.ch_1e1 = addElement(dom.ch_1e,'input'); dom.ch_1e1.style.height=18;dom.ch_1e1.style.width=40;
+        dom.ch_2e.style.paddingRight = "6px";
+        //dom.ch_1e1 = addElement(dom.ch_1e,'input'); dom.ch_1e1.style.height="18px";dom.ch_1e1.style.width="40px";
         //dom.ch_1e1.style.textAlign='center'; dom.ch_1e1.style.color='white'; dom.ch_1e1.style.fontFamily='MS Gothic';
         //dom.ch_1e1.style.backgroundColor='transparent'
         dom.ch_1e.innerHTML =
@@ -6337,8 +6358,8 @@ function renderFurniture(frn) {
     if (frn.removable === true) {
       dom.chsfdel = addElement(this.children[0], "div", null, "del_b");
       dom.chsfdel.innerHTML = "x";
-      dom.chsfdel.style.right = 5;
-      dom.chsfdel.style.top = 19;
+      dom.chsfdel.style.right = "5px";
+      dom.chsfdel.style.top = "19px";
       dom.chsfdel.addEventListener("click", function () {
         frn.data.amount--;
         frn.onRemove();
@@ -6410,12 +6431,14 @@ function rendershopitem(root, itm, vnd) {
   dom.ch_etn1.style.width = "79%";
   dom.ch_etn1n = addElement(dom.ch_etn1, "div");
   dom.ch_etn1n.innerHTML = itm[0].name;
-  dom.ch_etn1n.style.width = 305;
+  dom.ch_etn1n.style.width = "305px";
   dom.ch_etn1b = addElement(dom.ch_etn1, "div");
   dom.ch_etn1.style.display = "flex";
   dom.ch_etn1b.style.display = "inline-flex";
   dom.ch_etn1b.style.position = "absolute";
-  dom.ch_etn1b.style.right = 6;
+  // Unitless numbers are invalid CSS lengths and are dropped, which used to
+  // collapse this block back to its static position on top of the item name.
+  dom.ch_etn1b.style.right = "6px";
   dom.ch_etn1b.style.textAlign = "center";
   dom.ch_etn1b.style.backgroundColor = "rgb(20,50,84)";
   const p = Math.ceil(
@@ -6813,9 +6836,9 @@ function rendertrunkitem(root, item, ni) {
   } else addDesc(dom.invp1_con, item);
   dom.invp1_s = addElement(dom.invp1_con, "small");
   dom.invp2_s = addElement(dom.invp1_con, "small");
-  dom.invp1_s.style.marginLeft = ni.right ? 23 : 3;
+  dom.invp1_s.style.marginLeft = (ni.right ? 23 : 3) + "px";
   dom.invp1_s.innerHTML = item.name;
-  dom.invp2_s.style.right = ni.right ? 3 : 20;
+  dom.invp2_s.style.right = (ni.right ? 3 : 20) + "px";
   dom.invp2_s.innerHTML = !item.slot
     ? "x" + (ni.right === true ? ni.nit.am : item.amount)
     : "";

@@ -424,6 +424,39 @@ input:focus {
   flex: 0 0 auto;
   white-space: nowrap;
 }
+.opt_toggle,
+#autosave-toggle {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid #7189ac;
+  color: #fff7aa;
+  background: #123552;
+  font: inherit;
+  line-height: 13px;
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+}
+.opt_toggle:hover,
+.opt_toggle:focus-visible,
+#autosave-toggle:hover,
+#autosave-toggle:focus-visible {
+  border-color: #9ecfff;
+  outline: 1px solid #9ecfff;
+  background: #1b4c70;
+}
+.opt_toggle:checked::after,
+#autosave-toggle:checked::after {
+  content: "×";
+  display: block;
+}
+.opt_toggle {
+  position: absolute;
+  left: 50%;
+  margin: 2px 0 0 4px;
+}
 #autosave-toggle {
   position: static;
   margin: 0 0 0 5px;
@@ -622,10 +655,15 @@ input:focus {
   white-space: nowrap;
   animation: cat-pet-reaction 2.2s ease-out forwards;
 }
+
+/* Pinned to the bottom-left of the tooltip, mirroring the durability readout
+   that sits at the bottom-right, so both stay clear of the description text. */
 .item-description-kills {
-  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 6px;
   box-sizing: border-box;
-  width: 100%;
+  padding-bottom: 5px;
   text-align: left;
 }
 

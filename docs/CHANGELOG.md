@@ -160,6 +160,34 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Added `px` units to 104 style assignments that passed bare numbers. A unitless
+  CSS length is invalid and is discarded silently, so each of these declarations
+  had no effect. This single class of defect caused the invisible destroy
+  confirmation, the shop quantity buttons landing on top of the item name, and
+  the unreadable durability readout. Five remaining bare assignments are
+  legitimate: `skl.sp` already holds `".66em"`, `chs()`'s `size` and `slimsize`
+  parameters are never passed by any caller, and one is inside a comment.
+- Replaced the duplicated tooltip placement in `js/ui/map-and-mastery.js` with a
+  call to `positionDescription`. The copy assigned unitless values and therefore
+  never moved the tooltip at all.
+- Moved every remaining hardcoded string in `js/data/skills.js` into the locale
+  files: 134 perk labels, 36 descriptions, and 10 mastery names, adding 216 keys
+  per locale. Milestone labels are keyed as `content.skl.<id>.mlstn.lv<N>`.
+- Localized the stat abbreviations in the top bar, which were English literals
+  in the source while the perk text used Turkish ones.
+- Added a Luck readout beside the critical chance line. Luck is raised by titles
+  and skill milestones and feeds the critical and drop rolls, but had no display
+  anywhere in the interface.
+- Fixed the loading screen never clearing when a save could not be decoded. The
+  report-and-continue path returned before the startup teardown ran. Added a
+  browser scenario covering an undecodable save, which the existing
+  malformed-save scenario did not reach because its fixture decodes cleanly and
+  only fails to parse.
+- Fixed the "destroy gradients" setting deriving its action from the saved flag
+  instead of the checkbox, and restored both the control and the rendered
+  gradients when a save is loaded.
+- Gave the gradient and autosave checkboxes a themed control, replacing a native
+  checkbox that carried the class written for `<select>` elements.
 - Renamed the game to **Echoes Beneath** in every player-facing surface: the
   page title, the sharing metadata, the changelog page, and the exported save
   filename. This fork began as a fork of the upstream `Proto23` game and keeps
