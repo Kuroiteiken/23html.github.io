@@ -300,7 +300,7 @@ input:focus {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-#d1 {
+.combat-panel {
   width: 430px;
   height: 310px;
   padding: 5px;

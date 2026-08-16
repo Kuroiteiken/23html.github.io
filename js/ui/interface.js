@@ -1,7 +1,7 @@
 ///////////////////////////////////////////
 //DOM
 ///////////////////////////////////////////
-dom.d0 = addElement(document.body, "div", "d1", "d");
+dom.d0 = addElement(document.body, "div", "player-panel", "d combat-panel");
 if (!global.flags.aw_u) dom.d0.style.display = "none";
 dom.d1 = addElement(dom.d0, "div");
 dom.d101 = addElement(dom.d0, "div", "se_i");
@@ -310,11 +310,11 @@ dom.d7_slot_7.addEventListener("mouseenter", function () {
 dom.d7_slot_7.addEventListener("mouseleave", function () {
   this.innerHTML = global._tad;
 });
-dom.d1m = addElement(document.body, "div", "d1", "d");
+dom.d1m = addElement(document.body, "div", "enemy-panel", "d combat-panel");
 if (!global.flags.aw_u) dom.d1m.style.display = "none";
 dom.d101m = addElement(dom.d1m, "div", "se_i");
-dom.d1m.style.top = 8;
-dom.d1m.style.left = 457;
+dom.d1m.style.top = "8px";
+dom.d1m.style.left = "457px";
 dom.d1m.style.position = "absolute";
 dom.d101m.style.top = 264;
 global.special_x = dom.d1m.style.left;

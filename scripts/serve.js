@@ -35,6 +35,31 @@ function createSiteServer(options = {}) {
       return;
     }
 
+    if (options.enableTestRoutes && pathname === "/__test-combat-layout.html") {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      const layoutProbe = `<script>
+        const combatLayoutProbe = setInterval(() => {
+          const player = document.getElementById("player-panel");
+          const enemy = document.getElementById("enemy-panel");
+          if (!player || !enemy || !document.getElementById("ctrmg")) return;
+          player.style.display = "";
+          enemy.style.display = "";
+          requestAnimationFrame(() => {
+            const playerBounds = player.getBoundingClientRect();
+            const enemyBounds = enemy.getBoundingClientRect();
+            document.documentElement.dataset.combatPanelsSeparated = String(
+              enemyBounds.left >= playerBounds.right &&
+              playerBounds.left < enemyBounds.left
+            );
+            clearInterval(combatLayoutProbe);
+          });
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${layoutProbe}</body>`));
+      return;
+    }
+
     const requestedPath = pathname === "/" ? "/index.html" : pathname;
     const filePath = path.resolve(siteRoot, `.${requestedPath}`);
 

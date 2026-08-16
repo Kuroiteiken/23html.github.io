@@ -10,6 +10,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- İki savaş panelini görünür yapıp render edilmiş dikdörtgenlerinin çakışmadığını
+  doğrulayan tarayıcı yerleşim regresyon senaryosu eklendi.
 - Moon Bloom alan boyutu güncellemesini düzeltilmiş çıkarma davranışına sabitleyen
   regresyon kontrolü eklendi.
 - Responsive HTML changelog yapısı ve proje-alt-yoluna uyumlu navigasyonu için
@@ -42,6 +44,9 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Savaş paneli konumlandırma düzeltmesi için oyun v473'e yükseltildi.
+- Yinelenen savaş paneli kimlikleri açık oyuncu/düşman kimlikleri ve ortak stil
+  sınıfıyla değiştirildi.
 - Moon Bloom hata düzeltmesi için oyun v472'ye yükseltildi.
 - `changelog/changelog.html`; sürüm, tarih, uyarı ve navigasyon hiyerarşisi daha
   belirgin olan responsive ve erişilebilir sürüm kartları zaman çizelgesi olarak
@@ -73,6 +78,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Düşman panelinin HTML5 standards mode'da oyuncunun sol üst konumuna düşmesi,
+  koordinatlarına piksel birimi eklenerek düzeltildi.
 - Moon Bloom alanından ayrılma işleyicisindeki rastgele boyut güncellemesi
   `rand(5) + 20` yerine `rand(5) - 20` kullanacak şekilde düzeltildi.
 - Kayıt çözümleme işlemi eski yükleyicinin kendi hata panelini oluşturmasından

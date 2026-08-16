@@ -50,7 +50,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 472;
+global.ver = 473;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;

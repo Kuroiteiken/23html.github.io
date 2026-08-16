@@ -187,6 +187,16 @@ async function main() {
       throw new Error("The changelog release cards were not rendered.");
     }
 
+    const combatLayout = await runChrome(
+      `${baseUrl}/__test-combat-layout.html?lang=en`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(combatLayout.stderr);
+    assertCommonStartup(combatLayout.stdout, port);
+    if (!combatLayout.stdout.includes('data-combat-panels-separated="true"')) {
+      throw new Error("The enemy panel overlaps the player panel.");
+    }
+
     const recovery = await runChrome(
       `${baseUrl}/__test/corrupt-save`,
       profiles[1],
@@ -199,7 +209,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);
