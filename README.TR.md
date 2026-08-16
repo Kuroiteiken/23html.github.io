@@ -112,7 +112,8 @@ Başka bir dilde eksik kalan anahtarlar İngilizceye geri döner.
 
 - `changelog/changelog.html`: oyun sürümleri, içerik eklemeleri ve oyuncuya dönük
   değişiklikler
-- `CHANGELOG.md`: kod, mimari, araçlar, dokümantasyon ve deployment değişiklikleri
+- `docs/CHANGELOG.md`: kod, mimari, araçlar, dokümantasyon ve deployment
+  değişiklikleri
 
 ## GitHub Pages
 
@@ -132,5 +133,17 @@ ve proje Pages siteleri repository alt yolunda yayınlanabileceği için dahili
 bağlantılar göreli olmalı veya `document.baseURI` üzerinden çözülmelidir;
 `/changelog/...` gibi köke göre yollar taşınabilir değildir.
 
-Projede çalışan ajanların kanonik geliştirme kuralları kökteki `AGENTS.md`
-dosyasındadır.
+## Dokümantasyon
+
+Referans belgeler `docs/` altında tutulur; kökte yalnızca bu rehber ve Türkçe
+çevirisi kalır.
+
+- `docs/AGENTS.md`: projede çalışan ajanlar için kanonik geliştirme kuralları.
+  Kökteki `AGENTS.md`, dosyayı kökte arayan ajan araçları çalışmaya devam etsin
+  diye bırakılmış bir yönlendirmedir.
+- `docs/ROADMAP.md`: fork entegrasyon yol haritası ve fazları.
+- `docs/STORY.md`: görev zincirinin mevcut durumu, hikayenin bittiği nokta ve
+  yazılmış ama henüz erişilemeyen içerik.
+- `docs/CHANGELOG.md`: repository değişiklikleri.
+
+Her belgenin senkron tutulması gereken bir `.TR.md` Türkçe karşılığı vardır.

@@ -110,8 +110,8 @@ Missing keys in another language fall back to English.
 
 - `changelog/changelog.html`: game releases, content additions, and
   player-facing changes
-- `CHANGELOG.md`: code, architecture, tooling, documentation, and deployment
-  changes
+- `docs/CHANGELOG.md`: code, architecture, tooling, documentation, and
+  deployment changes
 
 ## GitHub Pages
 
@@ -132,5 +132,17 @@ project Pages sites may be hosted below a repository path, internal links must b
 relative or resolved against `document.baseURI`; root-relative paths such as
 `/changelog/...` are not portable.
 
-The canonical development instructions for repository agents are in the root
-`AGENTS.md` file.
+## Documentation
+
+Reference documents live in `docs/`; only this guide and its Turkish
+translation stay at the repository root.
+
+- `docs/AGENTS.md`: the canonical development instructions for repository
+  agents. The root `AGENTS.md` is a pointer kept only so agent tooling that
+  looks for it at the root still resolves.
+- `docs/ROADMAP.md`: the fork integration roadmap and its phases.
+- `docs/STORY.md`: the current state of the quest chain, the story's end point,
+  and the content that exists but is not yet reachable.
+- `docs/CHANGELOG.md`: repository changes.
+
+Every document has a `.TR.md` Turkish counterpart that must be kept in sync.

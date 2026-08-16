@@ -3,17 +3,24 @@
 [Canonical English version](AGENTS.md)
 
 Bu dosya `AGENTS.md` kanonik proje referansının Türkçe çevirisidir. Bu repository
-üzerinde çalışan tüm ajanlar `AGENTS.md` dosyasını izlemelidir. Alt klasörlerde ek
-`AGENTS.md` oluşturmayın. Talimat değişikliklerini önce kanonik dosyada yapın,
-ardından bu çeviriyi eşitleyin.
+üzerinde çalışan tüm ajanlar `AGENTS.md` dosyasını izlemelidir. Kökteki
+`AGENTS.md`, dosyayı kökte arayan ajan araçları çalışmaya devam etsin diye
+bırakılmış bir yönlendirmedir. Başka bir `AGENTS.md` oluşturmayın. Talimat
+değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitleyin.
 
 ## Proje sınırları
 
+- Referans belgeler `docs/` altında tutulur. Kökte yalnızca `README.md`,
+  `README.TR.md` ve `AGENTS.md` yönlendirmesi kalır.
 - `changelog/changelog.html` yalnızca oyuncuya dönük oyun sürümlerini, içerik
   eklemelerini ve oyun değişikliklerini tutar. Oyun genelinde yapılan her
   geliştirme için buraya bir kayıt ekleyin.
-- Kök `CHANGELOG.md` kod, mimari, araç, dokümantasyon ve deployment
+- `docs/CHANGELOG.md` kod, mimari, araç, dokümantasyon ve deployment
   değişikliklerini tutar.
+- `docs/ROADMAP.md` fork entegrasyon yol haritasını ve fazlarını tutar.
+- `docs/STORY.md` görev zincirini, hikayenin bittiği noktayı ve yazılmış ama
+  henüz erişilemeyen içeriği kaydeder. Hikaye içeriği eklendiğinde veya daha önce
+  erişilemeyen bir sistem bağlandığında bu dosyayı güncelleyin.
 - `README.md` İngilizce geliştirici rehberidir; `README.TR.md` Türkçe çevirisidir.
 - `js/game.js` ve `dist/` üretilen çıktılardır; doğrudan düzenlenmez.
 
