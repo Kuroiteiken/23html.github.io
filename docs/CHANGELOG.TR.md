@@ -169,6 +169,27 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Oyun tikleri, geri çağrım saymak yerine geçen gerçek süreden türetiliyor.
+  Tarayıcılar arka plandaki zamanlayıcıları kısıtlıyor ve birkaç dakika sonra
+  dakikada bire düşürüyor; bu yüzden dünya yalnızca daha seyrek çizilmiyor,
+  gerçekten duruyordu. Kaçırılan tikler dönüşte oynatılıyor; uzun bir yokluğun
+  oyunu kilitlememesi için hem kare başına hem toplamda sınırlandırıldı. Kitap
+  okuma da aynı şekilde ilerliyor.
+- `area.trnf` alanının hiç kimlik almaması düzeltildi: atama `area.trn` adını
+  kullanıyor, eğitim alanının kendi kimliğini eziyor ve bu alanı kurucu
+  varsayılanında bırakıyordu.
+- `area.clg.onEnd` kaldırıldı; oyuncuyu var olmayan iki sahneye taşıyordu ve alan
+  erişilebilir olur olmaz hata fırlatacaktı. Alan, tamamlanmamış içerik olarak
+  duruyor; `docs/STORY.md` dosyasına bakın.
+- Kurt avı görevi tamamlandığında `ttl.wsl` unvanı veriliyor. Unvan vardı ama
+  hiçbir verilme yolu yoktu; üstelik tam da kurt sürüsü avlamayla ilgili görevde.
+- Tamamlanan iş sayacının, gerçek `global.stat.jcom` yanında var olmayan
+  `global.flags.jcom` değerini artırıp `NaN` üretmesi düzeltildi.
+- Nöbet görevinde ok fonksiyonu içinde `clearInterval(this)` çağrılması
+  düzeltildi; `this` zamanlayıcı tanıtıcısı olmadığı için vardiya zamanlayıcısı
+  sonrasında da çalışmaya devam ediyordu.
+- Nöbet noktasına çıkış eklendi. Hiçbir çıkış seçeneği yoktu, bu yüzden oyuncu
+  saat 20:00'ye kadar orada tutuluyordu.
 - Otomatik kayıt yapılandırılabilir hale getirildi ve `proto23.autosave`
   tercihine taşındı. Aralık, hem düğmede hem yükleme yolunda tekrarlanan bir
   `30000` sabitiydi, bu yüzden hiçbir şey onu değiştiremiyordu; düğme ayrıca

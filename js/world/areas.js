@@ -49,7 +49,9 @@ area.trn.drop = [
 ];
 
 area.trnf = new Area();
-area.trn.id = 107;
+// This read `area.trn.id`, which overwrote the training area's own id of 102
+// and left this area on the constructor default of 0.
+area.trnf.id = 107;
 area.trnf.name = i18n.t("content.area.trnf.name");
 area.trnf.pop = [
   { crt: creature.sdummy, lvlmin: 1, lvlmax: 12, c: 0.3 },
@@ -133,12 +135,11 @@ area.clg.pop = [
 ];
 area.clg.size = 33;
 z_bake(area.clg);
-area.clg.onEnd = function () {
-  if (!global.flags.q1lwn) {
-    global.flags.q1lwn = true;
-    smove(chss.q1lwn, false);
-  } else smove(chss.q1l, false);
-};
+// This area belongs to a quest that was cut: its completion handler moved the
+// player to `chss.q1lwn` and `chss.q1l`, neither of which exists, so it would
+// throw the moment the area became reachable. The area itself is kept because
+// it is finished content; whoever wires it back in writes the handler then.
+// See docs/STORY.md.
 
 area.tst = new Area();
 area.tst.id = 108;

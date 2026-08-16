@@ -5370,7 +5370,9 @@
           "catacombs_nowhere_to_run_05519955": "Catacombs, Nowhere To Run",
           "catacombs_the_aging_room_7856a318": "Catacombs, The Aging Room",
           "catacombs_eleven_wisemen_c3327aac": "Catacombs, Eleven Wisemen",
-          "catacombs_the_end_of_journey_5607474f": "Catacombs, The End Of Journey"
+          "catacombs_the_end_of_journey_5607474f": "Catacombs, The End Of Journey",
+          "leave_guard_post": "\"<= Leave your post\"",
+          "guard_post_abandoned": "You walk away from the gate. The shift is not finished, so there is no pay."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

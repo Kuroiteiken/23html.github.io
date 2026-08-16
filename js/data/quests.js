@@ -163,6 +163,9 @@ quest.lmfstkil1.rwd = function () {
   giveItem(wpn.gsprw);
   giveItem(eqp.nkgd);
   giveExp(18000, true, true, true);
+  // The Wolf Slayer title existed but had no grant path, even though this is
+  // the quest that has the player hunt down a wolf pack.
+  giveTitle(ttl.wsl);
   detachCallback(callback.onDeath, 1005);
 };
 quest.lmfstkil1.goals = function () {

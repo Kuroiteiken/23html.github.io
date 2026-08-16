@@ -2688,6 +2688,21 @@ chss.jbgd1.sl = () => {
       "lightgrey",
     );
   });
+  // The post had no exit at all: the player was held here until the shift ended
+  // at 20:00. Leaving early simply forfeits the pay.
+  chs(
+    i18n.t("runtime.world.locations.dialogue.leave_guard_post"),
+    false,
+  ).addEventListener("click", () => {
+    clearInterval(timers.job1t);
+    clearInterval(timers.rdngdots);
+    global.flags.work = false;
+    msg(
+      i18n.t("runtime.world.locations.dialogue.guard_post_abandoned"),
+      "lightgrey",
+    );
+    smove(chss.mrktvg1);
+  });
 };
 chss.jbgd1.onEnter = function () {
   timers.job1t = setInterval(() => {
@@ -2699,9 +2714,8 @@ chss.jbgd1.onEnter = function () {
       );
       finishQst(quest.grds1);
       global.flags.work = false;
-      clearInterval(this);
+      clearInterval(timers.job1t);
       smove(chss.home);
-      global.flags.jcom++;
     } else {
       giveSkExp(skl.ptnc, 0.08);
       if (random() <= 0.01)
@@ -4013,25 +4027,37 @@ chss.trd.sl = function (b, x) {
         (dom.trddots.frame = dom.trddots.frame > 2 ? 0 : ++dom.trddots.frame)
       ];
   }, 333);
+  // Reading advances by elapsed wall-clock seconds rather than one step per
+  // callback, so a throttled background tab no longer stalls the book.
+  let readingLastAt = Date.now();
   timers.rdng = setInterval(() => {
-    global.stat.rdgtttl++;
-    const rd = skl.rdg.use();
-    giveSkExp(skl.rdg, x || 1);
-    b.cmax =
-      (b.data.time * (1 / (1 + rd / 10))) / you.mods.rdgrt -
-      (1 / (1 + rd / 10) - 1) / you.mods.rdgrt;
-    let c = b.cmax - b.data.timep;
-    if (c < 0) c = 0;
-    dom.trd.innerHTML = readingProgress(c);
-    if (++b.data.timep >= b.cmax) {
-      clearInterval(timers.rdng);
-      clearInterval(timers.rdngdots);
-      global.stat.rdttl++;
-      global.flags.rdng = false;
-      for (const gg in chss) if (chss[gg].id === global.lst_loc) chss[gg].sl();
-      b.use();
-      reduce(b);
-      b.data.timep = 0;
+    const now = Date.now();
+    let steps = Math.floor((now - readingLastAt) / 1000);
+    if (steps < 1) return;
+    if (steps > 600) steps = 600;
+    readingLastAt += steps * 1000;
+    for (let step = 0; step < steps; step++) {
+      global.stat.rdgtttl++;
+      const rd = skl.rdg.use();
+      giveSkExp(skl.rdg, x || 1);
+      b.cmax =
+        (b.data.time * (1 / (1 + rd / 10))) / you.mods.rdgrt -
+        (1 / (1 + rd / 10) - 1) / you.mods.rdgrt;
+      let c = b.cmax - b.data.timep;
+      if (c < 0) c = 0;
+      dom.trd.innerHTML = readingProgress(c);
+      if (++b.data.timep >= b.cmax) {
+        clearInterval(timers.rdng);
+        clearInterval(timers.rdngdots);
+        global.stat.rdttl++;
+        global.flags.rdng = false;
+        for (const gg in chss)
+          if (chss[gg].id === global.lst_loc) chss[gg].sl();
+        b.use();
+        reduce(b);
+        b.data.timep = 0;
+        return;
+      }
     }
   }, 1000);
   chs(

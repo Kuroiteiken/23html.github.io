@@ -5374,7 +5374,9 @@
           "catacombs_nowhere_to_run_05519955": "Yeraltı Mezarları, Kaçacak Yer Yok",
           "catacombs_the_aging_room_7856a318": "Yeraltı Mezarları, Yaşlanma Odası",
           "catacombs_eleven_wisemen_c3327aac": "Yeraltı Mezarları, On Bir Bilge Adam",
-          "catacombs_the_end_of_journey_5607474f": "Yeraltı Mezarları, Yolculuğun Sonu"
+          "catacombs_the_end_of_journey_5607474f": "Yeraltı Mezarları, Yolculuğun Sonu",
+          "leave_guard_post": "\"<= Nöbeti bırak\"",
+          "guard_post_abandoned": "Kapıdan uzaklaşıyorsun. Vardiya tamamlanmadığı için ödeme yok."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

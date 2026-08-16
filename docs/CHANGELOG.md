@@ -160,6 +160,26 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Derived game ticks from elapsed wall-clock time instead of counting callbacks.
+  Browsers throttle background timers, and after a few minutes hidden drop them
+  to roughly once a minute, so the world genuinely stopped rather than merely
+  rendering less often. Missed ticks are replayed on return, capped per frame
+  and in total so a long absence cannot lock the game up. Book reading advances
+  the same way.
+- Fixed `area.trnf` never receiving an identifier: the assignment named
+  `area.trn`, overwriting the training area's own id and leaving this one on the
+  constructor default.
+- Removed `area.clg.onEnd`, which moved the player to two scenes that do not
+  exist and would have thrown as soon as the area became reachable. The area is
+  kept as unfinished content; see `docs/STORY.md`.
+- Granted `ttl.wsl` when the wolf-hunt quest completes. The title existed but
+  had no grant path, on the one quest that is about hunting a wolf pack.
+- Fixed the completed-jobs counter incrementing a non-existent
+  `global.flags.jcom` alongside the real `global.stat.jcom`, producing `NaN`.
+- Fixed guard duty calling `clearInterval(this)` inside an arrow function, where
+  `this` is not the timer handle, so the shift timer kept running afterwards.
+- Gave the guard post an exit. It had no outgoing choice at all, so the player
+  was held there until 8PM.
 - Made autosave configurable and moved it into a `proto23.autosave` preference.
   The interval was a `30000` literal duplicated between the toggle and the load
   path, so nothing could change it; the toggle also created a second interval

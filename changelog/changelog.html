@@ -192,15 +192,23 @@
       }
 
       .release-changes {
-        padding: 20px 24px 24px;
+        margin: 0;
+        padding: 20px 24px 24px 44px;
         color: #c8d4e3;
         overflow-wrap: anywhere;
       }
 
-      .release-changes br {
-        display: block;
-        content: "";
-        margin-top: 7px;
+      .release-changes li {
+        margin-bottom: 9px;
+        padding-left: 4px;
+      }
+
+      .release-changes li::marker {
+        color: var(--accent);
+      }
+
+      .release-changes li:last-child {
+        margin-bottom: 0;
       }
 
       .page-footer {
@@ -230,7 +238,7 @@
         }
 
         .release-changes {
-          padding: 18px;
+          padding: 18px 18px 18px 34px;
           font-size: 0.9rem;
         }
       }
@@ -269,72 +277,147 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          This fork is now called <strong>Echoes Beneath</strong>. It began as a
-          fork of the upstream Proto23 game and keeps its save format, its
-          repository name, and its stored preferences, so existing saves and
-          language settings continue to work<br />
-          Fixed the agility multiplier being reset every time the game was saved
-          and loaded<br />
-          Fixed explored area sizes shifting onto the wrong areas after loading,
-          which lost hunting progress<br />
-          Dying no longer punishes the Death skill; a higher skill now preserves
-          more satiation instead of draining it completely<br />
-          Fixed the "pause next battle" label showing the wrong state after
-          loading a save<br />
-          Damaged saves no longer restore missing statistics as blank values<br />
-          Imported saves are now stored properly instead of being lost on the
-          next reload<br />
-          A save that cannot be read is kept as a backup and reported instead of
-          being replaced silently by a new game<br />
-          Fixed quest tracking removing the wrong background task when a quest
-          was completed or a save was loaded<br />
-          Fixed high resistance skills healing instead of protecting: food
-          poisoning restored satiation and corruption restored health once those
-          resistances passed level 20<br />
-          Repaired the confirmations shown before destroying or disassembling
-          equipped gear, which could render off-screen or invisibly, and gave
-          them the same keyboard-accessible dialog used for save deletion<br />
-          Corrected more than a hundred interface positions and sizes that the
-          browser was silently discarding, which is what left the destroy
-          confirmation invisible, pushed the shop quantity buttons on top of the
-          item name, and buried the durability numbers inside their own bar<br />
-          Fixed the "destroy gradients" setting not restoring its state after a
-          save was loaded, and gave it and the autosave checkbox a control that
-          matches the rest of the interface<br />
-          Moved the kill counter to the bottom-left of the item tooltip so it no
-          longer sits under the description<br />
-          Showed Luck alongside the critical chance readout; it could be raised
-          by titles and skills but was never displayed anywhere<br />
-          Translated the skill panel's remaining English: every skill
-          description, mastery name, and perk label now follows the selected
-          language, and the stat abbreviations in the top bar match them<br />
-          The background theme is now remembered on its own, like the language
-          is. It used to live only inside the save, so the choice was lost
-          unless the game happened to be saved afterwards<br />
-          Gave the settings rows room to breathe instead of stacking their
-          labels and controls against each other<br />
-          Returning to the game from the changelog now closes that tab rather
-          than opening a second copy of the game in it<br />
-          The message log now survives a reload. It keeps as many messages as
-          the message log limit allows, which can now be raised to 120, and
-          clearing the log clears the kept history with it<br />
-          Autosave now runs every 15 seconds instead of 30, and Settings has an
-          interval you can change; the new interval takes effect immediately.
-          Autosave is also remembered on its own, and its checkbox no longer
-          disagrees with whether it is actually running<br />
-          Fixed the inventory sort bar overlapping the item list when the
-          inventory was long<br />
-          Corrected the shady kid's name in Turkish, which read as "shaded"
-          rather than "suspicious"<br />
-          Replaced the cramped "DP" durability readout with a labelled gauge.
-          The number now sits beside the bar instead of on top of it, where it
-          was unreadable at the yellow and green levels<br />
-          Renamed the student skill books after the masteries they teach, so a
-          book and its skill panel entry finally agree<br />
-          Reserved room below the inventory list for the sort bar, which was
-          covering the last rows of a long inventory
-        </div>
+        <ul class="release-changes">
+          <li>
+            Fixed the dojo training areas sharing an identifier, which gave one
+            of them no identity of its own
+          </li>
+          <li>
+            Fixed the completed-jobs counter never advancing, and fixed the
+            guard duty timer continuing to run after the shift ended
+          </li>
+          <li>
+            Completing the wolf hunt now grants the Wolf Slayer title, which
+            existed but could never be earned
+          </li>
+          <li>
+            Guard duty can be left early. The post had no exit at all, so the
+            only way out was to wait until 8PM
+          </li>
+          <li>
+            The game no longer stops while its tab is in the background. Time,
+            combat, and book reading now follow the clock and catch up when you
+            come back, instead of freezing as soon as the browser throttled the
+            page
+          </li>
+          <li>
+            Reserved room below the inventory list for the sort bar, which was
+            covering the last rows of a long inventory
+          </li>
+          <li>
+            Renamed the student skill books after the masteries they teach, so a
+            book and its skill panel entry finally agree
+          </li>
+          <li>
+            Replaced the cramped "DP" durability readout with a labelled gauge.
+            The number now sits beside the bar instead of on top of it, where it
+            was unreadable at the yellow and green levels
+          </li>
+          <li>
+            Corrected the shady kid's name in Turkish, which read as "shaded"
+            rather than "suspicious"
+          </li>
+          <li>
+            Fixed the inventory sort bar overlapping the item list when the
+            inventory was long
+          </li>
+          <li>
+            Autosave now runs every 15 seconds instead of 30, and Settings has
+            an interval you can change; the new interval takes effect
+            immediately. Autosave is also remembered on its own, and its
+            checkbox no longer disagrees with whether it is actually running
+          </li>
+          <li>
+            The message log now survives a reload. It keeps as many messages as
+            the message log limit allows, which can now be raised to 120, and
+            clearing the log clears the kept history with it
+          </li>
+          <li>
+            Returning to the game from the changelog now closes that tab rather
+            than opening a second copy of the game in it
+          </li>
+          <li>
+            Gave the settings rows room to breathe instead of stacking their
+            labels and controls against each other
+          </li>
+          <li>
+            The background theme is now remembered on its own, like the language
+            is. It used to live only inside the save, so the choice was lost
+            unless the game happened to be saved afterwards
+          </li>
+          <li>
+            Translated the skill panel's remaining English: every skill
+            description, mastery name, and perk label now follows the selected
+            language, and the stat abbreviations in the top bar match them
+          </li>
+          <li>
+            Showed Luck alongside the critical chance readout; it could be
+            raised by titles and skills but was never displayed anywhere
+          </li>
+          <li>
+            Moved the kill counter to the bottom-left of the item tooltip so it
+            no longer sits under the description
+          </li>
+          <li>
+            Fixed the "destroy gradients" setting not restoring its state after
+            a save was loaded, and gave it and the autosave checkbox a control
+            that matches the rest of the interface
+          </li>
+          <li>
+            Corrected more than a hundred interface positions and sizes that the
+            browser was silently discarding, which is what left the destroy
+            confirmation invisible, pushed the shop quantity buttons on top of
+            the item name, and buried the durability numbers inside their own
+            bar
+          </li>
+          <li>
+            Repaired the confirmations shown before destroying or disassembling
+            equipped gear, which could render off-screen or invisibly, and gave
+            them the same keyboard-accessible dialog used for save deletion
+          </li>
+          <li>
+            Fixed high resistance skills healing instead of protecting: food
+            poisoning restored satiation and corruption restored health once
+            those resistances passed level 20
+          </li>
+          <li>
+            Fixed quest tracking removing the wrong background task when a quest
+            was completed or a save was loaded
+          </li>
+          <li>
+            A save that cannot be read is kept as a backup and reported instead
+            of being replaced silently by a new game
+          </li>
+          <li>
+            Imported saves are now stored properly instead of being lost on the
+            next reload
+          </li>
+          <li>
+            Damaged saves no longer restore missing statistics as blank values
+          </li>
+          <li>
+            Fixed the "pause next battle" label showing the wrong state after
+            loading a save
+          </li>
+          <li>
+            Dying no longer punishes the Death skill; a higher skill now
+            preserves more satiation instead of draining it completely
+          </li>
+          <li>
+            Fixed explored area sizes shifting onto the wrong areas after
+            loading, which lost hunting progress
+          </li>
+          <li>
+            Fixed the agility multiplier being reset every time the game was
+            saved and loaded
+          </li>
+          <li>
+            This fork is now called <strong>Echoes Beneath</strong>. It began as
+            a fork of the upstream Proto23 game and keeps its save format, its
+            repository name, and its stored preferences, so existing saves and
+            language settings continue to work
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="474">
@@ -348,35 +431,62 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          Fixed hover descriptions appearing at a fixed position over the
-          character panel<br />
-          Kept hover descriptions close to the pointer and inside the visible
-          viewport<br />
-          Moved the remaining static equipment descriptions into the English and
-          Turkish locale files<br />
-          Separated the autosave, collapse, version, and delete controls in the
-          bottom information bar<br />
-          Corrected Turkish weekday abbreviations and made Sunday-based gameplay
-          independent of the selected display language<br />
-          Audited 2,177 Turkish content and runtime values in their source-code
-          context, correcting 255 high-confidence translation errors<br />
-          Localized the weekly dojo meal announcement<br />
-          Moved the remaining static accessory descriptions and bonus details
-          into the language files<br />
-          Localized missed-attack combat messages<br />
-          Moved the bottom-bar collapse control directly after Save and Load<br />
-          Fixed empty message-log indicators and kept the clear button inside
-          the message panel<br />
-          Prevented background theme changes from resetting the interface
-          scale<br />
-          Replaced the browser save-deletion prompt with a game-styled,
-          keyboard-accessible confirmation modal<br />
-          Separated the background preset controls for clearer translated
-          labels<br />
-          Localized free-meal reactions, book-reading progress, and basement
-          actions
-        </div>
+        <ul class="release-changes">
+          <li>
+            Fixed hover descriptions appearing at a fixed position over the
+            character panel
+          </li>
+          <li>
+            Kept hover descriptions close to the pointer and inside the visible
+            viewport
+          </li>
+          <li>
+            Moved the remaining static equipment descriptions into the English
+            and Turkish locale files
+          </li>
+          <li>
+            Separated the autosave, collapse, version, and delete controls in
+            the bottom information bar
+          </li>
+          <li>
+            Corrected Turkish weekday abbreviations and made Sunday-based
+            gameplay independent of the selected display language
+          </li>
+          <li>
+            Audited 2,177 Turkish content and runtime values in their
+            source-code context, correcting 255 high-confidence translation
+            errors
+          </li>
+          <li>Localized the weekly dojo meal announcement</li>
+          <li>
+            Moved the remaining static accessory descriptions and bonus details
+            into the language files
+          </li>
+          <li>Localized missed-attack combat messages</li>
+          <li>
+            Moved the bottom-bar collapse control directly after Save and Load
+          </li>
+          <li>
+            Fixed empty message-log indicators and kept the clear button inside
+            the message panel
+          </li>
+          <li>
+            Prevented background theme changes from resetting the interface
+            scale
+          </li>
+          <li>
+            Replaced the browser save-deletion prompt with a game-styled,
+            keyboard-accessible confirmation modal
+          </li>
+          <li>
+            Separated the background preset controls for clearer translated
+            labels
+          </li>
+          <li>
+            Localized free-meal reactions, book-reading progress, and basement
+            actions
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="473">
@@ -390,9 +500,11 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          Fixed the enemy combat panel overlapping the player character panel
-        </div>
+        <ul class="release-changes">
+          <li>
+            Fixed the enemy combat panel overlapping the player character panel
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="472">
@@ -406,9 +518,9 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          Changed the code to fix the Moon Bloom bug
-        </div>
+        <ul class="release-changes">
+          <li>Changed the code to fix the Moon Bloom bug</li>
+        </ul>
       </article>
 
       <article class="release" data-version="471">
@@ -422,19 +534,29 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          Fixed the loading screen remaining visible when an old or malformed
-          save cannot be loaded<br />
-          Added a clear recovery message when saved-game loading fails<br />
-          Prevented cached files from an older deployment from blocking game
-          startup<br />
-          Added startup regression coverage for delayed assets, cached reloads,
-          Turkish initialization, and malformed saves<br />
-          Reviewed Turkish game terminology in context and corrected misleading
-          machine translations<br />
-          Redesigned the changelog with responsive release cards and clearer
-          navigation
-        </div>
+        <ul class="release-changes">
+          <li>
+            Fixed the loading screen remaining visible when an old or malformed
+            save cannot be loaded
+          </li>
+          <li>Added a clear recovery message when saved-game loading fails</li>
+          <li>
+            Prevented cached files from an older deployment from blocking game
+            startup
+          </li>
+          <li>
+            Added startup regression coverage for delayed assets, cached
+            reloads, Turkish initialization, and malformed saves
+          </li>
+          <li>
+            Reviewed Turkish game terminology in context and corrected
+            misleading machine translations
+          </li>
+          <li>
+            Redesigned the changelog with responsive release cards and clearer
+            navigation
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="470">
@@ -448,22 +570,38 @@
             <time datetime="2026-08-16">2026/08/16</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added JSON-based language support and a persistent language selector
-          to Settings<br />
-          Moved shared interface and world text collections into the English
-          locale file<br />
-          Moved game content names and descriptions into translatable locale
-          keys<br />
-          Moved common dialogue, messages, descriptions, and interface labels
-          into locale keys<br />
-          Prepared locale fallback and discovery so additional languages can be
-          added later<br />
-          Fixed the changelog link on project-path GitHub Pages deployments<br />
-          Added automatic interface scaling for smaller browser viewports<br />
-          Added a complete Turkish language option for the interface, content,
-          descriptions, and dialogue
-        </div>
+        <ul class="release-changes">
+          <li>
+            Added JSON-based language support and a persistent language selector
+            to Settings
+          </li>
+          <li>
+            Moved shared interface and world text collections into the English
+            locale file
+          </li>
+          <li>
+            Moved game content names and descriptions into translatable locale
+            keys
+          </li>
+          <li>
+            Moved common dialogue, messages, descriptions, and interface labels
+            into locale keys
+          </li>
+          <li>
+            Prepared locale fallback and discovery so additional languages can
+            be added later
+          </li>
+          <li>
+            Fixed the changelog link on project-path GitHub Pages deployments
+          </li>
+          <li>
+            Added automatic interface scaling for smaller browser viewports
+          </li>
+          <li>
+            Added a complete Turkish language option for the interface, content,
+            descriptions, and dialogue
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="466">
@@ -477,11 +615,15 @@
             <time datetime="2021-03-21">2021/03/21</time>
           </div>
         </header>
-        <div class="release-changes">
-          Storage containers are generalized and can be placed anywhere(bags,
-          chests, altars, etc)、 also trigger putting events<br />
-          Storage container code works faster, should lag less with many items
-        </div>
+        <ul class="release-changes">
+          <li>
+            Storage containers are generalized and can be placed anywhere(bags,
+            chests, altars, etc)、 also trigger putting events
+          </li>
+          <li>
+            Storage container code works faster, should lag less with many items
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="461">
@@ -495,17 +637,21 @@
             <time datetime="2021-03-13">2021/03/13</time>
           </div>
         </header>
-        <div class="release-changes">
-          Crafting code performance is (mostly) improved<br />
-          Expanded types of actions -> Auto-action, instant action, togglable
-          action<br />
-          Culled some memory leaks<br />
-          Made stat modifiers more flexible<br />
-          A bit of weatherrelated effect synergy<br />
-          Rotting code repurposed for something more general and can be applied
-          for any item to change over time, i.e alcohol fermenting, powersource
-          charging, , etc
-        </div>
+        <ul class="release-changes">
+          <li>Crafting code performance is (mostly) improved</li>
+          <li>
+            Expanded types of actions -> Auto-action, instant action, togglable
+            action
+          </li>
+          <li>Culled some memory leaks</li>
+          <li>Made stat modifiers more flexible</li>
+          <li>A bit of weatherrelated effect synergy</li>
+          <li>
+            Rotting code repurposed for something more general and can be
+            applied for any item to change over time, i.e alcohol fermenting,
+            powersource charging, , etc
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="456">
@@ -519,11 +665,11 @@
             <time datetime="2021-03-06">2021/03/06</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added repeatable crafting<br />
-          Changed how reading is handled<br />
-          Bgfxs
-        </div>
+        <ul class="release-changes">
+          <li>Added repeatable crafting</li>
+          <li>Changed how reading is handled</li>
+          <li>Bgfxs</li>
+        </ul>
       </article>
 
       <article class="release" data-version="455">
@@ -537,11 +683,11 @@
             <time datetime="2021-03-01">2021/03/01</time>
           </div>
         </header>
-        <div class="release-changes">
-          Books now recycle<br />
-          Misc events and a bit of questline added<br />
-          Cat sometimes bring things home
-        </div>
+        <ul class="release-changes">
+          <li>Books now recycle</li>
+          <li>Misc events and a bit of questline added</li>
+          <li>Cat sometimes bring things home</li>
+        </ul>
       </article>
 
       <article class="release" data-version="429">
@@ -555,11 +701,11 @@
             <time datetime="2021-02-19">2021/02/19</time>
           </div>
         </header>
-        <div class="release-changes">
-          Title list now shows which titles have talents<br />
-          Added season indicator<br />
-          Added callback manager
-        </div>
+        <ul class="release-changes">
+          <li>Title list now shows which titles have talents</li>
+          <li>Added season indicator</li>
+          <li>Added callback manager</li>
+        </ul>
       </article>
 
       <article class="release" data-version="423">
@@ -573,14 +719,14 @@
             <time datetime="2021-02-19">2021/02/19</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added ability to hold shift key for additional information<br />
-          Conditional spawns in shops<br />
-          Draggable windows are less crusty<br />
-          Some titles are now useful and contain permanent talents<br />
-          New weather for every season + snow<br />
-          Bugfixes and tweaks and such
-        </div>
+        <ul class="release-changes">
+          <li>Added ability to hold shift key for additional information</li>
+          <li>Conditional spawns in shops</li>
+          <li>Draggable windows are less crusty</li>
+          <li>Some titles are now useful and contain permanent talents</li>
+          <li>New weather for every season + snow</li>
+          <li>Bugfixes and tweaks and such</li>
+        </ul>
       </article>
 
       <article class="release" data-version="360">
@@ -594,46 +740,60 @@
             <time datetime="2020-12-04">2020/12/04</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added ability to deconstruct items<br />
-          Few ui tweaks and meek visual changes<br />
-          Many infrastructure code changes<br />
-          New items/skills/effects/areas/furniture/recipes/titles/other<br />
-          First pass into allowing enemies to feel status effects<br />
-          First pass into storage box functionality<br />
-          Toned down recursive copying<br />
-          Initiated environmental hazards<br />
-          Purged recursive timer<br />
-          Few new menial tasks/jobs/quest for earning money<br />
-          Made shops refresh when needed<br />
-          Implemented shop reputation<br />
-          Added canteen to dojo<br />
-          Added ability to investigate areas<br />
-          Added Journal<br />
-          Added Statistics screen<br />
-          Added Bestiary screen<br />
-          Added Quests screen<br />
-          Improved sectors, allowing areas exist in multiple sectors at once<br />
-          Enemy blood/Hand strength/Household rank/Nightmares/other misc<br />
-          Crafting code is a little cleverer, would prioritize broken equipment
-          first + improved item handling<br />
-          Colorcoded weather, added rain indicator<br />
-          New planner functionality<br />
-          Made it possible for food to rot/items to change over time<br />
-          Weapons track number of kills made with them<br />
-          Made Ki accumulable<br />
-          Added import/export into text files<br />
-          <span style="color: red"
-            >!!don't use saves from previous versions!!<br /><span
-              style="text-decoration: line-through"
-              >they may work a bit but will end up crooked and incomplete or
-              outright broken</span
-            ></span
-          ><br />
-          <span style="color: crimson"
-            >Nevermind, too much changed, save is kill</span
-          >
-        </div>
+        <ul class="release-changes">
+          <li>Added ability to deconstruct items</li>
+          <li>Few ui tweaks and meek visual changes</li>
+          <li>Many infrastructure code changes</li>
+          <li>New items/skills/effects/areas/furniture/recipes/titles/other</li>
+          <li>First pass into allowing enemies to feel status effects</li>
+          <li>First pass into storage box functionality</li>
+          <li>Toned down recursive copying</li>
+          <li>Initiated environmental hazards</li>
+          <li>Purged recursive timer</li>
+          <li>Few new menial tasks/jobs/quest for earning money</li>
+          <li>Made shops refresh when needed</li>
+          <li>Implemented shop reputation</li>
+          <li>Added canteen to dojo</li>
+          <li>Added ability to investigate areas</li>
+          <li>Added Journal</li>
+          <li>Added Statistics screen</li>
+          <li>Added Bestiary screen</li>
+          <li>Added Quests screen</li>
+          <li>
+            Improved sectors, allowing areas exist in multiple sectors at once
+          </li>
+          <li>
+            Enemy blood/Hand strength/Household rank/Nightmares/other misc
+          </li>
+          <li>
+            Crafting code is a little cleverer, would prioritize broken
+            equipment first + improved item handling
+          </li>
+          <li>Colorcoded weather, added rain indicator</li>
+          <li>New planner functionality</li>
+          <li>Made it possible for food to rot/items to change over time</li>
+          <li>Weapons track number of kills made with them</li>
+          <li>Made Ki accumulable</li>
+          <li>Added import/export into text files</li>
+          <li>
+            <span style="color: red"
+              >!!don't use saves from previous versions!!</span
+            >
+          </li>
+          <li>
+            <span style="color: red"
+              ><span style="text-decoration: line-through"
+                >they may work a bit but will end up crooked and incomplete or
+                outright broken</span
+              ></span
+            >
+          </li>
+          <li>
+            <span style="color: crimson"
+              >Nevermind, too much changed, save is kill</span
+            >
+          </li>
+        </ul>
       </article>
 
       <article class="release" data-version="359">
@@ -647,11 +807,11 @@
             <time datetime="2020-04-10">2020/04/10</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added weapon class indicator<br />
-          Lesser bugs removed<br />
-          Added functionality for conditional spawns and drops
-        </div>
+        <ul class="release-changes">
+          <li>Added weapon class indicator</li>
+          <li>Lesser bugs removed</li>
+          <li>Added functionality for conditional spawns and drops</li>
+        </ul>
       </article>
 
       <article class="release" data-version="354">
@@ -665,14 +825,16 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Updated assembling code to allow crafting of any item combinations<br />
-          Few new items and repices<br />
-          Adjustments and fixes and stuff + headache<br />
-          Added ability to remove furniture<br />
-          Added a title<br />
-          Added extra area
-        </div>
+        <ul class="release-changes">
+          <li>
+            Updated assembling code to allow crafting of any item combinations
+          </li>
+          <li>Few new items and repices</li>
+          <li>Adjustments and fixes and stuff + headache</li>
+          <li>Added ability to remove furniture</li>
+          <li>Added a title</li>
+          <li>Added extra area</li>
+        </ul>
       </article>
 
       <article class="release" data-version="349">
@@ -686,11 +848,11 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Regrouped player stats<br />
-          Minor fixes here and there<br />
-          Expanded effects slightly
-        </div>
+        <ul class="release-changes">
+          <li>Regrouped player stats</li>
+          <li>Minor fixes here and there</li>
+          <li>Expanded effects slightly</li>
+        </ul>
       </article>
 
       <article class="release" data-version="344">
@@ -704,14 +866,14 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added rank-based drops<br />
-          Added new shop<br />
-          Added few more items and a recipe<br />
-          Added new skills and an effect<br />
-          Slight visual changes<br />
-          Tiny bugs stomped
-        </div>
+        <ul class="release-changes">
+          <li>Added rank-based drops</li>
+          <li>Added new shop</li>
+          <li>Added few more items and a recipe</li>
+          <li>Added new skills and an effect</li>
+          <li>Slight visual changes</li>
+          <li>Tiny bugs stomped</li>
+        </ul>
       </article>
 
       <article class="release" data-version="342">
@@ -725,11 +887,11 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Limited the popup area<br />
-          Made Evil slowly consume the world<br />
-          Battling bugs
-        </div>
+        <ul class="release-changes">
+          <li>Limited the popup area</li>
+          <li>Made Evil slowly consume the world</li>
+          <li>Battling bugs</li>
+        </ul>
       </article>
 
       <article class="release" data-version="341">
@@ -743,12 +905,12 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Mandatory typos<br />
-          Small visual fixes<br />
-          Expanded locations, added group sectors<br />
-          Spread some bug poison within code
-        </div>
+        <ul class="release-changes">
+          <li>Mandatory typos</li>
+          <li>Small visual fixes</li>
+          <li>Expanded locations, added group sectors</li>
+          <li>Spread some bug poison within code</li>
+        </ul>
       </article>
 
       <article class="release" data-version="338">
@@ -762,15 +924,15 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Initial implementation of manual activities<br />
-          Snuck a flytrap into loading function<br />
-          Minor expansion of some skills<br />
-          Added shop indicator<br />
-          Added book indicator<br />
-          Small location updates<br />
-          Few new items
-        </div>
+        <ul class="release-changes">
+          <li>Initial implementation of manual activities</li>
+          <li>Snuck a flytrap into loading function</li>
+          <li>Minor expansion of some skills</li>
+          <li>Added shop indicator</li>
+          <li>Added book indicator</li>
+          <li>Small location updates</li>
+          <li>Few new items</li>
+        </ul>
       </article>
 
       <article class="release" data-version="336">
@@ -784,14 +946,14 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Slight shop adjustements<br />
-          Slightly expanded cooking<br />
-          Added bugs<br />
-          Removed bugs<br />
-          Made rain wet again<br />
-          Inerrupted unnecessary ki release
-        </div>
+        <ul class="release-changes">
+          <li>Slight shop adjustements</li>
+          <li>Slightly expanded cooking</li>
+          <li>Added bugs</li>
+          <li>Removed bugs</li>
+          <li>Made rain wet again</li>
+          <li>Inerrupted unnecessary ki release</li>
+        </ul>
       </article>
 
       <article class="release" data-version="324">
@@ -805,21 +967,21 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added indicator for two handed weapons<br />
-          Errorproofed graphics code<br />
-          Minor item changes<br />
-          Minor perk changes<br />
-          Added several new items<br />
-          Implemented absorption of elemental attacks<br />
-          Added new effect<br />
-          Added new recipe<br />
-          Started working on more adequate shop systems<br />
-          Petting handicap removed<br />
-          Added new skill<br />
-          Added new shop<br />
-          Added new locations
-        </div>
+        <ul class="release-changes">
+          <li>Added indicator for two handed weapons</li>
+          <li>Errorproofed graphics code</li>
+          <li>Minor item changes</li>
+          <li>Minor perk changes</li>
+          <li>Added several new items</li>
+          <li>Implemented absorption of elemental attacks</li>
+          <li>Added new effect</li>
+          <li>Added new recipe</li>
+          <li>Started working on more adequate shop systems</li>
+          <li>Petting handicap removed</li>
+          <li>Added new skill</li>
+          <li>Added new shop</li>
+          <li>Added new locations</li>
+        </ul>
       </article>
 
       <article class="release" data-version="321">
@@ -833,12 +995,12 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Added support for 2Handed weapons<br />
-          Added new skill<br />
-          Added a new weapon<br />
-          Can access changelog through version number
-        </div>
+        <ul class="release-changes">
+          <li>Added support for 2Handed weapons</li>
+          <li>Added new skill</li>
+          <li>Added a new weapon</li>
+          <li>Can access changelog through version number</li>
+        </ul>
       </article>
 
       <article class="release" data-version="316">
@@ -852,15 +1014,15 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          New skill<br />
-          New titles<br />
-          New effects<br />
-          New items<br />
-          Updated quest framework<br />
-          Expanded how furniture works<br />
-          Squashed bugs
-        </div>
+        <ul class="release-changes">
+          <li>New skill</li>
+          <li>New titles</li>
+          <li>New effects</li>
+          <li>New items</li>
+          <li>Updated quest framework</li>
+          <li>Expanded how furniture works</li>
+          <li>Squashed bugs</li>
+        </ul>
       </article>
 
       <article class="release" data-version="310">
@@ -874,10 +1036,13 @@
             <time>Date not recorded</time>
           </div>
         </header>
-        <div class="release-changes">
-          Early game framework and buncha other stuff, items, equipment, skills,
-          perks, locations, furniture, enemies, effects, quests, crafts etc
-        </div>
+        <ul class="release-changes">
+          <li>
+            Early game framework and buncha other stuff, items, equipment,
+            skills, perks, locations, furniture, enemies, effects, quests,
+            crafts etc
+          </li>
+        </ul>
       </article>
     </main>
     <footer class="page-footer">

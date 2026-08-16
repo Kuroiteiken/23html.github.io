@@ -1595,11 +1595,33 @@ function ontick() {
   dom.d5_3_1.update();
 }
 
+// Browsers throttle timers in a background tab, and after a few minutes hidden
+// they drop them to roughly once a minute. Game time used to advance by a fixed
+// amount per callback, so the world genuinely stopped while the tab was in the
+// background rather than merely rendering less often. Ticks are now derived
+// from elapsed wall-clock time and replayed when the tab comes back, so reading
+// a book or fighting continues while the player is looking elsewhere.
+const maxCatchUpPerFrame = 60;
+const maxBacklogTicks = 3600;
+let lastTickAt = Date.now();
+
 (function update() {
+  const interval = 1000 / global.fps;
   setTimeout(function () {
     update();
-    ontick();
-  }, 1000 / global.fps);
+    const now = Date.now();
+    let pending = Math.floor((now - lastTickAt) / interval);
+    if (pending < 1) return;
+    // A very long absence is not replayed minute by minute: the backlog is
+    // trimmed so returning cannot lock the game up while it catches up.
+    if (pending > maxBacklogTicks) {
+      pending = maxBacklogTicks;
+      lastTickAt = now - maxBacklogTicks * interval;
+    }
+    const ticks = Math.min(pending, maxCatchUpPerFrame);
+    lastTickAt += ticks * interval;
+    for (let tick = 0; tick < ticks; tick++) ontick();
+  }, interval);
 })();
 
 function select(arr) {
