@@ -12,7 +12,9 @@ const changelog = fs.readFileSync(
 );
 
 const versionMatch = bootstrap.match(/global\.ver\s*=\s*(\d+);/);
-const releaseMatch = changelog.match(/----(\d+)ー(\d+):/);
+const releaseMatch = changelog.match(
+  /<article class="release release-latest" data-version="(\d+)">[\s\S]*?<span class="release-range">v(\d+)[\s\S]*?v(\d+)<\/span>/,
+);
 
 if (!versionMatch)
   throw new Error("Game version was not found in bootstrap.js");
@@ -20,10 +22,15 @@ if (!releaseMatch)
   throw new Error("Latest game release was not found in changelog.html");
 
 const gameVersion = Number(versionMatch[1]);
-const releaseStart = Number(releaseMatch[1]);
-const releaseEnd = Number(releaseMatch[2]);
+const releaseVersion = Number(releaseMatch[1]);
+const releaseStart = Number(releaseMatch[2]);
+const releaseEnd = Number(releaseMatch[3]);
 
-if (releaseEnd !== gameVersion || releaseStart !== gameVersion - 1) {
+if (
+  releaseVersion !== gameVersion ||
+  releaseEnd !== gameVersion ||
+  releaseStart !== gameVersion - 1
+) {
   throw new Error(
     `Version mismatch: game is v${gameVersion}, latest changelog range is ${releaseStart}-${releaseEnd}`,
   );

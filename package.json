@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node scripts/build.js && node scripts/build-site.js",
     "build:game": "node scripts/build.js",
-    "check": "node --check js/game.js && node scripts/check-i18n.js && node scripts/check-version.js && eslint js scripts && stylelint css/game.css && npm run check:format",
+    "check": "node --check js/game.js && node scripts/check-changelog.js && node scripts/check-i18n.js && node scripts/check-version.js && eslint js scripts && stylelint css/game.css && npm run check:format",
     "check:format": "prettier --check . --ignore-path .gitignore",
     "format": "prettier --write . --ignore-path .gitignore",
     "serve": "node scripts/serve.js",

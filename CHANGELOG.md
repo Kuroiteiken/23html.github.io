@@ -10,6 +10,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added structural regression validation for the responsive HTML changelog and
+  its project-path-safe navigation.
 - Added delayed-asset, cached-profile reload, malformed-save recovery, version
   consistency, and rendered-version regression coverage.
 - Added automated agreement checks between the integer game version and newest
@@ -36,6 +38,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Redesigned `changelog/changelog.html` as a responsive, accessible release-card
+  timeline with clearer version, date, warning, and navigation hierarchy.
 - Incremented the game to v471 and documented when fixes, features, and additions
   require a version increment.
 - Contextually reviewed and corrected 123 machine-translated Turkish entries,

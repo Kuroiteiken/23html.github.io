@@ -10,6 +10,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Responsive HTML changelog yapısı ve proje-alt-yoluna uyumlu navigasyonu için
+  yapısal regresyon doğrulaması eklendi.
 - Geciken asset, önbellekli profil yenileme, bozuk kayıt kurtarma, sürüm
   tutarlılığı ve ekranda gösterilen sürüm için regresyon kapsamı eklendi.
 - Tam sayı oyun sürümüyle en yeni HTML changelog sürüm aralığının eşleşmesini
@@ -38,6 +40,9 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- `changelog/changelog.html`; sürüm, tarih, uyarı ve navigasyon hiyerarşisi daha
+  belirgin olan responsive ve erişilebilir sürüm kartları zaman çizelgesi olarak
+  yeniden tasarlandı.
 - Oyun v471'e yükseltildi; hata düzeltmeleri, özellikler ve eklemelerde ne zaman
   sürüm artırılması gerektiği belgelendi.
 - Silah ustalıkları, çok anlamlı eşya adları, unvanlar ve istatistik etiketleri

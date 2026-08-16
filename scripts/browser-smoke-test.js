@@ -33,7 +33,7 @@ function close(server) {
   });
 }
 
-function runChrome(url, userDataDirectory) {
+function runChrome(url, userDataDirectory, windowSize = "900,600") {
   const args = [
     "--headless=new",
     "--disable-gpu",
@@ -41,7 +41,7 @@ function runChrome(url, userDataDirectory) {
     "--enable-logging=stderr",
     "--log-level=0",
     "--virtual-time-budget=8000",
-    "--window-size=900,600",
+    `--window-size=${windowSize}`,
     `--user-data-dir=${userDataDirectory}`,
     "--dump-dom",
     url,
@@ -165,6 +165,19 @@ async function main() {
       throw new Error("The cached-profile reload did not load English.");
     }
 
+    const mobileChangelog = await runChrome(
+      `${baseUrl}/changelog/changelog.html`,
+      profiles[0],
+      "430,900",
+    );
+    assertNoUnexpectedErrors(mobileChangelog.stderr);
+    if (!mobileChangelog.stdout.includes('data-horizontal-overflow="false"')) {
+      throw new Error("The changelog overflows the mobile viewport.");
+    }
+    if (!mobileChangelog.stdout.includes('class="release release-latest"')) {
+      throw new Error("The changelog release cards were not rendered.");
+    }
+
     const recovery = await runChrome(
       `${baseUrl}/__test/corrupt-save`,
       profiles[1],
@@ -177,7 +190,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, viewport fitting, and changelog linking verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);
