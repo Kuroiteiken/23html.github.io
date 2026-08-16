@@ -50,6 +50,16 @@ npm run check
 npm run test:browser
 ```
 
+The browser regression suite covers delayed assets, consistent cache-busting
+versions, Turkish startup, cached-profile reloads, malformed-save recovery,
+viewport fitting, and project-path changelog links. Bug fixes and behavior
+changes must extend the relevant regression coverage before deployment.
+
+The integer game version is incremented for fixes, features, and player-facing
+additions. The newest `changelog/changelog.html` range must end at the same
+version; automated checks reject a mismatch. Formatting or documentation-only
+changes do not require a version increment.
+
 Format source files with:
 
 ```sh

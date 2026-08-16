@@ -10,6 +10,12 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added delayed-asset, cached-profile reload, malformed-save recovery, version
+  consistency, and rendered-version regression coverage.
+- Added automated agreement checks between the integer game version and newest
+  HTML changelog release range.
+- Added reviewed Turkish terminology expectations that protect mastery names and
+  other high-risk contextual translations from regression.
 - Added deployment-time content hashes for CSS, JavaScript, and locale assets.
 - Added direct locale selection through the optional `lang` query parameter and
   browser coverage for a complete Turkish startup.
@@ -30,6 +36,12 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Incremented the game to v471 and documented when fixes, features, and additions
+  require a version increment.
+- Contextually reviewed and corrected 123 machine-translated Turkish entries,
+  including weapon masteries, ambiguous item names, titles, and statistics labels.
+- Expanded the required workflow so behavior changes cannot deploy without
+  relevant regression coverage.
 - Registered Turkish in the Settings language selector and documented periodic
   changelog-first commit and push requirements.
 - Made the fixed-layout interface scale down automatically to fit smaller browser
@@ -50,6 +62,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Added a visible localized recovery message when save decoding fails before the
+  legacy loader can create its own error panel.
 - Prevented the loading overlay from remaining indefinitely when a legacy or
   malformed saved game throws during startup.
 - Prevented browsers from mixing stale runtime and locale assets after a Pages

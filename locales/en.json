@@ -3501,6 +3501,7 @@
         },
         "interface": {
           "loading_bb8af242": "LOADING",
+          "saved_game_load_failed_72860aef": "THE SAVED GAME COULD NOT BE LOADED<br>DELETE THE SAVE OR IMPORT A VALID BACKUP",
           "something_broke_perhaps_due_to_stupidity_or_data_446e154f": "SOMETHING BROKE<br>PERHAPS DUE TO STUPIDITY OR DATA STRUCTURE CHANGES<br>⋗1 DELETING THE SAVE IS ADVISED<br>⋗2 OR WAITING FOR SOME TIME TIL FIXED<br>⋗3 OR CHECKING IN DIFFERENT BROWSER, MIGHT WORK THERE(MEANS THE SAVE IS BORKED(REFER TO 1))"
         },
         "description": {

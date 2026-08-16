@@ -24,7 +24,7 @@
     },
     "settings": {
       "backgroundColor": "Arka Plan Rengi",
-      "backgroundPresets": "BG ön ayarları",
+      "backgroundPresets": "Arka plan hazır ayarları",
       "destroyGradients": "Degradeleri yok et",
       "export": "Dışa Aktar",
       "exportAsFile": "Dosya Olarak Dışa Aktar",
@@ -498,7 +498,7 @@
         "desc": "Parlak renkli balçık. Gökyüzünü mükemmel bir şekilde yansıtabiliyor gibi görünüyor"
       },
       "slm4": {
-        "name": "Temizle Balçık",
+        "name": "Şeffaf Balçık",
         "desc": "Belirgin bir renk taşımayan, tuhaf şeffaf balçık. Her yere saklanabilirler ve fark edilmeleri çok zordur"
       },
       "kksh": {
@@ -518,8 +518,8 @@
         "desc": "Kağıt benzeri malzemeden yapılmış ince golem. Diğer eğitim golemleri kadar dayanıklı olmasa da daha hızlı hareket etmesini sağlayan hafif bir gövdeye sahiptir."
       },
       "golem4": {
-        "name": "Golem'e saldır",
-        "desc": "Golem, yerleşik dövüş becerisine sahip. Eğitimli bir militana benzer şekilde, hazırlıksız herhangi bir rakip için tehlikeli bir tehdit oluştururlar."
+        "name": "Saldırı Golemi",
+        "desc": "Dövüş yeteneği kazandırılmış bir golem. Eğitimli bir savaşçıya benzediğinden hazırlıksız rakipler için ciddi bir tehdit oluşturur."
       },
       "ngtmr1": {
         "name": "Kabus",
@@ -564,11 +564,11 @@
         "desc": "Sağlığı her saniye tüketir"
       },
       "psnwrd": {
-        "name": "Zehir bloğu",
+        "name": "Zehir Koruması",
         "desc": "Zayıf zehirlerin üzerinizde etkisi yoktur"
       },
       "psnwrd2": {
-        "name": "Zehir bloğu",
+        "name": "Güçlü Zehir Koruması",
         "desc": "Şiddetli zehirlerin üzerinizde etkisi yoktur"
       },
       "imm": {
@@ -636,11 +636,11 @@
         "desc": "Kirlenmişsin"
       },
       "scout": {
-        "name": "Araştırılıyor",
+        "name": "Keşif",
         "desc": "Çevrenizi keşfediyorsunuz"
       },
       "invgrt": {
-        "name": "Canlandır",
+        "name": "Zindelik",
         "desc": "Eklemleriniz esnek hissediyor"
       },
       "fei1": {
@@ -805,7 +805,7 @@
         "name": "Işık Kılıcı"
       },
       "log": {
-        "name": "Günlük"
+        "name": "Kütük"
       },
       "sprw": {
         "name": "Mızrak"
@@ -829,7 +829,7 @@
         "name": "Evrim Kılıcı"
       },
       "mkrdwk": {
-        "name": "Wakizashi olarak işaretlendi"
+        "name": "İşaretli Wakizashi"
       }
     },
     "eqp": {
@@ -996,7 +996,7 @@
         "desc": ""
       },
       "stksld": {
-        "name": "Bahis Kalkanı"
+        "name": "Kazık Kalkanı"
       }
     },
     "acc": {
@@ -1169,7 +1169,7 @@
         "name": "Simya Şişesi"
       },
       "alseto": {
-        "name": "Temel Kimya Seti"
+        "name": "Temel Simya Seti"
       },
       "csfk": {
         "name": "Bozuk Şişe"
@@ -1364,13 +1364,13 @@
         "name": "Bitkisel Panzehir"
       },
       "psnwrd": {
-        "name": "Zehir Koğuşu"
+        "name": "Zehir Koruması"
       },
       "hlpd": {
         "name": "Düşük Dereceli Şifa Tozu"
       },
       "smm": {
-        "name": "Mide Tıbbı"
+        "name": "Mide İlacı"
       },
       "sp1": {
         "name": "Düşük dereceli Ruh Hapı"
@@ -1385,7 +1385,7 @@
         "name": "Hayat Parçası"
       },
       "hptn1": {
-        "name": "Daha Az İyileştirme İksiri"
+        "name": "Küçük Şifa İksiri"
       },
       "lckl": {
         "name": "Şanslı Yonca"
@@ -1506,13 +1506,13 @@
         "name": "Baget"
       },
       "bhd": {
-        "name": "Sert çivi"
+        "name": "Peksimet"
       },
       "spb": {
-        "name": "Şımarık Ekmek"
+        "name": "Bozulmuş Ekmek"
       },
       "wsb": {
-        "name": "atık ekmek"
+        "name": "Bayat Ekmek"
       },
       "onn": {
         "name": "Soğan"
@@ -1542,7 +1542,7 @@
         "name": "Çilek"
       },
       "orng": {
-        "name": "Turuncu"
+        "name": "Portakal"
       },
       "ches": {
         "name": "Peynir"
@@ -1614,7 +1614,7 @@
         "name": "Ucuz Beyaz Şarap"
       },
       "ske": {
-        "name": "aşkına"
+        "name": "Sake"
       },
       "pske": {
         "name": "Premium Sake"
@@ -1815,10 +1815,10 @@
         "name": "Landen Çiçek Çayı"
       },
       "jrk1": {
-        "name": "Sığır sarsıntılı"
+        "name": "Kurutulmuş Dana Eti"
       },
       "jrk2": {
-        "name": "baharatlı sarsıntılı"
+        "name": "Baharatlı Kurutulmuş Et"
       },
       "ongr": {
         "name": "Onigiri"
@@ -1872,7 +1872,7 @@
         "name": "Doğu Tavuk Şiş"
       },
       "smfro": {
-        "name": "Karaca ile Balık Kokusu"
+        "name": "Havyarlı Gümüş Balığı"
       },
       "fsqdnr": {
         "name": "Nori ile Kızarmış Kalamar"
@@ -1917,16 +1917,16 @@
         "name": "İskoç Viski"
       },
       "cham1": {
-        "name": "Satoyu Şampiyonu"
+        "name": "Satoyu Champon"
       },
       "cham2": {
-        "name": "Sebze Şampiyonu"
+        "name": "Sebzeli Champon"
       },
       "cham3": {
-        "name": "Baharatlı Şampiyon"
+        "name": "Baharatlı Champon"
       },
       "cham4": {
-        "name": "Işık Şampiyonu"
+        "name": "Hafif Champon"
       },
       "sudon1": {
         "name": "Satoyu Saraudon"
@@ -1962,7 +1962,7 @@
         "name": "Negi Chashu Ramen"
       },
       "bffbl": {
-        "name": "Sığır Kasesi"
+        "name": "Dana Etli Pilav Kâsesi"
       },
       "sposs": {
         "name": "Tatlı Patates Shochu"
@@ -1989,7 +1989,7 @@
         "name": "Yuzu Tavuk & Ispanaklı Soba"
       },
       "katubo": {
-        "name": "Kızarmış Domuz Pirzola Kasesi"
+        "name": "Domuz Pirzolalı Pilav Kâsesi"
       },
       "curry1": {
         "name": "Köri ve Pilav"
@@ -2043,7 +2043,7 @@
         "name": "Awabi"
       },
       "uni": {
-        "name": "üniversite"
+        "name": "Uni"
       },
       "klbi1": {
         "name": "Kalbi"
@@ -2138,12 +2138,12 @@
         "desc": "Ölmek için kader tarafından ödüllendirildi. Tebrikler"
       },
       "sstraw": {
-        "name": "Saman Deliği",
+        "name": "Saman Teli",
         "desc": "Bu, onu öldüresiye yumrukladığında kukladan düştü"
       },
       "d6": {
-        "name": "Kırmızı Kalıp",
-        "desc": "6 tarafıyla öl. Şans getirir"
+        "name": "Kırmızı Zar",
+        "desc": "Altı yüzlü bir zar. Şans getirir"
       },
       "cp": {
         "name": "kuruş",
@@ -2386,22 +2386,22 @@
         "desc": "İçinde bilgi olan küçük bir kağıt parçası. Bazı şeyleri hatırlamak için kendin yazdın."
       },
       "skl1": {
-        "name": "P Beceri Kitabı (Kılıçlar)"
+        "name": "Talebe Beceri Kitabı (Kılıçlar)"
       },
       "skl2": {
-        "name": "P Beceri Kitabı (Bıçaklar)"
+        "name": "Talebe Beceri Kitabı (Bıçaklar)"
       },
       "skl3": {
-        "name": "P Beceri Kitabı (Eksen)"
+        "name": "Talebe Beceri Kitabı (Baltalar)"
       },
       "skl4": {
-        "name": "P Beceri Kitabı (Mızraklar)"
+        "name": "Talebe Beceri Kitabı (Mızraklar)"
       },
       "skl5": {
-        "name": "P Beceri Kitabı (Çekiçler)"
+        "name": "Talebe Beceri Kitabı (Çekiçler)"
       },
       "skl6": {
-        "name": "P Beceri Kitabı (Dövüş)"
+        "name": "Talebe Beceri Kitabı (Dövüş)"
       },
       "bstr": {
         "name": "\"Animalis Vicipaedia\""
@@ -2504,39 +2504,39 @@
         "name": "Dövüş"
       },
       "unc": {
-        "name": "Silahsız M"
+        "name": "Silahsız Dövüş Ustalığı"
       },
       "srdc": {
-        "name": "Kılıç M"
+        "name": "Kılıç Ustalığı"
       },
       "knfc": {
-        "name": "Bıçak M"
+        "name": "Bıçak Ustalığı"
       },
       "axc": {
-        "name": "Balta M"
+        "name": "Balta Ustalığı"
       },
       "plrmc": {
-        "name": "Sırık M"
+        "name": "Sırıklı Silah Ustalığı"
       },
       "hmrc": {
-        "name": "Çekiç M"
+        "name": "Çekiç Ustalığı"
       },
       "stfc": {
-        "name": "Personel M",
-        "desc": "Sopa ve asa kullanarak savaşma yeteneği"
+        "name": "Asa Ustalığı",
+        "desc": "Asa ve değneklerle savaşma yeteneği"
       },
       "shdc": {
-        "name": "Kalkan M",
+        "name": "Kalkan Ustalığı",
         "desc": "Kalkanları daha iyi kullanma yeteneği"
       },
       "sleep": {
-        "name": "Uyuyor"
+        "name": "Uyuma"
       },
       "seye": {
         "name": "Keskin Göz"
       },
       "pet": {
-        "name": "okşama"
+        "name": "Okşama"
       },
       "walk": {
         "name": "Yürüyüş",
@@ -2558,10 +2558,10 @@
       },
       "mdt": {
         "name": "Meditasyon",
-        "desc": "Aklın geri kalanı"
+        "desc": "Zihnin dinlenmesi"
       },
       "crft": {
-        "name": "işçiliği"
+        "name": "Zanaatkârlık"
       },
       "alch": {
         "name": "Simya",
@@ -2571,7 +2571,7 @@
         "name": "Fırlatma"
       },
       "bwc": {
-        "name": "Menzilli M",
+        "name": "Menzilli Silah Ustalığı",
         "desc": "Savaşta yay ve arbalet kullanma yeteneği"
       },
       "ntst": {
@@ -2641,7 +2641,7 @@
         "desc": "Değerli mineralleri tanımlama bilgisi ve yeteneği"
       },
       "mng": {
-        "name": "madencilik",
+        "name": "Madencilik",
         "desc": "Taşlardan ve dağlardan malzeme çıkarma yeteneği"
       },
       "mntnc": {
@@ -2656,7 +2656,7 @@
         "name": "Kanama Direnci"
       },
       "twoh": {
-        "name": "İki Elli M"
+        "name": "Çift El Ustalığı"
       },
       "trad": {
         "name": "Ticaret"
@@ -2669,10 +2669,10 @@
         "name": "Sökme"
       },
       "tghs": {
-        "name": "tokluk"
+        "name": "Dayanıklılık"
       },
       "drka": {
-        "name": "içki içmek",
+        "name": "İçki İçme",
         "desc": "Alkollü içecekleri tolere etme ve tadını çıkarma yeteneği"
       },
       "tpgrf": {
@@ -2711,7 +2711,7 @@
         "desc": "Hayattaki amacını bulmaya çalışan olağanüstü biri"
       },
       "inn": {
-        "name": "Başlat",
+        "name": "Acemi",
         "desc": "İlk eğitim aşamalarını bitirmeyi başaran Dojo öğrencisi. Vay!"
       },
       "thr": {
@@ -2771,11 +2771,11 @@
         "desc": "Gerçek bir dövüşte hala neredeyse işe yaramazsın ama en azından tehlikenin olduğu yerden uzaklaşmayı öğrendin"
       },
       "plm": {
-        "name": "Dikmek",
+        "name": "Diken",
         "desc": "Bitki yapraklarına küçük delikler açıp içinden Güneş'e bakmayı eğlenceli buldunuz. Bunun bir kavgada hastalıklı derecede faydalı olabileceğini düşünüyorsun"
       },
       "wlk": {
-        "name": "Yürüteç",
+        "name": "Gezgin",
         "desc": "Bütün bu etrafta dolaşmak vücudunuz için çok faydalı hissettiriyor"
       },
       "eat1": {
@@ -2835,11 +2835,11 @@
         "desc": "Yaşlı kılıç ustalarının kılıç oyunlarını izlemek sizi her zaman büyülemiştir, ancak görünüşe göre kılıcı düzgün tutmaya çalışmak bile son derece zordur. Yine de pes edecek bir tip değilsin"
       },
       "srd2": {
-        "name": "Kılıç Stajyeri",
+        "name": "Kılıç Talebesi",
         "desc": "Kılıç Yolunu henüz yeni öğrenmeye başladınız, bu açıkça gösteriyor. Bırakın bir şeye vurmayı denemek şöyle dursun, kılıcı düzgün bir şekilde kullanmakta hâlâ zorlanıyorsunuz"
       },
       "srd3": {
-        "name": "Efendi",
+        "name": "Silahşor Yamağı",
         "desc": "Binlerce swing antrenmanı boşuna değildi. Artık kılıcınızı biraz düz tutabilirsiniz ve duruşunuz daha iyi hale gelir. Ancak bir şeyleri kesmek hiç de kolay olmadı"
       },
       "srd4": {
@@ -2859,7 +2859,7 @@
         "desc": "İlkel mızrakçılığınıza hakim olmaya başlıyorsunuz, eğitiminize ne kadar çaba harcadığınız göz önüne alındığında bu güven verici. Yeteneğinizle ikinci sınıf ön cephe askeri ekibinin bir parçası olabilirsiniz, ancak daha yükseği hedefleyeceksiniz"
       },
       "hmr2": {
-        "name": "Basçı",
+        "name": "Ezici",
         "desc": "Bir şeyleri çekiçle veya sopayla ezmek basit görünebilir, ancak bunu düzgün ve etkili bir şekilde yapmak biraz beceri gerektirir. Temelleri anlıyorsunuz ama bunun için yeterli güce sahip değilsiniz"
       },
       "hmr3": {
@@ -2907,7 +2907,7 @@
         "desc": "Acı korkusu sizi elinize aldığınız her şeyin arkasına saklanmaya zorladı. Kalkanlar bu kategoriye güzel bir şekilde giriyor, onları doğru şekilde nasıl kullanacağınızı öğrenmeyi denemeniz gerektiğini düşünüyorsunuz"
       },
       "sld2": {
-        "name": "Defans",
+        "name": "Savunmacı",
         "desc": "Hala açıklıklarla dolu olsanız ve tuttuğunuz kalkanın ağırlığına alışmakta çok zorlansanız bile, karşılaştığınız en yavaş, en aptalca ve en doğrudan saldırıyı yine de yansıtmayı başarabilirsiniz. Bazen"
       },
       "sld3": {
@@ -2951,7 +2951,7 @@
         "desc": "boş"
       },
       "neet2": {
-        "name": "Kapat",
+        "name": "İçe Kapanık",
         "desc": "Bir yıl boyunca evde kalmak hiçbir şey değildi, bu sefer yarım on yılı rahat yaşam alanınızda, dış dünyayı umursamadan geçirdiniz. Kimsenin seni kontrol etmemesi konusunda ne hissettiğinden emin değilsin.."
       },
       "neet3": {
@@ -2963,7 +2963,7 @@
         "desc": "Ya yemek yapmak çok zor bir sanattır ya da bu işte çok kötüsünüz. Sizi mutfakta yalnız bırakmak felakete davetiye çıkarır. Ama önce bazı hatalar yapmadan iyi olamazsın"
       },
       "kill2": {
-        "name": "Süpürge",
+        "name": "Temizleyici",
         "desc": "50.000 yaratığı hiçbir şeymiş gibi ortadan kaldırmak, bu diyarın zayıflarla mı dolu olduğunu yoksa başa çıkılamayacak kadar güçlü olanın siz misiniz olduğunu merak etmenize neden oldu. Muhtemelen eskisidir"
       },
       "kill3": {
@@ -2979,7 +2979,7 @@
         "desc": "5 milyon ölüm! Küçük şehrin nüfusunu ortadan kaldırmayı başardınız. Düşük güç seviyeniz göz önüne alındığında bu oldukça sessiz bir başarı"
       },
       "axc1": {
-        "name": "Hack",
+        "name": "Yarıcı",
         "desc": "Baltaları kullanmanın zor olduğunu öğrendin. Bu sadece yakacak odunu bir kütük üzerinde parçalamak değildir; onlarla verimli bir şekilde mücadele etmek için sağlam bir tutuşa ve uygun el esnekliğine ihtiyacınız vardır."
       },
       "axc2": {
@@ -2987,7 +2987,7 @@
         "desc": "Savaşlarda baltaları kullanırken kendinizi güçlü hissedersiniz! Sadece bu şekilde hissediyorsun, henüz bu konuda güçlü değilsin. O şeyi sallamak için doğru dengeyi bulmak senin için zor"
       },
       "axc3": {
-        "name": "balta krikosu",
+        "name": "Baltacı",
         "desc": ""
       },
       "dth1": {
@@ -3051,7 +3051,7 @@
         "desc": ""
       },
       "geti2": {
-        "name": "Paket katır",
+        "name": "Yük Katırı",
         "desc": ""
       },
       "geti3": {
@@ -3071,7 +3071,7 @@
         "desc": ""
       },
       "tghs3": {
-        "name": "Vahşi",
+        "name": "Kaba Kuvvet",
         "desc": ""
       },
       "dth4": {
@@ -3099,11 +3099,11 @@
         "desc": "Zayıf yumruğunuz ancak 100 kg'lık bir güç uygulayabilir ki bu, dövüş dünyasında önemsiz bir miktardır. Basit bir çiftçi bundan daha sert vurabilir"
       },
       "hstr2": {
-        "name": "Yumuşak vuruş",
+        "name": "Hafif Yumruk",
         "desc": "250 kg değerindeki yumruk gücüne ulaşma konusunda biraz güçlendiniz. Bu güçle biraz fiziksel emeğin üstesinden gelebilirsin ama dikkate değer bir şey değil"
       },
       "hstr3": {
-        "name": "çene kırıcı",
+        "name": "Çene Kıran",
         "desc": "Yarım tonluk yumruk fena değil, doğru noktaya doğru vuruş yaparsanız bir cesedi birkaç metre geriye başarıyla itebilirsiniz. Bu yalnızca güçlü fiziksel korumaya sahip olmayan varlıklar için geçerlidir; gerçek güce sahip hiçbir şeyle eşleşemezsiniz"
       },
       "hstr4": {
@@ -3123,7 +3123,7 @@
         "desc": ""
       },
       "jbs3": {
-        "name": "Kiralık El",
+        "name": "Yevmiyeci",
         "desc": ""
       },
       "pet3": {
@@ -3131,7 +3131,7 @@
         "desc": "Kedinizle geçirdiğiniz onca zaman, vahşi yırtıcı hayvanların alışkanlıkları ve davranışları hakkında pek çok şey anlamanızı sağladı. Bilginin bir gün faydalı olabileceğini hissediyorsunuz"
       },
       "ndthextr": {
-        "name": "Güvenli ev",
+        "name": "Güvenli Sığınak",
         "desc": "Kendinizi iyi tuttunuz ve korudunuz, tehlikeden kaçındınız ve bir süre sessizce zarardan uzaklaştınız. Neredeyse hayatından korkan herhangi bir insan gibi"
       },
       "indkill": {
@@ -3174,7 +3174,7 @@
         "name": "Çiseleyen yağmur"
       },
       "clear": {
-        "name": "Temizle"
+        "name": "Açık"
       },
       "snow": {
         "name": "Kar"
@@ -3282,7 +3282,7 @@
         "name": "Yıldız Kabuğu"
       },
       "hptn1": {
-        "name": "Daha Az İyileştirme İksiri"
+        "name": "Küçük Şifa İksiri"
       },
       "hpck": {
         "name": "Su Aygırı Kurabiyesi"
@@ -3354,10 +3354,10 @@
         "name": "İndirim Kartı"
       },
       "wsb": {
-        "name": "atık ekmek"
+        "name": "Bayat Ekmek"
       },
       "stksld": {
-        "name": "Bahis Kalkanı"
+        "name": "Kazık Kalkanı"
       },
       "clrpin": {
         "name": "Yonca Rozeti"
@@ -3375,7 +3375,7 @@
         "name": "Hasır Yastık"
       },
       "alseto": {
-        "name": "Temel Kimya Seti"
+        "name": "Temel Simya Seti"
       },
       "mdcag": {
         "name": "Yapışkanlı Bandaj"
@@ -3501,6 +3501,7 @@
         },
         "interface": {
           "loading_bb8af242": "YÜKLENİYOR",
+          "saved_game_load_failed_72860aef": "KAYITLI OYUN YÜKLENEMEDİ<br>KAYDI SİLİN VEYA GEÇERLİ BİR YEDEĞİ İÇE AKTARIN",
           "something_broke_perhaps_due_to_stupidity_or_data_446e154f": "BİR ŞEY BOZULMUŞ<br>BELKİ APTALLIK VEYA VERİ YAPISI DEĞİŞİKLİKLERİ NEDENİYLE<br>⋗1 KAYITIN SİLİNMESİ ÖNERİLİR<br>⋗2 VEYA DÜZELTİLENE KADAR BİR SÜRE BEKLENMESİ<br>⋗3 VEYA FARKLI TARAYICIDA KONTROL EDİLMESİ, ORADA ÇALIŞABİLİR (KAYDETİN OLDUĞU ANLAMINA GELİR) SIKILDI(1'E BAKIN))"
         },
         "description": {
@@ -3628,7 +3629,7 @@
           "indeed_2cbbd1b7": "Gerçekten..",
           "bestiary_unlocked_2ece8a9b": "Bestiary'nin Kilidi Açıldı!",
           "you_haven_t_learned_anything_new_c64d232a": "Yeni bir şey öğrenmedin...",
-          "you_already_know_how_to_make_lesser_potions_d77c7b1d": "Daha az iksir yapmayı zaten biliyorsun",
+          "you_already_know_how_to_make_lesser_potions_d77c7b1d": "Küçük şifa iksirlerini yapmayı zaten biliyorsun",
           "you_already_know_how_to_sharpen_sticks_dcee0801": "Çubukları nasıl keskinleştireceğinizi zaten biliyorsunuz",
           "right_you_could_go_to_the_marketplace_dd0b11b4": "Tamam, pazara gidebilirsin",
           "journal_unlocked_01c245e7": "Günlük Kilidi Açıldı!"
@@ -3719,15 +3720,15 @@
           "text_967e8514": " <span style='color:yellow;text-shadow:0px 0px 5px orange'>*</span>",
           "weapon_ead53368": "Silah",
           "shield_08271419": "Kalkan",
-          "head_e5ffd15b": "kafa",
+          "head_e5ffd15b": "Baş",
           "body_718a7e8a": "Vücut",
           "l_arm_f647d25e": "Sol Kol",
           "r_arm_8182b52d": "Sağ Kol",
           "legs_29518d04": "Bacaklar",
           "accessory_962403f6": "Aksesuar",
           "locked_d8b8028c": "∥KİLİTLİ∥",
-          "pause_next_battle_nbspoff_1b765858": "Sonraki savaşı duraklat: <span style='color:green'>&nbspOFF",
-          "pause_next_battle_nbspon_ff0ff553": "Sonraki savaşı duraklat: <span style='color:crimson'>&nbspON",
+          "pause_next_battle_nbspoff_1b765858": "Sonraki savaşı duraklat: <span style='color:green'>&nbspKAPALI",
+          "pause_next_battle_nbspon_ff0ff553": "Sonraki savaşı duraklat: <span style='color:crimson'>&nbspAÇIK",
           "resume_the_fight_76300b23": "Mücadeleye devam et",
           "tpe_73346027": "TPE",
           "lvl_381b972e": "LVL",
@@ -3736,33 +3737,33 @@
           "return_9e4bb9d7": "<= Geri Dön",
           "name_6ae99955": "isim",
           "rank_9f0d6627": "rütbe",
-          "kills_4b11e02d": "öldürür",
+          "kills_4b11e02d": "öldürme",
           "game_start_time_afd7c4c3": "Oyunun başlama zamanı",
-          "ingame_time_passed_0ceb54c8": "Oyun içi süre geçti",
+          "ingame_time_passed_0ceb54c8": "Geçen oyun içi süre",
           "game_saves_38d7360c": "Oyun kayıtları",
           "total_time_spent_at_home_5becc0cc": "Evde geçirilen toplam süre",
-          "time_slept_f32d21d0": "Uyuma Zamanı",
-          "times_struck_by_lightning_64e90c46": "Yıldırımın çarptığı anlar",
+          "time_slept_f32d21d0": "Toplam uyku süresi",
+          "times_struck_by_lightning_64e90c46": "Yıldırım çarpma sayısı",
           "quests_completed_352a6c6b": "Tamamlanan görevler",
           "jobs_completed_769d6741": "Tamamlanan işler",
           "discoveries_made_80f1f18f": "Yapılan keşifler",
-          "times_walked_52c707fc": "Kez yürüdü",
-          "cat_pets_13e98483": "Kedi evcil hayvanları",
+          "times_walked_52c707fc": "Yürüme sayısı",
+          "cat_pets_13e98483": "Kedi okşama sayısı",
           "food_consumed_8ade8fd6": "Tüketilen yiyecekler",
           "bad_food_consumed_79c65472": "Tüketilen kötü yiyecekler",
           "drinks_consumed_967828dd": "Tüketilen içecekler",
           "alcohol_consumed_c3f76191": "Tüketilen alkol",
-          "unique_food_tried_ad2a126b": "Eşsiz yemek denendi",
+          "unique_food_tried_ad2a126b": "Denenen farklı yiyecekler",
           "medicine_used_2e4d8e40": "Kullanılan ilaç",
           "potions_consumed_fa286d01": "Tüketilen iksirler",
           "pills_consumed_8bd14564": "Tüketilen haplar",
           "items_picked_up_062ce88b": "Alınan eşyalar",
-          "items_disassembled_0abf00e5": "Demonte öğeler",
+          "items_disassembled_0abf00e5": "Sökülen eşyalar",
           "items_thrown_away_de61d0a3": "Atılan eşyalar",
-          "items_crafted_e6c30733": "Hazırlanmış öğeler",
+          "items_crafted_e6c30733": "Üretilen eşyalar",
           "recipes_unlocked_fb5f556a": "Tariflerin kilidi açıldı",
           "skills_unlocked_a1940691": "Becerilerin kilidi açıldı",
-          "titles_unlocked_90d8b0a2": "Başlıkların kilidi açıldı",
+          "titles_unlocked_90d8b0a2": "Açılan unvanlar",
           "total_exp_gained_225c96af": "Kazanılan toplam EXP",
           "total_skill_levels_54b6f497": "Toplam beceri seviyeleri",
           "money_acquired_15a2104f": "Kazanılan para",
@@ -3770,35 +3771,35 @@
           "goods_bought_093022ba": "Satın alınan mallar",
           "books_read_52d39e00": "Okunan kitaplar",
           "total_reading_time_bba346f7": "Toplam okuma süresi",
-          "times_description_window_appeared_7790bb32": "Zaman açıklama penceresi göründü",
+          "times_description_window_appeared_7790bb32": "Açıklama penceresinin açılma sayısı",
           "total_damage_dealt_66d3566d": "Verilen toplam hasar",
           "total_damage_recieved_57eb3280": "Alınan toplam hasar",
-          "times_died_e52fe16e": "Times öldü",
+          "times_died_e52fe16e": "Ölüm sayısı",
           "last_cause_of_casualty_e46940a7": "Son ölüm nedeni",
           "total_kills_0d62f478": "Toplam öldürme",
-          "times_killed_with_a_single_hit_d7c50b46": "Tek vuruşla öldürülen zamanlar",
-          "times_missed_the_attack_f1e62ec1": "Times saldırıyı kaçırdı",
-          "times_dodged_the_attack_0eda75e1": "Times saldırıyı atlattı",
+          "times_killed_with_a_single_hit_d7c50b46": "Tek vuruşta öldürme sayısı",
+          "times_missed_the_attack_f1e62ec1": "Kaçırılan saldırı sayısı",
+          "times_dodged_the_attack_0eda75e1": "Savuşturulan saldırı sayısı",
           "humanoid_class_foes_slayed_773fcf22": "İnsansı sınıf düşmanlar öldürüldü",
           "beast_class_foes_slayed_8eb77737": "Canavar sınıfı düşmanlar öldürüldü",
           "undead_class_foes_slayed_527de597": "Ölümsüz sınıf düşmanlar öldürüldü",
           "evil_class_foes_slayed_224857cb": "Kötü sınıf düşmanlar öldürüldü",
-          "phantom_class_foes_slayed_603e18c4": "Phantom sınıfı düşmanlar öldürüldü",
+          "phantom_class_foes_slayed_603e18c4": "Hayalet sınıfı düşmanlar öldürüldü",
           "dragon_class_foes_slayed_2874beb8": "Ejderha sınıfı düşmanlar öldürüldü",
           "unarmed_attacks_7276903b": "Silahsız saldırılar",
-          "unarmed_kills_b2c71768": "Silahsız öldürür",
+          "unarmed_kills_b2c71768": "Silahsız öldürmeler",
           "sword_attacks_81c7c1fc": "Kılıç saldırıları",
-          "sword_kills_b8c42371": "Kılıç öldürür",
+          "sword_kills_b8c42371": "Kılıçla öldürmeler",
           "axe_attacks_11a294f1": "Balta saldırıları",
-          "axe_kills_dcd1bfdb": "Balta öldürür",
+          "axe_kills_dcd1bfdb": "Baltayla öldürmeler",
           "dagger_attacks_793083c6": "Hançer saldırıları",
-          "dagger_kills_b69d15e2": "Hançer öldürür",
+          "dagger_kills_b69d15e2": "Hançerle öldürmeler",
           "polearm_spear_attacks_332e5572": "Sırıklı/Mızraklı saldırılar",
           "polearm_spear_kills_da0fc89f": "Sırık/Mızrak öldürmeleri",
           "hammer_club_attacks_300c4b65": "Çekiç/Sopa saldırıları",
           "hammer_club_kills_7fc41152": "Çekiç / Sopa öldürmeleri",
-          "staff_attacks_8846056f": "Personel saldırıları",
-          "staff_kills_7427e778": "Personel öldürür",
+          "staff_attacks_8846056f": "Asa saldırıları",
+          "staff_kills_7427e778": "Asayla öldürmeler",
           "all_6b42874e": "TÜMÜ",
           "fod_c78b7665": "FOD",
           "med_17311526": "MED",
@@ -3810,14 +3811,14 @@
           "stop_combatlog_6a75a8e3": "　dövüş günlüğünü durdur　",
           "clr_ea010417": "CLR",
           "wpn_41ac14b2": "WPN",
-          "use_7dcf46a0": "KULLANIM",
+          "use_7dcf46a0": "KULLAN",
           "other_957c024b": "DİĞER",
           "save_13a4a113": "kaydet",
-          "saved_19d5b4ec": "kurtarıldı...",
-          "load_5dbc716c": "yük",
+          "saved_19d5b4ec": "kaydedildi...",
+          "load_5dbc716c": "yükle",
           "game_not_saved_626be345": "<span style=\"color:crimson\">oyun kaydedilmedi!</span>",
           "autosave_ff6ad920": "Otomatik kaydetme",
-          "delete_the_save_b765bc3d": "kaydetmeyi sil",
+          "delete_the_save_b765bc3d": "kaydı sil",
           "dp_b5001e05": "DP:",
           "class_c947dcb8": "<br>Sınıf: ",
           "unarmed_9276105c": "Silahsız",
@@ -3834,7 +3835,7 @@
           "blunt_dfa0d57a": ", künt",
           "furniture_fe8691c1": "Mobilya",
           "food_35b25929": "Gıda",
-          "medicine_tool_c2e6c5a1": "Tıp/Araç",
+          "medicine_tool_c2e6c5a1": "İlaç/Araç",
           "material_misc_15fe1f96": "Malzeme/Çeşitli",
           "book_f69f2330": "Kitap",
           "tried_3b655872": "Denendi: ",
@@ -3846,12 +3847,12 @@
           "power_0eb78a04": "<br>Güç: ",
           "perks_unlocked_456164aa": "<br>Avantajların kilidi açıldı",
           "rank_b4d80d7b": "<br>Sıra: ",
-          "drop_table_8e203830": "açılan masa",
+          "drop_table_8e203830": "düşen eşyalar",
           "reagents_required_345c3a08": "gerekli reaktifler",
           "output_1029d676": "çıktı",
           "tools_needed_9b4a1645": "gerekli araçlar",
-          "l_arm_e461bf1f": "L kolu",
-          "r_arm_e703a4ec": "R kolu",
+          "l_arm_e461bf1f": "Sol kol",
+          "r_arm_e703a4ec": "Sağ kol",
           "new_4722a9bf": "<small style=\"font-size:.65em;color: yellow;position:absolute\" class=\"blinks\">　yeni</small>",
           "yes_8fff0398": "EVET",
           "no_a0509b77": "HAYIR",
@@ -3936,12 +3937,12 @@
           "dojo_lobby_12a158eb": "Dojo, lobi",
           "instructor_you_got_beaten_up_by_an_inanimated_2fd73765": "\"Eğitmen: Cansız bir kukla tarafından mı dövüldün?! Durumuna dikkat et!\"",
           "instructor_your_training_is_over_for_today_you_e20cacb5": "\"Eğitmen: Bugünlük eğitimin bitti, iyi iş çıkardın. Ödül olarak bu beceri kılavuzlarından birini seçerek pratik yap. Ne kadar iyi anlarsan, savaşta o kadar güçlü olursun\"",
-          "practitioner_skillbook_swords_2f6fa1d3": "\"Uygulayıcı Beceri Kitabı (Kılıçlar)\"",
-          "practitioner_skillbook_knives_6cb1269b": "\"Uygulayıcı Beceri Kitabı (Bıçaklar)\"",
-          "practitioner_skillbook_axes_51ce8119": "\"Uygulayıcı Beceri Kitabı (Eksenler)\"",
-          "practitioner_skillbook_spears_49100035": "\"Uygulayıcı Beceri Kitabı (Mızraklar)\"",
-          "practitioner_skillbook_hammers_424e5e04": "\"Uygulayıcı Beceri Kitabı (Çekiçler)\"",
-          "practitioner_skillbook_martial_7b89708c": "\"Uygulayıcı Beceri Kitabı (Dövüş)\"",
+          "practitioner_skillbook_swords_2f6fa1d3": "\"Talebe Beceri Kitabı (Kılıçlar)\"",
+          "practitioner_skillbook_knives_6cb1269b": "\"Talebe Beceri Kitabı (Bıçaklar)\"",
+          "practitioner_skillbook_axes_51ce8119": "\"Talebe Beceri Kitabı (Baltalar)\"",
+          "practitioner_skillbook_spears_49100035": "\"Talebe Beceri Kitabı (Mızraklar)\"",
+          "practitioner_skillbook_hammers_424e5e04": "\"Talebe Beceri Kitabı (Çekiçler)\"",
+          "practitioner_skillbook_martial_7b89708c": "\"Talebe Beceri Kitabı (Dövüş)\"",
           "instructor_hahahhha_what_a_great_disciple_that_s_d95a898e": "\"Eğitmen: Hahahaha! Ne harika bir öğrenci! Diğer öğrencilerin çoğunun sahip olduğu adanmışlık bu değil! Bunu al, gelecekteki çabalarında sana yardımcı olacak\"",
           "thanks_teacher_158a25cb": "\"Teşekkürler öğretmenim!\"",
           "dojo_infoboard_dc95eca7": "\"Dojo bilgi panosu\"",
@@ -4032,12 +4033,12 @@
           "head_hunter_yamato_you_why_do_you_have_4a33054f": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Sen! Neden buna sahipsin?",
           "head_hunter_yamato_the_sword_where_did_you_56743233": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Kılıç! Nereden aldın?",
           "give_explanation_53888e16": "Açıklama yap",
-          "head_hunter_yamato_the_body_in_the_forest_056f33cb": "<span style=\"color:limegreen\">Kafa Avcısı Yamato</span>: Ormandaki ceset diyorsunuz... Lanet olsun! Senin gibi birinin böylesine önemli bir keşif yapması gerekiyorsa izcilerimizin hiçbir değeri yok! *iç çeker.* Elinde tuttuğun bu kılıç bir zamanlar şef yardımcımız Dein'e aitti. Köyün dışına adımınızı atmadıysanız daha önce tanışmamış olabilirsiniz, saha eğitimi için bu kadar uzak bir yerleşime görevlendirilmiş, gelecek vaat eden, yetenekli bir genç askerdi.",
+          "head_hunter_yamato_the_body_in_the_forest_056f33cb": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Ormandaki ceset diyorsunuz... Lanet olsun! Senin gibi birinin böylesine önemli bir keşif yapması gerekiyorsa izcilerimizin hiçbir değeri yok! *iç çeker.* Elinde tuttuğun bu kılıç bir zamanlar şef yardımcımız Dein'e aitti. Köyün dışına adımınızı atmadıysanız daha önce tanışmamış olabilirsiniz, saha eğitimi için bu kadar uzak bir yerleşime görevlendirilmiş, gelecek vaat eden, yetenekli bir genç askerdi.",
           "text_4d2a1161": "=>",
           "head_hunter_yamato_then_one_day_he_staight_5fcb9352": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Sonra bir gün kimsenin haberi olmadan ortadan kayboldu ve yine de halkımıza çok saygı duyuldu ve onlarla ilgilenildi. Elbette ordunun bir parçası olması onun planlarını ve görevlerini açıklamasını engelleyecektir, ancak onun yokluğunun nedeninin yüksek komutadan gelen özel bir görev olduğu oldukça şüphelidir. Bütün eşyaları, kişisel eşyaları ve eşyaları hâlâ bıraktığı yerde. Delikanlı dövüşmeyi ve kılıç kullanmayı biliyordu, onun kalibresinde bir adamın bu şekilde yok olacağına ve öleceğine bir kez olsun inanmıyorum, bahsettiğiniz ceset onun olmayabilir...",
           "express_your_condolences_to_the_deceased_fd9258a8": "Ölen kişiye taziyelerinizi iletin",
           "head_hunter_yamato_alright_enough_your_sentiment_is_e98eabd3": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Tamam, yeter. Duyarlılığınız takdire şayan ancak Dein'in hâlâ nefes aldığını umalım. Bu olayın tamamı soruşturma gerektiriyor, kısa sürede bir avcı ekibi gönderilecek ve siz de kendinizi tetikte tutun. Ve bunu senin elinden alacağım, buraya getirdiğin için teşekkürler. Bu kılıcın hatıra mı kalacağını yoksa gerçek sahibine mi döneceğini zaman gösterecek",
-          "part_with_the_sword_99ff1458": "Kılıçla ayrıl",
+          "part_with_the_sword_99ff1458": "Kılıcı teslim et",
           "head_hunter_yamato_here_take_this_for_your_3222b577": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: İşte, bunu başının çaresine bak",
           "accept_bb54db51": "Kabul et",
           "head_hunter_yamato_hm_your_face_is_unfamiliar_177b5ce3": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Hm? Yüzün yabancı. Buraya ilk gelişin olabilir mi, onu alıyorum? Bunlar Batı Ormanları veya sadece ormanın batı kısmıdır. Buradaki noktalar tehlike ve kaynaklar konusunda oldukça uysal ve yumuşaktır, sizin gibi yeni başlayanlar için mükemmeldir. Gelip dilediğiniz kadar avlanmakta özgürsünüz. Bu sırada mevcut işlerden bazılarını yapmayı düşünün. Fazla ödemeyeceksin ama insanlara yardım edebilirsin.",
@@ -4060,7 +4061,7 @@
           "about_beasts_24b4fd35": "\"Hayvanlar Hakkında\"",
           "head_hunter_yamato_beasts_are_your_usual_normal_14817f19": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Canavarlar; kurtlar, sümükler, taklitçiler gibi olağan, normal yaban hayvanlarıdır veya canavarlar, harpiler, minotorlar gibi düşük zekaya ve yüksek düzeyde saldırganlığa sahip kötü niyetli Yarıinsanlardır. Hayvanlar aptal olsa da vahşi bir canavarı asla hafife almayın. Kalın derileri ve diş ve pençe gibi doğal silahlarıyla çaresiz bir duruma sürüklendiklerinde büyük bir tehdit oluştururlar. Ateş çoğu kişiye karşı çok işe yarar, özellikle kürklü ve tüylü olanlara karşı, bir daha ava çıktığınızda bunu aklınızda bulundurun",
           "about_undead_465749d0": "\"Ölümsüz Hakkında\"",
-          "head_hunter_yamato_undead_as_you_could_already_b4e6cec5": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Ölümsüzler, zaten anlayabileceğiniz gibi, yaşayan ölülerdir. Doğal güçlerin veya yetenekli bir büyücünün etkisiyle insan ve hayvanların yeniden canlandırılan kalıntıları. Tamamen zekadan yoksun olsalar ve amaçsızca dolaşsalar bile, ölülerin kontrollü bedenleri Kara büyü tarafından güçlendirilir ve bunun sonucunda doğal olmayan bir dayanıklılık ve güç kazanır. Ancak bu onların ateşten veya Kutsal güçlerden zarar görmelerini engellemez. Daha az kırılgan olan iskelet varlıklarına künt bir cisimle vurursanız onlarla hızlı bir şekilde başa çıkabilirsiniz.",
+          "head_hunter_yamato_undead_as_you_could_already_b4e6cec5": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Ölümsüzler, zaten anlayabileceğiniz gibi, yaşayan ölülerdir. Doğal güçlerin veya yetenekli bir büyücünün etkisiyle insan ve hayvanların yeniden canlandırılan kalıntıları. Tamamen zekadan yoksun olsalar ve amaçsızca dolaşsalar bile, ölülerin kontrollü bedenleri Kara büyü tarafından güçlendirilir ve bunun sonucunda doğal olmayan bir dayanıklılık ve güç kazanır. Ancak bu onların ateşten veya Kutsal güçlerden zarar görmelerini engellemez. Daha güçsüz ve kırılgan iskelet varlıklarını künt bir cisimle vurarak hızla alt edebilirsiniz.",
           "about_evil_4465a5e7": "\"Kötülük Hakkında\"",
           "head_hunter_yamato_beings_that_are_artificially_made_c4728579": "<span style=\"color:limegreen\">Baş Avcısı Yamato</span>: Yapay olarak yaratılmış varlıklar veya doğası gereği kötü olan varlıklar bu şekilde sınıflandırılabilir. İblisler, iblisler, golemler, sahip olunan silahlar ve zırhlar, gremlinler, iblisler ve Yeraltı Dünyasından çıkan daha birçok şey. Son derece tehlikelidirler ve karşılaştıkları her şeyi yok etmeye çalışırlar.",
           "about_phantoms_7d9782cb": "\"Hayaletler Hakkında\"",

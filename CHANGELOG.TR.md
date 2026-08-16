@@ -10,6 +10,12 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Geciken asset, önbellekli profil yenileme, bozuk kayıt kurtarma, sürüm
+  tutarlılığı ve ekranda gösterilen sürüm için regresyon kapsamı eklendi.
+- Tam sayı oyun sürümüyle en yeni HTML changelog sürüm aralığının eşleşmesini
+  denetleyen otomatik kontrol eklendi.
+- Ustalık adlarıyla bağlama duyarlı diğer riskli çevirilerin gerilemesini önleyen
+  gözden geçirilmiş Türkçe terim beklentileri eklendi.
 - CSS, JavaScript ve dil dosyaları için deployment sırasında içerik özetiyle
   sürümleme eklendi.
 - İsteğe bağlı `lang` sorgu parametresiyle doğrudan dil seçimi ve eksiksiz Türkçe
@@ -32,6 +38,13 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Oyun v471'e yükseltildi; hata düzeltmeleri, özellikler ve eklemelerde ne zaman
+  sürüm artırılması gerektiği belgelendi.
+- Silah ustalıkları, çok anlamlı eşya adları, unvanlar ve istatistik etiketleri
+  dahil makine çevirisi yapılmış 123 Türkçe kayıt bağlamsal olarak incelenip
+  düzeltildi.
+- Davranış değişikliklerinin ilgili regresyon kapsamı olmadan yayınlanamaması için
+  zorunlu çalışma akışı genişletildi.
 - Türkçe, Ayarlar dil seçicisine kaydedildi; changelog güncellemesinin commit ve
   push işlemlerinden önce yapılması ve periyodik gönderim kuralları belgelendi.
 - Sabit yerleşimli arayüz, küçük tarayıcı ekranlarına otomatik küçülerek sığacak
@@ -52,6 +65,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Kayıt çözümleme işlemi eski yükleyicinin kendi hata panelini oluşturmasından
+  önce başarısız olduğunda gösterilen yerelleştirilmiş kurtarma mesajı eklendi.
 - Eski veya hatalı oyun kaydı başlangıç sırasında hata verdiğinde yükleme
   katmanının süresiz olarak ekranda kalması engellendi.
 - Pages deployment sonrasında tarayıcının eski çalışma zamanı ve dil dosyalarını

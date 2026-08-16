@@ -43,6 +43,9 @@ ardından bu çeviriyi eşitleyin.
    HTML changelog'u hem İngilizce/Türkçe repository changelog'larını güncelleyin.
 9. Devam eden geliştirmelerde gerekli changelog güncellemeleri ve doğrulamalar
    başarılı olduktan sonra periyodik kilometre taşı commit'leri oluşturup pushlayın.
+10. Her hata düzeltmesi ve davranış değişikliği için regresyon testi ekleyin veya
+    güncelleyin. İlgili yükleme, önbellek, kayıt, dil veya arayüz senaryoları test
+    edilmeden ya da testleri geçmeden deployment yapmayın.
 
 ## Uyumluluk kuralları
 
@@ -59,6 +62,10 @@ ardından bu çeviriyi eşitleyin.
 - Yeni dil dosyalarını `locales/manifest.json` içine kaydedin; eksik çeviriler
   İngilizce fallback kullanabilir.
 - Davranış değişikliklerini yalnızca kullanıcı talebi kapsamındaysa yapın.
+- Hata düzeltmeleri, özellikler ve oyuncuya dönük eklemelerde tam sayı oyun
+  sürümünü artırın ve `changelog/changelog.html` başına eşleşen bir
+  `öncekiーgüncel` bölümü ekleyin. Basit dokümantasyon, formatlama veya yalnızca
+  ifade değişikliklerinde sürümü artırmayın.
 - Arayüz değişikliklerini mümkün olduğunca sabit yerleşimli oyunun tamamını
   ekranda tutacak şekilde tasarlayın ve küçük ekran boyutlarında test edin.
 - Repository sahibine Türkçe cevap verin. Forklarda mevcut kullanıcının dil

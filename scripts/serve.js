@@ -18,28 +18,51 @@ if (!fs.existsSync(siteRoot)) {
   throw new Error("dist/ is missing. Run npm run build first.");
 }
 
-function createSiteServer() {
+function createSiteServer(options = {}) {
   return http.createServer((request, response) => {
-    const pathname = decodeURIComponent(
-      new URL(request.url, "http://localhost").pathname,
-    );
-    const requestedPath = pathname === "/" ? "/index.html" : pathname;
-    const filePath = path.resolve(siteRoot, `.${requestedPath}`);
+    const requestUrl = new URL(request.url, "http://localhost");
+    const pathname = decodeURIComponent(requestUrl.pathname);
+    options.onRequest?.(requestUrl);
 
-    if (
-      !filePath.startsWith(`${siteRoot}${path.sep}`) ||
-      !fs.existsSync(filePath)
-    ) {
-      response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      response.end("Not found");
+    if (options.enableTestRoutes && pathname === "/__test/corrupt-save") {
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(`<!doctype html>
+        <meta charset="UTF-8">
+        <script>
+          localStorage.setItem("v0.3", "bm90LWpzb258YnJva2Vu");
+          location.replace("/?lang=tr");
+        </script>`);
       return;
     }
 
-    response.writeHead(200, {
-      "Content-Type":
-        mimeTypes[path.extname(filePath)] ?? "application/octet-stream",
-    });
-    fs.createReadStream(filePath).pipe(response);
+    const requestedPath = pathname === "/" ? "/index.html" : pathname;
+    const filePath = path.resolve(siteRoot, `.${requestedPath}`);
+
+    const sendResponse = () => {
+      if (
+        !filePath.startsWith(`${siteRoot}${path.sep}`) ||
+        !fs.existsSync(filePath)
+      ) {
+        response.writeHead(404, {
+          "Content-Type": "text/plain; charset=utf-8",
+        });
+        response.end("Not found");
+        return;
+      }
+
+      response.writeHead(200, {
+        "Content-Type":
+          mimeTypes[path.extname(filePath)] ?? "application/octet-stream",
+      });
+      fs.createReadStream(filePath).pipe(response);
+    };
+
+    const delay = Number(options.assetDelayMs) || 0;
+    if (delay && /\.(?:css|js|json)$/.test(filePath)) {
+      setTimeout(sendResponse, delay);
+    } else {
+      sendResponse();
+    }
   });
 }
 

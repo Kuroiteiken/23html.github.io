@@ -50,7 +50,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 470;
+global.ver = 471;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -289,13 +289,31 @@ function scheduleGameViewportFit() {
   viewportFitFrame = requestAnimationFrame(fitGameToViewport);
 }
 
+function showStartupError(error) {
+  console.error("The saved game could not be loaded.", error);
+  if (!dom.error) {
+    dom.error = addElement(document.body, "div");
+    dom.error.innerHTML = i18n.t(
+      "runtime.core.bootstrap.interface.saved_game_load_failed_72860aef",
+    );
+    dom.error.style.position = "absolute";
+    dom.error.style.width = "100%";
+    dom.error.style.color = "red";
+    dom.error.style.fontSize = "2em";
+    dom.error.style.lineHeight = "normal";
+    dom.error.style.textAlign = "center";
+    dom.error.style.zIndex = 9999;
+  }
+  dom.error.id = "startup-error";
+  dom.error.style.opacity = 1;
+}
+
 function startGame() {
   fitGameToViewport();
   try {
     load();
   } catch (error) {
-    console.error("The saved game could not be loaded.", error);
-    if (dom.error) dom.error.style.opacity = 1;
+    showStartupError(error);
     clearLoadingScreen();
   }
   scheduleGameViewportFit();

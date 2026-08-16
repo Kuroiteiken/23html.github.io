@@ -51,6 +51,17 @@ npm run check
 npm run test:browser
 ```
 
+Tarayıcı regresyon testleri geciken assetleri, tutarlı önbellek sürümlerini,
+Türkçe başlangıcı, önbellekli profille yeniden yüklemeyi, bozuk kayıt kurtarmayı,
+ekrana sığdırmayı ve proje-alt-yolu changelog bağlantısını kapsar. Hata
+düzeltmeleriyle davranış değişiklikleri deployment öncesinde ilgili regresyon
+kapsamını genişletmelidir.
+
+Tam sayı oyun sürümü hata düzeltmeleri, özellikler ve oyuncuya dönük eklemelerde
+artırılır. `changelog/changelog.html` içindeki en yeni aralığın sonu aynı sürüm
+olmalıdır; otomatik kontroller uyumsuzluğu reddeder. Yalnızca formatlama veya
+dokümantasyon değişiklikleri sürüm artışı gerektirmez.
+
 Kaynakları formatlamak için:
 
 ```sh

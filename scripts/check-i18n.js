@@ -89,6 +89,26 @@ for (const locale of manifest.locales) {
   }
 }
 
+const turkish = JSON.parse(
+  fs.readFileSync(path.join(localeRoot, "tr.json"), "utf8"),
+);
+const reviewedTurkish = JSON.parse(
+  fs.readFileSync(
+    path.join(root, "tests", "translation-expectations.tr.json"),
+    "utf8",
+  ),
+);
+const changedReviewedTranslations = Object.entries(reviewedTurkish).filter(
+  ([key, expected]) => getPath(turkish, key) !== expected,
+);
+if (changedReviewedTranslations.length) {
+  throw new Error(
+    `Reviewed Turkish translations changed: ${changedReviewedTranslations
+      .map(([key]) => key)
+      .join(", ")}`,
+  );
+}
+
 const sourceRoots = [
   "js/core",
   "js/data",
