@@ -31,8 +31,9 @@ sector.home.onEnter = function () {
   const fire = findbyid(furn, furniture.frplc.id);
   for (const f in furn) activatef(furn[f]);
   if (this.data.smkp > 0) {
-    dom.d_lctt.innerHTML +=
-      '<span style="color:grey;font-size:1.2em">&nbsp煙<span>';
+    dom.d_lctt.innerHTML += i18n.t(
+      "runtime.world.sectors.interface.nbsp_e9caec8e",
+    );
     const re = time.minute - this.data.smkt;
     this.data.smkp -= re;
   }
@@ -77,8 +78,9 @@ sector.home.onScout = function () {
 
 sector.home.onMove = function () {
   if (this.data.smkp > 0) {
-    dom.d_lctt.innerHTML +=
-      '<span style="color:grey;font-size:1.2em">&nbsp煙<span>';
+    dom.d_lctt.innerHTML += i18n.t(
+      "runtime.world.sectors.interface.nbsp_e9caec8e",
+    );
   }
 };
 
@@ -124,20 +126,8 @@ sector.vcent.onStay = function () {
     getHour() > 8 &&
     getHour() < 20
   ) {
-    if (!global.text.vlg1)
-      global.text.vlg1 = [
-        '\"♪La, laaaah, la, la-la. Lah, la-la,la la....♪\"',
-        '\"Eat flowers evil-doer!♪\"',
-        '\"Oh my! Such pretty flowers♪\"',
-        '\"Can I tag along? I won\'t be a bother♪\"',
-      ];
-    if (!global.text.vlg1s)
-      global.text.vlg1s = [
-        '\"Let\'s build a snowman!♪\"',
-        '\"Yey, snow!♪\"',
-        '\"Everything is so white and beautiful♪\"',
-        "A snowball lands on you. Hey!",
-      ];
+    if (!global.text.vlg1) global.text.vlg1 = i18n.get("gameText.vlg1");
+    if (!global.text.vlg1s) global.text.vlg1s = i18n.get("gameText.vlg1s");
     msg(
       getSeason() === 4 ? select(global.text.vlg1s) : select(global.text.vlg1),
       "yellow",
@@ -156,7 +146,10 @@ sector.forest1.onStay = function () {
         giveSkExp(skl.tpgrf, 0.001);
       }
     } else {
-      msg("Area Explored!", "lime");
+      msg(
+        i18n.t("runtime.world.sectors.dialogue.area_explored_82dc9682"),
+        "lime",
+      );
       this.data.scoutf = true;
       giveExp(7000, true, true, true);
     }

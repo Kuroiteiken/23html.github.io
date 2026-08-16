@@ -24,9 +24,8 @@ function Effect() {
 }
 
 effect.test1 = new Effect();
-effect.test1.name = "Beast killer";
-effect.test1.desc =
-  "Attacks against beast type creatures are 30% more effective";
+effect.test1.name = i18n.t("content.effect.test1.name");
+effect.test1.desc = i18n.t("content.effect.test1.desc");
 effect.test1.type = 1;
 effect.test1.use = function () {
   if (global.current_m.type === 1) {
@@ -52,13 +51,18 @@ effect.strawp.un = function () {
   you.sat -= 50;
 };
 effect.strawp.noGive = function () {
-  msg("You feel ready for the future", "ornage");
+  msg(
+    i18n.t(
+      "runtime.data.effects.dialogue.you_feel_ready_for_the_future_d0497623",
+    ),
+    "ornage",
+  );
 };
 
 effect.psn = new Effect();
 effect.psn.id = 1;
-effect.psn.name = "Poison";
-effect.psn.desc = "Depletes health each second";
+effect.psn.name = i18n.t("content.effect.psn.name");
+effect.psn.desc = i18n.t("content.effect.psn.desc");
 effect.psn.type = 3;
 effect.psn.atype = 1;
 effect.psn.duration = 5;
@@ -68,7 +72,10 @@ effect.psn.b = "darkmagenta";
 effect.psn.onGive = function (x, y) {
   if (!this.active) {
     if (this.target.id === you.id)
-      msg("You have been poisoned!", "darkmagenta");
+      msg(
+        i18n.t("runtime.data.effects.dialogue.you_have_been_poisoned_d4b8ac62"),
+        "darkmagenta",
+      );
   } else {
     this.y = Math.ceil((this.y + y) / 2);
     this.duration += (x * 0.7) << 0;
@@ -115,8 +122,8 @@ effect.psn.use = function (y, z) {
 
 effect.vnm = new Effect();
 effect.vnm.id = 2;
-effect.vnm.name = "Venom";
-effect.vnm.desc = "Depletes health each second";
+effect.vnm.name = i18n.t("content.effect.vnm.name");
+effect.vnm.desc = i18n.t("content.effect.vnm.desc");
 effect.vnm.type = 3;
 effect.vnm.atype = 1;
 effect.vnm.duration = 15;
@@ -126,7 +133,12 @@ effect.vnm.b = "red";
 effect.vnm.onGive = function (x, y) {
   if (!this.active) {
     if (this.target.id === you.id)
-      msg("You have been badly poisoned!", "darkmagenta");
+      msg(
+        i18n.t(
+          "runtime.data.effects.dialogue.you_have_been_badly_poisoned_3e6191d1",
+        ),
+        "darkmagenta",
+      );
   } else {
     this.y = Math.ceil((this.y + y) / 1.5);
     this.duration += (x * 0.5) << 0;
@@ -173,15 +185,15 @@ effect.vnm.use = function (y, z) {
 
 effect.psnwrd = new Effect();
 effect.psnwrd.id = 3;
-effect.psnwrd.name = "Poison block";
-effect.psnwrd.desc = "Weak poisons have no effect on you";
+effect.psnwrd.name = i18n.t("content.effect.psnwrd.name");
+effect.psnwrd.desc = i18n.t("content.effect.psnwrd.desc");
 effect.psnwrd.type = 3;
 effect.psnwrd.duration = 600;
 effect.psnwrd.x = "＋";
 effect.psnwrd.c = "lime";
 effect.psnwrd.b = "darkmagenta";
 effect.psnwrd.onGive = function () {
-  msg("You feel safer", "lime");
+  msg(i18n.t("runtime.data.effects.dialogue.you_feel_safer_cf35e360"), "lime");
 };
 effect.psnwrd.use = function () {
   if (--this.duration === 0) {
@@ -192,15 +204,18 @@ effect.psnwrd.use = function () {
 
 effect.psnwrd2 = new Effect();
 effect.psnwrd2.id = 4;
-effect.psnwrd2.name = "Venom block";
-effect.psnwrd2.desc = "Severe poisons have no effect on you";
+effect.psnwrd2.name = i18n.t("content.effect.psnwrd2.name");
+effect.psnwrd2.desc = i18n.t("content.effect.psnwrd2.desc");
 effect.psnwrd2.type = 3;
 effect.psnwrd2.duration = 600;
 effect.psnwrd2.x = "＋";
 effect.psnwrd2.c = "lime";
 effect.psnwrd2.b = "magenta";
 effect.psnwrd2.onGive = function () {
-  msg("You feel much safer", "lime");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.you_feel_much_safer_881c6b9f"),
+    "lime",
+  );
 };
 effect.psnwrd2.use = function () {
   if (--this.duration === 0) {
@@ -211,8 +226,8 @@ effect.psnwrd2.use = function () {
 
 effect.imm = new Effect();
 effect.imm.id = 5;
-effect.imm.name = "Immortality";
-effect.imm.desc = "Eternal life";
+effect.imm.name = i18n.t("content.effect.imm.name");
+effect.imm.desc = i18n.t("content.effect.imm.desc");
 effect.imm.type = 2;
 effect.imm.duration = 0;
 effect.imm.x = "￥";
@@ -222,8 +237,8 @@ effect.imm.use = function () {};
 
 effect.snch = new Effect();
 effect.snch.id = 6;
-effect.snch.name = "Sun blessing";
-effect.snch.desc = "You are blessed by Sun";
+effect.snch.name = i18n.t("content.effect.snch.name");
+effect.snch.desc = i18n.t("content.effect.snch.desc");
 effect.snch.type = 2;
 effect.snch.eq = true;
 effect.snch.duration = -1;
@@ -296,8 +311,8 @@ effect.snch.un = function () {
 
 effect.mnch = new Effect();
 effect.mnch.id = 7;
-effect.mnch.name = "Moon blessing";
-effect.mnch.desc = "You are blessed by Moon";
+effect.mnch.name = i18n.t("content.effect.mnch.name");
+effect.mnch.desc = i18n.t("content.effect.mnch.desc");
 effect.mnch.type = 2;
 effect.mnch.eq = true;
 effect.mnch.duration = -1;
@@ -370,8 +385,8 @@ effect.mnch.un = function () {
 
 effect.fpn = new Effect();
 effect.fpn.id = 8;
-effect.fpn.name = "Food poisoning";
-effect.fpn.desc = "From eating something bad";
+effect.fpn.name = i18n.t("content.effect.fpn.name");
+effect.fpn.desc = i18n.t("content.effect.fpn.desc");
 effect.fpn.type = 3;
 effect.fpn.duration = 30;
 effect.fpn.x = "«";
@@ -395,8 +410,8 @@ effect.fpn.use = function (y, z) {
 
 effect.wet = new Effect();
 effect.wet.id = 9;
-effect.wet.name = "Wet";
-effect.wet.desc = "You're drenched in water";
+effect.wet.name = i18n.t("content.effect.wet.name");
+effect.wet.desc = i18n.t("content.effect.wet.desc");
 effect.wet.type = 3;
 effect.wet.duration = 5;
 effect.wet.x = "雨";
@@ -404,12 +419,18 @@ effect.wet.c = "cyan";
 effect.wet.b = "blue";
 effect.wet.onGive = function () {
   if (this.target.id === you.id) {
-    msg("Your clothes get soaked", "cyan", null, null, "blue");
+    msg(
+      i18n.t("runtime.data.effects.dialogue.your_clothes_get_soaked_2088c971"),
+      "cyan",
+      null,
+      null,
+      "blue",
+    );
     global.flags.iswet = true;
   }
 };
 effect.wet.onRemove = function () {
-  msg("You dry up", "orange");
+  msg(i18n.t("runtime.data.effects.dialogue.you_dry_up_c0ca7368"), "orange");
   global.flags.iswet = false;
 };
 effect.wet.use = function () {
@@ -433,15 +454,20 @@ effect.wet.use = function () {
 effect.fplc = new Effect();
 effect.fplc.id = 10;
 effect.fplc.save = false;
-effect.fplc.name = "Fireplace Aura";
-effect.fplc.desc = "You're feeling the warmth of the fireplace";
+effect.fplc.name = i18n.t("content.effect.fplc.name");
+effect.fplc.desc = i18n.t("content.effect.fplc.desc");
 effect.fplc.type = 3;
 effect.fplc.duration = 2;
 effect.fplc.x = "火";
 effect.fplc.c = "yellow";
 effect.fplc.b = "crimson";
 effect.fplc.onGive = function () {
-  msg("You feel the warmth of the fireplace", "orange");
+  msg(
+    i18n.t(
+      "runtime.data.effects.dialogue.you_feel_the_warmth_of_the_fireplace_a514ffb8",
+    ),
+    "orange",
+  );
 };
 effect.fplc.use = function () {
   var fire = findbyid(furn, furniture.frplc.id);
@@ -462,8 +488,8 @@ effect.fplc.onRemove = function () {
 
 effect.cdlt = new Effect();
 effect.cdlt.id = 11;
-effect.cdlt.name = "Candlelight";
-effect.cdlt.desc = "You're carrying a candle. The surroundings are lit up";
+effect.cdlt.name = i18n.t("content.effect.cdlt.name");
+effect.cdlt.desc = i18n.t("content.effect.cdlt.desc");
 effect.cdlt.type = 3;
 effect.cdlt.duration = 360;
 effect.cdlt.x = "❛";
@@ -484,8 +510,8 @@ effect.cdlt.onRemove = function () {
 
 effect.tst2 = new Effect();
 effect.tst2.id = 12;
-effect.tst2.name = "STR+";
-effect.tst2.desc = "STR+";
+effect.tst2.name = i18n.t("content.effect.tst2.name");
+effect.tst2.desc = i18n.t("content.effect.tst2.desc");
 effect.tst2.type = 2;
 effect.tst2.duration = 0;
 effect.tst2.x = "X";
@@ -498,8 +524,8 @@ effect.tst2.use = function () {
 
 effect.slep = new Effect();
 effect.slep.id = 13;
-effect.slep.name = "Sleep";
-effect.slep.desc = "You are fast asleep";
+effect.slep.name = i18n.t("content.effect.slep.name");
+effect.slep.desc = i18n.t("content.effect.slep.desc");
 effect.slep.type = 4;
 effect.slep.duration = -1;
 effect.slep.x = "z";
@@ -509,8 +535,8 @@ effect.slep.use = function () {};
 
 effect.bled = new Effect();
 effect.bled.id = 14;
-effect.bled.name = "Bleeding";
-effect.bled.desc = "Depletes health each second";
+effect.bled.name = i18n.t("content.effect.bled.name");
+effect.bled.desc = i18n.t("content.effect.bled.desc");
 effect.bled.type = 3;
 effect.bled.atype = 1;
 effect.bled.duration = 5;
@@ -519,7 +545,11 @@ effect.bled.c = "red";
 effect.bled.b = "darkred";
 effect.bled.onGive = function (x, y) {
   if (!this.active) {
-    if (this.target.id === you.id) msg("You're losing blood!", "red");
+    if (this.target.id === you.id)
+      msg(
+        i18n.t("runtime.data.effects.dialogue.you_re_losing_blood_6ed3825e"),
+        "red",
+      );
   } else {
     this.y = Math.ceil(this.y + y * 0.2 + 1);
     this.duration += (x * 0.9) << 0;
@@ -566,36 +596,42 @@ effect.bled.onClick = function () {
 
 effect.tarnish = new Effect();
 effect.tarnish.id = 15;
-effect.tarnish.name = "Tarnished";
-effect.tarnish.desc = "Equipment usability -30%";
+effect.tarnish.name = i18n.t("content.effect.tarnish.name");
+effect.tarnish.desc = i18n.t("content.effect.tarnish.desc");
 effect.tarnish.type = 4;
 effect.tarnish.duration = -1;
 effect.tarnish.x = "≠";
 effect.tarnish.c = "purple";
 effect.tarnish.b = "grey";
 effect.tarnish.onGive = function () {
-  msg("Your equipment cracks", "purple");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.your_equipment_cracks_18f328b3"),
+    "purple",
+  );
 };
 effect.tarnish.use = function (y, z) {};
 
 effect.prostasia = new Effect();
 effect.prostasia.id = 16;
-effect.prostasia.name = "Prostasía";
-effect.prostasia.desc = "Equipment usability +30%";
+effect.prostasia.name = i18n.t("content.effect.prostasia.name");
+effect.prostasia.desc = i18n.t("content.effect.prostasia.desc");
 effect.prostasia.type = 4;
 effect.prostasia.duration = -1;
 effect.prostasia.x = "≒";
 effect.prostasia.c = "midnightblue";
 effect.prostasia.b = "skyblue";
 effect.prostasia.onGive = function () {
-  msg("You feel secure", "skyblue");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.you_feel_secure_3750f780"),
+    "skyblue",
+  );
 };
 effect.prostasia.use = function (y, z) {};
 
 effect.incsk = new Effect();
 effect.incsk.id = 17;
-effect.incsk.name = "Incense Aroma";
-effect.incsk.desc = "Your senses are enhanced";
+effect.incsk.name = i18n.t("content.effect.incsk.name");
+effect.incsk.desc = i18n.t("content.effect.incsk.desc");
 effect.incsk.type = 3;
 effect.incsk.duration = 600;
 effect.incsk.x = "Í";
@@ -610,8 +646,8 @@ effect.incsk.use = function () {
 
 effect.run = new Effect();
 effect.run.id = 18;
-effect.run.name = "Running";
-effect.run.desc = "You're jogging";
+effect.run.name = i18n.t("content.effect.run.name");
+effect.run.desc = i18n.t("content.effect.run.desc");
 effect.run.type = 4;
 effect.run.duration = -1;
 effect.run.x = "走";
@@ -620,8 +656,8 @@ effect.run.b = "skyblue";
 
 effect.drunk = new Effect();
 effect.drunk.id = 19;
-effect.drunk.name = "Inebriated";
-effect.drunk.desc = "You're feeling drunk from alcohol";
+effect.drunk.name = i18n.t("content.effect.drunk.name");
+effect.drunk.desc = i18n.t("content.effect.drunk.desc");
 effect.drunk.type = 5;
 effect.drunk.duration = 15;
 effect.drunk.x = "酒";
@@ -636,16 +672,19 @@ effect.drunk.mods = function () {
   you.inte /= 1 + (0.5 - skl.drka.lvl * 0.04);
 };
 effect.drunk.onGive = function () {
-  msg("You're feeling tipsy", "chocolate");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.you_re_feeling_tipsy_3440e021"),
+    "chocolate",
+  );
 };
 effect.drunk.onRemove = function () {
-  msg("You sober up", "orange");
+  msg(i18n.t("runtime.data.effects.dialogue.you_sober_up_193d9180"), "orange");
 };
 
 effect.virus = new Effect();
 effect.virus.id = 20;
-effect.virus.name = "Virus";
-effect.virus.desc = "You are contaminated";
+effect.virus.name = i18n.t("content.effect.virus.name");
+effect.virus.desc = i18n.t("content.effect.virus.desc");
 effect.virus.type = 5;
 effect.virus.duration = -1;
 effect.virus.x = "⁑";
@@ -659,16 +698,19 @@ effect.virus.mods = function () {
   you.sata -= 70;
 };
 effect.virus.onGive = function () {
-  msg("You feel bad", "grey");
+  msg(i18n.t("runtime.data.effects.dialogue.you_feel_bad_eee8ec96"), "grey");
 };
 effect.virus.onRemove = function () {
-  msg("You feel better", "orange");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.you_feel_better_922794ba"),
+    "orange",
+  );
 };
 
 effect.scout = new Effect();
 effect.scout.id = 21;
-effect.scout.name = "Investigating";
-effect.scout.desc = "You're exploring your surroundings";
+effect.scout.name = i18n.t("content.effect.scout.name");
+effect.scout.desc = i18n.t("content.effect.scout.desc");
 effect.scout.type = 4;
 effect.scout.duration = -1;
 effect.scout.x = "ǔ";
@@ -677,8 +719,8 @@ effect.scout.b = "teal";
 
 effect.invgrt = new Effect();
 effect.invgrt.id = 22;
-effect.invgrt.name = "Invigorate";
-effect.invgrt.desc = "Your joints feel flexible";
+effect.invgrt.name = i18n.t("content.effect.invgrt.name");
+effect.invgrt.desc = i18n.t("content.effect.invgrt.desc");
 effect.invgrt.type = 3;
 effect.invgrt.duration = -1;
 effect.invgrt.x = "ℐ";
@@ -707,8 +749,8 @@ effect.invgrt.use = function () {
 
 effect.fei1 = new Effect();
 effect.fei1.id = 23;
-effect.fei1.name = "Fei poisoning";
-effect.fei1.desc = "Fei impurities attack your flesh";
+effect.fei1.name = i18n.t("content.effect.fei1.name");
+effect.fei1.desc = i18n.t("content.effect.fei1.desc");
 effect.fei1.type = 3;
 effect.fei1.duration = 60;
 effect.fei1.x = "⇔";
@@ -717,7 +759,9 @@ effect.fei1.b = "#520090";
 effect.fei1.onGive = function (x, y) {
   if (!this.active) {
     msg(
-      "Your body is fighting against the impurities",
+      i18n.t(
+        "runtime.data.effects.dialogue.your_body_is_fighting_against_the_impurities_58ff2fef",
+      ),
       "darkmagenta",
       null,
       null,
@@ -741,13 +785,23 @@ effect.fei1.use = function (y) {
     removeEff(this);
     you.onDeath();
     global.atkdfty = [2, 4];
-    msg("You fail to purify the pill", "darkgrey");
+    msg(
+      i18n.t(
+        "runtime.data.effects.dialogue.you_fail_to_purify_the_pill_19c25e6c",
+      ),
+      "darkgrey",
+    );
   }
   dom.d5_1_1.update();
   if (this.duration === 0) {
     removeEff(this, this.target);
     this.duration = 5;
-    msg("You have successfully purified the pill!", "lime");
+    msg(
+      i18n.t(
+        "runtime.data.effects.dialogue.you_have_successfully_purified_the_pill_be7b91df",
+      ),
+      "lime",
+    );
     giveExp(
       this.power * 5000 + (this.power > 1 ? this.power * 0.15 * 5000 : 0),
       true,
@@ -759,8 +813,8 @@ effect.fei1.use = function (y) {
 
 effect.cold = new Effect();
 effect.cold.id = 24;
-effect.cold.name = "Cold";
-effect.cold.desc = "You're freezing";
+effect.cold.name = i18n.t("content.effect.cold.name");
+effect.cold.desc = i18n.t("content.effect.cold.desc");
 effect.cold.type = 5;
 effect.cold.duration = 5;
 effect.cold.x = "冷";
@@ -774,10 +828,20 @@ effect.cold.mods = function () {
 };
 effect.cold.onGive = function () {
   if (this.target.id === you.id)
-    msg("You feel colder", "blue", null, null, "cyan");
+    msg(
+      i18n.t("runtime.data.effects.dialogue.you_feel_colder_e1a2ce62"),
+      "blue",
+      null,
+      null,
+      "cyan",
+    );
 };
 effect.cold.onRemove = function () {
-  if (this.target.id === you.id) msg("You're warming up", "orange");
+  if (this.target.id === you.id)
+    msg(
+      i18n.t("runtime.data.effects.dialogue.you_re_warming_up_7001397a"),
+      "orange",
+    );
 };
 effect.cold.use = function () {
   if (this.target.id === you.id) {
@@ -798,8 +862,8 @@ effect.cold.use = function () {
 
 effect.smoke = new Effect();
 effect.smoke.id = 25;
-effect.smoke.name = "Smoke";
-effect.smoke.desc = "Thick smoke abstructs your lungs";
+effect.smoke.name = i18n.t("content.effect.smoke.name");
+effect.smoke.desc = i18n.t("content.effect.smoke.desc");
 effect.smoke.type = 3;
 effect.smoke.duration = 5;
 effect.smoke.x = "煙";
@@ -807,11 +871,17 @@ effect.smoke.c = "grey";
 effect.smoke.b = "lightgrey";
 effect.smoke.onGive = function () {
   if (this.target.id === you.id) {
-    msg("You breathe heavily", "grey");
+    msg(
+      i18n.t("runtime.data.effects.dialogue.you_breathe_heavily_8c0f968b"),
+      "grey",
+    );
   }
 };
 effect.smoke.onRemove = function () {
-  msg("Your lungs feel lighter", "orange");
+  msg(
+    i18n.t("runtime.data.effects.dialogue.your_lungs_feel_lighter_8420cdef"),
+    "orange",
+  );
 };
 effect.smoke.use = function () {
   if (this.target.id === you.id) {
@@ -833,8 +903,8 @@ effect.smoke.use = function () {
 
 effect.fbite = new Effect();
 effect.fbite.id = 26;
-effect.fbite.name = "Hypothermia";
-effect.fbite.desc = "Your limbs are suffering from frostbites";
+effect.fbite.name = i18n.t("content.effect.fbite.name");
+effect.fbite.desc = i18n.t("content.effect.fbite.desc");
 effect.fbite.type = 5;
 effect.fbite.duration = 5;
 effect.fbite.x = "凍";
@@ -848,11 +918,22 @@ effect.fbite.mods = function () {
 };
 effect.fbite.onGive = function () {
   if (this.target.id === you.id)
-    msg("Sharp pain stings you", "red", null, null, "cyan");
+    msg(
+      i18n.t("runtime.data.effects.dialogue.sharp_pain_stings_you_307985a8"),
+      "red",
+      null,
+      null,
+      "cyan",
+    );
 };
 effect.fbite.onRemove = function () {
   if (this.target.id === you.id) {
-    msg("You aren't freezing anymore", "orange");
+    msg(
+      i18n.t(
+        "runtime.data.effects.dialogue.you_aren_t_freezing_anymore_8a412ad4",
+      ),
+      "orange",
+    );
     global.stat.coldnt = 0;
   }
 };

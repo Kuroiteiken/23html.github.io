@@ -1,6 +1,15 @@
 html body {
   font: 1.1em "MS Gothic";
 }
+.i18n-load-error {
+  margin: 2rem auto;
+  max-width: 42rem;
+  border: 2px solid crimson;
+  padding: 1rem;
+  background: #fff;
+  color: #900;
+  text-align: center;
+}
 input:focus {
   outline: none;
 }
@@ -208,6 +217,10 @@ input:focus {
   font: 1.1em "MS Gothic";
   padding-left: 4px;
   color: inherit;
+}
+.opt_v option {
+  background: white;
+  color: black;
 }
 .opt_ta {
   padding-left: 4px;

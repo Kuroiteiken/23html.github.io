@@ -18,7 +18,7 @@ function Ability(id) {
 abl.default = new Ability();
 
 abl.bite = new Ability(1);
-abl.bite.name = "Bite";
+abl.bite.name = i18n.t("content.abl.bite.name");
 abl.bite.atrg = ' <span style="color:hotpink">bites you</span> -> ';
 abl.bite.f = function (x, y, z) {
   if (random() < 0.15) {
@@ -32,7 +32,7 @@ abl.bite.f = function (x, y, z) {
 };
 
 abl.rstab = new Ability(2);
-abl.rstab.name = "Selfharm";
+abl.rstab.name = i18n.t("content.abl.rstab.name");
 abl.rstab.atrg =
   ' <span style="color:magenta">stabs you with something rusty</span> -> ';
 abl.rstab.cls = 1;
@@ -45,7 +45,7 @@ abl.rstab.f = function (x, y) {
 };
 
 abl.scrtch = new Ability(3);
-abl.scrtch.name = "Scratch";
+abl.scrtch.name = i18n.t("content.abl.scrtch.name");
 abl.scrtch.atrg = ' <span style="color:hotpink">scratches you</span> -> ';
 abl.scrtch.cls = 0;
 abl.scrtch.f = function (x, y, z) {
@@ -60,7 +60,7 @@ abl.scrtch.f = function (x, y, z) {
 };
 
 abl.spark = new Ability(4);
-abl.spark.name = "Spark";
+abl.spark.name = i18n.t("content.abl.spark.name");
 abl.spark.atrg = ' <span style="color:yellow">electrocutes you</span> -> ';
 abl.spark.btrg = ' <span style="color:yellow">electrocute the enemy</span> -> ';
 abl.spark.cls = 1;
@@ -72,7 +72,7 @@ abl.spark.f = function (x, y) {
 };
 
 abl.dstab = new Ability(5);
-abl.dstab.name = "Double Stab";
+abl.dstab.name = i18n.t("content.abl.dstab.name");
 abl.dstab.atrg = ' <span style="color:pink">doublestabs you</span> -> ';
 abl.dstab.btrg =
   ' <span style="color:pink">You doublestab the enemy</span> -> ';
@@ -82,7 +82,7 @@ abl.dstab.f = function (x, y) {
 };
 
 abl.pbite = new Ability(6);
-abl.pbite.name = "Poison Bite";
+abl.pbite.name = i18n.t("content.abl.pbite.name");
 abl.pbite.atrg = ' <span style="color:magenta">bites you</span> -> ';
 abl.pbite.cls = 1;
 abl.pbite.f = function (x, y, z) {
@@ -93,7 +93,7 @@ abl.pbite.f = function (x, y, z) {
 };
 
 abl.bash = new Ability(7);
-abl.bash.name = "Bash";
+abl.bash.name = i18n.t("content.abl.bash.name");
 abl.bash.atrg = ' <span style="color:lightgrey">bashes you</span> -> ';
 abl.bash.cls = 2;
 abl.bash.f = function (x, y) {

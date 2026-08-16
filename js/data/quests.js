@@ -17,8 +17,8 @@ function Quest() {
 
 quest.test = new Quest();
 quest.test.id = 1;
-quest.test.name = "test";
-quest.test.desc = "find 10";
+quest.test.name = i18n.t("content.quest.test.name");
+quest.test.desc = i18n.t("content.quest.test.desc");
 quest.test.init = function () {
   this.data.itm = item.rwmt1;
   this.data.started = true;
@@ -31,20 +31,20 @@ quest.test.tracker = function () {
   }
 };
 quest.test.fpending = function () {
-  msg("10 item found");
+  msg(i18n.t("runtime.data.quests.dialogue.10_item_found_897eabe9"));
   this.data.toup = false;
 };
 quest.test.rwd = function () {
   this.data.done = true;
   this.data.pending = false;
-  msg("done");
+  msg(i18n.t("runtime.data.quests.dialogue.done_e5fd9cfe"));
 };
 
 quest.fwd1 = new Quest();
 quest.fwd1.id = 2;
-quest.fwd1.name = "Firewood Gathering";
+quest.fwd1.name = i18n.t("content.quest.fwd1.name");
 quest.fwd1.rar = 1;
-quest.fwd1.desc = "Secure 10 bundles of firewood for hunter Yamato";
+quest.fwd1.desc = i18n.t("content.quest.fwd1.desc");
 quest.fwd1.loc = "Western Woods, Hunter's Lodge";
 quest.fwd1.rwd = function () {
   you.karma++;
@@ -72,9 +72,9 @@ quest.fwd1.goalsf = function () {
 
 quest.hnt1 = new Quest();
 quest.hnt1.id = 3;
-quest.hnt1.name = "First Hunt";
+quest.hnt1.name = i18n.t("content.quest.hnt1.name");
 quest.hnt1.rar = 1;
-quest.hnt1.desc = "Hunt for 10 peices of meat for hunter Yamato";
+quest.hnt1.desc = i18n.t("content.quest.hnt1.desc");
 quest.hnt1.loc = "Western Woods, Hunter's Lodge";
 quest.hnt1.rwd = function () {
   you.karma++;
@@ -101,11 +101,10 @@ quest.hnt1.goalsf = function () {
 
 quest.grds1 = new Quest();
 quest.grds1.id = 4;
-quest.grds1.name = "Guarding Duty";
+quest.grds1.name = i18n.t("content.quest.grds1.name");
 quest.grds1.rar = 1;
 quest.grds1.loc = "Village Center, Marketplace Entry Gate";
-quest.grds1.desc =
-  "You were tasked with guarding duty to watch over marketplace";
+quest.grds1.desc = i18n.t("content.quest.grds1.desc");
 quest.grds1.data.t = 0;
 quest.grds1.repeatable = true;
 quest.grds1.rwd = function () {
@@ -125,11 +124,10 @@ quest.grds1.goalsf = function () {
 
 quest.lmfstkil1 = new Quest();
 quest.lmfstkil1.id = 5;
-quest.lmfstkil1.name = "Monster Eradication";
+quest.lmfstkil1.name = i18n.t("content.quest.lmfstkil1.name");
 quest.lmfstkil1.rar = 1;
 quest.lmfstkil1.loc = "Western Woods, Hunter's Lodge";
-quest.lmfstkil1.desc =
-  "Dangerous monsters have invaded the southern forest and terrorizing the villagers. Get rid of them!";
+quest.lmfstkil1.desc = i18n.t("content.quest.lmfstkil1.desc");
 quest.lmfstkil1.data = { t: 0, mkilled: 0 };
 quest.lmfstkil1.init = function () {
   this.callback();
@@ -144,7 +142,12 @@ quest.lmfstkil1.callback = function () {
           !quest.lmfstkil1.data.weird1 &&
           quest.lmfstkil1.data.mkilled >= 35
         ) {
-          msg("You hear a piercing wail", "red");
+          msg(
+            i18n.t(
+              "runtime.data.quests.dialogue.you_hear_a_piercing_wail_6db06040",
+            ),
+            "red",
+          );
           quest.lmfstkil1.data.weird1 = true;
           smove(chss.frstn3main);
         }
@@ -208,17 +211,14 @@ function finishQst(q) {
     q.data.done = true;
     q.data.started = false;
     q.data.pending = false;
-    msg("Quest completed: ", "lime");
+    msg(
+      i18n.t("runtime.data.quests.dialogue.quest_completed_36971938"),
+      "lime",
+    );
     msg_add('"' + q.name + '"', "orange");
     q.rwd();
     global.stat.qstc++;
   }
 }
 
-global.text.alcohol_d = [
-  "You drank some alcohol. You feel warm inside.",
-  "You drank alcohol. Party on!",
-  "You drank lots of alcohol. Are those white mice?",
-  "You drank unholy amounts of alcohol. But what do you care?",
-  "You embalmed yourself alive with so much alcohol, that even undead will leave your dead body alone.",
-];
+global.text.alcohol_d = i18n.get("gameText.alcohol_d");

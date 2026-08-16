@@ -117,7 +117,10 @@ function Creature() {
     else {
       if (global.current_z.size <= -1) area_init(global.current_z);
       else {
-        msg("Area cleared", "orange");
+        msg(
+          i18n.t("runtime.data.creatures.dialogue.area_cleared_3e728563"),
+          "orange",
+        );
         global.current_z.onEnd();
         global.flags.civil = true;
         global.flags.btl = false;
@@ -149,9 +152,9 @@ creature.default = new Creature();
 global.current_m = creature.default;
 
 creature.bat = new Creature();
-creature.bat.name = "Bat";
+creature.bat.name = i18n.t("content.creature.bat.name");
 creature.bat.id = 101;
-creature.bat.desc = "Aggressive little bats living in the dark";
+creature.bat.desc = i18n.t("content.creature.bat.desc");
 creature.bat.type = 1;
 creature.bat.exp = 8;
 creature.bat.hp_r = 39;
@@ -175,22 +178,20 @@ creature.bat.pts = 6;
 
 creature.cbat = new Creature();
 creature.cbat.id = 109;
-creature.cbat.name = "Cave bat";
-creature.cbat.desc =
-  "Large, agile bats that swooop down to strike from the air";
+creature.cbat.name = i18n.t("content.creature.cbat.name");
+creature.cbat.desc = i18n.t("content.creature.cbat.desc");
 creature.cbat.drop = [];
 
 creature.stirge = new Creature();
 creature.stirge.id = 110;
-creature.stirge.name = "Stirge";
-creature.stirge.desc =
-  "Giant vampire bats rumored to drain a victim's life in a single blow";
+creature.stirge.name = i18n.t("content.creature.stirge.name");
+creature.stirge.desc = i18n.t("content.creature.stirge.desc");
 creature.stirge.drop = [];
 
 creature.spd1 = new Creature();
-creature.spd1.name = "Attic spider";
+creature.spd1.name = i18n.t("content.creature.spd1.name");
 creature.spd1.id = 104;
-creature.spd1.desc = "Small docile spiders who live in damp and dark places";
+creature.spd1.desc = i18n.t("content.creature.spd1.desc");
 creature.spd1.type = 1;
 creature.spd1.exp = 8;
 creature.spd1.hp_r = 26;
@@ -215,8 +216,8 @@ creature.spd1.battle_ai = function (x, y, z) {
 
 creature.tdummy = new Creature();
 creature.tdummy.id = 103;
-creature.tdummy.name = "Training dummy";
-creature.tdummy.desc = "He's made of fabric";
+creature.tdummy.name = i18n.t("content.creature.tdummy.name");
+creature.tdummy.desc = i18n.t("content.creature.tdummy.desc");
 creature.tdummy.drop = [
   {
     item: wpn.knf1,
@@ -247,8 +248,8 @@ creature.tdummy.onDeathE = function () {};
 
 creature.sdummy = new Creature();
 creature.sdummy.id = 102;
-creature.sdummy.name = "Straw dummy";
-creature.sdummy.desc = "He's made of straw";
+creature.sdummy.name = i18n.t("content.creature.sdummy.name");
+creature.sdummy.desc = i18n.t("content.creature.sdummy.desc");
 creature.sdummy.drop = [
   { item: item.sstraw, chance: 0.085 },
   { item: item.hrb1, chance: 0.02 },
@@ -266,8 +267,8 @@ creature.sdummy.onDeathE = function () {};
 
 creature.wdummy = new Creature();
 creature.wdummy.id = 112;
-creature.wdummy.name = "Wooden dummy";
-creature.wdummy.desc = "He's made of wood";
+creature.wdummy.name = i18n.t("content.creature.wdummy.name");
+creature.wdummy.desc = i18n.t("content.creature.wdummy.desc");
 creature.wdummy.stat_p = [0.4, 0.8, 0.12, 0.2];
 creature.wdummy.aff = [0, 0, 15, -30, 20, -666, 666];
 creature.wdummy.cls = [-1, 2, 4];
@@ -313,85 +314,78 @@ creature.wdummy.onDeathE = function () {};
 
 creature.puppet = new Creature();
 creature.puppet.id = 105;
-creature.puppet.name = "Puppet";
-creature.puppet.desc = "Animated doll with agile movements";
+creature.puppet.name = i18n.t("content.creature.puppet.name");
+creature.puppet.desc = i18n.t("content.creature.puppet.desc");
 creature.puppet.drop = [];
 creature.puppet.battle_ai = function (x, y, z) {};
 
 creature.bpuppet = new Creature();
 creature.bpuppet.id = 106;
-creature.bpuppet.name = "Battle Puppet";
-creature.bpuppet.desc = "Animated doll with martial ability";
+creature.bpuppet.name = i18n.t("content.creature.bpuppet.name");
+creature.bpuppet.desc = i18n.t("content.creature.bpuppet.desc");
 creature.bpuppet.drop = [];
 creature.bpuppet.battle_ai = function (x, y, z) {};
 
 creature.doll = new Creature();
 creature.doll.id = 107;
-creature.doll.name = "Doll";
-creature.doll.desc = "Child's toy possessed by an evil spirit";
+creature.doll.name = i18n.t("content.creature.doll.name");
+creature.doll.desc = i18n.t("content.creature.doll.desc");
 creature.doll.drop = [];
 creature.doll.battle_ai = function (x, y, z) {};
 
 creature.ndoll = new Creature();
 creature.ndoll.id = 108;
-creature.ndoll.name = "Necro doll";
-creature.ndoll.desc = "Evil Dolls used in dark rituals";
+creature.ndoll.name = i18n.t("content.creature.ndoll.name");
+creature.ndoll.desc = i18n.t("content.creature.ndoll.desc");
 creature.ndoll.drop = [];
 creature.ndoll.battle_ai = function (x, y, z) {};
 
 creature.cdoll = new Creature();
 creature.cdoll.id = 111;
-creature.cdoll.name = "Quicksilver";
-creature.cdoll.desc =
-  "Dolls possessed by the souls of children who lost their lives to war or illness";
+creature.cdoll.name = i18n.t("content.creature.cdoll.name");
+creature.cdoll.desc = i18n.t("content.creature.cdoll.desc");
 creature.cdoll.drop = [];
 creature.cdoll.battle_ai = function (x, y, z) {};
 
 creature.zomb1 = new Creature();
 creature.zomb1.id = 113;
-creature.zomb1.name = "Zombie";
-creature.zomb1.desc =
-  "Once the inhabitants of the surface, zombies emerge from the Dark to attack the living";
+creature.zomb1.name = i18n.t("content.creature.zomb1.name");
+creature.zomb1.desc = i18n.t("content.creature.zomb1.desc");
 
 creature.mumy = new Creature();
 creature.mumy.id = 114;
-creature.mumy.name = "Mummy";
-creature.mumy.desc = "Ancient corpses infused with the power of Dark";
+creature.mumy.name = i18n.t("content.creature.mumy.name");
+creature.mumy.desc = i18n.t("content.creature.mumy.desc");
 
 creature.ghl = new Creature();
 creature.ghl.id = 115;
-creature.ghl.name = "Ghoul";
-creature.ghl.desc =
-  "Ghouls lurk in the Catacombs, longing for human flesh. Attacking their heads proves effective";
+creature.ghl.name = i18n.t("content.creature.ghl.name");
+creature.ghl.desc = i18n.t("content.creature.ghl.desc");
 
 creature.ght = new Creature();
 creature.ght.id = 116;
-creature.ght.name = "Ghast";
-creature.ght.desc = "The living dead, given power by demons of the Underworld";
+creature.ght.name = i18n.t("content.creature.ght.name");
+creature.ght.desc = i18n.t("content.creature.ght.desc");
 
 creature.zmbf = new Creature();
 creature.zmbf.id = 117;
-creature.zmbf.name = "Zombie Fighter";
-creature.zmbf.desc =
-  "Corpses of common soldiers, brought back to life through the Dark's taint";
+creature.zmbf.name = i18n.t("content.creature.zmbf.name");
+creature.zmbf.desc = i18n.t("content.creature.zmbf.desc");
 
 creature.zmbk = new Creature();
 creature.zmbk.id = 118;
-creature.zmbk.name = "Zombie Knight";
-creature.zmbk.desc =
-  "Zombies of the Knights of the Cross, still in possession of potent martial skills";
+creature.zmbk.name = i18n.t("content.creature.zmbk.name");
+creature.zmbk.desc = i18n.t("content.creature.zmbk.desc");
 
 creature.zmbm = new Creature();
 creature.zmbm.id = 119;
-creature.zmbm.name = "Zombie Mage";
-creature.zmbm.desc =
-  "Zombies of Dark mages, who employ powerful offensive magic";
+creature.zmbm.name = i18n.t("content.creature.zmbm.name");
+creature.zmbm.desc = i18n.t("content.creature.zmbm.desc");
 
 creature.skl = new Creature();
-creature.skl.name = "Skeleton";
+creature.skl.name = i18n.t("content.creature.skl.name");
 creature.skl.id = 120;
-creature.skl.desc =
-  "Skeletal remains of zombie corpses. They lurk in darkness to attack the living";
+creature.skl.desc = i18n.t("content.creature.skl.desc");
 creature.skl.type = 2;
 creature.skl.exp = 15;
 creature.skl.hp_r = 132;
@@ -409,10 +403,9 @@ creature.skl.rnk = 7;
 creature.skl.pts = 17;
 
 creature.slm1 = new Creature();
-creature.slm1.name = "Blue Slime";
+creature.slm1.name = i18n.t("content.creature.slm1.name");
 creature.slm1.id = 121;
-creature.slm1.desc =
-  "Lesser slimes, devoid of any senses. They survive by absorbing debris from the ground";
+creature.slm1.desc = i18n.t("content.creature.slm1.desc");
 creature.slm1.type = 1;
 creature.slm1.exp = 3;
 creature.slm1.hp_r = 65;
@@ -435,9 +428,9 @@ creature.slm1.rnk = 2;
 creature.slm1.pts = 3;
 
 creature.slm2 = new Creature();
-creature.slm2.name = "Green Slime";
+creature.slm2.name = i18n.t("content.creature.slm2.name");
 creature.slm2.id = 122;
-creature.slm2.desc = "Small forest slimes. They hide in leaves and grass";
+creature.slm2.desc = i18n.t("content.creature.slm2.desc");
 creature.slm2.type = 1;
 creature.slm2.exp = 4;
 creature.slm2.hp_r = 70;
@@ -461,10 +454,9 @@ creature.slm2.rnk = 2;
 creature.slm2.pts = 3;
 
 creature.rbt1 = new Creature();
-creature.rbt1.name = "Wild Rabbit";
+creature.rbt1.name = i18n.t("content.creature.rbt1.name");
 creature.rbt1.id = 123;
-creature.rbt1.desc =
-  "Docile rabbits, often found in plains and woods. They're difficult to catch";
+creature.rbt1.desc = i18n.t("content.creature.rbt1.desc");
 creature.rbt1.type = 1;
 creature.rbt1.exp = 5;
 creature.rbt1.stat_p = [1, 0.9, 2, 0.3];
@@ -489,10 +481,9 @@ creature.rbt1.rnk = 2;
 creature.rbt1.pts = 4;
 
 creature.slm3 = new Creature();
-creature.slm3.name = "Cyan Slime";
+creature.slm3.name = i18n.t("content.creature.slm3.name");
 creature.slm3.id = 124;
-creature.slm3.desc =
-  "Brightly colored slime. It looks like it can perfectly reflect the sky";
+creature.slm3.desc = i18n.t("content.creature.slm3.desc");
 creature.slm3.type = 1;
 creature.slm3.exp = 8;
 creature.slm3.hp_r = 120;
@@ -516,10 +507,9 @@ creature.slm3.rnk = 3;
 creature.slm3.pts = 4;
 
 creature.slm4 = new Creature();
-creature.slm4.name = "Clear Slime";
+creature.slm4.name = i18n.t("content.creature.slm4.name");
 creature.slm4.id = 125;
-creature.slm4.desc =
-  "Weird transparent slime, bearing no distinct color. They can hide anywhere and are very difficult to notice";
+creature.slm4.desc = i18n.t("content.creature.slm4.desc");
 creature.slm4.type = 1;
 creature.slm4.exp = 10;
 creature.slm4.hp_r = 95;
@@ -543,10 +533,9 @@ creature.slm4.rnk = 3;
 creature.slm4.pts = 5;
 
 creature.kksh = new Creature(); //u
-creature.kksh.name = "Scarecrow";
+creature.kksh.name = i18n.t("content.creature.kksh.name");
 creature.kksh.id = 126;
-creature.kksh.desc =
-  "Once protector of fields, this figure has turned to evil by the influence of Dark. It hangs still in ambush, waiting for unsuspecting passersby";
+creature.kksh.desc = i18n.t("content.creature.kksh.desc");
 creature.kksh.exp = 5;
 creature.kksh.hp_r = 100;
 creature.kksh.stat_p = [1.1, 1.2, 2.9, 0.8];
@@ -567,10 +556,9 @@ creature.kksh.drop = [
 creature.kksh.rnk = 10;
 
 creature.golem1 = new Creature();
-creature.golem1.name = "Straw Golem";
+creature.golem1.name = i18n.t("content.creature.golem1.name");
 creature.golem1.id = 127;
-creature.golem1.desc =
-  "Big golem composed of straw. These golems are brittle and weak, their main purpose is to assist newbies in training";
+creature.golem1.desc = i18n.t("content.creature.golem1.desc");
 creature.golem1.exp = 50;
 creature.golem1.hp_r = 500;
 creature.golem1.stat_p = [0.05, 0.2, 0.2, 0.2];
@@ -591,10 +579,9 @@ creature.golem1.un = true;
 creature.golem1.pts = 200;
 
 creature.golem2 = new Creature();
-creature.golem2.name = "Reinforced Straw Golem";
+creature.golem2.name = i18n.t("content.creature.golem2.name");
 creature.golem2.id = 128;
-creature.golem2.desc =
-  "This golem's joints have been binded by the rope, giving it sturdier and more stable frame";
+creature.golem2.desc = i18n.t("content.creature.golem2.desc");
 creature.golem2.exp = 60;
 creature.golem2.hp_r = 700;
 creature.golem2.stat_p = [0.06, 0.25, 0.2, 0.25];
@@ -616,10 +603,9 @@ creature.golem2.drop = [
 creature.golem2.pts = 400;
 
 creature.golem3 = new Creature();
-creature.golem3.name = "Paper Golem";
+creature.golem3.name = i18n.t("content.creature.golem3.name");
 creature.golem3.id = 129;
-creature.golem3.desc =
-  "Slim golem made of paper-like material. While not as tough as other training golems, it has a light body which allows it to move faster";
+creature.golem3.desc = i18n.t("content.creature.golem3.desc");
 creature.golem3.exp = 80;
 creature.golem3.hp_r = 400;
 creature.golem3.stat_p = [0.06, 0.3, 0.3, 0.3];
@@ -640,10 +626,9 @@ creature.golem3.drop = [
 creature.golem3.pts = 500;
 
 creature.golem4 = new Creature();
-creature.golem4.name = "Attack Golem";
+creature.golem4.name = i18n.t("content.creature.golem4.name");
 creature.golem4.id = 130;
-creature.golem4.desc =
-  "Golem with implanted martial prowess. Somewhat similar to a trained militant, they pose a dangerous threat to any unprepared opponent";
+creature.golem4.desc = i18n.t("content.creature.golem4.desc");
 creature.golem4.exp = 120;
 creature.golem4.hp_r = 730;
 creature.golem4.stat_p = [0.06, 0.3, 0.3, 0.3];
@@ -665,9 +650,9 @@ creature.golem4.battle_ai = function (x, y, z) {
 };
 
 creature.ngtmr1 = new Creature();
-creature.ngtmr1.name = "Nightmare";
+creature.ngtmr1.name = i18n.t("content.creature.ngtmr1.name");
 creature.ngtmr1.id = 131;
-creature.ngtmr1.desc = "Manifestation of your fears";
+creature.ngtmr1.desc = i18n.t("content.creature.ngtmr1.desc");
 creature.ngtmr1.exp = 1;
 creature.ngtmr1.hp_r = 100000000;
 creature.ngtmr1.stat_p = [0, 0, 0, 0];
@@ -680,10 +665,9 @@ creature.ngtmr1.battle_ai = function () {
 };
 
 creature.lrck = new Creature();
-creature.lrck.name = "Locked Rock";
+creature.lrck.name = i18n.t("content.creature.lrck.name");
 creature.lrck.id = 132;
-creature.lrck.desc =
-  "A rock shaped monster found in caves and dungeons. It has a habit of closing of paths by mimicking a wall, but it's fighting prowess is close to zero.";
+creature.lrck.desc = i18n.t("content.creature.lrck.desc");
 creature.lrck.exp = 123;
 creature.lrck.hp_r = 9000;
 creature.lrck.stat_p = [1.5, 1.2, 1, 1];
@@ -696,10 +680,9 @@ creature.lrck.battle_ai = function () {
 };
 
 creature.lsprt = new Creature(); //u
-creature.lsprt.name = "Lamp Spirit";
+creature.lsprt.name = i18n.t("content.creature.lsprt.name");
 creature.lsprt.id = 133;
-creature.lsprt.desc =
-  "Small fire sprites that manifest inside oil lamps located in mines and other places with low human activity. While not sinister by nature, they enjoy playing pranks on people";
+creature.lsprt.desc = i18n.t("content.creature.lsprt.desc");
 creature.lsprt.exp = 5;
 creature.lsprt.hp_r = 100;
 creature.lsprt.stat_p = [1.1, 1.2, 2.9, 0.8];
@@ -721,21 +704,18 @@ creature.lsprt.rnk = 10;
 
 creature.dcrps1 = new Creature();
 creature.dcrps1.id = 134;
-creature.dcrps1.name = "Disaster Corpse";
-creature.dcrps1.desc =
-  "Undead bodies manifested purely by death ki. They appear in ancient battlefields or other areas with extremely heavy concentration of dark ki. These corpses share countless memories of residue souls";
+creature.dcrps1.name = i18n.t("content.creature.dcrps1.name");
+creature.dcrps1.desc = i18n.t("content.creature.dcrps1.desc");
 
 creature.unsctn = new Creature();
 creature.unsctn.id = 135;
-creature.unsctn.name = "Unchanging Skeleton";
-creature.unsctn.desc =
-  "People that neither die nor dissolve, active in the world but don't have minds or memories. They won't hurt people other than pulling pranks and causing trouble, but would go frenzy if exposed to death ki for too long";
+creature.unsctn.name = i18n.t("content.creature.unsctn.name");
+creature.unsctn.desc = i18n.t("content.creature.unsctn.desc");
 
 creature.wolf1 = new Creature();
-creature.wolf1.name = "Weakened Wolf";
+creature.wolf1.name = i18n.t("content.creature.wolf1.name");
 creature.wolf1.id = 136;
-creature.wolf1.desc =
-  "Wolves affected by a disease or other negative influences. While not nearly as dangerous as its healthy counterpart, even in such a low state they pose danger to those who aren't careful"; //'Predatorous inhabitants of forests with a proud character. They stalk their prey and hunt in packs';
+creature.wolf1.desc = i18n.t("content.creature.wolf1.desc"); //'Predatorous inhabitants of forests with a proud character. They stalk their prey and hunt in packs';
 creature.wolf1.type = 1;
 creature.wolf1.exp = 15;
 creature.wolf1.hp_r = 400;
@@ -765,10 +745,9 @@ creature.wolf1.battle_ai = function (x, y, z) {
 };
 
 creature.slm5 = new Creature();
-creature.slm5.name = "Blue Slime";
+creature.slm5.name = i18n.t("content.creature.slm5.name");
 creature.slm5.id = 137;
-creature.slm5.desc =
-  "Slime of a very deep darkblue hue, which looks shiny under the light and almost completely dark in the shade";
+creature.slm5.desc = i18n.t("content.creature.slm5.desc");
 creature.slm5.type = 1;
 creature.slm5.exp = 12;
 creature.slm5.hp_r = 220;

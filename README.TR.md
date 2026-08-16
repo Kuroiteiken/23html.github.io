@@ -15,7 +15,14 @@ npm install
 npm run build
 ```
 
-Oluşturulan site `dist/index.html` üzerinden yerel olarak açılabilir.
+Dil JSON dosyaları `fetch` ile yüklendiği için `dist/index.html` dosyasını
+doğrudan açmak yerine oluşturulan siteyi HTTP üzerinden çalıştırın:
+
+```sh
+npm run serve
+```
+
+Ardından `http://127.0.0.1:8080` adresini açın.
 
 ## Kaynak yapısı
 
@@ -26,6 +33,7 @@ Oluşturulan site `dist/index.html` üzerinden yerel olarak açılabilir.
 - `js/ui/`: arayüz ve render kodu
 - `js/world/`: bölgeler, sektörler ve konumlar
 - `js/utils/`: rastgele sayı ve kodlama yardımcıları
+- `locales/`: dil kayıt listesi ve JSON çeviri dosyaları
 - `scripts/`: bundle ve yayın çıktısı araçları
 
 Eski oyun, tüm fonksiyon bildirimlerinin başlangıçtan önce erişilebilir olmasına
@@ -40,6 +48,7 @@ Kod kontrolleri:
 
 ```sh
 npm run check
+npm run test:browser
 ```
 
 Kaynakları formatlamak için:
@@ -49,6 +58,21 @@ npm run format
 ```
 
 `js/game.js` ve `dist/` doğrudan düzenlenmemelidir.
+
+## Diller
+
+İngilizce metinler `locales/en.json`, kullanılabilir diller ise
+`locales/manifest.json` içinde tutulur. Dil, Settings ekranından değiştirilebilir
+ve oyun kayıtlarından bağımsız olarak saklanır.
+
+Türkçe gibi yeni bir dil eklemek için:
+
+1. `locales/en.json` dosyasını `locales/tr.json` olarak kopyalayın ve anahtarları
+   değiştirmeden değerleri çevirin.
+2. Dil kodunu, görünen adını ve dosyasını `locales/manifest.json` içine ekleyin.
+3. `npm run format`, `npm run build` ve `npm run check` çalıştırın.
+
+Başka bir dilde eksik kalan anahtarlar İngilizceye geri döner.
 
 ## Değişiklik günlükleri
 
@@ -62,6 +86,14 @@ npm run format
 tarafından build edilir, kontrol edilir ve `dist/` klasörü yayınlanır. Repository
 ayarlarında bir kez **Pages → Build and deployment → Source → GitHub Actions**
 seçilmelidir.
+
+Bakımı yapılan yayın
+[`https://kuroiteiken.github.io/23html.github.io/`](https://kuroiteiken.github.io/23html.github.io/)
+adresindedir. Upstream proje ayrıca
+[`https://23html.github.io/`](https://23html.github.io/) adresinde çalışır. Forklar
+ve proje Pages siteleri repository alt yolunda yayınlanabileceği için dahili
+bağlantılar göreli olmalı veya `document.baseURI` üzerinden çözülmelidir;
+`/changelog/...` gibi köke göre yollar taşınabilir değildir.
 
 Projede çalışan ajanların kanonik geliştirme kuralları kökteki `AGENTS.md`
 dosyasındadır.

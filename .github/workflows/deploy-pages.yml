@@ -37,6 +37,9 @@ jobs:
       - name: Validate generated files
         run: npm run check
 
+      - name: Test in headless Chrome
+        run: npm run test:browser
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

@@ -191,6 +191,7 @@ global.spirits = 100;
 global.bestiary = [{ a: false }];
 global.shortcuts = [];
 global.msgs_max = 36;
+global.locale = i18n.currentLocale;
 global.text = {};
 global.text.nt = [
   "K",
@@ -221,16 +222,7 @@ global.text.wecs = [
   ["orange", "orange"],
   ["purple", "white"],
 ];
-global.text.lunarp = [
-  ["🌑", "New Moon"],
-  ["🌒", "Waxing Crescent Moon"],
-  ["🌓", "First Quarter Moon"],
-  ["🌔", "Waxing Gibbous Moon"],
-  ["🌕", "Full Moon"],
-  ["🌖", "Waning Gibbous Moon"],
-  ["🌗", "Last Quarter Moon"],
-  ["🌘", "Waning Crescent Moon"],
-];
+global.text.lunarp = i18n.get("gameText.lunarp");
 global.text.eranks = [
   "???",
   "--G",
@@ -278,9 +270,35 @@ dom.coincopper = '<small style="color:rgb(255, 116, 63)">●</small>';
 dom.coinsilver = '<small style="color:rgb(192, 192, 192)">●</small>';
 dom.coingold = '<small style="color:rgb(255, 215, 0)">●</small>';
 
-window.addEventListener("load", () => {
+let viewportFitFrame;
+
+function fitGameToViewport() {
+  const layoutWidth = 1280;
+  const layoutHeight = 780;
+  const viewportPadding = 16;
+  const widthScale = (window.innerWidth - viewportPadding) / layoutWidth;
+  const heightScale = (window.innerHeight - viewportPadding) / layoutHeight;
+  const scale = Math.max(0.1, Math.min(1, widthScale, heightScale));
+
+  document.body.style.zoom = String(scale);
+  document.documentElement.dataset.uiScale = scale.toFixed(4);
+}
+
+function scheduleGameViewportFit() {
+  cancelAnimationFrame(viewportFitFrame);
+  viewportFitFrame = requestAnimationFrame(fitGameToViewport);
+}
+
+function startGame() {
+  fitGameToViewport();
   load();
-});
+  scheduleGameViewportFit();
+}
+
+window.addEventListener("resize", scheduleGameViewportFit);
+
+if (document.readyState === "complete") queueMicrotask(startGame);
+else window.addEventListener("load", startGame, { once: true });
 
 function save(lvr) {
   const storage = window.localStorage;
@@ -536,7 +554,8 @@ function save(lvr) {
   str = utf8_to_b64(str);
   storage.setItem("v0.3", str);
   global.flags.savestate = false;
-  if (!lvr) msg("Game Saved", "cyan");
+  if (!lvr)
+    msg(i18n.t("runtime.core.bootstrap.dialogue.game_saved_2cb7f3fc"), "cyan");
   return str;
 }
 
@@ -549,7 +568,9 @@ dom.loading.style.backgroundColor = "lightgrey";
 dom.loading.style.margin = -8;
 dom.loadingt = addElement(document.body, "div");
 dom.loadingt.style.zIndex = 9998;
-dom.loadingt.innerHTML = "LOADING";
+dom.loadingt.innerHTML = i18n.t(
+  "runtime.core.bootstrap.interface.loading_bb8af242",
+);
 dom.loadingt.style.textAlign = "center";
 dom.loadingt.style.top = window.innerHeight / 2 - 50;
 dom.loadingt.style.fontSize = "4em";
@@ -573,8 +594,9 @@ function load(dt) {
       appear(dom.error);
     }, 500);
     dom.error.style.textAlign = "center";
-    dom.error.innerHTML =
-      "SOMETHING BROKE<br>PERHAPS DUE TO STUPIDITY OR DATA STRUCTURE CHANGES<br>⋗1 DELETING THE SAVE IS ADVISED<br>⋗2 OR WAITING FOR SOME TIME TIL FIXED<br>⋗3 OR CHECKING IN DIFFERENT BROWSER, MIGHT WORK THERE(MEANS THE SAVE IS BORKED(REFER TO 1))";
+    dom.error.innerHTML = i18n.t(
+      "runtime.core.bootstrap.interface.something_broke_perhaps_due_to_stupidity_or_data_446e154f",
+    );
     clearInterval(timers.mnch);
     clearInterval(timers.snch);
     clearInterval(timers.autos);
@@ -1099,10 +1121,14 @@ function load(dt) {
     dom.d5_3_1.update();
     if (global.flags.m_freeze === true) dom.m_b_1_c.innerHTML = "Ｘ";
     if (global.flags.m_blh === true) dom.m_b_2_c.innerHTML = "Ｘ";
-    if (global.flags.jnlu) dom.ct_bt6.innerHTML = "journal";
-    if (global.flags.asbu) dom.ct_bt1.innerHTML = "assemble";
-    if (global.flags.actsu) dom.ct_bt3.innerHTML = "actions";
-    if (global.flags.sklu) dom.ct_bt2.innerHTML = "skills";
+    if (global.flags.jnlu)
+      dom.ct_bt6.innerHTML = i18n.t("ui.navigation.journal");
+    if (global.flags.asbu)
+      dom.ct_bt1.innerHTML = i18n.t("ui.navigation.assemble");
+    if (global.flags.actsu)
+      dom.ct_bt3.innerHTML = i18n.t("ui.navigation.actions");
+    if (global.flags.sklu)
+      dom.ct_bt2.innerHTML = i18n.t("ui.navigation.skills");
     if (global.flags.m_un === true) {
       dom.mn_2.style.display = "";
       dom.mn_4.style.display = "";
@@ -1116,7 +1142,7 @@ function load(dt) {
       dom.d_moon,
       null,
       2,
-      "Lunar Phase",
+      i18n.t("runtime.core.bootstrap.description.lunar_phase_0004b314"),
       global.text.lunarp[getLunarPhase()][1],
     );
     wdrseason(global.flags.ssngaijin);

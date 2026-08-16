@@ -10,6 +10,9 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added JSON-based internationalization with `locales/en.json`, locale discovery,
+  English fallback, and a persistent language selector under Settings.
+- Added locale validation and a local HTTP server for testing JSON-loaded builds.
 - Added `AGENTS.md` as the single canonical project reference for all agents.
 - Added Turkish translations for the README, agent instructions, and repository
   changelog as `.TR.md` files.
@@ -19,6 +22,14 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Made the fixed-layout interface scale down automatically to fit smaller browser
+  viewports.
+- Documented the maintained and upstream GitHub Pages URLs, portable internal-link
+  requirements, viewport expectations, changelog policy, and response-language
+  preference.
+- Moved shared interface labels, 22 reusable game-text collections, 1,242 content
+  names/descriptions, and 726 reusable runtime messages out of JavaScript and into
+  the English locale file.
 - Split the monolithic `index.html` into CSS, functional JavaScript sources, and
   a small HTML entry point.
 - Grouped JavaScript sources under `core`, `data`, `systems`, `ui`, `utils`, and
@@ -29,6 +40,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Fixed the in-game changelog link on GitHub Pages deployments hosted below a
+  repository project path.
 - Preserved legacy global function-hoisting behavior by generating a single
   browser bundle from the separated sources.
 - Prevented development dependencies from being included in the GitHub Pages

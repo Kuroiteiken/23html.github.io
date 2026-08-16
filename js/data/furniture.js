@@ -19,8 +19,8 @@ function Furniture() {
 
 furniture.cat = new Furniture();
 furniture.cat.id = 2;
-furniture.cat.name = "Cat";
-furniture.cat.desc = "Your best feline friend";
+furniture.cat.name = i18n.t("content.furniture.cat.name");
+furniture.cat.desc = i18n.t("content.furniture.cat.desc");
 furniture.cat.data = {
   age: DAY * 15,
   c: 0,
@@ -41,9 +41,8 @@ furniture.cat.use = function () {
 
 furniture.frplc = new Furniture();
 furniture.frplc.id = 3;
-furniture.frplc.name = "Fireplace";
-furniture.frplc.desc =
-  "Comfy fireplace. You can light it up for various useful means, or just to warm up";
+furniture.frplc.name = i18n.t("content.furniture.frplc.name");
+furniture.frplc.desc = i18n.t("content.furniture.frplc.desc");
 furniture.frplc.data = { fuel: 0, amount: 0 };
 furniture.frplc.v = 3;
 furniture.frplc.use = function () {
@@ -52,9 +51,8 @@ furniture.frplc.use = function () {
 
 furniture.bed1 = new Furniture();
 furniture.bed1.id = 4;
-furniture.bed1.name = "Straw Bedding";
-furniture.bed1.desc =
-  'A "bed" made from several layers of straw placed onto each other. Extremely itchy and isn\'t much better from sleeping on a rock';
+furniture.bed1.name = i18n.t("content.furniture.bed1.name");
+furniture.bed1.desc = i18n.t("content.furniture.bed1.desc");
 furniture.bed1.data = { amount: 0 };
 furniture.bed1.sq = 0.1;
 furniture.bed1.v = 1;
@@ -65,9 +63,8 @@ furniture.bed1.onGive = function () {
 furniture.bed2 = new Furniture();
 furniture.bed2.id = 5;
 furniture.bed2.removable = true;
-furniture.bed2.name = "Plain Bed";
-furniture.bed2.desc =
-  "Crude planks cobbled together to form a container for a matress or such. Not a whole lot in terms of sleeping place, but somewhat better than a hard cold floor";
+furniture.bed2.name = i18n.t("content.furniture.bed2.name");
+furniture.bed2.desc = i18n.t("content.furniture.bed2.desc");
 furniture.bed2.data = { amount: 0 };
 furniture.bed2.sq = 1;
 furniture.bed2.v = 5;
@@ -82,7 +79,7 @@ furniture.bed2.onRemove = function () {
 furniture.tbwr1 = new Furniture();
 furniture.tbwr1.id = 6;
 furniture.tbwr1.removable = true;
-furniture.tbwr1.name = "Wooden Tableware";
+furniture.tbwr1.name = i18n.t("content.furniture.tbwr1.name");
 furniture.tbwr1.desc =
   "Cheap massproduced tableware carved from wood. Kind of a pain to wash" +
   dom.dseparator +
@@ -106,9 +103,8 @@ furniture.tbwr1.onRemove = function () {
 furniture.tbwr2 = new Furniture();
 furniture.tbwr2.id = 7;
 furniture.tbwr2.removable = true;
-furniture.tbwr2.name = "Clay Tableware";
-furniture.tbwr2.desc =
-  "Tableware made from hardened clay. Easy to make and doesn't cost very much";
+furniture.tbwr2.name = i18n.t("content.furniture.tbwr2.name");
+furniture.tbwr2.desc = i18n.t("content.furniture.tbwr2.desc");
 furniture.tbwr2.data = { amount: 0 };
 furniture.tbwr2.v = 9;
 furniture.tbwr2.onGive = function () {};
@@ -116,9 +112,8 @@ furniture.tbwr2.onGive = function () {};
 furniture.tbwr3 = new Furniture();
 furniture.tbwr3.id = 8;
 furniture.tbwr3.removable = true;
-furniture.tbwr3.name = "Ceramic Tableware";
-furniture.tbwr3.desc =
-  "Quality and shiny ceramic tableware. Though it is commonly available and not expensive, some prefer to display it on the shelves for decorative purposes";
+furniture.tbwr3.name = i18n.t("content.furniture.tbwr3.name");
+furniture.tbwr3.desc = i18n.t("content.furniture.tbwr3.desc");
 furniture.tbwr3.data = { amount: 0 };
 furniture.tbwr3.v = 21;
 furniture.tbwr3.onGive = function () {};
@@ -126,8 +121,8 @@ furniture.tbwr3.onGive = function () {};
 furniture.wvbkt = new Furniture();
 furniture.wvbkt.id = 9;
 furniture.wvbkt.removable = true;
-furniture.wvbkt.name = "Straw Basket";
-furniture.wvbkt.desc = "Small woven basket. For storing stuff in";
+furniture.wvbkt.name = i18n.t("content.furniture.wvbkt.name");
+furniture.wvbkt.desc = i18n.t("content.furniture.wvbkt.desc");
 furniture.wvbkt.data = { amount: 0 };
 furniture.wvbkt.onRemove = function () {
   giveItem(item.wvbkt, 1, true);
@@ -135,16 +130,15 @@ furniture.wvbkt.onRemove = function () {
 
 furniture.strgbx = new Furniture();
 furniture.strgbx.id = 10;
-furniture.strgbx.name = "Storage Box";
-furniture.strgbx.desc =
-  "Huge container with a secure padlock. You can put your possessions inside to keep them safe.";
+furniture.strgbx.name = i18n.t("content.furniture.strgbx.name");
+furniture.strgbx.desc = i18n.t("content.furniture.strgbx.desc");
 furniture.strgbx.data = { amount: 0 };
 furniture.strgbx.v = 2;
 
 furniture.bblkt = new Furniture();
 furniture.bblkt.id = 11;
 furniture.bblkt.removable = true;
-furniture.bblkt.name = "Ragwork Blanket";
+furniture.bblkt.name = i18n.t("content.furniture.bblkt.name");
 furniture.bblkt.desc =
   "More like a long sheet of cloth folded trice and stitched in. Barely offers any warmth, but keeps you from getting frostbites if it's windy" +
   dom.dseparator +
@@ -168,7 +162,7 @@ furniture.bblkt.onRemove = function () {
 furniture.spillw = new Furniture();
 furniture.spillw.id = 12;
 furniture.spillw.removable = true;
-furniture.spillw.name = "Straw Pillow";
+furniture.spillw.name = i18n.t("content.furniture.spillw.name");
 furniture.spillw.desc =
   "More like a healthy dose of dry grass in a sack. Uneven, hard, itchy, and probably bad for your neck. Despite that, it still passes as a basic tool of comfort" +
   dom.dseparator +
@@ -192,7 +186,7 @@ furniture.spillw.onRemove = function () {
 furniture.cyrn = new Furniture();
 furniture.cyrn.id = 13;
 furniture.cyrn.removable = true;
-furniture.cyrn.name = "Yarn Ball";
+furniture.cyrn.name = i18n.t("content.furniture.cyrn.name");
 furniture.cyrn.desc =
   "Fluffy ball of yarn which is normally used as a material for knitting. Cats love these and often claim them as toys" +
   dom.dseparator +
@@ -214,7 +208,7 @@ furniture.cyrn.onRemove = function () {
 furniture.fwdpile = new Furniture();
 furniture.fwdpile.id = 14;
 furniture.fwdpile.removable = true;
-furniture.fwdpile.name = "Firewood Pile";
+furniture.fwdpile.name = i18n.t("content.furniture.fwdpile.name");
 furniture.fwdpile.desc = function () {
   return (
     "Stockpile of firewood neatly packed together for easy storage" +
@@ -235,11 +229,17 @@ furniture.fwdpile.onRemove = function () {
 furniture.fwdpile.onSelect = function () {
   const f = item.fwd1;
   if (f.amount === 0) {
-    msg("No firewood!", "orange");
+    msg(
+      i18n.t("runtime.data.furniture.dialogue.no_firewood_b95f4dfa"),
+      "orange",
+    );
     return;
   }
   if (this.data.fuel === this.data.amount * 5) {
-    msg("Firewood pile is full", "cyan");
+    msg(
+      i18n.t("runtime.data.furniture.dialogue.firewood_pile_is_full_c10ca17f"),
+      "cyan",
+    );
     return;
   } else {
     let n = this.data.amount * 5 - this.data.fuel;
@@ -252,7 +252,7 @@ furniture.fwdpile.onSelect = function () {
 furniture.bookgen = new Furniture();
 furniture.bookgen.id = 15;
 furniture.bookgen.removable = true;
-furniture.bookgen.name = "Book";
+furniture.bookgen.name = i18n.t("content.furniture.bookgen.name");
 furniture.bookgen.desc = function () {
   return (
     "Book which you've already read. It doesn't contain any new useful information" +

@@ -10,7 +10,8 @@ ardından bu çeviriyi eşitleyin.
 ## Proje sınırları
 
 - `changelog/changelog.html` yalnızca oyuncuya dönük oyun sürümlerini, içerik
-  eklemelerini ve oyun değişikliklerini tutar.
+  eklemelerini ve oyun değişikliklerini tutar. Oyun genelinde yapılan her
+  geliştirme için buraya bir kayıt ekleyin.
 - Kök `CHANGELOG.md` kod, mimari, araç, dokümantasyon ve deployment
   değişikliklerini tutar.
 - `README.md` İngilizce geliştirici rehberidir; `README.TR.md` Türkçe çevirisidir.
@@ -25,6 +26,7 @@ ardından bu çeviriyi eşitleyin.
 - `js/ui/`: DOM ve render kodu.
 - `js/utils/`: genel yardımcılar.
 - `js/world/`: alanlar, sektörler ve konumlar.
+- `locales/`: dil kayıt listesi ve JSON çeviri dosyaları.
 - `scripts/`: build ve yayın çıktısı araçları.
 
 ## Zorunlu çalışma akışı
@@ -35,8 +37,7 @@ ardından bu çeviriyi eşitleyin.
 4. `npm run format` çalıştırın.
 5. `npm run build` ile bundle ve `dist/` çıktısını yeniden üretin.
 6. `npm run check` çalıştırın.
-7. Mümkünse `dist/index.html` dosyasını gerçek bir tarayıcıda açarak runtime
-   hatalarını kontrol edin.
+7. Chrome veya Chromium kullanılabiliyorsa `npm run test:browser` çalıştırın.
 
 ## Uyumluluk kuralları
 
@@ -47,10 +48,24 @@ ardından bu çeviriyi eşitleyin.
 - Global değişkenleri module scope'a taşımak veya strict mode açmak ayrı ve
   planlı bir migration gerektirir.
 - Dosyaları UTF-8 tutun ve bozuk karakter kodlaması üretmeyin.
+- Oyuncuya dönük yeni ortak arayüz metinlerini `locales/en.json` içine ekleyin,
+  `i18n.t()` veya `i18n.get()` üzerinden kullanın ve çeviri anahtarlarını diller
+  arasında koruyun.
+- Yeni dil dosyalarını `locales/manifest.json` içine kaydedin; eksik çeviriler
+  İngilizce fallback kullanabilir.
 - Davranış değişikliklerini yalnızca kullanıcı talebi kapsamındaysa yapın.
+- Arayüz değişikliklerini mümkün olduğunca sabit yerleşimli oyunun tamamını
+  ekranda tutacak şekilde tasarlayın ve küçük ekran boyutlarında test edin.
+- Repository sahibine Türkçe cevap verin. Forklarda mevcut kullanıcının dil
+  tercihini izleyin.
 
 ## Deployment
 
 - GitHub Pages kaynağı GitHub Actions olmalıdır.
 - `main` dalına push, `.github/workflows/deploy-pages.yml` akışını tetikler.
 - Yalnızca `dist/` Pages artifact'i olarak yüklenir.
+- Bakımı yapılan yayın `https://kuroiteiken.github.io/23html.github.io/`, upstream
+  yayın ise `https://23html.github.io/` adresindedir.
+- Dahili bağlantılar hem alan adı kökünde hem GitHub Pages proje alt yolunda
+  çalışmalıdır. `/changelog/...` gibi köke göre yolları sabit kodlamayın; belge
+  tabanını dikkate alan veya göreli bir URL kullanın.

@@ -123,7 +123,7 @@ function Mastery(id) {
 }
 
 mastery.str1 = new Mastery(1);
-mastery.str1.name = "Physical Training";
+mastery.str1.name = i18n.t("content.mastery.str1.name");
 mastery.str1.desc = function () {
   return (
     "Simple improvements to body physique" +
@@ -146,7 +146,7 @@ mastery.str1.onlevel = function () {
 mastery.str1.icon = [6, 3];
 
 mastery.agl1 = new Mastery(2);
-mastery.agl1.name = "Athletics";
+mastery.agl1.name = i18n.t("content.mastery.agl1.name");
 mastery.agl1.desc = function () {
   return (
     "" +
@@ -166,14 +166,14 @@ mastery.agl1.limit = 10;
 mastery.agl1.icon = [7, 3];
 
 mastery.xtr1 = new Mastery(3);
-mastery.xtr1.name = "Observation";
+mastery.xtr1.name = i18n.t("content.mastery.xtr1.name");
 mastery.xtr1.have = true;
 mastery.xtr1.x = 430;
 mastery.xtr1.limit = 10;
 mastery.xtr1.icon = [1, 7];
 
 mastery.fse1 = new Mastery(4);
-mastery.fse1.name = "Reflexes";
+mastery.fse1.name = i18n.t("content.mastery.fse1.name");
 mastery.fse1.x = 230;
 mastery.fse1.y = 200;
 mastery.fse1.linkfrom = [mastery.str1, mastery.agl1, mastery.xtr1];

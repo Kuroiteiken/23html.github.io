@@ -120,7 +120,10 @@ function You() {
   this.drop = [{ item: item.death_b, chance: 1 }];
   this.onDeath = function (killer) {
     if (you.res.death < 1 && random() >= you.res.death) {
-      msg("You avoid death...", "lightgrey");
+      msg(
+        i18n.t("runtime.core.player.dialogue.you_avoid_death_d751acb1"),
+        "lightgrey",
+      );
       you.hp = Math.ceil(you.hpmax * 0.1);
     } else {
       callback.onDeath.fire(this, killer);
@@ -150,7 +153,12 @@ function You() {
       global.current_z.onDeath();
       if (sector.home.data.smkp > 0) {
         smove(chss.lsmain1, false);
-        msg("You ran out of your smoked up house", "grey");
+        msg(
+          i18n.t(
+            "runtime.core.player.dialogue.you_ran_out_of_your_smoked_up_house_a870053b",
+          ),
+          "grey",
+        );
       } else smove(chss.hbed, false);
       global.current_z = area.nwh;
       dom.hit_c();

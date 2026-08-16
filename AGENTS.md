@@ -10,7 +10,8 @@ translation.
 ## Project boundaries
 
 - `changelog/changelog.html` contains only player-facing game releases, content
-  additions, and gameplay changes.
+  additions, and gameplay changes. Add an entry there for every general game
+  development change.
 - The root `CHANGELOG.md` contains code, architecture, tooling, documentation,
   and deployment changes.
 - `README.md` is the English developer guide; `README.TR.md` is its Turkish
@@ -26,6 +27,7 @@ translation.
 - `js/ui/`: DOM and rendering code.
 - `js/utils/`: general helpers.
 - `js/world/`: areas, sectors, and locations.
+- `locales/`: locale registry and JSON translation files.
 - `scripts/`: build and deployment-output tools.
 
 ## Required workflow
@@ -36,8 +38,7 @@ translation.
 4. Run `npm run format`.
 5. Run `npm run build` to regenerate the bundle and `dist/` output.
 6. Run `npm run check`.
-7. When possible, open `dist/index.html` in a real browser and check for runtime
-   errors.
+7. Run `npm run test:browser` when Chrome or Chromium is available.
 
 ## Compatibility rules
 
@@ -48,10 +49,23 @@ translation.
 - Moving globals into module scope or enabling strict mode requires a separate,
   deliberate migration.
 - Keep files in UTF-8 and do not introduce mojibake.
+- Put new player-facing shared UI text in `locales/en.json`, reference it through
+  `i18n.t()` or `i18n.get()`, and preserve translation keys across locales.
+- Register new locale files in `locales/manifest.json`; non-English locales may
+  rely on the English fallback while translations are incomplete.
 - Make behavior changes only when they are within the user's requested scope.
+- Design UI changes to keep the complete fixed-layout game visible in the
+  viewport where practical, and test them at reduced viewport sizes.
+- Reply to the repository owner in Turkish. On forks, follow the current user's
+  language preference.
 
 ## Deployment
 
 - GitHub Pages must use GitHub Actions as its source.
 - A push to `main` triggers `.github/workflows/deploy-pages.yml`.
 - Only `dist/` is uploaded as the Pages artifact.
+- The maintained deployment is `https://kuroiteiken.github.io/23html.github.io/`;
+  the upstream deployment is `https://23html.github.io/`.
+- Internal links must work both at a domain root and below a GitHub Pages project
+  path. Do not hard-code root-relative paths such as `/changelog/...`; use a
+  document-base-aware URL or a relative URL.

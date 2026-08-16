@@ -22,7 +22,7 @@ function Skill() {
 skl.fgt = new Skill();
 skl.fgt.id = 101;
 skl.fgt.type = 1;
-skl.fgt.name = "Fighting";
+skl.fgt.name = i18n.t("content.skl.fgt.name");
 skl.fgt.desc =
   "Ability to perform better in a fight" +
   dom.dseparator +
@@ -135,7 +135,7 @@ skl.fgt.mlstn = [
 skl.unc = new Skill();
 skl.unc.id = 102;
 skl.unc.type = 1;
-skl.unc.name = "Unarmed M";
+skl.unc.name = i18n.t("content.skl.unc.name");
 skl.unc.bname = "Unarmed Mastery";
 skl.unc.desc =
   "Mastery of unarmed combat" +
@@ -197,7 +197,7 @@ skl.unc.mlstn = [
 skl.srdc = new Skill();
 skl.srdc.id = 103;
 skl.srdc.type = 1;
-skl.srdc.name = "Sword M";
+skl.srdc.name = i18n.t("content.skl.srdc.name");
 skl.srdc.bname = "Sword Mastery";
 skl.srdc.desc =
   "Ability to fight using swords" +
@@ -270,7 +270,7 @@ skl.srdc.mlstn = [
 skl.knfc = new Skill();
 skl.knfc.id = 104;
 skl.knfc.type = 1;
-skl.knfc.name = "Knife M";
+skl.knfc.name = i18n.t("content.skl.knfc.name");
 skl.knfc.bname = "Knife Mastery";
 skl.knfc.desc =
   "Ability to fight using knives and daggers" +
@@ -342,7 +342,7 @@ skl.knfc.mlstn = [
 skl.axc = new Skill();
 skl.axc.id = 105;
 skl.axc.type = 1;
-skl.axc.name = "Axe M";
+skl.axc.name = i18n.t("content.skl.axc.name");
 skl.axc.bname = "Axe Mastery";
 skl.axc.desc =
   "Ability to fight using axes" +
@@ -417,7 +417,7 @@ skl.axc.mlstn = [
 skl.plrmc = new Skill();
 skl.plrmc.id = 106;
 skl.plrmc.type = 1;
-skl.plrmc.name = "Polearm M";
+skl.plrmc.name = i18n.t("content.skl.plrmc.name");
 skl.plrmc.bname = "Polearm Mastery";
 skl.plrmc.desc =
   "Ability to fight using polearms and lances" +
@@ -490,7 +490,7 @@ skl.plrmc.mlstn = [
 skl.hmrc = new Skill();
 skl.hmrc.id = 107;
 skl.hmrc.type = 1;
-skl.hmrc.name = "Hammer M";
+skl.hmrc.name = i18n.t("content.skl.hmrc.name");
 skl.hmrc.bname = "Hammer Mastery";
 skl.hmrc.desc =
   "Ability to fight using blunt weaponry" +
@@ -564,9 +564,9 @@ skl.hmrc.mlstn = [
 skl.stfc = new Skill();
 skl.stfc.id = 108;
 skl.stfc.type = 1;
-skl.stfc.name = "Staff M";
+skl.stfc.name = i18n.t("content.skl.stfc.name");
 skl.stfc.bname = "Staff Mastery";
-skl.stfc.desc = "Ability to fight using staves and wands";
+skl.stfc.desc = i18n.t("content.skl.stfc.desc");
 skl.stfc.use = function (x, y) {
   you.int += (you.int / 100) * (this.lvl * 5);
 };
@@ -574,9 +574,9 @@ skl.stfc.use = function (x, y) {
 skl.shdc = new Skill();
 skl.shdc.id = 109;
 skl.shdc.type = 1;
-skl.shdc.name = "Shield M";
+skl.shdc.name = i18n.t("content.skl.shdc.name");
 skl.shdc.bname = "Shield Mastery";
-skl.shdc.desc = "Ability to use shields better";
+skl.shdc.desc = i18n.t("content.skl.shdc.desc");
 skl.shdc.use = function (x, y) {
   giveSkExp(this, x || 1);
   you.str += (you.str / 100) * (this.lvl * 5);
@@ -652,7 +652,7 @@ skl.shdc.mlstn = [
 skl.sleep = new Skill();
 skl.sleep.id = 110;
 skl.sleep.type = 4;
-skl.sleep.name = "Sleeping";
+skl.sleep.name = i18n.t("content.skl.sleep.name");
 skl.sleep.desc =
   "The rest of Body" +
   dom.dseparator +
@@ -772,7 +772,7 @@ skl.sleep.mlstn = [
 skl.seye = new Skill();
 skl.seye.id = 111;
 skl.seye.type = 3;
-skl.seye.name = "Sharp Eye";
+skl.seye.name = i18n.t("content.skl.seye.name");
 skl.seye.desc =
   "Ability to notice weak points" +
   dom.dseparator +
@@ -864,7 +864,7 @@ skl.seye.mlstn = [
 skl.pet = new Skill();
 skl.pet.id = 112;
 skl.pet.type = 10;
-skl.pet.name = "Patting";
+skl.pet.name = i18n.t("content.skl.pet.name");
 skl.pet.desc =
   "Mastery of petting animals" +
   dom.dseparator +
@@ -954,8 +954,8 @@ skl.pet.mlstn = [
 skl.walk = new Skill();
 skl.walk.id = 113;
 skl.walk.type = 4;
-skl.walk.name = "Walking";
-skl.walk.desc = "Ability to walk";
+skl.walk.name = i18n.t("content.skl.walk.name");
+skl.walk.desc = i18n.t("content.skl.walk.desc");
 skl.walk.use = function (x, y) {
   giveSkExp(this, 0.5);
 };
@@ -1073,8 +1073,8 @@ skl.walk.mlstn = [
 skl.dice = new Skill();
 skl.dice.id = 114;
 skl.dice.type = 10;
-skl.dice.name = "Gambling";
-skl.dice.desc = "Skill of chances";
+skl.dice.name = i18n.t("content.skl.dice.name");
+skl.dice.desc = i18n.t("content.skl.dice.desc");
 skl.dice.use = function (x, y) {
   giveSkExp(this, x || 1);
 };
@@ -1103,8 +1103,8 @@ skl.dice.mlstn = [
 skl.glt = new Skill();
 skl.glt.id = 115;
 skl.glt.type = 4;
-skl.glt.name = "Gluttony";
-skl.glt.desc = "Mastery of eating";
+skl.glt.name = i18n.t("content.skl.glt.name");
+skl.glt.desc = i18n.t("content.skl.glt.desc");
 skl.glt.use = function (x, y) {
   giveSkExp(this, x || 1);
   return this.lvl || 1;
@@ -1263,7 +1263,7 @@ skl.glt.mlstn = [
 skl.rdg = new Skill();
 skl.rdg.id = 116;
 skl.rdg.type = 4;
-skl.rdg.name = "Literacy";
+skl.rdg.name = i18n.t("content.skl.rdg.name");
 skl.rdg.desc =
   "Understanding of meaning behind texts" +
   dom.dseparator +
@@ -1317,7 +1317,7 @@ skl.rdg.mlstn = [
 skl.cook = new Skill();
 skl.cook.id = 117;
 skl.cook.type = 5;
-skl.cook.name = "Cooking";
+skl.cook.name = i18n.t("content.skl.cook.name");
 skl.cook.desc =
   "The art of Cooking" +
   dom.dseparator +
@@ -1359,8 +1359,8 @@ skl.cook.mlstn = [
 skl.mdt = new Skill();
 skl.mdt.id = 118;
 skl.mdt.type = 4;
-skl.mdt.name = "Meditation";
-skl.mdt.desc = "The rest of Mind";
+skl.mdt.name = i18n.t("content.skl.mdt.name");
+skl.mdt.desc = i18n.t("content.skl.mdt.desc");
 skl.mdt.use = function (x, y) {
   return this.lvl;
 };
@@ -1368,7 +1368,7 @@ skl.mdt.use = function (x, y) {
 skl.crft = new Skill();
 skl.crft.id = 119;
 skl.crft.type = 5;
-skl.crft.name = "Crafting";
+skl.crft.name = i18n.t("content.skl.crft.name");
 skl.crft.desc =
   "The art of Creation" +
   dom.dseparator +
@@ -1381,8 +1381,8 @@ skl.crft.use = function (x, y) {
 skl.alch = new Skill();
 skl.alch.id = 120;
 skl.alch.type = 5;
-skl.alch.name = "Alchemy";
-skl.alch.desc = "Knowledge of medicine and alchemical transmutation";
+skl.alch.name = i18n.t("content.skl.alch.name");
+skl.alch.desc = i18n.t("content.skl.alch.desc");
 skl.alch.use = function (x, y) {
   giveSkExp(this, x || 1);
   return this.lvl || 1;
@@ -1402,7 +1402,7 @@ skl.alch.mlstn = [
 skl.thr = new Skill();
 skl.thr.id = 121;
 skl.thr.type = 2;
-skl.thr.name = "Throwing";
+skl.thr.name = i18n.t("content.skl.thr.name");
 skl.thr.desc =
   "Mastery of throwing" +
   dom.dseparator +
@@ -1414,9 +1414,9 @@ skl.thr.use = function (x, y) {
 skl.bwc = new Skill();
 skl.bwc.id = 122;
 skl.bwc.type = 1;
-skl.bwc.name = "Ranged M";
+skl.bwc.name = i18n.t("content.skl.bwc.name");
 skl.bwc.bname = "Ranged Mastery";
-skl.bwc.desc = "Ability to utilize bows and crossbows in combat";
+skl.bwc.desc = i18n.t("content.skl.bwc.desc");
 skl.bwc.use = function (x, y) {
   you.str += (you.str / 100) * (this.lvl * 5);
 };
@@ -1424,7 +1424,7 @@ skl.bwc.use = function (x, y) {
 skl.ntst = new Skill();
 skl.ntst.id = 123;
 skl.ntst.type = 3;
-skl.ntst.name = "Nightsight";
+skl.ntst.name = i18n.t("content.skl.ntst.name");
 skl.ntst.desc =
   "Ability to see better in the darkness" +
   dom.dseparator +
@@ -1436,8 +1436,8 @@ skl.ntst.use = function (x, y) {
 skl.evas = new Skill();
 skl.evas.id = 124;
 skl.evas.type = 3;
-skl.evas.name = "Evasion";
-skl.evas.desc = "Ability to dodge attacks";
+skl.evas.name = i18n.t("content.skl.evas.name");
+skl.evas.desc = i18n.t("content.skl.evas.desc");
 skl.evas.use = function (x, y) {
   giveSkExp(this, x || 1);
 };
@@ -1445,8 +1445,8 @@ skl.evas.use = function (x, y) {
 skl.gred = new Skill();
 skl.gred.id = 125;
 skl.gred.type = 4;
-skl.gred.name = "Greed";
-skl.gred.desc = "The power of possessions";
+skl.gred.name = i18n.t("content.skl.gred.name");
+skl.gred.desc = i18n.t("content.skl.gred.desc");
 skl.gred.use = function (x, y) {
   return true;
 };
@@ -1454,7 +1454,7 @@ skl.gred.use = function (x, y) {
 skl.dngs = new Skill();
 skl.dngs.id = 126;
 skl.dngs.type = 3;
-skl.dngs.name = "Danger Sense";
+skl.dngs.name = i18n.t("content.skl.dngs.name");
 skl.dngs.desc =
   "Ability to detect and avoid danger" +
   dom.dseparator +
@@ -1518,7 +1518,7 @@ skl.dngs.mlstn = [
 skl.painr = new Skill();
 skl.painr.id = 127;
 skl.painr.type = 6;
-skl.painr.name = "Pain Resistance";
+skl.painr.name = i18n.t("content.skl.painr.name");
 skl.painr.sp = ".66em";
 skl.painr.desc =
   "Ability to tolerate physical harm" +
@@ -1571,7 +1571,7 @@ skl.painr.mlstn = [
 skl.poisr = new Skill();
 skl.poisr.id = 128;
 skl.poisr.type = 6;
-skl.poisr.name = "Poison Resistance";
+skl.poisr.name = i18n.t("content.skl.poisr.name");
 skl.poisr.sp = "0.66em";
 skl.poisr.desc =
   "Ability to tolerate harmful poisons" +
@@ -1584,7 +1584,7 @@ skl.poisr.use = function (x, y) {
 skl.fdpnr = new Skill();
 skl.fdpnr.id = 129;
 skl.fdpnr.type = 4;
-skl.fdpnr.name = "Survival";
+skl.fdpnr.name = i18n.t("content.skl.fdpnr.name");
 skl.fdpnr.desc =
   "Ability to safely digest dangerous food" +
   dom.dseparator +
@@ -1674,7 +1674,7 @@ skl.fdpnr.mlstn = [
 skl.war = new Skill();
 skl.war.id = 130;
 skl.war.type = 3;
-skl.war.name = "War";
+skl.war.name = i18n.t("content.skl.war.name");
 skl.war.desc =
   "Mastery of destruction and military tactics" +
   dom.dseparator +
@@ -1686,8 +1686,8 @@ skl.war.use = function (x, y) {
 skl.stel = new Skill();
 skl.stel.id = 131;
 skl.stel.type = 3;
-skl.stel.name = "Stealing";
-skl.stel.desc = "Ability to pilfer";
+skl.stel.name = i18n.t("content.skl.stel.name");
+skl.stel.desc = i18n.t("content.skl.stel.desc");
 skl.stel.use = function (x, y) {
   return this.lvl * 0.05;
 };
@@ -1695,7 +1695,7 @@ skl.stel.use = function (x, y) {
 skl.dth = new Skill();
 skl.dth.id = 132;
 skl.dth.type = 4;
-skl.dth.name = "Death";
+skl.dth.name = i18n.t("content.skl.dth.name");
 skl.dth.desc =
   "Ability to cling to your fate" +
   dom.dseparator +
@@ -1772,8 +1772,8 @@ skl.dth.mlstn = [
 skl.rtr = new Skill();
 skl.rtr.id = 133;
 skl.rtr.type = 3;
-skl.rtr.name = "Elusion";
-skl.rtr.desc = "Ability to escape danger";
+skl.rtr.name = i18n.t("content.skl.rtr.name");
+skl.rtr.desc = i18n.t("content.skl.rtr.desc");
 skl.rtr.use = function (x, y) {
   return this.lvl;
 };
@@ -1781,7 +1781,7 @@ skl.rtr.use = function (x, y) {
 skl.fmn = new Skill();
 skl.fmn.id = 134;
 skl.fmn.type = 4;
-skl.fmn.name = "Famine";
+skl.fmn.name = i18n.t("content.skl.fmn.name");
 skl.fmn.desc =
   "Ability to go by without any sustenance" +
   dom.dseparator +
@@ -1862,7 +1862,7 @@ skl.fmn.mlstn = [
 skl.abw = new Skill();
 skl.abw.id = 135;
 skl.abw.type = 7;
-skl.abw.name = "Water Absorption";
+skl.abw.name = i18n.t("content.skl.abw.name");
 skl.abw.sp = "0.66em";
 skl.abw.desc =
   "Ability to absorb Water Ki and assimilate it within your body" +
@@ -1882,7 +1882,7 @@ skl.abw.onGive = function (x) {
 skl.abf = new Skill();
 skl.abf.id = 136;
 skl.abf.type = 7;
-skl.abf.name = "Fire Absorption";
+skl.abf.name = i18n.t("content.skl.abf.name");
 skl.abf.sp = "0.66em";
 skl.abf.desc =
   "Ability to absorb Fire Ki and assimilate it within your body" +
@@ -1902,7 +1902,7 @@ skl.abf.onGive = function (x) {
 skl.aba = new Skill();
 skl.aba.id = 137;
 skl.aba.type = 7;
-skl.aba.name = "Air Absorption";
+skl.aba.name = i18n.t("content.skl.aba.name");
 skl.aba.sp = "0.66em";
 skl.aba.desc =
   "Ability to absorb Air Ki and assimilate it within your body" +
@@ -1922,7 +1922,7 @@ skl.aba.onGive = function (x) {
 skl.abe = new Skill();
 skl.abe.id = 138;
 skl.abe.type = 7;
-skl.abe.name = "Earth Absorption";
+skl.abe.name = i18n.t("content.skl.abe.name");
 skl.abe.sp = "0.66em";
 skl.abe.desc =
   "Ability to absorb Earth Ki and assimilate it within your body" +
@@ -1942,7 +1942,7 @@ skl.abe.onGive = function (x) {
 skl.abl = new Skill();
 skl.abl.id = 139;
 skl.abl.type = 7;
-skl.abl.name = "Light Absorption";
+skl.abl.name = i18n.t("content.skl.abl.name");
 skl.abl.sp = "0.66em";
 skl.abl.desc =
   "Ability to absorb Holy Ki and assimilate it within your body" +
@@ -1962,7 +1962,7 @@ skl.abl.onGive = function (x) {
 skl.abd = new Skill();
 skl.abd.id = 140;
 skl.abd.type = 7;
-skl.abd.name = "Dark Absorption";
+skl.abd.name = i18n.t("content.skl.abd.name");
 skl.abd.sp = "0.66em";
 skl.abd.desc =
   "Ability to absorb Dark Ki and assimilate it within your body" +
@@ -1982,8 +1982,8 @@ skl.abd.onGive = function (x) {
 skl.hvt = new Skill();
 skl.hvt.id = 141;
 skl.hvt.type = 8;
-skl.hvt.name = "Foraging";
-skl.hvt.desc = "Ability to harvest gifts of Nature";
+skl.hvt.name = i18n.t("content.skl.hvt.name");
+skl.hvt.desc = i18n.t("content.skl.hvt.desc");
 skl.hvt.use = function (x, y) {
   return this.lvl;
 };
@@ -1991,8 +1991,8 @@ skl.hvt.use = function (x, y) {
 skl.glg = new Skill();
 skl.glg.id = 142;
 skl.glg.type = 8;
-skl.glg.name = "Geology";
-skl.glg.desc = "Knowledge and ability to identify precious minerals";
+skl.glg.name = i18n.t("content.skl.glg.name");
+skl.glg.desc = i18n.t("content.skl.glg.desc");
 skl.glg.use = function (x, y) {
   return this.lvl;
 };
@@ -2000,8 +2000,8 @@ skl.glg.use = function (x, y) {
 skl.mng = new Skill();
 skl.mng.id = 143;
 skl.mng.type = 8;
-skl.mng.name = "Mining";
-skl.mng.desc = "Ability to extract materials from stones and mountains";
+skl.mng.name = i18n.t("content.skl.mng.name");
+skl.mng.desc = i18n.t("content.skl.mng.desc");
 skl.mng.use = function (x, y) {
   return this.lvl;
 };
@@ -2009,8 +2009,8 @@ skl.mng.use = function (x, y) {
 skl.mntnc = new Skill();
 skl.mntnc.id = 144;
 skl.mntnc.type = 9;
-skl.mntnc.name = "Maintanence";
-skl.mntnc.desc = "Ability to repair damaged equipment";
+skl.mntnc.name = i18n.t("content.skl.mntnc.name");
+skl.mntnc.desc = i18n.t("content.skl.mntnc.desc");
 skl.mntnc.use = function (x, y) {
   return this.lvl;
 };
@@ -2018,8 +2018,8 @@ skl.mntnc.use = function (x, y) {
 skl.rccln = new Skill();
 skl.rccln.id = 145;
 skl.rccln.type = 9;
-skl.rccln.name = "Temperance";
-skl.rccln.desc = "Ability to resist temptation of worldly possessions";
+skl.rccln.name = i18n.t("content.skl.rccln.name");
+skl.rccln.desc = i18n.t("content.skl.rccln.desc");
 skl.rccln.use = function (x, y) {
   return this.lvl;
 };
@@ -2027,7 +2027,7 @@ skl.rccln.use = function (x, y) {
 skl.bledr = new Skill();
 skl.bledr.id = 146;
 skl.bledr.type = 6;
-skl.bledr.name = "Bleeding Resistance";
+skl.bledr.name = i18n.t("content.skl.bledr.name");
 skl.bledr.sp = "0.66em";
 skl.bledr.desc =
   "Ability to keep going with blood loss" +
@@ -2040,7 +2040,7 @@ skl.bledr.use = function (x, y) {
 skl.twoh = new Skill();
 skl.twoh.id = 147;
 skl.twoh.type = 1;
-skl.twoh.name = "Two Handed M";
+skl.twoh.name = i18n.t("content.skl.twoh.name");
 skl.twoh.bname = "Two Handed Mastery";
 skl.twoh.desc =
   "Ability to fight using heavy two handed weapons" +
@@ -2054,7 +2054,7 @@ skl.twoh.use = function (x, y) {
 skl.trad = new Skill();
 skl.trad.id = 148;
 skl.trad.type = 3;
-skl.trad.name = "Trading";
+skl.trad.name = i18n.t("content.skl.trad.name");
 skl.trad.desc =
   "Ability to exchange wealth for goods and services" +
   dom.dseparator +
@@ -2069,8 +2069,8 @@ skl.trad.onLevel = function () {
 skl.swm = new Skill();
 skl.swm.id = 149;
 skl.swm.type = 3;
-skl.swm.name = "Swimming";
-skl.swm.desc = "Ability to dive and traverse waters";
+skl.swm.name = i18n.t("content.skl.swm.name");
+skl.swm.desc = i18n.t("content.skl.swm.desc");
 skl.swm.use = function (x, y) {
   return this.lvl;
 };
@@ -2078,7 +2078,7 @@ skl.swm.use = function (x, y) {
 skl.dssmb = new Skill();
 skl.dssmb.id = 150;
 skl.dssmb.type = 3;
-skl.dssmb.name = "Disassembly";
+skl.dssmb.name = i18n.t("content.skl.dssmb.name");
 skl.dssmb.desc =
   "Ability to deconstruct goods into raw spare parts" +
   dom.dseparator +
@@ -2090,7 +2090,7 @@ skl.dssmb.use = function (x, y) {
 skl.tghs = new Skill();
 skl.tghs.id = 151;
 skl.tghs.type = 2;
-skl.tghs.name = "Toughness";
+skl.tghs.name = i18n.t("content.skl.tghs.name");
 skl.tghs.desc =
   "Durability of one's body" +
   dom.dseparator +
@@ -2105,8 +2105,8 @@ skl.tghs.onLevel = function () {
 skl.drka = new Skill();
 skl.drka.id = 152;
 skl.drka.type = 4;
-skl.drka.name = "Drinking";
-skl.drka.desc = "Ability to tolerate and enjoy alcoholic beverages";
+skl.drka.name = i18n.t("content.skl.drka.name");
+skl.drka.desc = i18n.t("content.skl.drka.desc");
 skl.drka.use = function (x, y) {
   return this.lvl;
 };
@@ -2114,8 +2114,8 @@ skl.drka.use = function (x, y) {
 skl.tpgrf = new Skill();
 skl.tpgrf.id = 153;
 skl.tpgrf.type = 4;
-skl.tpgrf.name = "Topography";
-skl.tpgrf.desc = "Knowledge of land surfaces";
+skl.tpgrf.name = i18n.t("content.skl.tpgrf.name");
+skl.tpgrf.desc = i18n.t("content.skl.tpgrf.desc");
 skl.tpgrf.use = function (x, y) {
   return this.lvl;
 };
@@ -2123,8 +2123,8 @@ skl.tpgrf.use = function (x, y) {
 skl.ptnc = new Skill();
 skl.ptnc.id = 154;
 skl.ptnc.type = 4;
-skl.ptnc.name = "Patience";
-skl.ptnc.desc = "Ability to endure forms of suffering without complaint";
+skl.ptnc.name = i18n.t("content.skl.ptnc.name");
+skl.ptnc.desc = i18n.t("content.skl.ptnc.desc");
 skl.ptnc.use = function (x, y) {
   return this.lvl;
 };
@@ -2132,9 +2132,8 @@ skl.ptnc.use = function (x, y) {
 skl.scout = new Skill();
 skl.scout.id = 155;
 skl.scout.type = 4;
-skl.scout.name = "Perception";
-skl.scout.desc =
-  "Ability to see the unseen and better understand your surroundings";
+skl.scout.name = i18n.t("content.skl.scout.name");
+skl.scout.desc = i18n.t("content.skl.scout.desc");
 skl.scout.use = function (x, y) {
   return this.lvl;
 };
@@ -2142,8 +2141,8 @@ skl.scout.use = function (x, y) {
 skl.jdg = new Skill();
 skl.jdg.id = 156;
 skl.jdg.type = 4;
-skl.jdg.name = "Judgement";
-skl.jdg.desc = "Ability to evaluate your choices";
+skl.jdg.name = i18n.t("content.skl.jdg.name");
+skl.jdg.desc = i18n.t("content.skl.jdg.desc");
 skl.jdg.use = function (x, y) {
   return this.lvl;
 };
@@ -2151,8 +2150,8 @@ skl.jdg.use = function (x, y) {
 skl.tlrng = new Skill();
 skl.tlrng.id = 157;
 skl.tlrng.type = 5;
-skl.tlrng.name = "Tailoring";
-skl.tlrng.desc = "Abillity to sew and create produce out of cloth";
+skl.tlrng.name = i18n.t("content.skl.tlrng.name");
+skl.tlrng.desc = i18n.t("content.skl.tlrng.desc");
 skl.tlrng.use = function (x, y) {
   giveSkExp(this, x || 1);
   return this.lvl || 1;
@@ -2161,7 +2160,7 @@ skl.tlrng.use = function (x, y) {
 skl.crptr = new Skill();
 skl.crptr.id = 158;
 skl.crptr.type = 6;
-skl.crptr.name = "Corruption Resistance";
+skl.crptr.name = i18n.t("content.skl.crptr.name");
 skl.crptr.sp = ".66em";
 skl.crptr.desc =
   "Ability to resist the corruption of flesh" +
@@ -2171,7 +2170,7 @@ skl.crptr.desc =
 skl.hst = new Skill();
 skl.hst.id = 159;
 skl.hvt.type = 8;
-skl.hst.name = "Harvesting";
+skl.hst.name = i18n.t("content.skl.hst.name");
 skl.hst.desc =
   "Ability to find and collect usable materials from the surroundings" +
   dom.dseparator +
@@ -2183,7 +2182,7 @@ skl.hst.use = function (x, y) {
 skl.coldr = new Skill();
 skl.coldr.id = 160;
 skl.coldr.type = 6;
-skl.coldr.name = "Cold Resistance";
+skl.coldr.name = i18n.t("content.skl.coldr.name");
 skl.coldr.sp = ".66em";
 skl.coldr.desc =
   "Ability to tolerate harsh and cold temperatures" +

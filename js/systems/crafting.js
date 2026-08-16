@@ -18,7 +18,7 @@ function Recipe() {
 
 rcp.test = new Recipe();
 rcp.test.id = 101;
-rcp.test.name = "Test";
+rcp.test.name = i18n.t("content.rcp.test.name");
 rcp.test.rec = [
   { item: acc.dticket, amount: 1 },
   { item: acc.dticket, amount: 1 },
@@ -27,7 +27,7 @@ rcp.test.res = [{ item: item.sbone, amount: 991 }];
 
 rcp.wp2 = new Recipe();
 rcp.wp2.id = 102;
-rcp.wp2.name = "Sharpened Stick";
+rcp.wp2.name = i18n.t("content.rcp.wp2.name");
 rcp.wp2.type = 3;
 rcp.wp2.rec = [{ item: wpn.stk1, amount: 1 }];
 rcp.wp2.res = [{ item: wpn.stk2, amount: 1 }];
@@ -44,7 +44,7 @@ rcp.wp2.srec = [
 
 rcp.strawp = new Recipe();
 rcp.strawp.id = 103;
-rcp.strawp.name = "Straw Pendant";
+rcp.strawp.name = i18n.t("content.rcp.strawp.name");
 rcp.strawp.type = 4;
 rcp.strawp.rec = [{ item: item.sstraw, amount: 5 }];
 rcp.strawp.res = [{ item: acc.strawp, amount: 1 }];
@@ -54,7 +54,7 @@ rcp.strawp.onmake = function () {
 
 rcp.hlpd = new Recipe();
 rcp.hlpd.id = 104;
-rcp.hlpd.name = "Low-grade Healing Powder";
+rcp.hlpd.name = i18n.t("content.rcp.hlpd.name");
 rcp.hlpd.type = 2;
 rcp.hlpd.rec = [{ item: item.hrb1, amount: 3 }];
 rcp.hlpd.res = [{ item: item.hlpd, amount: 1 }];
@@ -64,7 +64,7 @@ rcp.hlpd.onmake = function () {
 
 rcp.borc = new Recipe();
 rcp.borc.id = 105;
-rcp.borc.name = "Boiled Rice";
+rcp.borc.name = i18n.t("content.rcp.borc.name");
 rcp.borc.type = 1;
 rcp.borc.rec = [
   { item: item.rice, amount: 2 },
@@ -83,7 +83,7 @@ rcp.borc.srec = [
 
 rcp.begg = new Recipe();
 rcp.begg.id = 106;
-rcp.begg.name = "Boiled Egg";
+rcp.begg.name = i18n.t("content.rcp.begg.name");
 rcp.begg.type = 1;
 rcp.begg.rec = [
   { item: item.eggn, amount: 1 },
@@ -102,7 +102,7 @@ rcp.begg.srec = [
 
 rcp.trr = new Recipe();
 rcp.trr.id = 107;
-rcp.trr.name = "Trinity";
+rcp.trr.name = i18n.t("content.rcp.trr.name");
 rcp.trr.type = 4;
 rcp.trr.rec = [
   { item: acc.mstn, amount: 1 },
@@ -114,7 +114,7 @@ rcp.trr.res = [{ item: acc.trrng, amount: 1 }];
 
 rcp.rsmt = new Recipe();
 rcp.rsmt.id = 108;
-rcp.rsmt.name = "Roasted Meat";
+rcp.rsmt.name = i18n.t("content.rcp.rsmt.name");
 rcp.rsmt.type = 1;
 rcp.rsmt.rec = [{ item: item.rwmt1, amount: 1 }];
 rcp.rsmt.res = [{ item: item.rsmt, amount: 1 }];
@@ -123,7 +123,15 @@ rcp.rsmt.cmake = function () {
   if (rn >= 0.3) giveItem(rcp.rsmt.res[0].item);
   else {
     giveItem(item.brmt);
-    msg("It didn't turn out very well...", "black", null, null, "lightgrey");
+    msg(
+      i18n.t(
+        "runtime.systems.crafting.dialogue.it_didn_t_turn_out_very_well_ef183a42",
+      ),
+      "black",
+      null,
+      null,
+      "lightgrey",
+    );
   }
   giveCrExp(skl.cook, 0.2, 1);
 };
@@ -136,7 +144,7 @@ rcp.rsmt.srec = [
 
 rcp.segg = new Recipe();
 rcp.segg.id = 109;
-rcp.segg.name = "Scrambled Eggs";
+rcp.segg.name = i18n.t("content.rcp.segg.name");
 rcp.segg.type = 1;
 rcp.segg.rec = [{ item: item.eggn, amount: 2 }];
 rcp.segg.res = [{ item: item.segg, amount: 1 }];
@@ -152,7 +160,7 @@ rcp.segg.srec = [
 
 rcp.lnch1 = new Recipe();
 rcp.lnch1.id = 110;
-rcp.lnch1.name = "Bacon and Eggs";
+rcp.lnch1.name = i18n.t("content.rcp.lnch1.name");
 rcp.lnch1.type = 1;
 rcp.lnch1.rec = [
   { item: item.eggn, amount: 2 },
@@ -171,7 +179,7 @@ rcp.lnch1.srec = [
 
 rcp.lnch2 = new Recipe();
 rcp.lnch2.id = 111;
-rcp.lnch2.name = "Morning Set";
+rcp.lnch2.name = i18n.t("content.rcp.lnch2.name");
 rcp.lnch2.type = 1;
 rcp.lnch2.rec = [
   { item: item.eggn, amount: 2 },
@@ -190,7 +198,7 @@ rcp.lnch2.srec = [
 
 rcp.lnch3 = new Recipe();
 rcp.lnch3.id = 112;
-rcp.lnch3.name = "Lunch Set";
+rcp.lnch3.name = i18n.t("content.rcp.lnch3.name");
 rcp.lnch3.type = 1;
 rcp.lnch3.rec = [
   { item: item.eggn, amount: 2 },
@@ -210,7 +218,7 @@ rcp.lnch3.srec = [
 
 rcp.orgs = new Recipe();
 rcp.orgs.id = 113;
-rcp.orgs.name = "Onion Rings";
+rcp.orgs.name = i18n.t("content.rcp.orgs.name");
 rcp.orgs.type = 1;
 rcp.orgs.rec = [
   { item: item.flr, amount: 2 },
@@ -229,7 +237,7 @@ rcp.orgs.srec = [
 
 rcp.ffsh1 = new Recipe();
 rcp.ffsh1.id = 114;
-rcp.ffsh1.name = "Cooked Fish";
+rcp.ffsh1.name = i18n.t("content.rcp.ffsh1.name");
 rcp.ffsh1.type = 1;
 rcp.ffsh1.rec = [{ item: item.fsh1, amount: 1 }];
 rcp.ffsh1.res = [{ item: item.ffsh1, amount: 1 }];
@@ -245,7 +253,7 @@ rcp.ffsh1.srec = [
 
 rcp.ffsh2 = new Recipe();
 rcp.ffsh2.id = 115;
-rcp.ffsh2.name = "Batter Fried Fish";
+rcp.ffsh2.name = i18n.t("content.rcp.ffsh2.name");
 rcp.ffsh2.type = 1;
 rcp.ffsh2.rec = [
   { item: item.fsh2, amount: 1 },
@@ -266,7 +274,7 @@ rcp.ffsh2.srec = [
 
 rcp.fnori = new Recipe();
 rcp.fnori.id = 116;
-rcp.fnori.name = "Fried Nori";
+rcp.fnori.name = i18n.t("content.rcp.fnori.name");
 rcp.fnori.type = 1;
 rcp.fnori.rec = [
   { item: item.nori, amount: 1 },
@@ -285,7 +293,7 @@ rcp.fnori.srec = [
 
 rcp.cbun1 = new Recipe();
 rcp.cbun1.id = 117;
-rcp.cbun1.name = "Steamed Bun";
+rcp.cbun1.name = i18n.t("content.rcp.cbun1.name");
 rcp.cbun1.type = 1;
 rcp.cbun1.rec = [
   { item: item.watr, amount: 1 },
@@ -305,7 +313,7 @@ rcp.cbun1.srec = [
 
 rcp.dgh = new Recipe();
 rcp.dgh.id = 118;
-rcp.dgh.name = "Dough";
+rcp.dgh.name = i18n.t("content.rcp.dgh.name");
 rcp.dgh.type = 1;
 rcp.dgh.rec = [
   { item: item.watr, amount: 1 },
@@ -318,7 +326,7 @@ rcp.dgh.onmake = function () {
 
 rcp.flr = new Recipe();
 rcp.flr.id = 119;
-rcp.flr.name = "Flour";
+rcp.flr.name = i18n.t("content.rcp.flr.name");
 rcp.flr.type = 1;
 rcp.flr.rec = [{ item: item.wht, amount: 1 }];
 rcp.flr.res = [{ item: item.flr, amount: 2 }];
@@ -328,7 +336,7 @@ rcp.flr.onmake = function () {
 
 rcp.wbdl = new Recipe();
 rcp.wbdl.id = 120;
-rcp.wbdl.name = "Small Wood Bundle";
+rcp.wbdl.name = i18n.t("content.rcp.wbdl.name");
 rcp.wbdl.type = 5;
 rcp.wbdl.rec = [{ item: item.wdc, amount: 25 }];
 rcp.wbdl.res = [{ item: item.fwd1, amount: 1 }];
@@ -338,7 +346,7 @@ rcp.wbdl.onmake = function () {
 
 rcp.sshl = new Recipe();
 rcp.sshl.id = 121;
-rcp.sshl.name = "Star Shell";
+rcp.sshl.name = i18n.t("content.rcp.sshl.name");
 rcp.sshl.type = 4;
 rcp.sshl.rec = [
   { item: acc.snch, amount: 1 },
@@ -351,7 +359,7 @@ rcp.sshl.onmake = function () {
 
 rcp.hptn1 = new Recipe();
 rcp.hptn1.id = 122;
-rcp.hptn1.name = "Lesser Healing Potion";
+rcp.hptn1.name = i18n.t("content.rcp.hptn1.name");
 rcp.hptn1.type = 2;
 rcp.hptn1.rec = [
   { item: item.slm, amount: 1 },
@@ -364,7 +372,7 @@ rcp.hptn1.onmake = function () {
 
 rcp.hpck = new Recipe();
 rcp.hpck.id = 123;
-rcp.hpck.name = "Hippo Cookie";
+rcp.hpck.name = i18n.t("content.rcp.hpck.name");
 rcp.hpck.type = 1;
 rcp.hpck.rec = [
   { item: item.flr, amount: 1 },
@@ -385,7 +393,7 @@ rcp.hpck.srec = [
 
 rcp.sdl1 = new Recipe();
 rcp.sdl1.id = 124;
-rcp.sdl1.name = "Straw Effigy";
+rcp.sdl1.name = i18n.t("content.rcp.sdl1.name");
 rcp.sdl1.type = 4;
 rcp.sdl1.rec = [{ item: item.sstraw, amount: 50 }];
 rcp.sdl1.res = [{ item: acc.sdl1, amount: 1 }];
@@ -395,7 +403,7 @@ rcp.sdl1.onmake = function () {
 
 rcp.mnknk = new Recipe();
 rcp.mnknk.id = 125;
-rcp.mnknk.name = "Maneki-Neko";
+rcp.mnknk.name = i18n.t("content.rcp.mnknk.name");
 rcp.mnknk.type = 4;
 rcp.mnknk.rec = [
   { item: acc.cfgn, amount: 1 },
@@ -408,7 +416,7 @@ rcp.mnknk.onmake = function () {
 
 rcp.wdl1 = new Recipe();
 rcp.wdl1.id = 126;
-rcp.wdl1.name = "Wood Effigy";
+rcp.wdl1.name = i18n.t("content.rcp.wdl1.name");
 rcp.wdl1.type = 4;
 rcp.wdl1.rec = [{ item: item.wdc, amount: 40 }];
 rcp.wdl1.res = [{ item: acc.wdl1, amount: 1 }];
@@ -425,7 +433,7 @@ rcp.wdl1.srec = [
 
 rcp.gdl1 = new Recipe();
 rcp.gdl1.id = 127;
-rcp.gdl1.name = "Soul Puppet";
+rcp.gdl1.name = i18n.t("content.rcp.gdl1.name");
 rcp.gdl1.type = 4;
 rcp.gdl1.rec = [
   { item: acc.wdl1, amount: 1 },
@@ -440,7 +448,7 @@ rcp.gdl1.onmake = function () {
 
 rcp.tbrwd = new Recipe();
 rcp.tbrwd.id = 128;
-rcp.tbrwd.name = "Tea";
+rcp.tbrwd.name = i18n.t("content.rcp.tbrwd.name");
 rcp.tbrwd.type = 1;
 rcp.tbrwd.rec = [
   { item: item.tlvs, amount: 1 },
@@ -453,7 +461,7 @@ rcp.tbrwd.onmake = function () {
 
 rcp.brd = new Recipe();
 rcp.brd.id = 129;
-rcp.brd.name = "Bread";
+rcp.brd.name = i18n.t("content.rcp.brd.name");
 rcp.brd.type = 1;
 rcp.brd.rec = [{ item: item.dgh, amount: 1 }];
 rcp.brd.res = [{ item: item.brd, amount: 1 }];
@@ -462,7 +470,15 @@ rcp.brd.cmake = function () {
   if (rn >= 0.25) giveItem(rcp.brd.res[0].item);
   else {
     giveItem(item.brdb);
-    msg("It didn't turn out very well...", "black", null, null, "lightgrey");
+    msg(
+      i18n.t(
+        "runtime.systems.crafting.dialogue.it_didn_t_turn_out_very_well_ef183a42",
+      ),
+      "black",
+      null,
+      null,
+      "lightgrey",
+    );
   }
   giveCrExp(skl.cook, 2, 3);
 };
@@ -475,7 +491,7 @@ rcp.brd.srec = [
 
 rcp.steak = new Recipe();
 rcp.steak.id = 130;
-rcp.steak.name = "Steak";
+rcp.steak.name = i18n.t("content.rcp.steak.name");
 rcp.steak.type = 1;
 rcp.steak.rec = [
   { item: item.salt, amount: 1 },
@@ -498,7 +514,7 @@ rcp.steak.srec = [
 
 rcp.cnmnb = new Recipe();
 rcp.cnmnb.id = 131;
-rcp.cnmnb.name = "Cinnamon Bun";
+rcp.cnmnb.name = i18n.t("content.rcp.cnmnb.name");
 rcp.cnmnb.type = 1;
 rcp.cnmnb.rec = [
   { item: item.sgr, amount: 1 },
@@ -519,7 +535,7 @@ rcp.cnmnb.srec = [
 
 rcp.brth = new Recipe();
 rcp.brth.id = 132;
-rcp.brth.name = "Broth";
+rcp.brth.name = i18n.t("content.rcp.brth.name");
 rcp.brth.type = 1;
 rcp.brth.rec = [
   { item: item.watr, amount: 2 },
@@ -538,7 +554,7 @@ rcp.brth.srec = [
 
 rcp.eggsp = new Recipe();
 rcp.eggsp.id = 133;
-rcp.eggsp.name = "Egg Soup";
+rcp.eggsp.name = i18n.t("content.rcp.eggsp.name");
 rcp.eggsp.type = 1;
 rcp.eggsp.rec = [
   { item: item.brth, amount: 1 },
@@ -559,7 +575,7 @@ rcp.eggsp.srec = [
 
 rcp.crmchd = new Recipe();
 rcp.crmchd.id = 134;
-rcp.crmchd.name = "Creamy Chowder";
+rcp.crmchd.name = i18n.t("content.rcp.crmchd.name");
 rcp.crmchd.type = 1;
 rcp.crmchd.rec = [
   { item: item.mlkn, amount: 1 },
@@ -580,7 +596,7 @@ rcp.crmchd.srec = [
 
 rcp.mink = new Recipe();
 rcp.mink.id = 135;
-rcp.mink.name = "Magic Ink";
+rcp.mink.name = i18n.t("content.rcp.mink.name");
 rcp.mink.type = 4;
 rcp.mink.rec = [
   { item: acc.qill, amount: 1 },
@@ -593,7 +609,7 @@ rcp.mink.onmake = function () {
 
 rcp.msoop = new Recipe();
 rcp.msoop.id = 136;
-rcp.msoop.name = "Mushroom Soup";
+rcp.msoop.name = i18n.t("content.rcp.msoop.name");
 rcp.msoop.type = 1;
 rcp.msoop.rec = [
   { item: item.watr, amount: 2 },
@@ -614,7 +630,7 @@ rcp.msoop.srec = [
 
 rcp.jln4 = new Recipe();
 rcp.jln4.id = 137;
-rcp.jln4.name = "Grand Gelatin";
+rcp.jln4.name = i18n.t("content.rcp.jln4.name");
 rcp.jln4.type = 4;
 rcp.jln4.rec = [
   { item: acc.jln1, amount: 1 },
@@ -628,7 +644,7 @@ rcp.jln4.onmake = function () {
 
 rcp.strwks = new Recipe();
 rcp.strwks.id = 138;
-rcp.strwks.name = "Straw Kasa";
+rcp.strwks.name = i18n.t("content.rcp.strwks.name");
 rcp.strwks.type = 4;
 rcp.strwks.rec = [{ item: item.sstraw, amount: 30 }];
 rcp.strwks.res = [{ item: eqp.strwks, amount: 1 }];
@@ -638,7 +654,7 @@ rcp.strwks.onmake = function () {
 
 rcp.bdl1 = new Recipe();
 rcp.bdl1.id = 139;
-rcp.bdl1.name = "Bone Doll";
+rcp.bdl1.name = i18n.t("content.rcp.bdl1.name");
 rcp.bdl1.type = 4;
 rcp.bdl1.rec = [{ item: item.sbone, amount: 30 }];
 rcp.bdl1.res = [{ item: acc.bdl1, amount: 1 }];
@@ -655,7 +671,7 @@ rcp.bdl1.srec = [
 
 rcp.wvbkt = new Recipe();
 rcp.wvbkt.id = 140;
-rcp.wvbkt.name = "Straw Basket";
+rcp.wvbkt.name = i18n.t("content.rcp.wvbkt.name");
 rcp.wvbkt.type = 5;
 rcp.wvbkt.rec = [{ item: item.sstraw, amount: 40 }];
 rcp.wvbkt.res = [{ item: item.wvbkt, amount: 1 }];
@@ -665,7 +681,7 @@ rcp.wvbkt.onmake = function () {
 
 rcp.hlstw = new Recipe();
 rcp.hlstw.id = 141;
-rcp.hlstw.name = "Healing Stew";
+rcp.hlstw.name = i18n.t("content.rcp.hlstw.name");
 rcp.hlstw.type = 1;
 rcp.hlstw.rec = [
   { item: item.watr, amount: 2 },
@@ -684,7 +700,7 @@ rcp.hlstw.srec = [
 
 rcp.bcrc = new Recipe();
 rcp.bcrc.id = 142;
-rcp.bcrc.name = "Bone Cracker";
+rcp.bcrc.name = i18n.t("content.rcp.bcrc.name");
 rcp.bcrc.type = 1;
 rcp.bcrc.rec = [{ item: item.sbone, amount: 25 }];
 rcp.bcrc.res = [{ item: item.bcrc, amount: 1 }];
@@ -700,7 +716,7 @@ rcp.bcrc.srec = [
 
 rcp.bcrrt = new Recipe();
 rcp.bcrrt.id = 143;
-rcp.bcrrt.name = "Boiled Carrot";
+rcp.bcrrt.name = i18n.t("content.rcp.bcrrt.name");
 rcp.bcrrt.type = 1;
 rcp.bcrrt.rec = [
   { item: item.crrt, amount: 1 },
@@ -719,7 +735,7 @@ rcp.bcrrt.srec = [
 
 rcp.jsdch = new Recipe();
 rcp.jsdch.id = 144;
-rcp.jsdch.name = "Jelly Sandwich";
+rcp.jsdch.name = i18n.t("content.rcp.jsdch.name");
 rcp.jsdch.type = 1;
 rcp.jsdch.rec = [
   { item: item.jll, amount: 1 },
@@ -733,7 +749,7 @@ rcp.jsdch.onmake = function () {
 
 rcp.dcard1 = new Recipe();
 rcp.dcard1.id = 145;
-rcp.dcard1.name = "Discount Card";
+rcp.dcard1.name = i18n.t("content.rcp.dcard1.name");
 rcp.dcard1.type = 4;
 rcp.dcard1.rec = [{ item: acc.dticket, amount: 5 }];
 rcp.dcard1.res = [{ item: acc.dcard1, amount: 1 }];
@@ -743,7 +759,7 @@ rcp.dcard1.onmake = function () {
 
 rcp.wsb = new Recipe();
 rcp.wsb.id = 146;
-rcp.wsb.name = "Wastebread";
+rcp.wsb.name = i18n.t("content.rcp.wsb.name");
 rcp.wsb.type = 1;
 rcp.wsb.rec = [{ item: item.agrns, amount: 3 }];
 rcp.wsb.res = [{ item: item.wsb, amount: 1 }];
@@ -753,7 +769,7 @@ rcp.wsb.onmake = function () {
 
 rcp.stksld = new Recipe();
 rcp.stksld.id = 147;
-rcp.stksld.name = "Stake Shield";
+rcp.stksld.name = i18n.t("content.rcp.stksld.name");
 rcp.stksld.type = 4;
 rcp.stksld.rec = [{ item: wpn.stk2, amount: 4 }];
 rcp.stksld.res = [{ item: sld.stksld, amount: 1 }];
@@ -763,7 +779,7 @@ rcp.stksld.onmake = function () {
 
 rcp.clrpin = new Recipe();
 rcp.clrpin.id = 148;
-rcp.clrpin.name = "Clover Pin";
+rcp.clrpin.name = i18n.t("content.rcp.clrpin.name");
 rcp.clrpin.type = 4;
 rcp.clrpin.rec = [{ item: item.lckl, amount: 7 }];
 rcp.clrpin.res = [{ item: acc.clrpin, amount: 1 }];
@@ -773,7 +789,7 @@ rcp.clrpin.onmake = function () {
 
 rcp.ptchct = new Recipe();
 rcp.ptchct.id = 149;
-rcp.ptchct.name = "Patchwork Coat";
+rcp.ptchct.name = i18n.t("content.rcp.ptchct.name");
 rcp.ptchct.type = 4;
 rcp.ptchct.rec = [
   { item: item.cclth, amount: 11 },
@@ -793,7 +809,7 @@ rcp.ptchct.srec = [
 
 rcp.ptchpts = new Recipe();
 rcp.ptchpts.id = 150;
-rcp.ptchpts.name = "Patchwork Pants";
+rcp.ptchpts.name = i18n.t("content.rcp.ptchpts.name");
 rcp.ptchpts.type = 4;
 rcp.ptchpts.rec = [
   { item: item.cclth, amount: 9 },
@@ -813,7 +829,7 @@ rcp.ptchpts.srec = [
 
 rcp.bblkt = new Recipe();
 rcp.bblkt.id = 151;
-rcp.bblkt.name = "Ragwork Blanket";
+rcp.bblkt.name = i18n.t("content.rcp.bblkt.name");
 rcp.bblkt.type = 5;
 rcp.bblkt.rec = [
   { item: item.cclth, amount: 40 },
@@ -833,7 +849,7 @@ rcp.bblkt.srec = [
 
 rcp.spillw = new Recipe();
 rcp.spillw.id = 152;
-rcp.spillw.name = "Straw Pillow";
+rcp.spillw.name = i18n.t("content.rcp.spillw.name");
 rcp.spillw.type = 5;
 rcp.spillw.rec = [
   { item: item.cclth, amount: 15 },
@@ -848,7 +864,7 @@ rcp.spillw.onmake = function () {
 
 rcp.alseto = new Recipe();
 rcp.alseto.id = 153;
-rcp.alseto.name = "Basic Alchemy Set";
+rcp.alseto.name = i18n.t("content.rcp.alseto.name");
 rcp.alseto.type = 4;
 rcp.alseto.rec = [
   { item: acc.mpst, amount: 1 },
@@ -862,7 +878,7 @@ rcp.alseto.onmake = function () {
 
 rcp.mdcag = new Recipe();
 rcp.mdcag.id = 154;
-rcp.mdcag.name = "Adhesive Bandage";
+rcp.mdcag.name = i18n.t("content.rcp.mdcag.name");
 rcp.mdcag.type = 4;
 rcp.mdcag.rec = [
   { item: item.bdgh, amount: 1 },
@@ -877,7 +893,7 @@ rcp.mdcag.onmake = function () {
 
 rcp.mdcbg = new Recipe();
 rcp.mdcbg.id = 155;
-rcp.mdcbg.name = "Medicated Bandage";
+rcp.mdcbg.name = i18n.t("content.rcp.mdcbg.name");
 rcp.mdcbg.type = 4;
 rcp.mdcbg.rec = [
   { item: acc.mdcag, amount: 1 },
@@ -891,7 +907,7 @@ rcp.mdcbg.onmake = function () {
 
 rcp.cyrn = new Recipe();
 rcp.cyrn.id = 156;
-rcp.cyrn.name = "Yarn Ball";
+rcp.cyrn.name = i18n.t("content.rcp.cyrn.name");
 rcp.cyrn.type = 5;
 rcp.cyrn.rec = [{ item: item.thrdnl, amount: 200 }];
 rcp.cyrn.res = [{ item: item.cyrn, amount: 1 }];
@@ -901,7 +917,7 @@ rcp.cyrn.onmake = function () {
 
 rcp.fwdpile = new Recipe();
 rcp.fwdpile.id = 157;
-rcp.fwdpile.name = "Firewood Pile";
+rcp.fwdpile.name = i18n.t("content.rcp.fwdpile.name");
 rcp.fwdpile.type = 5;
 rcp.fwdpile.rec = [{ item: item.fwd1, amount: 60 }];
 rcp.fwdpile.res = [{ item: item.fwdpile, amount: 1 }];
@@ -911,7 +927,7 @@ rcp.fwdpile.onmake = function () {
 
 rcp.fmlim2 = new Recipe();
 rcp.fmlim2.id = 158;
-rcp.fmlim2.name = "Family Heirloom+";
+rcp.fmlim2.name = i18n.t("content.rcp.fmlim2.name");
 rcp.fmlim2.type = 4;
 rcp.fmlim2.rec = [
   { item: acc.strawp, amount: 1 },
@@ -924,7 +940,7 @@ rcp.fmlim2.onmake = function () {
 
 rcp.appljc = new Recipe();
 rcp.appljc.id = 159;
-rcp.appljc.name = "Apple Juice";
+rcp.appljc.name = i18n.t("content.rcp.appljc.name");
 rcp.appljc.type = 1;
 rcp.appljc.rec = [{ item: item.appl, amount: 3 }];
 rcp.appljc.res = [
@@ -937,7 +953,7 @@ rcp.appljc.onmake = function () {
 
 rcp.bdgh = new Recipe();
 rcp.bdgh.id = 160;
-rcp.bdgh.name = "Bandage";
+rcp.bdgh.name = i18n.t("content.rcp.bdgh.name");
 rcp.bdgh.type = 2;
 rcp.bdgh.rec = [
   { item: item.cclth, amount: 1 },
@@ -956,7 +972,7 @@ rcp.bdgh.srec = [
 
 rcp.wfng = new Recipe();
 rcp.wfng.id = 161;
-rcp.wfng.name = "Wolf Fang Necklace";
+rcp.wfng.name = i18n.t("content.rcp.wfng.name");
 rcp.wfng.type = 4;
 rcp.wfng.rec = [
   { item: item.wfng, amount: 5 },
@@ -969,7 +985,7 @@ rcp.wfng.onmake = function () {
 
 rcp.wfar = new Recipe();
 rcp.wfar.id = 162;
-rcp.wfar.name = "Wolf Array";
+rcp.wfar.name = i18n.t("content.rcp.wfar.name");
 rcp.wfar.type = 4;
 rcp.wfar.rec = [{ item: acc.wfng, amount: 3 }];
 rcp.wfar.res = [{ item: acc.wfar, amount: 1 }];
@@ -1097,7 +1113,7 @@ function Vendor() {
 }
 
 vendor.stvr1 = new Vendor();
-vendor.stvr1.name = "Street Vendor";
+vendor.stvr1.name = i18n.t("content.vendor.stvr1.name");
 vendor.stvr1.infl = 2;
 vendor.stvr1.dfl = 0.3;
 vendor.stvr1.items = [
@@ -1108,7 +1124,7 @@ vendor.stvr1.items = [
 ];
 
 vendor.kid1 = new Vendor();
-vendor.kid1.name = "Child Trader";
+vendor.kid1.name = i18n.t("content.vendor.kid1.name");
 vendor.kid1.items = [
   { item: item.pbl, p: 1, c: 1, min: 10, max: 50 },
   { item: item.mcps, p: 2, c: 0.3, min: 6, max: 16 },
@@ -1117,7 +1133,7 @@ vendor.kid1.items = [
 ];
 
 vendor.grc1 = new Vendor();
-vendor.grc1.name = "Grocery Shop";
+vendor.grc1.name = i18n.t("content.vendor.grc1.name");
 vendor.grc1.data.time = vendor.grc1.timeorig = 3;
 vendor.grc1.infl = 1.15;
 vendor.grc1.dfl = 0.3;
@@ -1144,7 +1160,7 @@ vendor.grc1.extra = function () {
 };
 
 vendor.gens1 = new Vendor();
-vendor.gens1.name = "General Store";
+vendor.gens1.name = i18n.t("content.vendor.gens1.name");
 vendor.gens1.time = vendor.gens1.timeorig = 3;
 vendor.gens1.infl = 1.2;
 vendor.gens1.dfl = 0.2;
@@ -1178,7 +1194,7 @@ vendor.gens1.extra = function () {
 };
 
 vendor.pha1 = new Vendor();
-vendor.pha1.name = "Herbalist";
+vendor.pha1.name = i18n.t("content.vendor.pha1.name");
 vendor.pha1.time = vendor.pha1.timeorig = 2;
 vendor.pha1.infl = 1.25;
 vendor.pha1.dfl = 0.2;

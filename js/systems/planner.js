@@ -13,7 +13,7 @@ planner.test.id = 1;
 planner.test.data = { date: 42 };
 planner.test.f = function () {
   if (time.minute >= this.data.date) {
-    msg("done");
+    msg(i18n.t("runtime.systems.planner.dialogue.done_e5fd9cfe"));
     this.destroy();
   }
 };

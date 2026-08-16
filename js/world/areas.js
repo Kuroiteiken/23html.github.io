@@ -14,7 +14,7 @@ function Area() {
 
 area.nwh = new Area();
 area.nwh.id = 101;
-area.nwh.name = "Somewhere";
+area.nwh.name = i18n.t("content.area.nwh.name");
 area.nwh.pop = [{ crt: creature.default, lvlmin: 1, lvlmax: 1, c: 1 }];
 area.nwh.size = 1;
 z_bake(area.nwh);
@@ -22,7 +22,7 @@ global.current_z = area.nwh;
 
 area.trn = new Area();
 area.trn.id = 102;
-area.trn.name = "Training Grounds";
+area.trn.name = i18n.t("content.area.trn.name");
 area.trn.pop = [
   { crt: creature.sdummy, lvlmin: 1, lvlmax: 9, c: 0.3 },
   { crt: creature.tdummy, lvlmin: 4, lvlmax: 8, c: 0.3 },
@@ -49,7 +49,7 @@ area.trn.drop = [
 
 area.trnf = new Area();
 area.trn.id = 107;
-area.trnf.name = "Training Grounds";
+area.trnf.name = i18n.t("content.area.trnf.name");
 area.trnf.pop = [
   { crt: creature.sdummy, lvlmin: 1, lvlmax: 12, c: 0.3 },
   { crt: creature.tdummy, lvlmin: 7, lvlmax: 13, c: 0.3 },
@@ -70,7 +70,7 @@ area.trnf.drop = [
 
 area.trn1 = new Area();
 area.trn1.id = 103;
-area.trn1.name = "Training Grounds";
+area.trn1.name = i18n.t("content.area.trn1.name");
 area.trn1.pop = [
   { crt: creature.sdummy, lvlmin: 1, lvlmax: 1, c: 0.5 },
   { crt: creature.tdummy, lvlmin: 1, lvlmax: 1, c: 0.5 },
@@ -88,7 +88,7 @@ area.trn1.drop = [{ item: item.appl, c: 0.28 }];
 
 area.trn2 = new Area();
 area.trn2.id = 104;
-area.trn2.name = "Training Grounds";
+area.trn2.name = i18n.t("content.area.trn2.name");
 area.trn2.pop = [
   { crt: creature.sdummy, lvlmin: 1, lvlmax: 3, c: 0.4 },
   { crt: creature.tdummy, lvlmin: 1, lvlmax: 3, c: 0.6 },
@@ -106,7 +106,7 @@ area.trn2.drop = [{ item: item.appl, c: 0.28 }];
 
 area.trn3 = new Area();
 area.trn3.id = 105;
-area.trn3.name = "Training Grounds";
+area.trn3.name = i18n.t("content.area.trn3.name");
 area.trn3.pop = [
   { crt: creature.sdummy, lvlmin: 3, lvlmax: 5, c: 0.35 },
   { crt: creature.tdummy, lvlmin: 2, lvlmax: 3, c: 0.45 },
@@ -125,7 +125,7 @@ area.trn3.drop = [{ item: item.appl, c: 0.28 }];
 
 area.clg = new Area();
 area.clg.id = 106;
-area.clg.name = "Damp cellar";
+area.clg.name = i18n.t("content.area.clg.name");
 area.clg.pop = [
   { crt: creature.bat, lvlmin: 1, lvlmax: 4 },
   { crt: creature.spd1, lvlmin: 2, lvlmax: 4 },
@@ -141,7 +141,7 @@ area.clg.onEnd = function () {
 
 area.tst = new Area();
 area.tst.id = 108;
-area.tst.name = "Test";
+area.tst.name = i18n.t("content.area.tst.name");
 area.tst.pop = [{ crt: creature.skl, lvlmin: 1, lvlmax: 1, c: 1 }];
 area.tst.size = -1;
 z_bake(area.tst);
@@ -149,7 +149,7 @@ area.tst.onEnd = function () {};
 
 area.frstn1a2 = new Area();
 area.frstn1a2.id = 109;
-area.frstn1a2.name = "Western forest hunting area";
+area.frstn1a2.name = i18n.t("content.area.frstn1a2.name");
 area.frstn1a2.pop = [
   { crt: creature.rbt1, lvlmin: 1, lvlmax: 5, c: 0.2 },
   { crt: creature.slm1, lvlmin: 1, lvlmax: 6, c: 0.4 },
@@ -180,7 +180,7 @@ area.frstn1a2.drop = [
 
 area.hmbsmnt = new Area();
 area.hmbsmnt.id = 110;
-area.hmbsmnt.name = "Your basement";
+area.hmbsmnt.name = i18n.t("content.area.hmbsmnt.name");
 area.hmbsmnt.pop = [
   { crt: creature.bat, lvlmin: 10, lvlmax: 17, c: 0.5 },
   { crt: creature.spd1, lvlmin: 10, lvlmax: 17, c: 0.5 },
@@ -201,7 +201,7 @@ area.hmbsmnt.drop = [
 
 area.trne1 = new Area();
 area.trne1.id = 111;
-area.trne1.name = "Training Grounds";
+area.trne1.name = i18n.t("content.area.trne1.name");
 area.trne1.pop = [{ crt: creature.golem1, lvlmin: 20, lvlmax: 20, c: 1 }];
 area.trne1.size = 1;
 z_bake(area.trne1);
@@ -214,7 +214,7 @@ area.trne1.onEnd = function () {
 
 area.frstn2a2 = new Area();
 area.frstn2a2.id = 112;
-area.frstn2a2.name = "Western forest hunting area";
+area.frstn2a2.name = i18n.t("content.area.frstn2a2.name");
 area.frstn2a2.pop = [
   { crt: creature.rbt1, lvlmin: 1, lvlmax: 7, c: 0.25 },
   { crt: creature.slm1, lvlmin: 1, lvlmax: 8, c: 0.2 },
@@ -238,7 +238,12 @@ area.frstn2a2.onEnd = function () {
   if (!global.flags.wp2sgt) roll(item.wp2s, 0.2);
   this.size = rand(50) + 40;
   if (!global.flags.frstn1a3u) {
-    msg("You have discovered a new hunting area", "lime");
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
     global.flags.frstn1a3u = true;
     smove(chss.frstn1main);
   } else smove(chss.frstn1a2);
@@ -250,7 +255,7 @@ area.frstn2a2.drop = [
 
 area.trne2 = new Area();
 area.trne2.id = 113;
-area.trne2.name = "Training Grounds";
+area.trne2.name = i18n.t("content.area.trne2.name");
 area.trne2.pop = [{ crt: creature.golem2, lvlmin: 23, lvlmax: 23, c: 1 }];
 area.trne2.size = 1;
 z_bake(area.trne2);
@@ -263,7 +268,7 @@ area.trne2.onEnd = function () {
 
 area.trne3 = new Area();
 area.trne3.id = 114;
-area.trne3.name = "Training Grounds";
+area.trne3.name = i18n.t("content.area.trne3.name");
 area.trne3.pop = [{ crt: creature.golem3, lvlmin: 25, lvlmax: 25, c: 1 }];
 area.trne3.size = 1;
 z_bake(area.trne3);
@@ -276,7 +281,7 @@ area.trne3.onEnd = function () {
 
 area.frstn1a3 = new Area();
 area.frstn1a3.id = 115;
-area.frstn1a3.name = "Western forest hunting area";
+area.frstn1a3.name = i18n.t("content.area.frstn1a3.name");
 area.frstn1a3.pop = [
   { crt: creature.rbt1, lvlmin: 3, lvlmax: 8, c: 0.35 },
   { crt: creature.slm1, lvlmin: 3, lvlmax: 9, c: 0.15 },
@@ -304,7 +309,7 @@ area.frstn1a3.drop = [
 
 area.frstn1a4 = new Area();
 area.frstn1a4.id = 116;
-area.frstn1a4.name = "Western forest hidden area";
+area.frstn1a4.name = i18n.t("content.area.frstn1a4.name");
 area.frstn1a4.pop = [{ crt: creature.slm4, lvlmin: 9, lvlmax: 11, c: 1 }];
 area.frstn1a4.size = 25;
 z_bake(area.frstn1a4);
@@ -320,7 +325,7 @@ area.frstn1a4.onEnd = function () {
 
 area.trne4 = new Area();
 area.trne4.id = 117;
-area.trne4.name = "Training Grounds";
+area.trne4.name = i18n.t("content.area.trne4.name");
 area.trne4.pop = [{ crt: creature.golem4, lvlmin: 28, lvlmax: 28, c: 1 }];
 area.trne4.size = 1;
 z_bake(area.trne4);
@@ -334,7 +339,7 @@ area.trne4.onEnd = function () {
 
 area.frstn9a1 = new Area();
 area.frstn9a1.id = 118;
-area.frstn9a1.name = "Southern forest hunting area";
+area.frstn9a1.name = i18n.t("content.area.frstn9a1.name");
 area.frstn9a1.pop = [
   { crt: creature.wolf1, lvlmin: 7, lvlmax: 8, c: 0.25 },
   { crt: creature.slm5, lvlmin: 10, lvlmax: 11, c: 0.75 },

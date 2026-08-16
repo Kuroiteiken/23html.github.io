@@ -28,7 +28,7 @@ global.current_a = act.default;
 
 act.demo = new Action();
 act.demo.id = 1;
-act.demo.name = "Run";
+act.demo.name = i18n.t("content.act.demo.name");
 act.demo.desc = function () {
   return (
     "Run within this area to improve your physique" +
@@ -48,7 +48,13 @@ act.demo.cond = function (l) {
   )
     return true;
   else {
-    if (l !== false) msg("This isn't the best place to run around", "red");
+    if (l !== false)
+      msg(
+        i18n.t(
+          "runtime.systems.actions.dialogue.this_isn_t_the_best_place_to_run_d917d32b",
+        ),
+        "red",
+      );
     return false;
   }
 };
@@ -59,7 +65,10 @@ act.demo.use = function () {
   you.eqp[6].dp = you.eqp[6].dp - 0.005 < 0 ? 0 : you.eqp[6].dp - 0.005;
 };
 act.demo.activate = function () {
-  msg("You start running", "orange");
+  msg(
+    i18n.t("runtime.systems.actions.dialogue.you_start_running_d11dfd8c"),
+    "orange",
+  );
   this.active = true;
   you.mods.sdrate += 0.1 * you.mods.runerg;
   you.mods.stdstps += 0.5;
@@ -70,7 +79,7 @@ act.demo.activate = function () {
   }, 1000);
 };
 act.demo.deactivate = function () {
-  msg("You stop", "skyblue");
+  msg(i18n.t("runtime.systems.actions.dialogue.you_stop_45fed8fc"), "skyblue");
   clearInterval(timers.actm);
   this.active = false;
   removeEff(effect.run);
@@ -80,7 +89,7 @@ act.demo.deactivate = function () {
 
 act.scout = new Action();
 act.scout.id = 2;
-act.scout.name = "Investigate";
+act.scout.name = i18n.t("content.act.scout.name");
 act.scout.desc = function () {
   return "Thoroughly examine current area in search for hidden passages, treasure, secrets or anything of interest";
 };
@@ -96,12 +105,23 @@ act.scout.cond = function (l) {
   )
     return true;
   else {
-    if (l !== false) msg("You're too occupied with something else", "red");
+    if (l !== false)
+      msg(
+        i18n.t(
+          "runtime.systems.actions.dialogue.you_re_too_occupied_with_something_else_c39d0a50",
+        ),
+        "red",
+      );
     return false;
   }
 };
 act.scout.activate = function () {
-  msg("You begin to look around", "springgreen");
+  msg(
+    i18n.t(
+      "runtime.systems.actions.dialogue.you_begin_to_look_around_d36c4e13",
+    ),
+    "springgreen",
+  );
   this.active = true;
   clearInterval(timers.actm);
   giveEff(you, effect.scout);
@@ -111,7 +131,10 @@ act.scout.activate = function () {
     if (m === 1) t = m;
   }
   if (canScout(global.current_l) === 1 || t === 1)
-    msg("You sense something", "white");
+    msg(
+      i18n.t("runtime.systems.actions.dialogue.you_sense_something_ca7deb6c"),
+      "white",
+    );
   timers.actm = setInterval(() => {
     this.use();
   }, 1000);
@@ -120,7 +143,12 @@ act.scout.activate = function () {
 act.scout.use = function () {
   if (global.flags.isdark && !cansee()) {
     deactivateAct(this);
-    msg("You can't see anything", "grey");
+    msg(
+      i18n.t(
+        "runtime.systems.actions.dialogue.you_can_t_see_anything_5275568b",
+      ),
+      "grey",
+    );
     return;
   }
   const a1 = canScout(global.current_l);
@@ -142,15 +170,25 @@ act.scout.use = function () {
         global.current_l.sector[a].onScout();
   }
   if (a1 === 3 && a2 === 3) {
-    msg("There doesn't seem to be anything of interest around..", "lightgrey");
+    msg(
+      i18n.t(
+        "runtime.systems.actions.dialogue.there_doesn_t_seem_to_be_anything_of_737e54b8",
+      ),
+      "lightgrey",
+    );
     deactivateAct(this);
   } else if (a1 >= 2 && a2 >= 2) {
-    msg("You have already explored this area", "lightgrey");
+    msg(
+      i18n.t(
+        "runtime.systems.actions.dialogue.you_have_already_explored_this_area_b8d27079",
+      ),
+      "lightgrey",
+    );
     deactivateAct(this);
   }
 };
 act.scout.deactivate = function () {
-  msg("You stop", "skyblue");
+  msg(i18n.t("runtime.systems.actions.dialogue.you_stop_45fed8fc"), "skyblue");
   clearInterval(timers.actm);
   this.active = false;
   removeEff(effect.scout);
@@ -158,7 +196,7 @@ act.scout.deactivate = function () {
 
 act.demo2 = new Action();
 act.demo2.id = -3;
-act.demo2.name = "Selfharm";
+act.demo2.name = i18n.t("content.act.demo2.name");
 act.demo2.type = 2;
 act.demo2.desc = function () {
   return "Injure yourself";
@@ -173,7 +211,13 @@ act.demo2.use = function () {
         select(["hand", "chest", "leg", "palm", "arm", "foot"]),
       "red",
     );
-  } else msg("You're already injured", "orange");
+  } else
+    msg(
+      i18n.t(
+        "runtime.systems.actions.dialogue.you_re_already_injured_46390abb",
+      ),
+      "orange",
+    );
   giveEff(you, effect.bled, 10, 1);
 };
 
@@ -181,7 +225,7 @@ function giveAction(a) {
   if (a.have === false) {
     if (!global.flags.actsu) {
       global.flags.actsu = true;
-      dom.ct_bt3.innerHTML = "actions";
+      dom.ct_bt3.innerHTML = i18n.t("ui.navigation.actions");
     }
     msg(
       'You learned a new action: <span style="color:tomato">"' +

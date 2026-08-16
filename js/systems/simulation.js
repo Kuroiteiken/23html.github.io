@@ -681,96 +681,132 @@ function wManager() {
     switch (w_manager.curr.id) {
       case weather.sunny.id:
         if (getHour() > 4 && getMinute() >= 30 && getHour() <= 6) {
-          dom.d_weathert.innerHTML = "Sunrise";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.sunrise_fadf71c7",
+          );
           dom.d_weathert.style.color = "#ffef33";
           dom.d_weathert.style.backgroundColor = "#bf495f";
         } else if (getHour() >= 20 && getHour() <= 21) {
-          dom.d_weathert.innerHTML = "Dusk";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.dusk_4db13aa0",
+          );
           dom.d_weathert.style.color = "yellow";
           dom.d_weathert.style.backgroundColor = "#e8421c";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Bright Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.bright_night_891b0fb5",
+          );
           dom.d_weathert.style.color = "cornflowerblue";
           dom.d_weathert.style.backgroundColor = "#1d4677";
         }
         break;
       case weather.cloudy.id:
         if (getHour() > 4 && getMinute() >= 30 && getHour() <= 6) {
-          dom.d_weathert.innerHTML = "Sunrise";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.sunrise_fadf71c7",
+          );
           dom.d_weathert.style.color = "#ffef33";
           dom.d_weathert.style.backgroundColor = "#bf495f";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.night_1097b553",
+          );
           dom.d_weathert.style.color = "#69e1e6";
           dom.d_weathert.style.backgroundColor = "#091523";
         }
         break;
       case weather.overcast.id:
         if (getHour() >= 18 && getHour() <= 21) {
-          dom.d_weathert.innerHTML = "Dusk";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.dusk_4db13aa0",
+          );
           dom.d_weathert.style.color = "yellow";
           dom.d_weathert.style.backgroundColor = "#e8421c";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.night_1097b553",
+          );
           dom.d_weathert.style.color = "#69e1e6";
           dom.d_weathert.style.backgroundColor = "#091523";
         }
         break;
       case weather.rain.id:
         if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Rainy Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.rainy_night_015ecc08",
+          );
           dom.d_weathert.style.color = "cyan";
           dom.d_weathert.style.backgroundColor = "#111f63";
         }
         break;
       case weather.misty.id:
         if (getHour() > 4 && getMinute() >= 30 && getHour() <= 6) {
-          dom.d_weathert.innerHTML = "Misty Morning";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.misty_morning_44663fad",
+          );
           dom.d_weathert.style.color = "#ffb91d";
           dom.d_weathert.style.backgroundColor = "#926b64";
         } else if (getHour() >= 18 && getHour() <= 21) {
-          dom.d_weathert.innerHTML = "Dusk";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.dusk_4db13aa0",
+          );
           dom.d_weathert.style.color = "yellow";
           dom.d_weathert.style.backgroundColor = "#e8421c";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Misty Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.misty_night_6e27292a",
+          );
           dom.d_weathert.style.color = "#1f69a9";
           dom.d_weathert.style.backgroundColor = "#2c3044";
         }
         break;
       case weather.foggy.id:
         if (getHour() > 4 && getMinute() >= 30 && getHour() <= 6) {
-          dom.d_weathert.innerHTML = "Foggy Morning";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.foggy_morning_a3159f83",
+          );
           dom.d_weathert.style.color = "#ffc94f";
           dom.d_weathert.style.backgroundColor = "#8e8280";
         } else if (getHour() >= 18 && getHour() <= 21) {
-          dom.d_weathert.innerHTML = "Dusk";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.dusk_4db13aa0",
+          );
           dom.d_weathert.style.color = "yellow";
           dom.d_weathert.style.backgroundColor = "#e8421c";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Foggy Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.foggy_night_ea55cbbc",
+          );
           dom.d_weathert.style.color = "#6dbbff";
           dom.d_weathert.style.backgroundColor = "#273267";
         }
         break;
       case weather.drizzle.id:
         if (getHour() >= 22 && getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Night Drizzle";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.night_drizzle_c57a93c7",
+          );
           dom.d_weathert.style.color = "cyan";
           dom.d_weathert.style.backgroundColor = "#111f63";
         }
         break;
       case weather.clear.id:
         if (getHour() > 4 && getMinute() >= 30 && getHour() <= 6) {
-          dom.d_weathert.innerHTML = "Sunrise";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.sunrise_fadf71c7",
+          );
           dom.d_weathert.style.color = "#ffef33";
           dom.d_weathert.style.backgroundColor = "#9c3f3f";
         } else if (getHour() >= 20 && getHour() <= 21) {
-          dom.d_weathert.innerHTML = "Dusk";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.dusk_4db13aa0",
+          );
           dom.d_weathert.style.color = "yellow";
           dom.d_weathert.style.backgroundColor = "#e8421c";
         } else if (getHour() >= 22 || getHour() <= 3) {
-          dom.d_weathert.innerHTML = "Starry Night";
+          dom.d_weathert.innerHTML = i18n.t(
+            "runtime.systems.simulation.interface.starry_night_d8313df3",
+          );
           dom.d_weathert.style.color = "#ffff66";
           dom.d_weathert.style.backgroundColor = "#00397b";
         }
@@ -1141,7 +1177,7 @@ function giveSkExp(skl, exp, res) {
         6,
       );
       if (!global.flags.sklu) {
-        dom.ct_bt2.innerHTML = "skills";
+        dom.ct_bt2.innerHTML = i18n.t("ui.navigation.skills");
         global.flags.sklu = true;
       }
     } else {
@@ -1254,27 +1290,57 @@ function effAct_test() {
 
 function canRead() {
   if (!global.flags.civil || global.flags.civil.btl) {
-    msg("It is too dangerous to read right now", "red");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.it_is_too_dangerous_to_read_right_now_8f0e5f3f",
+      ),
+      "red",
+    );
     return false;
   }
   if (global.flags.rdng) {
-    msg("You\'re already reading", "orange");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.you_re_already_reading_092cc72b",
+      ),
+      "orange",
+    );
     return false;
   }
   if (global.flags.work) {
-    msg("You have a job to do", "orange");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.you_have_a_job_to_do_d21c56e5",
+      ),
+      "orange",
+    );
     return false;
   }
   if (global.flags.busy) {
-    msg("You'll have to stop what you're doing first", "orange");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.you_ll_have_to_stop_what_you_re_34217867",
+      ),
+      "orange",
+    );
     return false;
   }
   if (global.flags.isshop) {
-    msg("This isn\'t the library", "orange");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.this_isn_t_the_library_8a62f77e",
+      ),
+      "orange",
+    );
     return false;
   }
   if (global.flags.sleepmode) {
-    msg("You can't read while sleeping", "orange");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.you_can_t_read_while_sleeping_688bb779",
+      ),
+      "orange",
+    );
     return false;
   }
   return true;
@@ -1295,7 +1361,12 @@ function canScout(what) {
 
 function scoutGeneric(chs) {
   if (global.flags.isdark && !cansee())
-    return msg("You can't see anything", "grey");
+    return msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.you_can_t_see_anything_5275568b",
+      ),
+      "grey",
+    );
   const sct = select(chs.scout);
   const idx = chs.scout.indexOf(sct);
   giveSkExp(skl.scout, 0.3);
@@ -1323,7 +1394,11 @@ function scoutGeneric(chs) {
   }
   if (canScout(global.current_l) >= 2 && t >= 2) {
     deactivateAct(act.scout);
-    msg("There doesn't seem to be anything of interest left in this area");
+    msg(
+      i18n.t(
+        "runtime.systems.simulation.dialogue.there_doesn_t_seem_to_be_anything_of_4f6f6d15",
+      ),
+    );
   }
 }
 
@@ -1348,7 +1423,7 @@ function disassembleGeneric(obj) {
   }
 }
 
-global.text.ssns = ["春", "夏", "秋", "冬"];
+global.text.ssns = i18n.get("gameText.ssns");
 
 function wdrseason(flag) {
   const s = !flag ? getSeason(true) : global.text.ssns[getSeason() - 1];
@@ -1398,7 +1473,7 @@ function ontick() {
       dom.d_moon,
       null,
       2,
-      "Lunar Phase",
+      i18n.t("runtime.systems.simulation.description.lunar_phase_0004b314"),
       global.text.lunarp[getLunarPhase()][1],
     );
     wdrseason(global.flags.ssngaijin);
@@ -1421,7 +1496,15 @@ function ontick() {
       global.flags.inside === false &&
       random() < 0.00002 * you.mods.stdstps
     ) {
-      msg("A star particle landed on you!", "gold", null, null, "darkblue");
+      msg(
+        i18n.t(
+          "runtime.systems.simulation.dialogue.a_star_particle_landed_on_you_5dd8ad29",
+        ),
+        "gold",
+        null,
+        null,
+        "darkblue",
+      );
       giveItem(item.stdst);
     }
     global.flags.isday = false;
@@ -1593,26 +1676,44 @@ function usePlayerWeaponSkill() {
 function printBodyPartHit(partNumber) {
   switch (partNumber) {
     case 2:
-      msg_add(" (head)", "orange");
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.head_25949a6c"),
+        "orange",
+      );
       break;
     case 3:
-      msg_add(" (body)", "orange");
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.body_ca5fc7b5"),
+        "orange",
+      );
       break;
     case 4:
-      msg_add(" (L hand)", "orange");
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.l_hand_7177bbdd"),
+        "orange",
+      );
       break;
     case 5:
-      msg_add(" (R hand)", "orange");
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.r_hand_9f6e57e4"),
+        "orange",
+      );
       break;
     case 6:
-      msg_add(" (legs)", "orange");
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.legs_91543f22"),
+        "orange",
+      );
       break;
   }
 }
 
 function printCritIfCrit() {
   if (global.flags.crti) {
-    msg_add(" CRIT! ", "yellow");
+    msg_add(
+      i18n.t("runtime.systems.simulation.dialogue.crit_e443ee79"),
+      "yellow",
+    );
     global.flags.crti = false;
   }
 }

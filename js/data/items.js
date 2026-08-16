@@ -20,17 +20,17 @@ function Item() {
 
 item.rcs = new Item();
 item.rcs.id = 3000;
-item.rcs.name = "Reality shot";
-item.rcs.desc = "Amplifies surrounding awareness and perception senses";
+item.rcs.name = i18n.t("content.item.rcs.name");
+item.rcs.desc = i18n.t("content.item.rcs.desc");
 item.rcs.stype = 4;
 item.rcs.rar = 3;
 item.rcs.use = function () {
-  msg("placeholder");
+  msg(i18n.t("runtime.data.items.dialogue.placeholder_ff554353"));
 };
 
 item.hrb1 = new Item();
 item.hrb1.id = 3001;
-item.hrb1.name = "Cure Grass";
+item.hrb1.name = i18n.t("content.item.hrb1.name");
 item.hrb1.val = 7;
 item.hrb1.desc =
   "Herb with minor healing properties. Has to be processed before use. Can somewhat speed up recovery of tiny cuts and bruises if applied directly" +
@@ -55,7 +55,7 @@ item.hrb1.onGet = function () {
 
 item.atd1 = new Item();
 item.atd1.id = 3002;
-item.atd1.name = "Herbal Antidote";
+item.atd1.name = i18n.t("content.item.atd1.name");
 item.atd1.desc =
   "Bundle of certain common herbs, mixed together. Tastes incredibly bitter, but helps to detoxify blood from containments" +
   dom.dseparator +
@@ -66,18 +66,28 @@ item.atd1.use = function () {
   if (effect.psn.active === true) {
     if (effect.psn.duration - 30 <= 0) {
       removeEff(effect.psn);
-      msg("You feel better", "lime");
+      msg(
+        i18n.t("runtime.data.items.dialogue.you_feel_better_922794ba"),
+        "lime",
+      );
     } else {
       effect.psn.duration -= 30;
-      msg("You feel a little better", "lightgreen");
+      msg(
+        i18n.t("runtime.data.items.dialogue.you_feel_a_little_better_d1ae91f7"),
+        "lightgreen",
+      );
     }
-  } else msg("Tastes like medicine..", "lightblue");
+  } else
+    msg(
+      i18n.t("runtime.data.items.dialogue.tastes_like_medicine_aece0794"),
+      "lightblue",
+    );
   this.amount--;
 };
 
 item.psnwrd = new Item();
 item.psnwrd.id = 3003;
-item.psnwrd.name = "Poison Ward";
+item.psnwrd.name = i18n.t("content.item.psnwrd.name");
 item.psnwrd.desc =
   "Solution developed to protect residents from diseases during times of plague" +
   dom.dseparator +
@@ -93,7 +103,7 @@ item.psnwrd.use = function () {
 
 item.hlpd = new Item();
 item.hlpd.id = 3004;
-item.hlpd.name = "Low-grade Healing Powder";
+item.hlpd.name = i18n.t("content.item.hlpd.name");
 item.hlpd.val = 16;
 item.hlpd.desc =
   "Finely crushed cure grass. Used as a base to make weak medicine" +
@@ -112,7 +122,7 @@ item.hlpd.use = function () {
 
 item.smm = new Item();
 item.smm.id = 3005;
-item.smm.name = "Stomach Medicine";
+item.smm.name = i18n.t("content.item.smm.name");
 item.smm.desc =
   "Mixture of ginger, bittervine,  and other herbs. Destroys toxins in one's body" +
   dom.dseparator +
@@ -123,18 +133,28 @@ item.smm.use = function () {
   if (effect.fpn.active === true) {
     if (effect.fpn.duration - 30 <= 0) {
       removeEff(effect.fpn);
-      msg("You feel better", "lime");
+      msg(
+        i18n.t("runtime.data.items.dialogue.you_feel_better_922794ba"),
+        "lime",
+      );
     } else {
       effect.fpn.duration -= 30;
-      msg("You feel a little better", "lightgreen");
+      msg(
+        i18n.t("runtime.data.items.dialogue.you_feel_a_little_better_d1ae91f7"),
+        "lightgreen",
+      );
     }
-  } else msg("Tastes like medicine..", "lightblue");
+  } else
+    msg(
+      i18n.t("runtime.data.items.dialogue.tastes_like_medicine_aece0794"),
+      "lightblue",
+    );
   this.amount--;
 };
 
 item.sp1 = new Item();
 item.sp1.id = 3006;
-item.sp1.name = "Low-grade Spirit Pill";
+item.sp1.name = i18n.t("content.item.sp1.name");
 item.sp1.desc =
   "Tiny cheap spirit pill, made from condensed Ki. Lowest type, given to weak people and children to nourish their bodies." +
   dom.dseparator +
@@ -149,7 +169,7 @@ item.sp1.use = function () {
 
 item.sp2 = new Item();
 item.sp2.id = 3007;
-item.sp2.name = "Mid-grade Spirit Pill";
+item.sp2.name = i18n.t("content.item.sp2.name");
 item.sp2.desc =
   "Small cheap spirit pill, made from condensed Ki. Developed to help young martial artists to go through their training" +
   dom.dseparator +
@@ -164,7 +184,7 @@ item.sp2.use = function () {
 
 item.sp3 = new Item();
 item.sp3.id = 3008;
-item.sp3.name = "High-grade Spirit Pill";
+item.sp3.name = i18n.t("content.item.sp3.name");
 item.sp3.desc =
   "Small spirit pill, made from condensed Ki. Given to young warriors as energy supplement" +
   dom.dseparator +
@@ -179,7 +199,7 @@ item.sp3.use = function () {
 
 item.lsrd = new Item();
 item.lsrd.id = 3009;
-item.lsrd.name = "Life Shard";
+item.lsrd.name = i18n.t("content.item.lsrd.name");
 item.lsrd.desc =
   "A fragment of living energy, trapped within a crystallic shell. Absorbing these slightly increases lifespan" +
   dom.dseparator +
@@ -190,13 +210,18 @@ item.lsrd.use = function () {
   you.hp += 2;
   you.hpa += 2;
   dom.d5_1_1.update();
-  msg("HP increased by +2 permanently", "hotpink");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.hp_increased_by_2_permanently_47bc1cf3",
+    ),
+    "hotpink",
+  );
   this.amount--;
 };
 
 item.hptn1 = new Item();
 item.hptn1.id = 3010;
-item.hptn1.name = "Lesser Healing Potion";
+item.hptn1.name = i18n.t("content.item.hptn1.name");
 item.hptn1.val = 50;
 item.hptn1.desc =
   "Weakest healing potion you can possibly find. Nearly useless for actual healing, but can act as a headache reliever" +
@@ -216,7 +241,7 @@ item.hptn1.use = function () {
 
 item.lckl = new Item();
 item.lckl.id = 3011;
-item.lckl.name = "Lucky Clover";
+item.lckl.name = i18n.t("content.item.lckl.name");
 item.lckl.desc =
   "Clover of the rare breed. Whoever is able to find even one will be blessed by the Gods of Luck" +
   dom.dseparator +
@@ -231,20 +256,27 @@ item.lckl.onGet = function () {
 };
 item.lckl.use = function (x) {
   you.luck += 1;
-  msg("Your Luck Increases!", "gold");
+  msg(
+    i18n.t("runtime.data.items.dialogue.your_luck_increases_6143dc15"),
+    "gold",
+  );
   this.amount--;
 };
 
 item.wstn1 = new Item();
 item.wstn1.id = 3012;
-item.wstn1.name = "Grey Whetsone";
+item.wstn1.name = i18n.t("content.item.wstn1.name");
 item.wstn1.desc =
   "Cheap and crude piece of whetstone. Not nearly good enough to maintain the life of a weapon, you can at least scrap off dirt and blood with it" +
   dom.dseparator +
   '<span style="color: lightgreen">Repairs equipped Weapon for <span style="color: lime">+2 DP</span></span>';
 item.wstn1.stype = 4;
 item.wstn1.use = function (x) {
-  if (you.eqp[0].id === 10000) msg("Repair what?...", "lightgrey");
+  if (you.eqp[0].id === 10000)
+    msg(
+      i18n.t("runtime.data.items.dialogue.repair_what_35f41b95"),
+      "lightgrey",
+    );
   else {
     you.eqp[0].dp + 2 >= you.eqp[0].dpmax
       ? (you.eqp[0].dp = you.eqp[0].dpmax)
@@ -256,7 +288,7 @@ item.wstn1.use = function (x) {
 
 item.bdgh = new Item();
 item.bdgh.id = 3013;
-item.bdgh.name = "Bandage";
+item.bdgh.name = i18n.t("content.item.bdgh.name");
 item.bdgh.desc =
   "Clean piece of thin sturdy cloth, perfect for wrapping and securing open wounds" +
   dom.dseparator +
@@ -264,13 +296,19 @@ item.bdgh.desc =
 item.bdgh.stype = 4;
 item.bdgh.use = function () {
   if (!effect.bled.active) {
-    msg("You're not bleeding", "orange");
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_re_not_bleeding_116fa1df"),
+      "orange",
+    );
     return;
   }
   const f = findbyid(you.eff, effect.bled.id);
   if (f.duration - 20 <= 0) removeEff(f, f.target);
   else f.duration -= 20;
-  msg("You bandage your wounds", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.you_bandage_your_wounds_9c79ad92"),
+    "lime",
+  );
   this.amount--;
 };
 item.bdgh.onGet = function () {
@@ -282,7 +320,7 @@ item.bdgh.onGet = function () {
 
 item.amshrm = new Item();
 item.amshrm.id = 3014;
-item.amshrm.name = "Asura Mushroom";
+item.amshrm.name = i18n.t("content.item.amshrm.name");
 item.amshrm.desc =
   "The ultimate mushroom of the mushroom world. Eating it makes you feel a mysterious kind of vitality" +
   dom.dseparator +
@@ -291,8 +329,13 @@ item.amshrm.stype = 4;
 item.amshrm.rar = 4;
 item.amshrm.use = function (x) {
   you.stra += 5;
-  msg("You feel the surge of strength!", "crimson");
-  msg("STR +5!", "lime");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_feel_the_surge_of_strength_4d678a89",
+    ),
+    "crimson",
+  );
+  msg(i18n.t("runtime.data.items.dialogue.str_5_4db1c060"), "lime");
   you.stat_r();
   update_d();
   this.amount--;
@@ -300,7 +343,7 @@ item.amshrm.use = function (x) {
 
 item.akhrb = new Item();
 item.akhrb.id = 3015;
-item.akhrb.name = "Aspha Herb";
+item.akhrb.name = i18n.t("content.item.akhrb.name");
 item.akhrb.desc =
   "Diet-oriented vegetable with misleading effect. It was such a terrible taste and bitter texture that no one would willingly eat them" +
   dom.dseparator +
@@ -311,7 +354,12 @@ item.akhrb.use = function (x) {
   if (this.disabled !== true) {
     this.disabled = true;
     if (random() < 0.005) {
-      msg("You managed to consume it", "lime");
+      msg(
+        i18n.t(
+          "runtime.data.items.dialogue.you_managed_to_consume_it_e5134e97",
+        ),
+        "lime",
+      );
       giveSkExp(skl.glt, rand(100, 355 * (skl.glt.lvl * 0.2 + 1)));
       you.sat *= 0.2;
       this.amount--;
@@ -337,8 +385,8 @@ item.akhrb.use = function (x) {
 
 item.cndl = new Item();
 item.cndl.id = 3016;
-item.cndl.name = "Candle";
-item.cndl.desc = "A tall wax candle, made to burn for a very long time";
+item.cndl.name = i18n.t("content.item.cndl.name");
+item.cndl.desc = i18n.t("content.item.cndl.desc");
 item.cndl.stype = 4;
 item.cndl.use = function (x) {
   if (!effect.cdlt.active) giveEff(you, effect.cdlt);
@@ -348,7 +396,7 @@ item.cndl.use = function (x) {
 
 item.incsk = new Item();
 item.incsk.id = 3017;
-item.incsk.name = "Incense Stick";
+item.incsk.name = i18n.t("content.item.incsk.name");
 item.incsk.desc =
   "A stick of aromatic incense. It calms your soul and mind" +
   dom.dseparator +
@@ -362,7 +410,7 @@ item.incsk.use = function (x) {
 
 item.sp0a = new Item();
 item.sp0a.id = 3018;
-item.sp0a.name = "Spirit Opening Powder";
+item.sp0a.name = i18n.t("content.item.sp0a.name");
 item.sp0a.desc =
   "Powder refined from blood of the wyrm. Has potential to improve internal energy" +
   dom.dseparator +
@@ -378,7 +426,7 @@ item.sp0a.use = function () {
 
 item.smkbmb = new Item();
 item.smkbmb.id = 3019;
-item.smkbmb.name = "Smoke Bomb";
+item.smkbmb.name = i18n.t("content.item.smkbmb.name");
 item.smkbmb.desc =
   "Pellets that release thick smog when crushed. Can create a smokescreen to help you escape from danger" +
   dom.dseparator +
@@ -386,7 +434,10 @@ item.smkbmb.desc =
 item.smkbmb.stype = 4;
 item.smkbmb.use = function () {
   if (global.flags.civil === true && global.flags.btl === false) {
-    msg("You're not in combat!", "red");
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_re_not_in_combat_8f5b9b04"),
+      "red",
+    );
     return;
   }
   if (
@@ -394,12 +445,21 @@ item.smkbmb.use = function () {
     global.current_z.size === 0 ||
     global.current_z.isboss
   ) {
-    msg("You can't pass this enemy!", "red");
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_can_t_pass_this_enemy_7df5335c"),
+      "red",
+    );
     return;
   } else {
     clearInterval(timers.btl);
     clearInterval(timers.btl2);
-    msg("*Puff*", "black", null, null, "lightgrey");
+    msg(
+      i18n.t("runtime.data.items.dialogue.puff_67d0eacb"),
+      "black",
+      null,
+      null,
+      "lightgrey",
+    );
     global.flags.smkactv = true;
     global.current_z.size--;
     area_init(global.current_z);
@@ -410,8 +470,8 @@ item.smkbmb.use = function () {
 
 item.svial1 = new Item();
 item.svial1.id = 3020;
-item.svial1.name = "Skeleton Vial";
-item.svial1.desc = "Summons a lvl 10 Skeleton";
+item.svial1.name = i18n.t("content.item.svial1.name");
+item.svial1.desc = i18n.t("content.item.svial1.desc");
 item.svial1.stype = 4;
 item.svial1.use = function () {
   if (global.flags.civil === true && global.flags.btl === false) {
@@ -422,7 +482,10 @@ item.svial1.use = function () {
       global.flags.busy ||
       global.flags.work
     ) {
-      msg("Unable to summon!", "red");
+      msg(
+        i18n.t("runtime.data.items.dialogue.unable_to_summon_40bd9724"),
+        "red",
+      );
       return;
     }
     const ta = new Area();
@@ -441,14 +504,26 @@ item.svial1.use = function () {
     z_bake(ta);
     area_init(ta);
     dom.d7m.update();
-    msg("The creature arises from the ground!", "white", null, null, "red");
+    msg(
+      i18n.t(
+        "runtime.data.items.dialogue.the_creature_arises_from_the_ground_8918e66b",
+      ),
+      "white",
+      null,
+      null,
+      "red",
+    );
     this.amount--;
-  } else msg("You're already in a battle!", "red");
+  } else
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_re_already_in_a_battle_a707b4b2"),
+      "red",
+    );
 };
 
 item.mpwdr = new Item();
 item.mpwdr.id = 3021;
-item.mpwdr.name = "Monster Powder";
+item.mpwdr.name = i18n.t("content.item.mpwdr.name");
 item.mpwdr.desc =
   "Dried and grounded sunbloom mixed with red salts, it emits aura often mistaken for soul energy that attracts nearby creatures<br>" +
   dom.dseparator +
@@ -460,10 +535,21 @@ item.mpwdr.use = function () {
     global.current_z.id <= 101 ||
     global.current_z.size <= 1
   ) {
-    msg("Unable to use it here!", "red");
+    msg(
+      i18n.t("runtime.data.items.dialogue.unable_to_use_it_here_2c7ad5d5"),
+      "red",
+    );
     return;
   }
-  msg("You spread some powder on the ground", "lime", null, null, "brown");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_spread_some_powder_on_the_ground_5dd5ace6",
+    ),
+    "lime",
+    null,
+    null,
+    "brown",
+  );
   global.current_z.size += 5;
   dom.d7m.update();
   this.amount--;
@@ -471,7 +557,7 @@ item.mpwdr.use = function () {
 
 item.smbpll = new Item();
 item.smbpll.id = 3022;
-item.smbpll.name = "Slumber Pill";
+item.smbpll.name = i18n.t("content.item.smbpll.name");
 item.smbpll.desc =
   "Pill with a strong sedative effect. Normally used by sick and old people to treat insomnia, if they can afford it. Has other uses if you are creative enough" +
   dom.dseparator +
@@ -485,7 +571,10 @@ item.smbpll.use = function (x) {
     global.flags.busy ||
     global.flags.work
   ) {
-    msg("You can't sleep now!", "red");
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_can_t_sleep_now_cb2b1002"),
+      "red",
+    );
     return;
   } else {
     let b = 0.1;
@@ -504,7 +593,7 @@ item.smbpll.use = function (x) {
 
 item.lifedr = new Item();
 item.lifedr.id = 3023;
-item.lifedr.name = "Life Drop";
+item.lifedr.name = i18n.t("content.item.lifedr.name");
 item.lifedr.desc =
   "A single drop of revitalizing liquid. Consuming even such a meager amount has a miraclous effect on the lifeforce of a mortal" +
   dom.dseparator +
@@ -517,14 +606,22 @@ item.lifedr.use = function () {
   you.hp += 40;
   you.hpa += 40;
   dom.d5_1_1.update();
-  msg("HP increased by +40 permanently", "hotpink");
-  msg("HP potential grows!", "pink");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.hp_increased_by_40_permanently_c94012ef",
+    ),
+    "hotpink",
+  );
+  msg(
+    i18n.t("runtime.data.items.dialogue.hp_potential_grows_95fbb1e6"),
+    "pink",
+  );
   this.amount--;
 };
 
 item.mnblm = new Item();
 item.mnblm.id = 3024;
-item.mnblm.name = "Moonbloom";
+item.mnblm.name = i18n.t("content.item.mnblm.name");
 item.mnblm.desc =
   "A yellow flower which is said to bud on new moons. The flower' nectar is the favourite of spirits and is effective for recovering from exhaustion, but only by refining it into a pill or elixir is it possible to draw out its full potential, which makes it prized by alchemists" +
   dom.dseparator +
@@ -536,13 +633,18 @@ item.mnblm.use = function () {
   you.sat += 2;
   you.sata += 2;
   dom.d5_3_1.update();
-  msg("SAT increased by +2 permanently", "hotpink");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.sat_increased_by_2_permanently_fd289123",
+    ),
+    "hotpink",
+  );
   this.amount--;
 };
 
 item.hptn2 = new Item();
 item.hptn2.id = 3025;
-item.hptn2.name = "Minor Healing Potion";
+item.hptn2.name = i18n.t("content.item.hptn2.name");
 item.hptn2.val = 450;
 item.hptn2.desc =
   "Healing potion with weak healing powers. It is usually used by commoners as first aid before deciding whether to go see a doctor or not" +
@@ -562,7 +664,7 @@ item.hptn2.use = function () {
 
 item.hptn3 = new Item();
 item.hptn3.id = 3026;
-item.hptn3.name = "Healing Potion";
+item.hptn3.name = i18n.t("content.item.hptn3.name");
 item.hptn3.val = 2100;
 item.hptn3.desc =
   "Startand healing potion of common quality. It can heal wounds, bruises, burns, sprains and other minor injuries. Novice adventurers and hunters should carry a few of these at all times" +
@@ -582,7 +684,7 @@ item.hptn3.use = function () {
 
 item.hptn4 = new Item();
 item.hptn4.id = 3027;
-item.hptn4.name = "Major Healing Potion";
+item.hptn4.name = i18n.t("content.item.hptn4.name");
 item.hptn4.val = 7900;
 item.hptn4.desc =
   "Potions given to the knights in times of war. Can heal moderate wounds and dull out the pain. These potions sneak their way into the market by all kinds of illegal means, yet actually selling them isn't prohibited" +
@@ -603,7 +705,7 @@ item.hptn4.use = function () {
 
 item.lsstn = new Item();
 item.lsstn.id = 3028;
-item.lsstn.name = "Life Stone";
+item.lsstn.name = i18n.t("content.item.lsstn.name");
 item.lsstn.desc =
   "Life vessel that lost its energy and became impure, now looks like an ordinary small pebble and serves very little purpose. Can be absorbed for minor health benefits" +
   dom.dseparator +
@@ -614,13 +716,18 @@ item.lsstn.use = function () {
   you.hp += 25;
   you.hpa += 25;
   dom.d5_1_1.update();
-  msg("HP increased by +25 permanently", "hotpink");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.hp_increased_by_25_permanently_6f014202",
+    ),
+    "hotpink",
+  );
   this.amount--;
 };
 
 item.bltrt = new Item();
 item.bltrt.id = 3029;
-item.bltrt.name = "Bloat Root";
+item.bltrt.name = i18n.t("content.item.bltrt.name");
 item.bltrt.desc =
   "Unremarkable looking grey root that is bland and tasteless, but eating it makes you feel full. It doesn't seem to have any other qualities, hovewer" +
   dom.dseparator +
@@ -631,14 +738,16 @@ item.bltrt.use = function () {
   you.sat + 100 > you.satmax ? (you.sat = you.satmax) : (you.sat += 100);
   dom.d5_3_1.update();
   this.amount--;
-  msg("Restored 100 energy", "lime");
+  msg(
+    i18n.t("runtime.data.items.dialogue.restored_100_energy_07d2786a"),
+    "lime",
+  );
 };
 
 item.feip1 = new Item();
 item.feip1.id = 3030;
-item.feip1.name = "Fei Pill";
-item.feip1.desc =
-  "When an alchemist miserably fails to produce a pill, this waste is created. Compound of ruined medical materials is full of poison and impurities, it can be used to kill those with weak constitution. However, it is not useless, and can be absorbed for raw ki if one endures the pain and survives after consuming it";
+item.feip1.name = i18n.t("content.item.feip1.name");
+item.feip1.desc = i18n.t("content.item.feip1.desc");
 item.feip1.stype = 4;
 item.feip1.use = function () {
   giveEff(you, effect.fei1, 60, 1);
@@ -648,7 +757,7 @@ item.feip1.use = function () {
 
 item.stthbm1 = new Item();
 item.stthbm1.id = 3031;
-item.stthbm1.name = "Morgia";
+item.stthbm1.name = i18n.t("content.item.stthbm1.name");
 item.stthbm1.desc =
   "Herb of might. This fiery herb is rumored to improve muscle density" +
   dom.dseparator +
@@ -657,8 +766,13 @@ item.stthbm1.stype = 4;
 item.stthbm1.rar = 2;
 item.stthbm1.use = function (x) {
   you.stra += 1;
-  msg("You feel the surge of strength!", "crimson");
-  msg("STR +1", "lime");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_feel_the_surge_of_strength_4d678a89",
+    ),
+    "crimson",
+  );
+  msg(i18n.t("runtime.data.items.dialogue.str_1_7aeb277c"), "lime");
   you.stat_r();
   update_d();
   this.amount--;
@@ -666,7 +780,7 @@ item.stthbm1.use = function (x) {
 
 item.stthbm2 = new Item();
 item.stthbm2.id = 3032;
-item.stthbm2.name = "Springsweed";
+item.stthbm2.name = i18n.t("content.item.stthbm2.name");
 item.stthbm2.desc =
   "Herb of swiftness. Loved by Serpents, this herb slightly raises one's reaction time" +
   dom.dseparator +
@@ -675,8 +789,13 @@ item.stthbm2.stype = 4;
 item.stthbm2.rar = 2;
 item.stthbm2.use = function (x) {
   you.spda += 1;
-  msg("You feel the surge of strength!", "crimson");
-  msg("SPD +1", "lime");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_feel_the_surge_of_strength_4d678a89",
+    ),
+    "crimson",
+  );
+  msg(i18n.t("runtime.data.items.dialogue.spd_1_fa4d7c5a"), "lime");
   you.stat_r();
   update_d();
   this.amount--;
@@ -684,7 +803,7 @@ item.stthbm2.use = function (x) {
 
 item.stthbm3 = new Item();
 item.stthbm3.id = 3033;
-item.stthbm3.name = "Clearbane";
+item.stthbm3.name = i18n.t("content.item.stthbm3.name");
 item.stthbm3.desc =
   "Herb of clarity. This herb is often used in making of high quality incense" +
   dom.dseparator +
@@ -693,8 +812,13 @@ item.stthbm3.stype = 4;
 item.stthbm3.rar = 2;
 item.stthbm3.use = function (x) {
   you.inta += 1;
-  msg("You feel the surge of strength!", "crimson");
-  msg("INT +1", "lime");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_feel_the_surge_of_strength_4d678a89",
+    ),
+    "crimson",
+  );
+  msg(i18n.t("runtime.data.items.dialogue.int_1_07a5a667"), "lime");
   you.stat_r();
   update_d();
   this.amount--;
@@ -702,7 +826,7 @@ item.stthbm3.use = function (x) {
 
 item.stthbm4 = new Item();
 item.stthbm4.id = 3034;
-item.stthbm4.name = "Drakevine";
+item.stthbm4.name = i18n.t("content.item.stthbm4.name");
 item.stthbm4.desc =
   "Herb of flexibility. There are rumors of an old hermit growing these herbs under the hidden mountain" +
   dom.dseparator +
@@ -711,8 +835,13 @@ item.stthbm4.stype = 4;
 item.stthbm4.rar = 2;
 item.stthbm4.use = function (x) {
   you.agla += 1;
-  msg("You feel the surge of strength!", "crimson");
-  msg("AGL +1", "lime");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_feel_the_surge_of_strength_4d678a89",
+    ),
+    "crimson",
+  );
+  msg(i18n.t("runtime.data.items.dialogue.agl_1_baf3f699"), "lime");
   you.stat_r();
   update_d();
   this.amount--;
@@ -720,22 +849,27 @@ item.stthbm4.use = function (x) {
 
 item.bmsmktt = new Item();
 item.bmsmktt.id = 3035;
-item.bmsmktt.name = "Smoke Pellet Cluster";
-item.bmsmktt.desc =
-  "Repurposed smoke bomb, made by concentrating multiple volatile components together, making the moke several times more hazardous, but not enough to cause real damage to a living person. Since the ignition period from such a modification is much longer, it has fewer uses than a regular smoke bomb";
+item.bmsmktt.name = i18n.t("content.item.bmsmktt.name");
+item.bmsmktt.desc = i18n.t("content.item.bmsmktt.desc");
 item.bmsmktt.stype = 4;
 item.bmsmktt.use = function () {
   if (global.current_l.id !== 111) {
-    msg("This isn't the best place to use this", "red");
+    msg(
+      i18n.t(
+        "runtime.data.items.dialogue.this_isn_t_the_best_place_to_use_ef82ee13",
+      ),
+      "red",
+    );
     return;
   }
   area.hmbsmnt.size = 0;
   msg(
-    "You toss a cluster down your basement and hear a distant shrill",
+    i18n.t(
+      "runtime.data.items.dialogue.you_toss_a_cluster_down_your_basement_and_bc18775a",
+    ),
     "yellow",
   );
-  dom.d_lctt.innerHTML +=
-    '<span style="color:grey;font-size:1.2em">&nbsp煙<span>';
+  dom.d_lctt.innerHTML += i18n.t("runtime.data.items.interface.nbsp_e9caec8e");
   sector.home.data.smkp = 900;
   sector.home.data.smkt = time.minute;
   this.amount--;
@@ -743,7 +877,7 @@ item.bmsmktt.use = function () {
 
 item.appl = new Item();
 item.appl.id = 1;
-item.appl.name = "Apple";
+item.appl.name = i18n.t("content.item.appl.name");
 item.appl.val = 7;
 item.appl.desc =
   "Juicy red fruit. Makes a fine breakfast if you have nothing else..." +
@@ -765,7 +899,7 @@ item.appl.use = function () {
 
 item.brd = new Item();
 item.brd.id = 2;
-item.brd.name = "Bread";
+item.brd.name = i18n.t("content.item.brd.name");
 item.brd.val = 14;
 item.brd.desc =
   "Simple loaf of bread, baked with care. It's crunchy and smells nice" +
@@ -792,7 +926,7 @@ item.brd.onChange = function (x, y) {
 
 item.crrt = new Item();
 item.crrt.id = 3;
-item.crrt.name = "Carrot";
+item.crrt.name = i18n.t("content.item.crrt.name");
 item.crrt.val = 5;
 item.crrt.desc =
   "It gets very sweet when boiled" +
@@ -820,7 +954,7 @@ item.crrt.onGet = function () {
 
 item.potat = new Item();
 item.potat.id = 4;
-item.potat.name = "Potato";
+item.potat.name = i18n.t("content.item.potat.name");
 item.potat.val = 7;
 item.potat.desc =
   "Universal vegetable that can be prepared in hundreds different ways" +
@@ -846,7 +980,7 @@ item.potat.use = function () {
 
 item.eggn = new Item();
 item.eggn.id = 5;
-item.eggn.name = "Egg";
+item.eggn.name = i18n.t("content.item.eggn.name");
 item.eggn.val = 4;
 item.eggn.desc =
   "Whole chicken egg, very nutritious" +
@@ -868,7 +1002,7 @@ item.eggn.use = function () {
 
 item.mlkn = new Item();
 item.mlkn.id = 6;
-item.mlkn.name = "Milk";
+item.mlkn.name = i18n.t("content.item.mlkn.name");
 item.mlkn.val = 8;
 item.mlkn.desc =
   "Power potion for your bones" +
@@ -890,7 +1024,7 @@ item.mlkn.use = function () {
 
 item.rwmt1 = new Item();
 item.rwmt1.id = 7;
-item.rwmt1.name = "Raw Meat";
+item.rwmt1.name = i18n.t("content.item.rwmt1.name");
 item.rwmt1.val = 11;
 item.rwmt1.desc =
   "Edible part of some animal, has to be cooked before consumption" +
@@ -927,7 +1061,7 @@ item.rwmt1.onChange = function (x, y) {
 
 item.rice = new Item();
 item.rice.id = 8;
-item.rice.name = "Rice";
+item.rice.name = i18n.t("content.item.rice.name");
 item.rice.val = 2;
 item.rice.desc =
   "Clean rice grains. Healthy and delicious when cooked, but awful to eat in dry state" +
@@ -949,7 +1083,7 @@ item.rice.use = function () {
 
 item.borc = new Item();
 item.borc.id = 9;
-item.borc.name = "Steamed Rice";
+item.borc.name = i18n.t("content.item.borc.name");
 item.borc.val = 18;
 item.borc.desc =
   "Fluffy rice. Simple dish that tastes good" +
@@ -971,7 +1105,7 @@ item.borc.use = function () {
 
 item.begg = new Item();
 item.begg.id = 10;
-item.begg.name = "Boiled Egg";
+item.begg.name = i18n.t("content.item.begg.name");
 item.begg.val = 7;
 item.begg.desc =
   "Hard/soft-boiled egg, you aren't sure. Will fill you up either way" +
@@ -993,7 +1127,7 @@ item.begg.use = function () {
 
 item.kit = new Item();
 item.kit.id = 11;
-item.kit.name = "Kikatsugan";
+item.kit.name = i18n.t("content.item.kit.name");
 item.kit.val = 800;
 item.kit.desc =
   "Ninja ration consisting mostly of cereals that, according to esoteric scrolls, <span style='color:orange'>\"Could sustain one in both mind and body with only three grains per day\"</span>" +
@@ -1016,7 +1150,7 @@ item.kit.use = function () {
 
 item.bac = new Item();
 item.bac.id = 12;
-item.bac.name = "Bacon";
+item.bac.name = i18n.t("content.item.bac.name");
 item.bac.val = 12;
 item.bac.desc =
   "The food of kings" +
@@ -1038,7 +1172,7 @@ item.bac.use = function () {
 
 item.bgt = new Item();
 item.bgt.id = 13;
-item.bgt.name = "Baguette";
+item.bgt.name = i18n.t("content.item.bgt.name");
 item.bgt.val = 17;
 item.bgt.desc =
   "A very long bread" +
@@ -1060,7 +1194,7 @@ item.bgt.use = function () {
 
 item.bhd = new Item();
 item.bhd.id = 14;
-item.bhd.name = "Hardtack";
+item.bhd.name = i18n.t("content.item.bhd.name");
 item.bhd.val = 6;
 item.bhd.desc =
   "A dry and virtually tasteless bread product capable of remaining edible without spoilage for vast lengths of time" +
@@ -1082,7 +1216,7 @@ item.bhd.use = function () {
 
 item.spb = new Item();
 item.spb.id = 15;
-item.spb.name = "Spoiled Bread";
+item.spb.name = i18n.t("content.item.spb.name");
 item.spb.val = 8;
 item.spb.desc =
   " Piece of old stale bread covered in mold. Takes courage to eat" +
@@ -1110,7 +1244,7 @@ item.spb.use = function () {
 
 item.wsb = new Item();
 item.wsb.id = 16;
-item.wsb.name = "Wastebread";
+item.wsb.name = i18n.t("content.item.wsb.name");
 item.wsb.val = 11;
 item.wsb.desc =
   "When flour becomes a commodity to deal with, wayfarers and the poor resort to mix it with leftovers of other ingredients and bake it all into bread" +
@@ -1132,7 +1266,7 @@ item.wsb.use = function () {
 
 item.onn = new Item();
 item.onn.id = 17;
-item.onn.name = "Onion";
+item.onn.name = i18n.t("content.item.onn.name");
 item.onn.val = 3;
 item.onn.desc =
   "Vegetable cultivated since ancient times. Enhances the dish in various ways, also makes you cry" +
@@ -1154,7 +1288,7 @@ item.onn.use = function () {
 
 item.sgr = new Item();
 item.sgr.id = 18;
-item.sgr.name = "Sugar";
+item.sgr.name = i18n.t("content.item.sgr.name");
 item.sgr.val = 1;
 item.sgr.desc =
   "Sweet little crystals. Kids love treats made out of them" +
@@ -1176,7 +1310,7 @@ item.sgr.use = function () {
 
 item.wht = new Item();
 item.wht.id = 19;
-item.wht.name = "Wheat";
+item.wht.name = i18n.t("content.item.wht.name");
 item.wht.val = 1;
 item.wht.desc =
   "Raw wheat. While not very tasty, powder made out of them is the main ingredient in breadmaking" +
@@ -1198,7 +1332,7 @@ item.wht.use = function () {
 
 item.tmt = new Item();
 item.tmt.id = 20;
-item.tmt.name = "Tomato";
+item.tmt.name = i18n.t("content.item.tmt.name");
 item.tmt.val = 8;
 item.tmt.desc =
   "Soursweet juicy edible, has many uses in cooking. Rumored to be poisonous" +
@@ -1220,7 +1354,7 @@ item.tmt.use = function () {
 
 item.cbg = new Item();
 item.cbg.id = 21;
-item.cbg.name = "Cabbage";
+item.cbg.name = i18n.t("content.item.cbg.name");
 item.cbg.val = 12;
 item.cbg.desc =
   "Crisp layered vegetable. Used in variety of dishes" +
@@ -1242,7 +1376,7 @@ item.cbg.use = function () {
 
 item.mshr = new Item();
 item.mshr.id = 22;
-item.mshr.name = "Mushroom";
+item.mshr.name = i18n.t("content.item.mshr.name");
 item.mshr.val = 5;
 item.mshr.desc =
   "Common edible mushroom. When cooked with the right ingredients, the flavour of this mushroom is not so common" +
@@ -1264,7 +1398,7 @@ item.mshr.use = function () {
 
 item.bnn = new Item();
 item.bnn.id = 23;
-item.bnn.name = "Banana";
+item.bnn.name = i18n.t("content.item.bnn.name");
 item.bnn.val = 8;
 item.bnn.desc =
   "Fruit full of potassium. Originaly cultivated as staple food, but eventually gained popularity" +
@@ -1286,7 +1420,7 @@ item.bnn.use = function () {
 
 item.wbrs = new Item();
 item.wbrs.id = 24;
-item.wbrs.name = "Wild Berries";
+item.wbrs.name = i18n.t("content.item.wbrs.name");
 item.wbrs.val = 7;
 item.wbrs.desc =
   "Wide selection of various edible berries collected from the forest" +
@@ -1308,7 +1442,7 @@ item.wbrs.use = function () {
 
 item.strwb = new Item();
 item.strwb.id = 25;
-item.strwb.name = "Strawberry";
+item.strwb.name = i18n.t("content.item.strwb.name");
 item.strwb.val = 18;
 item.strwb.desc =
   "Heap of plump red berries. They are sweet and popular with children and royalty" +
@@ -1330,7 +1464,7 @@ item.strwb.use = function () {
 
 item.orng = new Item();
 item.orng.id = 26;
-item.orng.name = "Orange";
+item.orng.name = i18n.t("content.item.orng.name");
 item.orng.val = 9;
 item.orng.desc =
   "Fragnant citruis, can be either sour or sweet depending where it was cultivated" +
@@ -1352,7 +1486,7 @@ item.orng.use = function () {
 
 item.ches = new Item();
 item.ches.id = 27;
-item.ches.name = "Cheese";
+item.ches.name = i18n.t("content.item.ches.name");
 item.ches.val = 13;
 item.ches.desc =
   "Fermented cow milk. Despite having strong smell it is a tasty and popular product. Can be eaten raw" +
@@ -1374,7 +1508,7 @@ item.ches.use = function () {
 
 item.ltcc = new Item();
 item.ltcc.id = 28;
-item.ltcc.name = "Lettuce";
+item.ltcc.name = i18n.t("content.item.ltcc.name");
 item.ltcc.val = 2;
 item.ltcc.desc =
   "Watery leaves, usually used in salads" +
@@ -1396,7 +1530,7 @@ item.ltcc.use = function () {
 
 item.brly = new Item();
 item.brly.id = 29;
-item.brly.name = "Barley";
+item.brly.name = i18n.t("content.item.brly.name");
 item.brly.val = 2;
 item.brly.desc =
   "Grainy cereal used for malting. A staple of brewing everywhere. It can also be ground into flour" +
@@ -1418,7 +1552,7 @@ item.brly.use = function () {
 
 item.grlc = new Item();
 item.grlc.id = 30;
-item.grlc.name = "Garlic";
+item.grlc.name = i18n.t("content.item.grlc.name");
 item.grlc.val = 6;
 item.grlc.desc =
   "A pungent garlic, popular as a seasoning for its strong flavor" +
@@ -1440,7 +1574,7 @@ item.grlc.use = function () {
 
 item.pmpk = new Item();
 item.pmpk.id = 31;
-item.pmpk.name = "Pumpkin";
+item.pmpk.name = i18n.t("content.item.pmpk.name");
 item.pmpk.val = 12;
 item.pmpk.desc =
   "A large vegetable, about the size of your head. Not very tasty raw, but is great for cooking" +
@@ -1462,7 +1596,7 @@ item.pmpk.use = function () {
 
 item.lmn = new Item();
 item.lmn.id = 32;
-item.lmn.name = "Lemon";
+item.lmn.name = i18n.t("content.item.lmn.name");
 item.lmn.val = 8;
 item.lmn.desc =
   "Very sour citrus. Can be eaten if you really want" +
@@ -1484,7 +1618,7 @@ item.lmn.use = function () {
 
 item.grp = new Item();
 item.grp.id = 33;
-item.grp.name = "Grapes";
+item.grp.name = i18n.t("content.item.grp.name");
 item.grp.val = 8;
 item.grp.desc =
   "A cluster of juicy grapes. If you ferment them they'll turn into wine" +
@@ -1506,7 +1640,7 @@ item.grp.use = function () {
 
 item.pnpl = new Item();
 item.pnpl.id = 34;
-item.pnpl.name = "Pineapple";
+item.pnpl.name = i18n.t("content.item.pnpl.name");
 item.pnpl.val = 12;
 item.pnpl.desc =
   "A large, spiky pineapple. A bit sour, though" +
@@ -1528,7 +1662,7 @@ item.pnpl.use = function () {
 
 item.rsmt = new Item();
 item.rsmt.id = 35;
-item.rsmt.name = "Roasted Meat";
+item.rsmt.name = i18n.t("content.item.rsmt.name");
 item.rsmt.val = 15;
 item.rsmt.rot = [0.1, 0.25, 0.05, 0.15];
 item.rsmt.desc =
@@ -1551,7 +1685,7 @@ item.rsmt.use = function () {
 
 item.tbrwd = new Item();
 item.tbrwd.id = 36;
-item.tbrwd.name = "Tea";
+item.tbrwd.name = i18n.t("content.item.tbrwd.name");
 item.tbrwd.val = 20;
 item.tbrwd.desc =
   "The beverage of gentlemen everywhere, made from applying hot water to leaves of the tea plant. Often used during the ceremonies as a social supplement" +
@@ -1573,7 +1707,7 @@ item.tbrwd.use = function () {
 
 item.htbrwd = new Item();
 item.htbrwd.id = 37;
-item.htbrwd.name = "Herbal Tea";
+item.htbrwd.name = i18n.t("content.item.htbrwd.name");
 item.htbrwd.val = 16;
 item.htbrwd.desc =
   "Healthy beverage brewed from various herbs, has a powerful relaxation effect" +
@@ -1595,7 +1729,7 @@ item.htbrwd.use = function () {
 
 item.segg = new Item();
 item.segg.id = 38;
-item.segg.name = "Scrambled Eggs";
+item.segg.name = i18n.t("content.item.segg.name");
 item.segg.val = 20;
 item.segg.desc =
   "Fluffy and delicious scrambled eggs" +
@@ -1617,7 +1751,7 @@ item.segg.use = function () {
 
 item.irntl = new Item();
 item.irntl.id = 39;
-item.irntl.name = "Indigo Rantil";
+item.irntl.name = i18n.t("content.item.irntl.name");
 item.irntl.val = 31;
 item.irntl.desc =
   "Wierd wine mixed with whiskey and rum" +
@@ -1644,7 +1778,7 @@ item.irntl.use = function () {
 
 item.wine1 = new Item();
 item.wine1.id = 40;
-item.wine1.name = "One-year Wine";
+item.wine1.name = i18n.t("content.item.wine1.name");
 item.wine1.val = 12;
 item.wine1.desc =
   "Barely reached the standard, maybe you should keep it for longer" +
@@ -1670,7 +1804,7 @@ item.wine1.use = function () {
 
 item.wines1 = new Item();
 item.wines1.id = 41;
-item.wines1.name = "Valens";
+item.wines1.name = i18n.t("content.item.wines1.name");
 item.wines1.val = 100;
 item.wines1.desc =
   "A Celtic red wine with delicate, yet robust, flavour" +
@@ -1694,7 +1828,7 @@ item.wines1.use = function () {
 
 item.wines2 = new Item();
 item.wines2.id = 42;
-item.wines2.name = "Prudens";
+item.wines2.name = i18n.t("content.item.wines2.name");
 item.wines2.val = 100;
 item.wines2.desc =
   "The most elegant red wine, with gentle flavour and bouquet" +
@@ -1718,7 +1852,7 @@ item.wines2.use = function () {
 
 item.wines3 = new Item();
 item.wines3.id = 43;
-item.wines3.name = "Volare";
+item.wines3.name = i18n.t("content.item.wines3.name");
 item.wines3.val = 100;
 item.wines3.desc =
   "A Celtic white wine known for its honey-like fragrance" +
@@ -1742,7 +1876,7 @@ item.wines3.use = function () {
 
 item.wines4 = new Item();
 item.wines4.id = 44;
-item.wines4.name = "Audentia";
+item.wines4.name = i18n.t("content.item.wines4.name");
 item.wines4.val = 100;
 item.wines4.desc =
   "A Celtic quality sweet wine allowed to age to perfection" +
@@ -1766,7 +1900,7 @@ item.wines4.use = function () {
 
 item.wines5 = new Item();
 item.wines5.id = 45;
-item.wines5.name = "Virtus";
+item.wines5.name = i18n.t("content.item.wines5.name");
 item.wines5.val = 100;
 item.wines5.desc =
   "A sparkling wine made from a blend of three grapes" +
@@ -1790,7 +1924,7 @@ item.wines5.use = function () {
 
 item.acrn = new Item();
 item.acrn.id = 46;
-item.acrn.name = "Acorn";
+item.acrn.name = i18n.t("content.item.acrn.name");
 item.acrn.val = 4;
 item.acrn.desc =
   "A handful of acorns, still in their shells. Squirrels like them, but they're not very good for you to eat in this state" +
@@ -1816,7 +1950,7 @@ item.acrn.use = function () {
 
 item.wine2 = new Item();
 item.wine2.id = 47;
-item.wine2.name = "Three-year Wine";
+item.wine2.name = i18n.t("content.item.wine2.name");
 item.wine2.val = 24;
 item.wine2.desc =
   "Delicious wine kept for more than 3 years" +
@@ -1843,7 +1977,7 @@ item.wine2.use = function () {
 
 item.winec1 = new Item();
 item.winec1.id = 48;
-item.winec1.name = "Cheap Red Wine";
+item.winec1.name = i18n.t("content.item.winec1.name");
 item.winec1.val = 8;
 item.winec1.desc =
   "Very rough wine made from fermeted fruit" +
@@ -1869,7 +2003,7 @@ item.winec1.use = function () {
 
 item.winec2 = new Item();
 item.winec2.id = 49;
-item.winec2.name = "Cheap White Wine";
+item.winec2.name = i18n.t("content.item.winec2.name");
 item.winec2.val = 12;
 item.winec2.desc =
   "Light wine, prepared only recently" +
@@ -1895,7 +2029,7 @@ item.winec2.use = function () {
 
 item.ske = new Item();
 item.ske.id = 50;
-item.ske.name = "Sake";
+item.ske.name = i18n.t("content.item.ske.name");
 item.ske.val = 31;
 item.ske.desc =
   "Eastern rice wine, popular past-time drink" +
@@ -1922,7 +2056,7 @@ item.ske.use = function () {
 
 item.pske = new Item();
 item.pske.id = 51;
-item.pske.name = "Premium Sake";
+item.pske.name = i18n.t("content.item.pske.name");
 item.pske.val = 51;
 item.pske.desc =
   "Rich Sake with strong foundation, flavorful and fragnant. Valued in high society for its presige status" +
@@ -1949,7 +2083,7 @@ item.pske.use = function () {
 
 item.cbun1 = new Item();
 item.cbun1.id = 52;
-item.cbun1.name = "Steamed Bun";
+item.cbun1.name = i18n.t("content.item.cbun1.name");
 item.cbun1.val = 19;
 item.cbun1.desc =
   "Plain round bun, very soft and filling" +
@@ -1971,7 +2105,7 @@ item.cbun1.use = function () {
 
 item.cbun2 = new Item();
 item.cbun2.id = 53;
-item.cbun2.name = "Red Bean Bun";
+item.cbun2.name = i18n.t("content.item.cbun2.name");
 item.cbun2.val = 29;
 item.cbun2.desc =
   "Bun with red beans added to it, resulting in rich flavour" +
@@ -1993,7 +2127,7 @@ item.cbun2.use = function () {
 
 item.cbun3 = new Item();
 item.cbun3.id = 54;
-item.cbun3.name = "Pork Bun";
+item.cbun3.name = i18n.t("content.item.cbun3.name");
 item.cbun3.val = 34;
 item.cbun3.desc =
   "Delicious treat with pork meat inside of it, fine addition to your dinner" +
@@ -2016,7 +2150,7 @@ item.cbun3.use = function () {
 
 item.scak = new Item();
 item.scak.id = 55;
-item.scak.name = "Strawberry Shortcake";
+item.scak.name = i18n.t("content.item.scak.name");
 item.scak.val = 39;
 item.scak.desc =
   "Sweet cake with cream and strawberries, has a soft texture and melts in your mouth" +
@@ -2038,7 +2172,7 @@ item.scak.use = function () {
 
 item.atrt = new Item();
 item.atrt.id = 56;
-item.atrt.name = "Apple Tart";
+item.atrt.name = i18n.t("content.item.atrt.name");
 item.atrt.val = 29;
 item.atrt.desc =
   "Crunchy small cake baked with apples" +
@@ -2060,7 +2194,7 @@ item.atrt.use = function () {
 
 item.strt = new Item();
 item.strt.id = 57;
-item.strt.name = "Strawberry Tart";
+item.strt.name = i18n.t("content.item.strt.name");
 item.strt.val = 38;
 item.strt.desc =
   "Sweet pastry with strawberries added on top" +
@@ -2083,7 +2217,7 @@ item.strt.use = function () {
 
 item.ccak = new Item();
 item.ccak.id = 58;
-item.ccak.name = "Cheesecake";
+item.ccak.name = i18n.t("content.item.ccak.name");
 item.ccak.val = 52;
 item.ccak.desc =
   "Delicious sweet dessert prepared in multiple layers. With fruit jam on top!" +
@@ -2106,7 +2240,7 @@ item.ccak.use = function () {
 
 item.icrm = new Item();
 item.icrm.id = 59;
-item.icrm.name = "Ice Cream";
+item.icrm.name = i18n.t("content.item.icrm.name");
 item.icrm.val = 19;
 item.icrm.desc =
   "A sweet, frozen food made of milk with rich amounts of sugar. Gets very popular during Summer" +
@@ -2128,7 +2262,7 @@ item.icrm.use = function () {
 
 item.lnch1 = new Item();
 item.lnch1.id = 60;
-item.lnch1.name = "Bacon and Eggs";
+item.lnch1.name = i18n.t("content.item.lnch1.name");
 item.lnch1.val = 40;
 item.lnch1.desc =
   "Breakfast of choice and a part of your morning ritual, very filling" +
@@ -2150,7 +2284,7 @@ item.lnch1.use = function () {
 
 item.lnch2 = new Item();
 item.lnch2.id = 61;
-item.lnch2.name = "Morning Set";
+item.lnch2.name = i18n.t("content.item.lnch2.name");
 item.lnch2.val = 47;
 item.lnch2.desc =
   "Eggs and toast. Goes best with Coffee" +
@@ -2173,7 +2307,7 @@ item.lnch2.use = function () {
 
 item.lnch3 = new Item();
 item.lnch3.id = 62;
-item.lnch3.name = "Lunch Set";
+item.lnch3.name = i18n.t("content.item.lnch3.name");
 item.lnch3.val = 58;
 item.lnch3.desc =
   "Hefty combination of meat, eggs and a toast." +
@@ -2196,7 +2330,7 @@ item.lnch3.use = function () {
 
 item.orgs = new Item();
 item.orgs.id = 63;
-item.orgs.name = "Onion Rings";
+item.orgs.name = i18n.t("content.item.orgs.name");
 item.orgs.val = 20;
 item.orgs.desc =
   "Golden slices of onion, buttered and fried in flour. Crunchy!" +
@@ -2218,7 +2352,7 @@ item.orgs.use = function () {
 
 item.fsh1 = new Item();
 item.fsh1.id = 65;
-item.fsh1.name = "Fish";
+item.fsh1.name = i18n.t("content.item.fsh1.name");
 item.fsh1.val = 15;
 item.fsh1.desc =
   "Freshly caught fish. Makes a passable meal raw" +
@@ -2244,7 +2378,7 @@ item.fsh1.use = function () {
 
 item.fsh2 = new Item();
 item.fsh2.id = 66;
-item.fsh2.name = "Fish Fillet";
+item.fsh2.name = i18n.t("content.item.fsh2.name");
 item.fsh2.val = 6;
 item.fsh2.desc =
   "The fillet of fish, ready to be cooked" +
@@ -2270,7 +2404,7 @@ item.fsh2.use = function () {
 
 item.ffsh1 = new Item();
 item.ffsh1.id = 67;
-item.ffsh1.name = "Cooked Fish";
+item.ffsh1.name = i18n.t("content.item.ffsh1.name");
 item.ffsh1.val = 19;
 item.ffsh1.desc =
   "Evenly fried delicious fish. It has a very deicious aroma" +
@@ -2292,7 +2426,7 @@ item.ffsh1.use = function () {
 
 item.ffsh2 = new Item();
 item.ffsh2.id = 68;
-item.ffsh2.name = "Batter Fried Fish";
+item.ffsh2.name = i18n.t("content.item.ffsh2.name");
 item.ffsh2.val = 42;
 item.ffsh2.desc =
   "A delicious golden brown serving of crispy fried fish" +
@@ -2315,7 +2449,7 @@ item.ffsh2.use = function () {
 
 item.ssm = new Item();
 item.ssm.id = 69;
-item.ssm.name = "Sashimi";
+item.ssm.name = i18n.t("content.item.ssm.name");
 item.ssm.val = 17;
 item.ssm.desc =
   "Little fish slices, served with tangly dip sauce" +
@@ -2338,7 +2472,7 @@ item.ssm.use = function () {
 
 item.dssm = new Item();
 item.dssm.id = 70;
-item.dssm.name = "Deluxe Sashimi";
+item.dssm.name = i18n.t("content.item.dssm.name");
 item.dssm.val = 43; // fish soy cucum lettuc
 item.dssm.desc =
   "Delicious slivers of thinly sliced raw fish and tasty vegetables" +
@@ -2361,7 +2495,7 @@ item.dssm.use = function () {
 
 item.mkzs = new Item();
 item.mkzs.id = 71;
-item.mkzs.name = "Makizushi";
+item.mkzs.name = i18n.t("content.item.mkzs.name");
 item.mkzs.val = 35;
 item.mkzs.desc =
   "Delicious fish slices wrapped in tasty sushi rice and rolled up in a healthy nori" +
@@ -2384,7 +2518,7 @@ item.mkzs.use = function () {
 
 item.nori = new Item();
 item.nori.id = 72;
-item.nori.name = "Nori";
+item.nori.name = i18n.t("content.item.nori.name");
 item.nori.val = 10;
 item.nori.desc =
   "Pages of dried seaweed, very healthy and tastes like ocean" +
@@ -2406,7 +2540,7 @@ item.nori.use = function () {
 
 item.fnori = new Item();
 item.fnori.id = 73;
-item.fnori.name = "Fried Nori";
+item.fnori.name = i18n.t("content.item.fnori.name");
 item.fnori.val = 20;
 item.fnori.desc =
   "Sheets of nori friend with salt, giving it an entirely new taste. An incredibly delicios and popular snack" +
@@ -2428,7 +2562,7 @@ item.fnori.use = function () {
 
 item.swtch1 = new Item();
 item.swtch1.id = 74;
-item.swtch1.name = "Sandwich";
+item.swtch1.name = i18n.t("content.item.swtch1.name");
 item.swtch1.val = 40;
 item.swtch1.desc =
   "Two peices of bread and a slice of cheese inbetween. Simple and tasty" +
@@ -2450,7 +2584,7 @@ item.swtch1.use = function () {
 
 item.jll = new Item();
 item.jll.id = 75;
-item.jll.name = "Jelly";
+item.jll.name = i18n.t("content.item.jll.name");
 item.jll.val = 6;
 item.jll.desc =
   "Should you really be eating this stuff?" +
@@ -2472,7 +2606,7 @@ item.jll.use = function () {
 
 item.flr = new Item();
 item.flr.id = 76;
-item.flr.name = "Flour";
+item.flr.name = i18n.t("content.item.flr.name");
 item.flr.val = 1;
 item.flr.desc =
   "This enriched white flour is useful for baking" +
@@ -2494,7 +2628,7 @@ item.flr.use = function () {
 
 item.pcns = new Item();
 item.pcns.id = 77;
-item.pcns.name = "Pine Nuts";
+item.pcns.name = i18n.t("content.item.pcns.name");
 item.pcns.val = 4;
 item.pcns.desc =
   "A handful of tasty crunchy nuts from a pinecone" +
@@ -2516,7 +2650,7 @@ item.pcns.use = function () {
 
 item.dgh = new Item();
 item.dgh.id = 78;
-item.dgh.name = "Dough";
+item.dgh.name = i18n.t("content.item.dgh.name");
 item.dgh.val = 4;
 item.dgh.desc =
   "Flour mixed with water, kneaded into a gooey paste.  This dough can be used to bake bread more efficiently than with just flour" +
@@ -2538,7 +2672,7 @@ item.dgh.use = function () {
 
 item.hzlnt = new Item();
 item.hzlnt.id = 79;
-item.hzlnt.name = "Hazelnuts";
+item.hzlnt.name = i18n.t("content.item.hzlnt.name");
 item.hzlnt.val = 6;
 item.hzlnt.desc =
   "Popular forest nuts, still in their shells. They smell like the woods they come from" +
@@ -2560,7 +2694,7 @@ item.hzlnt.use = function () {
 
 item.hpck = new Item();
 item.hpck.id = 80;
-item.hpck.name = "Hippo Cookie";
+item.hpck.name = i18n.t("content.item.hpck.name");
 item.hpck.val = 33;
 item.hpck.desc =
   "Soft cookies in a shape of a cute hippo, baked with milk and hazelnuts. Very popular with children and adults alike" +
@@ -2583,7 +2717,7 @@ item.hpck.use = function () {
 
 item.dfrt = new Item();
 item.dfrt.id = 81;
-item.dfrt.name = "Dried Fruit";
+item.dfrt.name = i18n.t("content.item.dfrt.name");
 item.dfrt.val = 12;
 item.dfrt.desc =
   "Fruit roughly chopped and sun-dried, prepared as marching rations for the rangers" +
@@ -2605,7 +2739,7 @@ item.dfrt.use = function () {
 
 item.brdb = new Item();
 item.brdb.id = 82;
-item.brdb.name = "Burnt Bread";
+item.brdb.name = i18n.t("content.item.brdb.name");
 item.brdb.val = 4;
 item.brdb.desc =
   "Completely ruined and unappetizing loaf of charred bread. You can still eat it, but you probably won't enjoy it" +
@@ -2629,7 +2763,7 @@ item.brdb.use = function () {
 
 item.spcn = new Item();
 item.spcn.id = 83; //Pukusakina
-item.spcn.name = "Soft Windflower";
+item.spcn.name = i18n.t("content.item.spcn.name");
 item.spcn.val = 5;
 item.spcn.desc =
   "Wild vegetable that goes well with meat. " +
@@ -2651,7 +2785,7 @@ item.spcn.use = function () {
 
 item.hney = new Item();
 item.hney.id = 84;
-item.hney.name = "Honey";
+item.hney.name = i18n.t("content.item.hney.name");
 item.hney.val = 11;
 item.hney.desc =
   "Sweet sticky syrup that bees make. Can be turned into candy, but also very good by itself" +
@@ -2673,7 +2807,7 @@ item.hney.use = function () {
 
 item.brise = new Item();
 item.brise.id = 85;
-item.brise.name = "Bad Rice";
+item.brise.name = i18n.t("content.item.brise.name");
 item.brise.val = 8;
 item.brise.desc =
   "Old spoiled rice that's gone bad and turned yellow. Desperate food" +
@@ -2701,7 +2835,7 @@ item.brise.use = function () {
 
 item.steak = new Item();
 item.steak.id = 86;
-item.steak.name = "Steak";
+item.steak.name = i18n.t("content.item.steak.name");
 item.steak.val = 50;
 item.steak.desc =
   "Quality steak seared to perfection with a sprinkle of salt and generous twist of pepper. The delicious aroma is enough to make you drool" +
@@ -2724,7 +2858,7 @@ item.steak.use = function () {
 
 item.spc1 = new Item();
 item.spc1.id = 87;
-item.spc1.name = "Black Pepper";
+item.spc1.name = i18n.t("content.item.spc1.name");
 item.spc1.val = 2;
 item.spc1.desc =
   "Small black berries with pungent aroma. Perfect for spicing food up" +
@@ -2747,7 +2881,7 @@ item.spc1.use = function () {
 
 item.cnmn = new Item();
 item.cnmn.id = 88;
-item.cnmn.name = "Cinnamon";
+item.cnmn.name = i18n.t("content.item.cnmn.name");
 item.cnmn.val = 3;
 item.cnmn.desc =
   "Bark sticks from the Cinnamon tree. Fragnant and good for your health" +
@@ -2769,7 +2903,7 @@ item.cnmn.use = function () {
 
 item.bttr = new Item();
 item.bttr.id = 89;
-item.bttr.name = "Butter";
+item.bttr.name = i18n.t("content.item.bttr.name");
 item.bttr.val = 8;
 item.bttr.desc =
   "Small brick of creamy butter, made from churned cow milk " +
@@ -2791,7 +2925,7 @@ item.bttr.use = function () {
 
 item.cnmnb = new Item();
 item.cnmnb.id = 90;
-item.cnmnb.name = "Cinnamon Bun";
+item.cnmnb.name = i18n.t("content.item.cnmnb.name");
 item.cnmnb.val = 36;
 item.cnmnb.desc =
   "Fluffy sweet pastry bun with aromatic cinnamon powder sprinkled on top of it. Rare treat everyone can enjoy " +
@@ -2814,7 +2948,7 @@ item.cnmnb.use = function () {
 
 item.brth = new Item();
 item.brth.id = 91;
-item.brth.name = "Broth";
+item.brth.name = i18n.t("content.item.brth.name");
 item.brth.val = 16;
 item.brth.desc =
   "Tasty and healthy meat broth. Used mainly for cooking soups, but can be consumed as is" +
@@ -2836,7 +2970,7 @@ item.brth.use = function () {
 
 item.eggsp = new Item();
 item.eggsp.id = 92;
-item.eggsp.name = "Egg Soup";
+item.eggsp.name = i18n.t("content.item.eggsp.name");
 item.eggsp.val = 46;
 item.eggsp.desc =
   "Popular soup made from delicious broth and eggs. It's a great meal to start your day with" +
@@ -2859,7 +2993,7 @@ item.eggsp.use = function () {
 
 item.scln = new Item();
 item.scln.id = 93;
-item.scln.name = "Scallion";
+item.scln.name = i18n.t("content.item.scln.name");
 item.scln.val = 4;
 item.scln.desc =
   "Green scallions, also known as spring onions. Slightly spicy and fragnant, they help to bring out the taste of the soups" +
@@ -2881,7 +3015,7 @@ item.scln.use = function () {
 
 item.crmchd = new Item();
 item.crmchd.id = 94;
-item.crmchd.name = "Creamy Chowder";
+item.crmchd.name = i18n.t("content.item.crmchd.name");
 item.crmchd.val = 62;
 item.crmchd.desc =
   "Delicious meat howder with milk, cheese and potato flakes. You can practically taste the chef's skill" +
@@ -2904,7 +3038,7 @@ item.crmchd.use = function () {
 
 item.chklt = new Item();
 item.chklt.id = 95;
-item.chklt.name = "Chocolate";
+item.chklt.name = i18n.t("content.item.chklt.name");
 item.chklt.val = 9;
 item.chklt.desc =
   "Ground cacao beans solidified into a sweet, tasty treat" +
@@ -2926,7 +3060,7 @@ item.chklt.use = function () {
 
 item.fegg = new Item();
 item.fegg.id = 96;
-item.fegg.name = "Fried Egg";
+item.fegg.name = i18n.t("content.item.fegg.name");
 item.fegg.val = 9;
 item.fegg.desc =
   "An egg, simply fried as is. It's pretty good" +
@@ -2948,7 +3082,7 @@ item.fegg.use = function () {
 
 item.crn = new Item();
 item.crn.id = 97;
-item.crn.name = "Corn";
+item.crn.name = i18n.t("content.item.crn.name");
 item.crn.val = 3;
 item.crn.desc =
   "Golden kernels, attached to a cob. Practically inedible like this" +
@@ -2970,7 +3104,7 @@ item.crn.use = function () {
 
 item.bcrn = new Item();
 item.bcrn.id = 98;
-item.bcrn.name = "Butter Corn";
+item.bcrn.name = i18n.t("content.item.bcrn.name");
 item.bcrn.val = 25;
 item.bcrn.desc =
   "Golden brown corn fried in generous amount of butter. Very tasty" +
@@ -2992,7 +3126,7 @@ item.bcrn.use = function () {
 
 item.pcrn = new Item();
 item.pcrn.id = 99;
-item.pcrn.name = "Popcorn";
+item.pcrn.name = i18n.t("content.item.pcrn.name");
 item.pcrn.val = 10;
 item.pcrn.desc =
   "Corn kernels, roasted under high heat. They make a *pop* sound and explode into little edible clouds" +
@@ -3014,7 +3148,7 @@ item.pcrn.use = function () {
 
 item.cpcrn = new Item();
 item.cpcrn.id = 100;
-item.cpcrn.name = "Salted Popcorn";
+item.cpcrn.name = i18n.t("content.item.cpcrn.name");
 item.cpcrn.val = 15;
 item.cpcrn.desc =
   "Regular popcorn, but slightly salted for extra taste" +
@@ -3036,7 +3170,7 @@ item.cpcrn.use = function () {
 
 item.fbrd = new Item();
 item.fbrd.id = 101;
-item.fbrd.name = "Flatbread";
+item.fbrd.name = i18n.t("content.item.fbrd.name");
 item.fbrd.val = 12;
 item.fbrd.desc =
   "Primitive unleavened bread" +
@@ -3058,7 +3192,7 @@ item.fbrd.use = function () {
 
 item.gcce = new Item();
 item.gcce.id = 102;
-item.gcce.name = "Ginger Cookie";
+item.gcce.name = i18n.t("content.item.gcce.name");
 item.gcce.val = 25;
 item.gcce.desc =
   "Spiced cookies baked from a batter of flour, molasses and ginger powder" +
@@ -3081,7 +3215,7 @@ item.gcce.use = function () {
 
 item.bcrc = new Item();
 item.bcrc.id = 103;
-item.bcrc.name = "Bone Cracker";
+item.bcrc.name = i18n.t("content.item.bcrc.name");
 item.bcrc.val = 12;
 item.bcrc.desc =
   "Bones of some kind, baked until crisp" +
@@ -3103,7 +3237,7 @@ item.bcrc.use = function () {
 
 item.snkb = new Item();
 item.snkb.id = 104;
-item.snkb.name = "Snack Bar";
+item.snkb.name = i18n.t("content.item.snkb.name");
 item.snkb.val = 30;
 item.snkb.desc =
   "Fruit, sugar, and grain meal mixed and molded before being backed into a stcik-shaped pastry" +
@@ -3125,7 +3259,7 @@ item.snkb.use = function () {
 
 item.dmtp = new Item();
 item.dmtp.id = 105;
-item.dmtp.name = "Deluxe Meat Pie";
+item.dmtp.name = i18n.t("content.item.dmtp.name");
 item.dmtp.val = 60;
 item.dmtp.desc =
   "Premium pie with abudance of various meats, best eaten hot! Extremely filling" +
@@ -3148,7 +3282,7 @@ item.dmtp.use = function () {
 
 item.lkmc = new Item();
 item.lkmc.id = 106;
-item.lkmc.name = "Lokum";
+item.lkmc.name = i18n.t("content.item.lkmc.name");
 item.lkmc.val = 29;
 item.lkmc.desc =
   "Grain meal cooked down, mixed with mashed fruits and then cooled to produce a soft candy" +
@@ -3170,7 +3304,7 @@ item.lkmc.use = function () {
 
 item.vgsn = new Item();
 item.vgsn.id = 107;
-item.vgsn.name = "Vegetable Sandwich";
+item.vgsn.name = i18n.t("content.item.vgsn.name");
 item.vgsn.val = 35;
 item.vgsn.desc =
   "A sandwich with sliced cucumber filling. Tastes slightly bland" +
@@ -3192,7 +3326,7 @@ item.vgsn.use = function () {
 
 item.stgp = new Item();
 item.stgp.id = 108;
-item.stgp.name = "Stargazing Pie";
+item.stgp.name = i18n.t("content.item.stgp.name");
 item.stgp.val = 55;
 item.stgp.desc =
   "A pie containing a whole fish romantically gazing up at the stars" +
@@ -3214,7 +3348,7 @@ item.stgp.use = function () {
 
 item.tdpps = new Item();
 item.tdpps.id = 109;
-item.tdpps.name = "Tallow Drops";
+item.tdpps.name = i18n.t("content.item.tdpps.name");
 item.tdpps.val = 33;
 item.tdpps.desc =
   "Nourishing tallow, molded into lozenges. Subtly sweet" +
@@ -3236,7 +3370,7 @@ item.tdpps.use = function () {
 
 item.chstn = new Item();
 item.chstn.id = 110;
-item.chstn.name = "Chestnuts";
+item.chstn.name = i18n.t("content.item.chstn.name");
 item.chstn.val = 5;
 item.chstn.desc =
   "Delicious acorns which release more flavour the more one chews on them" +
@@ -3258,7 +3392,7 @@ item.chstn.use = function () {
 
 item.prfd = new Item();
 item.prfd.id = 111;
-item.prfd.name = "Prison Food";
+item.prfd.name = i18n.t("content.item.prfd.name");
 item.prfd.val = 22;
 item.prfd.desc =
   "This jail level delicacy is nutritious, generously portioned and inexpensive. But it doesn't taste good" +
@@ -3281,7 +3415,7 @@ item.prfd.use = function () {
 
 item.brmt = new Item();
 item.brmt.id = 112;
-item.brmt.name = "Burnt Meat";
+item.brmt.name = i18n.t("content.item.brmt.name");
 item.brmt.val = 7;
 item.brmt.desc =
   "Coal-looking overcooked chunk of meat. Mildly nutritious but awful to eat" +
@@ -3305,7 +3439,7 @@ item.brmt.use = function () {
 
 item.mbsps = new Item();
 item.mbsps.id = 113;
-item.mbsps.name = "Mebaspa Sandwich";
+item.mbsps.name = i18n.t("content.item.mbsps.name");
 item.mbsps.val = 52;
 item.mbsps.desc =
   "Ordinary bread with meatballs and spaghetti put in it, it's extremely high on cholesterol. Weird skeleton kid invented this dish" +
@@ -3327,7 +3461,7 @@ item.mbsps.use = function () {
 
 item.spgt = new Item();
 item.spgt.id = 114;
-item.spgt.name = "Spaghetti and Meatballs";
+item.spgt.name = i18n.t("content.item.spgt.name");
 item.spgt.val = 33;
 item.spgt.desc =
   "Long noodles with meat and meatsauce. Renown food from some far off land" +
@@ -3349,7 +3483,7 @@ item.spgt.use = function () {
 
 item.mnj1 = new Item();
 item.mnj1.id = 115;
-item.mnj1.name = "Manjū";
+item.mnj1.name = i18n.t("content.item.mnj1.name");
 item.mnj1.val = 26;
 item.mnj1.desc =
   "Popular traditional eastern confection, kneaded boiled bun with the variety of sweet fillings within in" +
@@ -3371,7 +3505,7 @@ item.mnj1.use = function () {
 
 item.mnj2 = new Item();
 item.mnj2.id = 116;
-item.mnj2.name = "Alcoholic Manjū";
+item.mnj2.name = i18n.t("content.item.mnj2.name");
 item.mnj2.val = 38;
 item.mnj2.desc =
   "Manjū bun with delicious sake added to it" +
@@ -3396,7 +3530,7 @@ item.mnj2.use = function () {
 
 item.ntea1 = new Item();
 item.ntea1.id = 117;
-item.ntea1.name = "Landen Flower Tea";
+item.ntea1.name = i18n.t("content.item.ntea1.name");
 item.ntea1.val = 26;
 item.ntea1.desc =
   "Rare herbal tea created by a talented pharmacist. It calms and relaxes those who drink it." +
@@ -3419,7 +3553,7 @@ item.ntea1.use = function () {
 
 item.jrk1 = new Item();
 item.jrk1.id = 118;
-item.jrk1.name = "Beef Jerky";
+item.jrk1.name = i18n.t("content.item.jrk1.name");
 item.jrk1.val = 18;
 item.jrk1.desc =
   "Perfectly dried strips of meat. The taste is not bad, this jerky can be kept edible for years" +
@@ -3441,7 +3575,7 @@ item.jrk1.use = function () {
 
 item.jrk2 = new Item();
 item.jrk2.id = 119;
-item.jrk2.name = "Spicy Jerky";
+item.jrk2.name = i18n.t("content.item.jrk2.name");
 item.jrk2.val = 30;
 item.jrk2.desc =
   "Valuable jerky, enriched and improved. Salted and spiced into a filling and tasty travel food" +
@@ -3463,7 +3597,7 @@ item.jrk2.use = function () {
 
 item.ongr = new Item();
 item.ongr.id = 120;
-item.ongr.name = "Onigiri";
+item.ongr.name = i18n.t("content.item.ongr.name");
 item.ongr.val = 25;
 item.ongr.desc =
   "A simple portable food consisting of cooked rice rolled into a ball and seasoned with salt" +
@@ -3485,7 +3619,7 @@ item.ongr.use = function () {
 
 item.rbmb = new Item();
 item.rbmb.id = 121;
-item.rbmb.name = "Rice Bomb";
+item.rbmb.name = i18n.t("content.item.rbmb.name");
 item.rbmb.val = 33;
 item.rbmb.desc =
   "A grilled onigiri with a miso-ginger glaze that creates explosion of flavour" +
@@ -3507,7 +3641,7 @@ item.rbmb.use = function () {
 
 item.mchii = new Item();
 item.mchii.id = 122;
-item.mchii.name = "Mochi";
+item.mchii.name = i18n.t("content.item.mchii.name");
 item.mchii.val = 22;
 item.mchii.desc =
   "Dumpling made with kneaded mochi rice flour" +
@@ -3529,7 +3663,7 @@ item.mchii.use = function () {
 
 item.mchai = new Item();
 item.mchai.id = 123;
-item.mchai.name = "Kuzumochi";
+item.mchai.name = i18n.t("content.item.mchai.name");
 item.mchai.val = 29;
 item.mchai.desc =
   "Variation of mochi, made by glazing grilled rice flour with kudzu sauce" +
@@ -3551,7 +3685,7 @@ item.mchai.use = function () {
 
 item.igum = new Item();
 item.igum.id = 124;
-item.igum.name = "Ice Gummy";
+item.igum.name = i18n.t("content.item.igum.name");
 item.igum.val = 17;
 item.igum.desc =
   "A refreshing snack made from larvae suspended in fruit juice gelatin" +
@@ -3573,7 +3707,7 @@ item.igum.use = function () {
 
 item.msoop = new Item();
 item.msoop.id = 125;
-item.msoop.name = "Mushroom Soup";
+item.msoop.name = i18n.t("content.item.msoop.name");
 item.msoop.val = 37;
 item.msoop.desc =
   "Refreshing soup made of chopped mushrooms, potatoes and onions boiled together" +
@@ -3595,7 +3729,7 @@ item.msoop.use = function () {
 
 item.rmn1 = new Item();
 item.rmn1.id = 126;
-item.rmn1.name = "Chashu Ramen";
+item.rmn1.name = i18n.t("content.item.rmn1.name");
 item.rmn1.val = 41;
 item.rmn1.desc =
   "This ramen features fresh soy sauce broth and deliciously textured chashu pork " +
@@ -3617,7 +3751,7 @@ item.rmn1.use = function () {
 
 item.rmn2 = new Item();
 item.rmn2.id = 127;
-item.rmn2.name = "Miso Ramen";
+item.rmn2.name = i18n.t("content.item.rmn2.name");
 item.rmn2.val = 44;
 item.rmn2.desc =
   "Miso and pork mixed with spicy vegetables makes for a succulent soup you'd want to eat again" +
@@ -3639,7 +3773,7 @@ item.rmn2.use = function () {
 
 item.rmn3 = new Item();
 item.rmn3.id = 128;
-item.rmn3.name = "Tonkotsu Ramen";
+item.rmn3.name = i18n.t("content.item.rmn3.name");
 item.rmn3.val = 48;
 item.rmn3.desc =
   "This delicious tonkotsu ramen is a rich pork-infused soup made from finest ingredients" +
@@ -3661,7 +3795,7 @@ item.rmn3.use = function () {
 
 item.sqdyak = new Item();
 item.sqdyak.id = 129;
-item.sqdyak.name = "Squid Yakisoba";
+item.sqdyak.name = i18n.t("content.item.sqdyak.name");
 item.sqdyak.val = 43;
 item.sqdyak.desc =
   "Tender, delicious yakisoba noodles are combined with tasty squid making a filling and enjoyable meal" +
@@ -3683,7 +3817,7 @@ item.sqdyak.use = function () {
 
 item.mtbeer = new Item();
 item.mtbeer.id = 130;
-item.mtbeer.name = "Malt Beer";
+item.mtbeer.name = i18n.t("content.item.mtbeer.name");
 item.mtbeer.val = 18;
 item.mtbeer.desc =
   "This beer has a pleasant aftertaste and depth of flavor that only 100% barley malts can provide" +
@@ -3709,7 +3843,7 @@ item.mtbeer.use = function () {
 
 item.dbeer = new Item();
 item.dbeer.id = 131;
-item.dbeer.name = "Draft Beer";
+item.dbeer.name = i18n.t("content.item.dbeer.name");
 item.dbeer.val = 15;
 item.dbeer.desc =
   "A medium-sized mug of draft beet that many like to start with. Its creamy head and crisp taste are perfect after a day of hard work " +
@@ -3735,7 +3869,7 @@ item.dbeer.use = function () {
 
 item.ootee = new Item();
 item.ootee.id = 132;
-item.ootee.name = "Oolong Tea";
+item.ootee.name = i18n.t("content.item.ootee.name");
 item.ootee.val = 25;
 item.ootee.desc =
   "Oolong tea, famous for its thick, rich flavor and light aftertaste, is the quintessential non-alcoholic drink. Enjoy its exquisite fragrance and flavor" +
@@ -3757,7 +3891,7 @@ item.ootee.use = function () {
 
 item.krcsal = new Item();
 item.krcsal.id = 133;
-item.krcsal.name = "Kotchori Salad";
+item.krcsal.name = i18n.t("content.item.krcsal.name");
 item.krcsal.val = 49;
 item.krcsal.desc =
   "Kotchori salad brimming with eastern bunching onions! The peppery dressing drizzled on top and pungent onion flavor match all manners of drings" +
@@ -3779,7 +3913,7 @@ item.krcsal.use = function () {
 
 item.emdm = new Item();
 item.emdm.id = 134;
-item.emdm.name = "Edamame";
+item.emdm.name = i18n.t("content.item.emdm.name");
 item.emdm.val = 21;
 item.emdm.desc =
   "These soybeans in a pod are pretty much the default snack when drinking" +
@@ -3801,7 +3935,7 @@ item.emdm.use = function () {
 
 item.skplt = new Item();
 item.skplt.id = 135;
-item.skplt.name = "Skewer Platter";
+item.skplt.name = i18n.t("content.item.skplt.name");
 item.skplt.val = 61;
 item.skplt.desc =
   "A plate of five different skewers. The secret to their popularity is the special spicy miso" +
@@ -3824,7 +3958,7 @@ item.skplt.use = function () {
 
 item.skwre = new Item();
 item.skwre.id = 136;
-item.skwre.name = "Eastern Chicken Skewer";
+item.skwre.name = i18n.t("content.item.skwre.name");
 item.skwre.val = 39;
 item.skwre.desc =
   "Chicken sourced from domestic farms makes for a firm, juicy kebab with unique richness of flavor" +
@@ -3846,7 +3980,7 @@ item.skwre.use = function () {
 
 item.smfro = new Item();
 item.smfro.id = 137;
-item.smfro.name = "Smelt Fish with Roe";
+item.smfro.name = i18n.t("content.item.smfro.name");
 item.smfro.val = 34;
 item.smfro.desc =
   "The burst of flavor from the roe with over many who try this perfectly grilled with delicacy" +
@@ -3868,7 +4002,7 @@ item.smfro.use = function () {
 
 item.fsqdnr = new Item();
 item.fsqdnr.id = 138;
-item.fsqdnr.name = "Fried Squid with Nori";
+item.fsqdnr.name = i18n.t("content.item.fsqdnr.name");
 item.fsqdnr.val = 44;
 item.fsqdnr.desc =
   "A dish found on the meny of many izakaya. Fans can never get enough of the nori fragrance and firm squid flesh" +
@@ -3890,7 +4024,7 @@ item.fsqdnr.use = function () {
 
 item.sltyak = new Item();
 item.sltyak.id = 139;
-item.sltyak.name = "Salted Yakisoba";
+item.sltyak.name = i18n.t("content.item.sltyak.name");
 item.sltyak.val = 39;
 item.sltyak.desc =
   "This addictive yakisoba dish mixes a rich, salty sauce with piquant eastern onions, and can be eaten as a meal or a snack with drinks" +
@@ -3912,7 +4046,7 @@ item.sltyak.use = function () {
 
 item.jcmncc = new Item();
 item.jcmncc.id = 140;
-item.jcmncc.name = "Juicy Mince Cutlet";
+item.jcmncc.name = i18n.t("content.item.jcmncc.name");
 item.jcmncc.val = 45;
 item.jcmncc.desc =
   "This popular mince cutlet is packed with meaty goodness that fills your mouth each time you take a bite" +
@@ -3934,7 +4068,7 @@ item.jcmncc.use = function () {
 
 item.sbeanf = new Item();
 item.sbeanf.id = 141;
-item.sbeanf.name = "Stir-Fried Bean Sprouts";
+item.sbeanf.name = i18n.t("content.item.sbeanf.name");
 item.sbeanf.val = 37;
 item.sbeanf.desc =
   "A simple dish taht cahmpiions the humble bean sprout, accented with a peppery punch. Once you start earing it, it's hard to put down" +
@@ -3956,7 +4090,7 @@ item.sbeanf.use = function () {
 
 item.mgpch = new Item();
 item.mgpch.id = 142;
-item.mgpch.name = "Mango & Peach Sherbet";
+item.mgpch.name = i18n.t("content.item.mgpch.name");
 item.mgpch.val = 29;
 item.mgpch.desc =
   "No matter how much you've already eaten, it's always seary to make room for this tropical sherbet dessert" +
@@ -3978,7 +4112,7 @@ item.mgpch.use = function () {
 
 item.maitake = new Item();
 item.maitake.id = 143;
-item.maitake.name = "Maitake";
+item.maitake.name = i18n.t("content.item.maitake.name");
 item.maitake.val = 7;
 item.maitake.desc =
   "Maitake mushrooms are a delectable addition to hotpots" +
@@ -4000,7 +4134,7 @@ item.maitake.use = function () {
 
 item.odens = new Item();
 item.odens.id = 144;
-item.odens.name = "Oden Soup";
+item.odens.name = i18n.t("content.item.odens.name");
 item.odens.val = 40;
 item.odens.desc =
   "There is more than enough of this piping hot oden assortment to satisfy your hunger. Perfect for a colkd winter evening" +
@@ -4022,7 +4156,7 @@ item.odens.use = function () {
 
 item.onign1 = new Item();
 item.onign1.id = 145;
-item.onign1.name = "Seaweed Onigiri";
+item.onign1.name = i18n.t("content.item.onign1.name");
 item.onign1.val = 30;
 item.onign1.desc =
   "Seaweed boiled in soy sauce is in the center of this onigiri" +
@@ -4044,7 +4178,7 @@ item.onign1.use = function () {
 
 item.onign2 = new Item();
 item.onign2.id = 146;
-item.onign2.name = "Tuna Onigiri";
+item.onign2.name = i18n.t("content.item.onign2.name");
 item.onign2.val = 36;
 item.onign2.desc =
   "This nigiri has tuna dressing with maynnaise in the middle" +
@@ -4066,7 +4200,7 @@ item.onign2.use = function () {
 
 item.onign3 = new Item();
 item.onign3.id = 147;
-item.onign3.name = "Salmon Onigiri";
+item.onign3.name = i18n.t("content.item.onign3.name");
 item.onign3.val = 38;
 item.onign3.desc =
   "Old standard salmon onigiri, belowed by old and young for generations" +
@@ -4088,7 +4222,7 @@ item.onign3.use = function () {
 
 item.syakis = new Item();
 item.syakis.id = 148;
-item.syakis.name = "Special Yakisoba";
+item.syakis.name = i18n.t("content.item.syakis.name");
 item.syakis.val = 50;
 item.syakis.desc =
   "Yakisoba with cabbage and pork. The smell of the sauce is mouth-watering" +
@@ -4110,7 +4244,7 @@ item.syakis.use = function () {
 
 item.kkbin = new Item();
 item.kkbin.id = 149;
-item.kkbin.name = "Kakubin";
+item.kkbin.name = i18n.t("content.item.kkbin.name");
 item.kkbin.val = 25;
 item.kkbin.desc =
   "The most popular whisky in the East. It has a sweet aroma and is thick on the palate, with a smooth, rich taste" +
@@ -4136,7 +4270,7 @@ item.kkbin.use = function () {
 
 item.blsho = new Item();
 item.blsho.id = 150;
-item.blsho.name = "Barley Shochu";
+item.blsho.name = i18n.t("content.item.blsho.name");
 item.blsho.val = 39;
 item.blsho.desc =
   "This barley shochy has a dry state popular with experienced drinkers" +
@@ -4162,7 +4296,7 @@ item.blsho.use = function () {
 
 item.scwhi = new Item();
 item.scwhi.id = 151;
-item.scwhi.name = "Scotch Whisky";
+item.scwhi.name = i18n.t("content.item.scwhi.name");
 item.scwhi.val = 40;
 item.scwhi.desc =
   "This whisky has a high alcohol content, so be careful not to drink too much" +
@@ -4188,7 +4322,7 @@ item.scwhi.use = function () {
 
 item.cham1 = new Item();
 item.cham1.id = 152;
-item.cham1.name = "Satoyu Champon";
+item.cham1.name = i18n.t("content.item.cham1.name");
 item.cham1.val = 45;
 item.cham1.desc =
   "The flavors of Satoyu condensed into one dish. The rich soup is made with fresh vegetables and a wealth of of ohter ingredients" +
@@ -4210,7 +4344,7 @@ item.cham1.use = function () {
 
 item.cham2 = new Item();
 item.cham2.id = 153;
-item.cham2.name = "Vegetable Champon";
+item.cham2.name = i18n.t("content.item.cham2.name");
 item.cham2.val = 48;
 item.cham2.desc =
   "This dish features seven different vegetables, and contains double the cabbage, bean sprouts, and onionof the standard champion" +
@@ -4233,7 +4367,7 @@ item.cham2.use = function () {
 
 item.cham3 = new Item();
 item.cham3.id = 154;
-item.cham3.name = "Spicy Champon";
+item.cham3.name = i18n.t("content.item.cham3.name");
 item.cham3.val = 42;
 item.cham3.desc =
   "Eye-popping champon with homemade spicy miso" +
@@ -4255,7 +4389,7 @@ item.cham3.use = function () {
 
 item.cham4 = new Item();
 item.cham4.id = 155;
-item.cham4.name = "Light Champon";
+item.cham4.name = i18n.t("content.item.cham4.name");
 item.cham4.val = 26;
 item.cham4.desc =
   "A small serving of champon that is popular with women. Just the thing when you are only a little hungry" +
@@ -4277,7 +4411,7 @@ item.cham4.use = function () {
 
 item.sudon1 = new Item();
 item.sudon1.id = 156;
-item.sudon1.name = "Satoyu Saraudon";
+item.sudon1.name = i18n.t("content.item.sudon1.name");
 item.sudon1.val = 47;
 item.sudon1.desc =
   "Extra thin, crispy deep-fried noodles packed with flavor, and topped with vegetable in a thick, silky sauce that melts in your mouth " +
@@ -4299,7 +4433,7 @@ item.sudon1.use = function () {
 
 item.sudon2 = new Item();
 item.sudon2.id = 157;
-item.sudon2.name = "Vegetable Saraudon";
+item.sudon2.name = i18n.t("content.item.sudon2.name");
 item.sudon2.val = 42;
 item.sudon2.desc =
   "A sister dish to the popular Vegetable Champon. Eat it with a dressing of your choice" +
@@ -4321,7 +4455,7 @@ item.sudon2.use = function () {
 
 item.sudon3 = new Item();
 item.sudon3.id = 158;
-item.sudon3.name = "Thick Saraudon";
+item.sudon3.name = i18n.t("content.item.sudon3.name");
 item.sudon3.val = 50;
 item.sudon3.desc =
   "Soft, thisk, flavorsome noodle make for a filling treat. Big plate is enough to satiate you for a whole day!" +
@@ -4344,7 +4478,7 @@ item.sudon3.use = function () {
 
 item.sudon4 = new Item();
 item.sudon4.id = 159;
-item.sudon4.name = "Light Saraudon";
+item.sudon4.name = i18n.t("content.item.sudon4.name");
 item.sudon4.val = 25;
 item.sudon4.desc =
   "A small plate of udon that hits the spot when you feel like a snack" +
@@ -4366,7 +4500,7 @@ item.sudon4.use = function () {
 
 item.goza = new Item();
 item.goza.id = 160;
-item.goza.name = "Gyoza";
+item.goza.name = i18n.t("content.item.goza.name");
 item.goza.val = 37;
 item.goza.desc =
   "Fried dumplings with a rich meat filling. The skin has rice flour blended in for amazing crispiness" +
@@ -4388,7 +4522,7 @@ item.goza.use = function () {
 
 item.dfrch = new Item();
 item.dfrch.id = 161;
-item.dfrch.name = "Deep Fried Chicken";
+item.dfrch.name = i18n.t("content.item.dfrch.name");
 item.dfrch.val = 48;
 item.dfrch.desc =
   "Fried chicken made with thigh meat. it's crunchy on the outside and juicy in the middle. Finger-smacking good!" +
@@ -4410,7 +4544,7 @@ item.dfrch.use = function () {
 
 item.ynasl = new Item();
 item.ynasl.id = 162;
-item.ynasl.name = "Yuona Salad";
+item.ynasl.name = i18n.t("content.item.ynasl.name");
 item.ynasl.val = 29;
 item.ynasl.desc =
   "Thin, deep-fried noodles topped with dressing and fresh vegetables" +
@@ -4432,7 +4566,7 @@ item.ynasl.use = function () {
 
 item.ramen1 = new Item();
 item.ramen1.id = 163;
-item.ramen1.name = "Shoyu Ramen";
+item.ramen1.name = i18n.t("content.item.ramen1.name");
 item.ramen1.val = 40;
 item.ramen1.desc =
   "Famous shoyu ramen. Thick soba noodles in the soy sauce based soup, improved with rich selection of vegetables. Delicious!" +
@@ -4454,7 +4588,7 @@ item.ramen1.use = function () {
 
 item.ramen2 = new Item();
 item.ramen2.id = 164;
-item.ramen2.name = "Negi Ramen";
+item.ramen2.name = i18n.t("content.item.ramen2.name");
 item.ramen2.val = 42;
 item.ramen2.desc =
   "Classic shoyu ramen topped with piquant eastern onions" +
@@ -4476,7 +4610,7 @@ item.ramen2.use = function () {
 
 item.ramen3 = new Item();
 item.ramen3.id = 165;
-item.ramen3.name = "Chashu Ramen";
+item.ramen3.name = i18n.t("content.item.ramen3.name");
 item.ramen3.val = 50;
 item.ramen3.desc =
   "Tasty ramen topped with succulent, thin slices of roast pork" +
@@ -4498,7 +4632,7 @@ item.ramen3.use = function () {
 
 item.ramen4 = new Item();
 item.ramen4.id = 166;
-item.ramen4.name = "Negi Chashu Ramen";
+item.ramen4.name = i18n.t("content.item.ramen4.name");
 item.ramen4.val = 66;
 item.ramen4.desc =
   "This exquisit ramen features a hefty helping of spicy eastern onions and slices of roast pork" +
@@ -4521,7 +4655,7 @@ item.ramen4.use = function () {
 
 item.bffbl = new Item();
 item.bffbl.id = 167;
-item.bffbl.name = "Beef Bowl";
+item.bffbl.name = i18n.t("content.item.bffbl.name");
 item.bffbl.val = 48;
 item.bffbl.desc =
   "A hearty beef bowl made with top quality eastern beef" +
@@ -4543,7 +4677,7 @@ item.bffbl.use = function () {
 
 item.sposs = new Item();
 item.sposs.id = 168;
-item.sposs.name = "Sweet Potato Shochu";
+item.sposs.name = i18n.t("content.item.sposs.name");
 item.sposs.val = 33;
 item.sposs.desc =
   "A sweet potato shochu that succeeds in bringing out the flavors of its ingredients" +
@@ -4569,7 +4703,7 @@ item.sposs.use = function () {
 
 item.soban1 = new Item();
 item.soban1.id = 169;
-item.soban1.name = "Soba in Hot Broth";
+item.soban1.name = i18n.t("content.item.soban1.name");
 item.soban1.val = 40;
 item.soban1.desc =
   "This house classic features freshly-boiled soba noodles served in a piping hot homemade soup" +
@@ -4591,7 +4725,7 @@ item.soban1.use = function () {
 
 item.soban2 = new Item();
 item.soban2.id = 170;
-item.soban2.name = "Chilled Soba";
+item.soban2.name = i18n.t("content.item.soban2.name");
 item.soban2.val = 44;
 item.soban2.desc =
   "Delicious soba noodles rinsed in water after cooking to stop them becoming too soft, served with a special dipping sauce" +
@@ -4613,7 +4747,7 @@ item.soban2.use = function () {
 
 item.soban3 = new Item();
 item.soban3.id = 171;
-item.soban3.name = "Chilled Tanuki Soba";
+item.soban3.name = i18n.t("content.item.soban3.name");
 item.soban3.val = 46;
 item.soban3.desc =
   "Freshly cooked soba noodles topped with chilled sauce and bits of fried tenpura batter. This is a firm favourite among population" +
@@ -4635,7 +4769,7 @@ item.soban3.use = function () {
 
 item.soban4 = new Item();
 item.soban4.id = 172;
-item.soban4.name = "Chilled Kitsune Soba";
+item.soban4.name = i18n.t("content.item.soban4.name");
 item.soban4.val = 48;
 item.soban4.desc =
   "Freshly cooked soba noodles topped with chilled sauce and house made fried tofu cut into easy-to-eat pieces" +
@@ -4657,7 +4791,7 @@ item.soban4.use = function () {
 
 item.soban5 = new Item();
 item.soban5.id = 173;
-item.soban5.name = "Egg & Tenpura Soba";
+item.soban5.name = i18n.t("content.item.soban5.name");
 item.soban5.val = 52;
 item.soban5.desc =
   "Hot soba noodles served with soft-boiled egg and vegetable tenpura. This dish is a perennial favorite" +
@@ -4679,7 +4813,7 @@ item.soban5.use = function () {
 
 item.soban6 = new Item();
 item.soban6.id = 174;
-item.soban6.name = "Special Fuji Soba";
+item.soban6.name = i18n.t("content.item.soban6.name");
 item.soban6.val = 60;
 item.soban6.desc =
   'Hot soba noodles topped with a lavish amount of fried tenpura batter and fried tofu, along with soft-bioled egg and "kamaboko" fish cake' +
@@ -4702,7 +4836,7 @@ item.soban6.use = function () {
 
 item.soban7 = new Item();
 item.soban7.id = 175;
-item.soban7.name = "Yuzu Chicken & Spinach Soba";
+item.soban7.name = i18n.t("content.item.soban7.name");
 item.soban7.val = 50;
 item.soban7.desc =
   "A vibrant dish of hot soba noodles topped with spinach and pieces of steamed chicken, accented with the subtle fragrance of yuzu" +
@@ -4724,7 +4858,7 @@ item.soban7.use = function () {
 
 item.katubo = new Item();
 item.katubo.id = 176;
-item.katubo.name = "Fried Pork Cutlet Bowl";
+item.katubo.name = i18n.t("content.item.katubo.name");
 item.katubo.val = 58;
 item.katubo.desc =
   "This classic dish features a thick, crunchy pork cutlet topped with sauce and lightly cooked egg. It is made to order for maximum freshness" +
@@ -4746,7 +4880,7 @@ item.katubo.use = function () {
 
 item.curry1 = new Item();
 item.curry1.id = 177;
-item.curry1.name = "Curry & Rice";
+item.curry1.name = i18n.t("content.item.curry1.name");
 item.curry1.val = 50;
 item.curry1.desc =
   "Mild curry and rice. This curry is made with the house's special roux and sauce, and is petfect for those who don't like too much spice" +
@@ -4768,7 +4902,7 @@ item.curry1.use = function () {
 
 item.soban8 = new Item();
 item.soban8.id = 178;
-item.soban8.name = "Pickled Ginger Soba";
+item.soban8.name = i18n.t("content.item.soban8.name");
 item.soban8.val = 56;
 item.soban8.desc =
   "Hot soba noodles served with tenpura containing copious amounts of red pickled ginger for a pleasant meal that warms the soul" +
@@ -4790,7 +4924,7 @@ item.soban8.use = function () {
 
 item.yktr = new Item();
 item.yktr.id = 179;
-item.yktr.name = "Yakitori";
+item.yktr.name = i18n.t("content.item.yktr.name");
 item.yktr.val = 48;
 item.yktr.desc =
   "This charcoal-grilled chicken on a skewer has a savory smell that is out of this world" +
@@ -4812,7 +4946,7 @@ item.yktr.use = function () {
 
 item.tegs = new Item();
 item.tegs.id = 180;
-item.tegs.name = "Tuna & Egg Sandwich";
+item.tegs.name = i18n.t("content.item.tegs.name");
 item.tegs.val = 45;
 item.tegs.desc =
   "This sandwich features an egg-mayo mix with tuna on white bread" +
@@ -4834,7 +4968,7 @@ item.tegs.use = function () {
 
 item.tamag = new Item();
 item.tamag.id = 181;
-item.tamag.name = "Tamago";
+item.tamag.name = i18n.t("content.item.tamag.name");
 item.tamag.val = 15;
 item.tamag.desc =
   "Delicate and tasty egg sushi" +
@@ -4856,7 +4990,7 @@ item.tamag.use = function () {
 
 item.magr = new Item();
 item.magr.id = 182;
-item.magr.name = "Maguro";
+item.magr.name = i18n.t("content.item.magr.name");
 item.magr.val = 26;
 item.magr.desc =
   "Top-grade bluefin tuna sushi" +
@@ -4878,7 +5012,7 @@ item.magr.use = function () {
 
 item.ameb = new Item();
 item.ameb.id = 183;
-item.ameb.name = "Ama-Ebi";
+item.ameb.name = i18n.t("content.item.ameb.name");
 item.ameb.val = 24;
 item.ameb.desc =
   "This tender, sweet shrimp will melt in your mouth. It's unbelievably fresh!" +
@@ -4900,7 +5034,7 @@ item.ameb.use = function () {
 
 item.engw = new Item();
 item.engw.id = 184;
-item.engw.name = "Engawa";
+item.engw.name = i18n.t("content.item.engw.name");
 item.engw.val = 32;
 item.engw.desc =
   "Tastiest engawa sushi made from eastern flounder" +
@@ -4922,7 +5056,7 @@ item.engw.use = function () {
 
 item.skmsk = new Item();
 item.skmsk.id = 185;
-item.skmsk.name = "Seki Mackerel";
+item.skmsk.name = i18n.t("content.item.skmsk.name");
 item.skmsk.val = 30;
 item.skmsk.desc =
   "Not all mackerel are created equal. This premium mackerel is packed with tasty fish oil" +
@@ -4944,7 +5078,7 @@ item.skmsk.use = function () {
 
 item.namatk = new Item();
 item.namatk.id = 186;
-item.namatk.name = "Namatako";
+item.namatk.name = i18n.t("content.item.namatk.name");
 item.namatk.val = 29;
 item.namatk.desc =
   "Octopus sushi of the highest grade. The more you chew, the better it tastes. That's proof of quality" +
@@ -4966,7 +5100,7 @@ item.namatk.use = function () {
 
 item.hirame = new Item();
 item.hirame.id = 187;
-item.hirame.name = "Hirame";
+item.hirame.name = i18n.t("content.item.hirame.name");
 item.hirame.val = 37;
 item.hirame.desc =
   "This halibut is a popular sushi topping. Its sweet white meat doesn't have a trace of fishiness" +
@@ -4988,7 +5122,7 @@ item.hirame.use = function () {
 
 item.shmaj = new Item();
 item.shmaj.id = 188;
-item.shmaj.name = "Shima-Aji";
+item.shmaj.name = i18n.t("content.item.shmaj.name");
 item.shmaj.val = 33;
 item.shmaj.desc =
   "The king of horse mackerel! It's a summer fish best eaten as sashimi or sushi" +
@@ -5010,7 +5144,7 @@ item.shmaj.use = function () {
 
 item.kndma = new Item();
 item.kndma.id = 189;
-item.kndma.name = "Kinmedai";
+item.kndma.name = i18n.t("content.item.kndma.name");
 item.kndma.val = 38;
 item.kndma.desc =
   " The shiny color of this splendid alfonsino is a feast for the eyes. It's fatty and melts in your mouth" +
@@ -5032,7 +5166,7 @@ item.kndma.use = function () {
 
 item.ikura = new Item();
 item.ikura.id = 190;
-item.ikura.name = "Ikura";
+item.ikura.name = i18n.t("content.item.ikura.name");
 item.ikura.val = 40;
 item.ikura.desc =
   " Top quality salmon roe wrapped in nori. The best there is!" +
@@ -5054,7 +5188,7 @@ item.ikura.use = function () {
 
 item.akagi = new Item();
 item.akagi.id = 191;
-item.akagi.name = "Akagai";
+item.akagi.name = i18n.t("content.item.akagi.name");
 item.akagi.val = 37;
 item.akagi.desc =
   'Popular sushi toping made from ark clams. Also known as "bloody clams" because they have red blood' +
@@ -5076,7 +5210,7 @@ item.akagi.use = function () {
 
 item.otor = new Item();
 item.otor.id = 192;
-item.otor.name = "Otoro";
+item.otor.name = i18n.t("content.item.otor.name");
 item.otor.val = 45;
 item.otor.desc =
   "This is the richest cut from the top-grade bluefin tuna. The taste alone will leave you hungry for more" +
@@ -5099,7 +5233,7 @@ item.otor.use = function () {
 
 item.awabi = new Item();
 item.awabi.id = 193;
-item.awabi.name = "Awabi";
+item.awabi.name = i18n.t("content.item.awabi.name");
 item.awabi.val = 56;
 item.awabi.desc =
   "Highest quality abalone with the taste out of this world. Premium snack for those who can afford it" +
@@ -5122,7 +5256,7 @@ item.awabi.use = function () {
 
 item.uni = new Item();
 item.uni.id = 194;
-item.uni.name = "Uni";
+item.uni.name = i18n.t("content.item.uni.name");
 item.uni.val = 60;
 item.uni.desc =
   "Exquisit sea urchin meat of the most excellent kind, wrapped in nori. As fresh as can be" +
@@ -5145,7 +5279,7 @@ item.uni.use = function () {
 
 item.klbi1 = new Item();
 item.klbi1.id = 195;
-item.klbi1.name = "Kalbi";
+item.klbi1.name = i18n.t("content.item.klbi1.name");
 item.klbi1.val = 48;
 item.klbi1.desc =
   "This beef rib meat is popular for its incredibly rich flavor" +
@@ -5167,7 +5301,7 @@ item.klbi1.use = function () {
 
 item.klbi2 = new Item();
 item.klbi2.id = 196;
-item.klbi2.name = "Grade A Kalbi";
+item.klbi2.name = i18n.t("content.item.klbi2.name");
 item.klbi2.val = 55;
 item.klbi2.desc =
   "Top-grade meat is selected from only the rarest, choicest cuts of beef rib" +
@@ -5190,7 +5324,7 @@ item.klbi2.use = function () {
 
 item.srln1 = new Item();
 item.srln1.id = 197;
-item.srln1.name = "Sirloin";
+item.srln1.name = i18n.t("content.item.srln1.name");
 item.srln1.val = 52;
 item.srln1.desc =
   "Light and relatively low fat sirloin beef steak with spices" +
@@ -5212,7 +5346,7 @@ item.srln1.use = function () {
 
 item.srln2 = new Item();
 item.srln2.id = 198;
-item.srln2.name = "Grade A Sirloin";
+item.srln2.name = i18n.t("content.item.srln2.name");
 item.srln2.val = 66;
 item.srln2.desc =
   "Incredible top-grade beef sirloin prized for its unparalleled taste and quality" +
@@ -5235,7 +5369,7 @@ item.srln2.use = function () {
 
 item.sfdpl = new Item();
 item.sfdpl.id = 199;
-item.sfdpl.name = "Seafood Platter";
+item.sfdpl.name = i18n.t("content.item.sfdpl.name");
 item.sfdpl.val = 57;
 item.sfdpl.desc =
   "A plate of the sea's delicious bounty, including shrimp, scallops, and squid" +
@@ -5257,7 +5391,7 @@ item.sfdpl.use = function () {
 
 item.kmchc = new Item();
 item.kmchc.id = 200;
-item.kmchc.name = "Kimchi Combo";
+item.kmchc.name = i18n.t("content.item.kmchc.name");
 item.kmchc.val = 63;
 item.kmchc.desc =
   "A tantalizing combo dish of kimchi made from eastern cabbage, cucumbers, daikon and more" +
@@ -5279,7 +5413,7 @@ item.kmchc.use = function () {
 
 item.stnkbb = new Item();
 item.stnkbb.id = 201;
-item.stnkbb.name = "Stone Cooked Bibimbap";
+item.stnkbb.name = i18n.t("content.item.stnkbb.name");
 item.stnkbb.val = 68;
 item.stnkbb.desc =
   "Very hot bowl of bibimbap with special spicy sweed kochujang sauce. Roasted to a golden brown for an irresistable taste" +
@@ -5301,7 +5435,7 @@ item.stnkbb.use = function () {
 
 item.spcbef = new Item();
 item.spcbef.id = 202;
-item.spcbef.name = "Spicy Beef Soup";
+item.spcbef.name = i18n.t("content.item.spcbef.name");
 item.spcbef.val = 49;
 item.spcbef.desc =
   "Spicy hot beef soup with rice and noodles. It has a very homemade feeling to it" +
@@ -5323,7 +5457,7 @@ item.spcbef.use = function () {
 
 item.binigiri = new Item();
 item.binigiri.id = 203;
-item.binigiri.name = "Giant Nigiri";
+item.binigiri.name = i18n.t("content.item.binigiri.name");
 item.binigiri.val = 88;
 item.binigiri.desc =
   "This nigiri looks way to big to eat. Who made this thing?" +
@@ -5346,7 +5480,7 @@ item.binigiri.use = function () {
 
 item.infpdps = new Item();
 item.infpdps.id = 204;
-item.infpdps.name = "Inferno Pepper Dumpling";
+item.infpdps.name = i18n.t("content.item.infpdps.name");
 item.infpdps.val = 66;
 item.infpdps.desc =
   "These special dumplings are so hot and addictive that you won't be able to talk for a week" +
@@ -5369,7 +5503,7 @@ item.infpdps.use = function () {
 
 item.daikn = new Item();
 item.daikn.id = 205;
-item.daikn.name = "Daikon";
+item.daikn.name = i18n.t("content.item.daikn.name");
 item.daikn.val = 6;
 item.daikn.desc =
   "A still-juicy daikon radish. It's not spicy and can be eaten raw" +
@@ -5391,7 +5525,7 @@ item.daikn.use = function () {
 
 item.bonig = new Item();
 item.bonig.id = 206;
-item.bonig.name = "Rotten Onigiri";
+item.bonig.name = i18n.t("content.item.bonig.name");
 item.bonig.val = 19;
 item.bonig.desc =
   "This riceball has gone bad. You normally wouldn't eat this, but when you run out of food even this looks delicious" +
@@ -5419,7 +5553,7 @@ item.bonig.use = function () {
 
 item.wdaikn = new Item();
 item.wdaikn.id = 207;
-item.wdaikn.name = "Wihered Daikon";
+item.wdaikn.name = i18n.t("content.item.wdaikn.name");
 item.wdaikn.val = 4;
 item.wdaikn.desc =
   "A daikon radish that has withered in the sun. It's still edible, but it's kinda sad" +
@@ -5442,7 +5576,7 @@ item.wdaikn.use = function () {
 
 item.oppr = new Item();
 item.oppr.id = 208;
-item.oppr.name = "Oni Pepper";
+item.oppr.name = i18n.t("content.item.oppr.name");
 item.oppr.val = 42;
 item.oppr.desc =
   "An extremely spicy pepper that makes you erupt in sweat and make an expression like an oni. It hurts more coming out than going in" +
@@ -5465,7 +5599,7 @@ item.oppr.use = function () {
 
 item.jdaik = new Item();
 item.jdaik.id = 209;
-item.jdaik.name = "Jumbo Daikon";
+item.jdaik.name = i18n.t("content.item.jdaik.name");
 item.jdaik.val = 50;
 item.jdaik.desc =
   "A huge, rare daikon radish. Stews made with this daikon are delicious. You can put some miso paste on it to eat raw" +
@@ -5488,7 +5622,7 @@ item.jdaik.use = function () {
 
 item.bmshrm = new Item();
 item.bmshrm.id = 210;
-item.bmshrm.name = "Big Mushroom";
+item.bmshrm.name = i18n.t("content.item.bmshrm.name");
 item.bmshrm.val = 33;
 item.bmshrm.desc =
   "A big, juicy mushroom that sucked up lots of nutrients. It doesn't taste ordinary. It can be stewed, roasted, fried or eaten raw" +
@@ -5511,7 +5645,7 @@ item.bmshrm.use = function () {
 
 item.hlstw = new Item();
 item.hlstw.id = 211;
-item.hlstw.name = "Healing Stew";
+item.hlstw.name = i18n.t("content.item.hlstw.name");
 item.hlstw.val = 18;
 item.hlstw.desc =
   "Tasteless soup made by boiling heaps of cure grass in water. Healing only in name, it is known that exposing cure grass to high temperatures destroys any healing properties of the product" +
@@ -5533,7 +5667,7 @@ item.hlstw.use = function () {
 
 item.bcrrt = new Item();
 item.bcrrt.id = 212;
-item.bcrrt.name = "Boiled Carrot";
+item.bcrrt.name = i18n.t("content.item.bcrrt.name");
 item.bcrrt.val = 9;
 item.bcrrt.desc =
   "Regular carrot, boiled in water. It is sweet but not all that tasty, actually" +
@@ -5555,7 +5689,7 @@ item.bcrrt.use = function () {
 
 item.jsdch = new Item();
 item.jsdch.id = 213;
-item.jsdch.name = "Jelly Sandwich";
+item.jsdch.name = i18n.t("content.item.jsdch.name");
 item.jsdch.val = 27;
 item.jsdch.desc =
   "Awful sandwich that doesn't taste like anything. It is filling, at the very least" +
@@ -5577,7 +5711,7 @@ item.jsdch.use = function () {
 
 item.agrns = new Item();
 item.agrns.id = 214;
-item.agrns.name = "Assorted Grains";
+item.agrns.name = i18n.t("content.item.agrns.name");
 item.agrns.val = 3;
 item.agrns.desc =
   "Buckwheat, sunflower seeds, oats, rye... Various grains, seeds and nuts in very small quantities as such making them not very useful for pretty much anything" +
@@ -5605,7 +5739,7 @@ item.agrns.onGet = function () {
 
 item.eggfrc = new Item();
 item.eggfrc.id = 215;
-item.eggfrc.name = "Egg Fried Rice";
+item.eggfrc.name = i18n.t("content.item.eggfrc.name");
 item.eggfrc.val = 33;
 item.eggfrc.desc =
   "Stir fried egg cooked together with golden rice. Excellent and refreshing dish" +
@@ -5627,7 +5761,7 @@ item.eggfrc.use = function () {
 
 item.thme = new Item();
 item.thme.id = 216;
-item.thme.name = "Thyme";
+item.thme.name = i18n.t("content.item.thme.name");
 item.thme.val = 2;
 item.thme.desc =
   "A stalk of aromatic thyme, often used in medicine as a complimentary herb. Can be made into a relaxing tea or antiseptic" +
@@ -5649,7 +5783,7 @@ item.thme.use = function () {
 
 item.wldhrbs = new Item();
 item.wldhrbs.id = 217;
-item.wldhrbs.name = "Wild Herbs";
+item.wldhrbs.name = i18n.t("content.item.wldhrbs.name");
 item.wldhrbs.val = 1;
 item.wldhrbs.desc =
   "A tasty collection of wild herbs including violet, sassafras, mint, clover, purslane, and fireweed" +
@@ -5671,7 +5805,7 @@ item.wldhrbs.use = function () {
 
 item.meffg = new Item();
 item.meffg.id = 218;
-item.meffg.name = "Meat Effigy";
+item.meffg.name = i18n.t("content.item.meffg.name");
 item.meffg.val = 28;
 item.meffg.desc =
   "Strange edible effigy made of who knows what. It tastes like regular jerky" +
@@ -5693,7 +5827,7 @@ item.meffg.use = function () {
 
 item.rtnmt = new Item();
 item.rtnmt.id = 219;
-item.rtnmt.name = "Rotten Meat";
+item.rtnmt.name = i18n.t("content.item.rtnmt.name");
 item.rtnmt.val = 4;
 item.rtnmt.rar = 0;
 item.rtnmt.desc =
@@ -5722,7 +5856,7 @@ item.rtnmt.use = function () {
 
 item.appljc = new Item();
 item.appljc.id = 220;
-item.appljc.name = "Apple Juice";
+item.appljc.name = i18n.t("content.item.appljc.name");
 item.appljc.val = 18;
 item.appljc.desc =
   "Freshly-squeezed from real apples!" +
@@ -5745,7 +5879,7 @@ item.appljc.use = function () {
 
 item.frtplp = new Item();
 item.frtplp.id = 221;
-item.frtplp.name = "Juice Pulp";
+item.frtplp.name = i18n.t("content.item.frtplp.name");
 item.frtplp.val = 9;
 item.frtplp.rot = [0.05, 0.15, 0.05, 0.15];
 item.frtplp.desc =
@@ -5768,7 +5902,7 @@ item.frtplp.use = function () {
 
 item.klngbr = new Item();
 item.klngbr.id = 222;
-item.klngbr.name = "Kaoliang";
+item.klngbr.name = i18n.t("content.item.klngbr.name");
 item.klngbr.val = 52;
 item.klngbr.desc =
   "Strong traditional liquor with a tangy taste and important role during social gatherings" +
@@ -5794,11 +5928,11 @@ item.klngbr.use = function () {
 
 item.sbone = new Item();
 item.sbone.id = 5000;
-item.sbone.name = "Small Bone";
-item.sbone.desc = "Brittle bone of some animal";
+item.sbone.name = i18n.t("content.item.sbone.name");
+item.sbone.desc = i18n.t("content.item.sbone.desc");
 item.sbone.stype = 5;
 item.sbone.use = function () {
-  msg("You rattle the bone");
+  msg(i18n.t("runtime.data.items.dialogue.you_rattle_the_bone_c275b048"));
 };
 item.sbone.onGet = function () {
   if (this.amount >= 50) {
@@ -5809,20 +5943,24 @@ item.sbone.onGet = function () {
 
 item.death_b = new Item();
 item.death_b.id = 5001;
-item.death_b.name = "Death Badge";
-item.death_b.desc = "Awarded by fate for dying. Congratulations";
+item.death_b.name = i18n.t("content.item.death_b.name");
+item.death_b.desc = i18n.t("content.item.death_b.desc");
 item.death_b.stype = 5;
 item.death_b.use = function () {
-  msg("Looking at this fills you with bad memories");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.looking_at_this_fills_you_with_bad_memories_917d676f",
+    ),
+  );
 };
 
 item.sstraw = new Item();
 item.sstraw.id = 5002;
-item.sstraw.name = "Strand Of Straw";
-item.sstraw.desc = "This fell out of a dummy when you punched it to death";
+item.sstraw.name = i18n.t("content.item.sstraw.name");
+item.sstraw.desc = i18n.t("content.item.sstraw.desc");
 item.sstraw.stype = 5;
 item.sstraw.use = function () {
-  msg("You put one in your mouth...");
+  msg(i18n.t("runtime.data.items.dialogue.you_put_one_in_your_mouth_5e64fdec"));
 };
 item.sstraw.onGet = function () {
   if (this.amount >= 30) giveRcp(rcp.strwks);
@@ -5835,8 +5973,8 @@ item.sstraw.onGet = function () {
 
 item.d6 = new Item();
 item.d6.id = 5003;
-item.d6.name = "Red Die";
-item.d6.desc = "Die with 6 sides. Brings luck";
+item.d6.name = i18n.t("content.item.d6.name");
+item.d6.desc = i18n.t("content.item.d6.desc");
 item.d6.stype = 5;
 item.d6.rar = 2;
 item.d6.use = function () {
@@ -5847,15 +5985,19 @@ item.d6.use = function () {
   skl.dice.use(1);
   if (random() < 0.05) {
     this.amount--;
-    msg("The die crumbles in your hands", "Magenta");
+    msg(
+      i18n.t(
+        "runtime.data.items.dialogue.the_die_crumbles_in_your_hands_4b8a8092",
+      ),
+      "Magenta",
+    );
   }
 };
 
 item.cp = new Item();
 item.cp.id = 5004;
-item.cp.name = "Penny";
-item.cp.desc =
-  "A single penny, outdated form of currency. For some reason it's still in circulation";
+item.cp.name = i18n.t("content.item.cp.name");
+item.cp.desc = i18n.t("content.item.cp.desc");
 item.cp.stype = 4;
 item.cp.use = function (x) {
   giveWealth(1, false, true);
@@ -5865,9 +6007,8 @@ item.cp.use = function (x) {
 
 item.lcn = new Item();
 item.lcn.id = 5005;
-item.lcn.name = "Large Copper Coin";
-item.lcn.desc =
-  "Local currency in a form of a heavy coin. Poor people can eat for a whole day with a few of those";
+item.lcn.name = i18n.t("content.item.lcn.name");
+item.lcn.desc = i18n.t("content.item.lcn.desc");
 item.lcn.stype = 4;
 item.lcn.use = function (x) {
   giveWealth(20, false, true);
@@ -5877,9 +6018,8 @@ item.lcn.use = function (x) {
 
 item.cn = new Item();
 item.cn.id = 5006;
-item.cn.name = "Nickel";
-item.cn.desc =
-  "Small nickel, outdated form of currency. It was worth much more in the past";
+item.cn.name = i18n.t("content.item.cn.name");
+item.cn.desc = i18n.t("content.item.cn.desc");
 item.cn.stype = 4;
 item.cn.use = function (x) {
   giveWealth(5, false, true);
@@ -5889,8 +6029,8 @@ item.cn.use = function (x) {
 
 item.cd = new Item();
 item.cd.id = 5007;
-item.cd.name = "Dime";
-item.cd.desc = "Round copper dime. Still shiny";
+item.cd.name = i18n.t("content.item.cd.name");
+item.cd.desc = i18n.t("content.item.cd.desc");
 item.cd.stype = 4;
 item.cd.use = function (x) {
   giveWealth(10, false, true);
@@ -5900,9 +6040,8 @@ item.cd.use = function (x) {
 
 item.cq = new Item();
 item.cq.id = 5008;
-item.cq.name = "Quarter";
-item.cq.desc =
-  "Very large coin, made of copper. Not much worth as money, but collected and used by poor blacksmiths for resmelting into tools";
+item.cq.name = i18n.t("content.item.cq.name");
+item.cq.desc = i18n.t("content.item.cq.desc");
 item.cq.stype = 4;
 item.cq.use = function (x) {
   giveWealth(25, false, true);
@@ -5912,24 +6051,24 @@ item.cq.use = function (x) {
 
 item.watr = new Item();
 item.watr.id = 5009;
-item.watr.name = "Water";
-item.watr.desc = "Regular drinkable water";
+item.watr.name = i18n.t("content.item.watr.name");
+item.watr.desc = i18n.t("content.item.watr.desc");
 item.watr.stype = 5;
 item.watr.use = function () {
-  msg("You took a sip", "aqua");
+  msg(i18n.t("runtime.data.items.dialogue.you_took_a_sip_d791463e"), "aqua");
 };
 
 item.psb = new Item();
 item.psb.id = 5010;
-item.psb.name = "Pleasant Sleep Blanket";
-item.psb.desc = "Soft warm blanket. It makes you sleep better";
+item.psb.name = i18n.t("content.item.psb.name");
+item.psb.desc = i18n.t("content.item.psb.desc");
 item.psb.stype = 5;
 item.psb.use = function () {};
 
 item.wdc = new Item();
 item.wdc.id = 5011;
-item.wdc.name = "Wood Splint";
-item.wdc.desc = "A small chipped piece of wood. Not very useful by itself";
+item.wdc.name = i18n.t("content.item.wdc.name");
+item.wdc.desc = i18n.t("content.item.wdc.desc");
 item.wdc.stype = 5;
 item.wdc.onGet = function () {
   if (this.amount >= 10) giveRcp(rcp.wbdl);
@@ -5939,13 +6078,13 @@ item.wdc.onGet = function () {
   }
 };
 item.wdc.use = function () {
-  msg("Ouch");
+  msg(i18n.t("runtime.data.items.dialogue.ouch_a31f5ae5"));
 };
 
 item.bgl = new Item();
 item.bgl.id = 5012;
-item.bgl.name = "Bag of lost items";
-item.bgl.desc = "Lost possession of waifarers and travellers";
+item.bgl.name = i18n.t("content.item.bgl.name");
+item.bgl.desc = i18n.t("content.item.bgl.desc");
 item.bgl.stype = 4;
 item.bgl.use = function () {
   this.amount--;
@@ -5953,85 +6092,89 @@ item.bgl.use = function () {
 
 item.salt = new Item();
 item.salt.id = 5013;
-item.salt.name = "Salt";
-item.salt.desc =
-  "Rock salt crushed into tiny crystals. Yuck! You surely wouldn't want to eat this. It's good for preserving perishable foods and cooking, though";
+item.salt.name = i18n.t("content.item.salt.name");
+item.salt.desc = i18n.t("content.item.salt.desc");
 item.salt.stype = 5;
 item.salt.use = function () {
-  msg("It stings your tongue", "silver");
+  msg(
+    i18n.t("runtime.data.items.dialogue.it_stings_your_tongue_6036572a"),
+    "silver",
+  );
 };
 
 item.slm = new Item();
 item.slm.id = 5014;
-item.slm.name = "Slime";
-item.slm.desc =
-  "Clear blob of slime. Used in elementary alchemy to make adhesives. Also acts as a base for some potions";
+item.slm.name = i18n.t("content.item.slm.name");
+item.slm.desc = i18n.t("content.item.slm.desc");
 item.slm.stype = 5;
 item.slm.use = function () {
-  msg("Sticky..", "silver");
+  msg(i18n.t("runtime.data.items.dialogue.sticky_c85ef212"), "silver");
 };
 
 item.tlvs = new Item();
 item.tlvs.id = 5015;
-item.tlvs.name = "Tea leaves";
-item.tlvs.desc = "A pinch of fragnant tea leaves, ready for brewing";
+item.tlvs.name = i18n.t("content.item.tlvs.name");
+item.tlvs.desc = i18n.t("content.item.tlvs.desc");
 item.tlvs.stype = 5;
 item.tlvs.use = function () {
-  msg("They feel just dry enough", "blue");
+  msg(
+    i18n.t("runtime.data.items.dialogue.they_feel_just_dry_enough_3f261762"),
+    "blue",
+  );
 };
 
 item.key1 = new Item();
 item.key1.id = 5016;
-item.key1.name = "Bronze Key";
-item.key1.desc = "";
+item.key1.name = i18n.t("content.item.key1.name");
+item.key1.desc = i18n.t("content.item.key1.desc");
 item.key1.stype = 5;
 item.key1.use = function () {};
 
 item.key2 = new Item();
 item.key2.id = 5017;
-item.key2.name = "Iron Key";
-item.key2.desc = "";
+item.key2.name = i18n.t("content.item.key2.name");
+item.key2.desc = i18n.t("content.item.key2.desc");
 item.key2.stype = 5;
 item.key2.use = function () {};
 
 item.key3 = new Item();
 item.key3.id = 5018;
-item.key3.name = "Silver Key";
-item.key3.desc = "";
+item.key3.name = i18n.t("content.item.key3.name");
+item.key3.desc = i18n.t("content.item.key3.desc");
 item.key3.stype = 5;
 item.key3.use = function () {};
 
 item.key4 = new Item();
 item.key4.id = 5019;
-item.key4.name = "Gold Key";
-item.key4.desc = "";
+item.key4.name = i18n.t("content.item.key4.name");
+item.key4.desc = i18n.t("content.item.key4.desc");
 item.key4.stype = 5;
 item.key4.use = function () {};
 
 item.key5 = new Item();
 item.key5.id = 5020;
-item.key5.name = "Platinum Key";
-item.key5.desc = "";
+item.key5.name = i18n.t("content.item.key5.name");
+item.key5.desc = i18n.t("content.item.key5.desc");
 item.key5.stype = 5;
 item.key5.use = function () {};
 
 item.key6 = new Item();
 item.key6.id = 5021;
-item.key6.name = "Steel Key";
-item.key6.desc = "";
+item.key6.name = i18n.t("content.item.key6.name");
+item.key6.desc = i18n.t("content.item.key6.desc");
 item.key6.stype = 5;
 item.key6.use = function () {};
 
 item.key7 = new Item();
 item.key7.id = 5022;
-item.key7.name = "Crimson Key";
-item.key7.desc = "";
+item.key7.name = i18n.t("content.item.key7.name");
+item.key7.desc = i18n.t("content.item.key7.desc");
 item.key7.stype = 5;
 item.key7.use = function () {};
 
 item.key0 = new Item();
 item.key0.id = 5023;
-item.key0.name = "Rusty Key";
+item.key0.name = i18n.t("content.item.key0.name");
 item.key0.desc = function () {
   return (
     "Scummy old key. " +
@@ -6052,7 +6195,7 @@ item.key0.use = function () {
 
 item.ywlt = new Item();
 item.ywlt.id = 5024;
-item.ywlt.name = "Woven Wallet";
+item.ywlt.name = i18n.t("content.item.ywlt.name");
 item.ywlt.desc =
   "This is your personal wallet, you received it as a gift" +
   dom.dseparator +
@@ -6073,27 +6216,33 @@ item.ywlt.use = function (x) {
 
 item.hnhn = new Item();
 item.hnhn.id = 5025;
-item.hnhn.name = "Teruterubōzu";
-item.hnhn.desc =
-  "Holy talisman. Leave it out on the rain to gain blessing of good fortune";
+item.hnhn.name = i18n.t("content.item.hnhn.name");
+item.hnhn.desc = i18n.t("content.item.hnhn.desc");
 item.hnhn.stype = 5;
 item.hnhn.rar = 2;
 item.hnhn.use = function (x) {};
 
 item.pcn = new Item();
 item.pcn.id = 5026;
-item.pcn.name = "Pinecone";
-item.pcn.desc =
-  "A spiny pod from a pine tree.  Dry seeds rattle around inside when you shake it";
+item.pcn.name = i18n.t("content.item.pcn.name");
+item.pcn.desc = i18n.t("content.item.pcn.desc");
 item.pcn.stype = 4;
 item.pcn.use = function (x) {
   msg(select(["*Crack..* ", "*Crunch..* ", "*Pop..* "]), "lightgrey");
   if (random() <= 0.3 + skl.dice.lvl * 0.03) {
-    msg_add("You have discovered some pine nuts inside!", "lime");
+    msg_add(
+      i18n.t(
+        "runtime.data.items.dialogue.you_have_discovered_some_pine_nuts_inside_c8e13cc5",
+      ),
+      "lime",
+    );
     giveItem(item.pcns, rand(1, 3));
     giveSkExp(skl.dice, 2);
   } else {
-    msg_add("The cone was empty..", "grey");
+    msg_add(
+      i18n.t("runtime.data.items.dialogue.the_cone_was_empty_984432d9"),
+      "grey",
+    );
     giveSkExp(skl.dice, 0.5);
   }
   this.amount--;
@@ -6101,7 +6250,7 @@ item.pcn.use = function (x) {
 
 item.pbl = new Item();
 item.pbl.id = 5027;
-item.pbl.name = "Pebble";
+item.pbl.name = i18n.t("content.item.pbl.name");
 item.pbl.desc =
   "A tiny useless stone, found everywhere. Can be thrown to create distraction" +
   dom.dseparator +
@@ -6127,20 +6276,21 @@ item.pbl.use = function () {
 
 item.ptng1 = new Item();
 item.ptng1.id = 5028;
-item.ptng1.name = "Tattered Painting";
-item.ptng1.desc =
-  "Scratched up and faded painting of a lady. It's nearly impossible to recognize any details";
+item.ptng1.name = i18n.t("content.item.ptng1.name");
+item.ptng1.desc = i18n.t("content.item.ptng1.desc");
 item.ptng1.stype = 5;
 item.ptng1.use = function () {};
 
 item.fwd1 = new Item();
 item.fwd1.id = 5029;
-item.fwd1.name = "Firewood";
-item.fwd1.desc =
-  "Type of dry wood, prepared for easy burning. Useful at camps or during winter";
+item.fwd1.name = i18n.t("content.item.fwd1.name");
+item.fwd1.desc = i18n.t("content.item.fwd1.desc");
 item.fwd1.stype = 5;
 item.fwd1.use = function () {
-  msg("*Donk* ..It sounds hollow", "ghostwhite");
+  msg(
+    i18n.t("runtime.data.items.dialogue.donk_it_sounds_hollow_2f0edb78"),
+    "ghostwhite",
+  );
 };
 item.fwd1.onGet = function () {
   if (this.amount >= 60) {
@@ -6151,172 +6301,59 @@ item.fwd1.onGet = function () {
 
 item.coal1 = new Item();
 item.coal1.id = 5030;
-item.coal1.name = "Coal";
-item.coal1.desc =
-  "Black rocks of fossilized organic mass. This coal burns for a very long time";
+item.coal1.name = i18n.t("content.item.coal1.name");
+item.coal1.desc = i18n.t("content.item.coal1.desc");
 item.coal1.stype = 5;
 item.coal1.use = function () {
-  msg("You can picture it smoldering inside your fireplace", "grey");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_can_picture_it_smoldering_inside_your_fireplace_f520e088",
+    ),
+    "grey",
+  );
 };
 
 item.coal2 = new Item();
 item.coal2.id = 5031;
-item.coal2.name = "Charcoal";
-item.coal2.desc =
-  "Coal made from carefuly burning quality wood for lengths of time. This coal cinders for a very long time";
+item.coal2.name = i18n.t("content.item.coal2.name");
+item.coal2.desc = i18n.t("content.item.coal2.desc");
 item.coal2.stype = 5;
 item.coal2.use = function () {
-  msg("Your hands get all dirty", "black", null, null, "lightgrey");
+  msg(
+    i18n.t("runtime.data.items.dialogue.your_hands_get_all_dirty_623de076"),
+    "black",
+    null,
+    null,
+    "lightgrey",
+  );
 };
 
 item.cndl2 = new Item();
 item.cndl2.id = 5032;
-item.cndl2.name = "placehold";
-item.cndl2.desc = "hldplace";
+item.cndl2.name = i18n.t("content.item.cndl2.name");
+item.cndl2.desc = i18n.t("content.item.cndl2.desc");
 
 item.skl = new Item();
 item.skl.id = 5033;
-item.skl.name = "Skull";
-item.skl.desc =
-  "Mostly undamaged human skull, taken from some unlucky corpse. It is used in various ways by all sorts of dark sorcerers, witches and alchemists";
+item.skl.name = i18n.t("content.item.skl.name");
+item.skl.desc = i18n.t("content.item.skl.desc");
 item.skl.stype = 5;
 item.skl.use = function () {
-  msg("It looks menacing", "purple", null, null, "lightgrey");
+  msg(
+    i18n.t("runtime.data.items.dialogue.it_looks_menacing_e63dad3f"),
+    "purple",
+    null,
+    null,
+    "lightgrey",
+  );
 };
 
-global.text.kntsct = [
-  "Adjustable bend",
-  "Adjustable grip hitch",
-  "Albright special",
-  "Alpine Butterfly",
-  "Anchor bend",
-  "Angle's loop ",
-  "Arbor knot",
-  "Artillery loop",
-  "Ashley's bend",
-  "Axle hitch",
-  "Bachmann knot",
-  "Bag knot",
-  "Bait loop",
-  "Barrel knot",
-  "Basket weave knot",
-  "Becket hitch ",
-  "Beer knot",
-  "Bimini twist",
-  "Blackwall hitch",
-  "Blake's hitch",
-  "Blood knot",
-  "Boa knot",
-  "Boling knot",
-  "Boom hitch",
-  "Bourchier knot",
-  "Heraldic knot",
-  "Bumper knot",
-  "Bunny ears",
-  "Butterfly loop",
-  "Carrick bend",
-  "Cat's paw",
-  "Catshank",
-  "Celtic button knot",
-  "Chain sinnet",
-  "Chair knot",
-  "Clove hitch",
-  "Constrictor knot",
-  "Cow hitch",
-  "Crown knot",
-  "Double loop",
-  "Dogshank",
-  "Diamond knot",
-  "Dropper loop",
-  "Death knot",
-  "Eye splice",
-  "Falconer's knot",
-  "Farmer's loop",
-  "Fiador knot",
-  "Figure-eight knot",
-  "Fisherman's bend",
-  "Friendship knot",
-  "Hackamore",
-  "Garda hitch",
-  "Grief knot",
-  "Gordian knot",
-  "Grantchester knot",
-  "Ground-line hitch",
-  "Gripping sailor's hitch",
-  "Halter hitch",
-  "Handcuff knot",
-  "Hangman's noose",
-  "Highpoint hitch",
-  "Highwayman's hitch",
-  "Hitching tie",
-  "Hunter's bend",
-  "Icicle hitch",
-  "Jamming knot",
-  "Killick hitch",
-  "Klemheist knot",
-  "Knot of isis",
-  "Lariat loop",
-  "Lighterman's hitch",
-  "Lineman\s loop",
-  "Lissajous knot",
-  "Lobster buoy hitch",
-  "Magnus hitch",
-  "Marlinespike hitch",
-  "Midshipman's hitch",
-  "Miller's knot",
-  "Monkey's fist",
-  "Mountaineer's coil",
-  "Munter hitch",
-  "Nail knot",
-  "Ossel hitch",
-  "Overhand bend",
-  "Palomar knot",
-  "Pile hitch",
-  "Pipe hitch",
-  "Pretzel link knot",
-  "Power cinch",
-  "Racking bend",
-  "Reef knot",
-  "Reever Knot",
-  "Rolling hitch",
-  "Round turn",
-  "Running bowline",
-  "Sailor's hitch",
-  "Sheepshank",
-  "Shoelace knot",
-  "Simple knot",
-  "Slip knot",
-  "Snell knot",
-  "Snuggle hitch",
-  "Span loop",
-  "Square knot",
-  "Strangle knot",
-  "Surgeon's loop",
-  "Tape knot",
-  "Thief knot",
-  "Transom knot",
-  "Thumb knot",
-  "Threefoil knot",
-  "Trident loop",
-  "Trilene knot",
-  "Triple crown knot",
-  "True lover's knot",
-  "Turle knot",
-  "Versatackle knot",
-  "Underhand knot",
-  "Underwriter's knot",
-  "Uni knot",
-  "Wall and crown knot",
-  "Water knot",
-  "Windsor knot",
-  "Yosemite bowlin",
-  "Zeppelin bend",
-];
+global.text.kntsct = i18n.get("gameText.kntsct");
 
 item.rope = new Item();
 item.rope.id = 5034;
-item.rope.name = "Rope";
-item.rope.desc = "A length of sturdy rope, for tying things up";
+item.rope.name = i18n.t("content.item.rope.name");
+item.rope.desc = i18n.t("content.item.rope.desc");
 item.rope.stype = 5;
 item.rope.use = function () {
   msg(
@@ -6329,7 +6366,7 @@ item.rope.use = function () {
 
 item.mcps = new Item();
 item.mcps.id = 5035;
-item.mcps.name = "Clay Milk Cap";
+item.mcps.name = i18n.t("content.item.mcps.name");
 item.mcps.desc =
   "Milk caps made from packed clay. Children like to play with these" +
   dom.dseparator +
@@ -6355,27 +6392,35 @@ item.mcps.use = function () {
 
 item.stdst = new Item();
 item.stdst.id = 5036;
-item.stdst.name = "Stardust";
-item.stdst.desc =
-  "Tiny bits of solar pieces that came from the Sky. They shine in darkness and hold the energy of stars";
+item.stdst.name = i18n.t("content.item.stdst.name");
+item.stdst.desc = i18n.t("content.item.stdst.desc");
 item.stdst.stype = 5;
 item.stdst.use = function (x) {
-  msg("It is glittering", "gold", null, null, "darkblue");
+  msg(
+    i18n.t("runtime.data.items.dialogue.it_is_glittering_6f4600df"),
+    "gold",
+    null,
+    null,
+    "darkblue",
+  );
 };
 
 item.gcre1 = new Item();
 item.gcre1.id = 5037;
-item.gcre1.name = "Lesser Golem Core";
-item.gcre1.desc =
-  "Exhausted power core of a golem. It has nearly no use anymore, the entire energy supply of this thing has been used up";
+item.gcre1.name = i18n.t("content.item.gcre1.name");
+item.gcre1.desc = i18n.t("content.item.gcre1.desc");
 item.gcre1.stype = 5;
 item.gcre1.use = function (x) {
-  msg("You notice specks of dull light flickering inside");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_notice_specks_of_dull_light_flickering_inside_be3f2669",
+    ),
+  );
 };
 
 item.wvbkt = new Item();
 item.wvbkt.id = 5038;
-item.wvbkt.name = "Straw Basket";
+item.wvbkt.name = i18n.t("content.item.wvbkt.name");
 item.wvbkt.desc = furniture.wvbkt.desc;
 item.wvbkt.stype = 4;
 item.wvbkt.isf = true;
@@ -6387,7 +6432,7 @@ item.wvbkt.use = function (x) {
 
 item.tbwr1 = new Item();
 item.tbwr1.id = 5039;
-item.tbwr1.name = "Wooden Tableware";
+item.tbwr1.name = i18n.t("content.item.tbwr1.name");
 item.tbwr1.desc = furniture.tbwr1.desc;
 item.tbwr1.stype = 4;
 item.tbwr1.isf = true;
@@ -6400,87 +6445,102 @@ item.tbwr1.use = function (x) {
 
 item.ess1 = new Item();
 item.ess1.id = 5040;
-item.ess1.name = "Essence of Air";
-item.ess1.desc = "Spirit shard of concentrated Wind power";
+item.ess1.name = i18n.t("content.item.ess1.name");
+item.ess1.desc = i18n.t("content.item.ess1.desc");
 item.ess1.stype = 5;
 item.ess1.rar = 2;
 
 item.ess2 = new Item();
 item.ess2.id = 5041;
-item.ess2.name = "Essence of Earth";
-item.ess2.desc = "Spirit shard of concentrated Geo power";
+item.ess2.name = i18n.t("content.item.ess2.name");
+item.ess2.desc = i18n.t("content.item.ess2.desc");
 item.ess2.stype = 5;
 item.ess2.rar = 2;
 
 item.ess3 = new Item();
 item.ess3.id = 5042;
-item.ess3.name = "Essence of Flames";
-item.ess3.desc = "Spirit shard of concentrated Fire power";
+item.ess3.name = i18n.t("content.item.ess3.name");
+item.ess3.desc = i18n.t("content.item.ess3.desc");
 item.ess3.stype = 5;
 item.ess3.rar = 2;
 
 item.ess4 = new Item();
 item.ess4.id = 5043;
-item.ess4.name = "Essence of Water";
-item.ess4.desc = "Spirit shard of concentrated Aqua power";
+item.ess4.name = i18n.t("content.item.ess4.name");
+item.ess4.desc = i18n.t("content.item.ess4.desc");
 item.ess4.stype = 5;
 item.ess4.rar = 2;
 
 item.ess5 = new Item();
 item.ess5.id = 5044;
-item.ess5.name = "Essence of Light";
-item.ess5.desc = "Spirit shard of concentrated Holy power";
+item.ess5.name = i18n.t("content.item.ess5.name");
+item.ess5.desc = i18n.t("content.item.ess5.desc");
 item.ess5.stype = 5;
 item.ess5.rar = 2;
 
 item.ess6 = new Item();
 item.ess6.id = 5045;
-item.ess6.name = "Essence of Night";
-item.ess6.desc = "Spirit shard of concentrated Demonic power";
+item.ess6.name = i18n.t("content.item.ess6.name");
+item.ess6.desc = i18n.t("content.item.ess6.desc");
 item.ess6.stype = 5;
 item.ess6.rar = 2;
 
 item.toolbx = new Item();
 item.toolbx.id = 5046;
-item.toolbx.name = "Toolbox";
+item.toolbx.name = i18n.t("content.item.toolbx.name");
 item.toolbx.desc =
   "Metal box with a variety of fine tools inside, multipurpose knives, mallets, pincers, chisels and a few more. Used for precision work and tinkering with simple and complex objects" +
   dom.dseparator +
   '<span style="color:chartreuse">Allows deconstruction of items and equipment when kept in inventory</span>';
 item.toolbx.stype = 5;
 item.toolbx.use = function () {
-  if (random() < 0.1) msg("You almost dropped the box..", "orange");
-  else msg("Dozens of tools tumble inside as you shake it", "yellow");
+  if (random() < 0.1)
+    msg(
+      i18n.t("runtime.data.items.dialogue.you_almost_dropped_the_box_32b8bcbf"),
+      "orange",
+    );
+  else
+    msg(
+      i18n.t(
+        "runtime.data.items.dialogue.dozens_of_tools_tumble_inside_as_you_shake_f1d77206",
+      ),
+      "yellow",
+    );
 };
 
 item.cpdst = new Item();
 item.cpdst.id = 5047;
-item.cpdst.name = "Corpse Dust";
-item.cpdst.desc =
-  "Dust derived from the remains of the deciesed, often used for witchcraft and enchantments";
+item.cpdst.name = i18n.t("content.item.cpdst.name");
+item.cpdst.desc = i18n.t("content.item.cpdst.desc");
 item.cpdst.stype = 5;
 item.cpdst.use = function () {
-  msg("Disgusting", "lightgrey");
+  msg(i18n.t("runtime.data.items.dialogue.disgusting_1a84669d"), "lightgrey");
 };
 
 item.cclth = new Item();
 item.cclth.id = 5048;
-item.cclth.name = "Cheap Cloth";
-item.cclth.desc =
-  "A poor quality swatch of cloth. Unstitches when you so much as breathe on it";
+item.cclth.name = i18n.t("content.item.cclth.name");
+item.cclth.desc = i18n.t("content.item.cclth.desc");
 item.cclth.stype = 5;
 item.cclth.use = function () {
-  msg("Can you even work with something this worthless?", "lightgrey");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.can_you_even_work_with_something_this_worthless_e20df5ed",
+    ),
+    "lightgrey",
+  );
 };
 
 item.thrdnl = new Item();
 item.thrdnl.id = 5049;
-item.thrdnl.name = "Thread";
-item.thrdnl.desc =
-  "A small quantity of thread that could be used in sewing and tailoring projects";
+item.thrdnl.name = i18n.t("content.item.thrdnl.name");
+item.thrdnl.desc = i18n.t("content.item.thrdnl.desc");
 item.thrdnl.stype = 5;
 item.thrdnl.use = function () {
-  msg("It doesn't seem very sturdy", "lightgrey");
+  msg(
+    i18n.t("runtime.data.items.dialogue.it_doesn_t_seem_very_sturdy_6f181af0"),
+    "lightgrey",
+  );
 };
 item.thrdnl.onGet = function () {
   if (this.amount >= 100) {
@@ -6491,17 +6551,19 @@ item.thrdnl.onGet = function () {
 
 item.sktbad = new Item();
 item.sktbad.id = 5050;
-item.sktbad.name = "Mistake";
-item.sktbad.desc =
-  "A failed product of an unskilled artisan. Once destined to become something worty of display, this mangled mess is repulsive to look at";
+item.sktbad.name = i18n.t("content.item.sktbad.name");
+item.sktbad.desc = i18n.t("content.item.sktbad.desc");
 item.sktbad.stype = 5;
 item.sktbad.use = function () {
-  msg("Better put this away", "lightgrey");
+  msg(
+    i18n.t("runtime.data.items.dialogue.better_put_this_away_12002a26"),
+    "lightgrey",
+  );
 };
 
 item.bblkt = new Item();
 item.bblkt.id = 5051;
-item.bblkt.name = "Ragwork Blanket";
+item.bblkt.name = i18n.t("content.item.bblkt.name");
 item.bblkt.desc = furniture.bblkt.desc;
 item.bblkt.stype = 4;
 item.bblkt.isf = true;
@@ -6514,7 +6576,7 @@ item.bblkt.use = function (x) {
 
 item.spillw = new Item();
 item.spillw.id = 5052;
-item.spillw.name = "Straw Pillow";
+item.spillw.name = i18n.t("content.item.spillw.name");
 item.spillw.desc = furniture.spillw.desc;
 item.spillw.stype = 4;
 item.spillw.isf = true;
@@ -6527,7 +6589,7 @@ item.spillw.use = function (x) {
 
 item.cyrn = new Item();
 item.cyrn.id = 5053;
-item.cyrn.name = "Yarn Ball";
+item.cyrn.name = i18n.t("content.item.cyrn.name");
 item.cyrn.desc = furniture.cyrn.desc;
 item.cyrn.stype = 4;
 item.cyrn.isf = true;
@@ -6540,57 +6602,66 @@ item.cyrn.use = function (x) {
 
 item.dfish = new Item();
 item.dfish.id = 5054;
-item.dfish.name = "Dead Fish";
-item.dfish.desc =
-  "Carcass of some fish, looking bad, grey and dead. Can be dismantled into fishbait";
+item.dfish.name = i18n.t("content.item.dfish.name");
+item.dfish.desc = i18n.t("content.item.dfish.desc");
 item.dfish.stype = 5;
 item.dfish.use = function () {
-  msg("Gross!", "lightgrey");
+  msg(i18n.t("runtime.data.items.dialogue.gross_a275005b"), "lightgrey");
 };
 
 item.fbait1 = new Item();
 item.fbait1.id = 5055;
-item.fbait1.name = "Bait";
-item.fbait1.desc =
-  "Organic remains rolled into a ball, favoured by fish and other aquatic population";
+item.fbait1.name = i18n.t("content.item.fbait1.name");
+item.fbait1.desc = i18n.t("content.item.fbait1.desc");
 item.fbait1.stype = 5;
 item.fbait1.use = function () {};
 
 item.htrdvr = new Item();
 item.htrdvr.id = 5056;
-item.htrdvr.name = "Hunter's Crate";
-item.htrdvr.desc =
-  "Heavy wooden crate you were asked to deliver to dojo. It is sealed shut and you can't look inside. It smells faintly of meat, spices and mushrooms. Probably filled with preserved dry produce";
+item.htrdvr.name = i18n.t("content.item.htrdvr.name");
+item.htrdvr.desc = i18n.t("content.item.htrdvr.desc");
 item.htrdvr.stype = 5;
 item.htrdvr.use = function () {
-  msg("You resist the temptation to open it", "lightgrey");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_resist_the_temptation_to_open_it_a3dcba1c",
+    ),
+    "lightgrey",
+  );
 };
 
 item.htrsvr = new Item();
 item.htrsvr.id = 5057;
-item.htrsvr.name = "Hunter's Bag";
-item.htrsvr.desc =
-  "Heavy canvas bag you were asked to deliver to the herbalist. It is filled with separated bundles of various herbs you can't identify. You'd rather not touch anything inside as it looks dangerously poisonous";
+item.htrsvr.name = i18n.t("content.item.htrsvr.name");
+item.htrsvr.desc = i18n.t("content.item.htrsvr.desc");
 item.htrsvr.stype = 5;
 item.htrsvr.use = function () {
-  msg("Strong aroma eminating from this bag makes your head spin", "orange");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.strong_aroma_eminating_from_this_bag_makes_your_b812f240",
+    ),
+    "orange",
+  );
 };
 
 item.hbtsvr = new Item();
 item.hbtsvr.id = 5058;
-item.hbtsvr.name = "Herbalist's Satchel";
-item.hbtsvr.desc =
-  "Heavy leather satchel you were asked to deliver to the head hunter. Hundreds of vials clang Violently no matter how carefully you attempt to carry it";
+item.hbtsvr.name = i18n.t("content.item.hbtsvr.name");
+item.hbtsvr.desc = i18n.t("content.item.hbtsvr.desc");
 item.hbtsvr.stype = 5;
 item.hbtsvr.use = function () {
-  msg("You'll be in trouble of you break anything inside", "lightgrey");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_ll_be_in_trouble_of_you_break_2dcc0005",
+    ),
+    "lightgrey",
+  );
 };
 
 item.fwdpile = new Item();
 item.fwdpile.id = 5059;
-item.fwdpile.name = "Firewood Pile";
-item.fwdpile.desc =
-  "Stockpile of firewood neatly packed together for easy storage";
+item.fwdpile.name = i18n.t("content.item.fwdpile.name");
+item.fwdpile.desc = i18n.t("content.item.fwdpile.desc");
 item.fwdpile.stype = 4;
 item.fwdpile.isf = true;
 item.fwdpile.parent = furniture.fwdpile;
@@ -6602,18 +6673,20 @@ item.fwdpile.use = function (x) {
 
 item.lprmt = new Item();
 item.lprmt.id = 5060;
-item.lprmt.name = "Travel Permit";
-item.lprmt.desc =
-  "Written document used in your village. Acts as a proof of one's strength, meaning the owner has the ability to protect himself when leaving the village, you will need this when going out. Nearly every adult you know has this";
+item.lprmt.name = i18n.t("content.item.lprmt.name");
+item.lprmt.desc = i18n.t("content.item.lprmt.desc");
 item.lprmt.stype = 5;
 item.lprmt.rar = 2;
 item.lprmt.use = function () {
-  msg("You feel pride holding this", "green");
+  msg(
+    i18n.t("runtime.data.items.dialogue.you_feel_pride_holding_this_052787a2"),
+    "green",
+  );
 };
 
 item.bed2 = new Item();
 item.bed2.id = 5061;
-item.bed2.name = "Plain Bed";
+item.bed2.name = i18n.t("content.item.bed2.name");
 item.bed2.desc = furniture.bed2.desc;
 item.bed2.stype = 4;
 item.bed2.isf = true;
@@ -6626,11 +6699,16 @@ item.bed2.use = function (x) {
 
 item.wfng = new Item();
 item.wfng.id = 5062;
-item.wfng.name = "Wolf Fang";
-item.wfng.desc = "Clear and sharp fang of a predator. It still looks dangerous";
+item.wfng.name = i18n.t("content.item.wfng.name");
+item.wfng.desc = i18n.t("content.item.wfng.desc");
 item.wfng.stype = 5;
 item.wfng.use = function () {
-  msg("You may prick your finger if you mishandle it", "lightgrey");
+  msg(
+    i18n.t(
+      "runtime.data.items.dialogue.you_may_prick_your_finger_if_you_mishandle_99d5f11a",
+    ),
+    "lightgrey",
+  );
 };
 item.wfng.onGet = function () {
   if (this.amount >= 10) giveRcp(rcp.wfng);
@@ -6638,7 +6716,7 @@ item.wfng.onGet = function () {
 
 item.bookgen = new Item();
 item.bookgen.id = 5063;
-item.bookgen.name = "Book";
+item.bookgen.name = i18n.t("content.item.bookgen.name");
 item.bookgen.desc = furniture.bookgen.desc;
 item.bookgen.stype = 4;
 item.bookgen.isf = true;
@@ -6651,30 +6729,28 @@ item.bookgen.use = function (x) {
 
 item.dmice1 = new Item();
 item.dmice1.id = 5064;
-item.dmice1.name = "Dead Mouse";
-item.dmice1.desc =
-  "Vermin hunted by your cat, now proudly displayed before you";
+item.dmice1.name = i18n.t("content.item.dmice1.name");
+item.dmice1.desc = i18n.t("content.item.dmice1.desc");
 item.dmice1.stype = 5;
 item.dmice1.rar = 0;
 item.dmice1.use = function () {
-  msg("Yeah..", "grey");
+  msg(i18n.t("runtime.data.items.dialogue.yeah_9450d6a3"), "grey");
 };
 
 item.dbdc1 = new Item();
 item.dbdc1.id = 5065;
-item.dbdc1.name = "Dead Bird";
-item.dbdc1.desc = "A proof of loyalty brought to you by your cat";
+item.dbdc1.name = i18n.t("content.item.dbdc1.name");
+item.dbdc1.desc = i18n.t("content.item.dbdc1.desc");
 item.dbdc1.stype = 5;
 item.dbdc1.rar = 0;
 item.dbdc1.use = function () {
-  msg("Indeed..", "grey");
+  msg(i18n.t("runtime.data.items.dialogue.indeed_2cbbd1b7"), "grey");
 };
 
 item.ip1 = new Item();
 item.ip1.id = 9000;
-item.ip1.name = '"Idea paper"';
-item.ip1.desc =
-  "Tiny scrap of paper with information. You wrote it yourself to remember things.";
+item.ip1.name = i18n.t("content.item.ip1.name");
+item.ip1.desc = i18n.t("content.item.ip1.desc");
 item.ip1.stype = 4;
 item.ip1.data.time = HOUR;
 item.ip1.use = function () {
@@ -6693,7 +6769,7 @@ item.ip1.use = function () {
 
 item.skl1 = new Item();
 item.skl1.id = 9001;
-item.skl1.name = "P Skillbook (Swords)";
+item.skl1.name = i18n.t("content.item.skl1.name");
 item.skl1.desc =
   "Entry level practitioner skillbook about sword combat" +
   dom.dseparator +
@@ -6715,7 +6791,7 @@ item.skl1.use = function () {
 
 item.skl2 = new Item();
 item.skl2.id = 9002;
-item.skl2.name = "P Skillbook (Knives)";
+item.skl2.name = i18n.t("content.item.skl2.name");
 item.skl2.desc =
   "Entry level practitioner skillbook about knife combat" +
   dom.dseparator +
@@ -6737,7 +6813,7 @@ item.skl2.use = function () {
 
 item.skl3 = new Item();
 item.skl3.id = 9003;
-item.skl3.name = "P Skillbook (Axes)";
+item.skl3.name = i18n.t("content.item.skl3.name");
 item.skl3.desc =
   "Entry level practitioner skillbook about axe combat" +
   dom.dseparator +
@@ -6759,7 +6835,7 @@ item.skl3.use = function () {
 
 item.skl4 = new Item();
 item.skl4.id = 9004;
-item.skl4.name = "P Skillbook (Spears)";
+item.skl4.name = i18n.t("content.item.skl4.name");
 item.skl4.desc =
   "Entry level practitioner skillbook about spear combat" +
   dom.dseparator +
@@ -6781,7 +6857,7 @@ item.skl4.use = function () {
 
 item.skl5 = new Item();
 item.skl5.id = 9005;
-item.skl5.name = "P Skillbook (Hammers)";
+item.skl5.name = i18n.t("content.item.skl5.name");
 item.skl5.desc =
   "Entry level practitioner skillbook about hammer combat" +
   dom.dseparator +
@@ -6803,7 +6879,7 @@ item.skl5.use = function () {
 
 item.skl6 = new Item();
 item.skl6.id = 9006;
-item.skl6.name = "P Skillbook (Martial)";
+item.skl6.name = i18n.t("content.item.skl6.name");
 item.skl6.desc =
   "Entry level practitioner skillbook about unarmed combat" +
   dom.dseparator +
@@ -6825,7 +6901,7 @@ item.skl6.use = function () {
 
 item.bstr = new Item();
 item.bstr.id = 9007;
-item.bstr.name = '"Animalis Vicipaedia"';
+item.bstr.name = i18n.t("content.item.bstr.name");
 item.bstr.rar = 2;
 item.bstr.desc =
   "Heavy Hunter's Encyclopedia. There are a few entries about wild life, beasts, and mythical creatures you can encounter, the other pages are blank. You feel the urge to fill them in" +
@@ -6836,7 +6912,10 @@ item.bstr.data.time = HOUR * 17;
 item.bstr.use = function () {
   if (canRead()) {
     if (this.data.timep >= this.cmax) {
-      msg("Bestiary Unlocked!", "cyan");
+      msg(
+        i18n.t("runtime.data.items.dialogue.bestiary_unlocked_2ece8a9b"),
+        "cyan",
+      );
       this.data.read = false;
       this.amount--;
       global.flags.bstu = true;
@@ -6848,10 +6927,9 @@ item.bstr.use = function () {
 
 item.tbrwdb = new Item();
 item.tbrwdb.id = 9008;
-item.tbrwdb.name = '"The Art of Teabrewing"';
+item.tbrwdb.name = i18n.t("content.item.tbrwdb.name");
 item.tbrwdb.rar = 2;
-item.tbrwdb.desc =
-  "Informative little book in detail describing the ways of teamaking, starting from precise amounts and proportions, specific water temperatures, correct tableware, to the defferent styles and etiquette";
+item.tbrwdb.desc = i18n.t("content.item.tbrwdb.desc");
 item.tbrwdb.stype = 4;
 item.tbrwdb.data.time = HOUR * 26;
 item.tbrwdb.use = function () {
@@ -6866,31 +6944,11 @@ item.tbrwdb.use = function () {
   }
 };
 
-global.text.mscbkatxt = [
-  "This fairy tale is about a wolf who eats so much salted meat she becomes trapped in the butcher's cellar.",
-  "In this traditional story of beastly intrigue a clever fox convinces an elderly lion to kill a derogatory wolf.",
-  "This is an illustrated fairy tale book about a conversation between a mouse and a cat.",
-  "An amusing collection of stories featuring a Thunder God on the cover.",
-  "This is a well illustrated fairy tale about a war between the birds and the beasts, with particulars on the wartime conduct and eventual fate of the bat.",
-  'This book, titled "The Rattlesnake\'s Vengeance" is a collection of local myths and legends.',
-  "This fairy tale book is a regional variant of a tale of friendship between the Demon and the Angel",
-  'This fairy tale book is entitled "Little Red Cap".  It details a red-cloaked child\'s various encounters with talking wolves.',
-  "A collection of ghost stories warning about the dangers of stealing from the dead.",
-  "A book of culinary fairy tales.  The cover features an orange fairy juggling a lemon, a lime, and a tangerine slimes.",
-  "A book of fables about people who change into birds.",
-  'This compendium of amusing folk tales about the devil is titled "Hell\'s Kettle: Legends of the Devil."',
-  'This charming book of fables is titled, "The Crystal Mountain and the Princess."',
-  "This is a collection of fairy tale stories warning against the consequences of extreme greed.",
-  "In this fairy tale a strong man frightens an ogre by squeezing water out of a stone.",
-  'This book of rustic folk tales bears the title: "How to Shout Down the Devil."',
-  'The title of this book is "Village Folk-tales of Darion."  It includes fables about logical errors and foolish misjudgements of the village men.',
-  'This book of folk tales is titled, "The Girl with the Ugly Name, and Other Stories."',
-  'Titled "The Fleeing Pancake", this collection of silly folk tales is suitable for small children.',
-];
+global.text.mscbkatxt = i18n.get("gameText.mscbkatxt");
 
 item.msc1 = new Item();
 item.msc1.id = 9009;
-item.msc1.name = '"Book of Fairy Tales"';
+item.msc1.name = i18n.t("content.item.msc1.name");
 item.msc1.data.bid = _rand(global.text.mscbkatxt.length - 1);
 item.msc1.data.exp = _rand(500, 10000);
 item.msc1.save = true;
@@ -6929,10 +6987,9 @@ item.msc1.use = function () {
 
 item.bcpn = new Item();
 item.bcpn.id = 9010;
-item.bcpn.name = '"Cooking with Poison"';
+item.bcpn.name = i18n.t("content.item.bcpn.name");
 item.bcpn.rar = 2;
-item.bcpn.desc =
-  "A leatherbound book with an embossed cauldron on the cover. Inside it describes ways to purify food through alchemy";
+item.bcpn.desc = i18n.t("content.item.bcpn.desc");
 item.bcpn.stype = 4;
 item.bcpn.data.time = HOUR * 30;
 item.bcpn.use = function () {
@@ -6948,9 +7005,8 @@ item.bcpn.use = function () {
 
 item.mdc1 = new Item();
 item.mdc1.id = 9011;
-item.mdc1.name = '"First Aid Manual"';
-item.mdc1.desc =
-  "Tiny red pocket-sized guide to emergency care, covers basic bandaging and wound treating";
+item.mdc1.name = i18n.t("content.item.mdc1.name");
+item.mdc1.desc = i18n.t("content.item.mdc1.desc");
 item.mdc1.stype = 4;
 item.mdc1.data.time = HOUR * 12;
 item.mdc1.use = function () {
@@ -6962,7 +7018,13 @@ item.mdc1.use = function () {
       dt += giveRcp(rcp.hptn1);
       this.data.finished = true;
       giveItem(item.bookgen);
-      if (dt === 0) msg("You haven't learned anything new...", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_haven_t_learned_anything_new_c64d232a",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -6971,9 +7033,8 @@ item.mdc1.use = function () {
 
 item.dmkbk = new Item();
 item.dmkbk.id = 9012;
-item.dmkbk.name = '"Dollmaker\'s Handbook"';
-item.dmkbk.desc =
-  "A very short manual filled with illustrations about primitive dollmaking. The instructions are easy to understand so children could make the dolls too. Looks like there was a chapter dedicated to sewing, now it's almost entirely missing";
+item.dmkbk.name = i18n.t("content.item.dmkbk.name");
+item.dmkbk.desc = i18n.t("content.item.dmkbk.desc");
 item.dmkbk.stype = 4;
 item.dmkbk.data.time = HOUR * 12;
 item.dmkbk.use = function () {
@@ -6987,7 +7048,13 @@ item.dmkbk.use = function () {
       dt += giveRcp(rcp.bdl1);
       dt += giveRcp(rcp.cyrn);
       this.data.finished = true;
-      if (dt === 0) msg("You haven't learned anything new...", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_haven_t_learned_anything_new_c64d232a",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -6996,9 +7063,8 @@ item.dmkbk.use = function () {
 
 item.scrlw = new Item();
 item.scrlw.id = 9013;
-item.scrlw.name = '"Ragged Parchment"';
-item.scrlw.desc =
-  "Scummy sheet of paper tainted with something teal. Some kinds of materials are listed here";
+item.scrlw.name = i18n.t("content.item.scrlw.name");
+item.scrlw.desc = i18n.t("content.item.scrlw.desc");
 item.scrlw.stype = 4;
 item.scrlw.data.time = HOUR * 3;
 item.scrlw.use = function () {
@@ -7008,7 +7074,12 @@ item.scrlw.use = function () {
       dt += giveRcp(rcp.hptn1);
       this.data.finished = true;
       if (dt === 0)
-        msg("You already know how to make lesser potions", "lightgrey");
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_already_know_how_to_make_lesser_potions_d77c7b1d",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -7017,9 +7088,8 @@ item.scrlw.use = function () {
 
 item.wp2s = new Item();
 item.wp2s.id = 9014;
-item.wp2s.name = '"Rotten Illustration"';
-item.wp2s.desc =
-  "Found this within old bushery, it looks like a drawing of something in charcoal";
+item.wp2s.name = i18n.t("content.item.wp2s.name");
+item.wp2s.desc = i18n.t("content.item.wp2s.desc");
 item.wp2s.onGet = function () {
   global.flags.wp2sgt = true;
 };
@@ -7031,7 +7101,13 @@ item.wp2s.use = function () {
       let dt = 0;
       dt += giveRcp(rcp.wp2);
       this.data.finished = true;
-      if (dt === 0) msg("You already know how to sharpen sticks", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_already_know_how_to_sharpen_sticks_dcee0801",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -7040,9 +7116,8 @@ item.wp2s.use = function () {
 
 item.shppmf = new Item();
 item.shppmf.id = 9015;
-item.shppmf.name = '"Pamphlet"';
-item.shppmf.desc =
-  "This was shoved onto you by someone on the streets. Store names, discount prices, hot items... An entire wall of advertisements in tiny letters, to fit as much of it as possible on this piece of paper. It is a good idea to memorize the addresses";
+item.shppmf.name = i18n.t("content.item.shppmf.name");
+item.shppmf.desc = i18n.t("content.item.shppmf.desc");
 item.shppmf.onGet = function () {
   global.flags.pmfspmkm1 = true;
 };
@@ -7053,7 +7128,12 @@ item.shppmf.use = function () {
     if (this.data.timep >= this.cmax) {
       global.flags.mkplc1u = true;
       this.data.finished = true;
-      msg("Right, you could go to the marketplace", "lime");
+      msg(
+        i18n.t(
+          "runtime.data.items.dialogue.right_you_could_go_to_the_marketplace_dd0b11b4",
+        ),
+        "lime",
+      );
       if (global.current_l.id === chss.lsmain1.id) smove(chss.lsmain1, false);
       this.data.read = false;
       this.amount--;
@@ -7063,9 +7143,8 @@ item.shppmf.use = function () {
 
 item.amrthsck = new Item();
 item.amrthsck.id = 9016;
-item.amrthsck.name = '"Guide To Living By Yourself"';
-item.amrthsck.desc =
-  'Looks like a page from someone\'s notebook, marked "H", poorly written in bad handwriting. It lists several simple things you can cook and make from widely available cheap materials';
+item.amrthsck.name = i18n.t("content.item.amrthsck.name");
+item.amrthsck.desc = i18n.t("content.item.amrthsck.desc");
 item.amrthsck.stype = 4;
 item.amrthsck.data.time = HOUR * 12;
 item.amrthsck.use = function () {
@@ -7083,7 +7162,13 @@ item.amrthsck.use = function () {
       dt += giveRcp(rcp.bblkt);
       dt += giveRcp(rcp.spillw);
       this.data.finished = true;
-      if (dt === 0) msg("You haven't learned anything new...", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_haven_t_learned_anything_new_c64d232a",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -7092,7 +7177,7 @@ item.amrthsck.use = function () {
 
 item.skl1a = new Item();
 item.skl1a.id = 9017;
-item.skl1a.name = '"Bladesman Manual"';
+item.skl1a.name = i18n.t("content.item.skl1a.name");
 item.skl1a.rar = 2;
 item.skl1a.desc =
   "Technique book full of fundamental knowledge about swordfighting" +
@@ -7115,7 +7200,7 @@ item.skl1a.use = function () {
 
 item.skl2a = new Item();
 item.skl2a.id = 9018;
-item.skl2a.name = '"Assassin Manual"';
+item.skl2a.name = i18n.t("content.item.skl2a.name");
 item.skl2a.rar = 2;
 item.skl2a.desc =
   "Technique book full of fundamental knowledge about kinfefighting" +
@@ -7138,7 +7223,7 @@ item.skl2a.use = function () {
 
 item.skl3a = new Item();
 item.skl3a.id = 9019;
-item.skl3a.name = '"Axeman Manual"';
+item.skl3a.name = i18n.t("content.item.skl3a.name");
 item.skl3a.rar = 2;
 item.skl3a.desc =
   "Technique book full of fundamental knowledge about axefighting" +
@@ -7161,7 +7246,7 @@ item.skl3a.use = function () {
 
 item.skl4a = new Item();
 item.skl4a.id = 9020;
-item.skl4a.name = '"Lancer Manual"';
+item.skl4a.name = i18n.t("content.item.skl4a.name");
 item.skl4a.rar = 2;
 item.skl4a.desc =
   "Technique book full of fundamental knowledge about spearfighting" +
@@ -7184,7 +7269,7 @@ item.skl4a.use = function () {
 
 item.skl5a = new Item();
 item.skl5a.id = 9021;
-item.skl5a.name = '"Clubber Manual"';
+item.skl5a.name = i18n.t("content.item.skl5a.name");
 item.skl5a.rar = 2;
 item.skl5a.desc =
   "Technique book full of fundamental knowledge about bluntfighting" +
@@ -7207,7 +7292,7 @@ item.skl5a.use = function () {
 
 item.skl6a = new Item();
 item.skl6a.id = 9022;
-item.skl6a.name = '"Brawler Manual"';
+item.skl6a.name = i18n.t("content.item.skl6a.name");
 item.skl6a.rar = 2;
 item.skl6a.desc =
   "Technique book full of fundamental knowledge about fistfighting" +
@@ -7230,9 +7315,8 @@ item.skl6a.use = function () {
 
 item.brdbn = new Item();
 item.brdbn.id = 9023;
-item.brdbn.name = '"Your First Bread"';
-item.brdbn.desc =
-  "Very primitive instruction booklet about making simple breads. The way it's written, it looks very similar to manuals given to slaves and servants at the beginning of their service, if they are able to read";
+item.brdbn.name = i18n.t("content.item.brdbn.name");
+item.brdbn.desc = i18n.t("content.item.brdbn.desc");
 item.brdbn.stype = 4;
 item.brdbn.data.time = HOUR * 7;
 item.brdbn.use = function () {
@@ -7244,7 +7328,13 @@ item.brdbn.use = function () {
       dt += giveRcp(rcp.brd);
       this.data.finished = true;
       giveItem(item.bookgen);
-      if (dt === 0) msg("You haven't learned anything new...", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_haven_t_learned_anything_new_c64d232a",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -7253,9 +7343,8 @@ item.brdbn.use = function () {
 
 item.bfsnwt = new Item();
 item.bfsnwt.id = 9024;
-item.bfsnwt.name = '"Beggar Fashion"';
-item.bfsnwt.desc =
-  "Some nonsence illustration with a name, featuring a group of peasants in rags posing awkwardly. What even is this?";
+item.bfsnwt.name = i18n.t("content.item.bfsnwt.name");
+item.bfsnwt.desc = i18n.t("content.item.bfsnwt.desc");
 item.bfsnwt.stype = 4;
 item.bfsnwt.data.time = HOUR * 4;
 item.bfsnwt.use = function () {
@@ -7264,7 +7353,13 @@ item.bfsnwt.use = function () {
       let dt = 0;
       dt += giveRcp(rcp.ptchpts);
       dt += giveRcp(rcp.ptchct);
-      if (dt === 0) msg("You haven't learned anything new...", "lightgrey");
+      if (dt === 0)
+        msg(
+          i18n.t(
+            "runtime.data.items.dialogue.you_haven_t_learned_anything_new_c64d232a",
+          ),
+          "lightgrey",
+        );
       this.data.read = false;
       this.amount--;
     } else chss.trd.sl(this);
@@ -7273,7 +7368,7 @@ item.bfsnwt.use = function () {
 
 item.pdeedhs = new Item();
 item.pdeedhs.id = 9025;
-item.pdeedhs.name = '"Property Deed"';
+item.pdeedhs.name = i18n.t("content.item.pdeedhs.name");
 item.pdeedhs.rar = 2;
 item.pdeedhs.desc =
   "This old looking legal document indentifies you as a sole owner of this broken down hut you live in. It was passed down to you by your ancestors, you speculate" +
@@ -7294,7 +7389,7 @@ item.pdeedhs.use = function () {
 
 item.fgtsb1 = new Item();
 item.fgtsb1.id = 9026;
-item.fgtsb1.name = '"Street Fighting"';
+item.fgtsb1.name = i18n.t("content.item.fgtsb1.name");
 item.fgtsb1.desc =
   "Someone's observational notes of street gangs and their violent encounters. There's an amusing essay about dirty tricks in the front section" +
   dom.dseparator +
@@ -7315,7 +7410,7 @@ item.fgtsb1.use = function () {
 
 item.jnlbk = new Item();
 item.jnlbk.id = 9027;
-item.jnlbk.name = '"Empty Journal"';
+item.jnlbk.name = i18n.t("content.item.jnlbk.name");
 item.jnlbk.desc =
   "Dusty old tome, pure as snow and untainted by ink. Feels like it was purified by magic. When you gaze upon it, you are compelled to record your encounters and anything else that you find important and crucial for your adventures" +
   dom.dseparator +
@@ -7325,12 +7420,15 @@ item.jnlbk.data.time = HOUR * 4;
 item.jnlbk.use = function () {
   if (canRead()) {
     if (this.data.timep >= this.cmax) {
-      msg("Journal Unlocked!", "cyan");
+      msg(
+        i18n.t("runtime.data.items.dialogue.journal_unlocked_01c245e7"),
+        "cyan",
+      );
       this.data.read = false;
       this.amount--;
       global.flags.jnlu = true;
       this.data.finished = true;
-      dom.ct_bt6.innerHTML = "journal";
+      dom.ct_bt6.innerHTML = i18n.t("ui.navigation.journal");
     } else chss.trd.sl(this);
   }
 };

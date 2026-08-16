@@ -27,7 +27,9 @@ dom.d3.addEventListener("click", function () {
     global.flags.ttlscrnopn = true;
     dom.ttlcont = addElement(document.body, "div", "youttlc");
     dom.ttlhead = addElement(dom.ttlcont, "div", "youttlh");
-    dom.ttlhead.innerHTML = "SELECT YOUR TITLE";
+    dom.ttlhead.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.select_your_title_95546199",
+    );
     dom.ttlbd = addElement(dom.ttlcont, "div");
     dom.ttlbd.style.overflow = "auto";
     dom.ttlbd.style.maxHeight = window.innerHeight - 130;
@@ -37,8 +39,9 @@ dom.d3.addEventListener("click", function () {
       if (obj === 0) this.ttlent.style.borderTop = "";
       this.ttlent.innerHTML = '"' + title.name + '"';
       if (global.titles[obj].talent)
-        this.ttlent.innerHTML +=
-          " <span style='color:yellow;text-shadow:0px 0px 5px orange'>*</span>";
+        this.ttlent.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.text_967e8514",
+        );
       addDesc(this.ttlent, title, 5);
       this.ttlent.addEventListener("click", function () {
         you.title = title;
@@ -61,7 +64,7 @@ addDesc(
   dom.d5_1,
   null,
   2,
-  "Health",
+  i18n.t("runtime.ui.interface.description.health_3703cd21"),
   function () {
     return (
       'Physical health points, needed to stay alive. You will probably die if it reaches 0<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
@@ -75,7 +78,7 @@ addDesc(
   dom.d5_2,
   null,
   2,
-  "Experience",
+  i18n.t("runtime.ui.interface.description.experience_5b5aafe6"),
   function () {
     return (
       'Physical and combat experience. You\'ll have to work hard to achieve new heights<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>EXP Gain Potential: <span style="color:gold">' +
@@ -91,7 +94,7 @@ addDesc(
   dom.d5_3,
   null,
   2,
-  "Energy meter",
+  i18n.t("runtime.ui.interface.description.energy_meter_b53c9846"),
   function () {
     let lose = you.mods.sdrate;
     if (global.flags.iswet === true) lose *= 3 / (1 + skl.abw.lvl * 0.03);
@@ -116,8 +119,10 @@ addDesc(
   dom.d6,
   null,
   2,
-  "Power rank",
-  "Your power position in this realm. The lower the number the stronger you are",
+  i18n.t("runtime.ui.interface.description.power_rank_0f6b6c76"),
+  i18n.t(
+    "runtime.ui.interface.description.your_power_position_in_this_realm_the_lower_72d8a837",
+  ),
 );
 dom.d4 = addElement(dom.d1, "div", "d4");
 dom.d4_1 = addElement(dom.d4, "span", null, "dd");
@@ -128,7 +133,7 @@ addDesc(
   dom.d4_1,
   null,
   2,
-  "Physical Strength",
+  i18n.t("runtime.ui.interface.description.physical_strength_9965efa3"),
   function () {
     return (
       'Determines physical damage dealt and received<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
@@ -142,7 +147,7 @@ addDesc(
   dom.d4_2,
   null,
   2,
-  "Agility",
+  i18n.t("runtime.ui.interface.description.agility_0fc9a6ed"),
   function () {
     return (
       'Determines hit/dodge rate<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
@@ -156,7 +161,7 @@ addDesc(
   dom.d4_3,
   null,
   2,
-  "Mental acuity",
+  i18n.t("runtime.ui.interface.description.mental_acuity_7e567d10"),
   function () {
     return (
       'Determines magic damage dealt and received<div style="  border-bottom: 1px solid grey;width:100%;height:8px">　</div><br><small>Growth Potential: <span style="color:lime">' +
@@ -170,45 +175,67 @@ addDesc(
   dom.d4_4,
   null,
   2,
-  "Speed",
-  "Allows for faster attacks and multihit combos",
+  i18n.t("runtime.ui.interface.description.speed_2d2cb022"),
+  i18n.t(
+    "runtime.ui.interface.description.allows_for_faster_attacks_and_multihit_combos_aa1a7430",
+  ),
 );
 dom.d7 = addElement(dom.d1, "div", "eq_w");
 dom.d7_1 = addElement(dom.d7, "div", null, "ddd_2");
 dom.d7_slot_1 = addElement(dom.d7_1, "div", null, "ddd_1");
-dom.d7_slot_1.innerHTML = "Weapon";
+dom.d7_slot_1.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.weapon_ead53368",
+);
 dom.d7_slot_1.style.color = "grey";
 dom.d7_slot_2 = addElement(dom.d7_1, "div", null, "ddd_1");
-dom.d7_slot_2.innerHTML = "Shield";
+dom.d7_slot_2.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.shield_08271419",
+);
 dom.d7_slot_2.style.color = "grey";
 dom.d7_2 = addElement(dom.d7, "div", null, "ddd_2");
 dom.d7_slot_3 = addElement(dom.d7_2, "div", null, "ddd_1");
-dom.d7_slot_3.innerHTML = "Head";
+dom.d7_slot_3.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.head_e5ffd15b",
+);
 dom.d7_slot_3.style.color = "grey";
 dom.d7_slot_4 = addElement(dom.d7_2, "div", null, "ddd_1");
-dom.d7_slot_4.innerHTML = "Body";
+dom.d7_slot_4.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.body_718a7e8a",
+);
 dom.d7_slot_4.style.color = "grey";
 dom.d7_3 = addElement(dom.d7, "div", null, "ddd_2");
 dom.d7_slot_5 = addElement(dom.d7_3, "div", null, "ddd_1");
-dom.d7_slot_5.innerHTML = "L Arm";
+dom.d7_slot_5.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.l_arm_f647d25e",
+);
 dom.d7_slot_5.style.color = "grey";
 dom.d7_slot_6 = addElement(dom.d7_3, "div", null, "ddd_1");
-dom.d7_slot_6.innerHTML = "R Arm";
+dom.d7_slot_6.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.r_arm_8182b52d",
+);
 dom.d7_slot_6.style.color = "grey";
 dom.d7_4 = addElement(dom.d7, "div", null, "ddd_2");
 dom.d7_slot_7 = addElement(dom.d7_4, "div", null, "ddd_1");
-dom.d7_slot_7.innerHTML = "Legs";
+dom.d7_slot_7.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.legs_29518d04",
+);
 dom.d7_slot_7.style.color = "grey";
 dom.d7_slot_8 = addElement(dom.d7_4, "div", null, "ddd_1");
-dom.d7_slot_8.innerHTML = "Accessory";
+dom.d7_slot_8.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.accessory_962403f6",
+);
 dom.d7_slot_8.style.color = "grey";
 dom.d7_5 = addElement(dom.d7, "div", null, "ddd_2");
 dom.d7_5.style.borderBottom = "solid 2px rgb(12,86,195)";
 dom.d7_slot_9 = addElement(dom.d7_5, "div", null, "ddd_1");
-dom.d7_slot_9.innerHTML = "∥LOCKED∥";
+dom.d7_slot_9.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.locked_d8b8028c",
+);
 dom.d7_slot_9.style.color = "grey";
 dom.d7_slot_10 = addElement(dom.d7_5, "div", null, "ddd_1");
-dom.d7_slot_10.innerHTML = "∥LOCKED∥";
+dom.d7_slot_10.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.locked_d8b8028c",
+);
 dom.d7_slot_10.style.color = "grey";
 dom.d8 = addElement(dom.d1, "div");
 dom.d8.style.fontSize = ".9em";
@@ -342,19 +369,27 @@ dom.d9m.style.borderBottom = "#545299 dotted 2px";
 dom.d9m.style.backgroundColor = "#272744";
 dom.d8m_c = addElement(dom.d1m, "small", "bbts");
 dom.d8m1 = addElement(dom.d8m_c, "div", null, "bbts");
-dom.d8m1.innerHTML = "Pause next battle: <span style='color:green'>&nbspOFF";
+dom.d8m1.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.pause_next_battle_nbspoff_1b765858",
+);
 dom.d8m1.addEventListener("click", function () {
   if (global.flags.to_pause === true) {
     if (!global.flags.civil) global.flags.btl = true;
     global.flags.to_pause = false;
-    this.innerHTML = "Pause next battle: <span style='color:green'>&nbspOFF";
+    this.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.pause_next_battle_nbspoff_1b765858",
+    );
   } else {
     global.flags.to_pause = true;
-    this.innerHTML = "Pause next battle: <span style='color:crimson'>&nbspON";
+    this.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.pause_next_battle_nbspon_ff0ff553",
+    );
   }
 });
 dom.d8m2 = addElement(dom.d8m_c, "div", null, "bbts");
-dom.d8m2.innerHTML = "Resume the fight";
+dom.d8m2.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.resume_the_fight_76300b23",
+);
 dom.d8m2.style.right = "0px";
 dom.d8m2.style.position = "absolute";
 dom.d8m2.addEventListener("click", function () {
@@ -427,7 +462,7 @@ dom.nthngdsp.style.top = 200;
 dom.nthngdsp.style.left = 210;
 dom.nthngdsp.style.position = "relative";
 dom.nthngdsp.style.color = "grey";
-dom.nthngdsp.innerHTML = "Nothing here yet";
+dom.nthngdsp.innerHTML = i18n.t("ui.panels.nothingHere");
 dom.nthngdsp.style.display = "none";
 dom.ctr_1 = addElement(dom.ctrmg_ca, "div", "ctrm_1");
 if (!global.flags.aw_u) dom.ctr_1.style.display = "none";
@@ -460,7 +495,7 @@ dom.d_time.addEventListener("click", function () {
 });
 dom.d_lct = addElement(dom.ctr_1a, "div", "ctr_l");
 dom.d_lct.style.display = "none";
-dom.d_lct.innerHTML = "Location: ";
+dom.d_lct.innerHTML = i18n.t("ui.world.location");
 dom.d_lctc = addElement(dom.d_lct, "div");
 dom.d_lctc.style.fontSize = "0.85em";
 dom.d_lctc.style.paddingTop = 7;
@@ -472,17 +507,25 @@ dom.ctr_2 = addElement(dom.ctrwin1, "div", "ctrm_2");
 dom.ct_ctrl = addElement(dom.ctrmg, "div", "ct_ctrl");
 if (!global.flags.aw_u) dom.ct_ctrl.style.display = "none";
 dom.ct_bt1 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
-dom.ct_bt1.innerHTML = global.flags.asbu ? "assemble" : "???????";
+dom.ct_bt1.innerHTML = global.flags.asbu
+  ? i18n.t("ui.navigation.assemble")
+  : i18n.t("ui.common.unknown");
 dom.ct_bt2 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
-dom.ct_bt2.innerHTML = global.flags.sklu ? "skills" : "???????";
+dom.ct_bt2.innerHTML = global.flags.sklu
+  ? i18n.t("ui.navigation.skills")
+  : i18n.t("ui.common.unknown");
 dom.ct_bt3 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
-dom.ct_bt3.innerHTML = global.flags.actsu ? "actions" : "???????";
+dom.ct_bt3.innerHTML = global.flags.actsu
+  ? i18n.t("ui.navigation.actions")
+  : i18n.t("ui.common.unknown");
 //dom.ct_bt4 = addElement(dom.ct_ctrl ,'div',null,'ct_bts'); dom.ct_bt4.innerHTML = '';
 //dom.ct_bt5 = addElement(dom.ct_ctrl ,'div',null,'ct_bts'); dom.ct_bt5.innerHTML = '';
 dom.ct_bt6 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
-dom.ct_bt6.innerHTML = global.flags.jnlu ? "journal" : "???????";
+dom.ct_bt6.innerHTML = global.flags.jnlu
+  ? i18n.t("ui.navigation.journal")
+  : i18n.t("ui.common.unknown");
 dom.ct_bt7 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
-dom.ct_bt7.innerHTML = "settings";
+dom.ct_bt7.innerHTML = i18n.t("ui.navigation.settings");
 dom.ct_bt1.style.borderLeft = "none";
 dom.ct_bt7.style.borderRight = "none";
 
@@ -565,7 +608,7 @@ dom.ct_bt3.addEventListener("click", () => {
     empty(dom.ctrwin5);
     if (acts.length > 0) {
       this.acch = addElement(dom.ctrwin5, "div");
-      this.acch.innerHTML = "A c t i o n　　l i s t";
+      this.acch.innerHTML = i18n.t("ui.panels.actionList");
       this.acch.style.padding = "2px";
       this.acch.style.textAlign = "center";
       this.acch.style.backgroundColor = "#050730";
@@ -662,7 +705,7 @@ dom.ct_bt2.addEventListener("click", function () {
       dom.nthngdsp.style.display = "none";
       empty(dom.ctrwin3);
       this.skwm = addElement(dom.ctrwin3, "div");
-      this.skwm.innerHTML = "S k i l l　　l i s t";
+      this.skwm.innerHTML = i18n.t("ui.panels.skillList");
       this.skwm.style.padding = "2px";
       this.skwm.style.textAlign = "center";
       this.skwm.style.backgroundColor = "#050730";
@@ -677,10 +720,14 @@ dom.ct_bt2.addEventListener("click", function () {
       this.skwm_e_btn_1_b.innerHTML = "A-Z";
       this.skwm_e_btn_1_b.style.border = "1px solid #46a";
       this.skwm_e_btn_2_b = addElement(this.skwm_e, "div", null, "bts_b");
-      this.skwm_e_btn_2_b.innerHTML = "TPE";
+      this.skwm_e_btn_2_b.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.tpe_73346027",
+      );
       this.skwm_e_btn_2_b.style.border = "1px solid #46a";
       this.skwm_e_btn_3_b = addElement(this.skwm_e, "div", null, "bts_b");
-      this.skwm_e_btn_3_b.innerHTML = "LVL";
+      this.skwm_e_btn_3_b.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.lvl_381b972e",
+      );
       this.skwm_e_btn_3_b.style.border = "1px solid #46a";
       this.skwm_e_btn_1_b.addEventListener("click", function () {
         if (global.flags.ssort_a === true) {
@@ -759,9 +806,27 @@ dom.ct_bt2.addEventListener("click", function () {
             dom.skcon.children[m].style.borderBottom = "1px solid #46a";
         }
       });
-      addDesc(this.skwm_e_btn_1_b, null, 2, "Filter", "Alphabetically");
-      addDesc(this.skwm_e_btn_2_b, null, 2, "Filter", "by Type");
-      addDesc(this.skwm_e_btn_3_b, null, 2, "Filter", "by Levels");
+      addDesc(
+        this.skwm_e_btn_1_b,
+        null,
+        2,
+        i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+        i18n.t("runtime.ui.interface.description.alphabetically_0c8123ce"),
+      );
+      addDesc(
+        this.skwm_e_btn_2_b,
+        null,
+        2,
+        i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+        i18n.t("runtime.ui.interface.description.by_type_b2f54970"),
+      );
+      addDesc(
+        this.skwm_e_btn_3_b,
+        null,
+        2,
+        i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+        i18n.t("runtime.ui.interface.description.by_levels_9a64c295"),
+      );
       dom.skcon = addElement(dom.ctrwin3, "div");
       dom.skcon.style.overflow = "auto";
       dom.skcon.style.height = 335;
@@ -822,7 +887,7 @@ dom.ct_bt6.addEventListener("click", function () {
     global.lw_op = 6;
     empty(dom.ctrwin6);
     this.jlbl = addElement(dom.ctrwin6, "div");
-    this.jlbl.innerHTML = "J o u r n a l";
+    this.jlbl.innerHTML = i18n.t("ui.panels.journal");
     this.jlbl.style.padding = "2px";
     this.jlbl.style.textAlign = "center";
     this.jlbl.style.backgroundColor = "#050730";
@@ -921,7 +986,9 @@ dom.ct_bt6.addEventListener("click", function () {
           rar +
           "</small>";
         if (qsts[a].repeatable)
-          this.qstcell.innerHTML += '<small style="color:grey"> ≶</small>';
+          this.qstcell.innerHTML += i18n.t(
+            "runtime.ui.interface.interface.text_e3f09280",
+          );
         if (qsts.length - 1 == Number(a))
           this.qstcell.style.borderBottom = "1px solid #46a";
         this.qstcell.addEventListener("click", function () {
@@ -968,7 +1035,9 @@ dom.ct_bt6.addEventListener("click", function () {
               ? qsts[a].goalsf()
               : qsts[a].goals();
           this.qtodo.style.padding = 6;
-          this.qtodo.innerHTML = "「Objectives」";
+          this.qtodo.innerHTML = i18n.t(
+            "runtime.ui.interface.interface.objectives_0421b15e",
+          );
           this.qtodo.style.color = "#ffc319";
           this.qtodo.style.backgroundColor = "#12152f";
           this.qgoalbod = addElement(this.qmain, "div");
@@ -982,7 +1051,9 @@ dom.ct_bt6.addEventListener("click", function () {
             this.qtodoitm.innerHTML = goals[b];
           }
           this.qstatbak = addElement(this.qmain, "div", "qtrtn");
-          this.qstatbak.innerHTML = "<= Return";
+          this.qstatbak.innerHTML = i18n.t(
+            "runtime.ui.interface.interface.return_9e4bb9d7",
+          );
           this.qstatbak.addEventListener("click", () => {
             dom.jlbrw1s1.click();
           });
@@ -1007,21 +1078,27 @@ dom.ct_bt6.addEventListener("click", function () {
         null,
         "bst_entr1",
       );
-      this.bst_entr_head1.innerHTML = "name";
+      this.bst_entr_head1.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.name_6ae99955",
+      );
       this.bst_entr_head2 = addElement(
         this.bst_entr_head,
         "div",
         null,
         "bst_entr2",
       );
-      this.bst_entr_head2.innerHTML = "rank";
+      this.bst_entr_head2.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.rank_9f0d6627",
+      );
       this.bst_entr_head3 = addElement(
         this.bst_entr_head,
         "div",
         null,
         "bst_entr3",
       );
-      this.bst_entr_head3.innerHTML = "kills";
+      this.bst_entr_head3.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.kills_4b11e02d",
+      );
       for (let ii = 1; ii < global.bestiary.length; ii++) {
         let mon;
         for (const id in creature)
@@ -1151,14 +1228,18 @@ dom.ct_bt6.addEventListener("click", function () {
       dom.tccon = addElement(dom.statbod, "small", null, "sttc");
       dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
       dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-      dom.tcleft.innerHTML = "Game start time";
+      dom.tcleft.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.game_start_time_afd7c4c3",
+      );
       dom.tcright.innerHTML = global.stat.sttime;
       /*dom.tccon=addElement(dom.statbod,'small',null,'sttc'); dom.tcleft=addElement(dom.tccon,'div',null,'sttl'); dom.tcright=addElement(dom.tccon,'div',null,'sttr');
     dom.tcleft.innerHTML='Time passed'; let br=global.stat.tick;dom.tcright.innerHTML=(br>=86400?(br/(86400)<<0+' Days '):'')+(br%86400>=3600?(((br%86400/3600)<<0)%24+':'):'')+(br%3600<60?'00':(br%3600>=600?(br%3600/60)<<0:'0'+(br%3600/60)<<0))+(':'+(br%360<60?'0'+br%60:br%60));*/
       dom.tccon = addElement(dom.statbod, "small", null, "sttc");
       dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
       dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-      dom.tcleft.innerHTML = "Ingame time passed";
+      dom.tcleft.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.ingame_time_passed_0ceb54c8",
+      );
       const br = time.minute - 338143959;
       dom.tcright.innerHTML =
         (br >= YEAR
@@ -1184,14 +1265,18 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Game saves";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.game_saves_38d7360c",
+        );
         dom.tcright.innerHTML += global.stat.gsvs;
       }
       if (global.stat.athme > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total time spent at home";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_time_spent_at_home_5becc0cc",
+        );
         const br = global.stat.athme;
         dom.tcright.innerHTML =
           (br >= YEAR
@@ -1217,7 +1302,9 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Time Slept";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.time_slept_f32d21d0",
+        );
         const br = global.stat.timeslp;
         dom.tcright.innerHTML =
           (br >= YEAR
@@ -1243,7 +1330,9 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times struck by lightning";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_struck_by_lightning_64e90c46",
+        );
         dom.tcright.innerHTML =
           '<span style="color:black;background-color:yellow">' +
           global.stat.lgtstk +
@@ -1253,161 +1342,207 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Quests completed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.quests_completed_352a6c6b",
+        );
         dom.tcright.innerHTML = global.stat.qstc;
       }
       if (global.stat.jcom > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Jobs completed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.jobs_completed_769d6741",
+        );
         dom.tcright.innerHTML = global.stat.jcom;
       }
       if (global.stat.dsct > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Discoveries made";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.discoveries_made_80f1f18f",
+        );
         dom.tcright.innerHTML = global.stat.dsct;
       }
       if (global.stat.smovet > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times walked";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_walked_52c707fc",
+        );
         dom.tcright.innerHTML = global.stat.smovet;
       }
       if (global.stat.cat_c > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Cat pets";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.cat_pets_13e98483",
+        );
         dom.tcright.innerHTML = global.stat.cat_c;
       }
       if (global.stat.fooda > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Food consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.food_consumed_8ade8fd6",
+        );
         dom.tcright.innerHTML = global.stat.fooda;
       }
       if (global.stat.foodt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Bad food consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.bad_food_consumed_79c65472",
+        );
         dom.tcright.innerHTML = global.stat.foodt;
       }
       if (global.stat.foodb > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Drinks consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.drinks_consumed_967828dd",
+        );
         dom.tcright.innerHTML = global.stat.foodb;
       }
       if (global.stat.foodal > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Alcohol consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.alcohol_consumed_c3f76191",
+        );
         dom.tcright.innerHTML = global.stat.foodal;
       }
       if (global.stat.ftried > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Unique food tried";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.unique_food_tried_ad2a126b",
+        );
         dom.tcright.innerHTML = global.stat.ftried;
       }
       if (global.stat.medst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Medicine used";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.medicine_used_2e4d8e40",
+        );
         dom.tcright.innerHTML = global.stat.medst;
       }
       if (global.stat.potst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Potions consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.potions_consumed_fa286d01",
+        );
         dom.tcright.innerHTML = global.stat.potst;
       }
       if (global.stat.plst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Pills consumed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.pills_consumed_8bd14564",
+        );
         dom.tcright.innerHTML = global.stat.plst;
       }
       if (global.stat.igtttl > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Items picked up";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.items_picked_up_062ce88b",
+        );
         dom.tcright.innerHTML = global.stat.igtttl;
       }
       if (global.stat.dsst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Items disassembled";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.items_disassembled_0abf00e5",
+        );
         dom.tcright.innerHTML = global.stat.dsst;
       }
       if (global.stat.thrt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Items thrown away";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.items_thrown_away_de61d0a3",
+        );
         dom.tcright.innerHTML = global.stat.thrt;
       }
       if (global.stat.crftt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Items crafted";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.items_crafted_e6c30733",
+        );
         dom.tcright.innerHTML = global.stat.crftt;
       }
       if (global.rec_d.length > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Recipes unlocked";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.recipes_unlocked_fb5f556a",
+        );
         dom.tcright.innerHTML = global.rec_d.length;
       }
       if (you.skls.length > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Skills unlocked";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.skills_unlocked_a1940691",
+        );
         dom.tcright.innerHTML = you.skls.length;
       }
       if (global.titles.length > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Titles unlocked";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.titles_unlocked_90d8b0a2",
+        );
         dom.tcright.innerHTML = global.titles.length;
       }
       if (global.stat.exptotl > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total EXP gained";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_exp_gained_225c96af",
+        );
         dom.tcright.innerHTML = formatw(global.stat.exptotl);
       }
       if (global.stat.slvs > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total skill levels";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_skill_levels_54b6f497",
+        );
         dom.tcright.innerHTML = global.stat.slvs;
       }
       if (global.stat.moneyg > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Money acquired";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.money_acquired_15a2104f",
+        );
         dom.ch_etn2_1 = addElement(dom.tcright, "span");
         dom.ch_etn2_1.style.width = "33.3%";
         dom.ch_etn2_2 = addElement(dom.tcright, "span");
@@ -1433,7 +1568,9 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Money spent in shops";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.money_spent_in_shops_fa19d59b",
+        );
         dom.ch_etn2_1 = addElement(dom.tcright, "span");
         dom.ch_etn2_1.style.width = "33.3%";
         dom.ch_etn2_2 = addElement(dom.tcright, "span");
@@ -1459,21 +1596,27 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Goods bought";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.goods_bought_093022ba",
+        );
         dom.tcright.innerHTML = global.stat.buyt;
       }
       if (global.stat.rdttl > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Books read";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.books_read_52d39e00",
+        );
         dom.tcright.innerHTML = global.stat.rdttl;
         addDesc(
           dom.tccon,
           null,
           2,
-          "Info",
-          '<span style="color:lie">Click to list known books</span>',
+          i18n.t("runtime.ui.interface.description.info_4b631f69"),
+          i18n.t(
+            "runtime.ui.interface.description.click_to_list_known_books_0d0a2b7a",
+          ),
         );
         dom.tccon.addEventListener("click", function () {
           if (!global.flags.bksstt) {
@@ -1536,7 +1679,9 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total reading time";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_reading_time_bba346f7",
+        );
         const br = global.stat.rdgtttl;
         dom.tcright.innerHTML =
           (br >= YEAR
@@ -1562,203 +1707,261 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times description window appeared";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_description_window_appeared_7790bb32",
+        );
         dom.tcright.innerHTML = global.stat.popt;
       }
       if (global.stat.dmgdt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total damage dealt";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_damage_dealt_66d3566d",
+        );
         dom.tcright.innerHTML = formatw(global.stat.dmgdt);
       }
       if (global.stat.dmgrt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total damage recieved";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_damage_recieved_57eb3280",
+        );
         dom.tcright.innerHTML = formatw(global.stat.dmgrt);
       }
       if (global.stat.deadt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times died";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_died_e52fe16e",
+        );
         dom.tcright.innerHTML = global.stat.deadt;
       }
       if (global.stat.deadt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Last cause of casualty";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.last_cause_of_casualty_e46940a7",
+        );
         dom.tcright.innerHTML = getlastd();
       }
       if (global.stat.akills > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Total kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.total_kills_0d62f478",
+        );
         dom.tcright.innerHTML = global.stat.akills;
       }
       if (global.stat.onesht > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times killed with a single hit";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_killed_with_a_single_hit_d7c50b46",
+        );
         dom.tcright.innerHTML = global.stat.onesht;
       }
       if (global.stat.misst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times missed the attack";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_missed_the_attack_f1e62ec1",
+        );
         dom.tcright.innerHTML = global.stat.misst;
       }
       if (global.stat.dodgt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Times dodged the attack";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.times_dodged_the_attack_0eda75e1",
+        );
         dom.tcright.innerHTML = global.stat.dodgt;
       }
       if (global.stat.msks[0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Humanoid-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.humanoid_class_foes_slayed_773fcf22",
+        );
         dom.tcright.innerHTML = global.stat.msks[0];
       }
       if (global.stat.msks[1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Beast-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.beast_class_foes_slayed_8eb77737",
+        );
         dom.tcright.innerHTML = global.stat.msks[1];
       }
       if (global.stat.msks[2] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Undead-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.undead_class_foes_slayed_527de597",
+        );
         dom.tcright.innerHTML = global.stat.msks[2];
       }
       if (global.stat.msks[3] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Evil-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.evil_class_foes_slayed_224857cb",
+        );
         dom.tcright.innerHTML = global.stat.msks[3];
       }
       if (global.stat.msks[4] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Phantom-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.phantom_class_foes_slayed_603e18c4",
+        );
         dom.tcright.innerHTML = global.stat.msks[4];
       }
       if (global.stat.msks[5] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Dragon-class foes slayed";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.dragon_class_foes_slayed_2874beb8",
+        );
         dom.tcright.innerHTML = global.stat.msks[5];
       }
       if (global.stat.msts[0][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Unarmed attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.unarmed_attacks_7276903b",
+        );
         dom.tcright.innerHTML = global.stat.msts[0][0];
       }
       if (global.stat.msts[0][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Unarmed kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.unarmed_kills_b2c71768",
+        );
         dom.tcright.innerHTML = global.stat.msts[0][1];
       }
       if (global.stat.msts[1][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Sword attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.sword_attacks_81c7c1fc",
+        );
         dom.tcright.innerHTML = global.stat.msts[1][0];
       }
       if (global.stat.msts[1][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Sword kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.sword_kills_b8c42371",
+        );
         dom.tcright.innerHTML = global.stat.msts[1][1];
       }
       if (global.stat.msts[2][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Axe attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.axe_attacks_11a294f1",
+        );
         dom.tcright.innerHTML = global.stat.msts[2][0];
       }
       if (global.stat.msts[2][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Axe kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.axe_kills_dcd1bfdb",
+        );
         dom.tcright.innerHTML = global.stat.msts[2][1];
       }
       if (global.stat.msts[3][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Dagger attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.dagger_attacks_793083c6",
+        );
         dom.tcright.innerHTML = global.stat.msts[3][0];
       }
       if (global.stat.msts[3][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Dagger kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.dagger_kills_b69d15e2",
+        );
         dom.tcright.innerHTML = global.stat.msts[3][1];
       }
       if (global.stat.msts[4][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Polearm/Spear attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.polearm_spear_attacks_332e5572",
+        );
         dom.tcright.innerHTML = global.stat.msts[4][0];
       }
       if (global.stat.msts[4][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Polearm/Spear kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.polearm_spear_kills_da0fc89f",
+        );
         dom.tcright.innerHTML = global.stat.msts[4][1];
       }
       if (global.stat.msts[5][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Hammer/Club attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.hammer_club_attacks_300c4b65",
+        );
         dom.tcright.innerHTML = global.stat.msts[5][0];
       }
       if (global.stat.msts[5][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Hammer/Club kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.hammer_club_kills_7fc41152",
+        );
         dom.tcright.innerHTML = global.stat.msts[5][1];
       }
       if (global.stat.msts[6][0] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Staff attacks";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.staff_attacks_8846056f",
+        );
         dom.tcright.innerHTML = global.stat.msts[6][0];
       }
       if (global.stat.msts[6][1] > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
-        dom.tcleft.innerHTML = "Staff kills";
+        dom.tcleft.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.staff_kills_7427e778",
+        );
         dom.tcright.innerHTML = global.stat.msts[6][1];
       }
     });
@@ -1828,22 +2031,83 @@ global.spbtsr = [
   dom.ct_bt1_1_cont_e,
   dom.ct_bt1_1_cont_f,
 ];
-dom.ct_bt1_1_cont_a.innerHTML = "ALL";
-dom.ct_bt1_1_cont_b.innerHTML = "FOD";
-dom.ct_bt1_1_cont_c.innerHTML = "MED";
-dom.ct_bt1_1_cont_d.innerHTML = "WEP";
-dom.ct_bt1_1_cont_e.innerHTML = "EQP";
-dom.ct_bt1_1_cont_f.innerHTML = "MAT";
-addDesc(dom.ct_bt1_1_cont_a, null, 2, "Filter", "All");
-addDesc(dom.ct_bt1_1_cont_b, null, 2, "Filter", "Food");
-addDesc(dom.ct_bt1_1_cont_c, null, 2, "Filter", "Medicine/Tools");
-addDesc(dom.ct_bt1_1_cont_d, null, 2, "Filter", "Weapons");
-addDesc(dom.ct_bt1_1_cont_e, null, 2, "Filter", "Equipment/Accessories");
-addDesc(dom.ct_bt1_1_cont_f, null, 2, "Filter", "Materials/Misc.");
+dom.ct_bt1_1_cont_a.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.all_6b42874e",
+);
+dom.ct_bt1_1_cont_b.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.fod_c78b7665",
+);
+dom.ct_bt1_1_cont_c.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.med_17311526",
+);
+dom.ct_bt1_1_cont_d.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.wep_22decc29",
+);
+dom.ct_bt1_1_cont_e.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.eqp_7d14e156",
+);
+dom.ct_bt1_1_cont_f.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.mat_0a9e7cda",
+);
+addDesc(
+  dom.ct_bt1_1_cont_a,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.all_6a720856"),
+);
+addDesc(
+  dom.ct_bt1_1_cont_b,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.food_35b25929"),
+);
+addDesc(
+  dom.ct_bt1_1_cont_c,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.medicine_tools_db6a5b00"),
+);
+addDesc(
+  dom.ct_bt1_1_cont_d,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.weapons_f32d0645"),
+);
+addDesc(
+  dom.ct_bt1_1_cont_e,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.equipment_accessories_6556234d"),
+);
+addDesc(
+  dom.ct_bt1_1_cont_f,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.materials_misc_2a802c9a"),
+);
 dom.ct_bt1_2 = addElement(dom.ct_bt1_c, "div", "crf_r");
+dom.ct_bt4_0 = addElement(dom.ctrwin4, "div", null, "opt_c");
+dom.ct_bt4_0a = addElement(dom.ct_bt4_0, "div", null, "opt_t");
+dom.ct_bt4_0a.innerHTML = i18n.t("ui.settings.language");
+dom.ct_bt4_0b = addElement(dom.ct_bt4_0, "select", null, "opt_v");
+for (const locale of i18n.availableLocales) {
+  const option = addElement(dom.ct_bt4_0b, "option");
+  option.value = locale.code;
+  option.textContent = locale.name;
+}
+dom.ct_bt4_0b.value = i18n.currentLocale;
+dom.ct_bt4_0b.addEventListener("change", function () {
+  i18n.setLocale(this.value);
+});
 dom.ct_bt4_1 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_1a = addElement(dom.ct_bt4_1, "div", null, "opt_t");
-dom.ct_bt4_1a.innerHTML = "Message log limit";
+dom.ct_bt4_1a.innerHTML = i18n.t("ui.settings.messageLogLimit");
 dom.ct_bt4_1b = addElement(dom.ct_bt4_1, "input", null, "opt_v");
 dom.ct_bt4_1b.value = global.msgs_max;
 dom.ct_bt4_1b.type = "number";
@@ -1860,7 +2124,7 @@ function rstcrtthg() {
 
 dom.ct_bt4_2 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_2a = addElement(dom.ct_bt4_2, "div", null, "opt_t");
-dom.ct_bt4_2a.innerHTML = "BG Color";
+dom.ct_bt4_2a.innerHTML = i18n.t("ui.settings.backgroundColor");
 dom.ct_bt4_21b = addElement(dom.ct_bt4_2, "input", null, "opt_v");
 dom.ct_bt4_21b.value = global.bg_r;
 dom.ct_bt4_21b.type = "range";
@@ -1931,7 +2195,7 @@ dom.ct_bt4_33b.style.left = "459px";
 
 dom.ct_bt4_03 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_03a = addElement(dom.ct_bt4_03, "div", null, "opt_t");
-dom.ct_bt4_03a.innerHTML = "BG presets";
+dom.ct_bt4_03a.innerHTML = i18n.t("ui.settings.backgroundPresets");
 dom.ct_bt4_03b = addElement(dom.ct_bt4_03, "div", null, "opt_v");
 dom.ct_bt4_03b.style.width = 274;
 dom.ct_bt4_03b.style.height = 20;
@@ -1947,10 +2211,10 @@ dom.ct_bt4_03b1.style.width =
   dom.ct_bt4_03b3.style.width =
   dom.ct_bt4_03b4.style.width =
     "25%";
-dom.ct_bt4_03b1.innerHTML = "White";
-dom.ct_bt4_03b2.innerHTML = "grey";
-dom.ct_bt4_03b3.innerHTML = "night";
-dom.ct_bt4_03b4.innerHTML = "special";
+dom.ct_bt4_03b1.innerHTML = i18n.t("ui.settings.presets.white");
+dom.ct_bt4_03b2.innerHTML = i18n.t("ui.settings.presets.grey");
+dom.ct_bt4_03b3.innerHTML = i18n.t("ui.settings.presets.night");
+dom.ct_bt4_03b4.innerHTML = i18n.t("ui.settings.presets.special");
 dom.ct_bt4_03b1.style.color = "#000";
 dom.ct_bt4_03b1.style.backgroundColor = "white";
 dom.ct_bt4_03b2.style.color = "lightgrey";
@@ -2005,15 +2269,21 @@ dom.ct_bt4_03b3.addEventListener("click", function () {
 });
 dom.ct_bt4_03b4.addEventListener("click", function () {
   global.flags.bgspc = true;
-  dom.ct_bt4_31b.innerHTML = "SPCL";
-  dom.ct_bt4_32b.innerHTML = "SPCL";
-  dom.ct_bt4_33b.innerHTML = "SPCL";
+  dom.ct_bt4_31b.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.spcl_a4cfc73e",
+  );
+  dom.ct_bt4_32b.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.spcl_a4cfc73e",
+  );
+  dom.ct_bt4_33b.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.spcl_a4cfc73e",
+  );
   document.body.style.background = "linear-gradient(180deg,#000,#123)";
 });
 
 dom.ct_bt4_4 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_4a = addElement(dom.ct_bt4_4, "div", null, "opt_t");
-dom.ct_bt4_4a.innerHTML = "Destroy gradients";
+dom.ct_bt4_4a.innerHTML = i18n.t("ui.settings.destroyGradients");
 dom.ct_bt4_41b = addElement(dom.ct_bt4_4, "input", null, "opt_v");
 dom.ct_bt4_41b.type = "checkbox";
 dom.ct_bt4_41b.addEventListener("click", () => {
@@ -2022,7 +2292,7 @@ dom.ct_bt4_41b.addEventListener("click", () => {
 dom.ct_bt4_5 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_5a = addElement(dom.ct_bt4_5, "div", null, "opt_ta");
 dom.ct_bt4_5b = addElement(dom.ct_bt4_5, "div", null, "opt_va");
-dom.ct_bt4_5a.innerHTML = "Export";
+dom.ct_bt4_5a.innerHTML = i18n.t("ui.settings.export");
 dom.ct_bt4_5a.style.border = "1px lightgrey solid";
 dom.ct_bt4_5a.addEventListener("click", function () {
   if (!global.flags.expatv) {
@@ -2044,14 +2314,14 @@ dom.ct_bt4_5a.addEventListener("click", function () {
     dom.ct_bt4_5a_nhv.style.float = "left";
     dom.ct_bt4_5a_nhv.style.marginRight = 6;
     dom.ct_bt4_5a_nhv.style.backgroundColor = "grey";
-    dom.ct_bt4_5a_nhv.innerHTML = "Export As Text";
+    dom.ct_bt4_5a_nhv.innerHTML = i18n.t("ui.settings.exportAsText");
     dom.ct_bt4_5a_nhv.addEventListener("click", function () {
       dom.ct_bt4_5a_nbc.value = t;
     });
     dom.ct_bt4_5a_nhz = addElement(dom.ct_bt4_5a_nh, "div");
     dom.ct_bt4_5a_nhz.style.float = "left";
     dom.ct_bt4_5a_nhz.style.backgroundColor = "grey";
-    dom.ct_bt4_5a_nhz.innerHTML = "Export As File";
+    dom.ct_bt4_5a_nhz.innerHTML = i18n.t("ui.settings.exportAsFile");
     dom.ct_bt4_5a_nhz.addEventListener("click", function () {
       const a = new Date();
       const temp = document.createElement("a");
@@ -2096,7 +2366,7 @@ dom.ct_bt4_5a.addEventListener("click", function () {
     dom.ct_bt4_5a_nbc.style.overflow = "auto";
   }
 });
-dom.ct_bt4_5b.innerHTML = "Import";
+dom.ct_bt4_5b.innerHTML = i18n.t("ui.settings.import");
 dom.ct_bt4_5b.style.border = "1px lightgrey solid";
 dom.ct_bt4_5b.addEventListener("click", function () {
   if (!global.flags.impatv) {
@@ -2117,7 +2387,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
     draggable(dom.ct_bt4_5b_nh, dom.ct_bt4_5b_nc);
     dom.ct_bt4_5b_nhv.style.float = "left";
     dom.ct_bt4_5b_nhv.style.backgroundColor = "grey";
-    dom.ct_bt4_5b_nhv.innerHTML = "Import As Text";
+    dom.ct_bt4_5b_nhv.innerHTML = i18n.t("ui.settings.importAsText");
     dom.ct_bt4_5b_nhv.style.marginRight = 6;
     dom.ct_bt4_5b_nhv.addEventListener("click", function () {
       if (dom.ct_bt4_5b_nbc.value == "" || dom.ct_bt4_5b_nbc.value == "?") {
@@ -2135,7 +2405,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
         document.body.removeChild(dom.ct_bt4_5b_nc);
         kill(dom.ct_bt4_5b_nc);
       } else {
-        dom.ct_bt4_5b_nbc.value = "Save Invalid";
+        dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.saveInvalid");
         return;
       }
     });
@@ -2151,7 +2421,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
     dom.ct_bt4_5b_nhz = addElement(dom.ct_bt4_5b_nh, "div");
     dom.ct_bt4_5b_nhz.style.float = "left";
     dom.ct_bt4_5b_nhz.style.backgroundColor = "grey";
-    dom.ct_bt4_5b_nhz.innerHTML = "Load File";
+    dom.ct_bt4_5b_nhz.innerHTML = i18n.t("ui.settings.loadFile");
     dom.ct_bt4_5b_nhz2 = addElement(dom.ct_bt4_5b_nhz, "input");
     dom.ct_bt4_5b_nhz2.innerHTML = "323";
     dom.ct_bt4_5b_nhz2.accept = ".txt";
@@ -2169,7 +2439,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
       r.addEventListener("load", function () {
         const t = b64_to_utf8(r.result);
         if (/savevalid/g.test(t)) {
-          dom.ct_bt4_5b_nbc.value = "Load Successful";
+          dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.loadSuccessful");
           storage.setItem("v0.2a", r.result);
           load(r.result);
           global.flags.impatv = false;
@@ -2177,7 +2447,7 @@ dom.ct_bt4_5b.addEventListener("click", function () {
           document.body.removeChild(dom.ct_bt4_5b_nc);
           kill(dom.ct_bt4_5b_nc);
         } else {
-          dom.ct_bt4_5b_nbc.value = "Save Invalid";
+          dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.saveInvalid");
           return;
         }
       });
@@ -2201,13 +2471,15 @@ dom.gmsgs = addElement(document.body, "div", "gmsgs");
 dom.mstt = addElement(dom.gmsgs, "div", "mstt");
 if (!global.flags.aw_u) dom.gmsgs.style.display = "none";
 dom.mstt.style.textAlign = "center";
-dom.mstt.innerHTML = "m e s s a g e　　　l o g";
+dom.mstt.innerHTML = i18n.t("ui.panels.messageLog");
 dom.mstt.style.fontSize = "1.1em";
 dom.mstt.style.borderBottom = "dashed 2px RoyalBlue";
 dom.mscont = addElement(dom.gmsgs, "div", "mscont");
 dom.m_control = addElement(dom.gmsgs, "div", "m_control");
 dom.m_b_1 = addElement(dom.m_control, "small", null, "bts_m");
-dom.m_b_1.innerHTML = "freeze messagelog　";
+dom.m_b_1.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.freeze_messagelog_5b9b78fb",
+);
 dom.m_b_1_c = addElement(dom.m_b_1, "span", null, "bts_m_b");
 dom.m_b_1.addEventListener("click", () => {
   if (global.flags.m_freeze === false) {
@@ -2220,7 +2492,9 @@ dom.m_b_1.addEventListener("click", () => {
 });
 
 dom.m_b_2 = addElement(dom.m_control, "small", null, "bts_m");
-dom.m_b_2.innerHTML = "　stop combatlog　";
+dom.m_b_2.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.stop_combatlog_6a75a8e3",
+);
 dom.m_b_2.style.left = "19px";
 dom.m_b_2_c = addElement(dom.m_b_2, "span", null, "bts_m_b");
 dom.m_b_2.addEventListener("click", () => {
@@ -2233,7 +2507,7 @@ dom.m_b_2.addEventListener("click", () => {
   }
 });
 dom.m_b_3 = addElement(dom.m_control, "small", null, "bts_m");
-dom.m_b_3.innerHTML = "CLR";
+dom.m_b_3.innerHTML = i18n.t("runtime.ui.interface.interface.clr_ea010417");
 dom.m_b_3.style.width = "36px";
 dom.m_b_3.style.borderRight = "none";
 dom.m_b_3.style.left = "38px";
@@ -2242,14 +2516,62 @@ dom.m_b_3.addEventListener("click", () => {
   empty(dom.mscont);
 });
 
-addDesc(dom.inv_btn_1, null, 2, "Filter", "All");
-addDesc(dom.inv_btn_2, null, 2, "Filter", "Weapons");
-addDesc(dom.inv_btn_3, null, 2, "Filter", "Armor");
-addDesc(dom.inv_btn_4, null, 2, "Filter", "Comestibles");
-addDesc(dom.inv_btn_5, null, 2, "Filter", "Materials/Other");
-addDesc(dom.inv_btn_1_b, null, 2, "Filter", "Alphabetically");
-addDesc(dom.inv_btn_2_b, null, 2, "Filter", "by Amount");
-addDesc(dom.inv_btn_3_b, null, 2, "Filter", "by Type");
+addDesc(
+  dom.inv_btn_1,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.all_6a720856"),
+);
+addDesc(
+  dom.inv_btn_2,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.weapons_f32d0645"),
+);
+addDesc(
+  dom.inv_btn_3,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.armor_b1fc5d10"),
+);
+addDesc(
+  dom.inv_btn_4,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.comestibles_c238700e"),
+);
+addDesc(
+  dom.inv_btn_5,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.materials_other_0846a0b9"),
+);
+addDesc(
+  dom.inv_btn_1_b,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.alphabetically_0c8123ce"),
+);
+addDesc(
+  dom.inv_btn_2_b,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.by_amount_25d4ecd4"),
+);
+addDesc(
+  dom.inv_btn_3_b,
+  null,
+  2,
+  i18n.t("runtime.ui.interface.description.filter_d7decf1a"),
+  i18n.t("runtime.ui.interface.description.by_type_b2f54970"),
+);
 
 global.dscr = addElement(document.body, "div", "dscr");
 global.dscr.style.display = "none";
@@ -2284,14 +2606,18 @@ function invbtsrst() {
   }
 }
 
-dom.inv_btn_1.innerHTML = "ALL";
-dom.inv_btn_2.innerHTML = "WPN";
-dom.inv_btn_3.innerHTML = "EQP";
-dom.inv_btn_4.innerHTML = "USE";
-dom.inv_btn_5.innerHTML = "OTHER";
+dom.inv_btn_1.innerHTML = i18n.t("runtime.ui.interface.interface.all_6b42874e");
+dom.inv_btn_2.innerHTML = i18n.t("runtime.ui.interface.interface.wpn_41ac14b2");
+dom.inv_btn_3.innerHTML = i18n.t("runtime.ui.interface.interface.eqp_7d14e156");
+dom.inv_btn_4.innerHTML = i18n.t("runtime.ui.interface.interface.use_7dcf46a0");
+dom.inv_btn_5.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.other_957c024b",
+);
 dom.inv_btn_1_b.innerHTML = "A-Z";
 dom.inv_btn_2_b.innerHTML = "1-9";
-dom.inv_btn_3_b.innerHTML = "TPE";
+dom.inv_btn_3_b.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.tpe_73346027",
+);
 dom.inv_con = addElement(dom.inv_ctx_b, "div", "inv_con");
 dom.inv_con.style.padding = "8px";
 /*dom.inv_con.addEventListener('scroll',function(){
@@ -2439,26 +2765,30 @@ dom.hit_c = function () {
 dom.sl = addElement(document.body, "div", "sl", "noselect");
 dom.sl.style.zIndex = 10000;
 dom.sl_s = addElement(dom.sl, "span", null, "sl");
-dom.sl_s.innerHTML = "save";
+dom.sl_s.innerHTML = i18n.t("runtime.ui.interface.interface.save_13a4a113");
 dom.sl_s.addEventListener("click", () => {
   save();
   const j = addElement(dom.sl, "span");
   j.style.fontSize = ".9em";
   j.style.padding = "3px";
-  j.innerHTML = "saved...";
+  j.innerHTML = i18n.t("runtime.ui.interface.interface.saved_19d5b4ec");
   fade(j);
   setTimeout(() => {
     dom.sl.removeChild(j);
   }, 500);
 });
 dom.sl_l = addElement(dom.sl, "span", null, "sl");
-dom.sl_l.innerHTML = "load";
+dom.sl_l.innerHTML = i18n.t("runtime.ui.interface.interface.load_5dbc716c");
 dom.sl_l.addEventListener("click", () => load(null, true));
 dom.sl_extra = addElement(dom.sl, "span", null, "sl");
 dom.sl_extra.style.borderLeft = "none";
-dom.sl_extra.innerHTML = '<span style="color:crimson">game not saved!</span>';
+dom.sl_extra.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.game_not_saved_626be345",
+);
 dom.autosve = addElement(dom.sl, "span", null, "sl");
-dom.autosve.innerHTML = "Autosave";
+dom.autosve.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.autosave_ff6ad920",
+);
 dom.autosve.style.position = "fixed";
 dom.autosve.style.width = "auto";
 dom.autosve.style.right = "139px";
@@ -2501,7 +2831,7 @@ dom.sl_h.addEventListener("click", () => {
   });
 });
 
-dom.vrs = addElement(dom.sl, "div", null, "sl");
+dom.vrs = addElement(dom.sl, "a", null, "sl");
 dom.vrs.style.position = "fixed";
 dom.vrs.style.width = "auto";
 dom.vrs.innerHTML = "v" + global.ver;
@@ -2509,19 +2839,20 @@ dom.vrs.style.right = "105px";
 dom.vrs.style.bottom = "1px";
 dom.vrs.style.color = "black";
 dom.vrs.style.textDecoration = "underline";
-dom.vrs.addEventListener("click", function () {
-  window.open("/changelog/changelog.html", "_blank");
-});
-dom.vrs.href = "changelog";
+dom.vrs.href = new URL("changelog/changelog.html", document.baseURI).href;
+dom.vrs.target = "_blank";
+dom.vrs.rel = "noopener";
 dom.sl_kill = addElement(dom.sl, "span", null, "sl");
 dom.sl_kill.style.position = "fixed";
 dom.sl_kill.style.width = "auto";
-dom.sl_kill.innerHTML = "delete the save";
+dom.sl_kill.innerHTML = i18n.t(
+  "runtime.ui.interface.interface.delete_the_save_b765bc3d",
+);
 dom.sl_kill.style.right = "5px";
 dom.sl_kill.style.bottom = "1px";
 dom.sl_kill.addEventListener("click", () => {
   localStorage.clear();
-  msg("Save deleted", "");
+  msg(i18n.t("runtime.ui.interface.dialogue.save_deleted_dbfb58d6"), "");
 });
 
 function update_db() {
@@ -2546,7 +2877,7 @@ function update_d() {
 }
 update_d();
 
-global.text.mtp = ["Human", "Beast", "Undead", "Evil", "Phantom", "Dragon"];
+global.text.mtp = i18n.get("gameText.mtp");
 
 function update_m() {
   dom.d2m.innerHTML = global.current_m.name;
@@ -2677,7 +3008,9 @@ function dscr(c, what, type, ttl, dsc, id) {
       if (what.slot < 8) {
         this.dp_c = addElement(global.dscr, "div", "dr_l");
         this.dp_t = addElement(this.dp_c, "small");
-        this.dp_t.innerHTML = "DP:";
+        this.dp_t.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.dp_b5001e05",
+        );
         this.dp_m = addElement(this.dp_c, "small", "dp_m");
         this.dp_mn = addElement(this.dp_m, "small");
         this.dp_mn.innerHTML = ((what.dp * 10) << 0) / 10 + "\/" + what.dpmax;
@@ -2713,62 +3046,96 @@ function dscr(c, what, type, ttl, dsc, id) {
       this.sltic = addElement(global.dscr, "div", "intfffx");
       this.sltic.style.textAlign = "left";
       const slti = addElement(this.sltic, "small");
-      slti.innerHTML = "<br>Class: ";
+      slti.innerHTML = i18n.t("runtime.ui.interface.interface.class_c947dcb8");
       if (!!what.wtype) {
         switch (what.wtype) {
           case 0:
-            slti.innerHTML += "Unarmed";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.unarmed_9276105c",
+            );
             break;
           case 1:
-            slti.innerHTML += "Sword";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.sword_4a126f43",
+            );
             break;
           case 2:
-            slti.innerHTML += "Axe";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.axe_7ed611de",
+            );
             break;
           case 3:
-            slti.innerHTML += "Knife";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.knife_7ac760d1",
+            );
             break;
           case 4:
-            slti.innerHTML += "Spear/Polearm";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.spear_polearm_f11359fb",
+            );
             break;
           case 5:
-            slti.innerHTML += "Club/Hammer";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.club_hammer_de4ce44b",
+            );
             break;
           case 6:
-            slti.innerHTML += "Staff/Wand";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.staff_wand_37a828e4",
+            );
             break;
           case 7:
-            slti.innerHTML += "Bow/Crossbow";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.bow_crossbow_a68f019b",
+            );
             break;
         }
       } else {
         switch (what.slot) {
           case 2:
-            slti.innerHTML += "Shield";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.shield_08271419",
+            );
             break;
           case 3:
-            slti.innerHTML += "Head";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.head_e5ffd15b",
+            );
             break;
           case 4:
-            slti.innerHTML += "Body";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.body_718a7e8a",
+            );
             break;
           case 5:
-            slti.innerHTML += "Hands";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.hands_1f8e3c7c",
+            );
             break;
           case 6:
-            slti.innerHTML += "Hands";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.hands_1f8e3c7c",
+            );
             break;
           case 7:
-            slti.innerHTML += "Legs";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.legs_29518d04",
+            );
             break;
           case 8:
-            slti.innerHTML += "Accessory";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.accessory_962403f6",
+            );
             break;
           case 9:
-            slti.innerHTML += "Accessory";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.accessory_962403f6",
+            );
             break;
           case 10:
-            slti.innerHTML += "Accessory";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.accessory_962403f6",
+            );
             break;
         }
       }
@@ -2776,13 +3143,19 @@ function dscr(c, what, type, ttl, dsc, id) {
       if (what.slot === 1)
         switch (what.ctype) {
           case 0:
-            slti.innerHTML += ", Edged";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.edged_f4c33c1a",
+            );
             break;
           case 1:
-            slti.innerHTML += ", Piercing";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.piercing_f88ebf1b",
+            );
             break;
           case 2:
-            slti.innerHTML += ", Blunt";
+            slti.innerHTML += i18n.t(
+              "runtime.ui.interface.interface.blunt_dfa0d57a",
+            );
             break;
         }
       if (what.data.kills) {
@@ -2799,9 +3172,11 @@ function dscr(c, what, type, ttl, dsc, id) {
       this.sltic = addElement(global.dscr, "div");
       this.sltic.style.textAlign = "left";
       const slti = addElement(this.sltic, "small");
-      slti.innerHTML = "<br>Class: ";
+      slti.innerHTML = i18n.t("runtime.ui.interface.interface.class_c947dcb8");
       if (what.isf === true) {
-        slti.innerHTML += "Furniture";
+        slti.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.furniture_fe8691c1",
+        );
         this.text.innerHTML +=
           dom.dseparator +
           '<span style="color:chartreuse">Use to add to the furniture list</span>';
@@ -2823,39 +3198,64 @@ function dscr(c, what, type, ttl, dsc, id) {
             "</span>";
         }
       } else if (what.id < 3000) {
-        slti.innerHTML += "Food";
+        slti.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.food_35b25929",
+        );
         if (what.rot)
           slti.innerHTML +=
             "(" + '<span style="color:orange">perishable</span>' + ")";
       } else if (what.id >= 3000 && what.id < 5000)
-        slti.innerHTML += "Medicine/Tool";
+        slti.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.medicine_tool_c2e6c5a1",
+        );
       else if (what.id >= 5000 && what.id < 9000)
-        slti.innerHTML += "Material/Misc";
-      else slti.innerHTML += "Book";
+        slti.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.material_misc_15fe1f96",
+        );
+      else
+        slti.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.book_f69f2330",
+        );
     }
     if (what.id < 3000) {
       dom.dtrd = addElement(this.sltic, "small");
-      dom.dtrd.innerHTML = "Tried: ";
+      dom.dtrd.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.tried_3b655872",
+      );
       dom.dtrd.style.position = "relative";
       dom.dtrd.style.right = 1;
       dom.dtrd.style.float = "right";
       if (what.data.tried === true)
-        dom.dtrd.innerHTML += '<span style="color: lime">Yes</span>';
-      else dom.dtrd.innerHTML += '<span style="color: crimson">Never</span>';
+        dom.dtrd.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.yes_d0868e8f",
+        );
+      else
+        dom.dtrd.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.never_40f2f2a5",
+        );
     }
     if (what.id >= 9000 && what.id < 10000) {
       dom.dtrd = addElement(this.sltic, "small");
-      dom.dtrd.innerHTML = "Read: ";
+      dom.dtrd.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.read_a91c5789",
+      );
       dom.dtrd.style.position = "relative";
       dom.dtrd.style.right = 1;
       dom.dtrd.style.float = "right";
       if (what.data.finished === true)
-        dom.dtrd.innerHTML += '<span style="color: lime">Yes</span>';
-      else dom.dtrd.innerHTML += '<span style="color: crimson">Never</span>';
+        dom.dtrd.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.yes_d0868e8f",
+        );
+      else
+        dom.dtrd.innerHTML += i18n.t(
+          "runtime.ui.interface.interface.never_40f2f2a5",
+        );
     }
     this.rar_c = addElement(global.dscr, "div", "d_l");
     this.rar = addElement(this.rar_c, "small");
-    this.rar.innerHTML = "<br>Rarity: ";
+    this.rar.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.rarity_d2a5dcc5",
+    );
     this.rar.style.position = "relative";
     this.rar.style.float = "left";
     for (let i = 0; i < what.rar; i++) this.rar.innerHTML += " ★ ";
@@ -2879,19 +3279,25 @@ function dscr(c, what, type, ttl, dsc, id) {
     dom.gde = addElement(global.dscr, "small");
     dom.gde.style.position = "relavite";
     dom.gde.style.float = "left";
-    dom.gde.innerHTML = "<br>Duration: ";
+    dom.gde.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.duration_34776f74",
+    );
     if (what.duration !== -1) dom.gde.innerHTML += what.duration;
     else dom.gde.innerHTML += "∞";
     if (what.power) {
       dom.gde1 = addElement(global.dscr, "small");
       dom.gde1.style.position = "relavite";
       dom.gde1.style.float = "right";
-      dom.gde1.innerHTML = "<br>Power: ";
+      dom.gde1.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.power_0eb78a04",
+      );
       dom.gde1.innerHTML += what.power;
     }
     clearInterval(timers.inup);
     timers.inup = setInterval(function () {
-      dom.gde.innerHTML = "<br>Duration: ";
+      dom.gde.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.duration_34776f74",
+      );
       if (what.duration !== -1) dom.gde.innerHTML += what.duration;
       else dom.gde.innerHTML += "∞";
     }, 200);
@@ -2971,7 +3377,9 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.text.innerHTML = what.desc;
     if (!!what.mlstn) {
       this.prks = addElement(global.dscr, "div", "d_l");
-      this.prks.innerHTML = "<br>Perks unlocked";
+      this.prks.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.perks_unlocked_456164aa",
+      );
       this.prks.style.color = "cyan";
       for (let k = 0; k < what.mlstn.length; k++)
         if (what.mlstn[k].g === true) {
@@ -3007,7 +3415,7 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.dl = addElement(global.dscr, "small");
     this.dl.style.position = "relative";
     this.dl.style.display = "flex";
-    this.dl.innerHTML = "<br>Rank: ";
+    this.dl.innerHTML = i18n.t("runtime.ui.interface.interface.rank_b4d80d7b");
     this.db = addElement(this.dl, "div");
     for (let i = 0; i < what.rar; i++) this.db.innerHTML += "★";
     this.db.style.paddingTop = 12;
@@ -3069,7 +3477,9 @@ function dscr(c, what, type, ttl, dsc, id) {
     const ids = [];
     for (const a in t) ids[a] = Number(t[a].substring(1));
     this.o = addElement(this.text, "small");
-    this.o.innerHTML = "drop table";
+    this.o.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.drop_table_8e203830",
+    );
     this.o.style.color = "cyan";
     let thing = false;
     for (const a in ids) {
@@ -3278,7 +3688,7 @@ function msg_add(txt, c, bc, shd) {
 }
 
 function format(thing, what) {
-  msg("wHw");
+  msg(i18n.t("runtime.ui.interface.dialogue.whw_06a9c666"));
 }
 
 function appear(dom) {
@@ -4014,7 +4424,9 @@ function renderRcp(rcp) {
     global.curr_r = rcp;
     empty(dom.ct_bt1_2);
     this.ct_bt1_2a = addElement(dom.ct_bt1_2, "div");
-    this.ct_bt1_2a.innerHTML = "reagents required";
+    this.ct_bt1_2a.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.reagents_required_345c3a08",
+    );
     this.ct_bt1_2a.style.textAlign = "center";
     this.ct_bt1_2a.style.borderBottom = "1px solid #3e4092";
     if (skl.crft.lvl > 0) {
@@ -4100,7 +4512,9 @@ function renderRcp(rcp) {
       this.ct_bt1_2bc2.style.textAlign = "center";
     }
     this.ct_bt1_2c = addElement(dom.ct_bt1_2, "div");
-    this.ct_bt1_2c.innerHTML = "output";
+    this.ct_bt1_2c.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.output_1029d676",
+    );
     this.ct_bt1_2c.style.width = "55%";
     this.ct_bt1_2c.style.position = "absolute";
     this.ct_bt1_2c.style.borderTop = "1px solid #3e4092";
@@ -4138,7 +4552,9 @@ function renderRcp(rcp) {
     if (rcp.srect != null) {
       const l = test.o.length;
       this.ct_bt1_3c = addElement(dom.ct_bt1_2, "div");
-      this.ct_bt1_3c.innerHTML = "tools needed";
+      this.ct_bt1_3c.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.tools_needed_9b4a1645",
+      );
       this.ct_bt1_3c.style.width = "55%";
       this.ct_bt1_3c.style.position = "absolute";
       this.ct_bt1_3c.style.borderTop = "1px solid #3e4092";
@@ -4254,19 +4670,39 @@ function _fcraft(what, safe) {
   if (safe) {
     safe = false;
     if (global.flags.sleepmode === true) {
-      msg("You may want to wake up first", "red");
+      msg(
+        i18n.t(
+          "runtime.ui.interface.dialogue.you_may_want_to_wake_up_first_014dee64",
+        ),
+        "red",
+      );
       return;
     }
     if (global.flags.btl === true) {
-      msg("You're too busy fighting", "red");
+      msg(
+        i18n.t(
+          "runtime.ui.interface.dialogue.you_re_too_busy_fighting_711d00d5",
+        ),
+        "red",
+      );
       return;
     }
     if (global.flags.rdng === true) {
-      msg("You're too occupied with reading", "red");
+      msg(
+        i18n.t(
+          "runtime.ui.interface.dialogue.you_re_too_occupied_with_reading_4af580dc",
+        ),
+        "red",
+      );
       return;
     }
     if (global.flags.busy === true) {
-      msg("You're too busy with something else", "red");
+      msg(
+        i18n.t(
+          "runtime.ui.interface.dialogue.you_re_too_busy_with_something_else_643f3a8b",
+        ),
+        "red",
+      );
       return;
     }
     const ntest = make(what, true);
@@ -4338,7 +4774,7 @@ function area_init(area) {
             return newobj;
           } else area_init(area);
     }
-  } else msg("nobody's here");
+  } else msg(i18n.t("runtime.ui.interface.dialogue.nobody_s_here_52a3d2f7"));
   if (!!dom.d7m) dom.d7m.update();
   update_m();
   dom.d5_1_1m.update();
@@ -4450,13 +4886,18 @@ function equip(w, flags) {
   if (w.data.uid === you.eqp[w.slot - 1].data.uid) {
     unequip(w, { save: true });
     if (w.twoh === true) {
-      dom.d7_slot_2.innerHTML = "Shield";
+      dom.d7_slot_2.innerHTML = i18n.t(
+        "runtime.ui.interface.interface.shield_08271419",
+      );
       dom.d7_slot_2.style.color = "grey";
     }
     isort(global.sm);
   } else {
     if (w.req && !w.req() && !global.flags.loadstate) {
-      msg("Requirenments not met!", "red");
+      msg(
+        i18n.t("runtime.ui.interface.dialogue.requirenments_not_met_6225b526"),
+        "red",
+      );
       return;
     }
     /*switch(w.slot){
@@ -4618,7 +5059,9 @@ function equip(w, flags) {
       dom.d7_slot_2.style.color = "lightgrey";
     } else {
       if (you.eqp[1].id === 10000) {
-        dom.d7_slot_2.innerHTML = "Shield";
+        dom.d7_slot_2.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.shield_08271419",
+        );
         dom.d7_slot_2.removeAttribute("style");
         dom.d7_slot_2.style.color = "grey";
       }
@@ -4645,7 +5088,9 @@ function unequip(w, flags) {
   switch (w.slot - 1) {
     case 0:
       {
-        dom.d7_slot_1.innerHTML = "Weapon";
+        dom.d7_slot_1.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.weapon_ead53368",
+        );
         dom.d7_slot_1.removeAttribute("style");
         dom.d7_slot_1.style.color = "grey";
         you.eqp[0].cls[2] = (you.lvl / 5) << 0;
@@ -4655,63 +5100,81 @@ function unequip(w, flags) {
       break;
     case 1:
       {
-        dom.d7_slot_2.innerHTML = "Shield";
+        dom.d7_slot_2.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.shield_08271419",
+        );
         dom.d7_slot_2.removeAttribute("style");
         dom.d7_slot_2.style.color = "grey";
       }
       break;
     case 2:
       {
-        dom.d7_slot_3.innerHTML = "Head";
+        dom.d7_slot_3.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.head_e5ffd15b",
+        );
         dom.d7_slot_3.removeAttribute("style");
         dom.d7_slot_3.style.color = "grey";
       }
       break;
     case 3:
       {
-        dom.d7_slot_4.innerHTML = "Body";
+        dom.d7_slot_4.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.body_718a7e8a",
+        );
         dom.d7_slot_4.removeAttribute("style");
         dom.d7_slot_4.style.color = "grey";
       }
       break;
     case 4:
       {
-        dom.d7_slot_5.innerHTML = "L arm";
+        dom.d7_slot_5.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.l_arm_e461bf1f",
+        );
         dom.d7_slot_5.removeAttribute("style");
         dom.d7_slot_5.style.color = "grey";
       }
       break;
     case 5:
       {
-        dom.d7_slot_6.innerHTML = "R arm";
+        dom.d7_slot_6.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.r_arm_e703a4ec",
+        );
         dom.d7_slot_6.removeAttribute("style");
         dom.d7_slot_6.style.color = "grey";
       }
       break;
     case 6:
       {
-        dom.d7_slot_7.innerHTML = "Legs";
+        dom.d7_slot_7.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.legs_29518d04",
+        );
         dom.d7_slot_7.removeAttribute("style");
         dom.d7_slot_7.style.color = "grey";
       }
       break;
     case 7:
       {
-        dom.d7_slot_8.innerHTML = "Accessory";
+        dom.d7_slot_8.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.accessory_962403f6",
+        );
         dom.d7_slot_8.removeAttribute("style");
         dom.d7_slot_8.style.color = "grey";
       }
       break;
     case 8:
       {
-        dom.d7_slot_9.innerHTML = "Accessory";
+        dom.d7_slot_9.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.accessory_962403f6",
+        );
         dom.d7_slot_9.removeAttribute("style");
         dom.d7_slot_9.style.color = "grey";
       }
       break;
     case 9:
       {
-        dom.d7_slot_10.innerHTML = "Accessory";
+        dom.d7_slot_10.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.accessory_962403f6",
+        );
         dom.d7_slot_10.removeAttribute("style");
         dom.d7_slot_10.style.color = "grey";
       }
@@ -4724,28 +5187,44 @@ function unequip(w, flags) {
 }
 
 function eqpres() {
-  dom.d7_slot_1.innerHTML = "Weapon";
+  dom.d7_slot_1.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.weapon_ead53368",
+  );
   dom.d7_slot_1.removeAttribute("style");
   dom.d7_slot_1.style.color = "grey";
-  dom.d7_slot_2.innerHTML = "Shield";
+  dom.d7_slot_2.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.shield_08271419",
+  );
   dom.d7_slot_2.removeAttribute("style");
   dom.d7_slot_2.style.color = "grey";
-  dom.d7_slot_3.innerHTML = "Head";
+  dom.d7_slot_3.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.head_e5ffd15b",
+  );
   dom.d7_slot_3.removeAttribute("style");
   dom.d7_slot_3.style.color = "grey";
-  dom.d7_slot_4.innerHTML = "Body";
+  dom.d7_slot_4.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.body_718a7e8a",
+  );
   dom.d7_slot_4.removeAttribute("style");
   dom.d7_slot_4.style.color = "grey";
-  dom.d7_slot_5.innerHTML = "L arm";
+  dom.d7_slot_5.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.l_arm_e461bf1f",
+  );
   dom.d7_slot_5.removeAttribute("style");
   dom.d7_slot_5.style.color = "grey";
-  dom.d7_slot_6.innerHTML = "R arm";
+  dom.d7_slot_6.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.r_arm_e703a4ec",
+  );
   dom.d7_slot_6.removeAttribute("style");
   dom.d7_slot_6.style.color = "grey";
-  dom.d7_slot_7.innerHTML = "Legs";
+  dom.d7_slot_7.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.legs_29518d04",
+  );
   dom.d7_slot_7.removeAttribute("style");
   dom.d7_slot_7.style.color = "grey";
-  dom.d7_slot_8.innerHTML = "Accessory";
+  dom.d7_slot_8.innerHTML = i18n.t(
+    "runtime.ui.interface.interface.accessory_962403f6",
+  );
   dom.d7_slot_8.removeAttribute("style");
   dom.d7_slot_8.style.color = "grey";
   //    dom.d7_slot_9.innerHTML = 'Accessory';dom.d7_slot_9.removeAttribute('style');dom.d7_slot_9.style.color='grey'
@@ -4755,13 +5234,16 @@ function eqpres() {
 function giveRcp(rcp) {
   if (!global.flags.asbu) {
     global.flags.asbu = true;
-    dom.ct_bt1.innerHTML = "assemble";
+    dom.ct_bt1.innerHTML = i18n.t("ui.navigation.assemble");
   }
   if (rcp.have === false) {
     global.rec_d.push(rcp);
     rcp.have = true;
     if (global.lw_op === 1) rsort(global.rm);
-    msg("New blueprint unlocked: ", "cyan");
+    msg(
+      i18n.t("runtime.ui.interface.dialogue.new_blueprint_unlocked_8d90820c"),
+      "cyan",
+    );
     msg_add('"' + rcp.name + '"', "orange");
     return 1;
   } else return 0;
@@ -4779,7 +5261,7 @@ function giveWealth(val, mes, f) {
   m_update();
   giveSkExp(skl.gred, val * 0.01);
   if (mes !== false) {
-    msg("+", "gold");
+    msg(i18n.t("runtime.ui.interface.dialogue.text_a979ef10"), "gold");
     if (val >= GOLD) msg_add(" ●" + ((val / GOLD) << 0), "rgb(255, 215, 0)");
     if (val >= SILVER && val % GOLD >= SILVER)
       msg_add(" ●" + (((val / SILVER) % SILVER) << 0), "rgb(192, 192, 192)");
@@ -5056,8 +5538,7 @@ function renderItem(obj) {
     inv_name.innerHTML +=
       "<small> {" + String.fromCharCode(obj.data.skey) + "}</small>";
   if (obj.new === true)
-    inv_name.innerHTML +=
-      '<small style="font-size:.65em;color: yellow;position:absolute" class="blinks">　new</small>';
+    inv_name.innerHTML += i18n.t("runtime.ui.interface.interface.new_4722a9bf");
   inv_slot_c.addEventListener("mouseenter", function () {
     global.keyobj = obj;
     inv_slot.tabIndex = 0;
@@ -5071,7 +5552,7 @@ function renderItem(obj) {
         dom.inv_del,
         null,
         2,
-        "Throw away",
+        i18n.t("runtime.ui.interface.description.throw_away_1e7f6dff"),
         'Deletes <span style="color:cyan">\"' +
           obj.name +
           '\"</span> permanently',
@@ -5108,12 +5589,14 @@ function renderItem(obj) {
           pcon.style.backgroundColor = "darkgrey";
           const phai = addElement(pcon, "div");
           phai.style.width = "50%";
-          phai.innerHTML = "YES";
+          phai.innerHTML = i18n.t(
+            "runtime.ui.interface.interface.yes_8fff0398",
+          );
           phai.style.paddingTop = 9;
           phai.style.paddingBottom = 9;
           const piie = addElement(pcon, "div");
           piie.style.width = "50%";
-          piie.innerHTML = "NO";
+          piie.innerHTML = i18n.t("runtime.ui.interface.interface.no_a0509b77");
           piie.style.paddingTop = 9;
           piie.style.paddingBottom = 9;
           phai.addEventListener("mouseenter", function () {
@@ -5227,7 +5710,7 @@ function renderItem(obj) {
         dom.inv_dss,
         null,
         2,
-        "Disassemble",
+        i18n.t("runtime.ui.interface.description.disassemble_f96ef843"),
         'Deconstruct <span style="color:cyan">\"' +
           obj.name +
           '\"</span> into:<br>' +
@@ -5268,12 +5751,14 @@ function renderItem(obj) {
           pcon.style.backgroundColor = "darkgrey";
           const phai = addElement(pcon, "div");
           phai.style.width = "50%";
-          phai.innerHTML = "YES";
+          phai.innerHTML = i18n.t(
+            "runtime.ui.interface.interface.yes_8fff0398",
+          );
           phai.style.paddingTop = 9;
           phai.style.paddingBottom = 9;
           const piie = addElement(pcon, "div");
           piie.style.width = "50%";
-          piie.innerHTML = "NO";
+          piie.innerHTML = i18n.t("runtime.ui.interface.interface.no_a0509b77");
           piie.style.paddingTop = 9;
           piie.style.paddingBottom = 9;
           phai.addEventListener("mouseenter", function () {
@@ -5360,7 +5845,9 @@ function renderItem(obj) {
         obj.data.tried = true;
         global.stat.ftried += 1;
         if (global.dscr.style.display != "none")
-          dom.dtrd.innerHTML = 'Tried: <span style="color: lime">Yes</span>';
+          dom.dtrd.innerHTML = i18n.t(
+            "runtime.ui.interface.interface.tried_yes_d9eff930",
+          );
       }
     }
   });
@@ -5454,69 +5941,9 @@ function chs(txt, f, c, bc, iconx, icony, size, ignore, slimsize) {
   return dom.ch_1;
 }
 
-global.text.cfc = [
-  "White",
-  "Black",
-  "Orange",
-  "Grey",
-  "Black&White",
-  "Brown",
-  "Ginger",
-  "Cinnamon",
-  "Fawn",
-  "Amber",
-  "Cream",
-  "Chocolate",
-];
-global.text.cfp = [
-  "Spotted",
-  "Plain",
-  "Solid",
-  "Bicolored",
-  "Tabby",
-  "Tricolored",
-  "Calico",
-  "Tortoiseshell",
-  "Wavy",
-  "Fluffy",
-  "Siamese",
-  "Striped",
-];
-global.text.cln = [
-  "Sleeping",
-  "Playing",
-  "Catching fireflies",
-  "Eating",
-  "Fish",
-  "People",
-  "Running outside",
-  "Warm places",
-  "Water",
-  "Fighting",
-  "Meowing",
-  "Singing",
-  "Catching mice",
-  "Its Master",
-  "Climbing trees",
-  "Toppling objects",
-  "Hiding",
-  "Safe places",
-  "Rooftops",
-  "Sitting by the window",
-  "Watching others",
-  "Master's bed",
-  "Being petted",
-  "Being brushed",
-  "Sitting on laps",
-  "Other cats",
-  "Dogs",
-  "Warm weather",
-  "Watching stars",
-  "Toys",
-  "Meat",
-  "Rain",
-  "Snow",
-];
+global.text.cfc = i18n.get("gameText.cfc");
+global.text.cfp = i18n.get("gameText.cfp");
+global.text.cln = i18n.get("gameText.cln");
 
 function chs_spec(type, x) {
   switch (type) {
@@ -5605,14 +6032,18 @@ function chs_spec(type, x) {
         dom.flsthdr = addElement(dom.ch_1, "div");
         dom.flsthdra = addElement(dom.flsthdr, "div");
         dom.flsthdr.style.display = "flex";
-        dom.flsthdra.innerHTML = "Furniture Owned";
+        dom.flsthdra.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.furniture_owned_7537016a",
+        );
         dom.flsthdra.style.position = "relative";
         dom.flsthdra.style.left = 120;
         dom.flsthdr.style.borderBottom = "1px #44c solid";
         dom.flsthdr.style.padding = 2;
         dom.flsthdrbc = addElement(dom.flsthdr, "div");
         dom.flsthdrb = addElement(dom.flsthdrbc, "small");
-        dom.flsthdrb.innerHTML = "Home rating: ";
+        dom.flsthdrb.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.home_rating_10df78c8",
+        );
         dom.flsthdrbc.style.left = 237;
         dom.flsthdrb.style.paddingLeft = 6;
         dom.flsthdrbc.style.position = "relative";
@@ -5652,7 +6083,9 @@ function chs_spec(type, x) {
         dom.invp2noth.style.top = 150;
         dom.invp2noth.style.position = "absolute";
         dom.invp2noth.style.color = "grey";
-        dom.invp2noth.innerHTML = "Nothing in the box yet";
+        dom.invp2noth.innerHTML = i18n.t(
+          "runtime.ui.interface.interface.nothing_in_the_box_yet_fbe1b207",
+        );
         dom.invp2noth.style.left = 301;
         dom.invp2noth.style.pointerEvents = "none";
         for (const obj in inv) rendertrunkitem(dom.invp1, inv[obj]);
@@ -5736,16 +6169,24 @@ function renderFurniture(frn) {
   dom.ch_etn1.innerHTML = frn.name;
   switch (frn.id) {
     case home.bed.id:
-      dom.ch_etn1.innerHTML += ' <small style="color:grey">[z]</small>';
+      dom.ch_etn1.innerHTML += i18n.t(
+        "runtime.ui.interface.interface.z_f0e0067f",
+      );
       break;
     case home.pilw && home.pilw.id:
-      dom.ch_etn1.innerHTML += ' <small style="color:grey">[zp]</small>';
+      dom.ch_etn1.innerHTML += i18n.t(
+        "runtime.ui.interface.interface.zp_f04e2799",
+      );
       break;
     case home.blkt && home.blkt.id:
-      dom.ch_etn1.innerHTML += ' <small style="color:grey">[zb]</small>';
+      dom.ch_etn1.innerHTML += i18n.t(
+        "runtime.ui.interface.interface.zb_ad57335a",
+      );
       break;
     case home.tbw && home.tbw.id:
-      dom.ch_etn1.innerHTML += ' <small style="color:pink">[t]</small>';
+      dom.ch_etn1.innerHTML += i18n.t(
+        "runtime.ui.interface.interface.t_95f70e90",
+      );
       break;
   }
   dom.ch_etn.addEventListener("mouseenter", function () {
@@ -5763,7 +6204,10 @@ function renderFurniture(frn) {
           global.dscr.style.display = "none";
           furn.splice(furn.indexOf(frn), 1);
           chs_spec(2);
-          chs('"<= Return"', false).addEventListener("click", () => {
+          chs(
+            i18n.t("runtime.ui.interface.dialogue.return_5ced966d"),
+            false,
+          ).addEventListener("click", () => {
             smove(chss.home, false);
           });
         } else
@@ -5878,7 +6322,9 @@ function rendershopitem(root, itm, vnd) {
   dom.ch_etn3.style.color = "lime";
   dom.ch_etn3.innerHTML = itm[1];
   if (itm[1] === 0) {
-    dom.ch_etn3.innerHTML = "<small>sold out</small>";
+    dom.ch_etn3.innerHTML = i18n.t(
+      "runtime.ui.interface.interface.sold_out_553a41f8",
+    );
     dom.ch_etn1n.style.color = "grey";
     dom.ch_etn2.style.color = "grey";
     dom.ch_etn3.style.color = "grey";
@@ -5935,13 +6381,23 @@ function rendershopitem(root, itm, vnd) {
         global.stat.buyt++;
         if (random() < 0.0008) {
           giveItem(acc.dticket);
-          msg("Thank you for your patronage!", "gold", null, null, "magenta");
+          msg(
+            i18n.t(
+              "runtime.ui.interface.dialogue.thank_you_for_your_patronage_1b0cefa7",
+            ),
+            "gold",
+            null,
+            null,
+            "magenta",
+          );
         }
         global.stat.shppnt += p * 0.01;
         vnd.data.rep += itm[2] * 0.0004 * vnd.repsc;
         if (vnd.data.rep > 100) vnd.data.rep = 100;
         if (itm[1] === 0) {
-          el.children[2].innerHTML = "<small>sold out</small>";
+          el.children[2].innerHTML = i18n.t(
+            "runtime.ui.interface.interface.sold_out_553a41f8",
+          );
           el.children[2].style.color =
             el.children[0].children[0].style.color =
             el.children[1].style.color =
@@ -5973,13 +6429,23 @@ function rendershopitem(root, itm, vnd) {
         global.stat.buyt += 5;
         if (random() < 0.004) {
           giveItem(acc.dticket);
-          msg("Thank you for your patronage!", "gold", null, null, "magenta");
+          msg(
+            i18n.t(
+              "runtime.ui.interface.dialogue.thank_you_for_your_patronage_1b0cefa7",
+            ),
+            "gold",
+            null,
+            null,
+            "magenta",
+          );
         }
         global.stat.shppnt += p * 0.01;
         vnd.data.rep += itm[2] * (5 * (1 + 0.05)) * 0.0004 * vnd.repsc;
         if (vnd.data.rep > 100) vnd.data.rep = 100;
         if (itm[1] === 0) {
-          el.children[2].innerHTML = "<small>sold out</small>";
+          el.children[2].innerHTML = i18n.t(
+            "runtime.ui.interface.interface.sold_out_553a41f8",
+          );
           el.children[2].style.color =
             el.children[0].children[0].style.color =
             el.children[1].style.color =
@@ -6011,13 +6477,23 @@ function rendershopitem(root, itm, vnd) {
         global.stat.buyt += 10;
         if (random() < 0.008) {
           giveItem(acc.dticket);
-          msg("Thank you for your patronage!", "gold", null, null, "magenta");
+          msg(
+            i18n.t(
+              "runtime.ui.interface.dialogue.thank_you_for_your_patronage_1b0cefa7",
+            ),
+            "gold",
+            null,
+            null,
+            "magenta",
+          );
         }
         global.stat.shppnt += p * 0.01;
         vnd.data.rep += itm[2] * (10 * (1 + 0.1)) * 0.0004 * vnd.repsc;
         if (vnd.data.rep > 100) vnd.data.rep = 100;
         if (itm[1] === 0) {
-          el.children[2].innerHTML = "<small>sold out</small>";
+          el.children[2].innerHTML = i18n.t(
+            "runtime.ui.interface.interface.sold_out_553a41f8",
+          );
           el.children[2].style.color =
             el.children[0].children[0].style.color =
             el.children[1].style.color =
@@ -6051,13 +6527,23 @@ function rendershopitem(root, itm, vnd) {
         global.stat.buyt += max;
         if (random() < 0.0008 * max) {
           giveItem(acc.dticket);
-          msg("Thank you for your patronage!", "gold", null, null, "magenta");
+          msg(
+            i18n.t(
+              "runtime.ui.interface.dialogue.thank_you_for_your_patronage_1b0cefa7",
+            ),
+            "gold",
+            null,
+            null,
+            "magenta",
+          );
         }
         global.stat.shppnt += p * 0.01;
         vnd.data.rep += itm[2] * (max * (1 + max * 0.01)) * 0.0004 * vnd.repsc;
         if (vnd.data.rep > 100) vnd.data.rep = 100;
         if (itm[1] === 0) {
-          el.children[2].innerHTML = "<small>sold out</small>";
+          el.children[2].innerHTML = i18n.t(
+            "runtime.ui.interface.interface.sold_out_553a41f8",
+          );
           el.children[2].style.color =
             el.children[0].children[0].style.color =
             el.children[1].style.color =
@@ -6092,13 +6578,23 @@ function rendershopitem(root, itm, vnd) {
       global.stat.buyt++;
       if (random() < 0.0008) {
         giveItem(acc.dticket);
-        msg("Thank you for your patronage!", "gold", null, null, "magenta");
+        msg(
+          i18n.t(
+            "runtime.ui.interface.dialogue.thank_you_for_your_patronage_1b0cefa7",
+          ),
+          "gold",
+          null,
+          null,
+          "magenta",
+        );
       }
       global.stat.shppnt += p * 0.01;
       vnd.data.rep += itm[2] * 0.0004 * vnd.repsc;
       if (vnd.data.rep > 100) vnd.data.rep = 100;
       if (itm[1] === 0) {
-        el.children[2].innerHTML = "<small>sold out</small>";
+        el.children[2].innerHTML = i18n.t(
+          "runtime.ui.interface.interface.sold_out_553a41f8",
+        );
         el.children[2].style.color =
           this.style.color =
           el.children[1].style.color =
