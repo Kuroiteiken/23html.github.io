@@ -10,6 +10,10 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Arayüz, oyun içeriği, açıklamalar, diyaloglar ve çalışma zamanı mesajlarının
+  tamamını kapsayan eksiksiz Türkçe dil dosyası eklendi.
+- Kayıtlı her İngilizce dışı dil için dil şeması ve biçimlendirme parçaları
+  doğrulaması eklendi.
 - `locales/en.json`, dil keşfi, İngilizce fallback ve Settings altında kalıcı dil
   seçimiyle JSON tabanlı uluslararasılaştırma eklendi.
 - JSON ile yüklenen build'leri test etmek için dil doğrulaması ve yerel HTTP
@@ -23,6 +27,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Türkçe, Ayarlar dil seçicisine kaydedildi; changelog güncellemesinin commit ve
+  push işlemlerinden önce yapılması ve periyodik gönderim kuralları belgelendi.
 - Sabit yerleşimli arayüz, küçük tarayıcı ekranlarına otomatik küçülerek sığacak
   şekilde değiştirildi.
 - Bakımı yapılan ve upstream GitHub Pages adresleri, taşınabilir dahili bağlantı

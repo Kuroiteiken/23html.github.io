@@ -30,6 +30,65 @@ for (const locale of manifest.locales) {
 const english = JSON.parse(
   fs.readFileSync(path.join(localeRoot, defaultLocale.file), "utf8"),
 );
+
+function collectLeaves(value, path = "", leaves = new Map()) {
+  if (typeof value === "string") {
+    leaves.set(path, value);
+    return leaves;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) =>
+      collectLeaves(item, `${path}[${index}]`, leaves),
+    );
+    return leaves;
+  }
+  if (value && typeof value === "object") {
+    Object.entries(value).forEach(([key, item]) =>
+      collectLeaves(item, path ? `${path}.${key}` : key, leaves),
+    );
+  }
+  return leaves;
+}
+
+function formattingTokens(value) {
+  return [...value.matchAll(/\{[^}]+\}|<\/?[A-Za-z][^>]*>|&[A-Za-z0-9#]+;/g)]
+    .map((match) => match[0])
+    .sort();
+}
+
+const englishLeaves = collectLeaves(english);
+for (const locale of manifest.locales) {
+  if (locale.code === manifest.defaultLocale) continue;
+  const messages = JSON.parse(
+    fs.readFileSync(path.join(localeRoot, locale.file), "utf8"),
+  );
+  const leaves = collectLeaves(messages);
+  const contentPaths = [...englishLeaves.keys()].filter(
+    (key) => key !== "meta.code" && key !== "meta.name",
+  );
+  const missing = contentPaths.filter((key) => !leaves.has(key));
+  const extra = [...leaves.keys()].filter(
+    (key) =>
+      key !== "meta.code" && key !== "meta.name" && !englishLeaves.has(key),
+  );
+  if (missing.length || extra.length) {
+    throw new Error(
+      `${locale.file} schema mismatch. Missing: ${missing.join(", ") || "none"}; extra: ${extra.join(", ") || "none"}`,
+    );
+  }
+
+  const unsafeFormatting = contentPaths.filter(
+    (key) =>
+      JSON.stringify(formattingTokens(englishLeaves.get(key))) !==
+      JSON.stringify(formattingTokens(leaves.get(key))),
+  );
+  if (unsafeFormatting.length) {
+    throw new Error(
+      `${locale.file} changed formatting tokens: ${unsafeFormatting.join(", ")}`,
+    );
+  }
+}
+
 const sourceRoots = [
   "js/core",
   "js/data",

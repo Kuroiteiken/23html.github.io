@@ -39,6 +39,10 @@ translation.
 5. Run `npm run build` to regenerate the bundle and `dist/` output.
 6. Run `npm run check`.
 7. Run `npm run test:browser` when Chrome or Chromium is available.
+8. Before every commit and push, update both the player-facing HTML changelog and
+   the English/Turkish repository changelogs for the changes being published.
+9. Create and push periodic milestone commits during ongoing development after
+   the required changelog updates and validation succeed.
 
 ## Compatibility rules
 

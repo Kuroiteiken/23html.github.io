@@ -61,13 +61,15 @@ npm run format
 
 ## Diller
 
-İngilizce metinler `locales/en.json`, kullanılabilir diller ise
-`locales/manifest.json` içinde tutulur. Dil, Settings ekranından değiştirilebilir
-ve oyun kayıtlarından bağımsız olarak saklanır.
+İngilizce metinler `locales/en.json`, eksiksiz Türkçe çeviri `locales/tr.json`,
+kullanılabilir diller ise `locales/manifest.json` içinde tutulur. Dil, Ayarlar
+ekranından değiştirilebilir ve oyun kayıtlarından bağımsız olarak saklanır. Dil
+doğrulaması, kayıtlı her dilin İngilizce anahtar yapısını, değişken yer tutucuları
+ve HTML biçimlendirme parçalarını eksiksiz korumasını zorunlu tutar.
 
-Türkçe gibi yeni bir dil eklemek için:
+Almanca gibi başka bir dil eklemek için:
 
-1. `locales/en.json` dosyasını `locales/tr.json` olarak kopyalayın ve anahtarları
+1. `locales/en.json` dosyasını `locales/de.json` olarak kopyalayın ve anahtarları
    değiştirmeden değerleri çevirin.
 2. Dil kodunu, görünen adını ve dosyasını `locales/manifest.json` içine ekleyin.
 3. `npm run format`, `npm run build` ve `npm run check` çalıştırın.

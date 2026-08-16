@@ -60,13 +60,16 @@ Do not edit `js/game.js` or `dist/` directly.
 
 ## Languages
 
-English strings live in `locales/en.json`; available languages are registered in
+English strings live in `locales/en.json`, and the complete Turkish translation
+lives in `locales/tr.json`; available languages are registered in
 `locales/manifest.json`. The language can be changed under Settings and is stored
-independently from game saves.
+independently from game saves. Locale validation requires every registered
+language to preserve the full English key structure, interpolation placeholders,
+and HTML formatting tokens.
 
-To add a language such as Turkish:
+To add another language such as German:
 
-1. Copy `locales/en.json` to `locales/tr.json` and translate its values without
+1. Copy `locales/en.json` to `locales/de.json` and translate its values without
    changing keys.
 2. Add the locale code, display name, and file to `locales/manifest.json`.
 3. Run `npm run format`, `npm run build`, and `npm run check`.

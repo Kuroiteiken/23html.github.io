@@ -38,6 +38,10 @@ ardından bu çeviriyi eşitleyin.
 5. `npm run build` ile bundle ve `dist/` çıktısını yeniden üretin.
 6. `npm run check` çalıştırın.
 7. Chrome veya Chromium kullanılabiliyorsa `npm run test:browser` çalıştırın.
+8. Her commit ve push öncesinde yayınlanan değişiklikler için hem oyuncuya dönük
+   HTML changelog'u hem İngilizce/Türkçe repository changelog'larını güncelleyin.
+9. Devam eden geliştirmelerde gerekli changelog güncellemeleri ve doğrulamalar
+   başarılı olduktan sonra periyodik kilometre taşı commit'leri oluşturup pushlayın.
 
 ## Uyumluluk kuralları
 

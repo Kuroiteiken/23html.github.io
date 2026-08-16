@@ -5,6 +5,11 @@
       "code": "en",
       "name": "English",
       "file": "en.json"
+    },
+    {
+      "code": "tr",
+      "name": "Türkçe",
+      "file": "tr.json"
     }
   ]
 }

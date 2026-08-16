@@ -10,6 +10,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added a complete Turkish locale containing the full interface, game content,
+  descriptions, dialogue, and runtime message schema.
+- Added locale-schema and formatting-token validation for every registered
+  non-English language.
 - Added JSON-based internationalization with `locales/en.json`, locale discovery,
   English fallback, and a persistent language selector under Settings.
 - Added locale validation and a local HTTP server for testing JSON-loaded builds.
@@ -22,6 +26,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Registered Turkish in the Settings language selector and documented periodic
+  changelog-first commit and push requirements.
 - Made the fixed-layout interface scale down automatically to fit smaller browser
   viewports.
 - Documented the maintained and upstream GitHub Pages URLs, portable internal-link

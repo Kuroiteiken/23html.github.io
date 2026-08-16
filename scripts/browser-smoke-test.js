@@ -49,6 +49,9 @@ server.listen(0, "127.0.0.1", () => {
       if (!stdout.includes('<option value="en">English</option>')) {
         throw new Error("The language selector was not rendered.");
       }
+      if (!stdout.includes('<option value="tr">Türkçe</option>')) {
+        throw new Error("The Turkish language option was not rendered.");
+      }
       if (!stdout.includes('id="ctrmg"')) {
         throw new Error("The game interface did not initialize.");
       }
