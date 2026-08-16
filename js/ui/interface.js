@@ -2152,11 +2152,15 @@ dom.ct_bt4_1b = addElement(dom.ct_bt4_1, "input", null, "opt_v");
 dom.ct_bt4_1b.value = global.msgs_max;
 dom.ct_bt4_1b.type = "number";
 dom.ct_bt4_1b.min = 1;
-dom.ct_bt4_1b.max = 100;
+dom.ct_bt4_1b.max = 120;
+// This limit governs both how many messages stay on screen and how many are
+// kept in history, so raising it lengthens what survives a reload.
 dom.ct_bt4_1b.addEventListener("change", function () {
-  if (this.value < 1) this.value = 1;
-  else if (this.value > 100) this.value = 100;
-  global.msgs_max = this.value;
+  const limit = Math.min(120, Math.max(1, Number(this.value) || 1));
+  this.value = limit;
+  global.msgs_max = limit;
+  trimMessageLog();
+  storeMessageLog();
 });
 function rstcrtthg() {
   for (const a in global.spbtsr) global.spbtsr[a].style.color = "inherit";
@@ -2584,9 +2588,7 @@ dom.m_b_3 = addElement(dom.m_control, "small", "message-log-clear", "bts_m");
 dom.m_b_3.innerHTML = i18n.t("runtime.ui.interface.interface.clr_ea010417");
 dom.m_b_3.style.borderRight = "none";
 dom.m_b_3.style.textAlign = "center";
-dom.m_b_3.addEventListener("click", () => {
-  empty(dom.mscont);
-});
+dom.m_b_3.addEventListener("click", clearMessageLog);
 
 addDesc(
   dom.inv_btn_1,
@@ -3880,10 +3882,62 @@ function dscr(c, what, type, ttl, dsc, id) {
   positionDescription(c);
 }
 
+// The message log is rendered straight into the DOM, so its history is kept by
+// serializing the rendered rows. It lives under its own storage key rather than
+// inside the save, which is why it survives a reload without the player having
+// saved. Restored rows are plain markup: hover descriptions attached to a live
+// message are not part of its HTML and are not restored with it.
+const messageLogStorageKey = "proto23.messagelog";
+let messageLogWriteTimer;
+
+function trimMessageLog() {
+  const limit = Number(global.msgs_max) || 1;
+  while (dom.mscont.children.length > limit)
+    dom.mscont.removeChild(dom.mscont.children[0]);
+}
+
+function storeMessageLog() {
+  // Messages can arrive several times per tick, so coalesce the writes.
+  clearTimeout(messageLogWriteTimer);
+  messageLogWriteTimer = setTimeout(() => {
+    try {
+      const rows = [];
+      for (const row of dom.mscont.children) rows.push(row.innerHTML);
+      window.localStorage.setItem(messageLogStorageKey, JSON.stringify(rows));
+    } catch (err) {
+      // Keeping the history is best effort; storage may be full.
+    }
+  }, 400);
+}
+
+function restoreMessageLog() {
+  let rows = null;
+  try {
+    rows = JSON.parse(window.localStorage.getItem(messageLogStorageKey));
+  } catch (err) {
+    rows = null;
+  }
+  if (!Array.isArray(rows) || !rows.length) return;
+  for (const html of rows.slice(-(Number(global.msgs_max) || 1))) {
+    const row = addElement(dom.mscont, "div", null, "msg");
+    row.innerHTML = html;
+  }
+  dom.mscont.scrollTop = dom.mscont.scrollHeight;
+}
+
+function clearMessageLog() {
+  empty(dom.mscont);
+  clearTimeout(messageLogWriteTimer);
+  try {
+    window.localStorage.removeItem(messageLogStorageKey);
+  } catch (err) {
+    // Nothing to clear if storage is unavailable.
+  }
+}
+
 function msg(txt, c, dsc, type, bc, chck) {
   if (global.flags.m_freeze === false && global.flags.loadstate === false) {
-    while (dom.gmsgs.children[1].children.length > global.msgs_max - 1)
-      dom.gmsgs.children[1].removeChild(dom.gmsgs.children[1].children[0]);
+    trimMessageLog();
     const msg = addElement(dom.mscont, "div", null, "msg");
     if (global.flags.msgtm) {
       const now = new Date();
@@ -3915,6 +3969,7 @@ function msg(txt, c, dsc, type, bc, chck) {
         "</span>";
     else mtxt.innerHTML = txt;
     dom.mscont.scrollTop = dom.mscont.scrollHeight;
+    storeMessageLog();
     global.lastmsg = msg.innerHTML;
     //if(true) {if(msg.innerHTML==global.lstmsg) msg.innerHTML=global.lastmsg+'('+(++global.lastmsgc)+')';
     //  else {global.lastmsg=msg.innerHTML;global.lastmsgc=0;}} else global.lastmsg=msg.innerHTML;
@@ -3922,8 +3977,7 @@ function msg(txt, c, dsc, type, bc, chck) {
 }
 
 function _msg(txt, c, dsc, type, bc, chck) {
-  while (dom.gmsgs.children[1].children.length > global.msgs_max - 1)
-    dom.gmsgs.children[1].removeChild(dom.gmsgs.children[1].children[0]);
+  trimMessageLog();
   const msg = addElement(dom.mscont, "div", null, "msg");
   if (dsc) {
     if (type) addDesc(msg, dsc, type);
@@ -3939,6 +3993,7 @@ function _msg(txt, c, dsc, type, bc, chck) {
       "</span>";
   else msg.innerHTML = txt;
   dom.mscont.scrollTop = dom.mscont.scrollHeight;
+  storeMessageLog();
 }
 
 function msg_add(txt, c, bc, shd) {
@@ -3966,6 +4021,7 @@ function msg_add(txt, c, bc, shd) {
         dom.gmsgs.children[1].children.length - 1
       ].innerHTML += txt;
     dom.mscont.scrollTop = dom.mscont.scrollHeight;
+    storeMessageLog();
   }
 }
 

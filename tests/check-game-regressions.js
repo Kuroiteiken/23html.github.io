@@ -525,6 +525,50 @@ if (
   );
 }
 
+const messageLogHistory = [
+  /const messageLogStorageKey = "proto23\.messagelog";/,
+  /function trimMessageLog\(\)/,
+  /function storeMessageLog\(\)/,
+  /function restoreMessageLog\(\)/,
+  /function clearMessageLog\(\)/,
+  /dom\.m_b_3\.addEventListener\("click", clearMessageLog\);/,
+  /window\.localStorage\.removeItem\(messageLogStorageKey\)/,
+  /dom\.ct_bt4_1b\.max = 120;/,
+];
+
+if (
+  !messageLogHistory.every((pattern) => pattern.test(interfaceSource)) ||
+  !/restoreMessageLog\(\);\s*clearLoadingScreen\(\);/.test(bootstrapSource) ||
+  /while \(dom\.gmsgs\.children\[1\]\.children\.length > global\.msgs_max/.test(
+    interfaceSource,
+  )
+) {
+  throw new Error(
+    "Message log regression: the log must keep its history under its own storage key, trim through the shared helper, and be cleared with it.",
+  );
+}
+
+const themePreference = [
+  /const themeStorageKey = "proto23\.theme";/,
+  /function applyBackground\(\)/,
+  /function storeBackground\(\)/,
+  /function restoreBackgroundPreference\(\)/,
+  /setBackground\(255, 255, 255, false\)/,
+  /setBackground\(18, 18, 46, false\)/,
+];
+
+if (
+  !themePreference.every((pattern) => pattern.test(interfaceSource)) ||
+  !/if \(!restoreBackgroundPreference\(\)\) applyBackground\(\);/.test(
+    bootstrapSource,
+  )
+) {
+  throw new Error(
+    "Theme regression: the background preference must persist outside the save and be reapplied on load.",
+  );
+}
+
 console.log(
   "Validated the shared confirmation modal, callback hooks, save version, and sharing metadata.",
 );
+console.log("Validated message-log history and background preference storage.");

@@ -848,7 +848,9 @@ function load(dt) {
       console.warn(
         `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
       );
-    global.msgs_max = a1.g;
+    // Older saves stored this as a string, and it is compared numerically.
+    global.msgs_max = Math.min(120, Math.max(1, Number(a1.g) || 36));
+    dom.ct_bt4_1b.value = global.msgs_max;
     global.flags = {};
     global.sinv = [];
     global.bestiary = a1.q;
@@ -1289,6 +1291,9 @@ function load(dt) {
   if (skl.pet.lvl >= 10) giveTitle(ttl.pet3);
   if (item.amrthsck.data.finished) giveRcp(rcp.appljc);
   ////////////////
+  // Restore history last: load() empties the log while it rebuilds the world,
+  // so anything put back before this point would be wiped again.
+  restoreMessageLog();
   clearLoadingScreen();
 }
 

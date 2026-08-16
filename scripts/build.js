@@ -41,4 +41,6 @@ const bundle = sources
   .join("\n\n");
 
 fs.writeFileSync(path.join(root, "js/game.js"), `${banner}${bundle}\n`, "utf8");
-console.log(`Built js/game.js from ${sources.length} source files.`);
+// Quiet under the dev server's watch loop, which rebuilds on every save.
+if (!process.argv.includes("--quiet"))
+  console.log(`Built js/game.js from ${sources.length} source files.`);

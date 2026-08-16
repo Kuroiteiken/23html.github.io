@@ -169,6 +169,19 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Mesaj günlüğüne, sayfa yenilemesinden sağ çıkan bir geçmiş verildi. Günlük
+  doğrudan DOM'a çiziliyordu, arkasında hiçbir veri yapısı yoktu ve her yüklemede
+  boşaltılıyordu; bu yüzden hiçbir şey yenilemeden sonra kalmıyordu. Çizilen
+  satırlar artık `proto23.messagelog` anahtarı altında saklanıyor, `load()`
+  sonunda geri yükleniyor ve günlüğün kendi temizleme kontrolüyle siliniyor.
+  Mevcut mesaj günlüğü sınırı hem ekranda kalan hem de saklanan satır sayısını
+  yönetiyor ve üst sınırı 100'den 120'ye çıkarıldı. Geri yüklenen satırlar düz
+  biçimlendirmedir; canlı bir mesaja bağlı hover açıklamaları taşınmaz.
+- Geliştirme sunucusunun izleme döngüsü altında derleme betikleri sessizleştirildi;
+  her kayıtta yeniden çalışıyorlardı. İkisi de `--quiet` kabul ediyor ve
+  `scripts/dev.js` bunu geçiyor.
+- Head Hunter unvanı Türkçede "Kelle Avcısı" olarak yeniden adlandırıldı; bağlama
+  göre gereken iyelik ekleriyle birlikte.
 - Arka plan tercihi kendi `proto23.theme` anahtarına taşındı ve tüm hazır
   ayarlar ile sürgüler ortak bir `setBackground` yardımcısından geçirildi. Tercih
   önceden yalnızca kayıt içeriğinde duruyordu, bu yüzden ancak değişiklikten

@@ -51,4 +51,7 @@ const deployedIndex = fs
 fs.writeFileSync(deployedIndexPath, deployedIndex, "utf8");
 fs.writeFileSync(path.join(output, ".nojekyll"), "", "utf8");
 
-console.log("Prepared the GitHub Pages site in dist/.");
+// The dev server rebuilds on every save, so it runs the build quietly and
+// prints its own single line instead.
+if (!process.argv.includes("--quiet"))
+  console.log("Prepared the GitHub Pages site in dist/.");

@@ -160,6 +160,17 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Gave the message log a history that survives a reload. The log was rendered
+  straight into the DOM with no backing store and was emptied on every load, so
+  nothing outlived a refresh. Rendered rows are now serialized under a
+  `proto23.messagelog` key, restored at the end of `load()`, and cleared by the
+  log's own clear control. The existing message log limit governs both how many
+  rows stay on screen and how many are kept, and its ceiling rose from 100 to 120. Restored rows are plain markup, so hover descriptions attached to a live
+  message are not carried over.
+- Silenced the build scripts under the dev server's watch loop, which reran them
+  on every save. Both accept `--quiet`, and `scripts/dev.js` passes it.
+- Renamed the Head Hunter to "Kelle Avcısı" in Turkish, with the possessive
+  suffixes the title needs in context.
 - Moved the background preference into its own `proto23.theme` storage key and
   routed every preset and slider through a shared `setBackground` helper. The
   preference previously lived only in the save payload, so it was remembered

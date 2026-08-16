@@ -77,7 +77,7 @@ güneyin keşif veya ortam katmanı hiç yoktur.
 - `chss.frstn9a1m` sonsuza kadar yeniden doğan bir tekrar alanıdır.
 - `chss.cata25` katakomp haritasının son düğümüdür; bölge zaten erişilemez.
 
-## Baş Avcı
+## Kelle Avcısı
 
 Yamato hikayenin tek sürekli karakteri ve doğal omurgasıdır. Batı Ormanı
 kulübesini işletir, erişilebilir dört görevin üçünü verir ve G'den SSS'ye kadar

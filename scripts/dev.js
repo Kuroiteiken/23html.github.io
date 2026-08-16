@@ -44,10 +44,14 @@ function shouldRebuild(filePath) {
 
 function runNodeScript(script) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [path.join(root, script)], {
-      cwd: root,
-      stdio: "inherit",
-    });
+    const child = spawn(
+      process.execPath,
+      [path.join(root, script), "--quiet"],
+      {
+        cwd: root,
+        stdio: "inherit",
+      },
+    );
     child.once("error", reject);
     child.once("exit", (code) => {
       if (code === 0) resolve();
