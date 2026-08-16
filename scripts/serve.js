@@ -42,8 +42,12 @@ function createSiteServer(options = {}) {
           const player = document.getElementById("player-panel");
           const enemy = document.getElementById("enemy-panel");
           if (!player || !enemy || !document.getElementById("ctrmg")) return;
+          global.flags.btl = false;
           player.style.display = "";
+          player.style.left = "8px";
           enemy.style.display = "";
+          enemy.style.left = "457px";
+          enemy.style.top = "8px";
           requestAnimationFrame(() => {
             const playerBounds = player.getBoundingClientRect();
             const enemyBounds = enemy.getBoundingClientRect();
@@ -57,6 +61,64 @@ function createSiteServer(options = {}) {
       </script>`;
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
       response.end(index.replace("</body>", `${layoutProbe}</body>`));
+      return;
+    }
+
+    if (
+      options.enableTestRoutes &&
+      pathname === "/__test-tooltip-layout.html"
+    ) {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      const tooltipProbe = `<script>
+        const tooltipLayoutProbe = setInterval(() => {
+          if (!document.getElementById("ctrmg") || typeof dscr !== "function") {
+            return;
+          }
+          clearInterval(tooltipLayoutProbe);
+          const firstPointer = { clientX: 220, clientY: 220 };
+          dscr(firstPointer, null, 2, "Tooltip", "Localized description");
+          const firstBounds = document
+            .getElementById("dscr")
+            .getBoundingClientRect();
+          const floatsBelowPointer =
+            firstBounds.left > firstPointer.clientX &&
+            firstBounds.top > firstPointer.clientY;
+          const edgePointer = {
+            clientX: window.innerWidth - 2,
+            clientY: window.innerHeight - 2,
+          };
+          dscr(edgePointer, null, 2, "Tooltip", "Localized description");
+          const edgeBounds = document
+            .getElementById("dscr")
+            .getBoundingClientRect();
+          const staysInViewport =
+            edgeBounds.left >= 0 &&
+            edgeBounds.top >= 0 &&
+            edgeBounds.right <= window.innerWidth &&
+            edgeBounds.bottom <= window.innerHeight;
+          document.documentElement.dataset.tooltipBelow =
+            String(floatsBelowPointer);
+          document.documentElement.dataset.tooltipInViewport =
+            String(staysInViewport);
+          document.documentElement.dataset.tooltipFirstBounds = [
+            firstBounds.left,
+            firstBounds.top,
+            firstBounds.right,
+            firstBounds.bottom,
+          ].join(",");
+          document.documentElement.dataset.tooltipEdgeBounds = [
+            edgeBounds.left,
+            edgeBounds.top,
+            edgeBounds.right,
+            edgeBounds.bottom,
+          ].join(",");
+          document.documentElement.dataset.tooltipPositioned = String(
+            floatsBelowPointer && staysInViewport,
+          );
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${tooltipProbe}</body>`));
       return;
     }
 

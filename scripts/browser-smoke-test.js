@@ -197,6 +197,21 @@ async function main() {
       throw new Error("The enemy panel overlaps the player panel.");
     }
 
+    const tooltipLayout = await runChrome(
+      `${baseUrl}/__test-tooltip-layout.html?lang=en`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(tooltipLayout.stderr);
+    assertCommonStartup(tooltipLayout.stdout, port);
+    if (!tooltipLayout.stdout.includes('data-tooltip-positioned="true"')) {
+      const diagnostics = tooltipLayout.stdout.match(
+        /data-tooltip-(?:below|in-viewport|first-bounds|edge-bounds)="[^"]*"/g,
+      );
+      throw new Error(
+        `The hover description does not follow the pointer within the viewport: ${diagnostics?.join(" ") ?? "probe incomplete"}`,
+      );
+    }
+
     const recovery = await runChrome(
       `${baseUrl}/__test/corrupt-save`,
       profiles[1],
@@ -209,7 +224,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, combat-panel separation, hover-description positioning, viewport fitting, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

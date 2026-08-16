@@ -452,10 +452,12 @@ input:focus {
 }
 #dscr {
   position: absolute;
+  pointer-events: none;
   border: solid 5px lightgrey;
   outline: solid 3px black;
   background: linear-gradient(90deg, #333, #111);
   width: 320px;
+  max-width: calc(100vw - 48px);
   height: auto;
   text-align: center;
   box-shadow: 8px 8px rgb(220 20 60 / 80%);

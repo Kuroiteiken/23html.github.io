@@ -662,191 +662,258 @@
     },
     "wpn": {
       "stk1": {
-        "name": "Bir Çubuk"
+        "name": "Bir Çubuk",
+        "desc": "En sevdiğin silah!"
       },
       "stk2": {
-        "name": "Bilenmiş Çubuk"
+        "name": "Bilenmiş Çubuk",
+        "desc": "Ucu sivriltilmiş uzun bir sopa. Dikkat et, bununla birini yaralayabilirsin"
       },
       "knf1": {
-        "name": "Tahta Bıçak"
+        "name": "Tahta Bıçak",
+        "desc": "Bir çocuğun kaybettiği oyuncak. Sayısız oyun alanı savaşından kalma bir hatıra"
       },
       "knf2": {
-        "name": "Paslı Hançer"
+        "name": "Paslı Hançer",
+        "desc": "Kullanıla kullanıla işe yaramaz hâle gelmiş bir bıçak. Şimdiki durumuyla daha çok künt bir silah"
       },
       "ktn1": {
-        "name": "Paslı Katana"
+        "name": "Paslı Katana",
+        "desc": "Çağlar boyunca unutulmuş, eski ve değersiz bir kılıç. Sallamaya çalıştığında parçalanıyor"
       },
       "ktn2": {
-        "name": "Kırmızı Katana"
+        "name": "Kırmızı Katana",
+        "desc": "Parlatılmış paslı bir katana. Dövüşte hâlâ neredeyse işe yaramaz"
       },
       "trch": {
-        "name": "Meşale"
+        "name": "Meşale",
+        "desc": "Karanlık yerleri aydınlatmak veya bir şeyleri yakmak için kullanılır",
+        "bonus": "<span style=\"color:yellow;background-color:crimson\">Ateş Hasarı +10</span><br>"
       },
       "twg": {
-        "name": "Kuru Dal"
+        "name": "Kuru Dal",
+        "desc": "Bununla büyücüymüş gibi davranabilirsin",
+        "bonus": "<span style=\"color:lightgoldenrodyellow;text-shadow:gold 0px 0px 5px\">Işık Hasarı +3</span><br>"
       },
       "dgknf": {
-        "name": "Hançer"
+        "name": "Hançer",
+        "desc": "Yolcuların kullandığı basit bir bıçak. Bir savaş silahı değil, daha çok gündelik işlere yarıyor"
       },
       "bknf": {
-        "name": "Savaş Bıçağı"
+        "name": "Savaş Bıçağı",
+        "desc": "Acemiler için iyi bir hançer"
       },
       "skknf": {
         "name": "Scramasax",
-        "name_2": "Ruh Öpücüğü"
+        "name_2": "Ruh Öpücüğü",
+        "desc": "Hem dövüşte hem de gündelik işlerde kullanılabilecek iyi bir bıçak",
+        "desc_2": "Ruhu parçalayabilen lanetli bir bıçak"
       },
       "drknf": {
-        "name": "Dirk"
+        "name": "Dirk",
+        "desc": "Güvenebileceğin sağlam bir bıçak"
       },
       "thknf": {
-        "name": "Fırlatma Bıçağı"
+        "name": "Fırlatma Bıçağı",
+        "desc": "İnce işçilikle bilenmiş bir fırlatma bıçağı"
       },
       "kdknf": {
-        "name": "Kudi"
+        "name": "Kudi",
+        "desc": "Kavisli ağızlı, tehlikeli bir hançer"
       },
       "krsnf": {
-        "name": "Kris"
+        "name": "Kris",
+        "desc": "Dalgalı ağızlı, egzotik bir hançer"
       },
       "cqsnf": {
-        "name": "Cinquedea"
+        "name": "Cinquedea",
+        "desc": "Hırsızların gözde bıçağı"
       },
       "kkknf": {
-        "name": "Khukuri"
+        "name": "Khukuri",
+        "desc": "Ağır ve kavisli ağızlı bir bıçak"
       },
       "bdknf": {
-        "name": "Baslard"
+        "name": "Baslard",
+        "desc": "Düz ve ince ağızlı bir savaş bıçağı. Hızlı saldırılar yapmak için ideal"
       },
       "stknf": {
-        "name": "stiletto"
+        "name": "stiletto",
+        "desc": "İnce ve keskin ağızlı, saplamaya uygun bir hançer"
       },
       "jmknf": {
-        "name": "Jamadhar"
+        "name": "Jamadhar",
+        "desc": "Tek kabzada üç ağız taşıyan egzotik bir hançer"
       },
       "rbknf": {
-        "name": "Kaburga ayırıcı"
+        "name": "Kaburga ayırıcı",
+        "desc": "Kavisli uçlu, alışılmadık derecede uzun bir bıçak"
       },
       "gaknf": {
         "name": "Glacialdra",
         "desc": ""
       },
       "ekmw": {
-        "name": "Ekimnekuwa"
+        "name": "Ekimnekuwa",
+        "desc": "\"Yürüyüş Sopası\" olarak da bilinir. Sağlamdır; ormanlarda, dağlarda, karda, suda ve aşılması zor diğer arazilerde yürürken destek olarak kullanılır"
       },
       "mnkm": {
-        "name": "Menokamakiri"
+        "name": "Menokamakiri",
+        "desc": "Kadınlar için tasarlanmış kısa bir bıçak. Hafif ve dayanıklıdır; av bıçağı işlevi görür"
       },
       "mkr": {
-        "name": "Makiri"
+        "name": "Makiri",
+        "desc": "Kısa bir kılıç"
       },
       "wsrd1": {
-        "name": "Tahta Kılıç"
+        "name": "Tahta Kılıç",
+        "desc": "Hafif ahşaptan oyulmuş basit ve uzun bir kılıç. Kullanımı kolaydır ve acemi eğitimleri için uygundur"
       },
       "wsrd2": {
-        "name": "Bambu Eğitim Kılıcı"
+        "name": "Bambu Eğitim Kılıcı",
+        "desc": "Kenjutsu derslerinde kullanılan bir eğitim kılıcı. Edo döneminin sonlarında tasarlanmış ve dört bambu çıtanın birbirine bağlanmasıyla yapılmıştır. Danfu adlı kadın haydut çetesinin acımasız liderinin bunu kullandığı bilinir"
       },
       "nssrd": {
-        "name": "Kısa Kılıç"
+        "name": "Kısa Kılıç",
+        "desc": "Kendini savunmak için tasarlanmış kısa ve kaba bir kılıç. Özellikle deneyimsiz ellerde savaşta pek işe yaramaz"
       },
       "heyit": {
-        "name": "Heiyoto"
+        "name": "Heiyoto",
+        "desc": "Bu kılıçta gösterişli veya dikkat çekici hiçbir şey yok. Samuray ruhunu yansıtıyor"
       },
       "fksrd": {
-        "name": "Sahte Kılıç"
+        "name": "Sahte Kılıç",
+        "desc": "Bambudan yapılmış bir kılıç. Yoksul roninler bazen bununla gerçek bir samuraymış gibi davranır"
       },
       "tkmts": {
-        "name": "Takemitsu"
+        "name": "Takemitsu",
+        "desc": "Bu güçlendirilmiş kılıç bambudan yapılmış. Silah olarak pek etkili değil ama seni daha güçlü gösteriyor"
       },
       "bsrd": {
-        "name": "Kör Kılıç"
+        "name": "Kör Kılıç",
+        "desc": "Ev hanımlarına yönelik satış gösterilerinde kötü bıçak örneği olarak kullanılan kör bir kılıç. Bununla soğan kesmeye çalışırken bol şans"
       },
       "bdsrd": {
-        "name": "Donuk Kılıç"
+        "name": "Donuk Kılıç",
+        "desc": "İşçilik ve malzeme maliyetleri en aza indirilerek seri üretim için tasarlanmış bir kılıç. Kılıca benzese de aslında bir şey kesmeye uygun değil. Kullanım kılavuzu turp kesmek için kullanılmasını öneriyor"
       },
       "bcsrd": {
-        "name": "Berbat Kılıç"
+        "name": "Berbat Kılıç",
+        "desc": "Bu kılıç 100 Cout mağazasında \"Büyük Kayıp\" adıyla satılıyor. Verdiğin para kadarını alırsın. Bu kılıcı en iyi kimin bileyebileceğini görmek için yarışmalar bile düzenleniyor"
       },
       "ktsk": {
-        "name": "Kotesaki"
+        "name": "Kotesaki",
+        "desc": "Uçarı bir adamın, demirciye yalvararak yaptırdığı hafif bir kılıç. Kılıcının onu kadınlar arasında daha gözde yapacağını sanmış. Hileyle birkaç zafer kazanmış ama kadınlar ondan hâlâ hoşlanmıyor"
       },
       "crsto": {
-        "name": "Kristo"
+        "name": "Kristo",
+        "desc": "İşlemediği bir suç yüzünden haksız yere hapsedilen bir samuray bu silahı hücresinin duvarlarından oymuş. Gardiyanlardan gizlice çalışmış ama bitirdiğinde cezası zaten sona ermiş"
       },
       "ksbmr": {
-        "name": "Komusubimaru"
+        "name": "Komusubimaru",
+        "desc": "Sumo seven bir kılıç ustası, en sevdiği güreşçiyi desteklemek için bu kılıcı yapmış. Ancak \"Komusubi\" sumoda düşük bir rütbedir. Uğursuzluk getirmiş ve güreşçi hiç terfi edememiş"
       },
       "hsmts": {
-        "name": "Hasemitsu"
+        "name": "Hasemitsu",
+        "desc": "Bir demirci, yeteneğiyle övünerek dans ederken bu kılıcı dövmüş. Şaka yaptığını düşünebilirsin ama kılıç aslında oldukça güzel"
       },
       "kiknif": {
-        "name": "Mutfak Bıçağı"
+        "name": "Mutfak Bıçağı",
+        "desc": "Aslında insanları değil, balıkları kesmek için kullanılan bir bıçak. Kılıç sayılmaz ama bir tane sipariş edersen kimse sana kızmaz",
+        "bonus": "<span style=\"color:deeppink\">Yemek Pişirme EXP kazanımı +15%</span><br>"
       },
       "gamas": {
-        "name": "Gama"
+        "name": "Gama",
+        "desc": "Kurbağaya benzeyen yüzü olan karısı ölünce bir adam, eşinin ruhunu çağırması için medyum tutmuş. Ancak medyum başka bir kara kurbağasının ruhunu çağırmış. Koca da medyumu bu kılıçla öldürmüş"
       },
       "wsdmbld": {
-        "name": "Bilgelik Kılıcı"
+        "name": "Bilgelik Kılıcı",
+        "desc": "Edo'ya korku salan bir seri katilin kullandığı kılıç. Katil cinayetleri için ailesinin kılıcını çalmış; evdekiler kılıcın kaybolduğunu fark edince yaşananları tahmin edebilirsin"
       },
       "kurum": {
-        "name": "Kuruma"
+        "name": "Kuruma",
+        "desc": "Büyük bir tengunun Kuruma Dağı'nda Ushiwakamaru'ya dövüşmeyi öğretirken kullandığı kılıç. Ushiwakamaru dövüş eğitimi almış ve kulplu beygirde de ustalaşmış"
       },
       "hrsm": {
-        "name": "Harusame"
+        "name": "Harusame",
+        "desc": "İlkbaharın sakin yağmurunda yapılmış bir kılıç. Kullanması kolay ve biraz çiğnenebilir. Kuruyunca keskinliğini yitirir ama suya koyunca eski hâline döner"
       },
       "kosgi": {
-        "name": "Kosugi"
+        "name": "Kosugi",
+        "desc": "Ülkeyi terk edip son derece tehlikeli bir göreve çıkan ünlü ninjanın kullandığı kılıç. Onun tüm varlığını içinde barındırıyor"
       },
       "shiran": {
-        "name": "Şiran"
+        "name": "Şiran",
+        "desc": "Adını mor orkideyi andıran süsünden alıyor. Kılıcın gerçek ad kökeni, onu yapan demirci için bile bir sır"
       },
       "shnztt": {
-        "name": "Şinzanto"
+        "name": "Şinzanto",
+        "desc": "Bu kılıcı kullananlar, onu yapan acemi demircinin titrek tedirginliğini de taşır"
       },
       "lsrd": {
-        "name": "Işık Kılıcı"
+        "name": "Işık Kılıcı",
+        "desc": "Halkın kullanımına uygun, basit ve kolay kullanılan hafif bir kılıç"
       },
       "log": {
-        "name": "Kütük"
+        "name": "Kütük",
+        "desc": "Devasa ve ağır bir ağaç kütüğü. Bunu silah olarak sallamayı nasıl düşündün?"
       },
       "sprw": {
-        "name": "Mızrak"
+        "name": "Mızrak",
+        "desc": "Ucuna keskin bir metal parçası takılmış uzun bir tahta. Bundan daha basiti olamazdı"
       },
       "gsprw": {
-        "name": "Muhafız Mızrağı"
+        "name": "Muhafız Mızrağı",
+        "desc": "Kendini savunmak için kullanılan, basit ve kolay kavranan bir mızrak"
       },
       "scspt1": {
-        "name": "Kırmızı El"
+        "name": "Kırmızı El",
+        "desc": "Makasın bir ağzını andıran, alev alev yanan bir kılıç. Alevleri her türlü sıvıyı buharlaştırabilir",
+        "bonus": "<span style=\"color:orange;text-shadow:red 0px 0px 5px,red 0px 0px 5px\">Ateş Yatkınlığı +25</span><br>"
       },
       "scspt2": {
-        "name": "Mavi El"
+        "name": "Mavi El",
+        "desc": "Makasın bir ağzını andıran, dondurucu bir kılıç. Ağzı en harlı ateşi bile yatıştırabilir",
+        "bonus": "<span style=\"color:cyan;text-shadow:blue 0px 0px 5px,blue 0px 0px 5px\">Su Yatkınlığı +25</span><br>"
       },
       "scspt3": {
-        "name": "Kader Kesiciler"
+        "name": "Kader Kesiciler",
+        "desc": "Birleştirilerek makas biçimli bir silaha dönüştürülmüş iki kılıç. Söylentiye göre çılgın bir demirci bu silahı yarı tanrıları avlamak için yapmış",
+        "bonus": "<span style=\"color:mediumorchid;text-shadow:darkblue 0px 0px 5px,darkblue 0px 0px 5px\">Karanlık Yatkınlığı +30</span><br>"
       },
       "shrsb": {
-        "name": "Makaslar"
+        "name": "Makaslar",
+        "desc": "Çalıları ve diğer süs bitkilerini düzeltmek için kullanılan devasa bir bahçe makası. Geçmişte bir katilin benzer bir aletle vahşet işlediği biliniyor"
       },
       "evob": {
-        "name": "Evrim Kılıcı"
+        "name": "Evrim Kılıcı",
+        "desc": "Bu canlı kılıç, yenilen düşmanların kanını ve ruhlarını emebilir; her öldürüşte daha da keskinleşir"
       },
       "mkrdwk": {
-        "name": "İşaretli Wakizashi"
+        "name": "İşaretli Wakizashi",
+        "desc": "Kırmızı kabzalı eski bir wakizashi türü. Çizik ve çentiklerle dolu ağzı, geçmişte yoğun biçimde kullanıldığını gösteriyor"
       }
     },
     "eqp": {
       "bnd": {
-        "name": "Bandana"
+        "name": "Bandana",
+        "desc": "İnce kumaştan bir bandana. Yüzünü terden korur"
       },
       "pnt": {
-        "name": "Dojo Pantolonu"
+        "name": "Dojo Pantolonu",
+        "desc": "Sabah koşuları için mükemmel"
       },
       "brc": {
-        "name": "Bandaj"
+        "name": "Bandaj",
+        "desc": "Basit el sargıları"
       },
       "gnt": {
-        "name": "Eldiven"
+        "name": "Eldiven",
+        "desc": "Elinin tamamını kaplayan sert deri bir eldiven. Parmaklarını kaybetmeni önleyebilir"
       },
       "vst": {
-        "name": "Keten Yelek"
+        "name": "Keten Yelek",
+        "desc": "Kolları olmadığı için biraz üşüyebilirsin"
       },
       "thd": {
         "name": "Sarı Başlık",
@@ -877,69 +944,91 @@
         "desc": "Yapışkan bir şeytan maskesi. <br><span style=\"color:mediumorchid;text-shadow:darkblue 0px 0px 5px,darkblue 0px 0px 5px\">Karanlığı</span> simgeliyor"
       },
       "nkgd": {
-        "name": "Boyun Koruması"
+        "name": "Boyun Koruması",
+        "desc": "Boynun çevresine takılan metal plaka. Önden gelen doğrudan saldırılara karşı az da olsa koruma sağlar"
       },
       "sndl": {
-        "name": "Sandalet"
+        "name": "Sandalet",
+        "desc": "Hafif deriden yapılmış, ucuz ve sıradan sandaletler. Giymesi pek rahat bile değil"
       },
       "ykkr": {
-        "name": "Yukker"
+        "name": "Yukker",
+        "desc": "Sivillerin ve avcıların kışın soğuktan ve çevresel tehlikelerden korunmak için giydiği sıcak geyik derisi botlar"
       },
       "tnc": {
-        "name": "Tunik"
+        "name": "Tunik",
+        "desc": "Basit, kısa kollu bir gömlek. Boyu biraz kısadır ve giyenin vücuduna sıkıca oturacak biçimde dikilmiştir"
       },
       "rncp": {
-        "name": "Yağmurluk"
+        "name": "Yağmurluk",
+        "desc": "Yağmurun gözlere gelmesini önleyen geniş kenarlı bir başlık"
       },
       "rnss": {
-        "name": "Yağmur Ayakkabısı"
+        "name": "Yağmur Ayakkabısı",
+        "desc": "Ağaç kauçuğundan yapılmış basit ayakkabılar. Sağlam ve uzun ömürlüdür; ayak parmaklarını soğuktan korur"
       },
       "hkgd": {
-        "name": "Başlık"
+        "name": "Başlık",
+        "desc": "Düşen molozlara ve benzeri tehlikelere karşı asgari koruma sağlayan basit ve hafif bir kask"
       },
       "wkss": {
-        "name": "İşçi Ayakkabısı"
+        "name": "İşçi Ayakkabısı",
+        "desc": "İşçiler için güvenlik ayakkabıları. Metal takviyesi ayak parmaklarına güvenilir koruma sağlar"
       },
       "jhmt": {
-        "name": "Önemsiz Kask"
+        "name": "Önemsiz Kask",
+        "desc": "Hurda malzemelerin bir araya getirilmesiyle yapılmış bir kask. Korkunç derecede ağır görünse de başı ve boynu iyi korur"
       },
       "knkn": {
-        "name": "Örgü Diz Altı"
+        "name": "Örgü Diz Altı",
+        "desc": "Ketenden dokunmuş uzun botlar. Hafif ve hava geçirgendir; sıcak havalarda rahatlık sağlar"
       },
       "brbn": {
-        "name": "Burnoun'lar"
+        "name": "Burnoun'lar",
+        "desc": "Uzun ve kapüşonlu bir pelerin. Giyeni hem kavurucu güneşten hem de dondurucu soğuktan korur"
       },
       "ovrl": {
-        "name": "Tulum"
+        "name": "Tulum",
+        "desc": "Tüm vücudu örten, kalın kumaştan yapılmış iş kıyafeti. Darbelere ve çiziklere karşı korur"
       },
       "prsnu": {
-        "name": "Hapishane Üniforması"
+        "name": "Hapishane Üniforması",
+        "desc": "Çirkin ve kaba kumaştan yapılmış bu giysinin tek iyi yanı sağlamlığı. Nadir de olsa yıkandığında dayanıklılığını koruyor"
       },
       "prsna": {
-        "name": "Cezaevi Kıyafetleri"
+        "name": "Cezaevi Kıyafetleri",
+        "desc": "Diğer hapishane üniformalarından farksız görünüyor ancak boyun, kol ve dirsek bölümleri yumuşak ipliklerle çok daha rahat hâle getirilmiş"
       },
       "strwks": {
-        "name": "Saman Kasa"
+        "name": "Saman Kasa",
+        "desc": "Sando-gasa, samanların birbirine örülmesiyle yapılır. Güneş şemsiyesi kullanmaya utanan delikanlılar için harikadır"
       },
       "knkls": {
-        "name": "eklemler"
+        "name": "eklemler",
+        "desc": "Parmakları örten deri şeritler",
+        "bonus": "Silahsız GÜÇ: <span style=\"color:lime\">+4</span><br>"
       },
       "reedhd": {
-        "name": "Kamış Başlık"
+        "name": "Kamış Başlık",
+        "desc": "Zen keşişlerinin yüzünü örten, sazdan örülmüş bir şapka. Yine de bunu giymek seni keşiş yapmaz"
       },
       "ptchct": {
-        "name": "Patchwork Ceket"
+        "name": "Patchwork Ceket",
+        "desc": "Farklı boyut ve kalınlıklardaki kumaş parçalarının birleştirilmesiyle dikilmiş bir palto. Biraz dayanıklı ama oldukça sefil görünüyor"
       },
       "ptchpts": {
-        "name": "Patchwork Pantolon"
+        "name": "Patchwork Pantolon",
+        "desc": "Pantolon yapmaya yönelik kaba bir deneme; çok bol görünüyor ve giymesi biraz rahatsız. Dikiş yerlerindeki olası delikler rüzgârda bacaklarını titretiyor"
       }
     },
     "sld": {
       "bkl": {
-        "name": "Buckler"
+        "name": "Buckler",
+        "desc": "Kola bağlanarak kullanılan küçük bir kalkan. Savunması düşük olsa da yüksek hareket kabiliyeti sağlar"
       },
       "tge": {
-        "name": "Hedef"
+        "name": "Hedef",
+        "desc": "Köşeleri güçlendirilmiş basit, kare bir kalkan"
       },
       "plt": {
         "name": "Pelta Kalkanı",
@@ -996,7 +1085,9 @@
         "desc": ""
       },
       "stksld": {
-        "name": "Kazık Kalkanı"
+        "name": "Kazık Kalkanı",
+        "desc": "Aslında bir kalkan değil; dikenli tahta kazıkların sıkıca birleştirilerek kare bir panel oluşturduğu bir düzenek. Biraz ağır",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAL +4</span><br>"
       }
     },
     "acc": {

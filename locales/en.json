@@ -662,191 +662,258 @@
     },
     "wpn": {
       "stk1": {
-        "name": "A Stick"
+        "name": "A Stick",
+        "desc": "Your favorite weapon!"
       },
       "stk2": {
-        "name": "Sharpened Stick"
+        "name": "Sharpened Stick",
+        "desc": "Long stick with a sharpened end. Watch out, you may hurt someone with it"
       },
       "knf1": {
-        "name": "Wooden Knife"
+        "name": "Wooden Knife",
+        "desc": "Lost kid's toy. The relic of many playground battles"
       },
       "knf2": {
-        "name": "Rusty Dagger"
+        "name": "Rusty Dagger",
+        "desc": "Used up useless knife. More of a blunt weapon in it's current state"
       },
       "ktn1": {
-        "name": "Rusty Katana"
+        "name": "Rusty Katana",
+        "desc": "Old worthless blade, forgotten for ages. It falls apart as you attempt to swing it"
       },
       "ktn2": {
-        "name": "Red Katana"
+        "name": "Red Katana",
+        "desc": "Polished rusty katana. Still nearly useless in a fight"
       },
       "trch": {
-        "name": "Torch"
+        "name": "Torch",
+        "desc": "Used to light up dark places or for burning up thing",
+        "bonus": "<span style=\"color:yellow;background-color:crimson\">Fire DMG +10</span><br>"
       },
       "twg": {
-        "name": "Dry Twig"
+        "name": "Dry Twig",
+        "desc": "With this you can pretend you're a wizard",
+        "bonus": "<span style=\"color:lightgoldenrodyellow;text-shadow:gold 0px 0px 5px\">Light DMG +3</span><br>"
       },
       "dgknf": {
-        "name": "Dagger"
+        "name": "Dagger",
+        "desc": "Simple knife used by wayfarers. Not a combat weapon, has a minor domestic use"
       },
       "bknf": {
-        "name": "Battle Knife"
+        "name": "Battle Knife",
+        "desc": "A good dagger for the novice"
       },
       "skknf": {
         "name": "Scramasax",
-        "name_2": "Soul Kiss"
+        "name_2": "Soul Kiss",
+        "desc": "A good knife for both combat and daily use",
+        "desc_2": "Cursed knife capable of rapturing the soul"
       },
       "drknf": {
-        "name": "Dirk"
+        "name": "Dirk",
+        "desc": "A steady knife you can depend on"
       },
       "thknf": {
-        "name": "Throwing Knife"
+        "name": "Throwing Knife",
+        "desc": "A finely honed throwing knife"
       },
       "kdknf": {
-        "name": "Kudi"
+        "name": "Kudi",
+        "desc": "A dangerous dagger with a curved blade"
       },
       "krsnf": {
-        "name": "Kris"
+        "name": "Kris",
+        "desc": "An exotic dagger with a wavy blade"
       },
       "cqsnf": {
-        "name": "Cinquedea"
+        "name": "Cinquedea",
+        "desc": "The knife of theives"
       },
       "kkknf": {
-        "name": "Khukuri"
+        "name": "Khukuri",
+        "desc": "A knife with a heavy, curved blade"
       },
       "bdknf": {
-        "name": "Baselard"
+        "name": "Baselard",
+        "desc": "A battle knife with a flat, thin blade, perfect for deploying fast attacks"
       },
       "stknf": {
-        "name": "Stiletto"
+        "name": "Stiletto",
+        "desc": "A stabbing dagger with a thin, sharp blade"
       },
       "jmknf": {
-        "name": "Jamadhar"
+        "name": "Jamadhar",
+        "desc": "An exotic dagger with three blades in one hilt"
       },
       "rbknf": {
-        "name": "Ribsplitter"
+        "name": "Ribsplitter",
+        "desc": "Unusualy long knife with a curved tip"
       },
       "gaknf": {
         "name": "Glacialdra",
         "desc": ""
       },
       "ekmw": {
-        "name": "Ekimnekuwa"
+        "name": "Ekimnekuwa",
+        "desc": "Also known as \"Hiking Stick\". Sturdy, used for support while travelling on foot in forests, mountains, through the snow, water, or any other difficult to navigate landscape"
       },
       "mnkm": {
-        "name": "Menokamakiri"
+        "name": "Menokamakiri",
+        "desc": "Short knife, designed for women. Light and durable, functions like a hunting knife"
       },
       "mkr": {
-        "name": "Makiri"
+        "name": "Makiri",
+        "desc": "Short sword"
       },
       "wsrd1": {
-        "name": "Wooden Sword"
+        "name": "Wooden Sword",
+        "desc": "Simple long sword carved from light wood. Easy to handle and is suitable as amateurish training weapon"
       },
       "wsrd2": {
-        "name": "Bamboo Training Sword"
+        "name": "Bamboo Training Sword",
+        "desc": "A training sword for kenjutsu lessons. Designed in the late Edo period, it is strung together from four bamboo planks. The ruthless chief of a female bandit group named Danfu is known to wield it"
       },
       "nssrd": {
-        "name": "Short Sword"
+        "name": "Short Sword",
+        "desc": "Short crude sword designed for self-defence. It's not that useful in battle, especially in unskilled hands"
       },
       "heyit": {
-        "name": "Heiyoto"
+        "name": "Heiyoto",
+        "desc": "Nothing flashy or noticeable about his sword. It reflects the samurai spirit"
       },
       "fksrd": {
-        "name": "Fake Sword"
+        "name": "Fake Sword",
+        "desc": "The sword is made of bamboo. Poorer ronin sometimes pretend to be full-fledged samurai with this"
       },
       "tkmts": {
-        "name": "Takemitsu"
+        "name": "Takemitsu",
+        "desc": "This reinforced sword is made of bamboo. Not much as a weapon, but makes you seem stronger"
       },
       "bsrd": {
-        "name": "Blunt Sword"
+        "name": "Blunt Sword",
+        "desc": "This is the blunt sword used as a bad example of a knife in demonstration sales for housewives. Good luck trying to cut onions with this"
       },
       "bdsrd": {
-        "name": "Dull Sword"
+        "name": "Dull Sword",
+        "desc": "A sword designed for mass production by reducing labor and material cost down to a minimum. It may look like a sword, but it's not really fit to cut anything. The manual suggests it be used to cut radishes"
       },
       "bcsrd": {
-        "name": "Crappy Sword"
+        "name": "Crappy Sword",
+        "desc": "This sword is sold at the 100 Cout store under the name \"Big Loss\". You get what you pay for. There are even competitions to see who can sharpen this sword the best"
       },
       "ktsk": {
-        "name": "Kotesaki"
+        "name": "Kotesaki",
+        "desc": "A light sword a ight-heartet guy begged the swordsmith to make. He thought his sword would make him more popular with the ladies. He managed to rack up some wins by cheating, but the ladies still don't like him"
       },
       "crsto": {
-        "name": "Cristo"
+        "name": "Cristo",
+        "desc": "A samurai wrongly imprisoned for a crime he didn't commit carved this weapon from his cell walls. He did this in a secret from the guards, but by the time he finished, his sentence was over"
       },
       "ksbmr": {
-        "name": "Komusubimaru"
+        "name": "Komusubimaru",
+        "desc": "A swordsman who loves sumo made this sword to cheer on his favorite sumo wrestler. But the name \"Komusubi\" is a low rank in sumo. It was bad luck, and the wrestler never got promoted"
       },
       "hsmts": {
-        "name": "Hasemitsu"
+        "name": "Hasemitsu",
+        "desc": "A swordsmith created this blade as he danced around bragging about his skill. You may think he was just screwing around, but this sword is actually quiet nice"
       },
       "kiknif": {
-        "name": "Kitchen Knife"
+        "name": "Kitchen Knife",
+        "desc": "A knife originally used to cut fish, not people. It's not a sword, but ordering one won't get you yelled at",
+        "bonus": "<span style=\"color:deeppink\">Cooking EXP gain +15%</span><br>"
       },
       "gamas": {
-        "name": "Gama"
+        "name": "Gama",
+        "desc": "A man's wife who had a face that resembles a frog died, so he hired a medium to do a seance to summon his wife's spirit. But the medium summoned the spirit of some toad. The husband used this sword to kill the medium"
       },
       "wsdmbld": {
-        "name": "Wisdom Blade"
+        "name": "Wisdom Blade",
+        "desc": "This is the sword used by a serial killer that struck fear in Edo. The killer stole his family sword to do his killing, so you can imagine that things got weird at the house when they found the sword missing"
       },
       "kurum": {
-        "name": "Kuruma"
+        "name": "Kuruma",
+        "desc": "This is the sword used by a great tengu when he taught Ushiwakamaru how to fight at Mt. Kuruma. Ushiwakamaru is trained to fight and also became great at the pommel horse"
       },
       "hrsm": {
-        "name": "Harusame"
+        "name": "Harusame",
+        "desc": "A sword made in the quiet rain in spring. It is easy to wield and can be chewy. When dried, it won't be as sharp, but putting water turns it back to normal"
       },
       "kosgi": {
-        "name": "Kosugi"
+        "name": "Kosugi",
+        "desc": "A sword used by the famous ninja who left the country and took and extremely dangerous mission. This sword encompasses his very being"
       },
       "shiran": {
-        "name": "Shiran"
+        "name": "Shiran",
+        "desc": "Its name comes from its purple orchid-like accessory. The true etymology of the sword is a mystery to even its swordsmith"
       },
       "shnztt": {
-        "name": "Shinzanto"
+        "name": "Shinzanto",
+        "desc": "Those who wield this sword also command the shaky nervousness of the rookie blacksmith who crafted it"
       },
       "lsrd": {
-        "name": "Light Sword"
+        "name": "Light Sword",
+        "desc": "A basic, easy to wield civilian-level light sword"
       },
       "log": {
-        "name": "Log"
+        "name": "Log",
+        "desc": "A massive heavy tree log. How did you even think about swinging it as a weapon?"
       },
       "sprw": {
-        "name": "Spear"
+        "name": "Spear",
+        "desc": "Long piece of wood with a sharp metal chunk at the end of it. Couldn't get simpler than that"
       },
       "gsprw": {
-        "name": "Guard Spear"
+        "name": "Guard Spear",
+        "desc": "Basic and easy to wield spear used in self-defence"
       },
       "scspt1": {
-        "name": "Red Hand"
+        "name": "Red Hand",
+        "desc": "Burning sword that looks like a scissors blade. Its flames can evaporate any liquid",
+        "bonus": "<span style=\"color:orange;text-shadow:red 0px 0px 5px,red 0px 0px 5px\">Fire Affinity +25</span><br>"
       },
       "scspt2": {
-        "name": "Blue Hand"
+        "name": "Blue Hand",
+        "desc": "Freezing sword that looks like a scissors blade. Its edge can calm the fieriest fire",
+        "bonus": "<span style=\"color:cyan;text-shadow:blue 0px 0px 5px,blue 0px 0px 5px\">Water Affinity +25</span><br>"
       },
       "scspt3": {
-        "name": "Fate Cutters"
+        "name": "Fate Cutters",
+        "desc": "Two swords combined together, forming a scissors-shaped weapon. It is said a mad blacksmith created this blade to hunt demigods",
+        "bonus": "<span style=\"color:mediumorchid;text-shadow:darkblue 0px 0px 5px,darkblue 0px 0px 5px\">Dark Affinity +30</span><br>"
       },
       "shrsb": {
-        "name": "Shears"
+        "name": "Shears",
+        "desc": "Massive gardening shears, for tiding up the bushes and other decorative flora. A murderer in the past was known to commit atrocities with a similar tool"
       },
       "evob": {
-        "name": "Sword Of Evolution"
+        "name": "Sword Of Evolution",
+        "desc": "This living blade can absorb the blood and souls of defeated foes, it gets sharper with each kill"
       },
       "mkrdwk": {
-        "name": "Marked Wakizashi"
+        "name": "Marked Wakizashi",
+        "desc": "Old wakizashi variant with red hilt. Scarred and chipped blade hints that it was used rather heavily in the past"
       }
     },
     "eqp": {
       "bnd": {
-        "name": "Bandana"
+        "name": "Bandana",
+        "desc": "Thin cloth bandana. It protects your face from sweat"
       },
       "pnt": {
-        "name": "Dojo Pants"
+        "name": "Dojo Pants",
+        "desc": "Perfect for morning runs"
       },
       "brc": {
-        "name": "Bandage"
+        "name": "Bandage",
+        "desc": "Simple handwraps"
       },
       "gnt": {
-        "name": "Gauntlet"
+        "name": "Gauntlet",
+        "desc": "Tough leather gauntlet that covers your entire hand. May prevent you from losing fingers"
       },
       "vst": {
-        "name": "Linen Vest"
+        "name": "Linen Vest",
+        "desc": "You'll feel chilly without sleeves"
       },
       "thd": {
         "name": "Yellow Hood",
@@ -877,69 +944,91 @@
         "desc": "A viscous devil mask. <br>It symbolizes <span style=\"color:mediumorchid;text-shadow:darkblue 0px 0px 5px,darkblue 0px 0px 5px\">Darkness</span>"
       },
       "nkgd": {
-        "name": "Neck Guard"
+        "name": "Neck Guard",
+        "desc": "Metal plating worn around the neck. Minor protection from direct frontal attacks"
       },
       "sndl": {
-        "name": "Sandals"
+        "name": "Sandals",
+        "desc": "Cheap unremarkable sandals made from light leather. Aren't even that comfortable to wear"
       },
       "ykkr": {
-        "name": "Yukker"
+        "name": "Yukker",
+        "desc": "Warm deerskin boots, worn by civilians and hunters during winter for maximum protection from cold and environmental hazards"
       },
       "tnc": {
-        "name": "Tunic"
+        "name": "Tunic",
+        "desc": "A simple, short-sleeved shirt. It's somewhat short in length and tailored to snugly fit the wearer's body"
       },
       "rncp": {
-        "name": "Rain Cap"
+        "name": "Rain Cap",
+        "desc": "The cap with the wide brim for keeping the rain from the wearer's eyes"
       },
       "rnss": {
-        "name": "Rain Shoes"
+        "name": "Rain Shoes",
+        "desc": "Simple shoes made from tree rubber. Sturdy and longlasting, they protect one's toes from cold"
       },
       "hkgd": {
-        "name": "Headguard"
+        "name": "Headguard",
+        "desc": "A simple and light helmet that provides minimal protection against falling debris and the like"
       },
       "wkss": {
-        "name": "Worker Shoes"
+        "name": "Worker Shoes",
+        "desc": "Safety shoes for laborers. The metal reinforcement offers dependable protection for the toes"
       },
       "jhmt": {
-        "name": "Junk Helmet"
+        "name": "Junk Helmet",
+        "desc": "A helmet clobbled together from scrap material. It looks terribly heavy but provides good protection around the head and neck"
       },
       "knkn": {
-        "name": "Knit Knee-Highs"
+        "name": "Knit Knee-Highs",
+        "desc": "Long boots woven from linen. Light and breathable, so they're comfortable when it's hot"
       },
       "brbn": {
-        "name": "Burnouns"
+        "name": "Burnouns",
+        "desc": "A long, hooded cloak. Protetcs the wearer from both the scorching sun and chilling cold"
       },
       "ovrl": {
-        "name": "Overalls"
+        "name": "Overalls",
+        "desc": "Work clothes made of heavy cloth that cover the entire body. Protects from bumps and scratches"
       },
       "prsnu": {
-        "name": "Prison Uniform"
+        "name": "Prison Uniform",
+        "desc": "Made of ugly, coarse cloth, this garment's sturdiness is its only redeeming trait. It holds up well under what washing it does get"
       },
       "prsna": {
-        "name": "Prison Apparel"
+        "name": "Prison Apparel",
+        "desc": "It looks just like any other prison uniform, but the neck, sleeves and elbows have been made far more comfortable with soft threads"
       },
       "strwks": {
-        "name": "Straw Kasa"
+        "name": "Straw Kasa",
+        "desc": "A Sando-gasa is made by weaving straw together. Great for boys who are too embarrassed to use a parasol"
       },
       "knkls": {
-        "name": "Knuckles"
+        "name": "Knuckles",
+        "desc": "Leather bands that cover fingers",
+        "bonus": "Unarmed STR: <span style=\"color:lime\">+4</span><br>"
       },
       "reedhd": {
-        "name": "Reed Hood"
+        "name": "Reed Hood",
+        "desc": "A hat that covers the face of Zen monks made from woven reed. Wearing this doesn't necessarily make you a monk, though"
       },
       "ptchct": {
-        "name": "Patchwork Coat"
+        "name": "Patchwork Coat",
+        "desc": "Coat stitched together from patches of cloth of various sizes and thickness. Somewhat durable but looks desperate"
       },
       "ptchpts": {
-        "name": "Patchwork Pants"
+        "name": "Patchwork Pants",
+        "desc": "Crude attempt at pants, very baggy looking and somewhat uncomfortable to wear. Potential holes near stitch areas make your lower body shiver when it's windy"
       }
     },
     "sld": {
       "bkl": {
-        "name": "Buckler"
+        "name": "Buckler",
+        "desc": "Tiny shield that is supposed to be strapped onto an arm. Low defence, but provides high mobility"
       },
       "tge": {
-        "name": "Targe"
+        "name": "Targe",
+        "desc": "Simple square shield with reinforced corners"
       },
       "plt": {
         "name": "Pelta Shield",
@@ -996,7 +1085,9 @@
         "desc": ""
       },
       "stksld": {
-        "name": "Stake Shield"
+        "name": "Stake Shield",
+        "desc": "Not actually a shield, but a row of spiky wood stakes tightly packed together to form a square panel. It's a bit heavy",
+        "bonus": "<span style=\"color:hotpink\">Physical ATK +4</span><br>"
       }
     },
     "acc": {

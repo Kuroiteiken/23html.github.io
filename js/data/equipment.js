@@ -46,7 +46,7 @@ eqp.dummy = new Eqp();
 wpn.stk1 = new Eqp();
 wpn.stk1.id = 10001;
 wpn.stk1.name = i18n.t("content.wpn.stk1.name");
-wpn.stk1.desc = "Your favorite weapon!" + dom.dseparator;
+wpn.stk1.desc = i18n.t("content.wpn.stk1.desc") + dom.dseparator;
 wpn.stk1.slot = 1;
 wpn.stk1.str = 2;
 wpn.stk1.cls = [0, 0, 1];
@@ -57,9 +57,7 @@ wpn.stk1.dp = wpn.stk1.dpmax = 13;
 wpn.stk2 = new Eqp();
 wpn.stk2.id = 10002;
 wpn.stk2.name = i18n.t("content.wpn.stk2.name");
-wpn.stk2.desc =
-  "Long stick with a sharpened end. Watch out, you may hurt someone with it" +
-  dom.dseparator;
+wpn.stk2.desc = i18n.t("content.wpn.stk2.desc") + dom.dseparator;
 wpn.stk2.slot = 1;
 wpn.stk2.str = 5;
 wpn.stk2.cls = [0, 3, 0];
@@ -75,8 +73,7 @@ wpn.stk2.onGet = function () {
 wpn.knf1 = new Eqp();
 wpn.knf1.id = 10003;
 wpn.knf1.name = i18n.t("content.wpn.knf1.name");
-wpn.knf1.desc =
-  "Lost kid's toy. The relic of many playground battles" + dom.dseparator;
+wpn.knf1.desc = i18n.t("content.wpn.knf1.desc") + dom.dseparator;
 wpn.knf1.slot = 1;
 wpn.knf1.str = 4;
 wpn.knf1.cls = [0, 0, 2];
@@ -87,9 +84,7 @@ wpn.knf1.dp = wpn.knf1.dpmax = 31;
 wpn.knf2 = new Eqp();
 wpn.knf2.id = 10004;
 wpn.knf2.name = i18n.t("content.wpn.knf2.name");
-wpn.knf2.desc =
-  "Used up useless knife. More of a blunt weapon in it's current state" +
-  dom.dseparator;
+wpn.knf2.desc = i18n.t("content.wpn.knf2.desc") + dom.dseparator;
 wpn.knf2.slot = 1;
 wpn.knf2.str = 7;
 wpn.knf2.agl = -1;
@@ -100,9 +95,7 @@ wpn.knf2.wtype = 3;
 wpn.ktn1 = new Eqp();
 wpn.ktn1.id = 10005;
 wpn.ktn1.name = i18n.t("content.wpn.ktn1.name");
-wpn.ktn1.desc =
-  "Old worthless blade, forgotten for ages. It falls apart as you attempt to swing it" +
-  dom.dseparator;
+wpn.ktn1.desc = i18n.t("content.wpn.ktn1.desc") + dom.dseparator;
 wpn.ktn1.slot = 1;
 wpn.ktn1.str = 15;
 wpn.ktn1.agl = -2;
@@ -113,8 +106,7 @@ wpn.ktn1.wtype = 1;
 wpn.ktn2 = new Eqp();
 wpn.ktn2.id = 10006;
 wpn.ktn2.name = i18n.t("content.wpn.ktn2.name");
-wpn.ktn2.desc =
-  "Polished rusty katana. Still nearly useless in a fight" + dom.dseparator;
+wpn.ktn2.desc = i18n.t("content.wpn.ktn2.desc") + dom.dseparator;
 wpn.ktn2.slot = 1;
 wpn.ktn2.str = 42;
 wpn.ktn2.agl = -4;
@@ -126,9 +118,9 @@ wpn.trch = new Eqp();
 wpn.trch.id = 10007;
 wpn.trch.name = i18n.t("content.wpn.trch.name");
 wpn.trch.desc =
-  "Used to light up dark places or for burning up thing" +
+  i18n.t("content.wpn.trch.desc") +
   dom.dseparator +
-  '<span style="color:yellow;background-color:crimson">Fire DMG +10</span><br>';
+  i18n.t("content.wpn.trch.bonus");
 wpn.trch.slot = 1;
 wpn.trch.str = 2;
 wpn.trch.atype = 3;
@@ -155,9 +147,9 @@ wpn.twg = new Eqp();
 wpn.twg.id = 10009;
 wpn.twg.name = i18n.t("content.wpn.twg.name");
 wpn.twg.desc =
-  "With this you can pretend you're a wizard" +
+  i18n.t("content.wpn.twg.desc") +
   dom.dseparator +
-  '<span style="color:lightgoldenrodyellow;text-shadow:gold 0px 0px 5px">Light DMG +3</span><br>';
+  i18n.t("content.wpn.twg.bonus");
 wpn.twg.slot = 1;
 wpn.twg.int = 3;
 wpn.twg.cls = [0, 0, 2];
@@ -170,9 +162,7 @@ wpn.twg.wtype = 6;
 wpn.dgknf = new Eqp();
 wpn.dgknf.id = 10010;
 wpn.dgknf.name = i18n.t("content.wpn.dgknf.name");
-wpn.dgknf.desc =
-  "Simple knife used by wayfarers. Not a combat weapon, has a minor domestic use" +
-  dom.dseparator;
+wpn.dgknf.desc = i18n.t("content.wpn.dgknf.desc") + dom.dseparator;
 wpn.dgknf.slot = 1;
 wpn.dgknf.str = 11;
 wpn.dgknf.cls = [4, 2, 0];
@@ -182,14 +172,14 @@ wpn.dgknf.wtype = 3;
 wpn.bknf = new Eqp();
 wpn.bknf.id = 10011;
 wpn.bknf.name = i18n.t("content.wpn.bknf.name");
-wpn.bknf.desc = "A good dagger for the novice" + dom.dseparator;
+wpn.bknf.desc = i18n.t("content.wpn.bknf.desc") + dom.dseparator;
 wpn.bknf.slot = 1;
 wpn.bknf.wtype = 3;
 
 wpn.skknf = new Eqp();
 wpn.skknf.id = 10012;
 wpn.skknf.name = i18n.t("content.wpn.skknf.name");
-wpn.skknf.desc = "A good knife for both combat and daily use" + dom.dseparator;
+wpn.skknf.desc = i18n.t("content.wpn.skknf.desc") + dom.dseparator;
 wpn.skknf.slot = 1;
 wpn.skknf.wtype = 3;
 wpn.skknf.ctype = 1;
@@ -197,14 +187,14 @@ wpn.skknf.ctype = 1;
 wpn.drknf = new Eqp();
 wpn.drknf.id = 10013;
 wpn.drknf.name = i18n.t("content.wpn.drknf.name");
-wpn.drknf.desc = "A steady knife you can depend on" + dom.dseparator;
+wpn.drknf.desc = i18n.t("content.wpn.drknf.desc") + dom.dseparator;
 wpn.drknf.slot = 1;
 wpn.drknf.wtype = 3;
 
 wpn.thknf = new Eqp();
 wpn.thknf.id = 10014;
 wpn.thknf.name = i18n.t("content.wpn.thknf.name");
-wpn.thknf.desc = "A finely honed throwing knife" + dom.dseparator;
+wpn.thknf.desc = i18n.t("content.wpn.thknf.desc") + dom.dseparator;
 wpn.thknf.slot = 1;
 wpn.thknf.wtype = 3;
 wpn.thknf.ctype = 1;
@@ -212,14 +202,14 @@ wpn.thknf.ctype = 1;
 wpn.kdknf = new Eqp();
 wpn.kdknf.id = 10015;
 wpn.kdknf.name = i18n.t("content.wpn.kdknf.name");
-wpn.kdknf.desc = "A dangerous dagger with a curved blade" + dom.dseparator;
+wpn.kdknf.desc = i18n.t("content.wpn.kdknf.desc") + dom.dseparator;
 wpn.kdknf.slot = 1;
 wpn.kdknf.wtype = 3;
 
 wpn.krsnf = new Eqp();
 wpn.krsnf.id = 10016;
 wpn.krsnf.name = i18n.t("content.wpn.krsnf.name");
-wpn.krsnf.desc = "An exotic dagger with a wavy blade" + dom.dseparator;
+wpn.krsnf.desc = i18n.t("content.wpn.krsnf.desc") + dom.dseparator;
 wpn.krsnf.slot = 1;
 wpn.krsnf.wtype = 3;
 wpn.krsnf.ctype = 1;
@@ -227,7 +217,7 @@ wpn.krsnf.ctype = 1;
 wpn.cqsnf = new Eqp();
 wpn.cqsnf.id = 10017;
 wpn.cqsnf.name = i18n.t("content.wpn.cqsnf.name");
-wpn.cqsnf.desc = "The knife of theives" + dom.dseparator;
+wpn.cqsnf.desc = i18n.t("content.wpn.cqsnf.desc") + dom.dseparator;
 wpn.cqsnf.slot = 1;
 wpn.cqsnf.wtype = 3;
 wpn.cqsnf.ctype = 1;
@@ -235,23 +225,21 @@ wpn.cqsnf.ctype = 1;
 wpn.kkknf = new Eqp();
 wpn.kkknf.id = 10018;
 wpn.kkknf.name = i18n.t("content.wpn.kkknf.name");
-wpn.kkknf.desc = "A knife with a heavy, curved blade" + dom.dseparator;
+wpn.kkknf.desc = i18n.t("content.wpn.kkknf.desc") + dom.dseparator;
 wpn.kkknf.slot = 1;
 wpn.kkknf.wtype = 3;
 
 wpn.bdknf = new Eqp();
 wpn.bdknf.id = 10019;
 wpn.bdknf.name = i18n.t("content.wpn.bdknf.name");
-wpn.bdknf.desc =
-  "A battle knife with a flat, thin blade, perfect for deploying fast attacks" +
-  dom.dseparator;
+wpn.bdknf.desc = i18n.t("content.wpn.bdknf.desc") + dom.dseparator;
 wpn.bdknf.slot = 1;
 wpn.bdknf.wtype = 3;
 
 wpn.stknf = new Eqp();
 wpn.stknf.id = 10020;
 wpn.stknf.name = i18n.t("content.wpn.stknf.name");
-wpn.stknf.desc = "A stabbing dagger with a thin, sharp blade" + dom.dseparator;
+wpn.stknf.desc = i18n.t("content.wpn.stknf.desc") + dom.dseparator;
 wpn.stknf.slot = 1;
 wpn.stknf.wtype = 3;
 wpn.stknf.ctype = 1;
@@ -259,8 +247,7 @@ wpn.stknf.ctype = 1;
 wpn.jmknf = new Eqp();
 wpn.jmknf.id = 10021;
 wpn.jmknf.name = i18n.t("content.wpn.jmknf.name");
-wpn.jmknf.desc =
-  "An exotic dagger with three blades in one hilt" + dom.dseparator;
+wpn.jmknf.desc = i18n.t("content.wpn.jmknf.desc") + dom.dseparator;
 wpn.jmknf.slot = 1;
 wpn.jmknf.wtype = 3;
 wpn.jmknf.ctype = 1;
@@ -268,14 +255,14 @@ wpn.jmknf.ctype = 1;
 wpn.skknf = new Eqp();
 wpn.skknf.id = 10022;
 wpn.skknf.name = i18n.t("content.wpn.skknf.name_2");
-wpn.skknf.desc = "Cursed knife capable of rapturing the soul" + dom.dseparator;
+wpn.skknf.desc = i18n.t("content.wpn.skknf.desc_2") + dom.dseparator;
 wpn.skknf.slot = 1;
 wpn.skknf.wtype = 3;
 
 wpn.rbknf = new Eqp();
 wpn.rbknf.id = 10023;
 wpn.rbknf.name = i18n.t("content.wpn.rbknf.name");
-wpn.rbknf.desc = "Unusualy long knife with a curved tip" + dom.dseparator;
+wpn.rbknf.desc = i18n.t("content.wpn.rbknf.desc") + dom.dseparator;
 wpn.rbknf.slot = 1;
 wpn.rbknf.wtype = 3;
 
@@ -290,9 +277,7 @@ wpn.gaknf.wtype = 3;
 wpn.ekmw = new Eqp();
 wpn.ekmw.id = 10025;
 wpn.ekmw.name = i18n.t("content.wpn.ekmw.name");
-wpn.ekmw.desc =
-  'Also known as "Hiking Stick". Sturdy, used for support while travelling on foot in forests, mountains, through the snow, water, or any other difficult to navigate landscape' +
-  dom.dseparator;
+wpn.ekmw.desc = i18n.t("content.wpn.ekmw.desc") + dom.dseparator;
 wpn.ekmw.slot = 1;
 wpn.ekmw.ctype = 2;
 wpn.ekmw.wtype = 5;
@@ -300,25 +285,21 @@ wpn.ekmw.wtype = 5;
 wpn.mnkm = new Eqp();
 wpn.mnkm.id = 10026;
 wpn.mnkm.name = i18n.t("content.wpn.mnkm.name");
-wpn.mnkm.desc =
-  "Short knife, designed for women. Light and durable, functions like a hunting knife" +
-  dom.dseparator;
+wpn.mnkm.desc = i18n.t("content.wpn.mnkm.desc") + dom.dseparator;
 wpn.mnkm.slot = 1;
 wpn.mnkm.wtype = 3;
 
 wpn.mkr = new Eqp();
 wpn.mkr.id = 10027;
 wpn.mkr.name = i18n.t("content.wpn.mkr.name");
-wpn.mkr.desc = "Short sword" + dom.dseparator;
+wpn.mkr.desc = i18n.t("content.wpn.mkr.desc") + dom.dseparator;
 wpn.mkr.slot = 1;
 wpn.mkr.wtype = 1;
 
 wpn.wsrd1 = new Eqp();
 wpn.wsrd1.id = 10028;
 wpn.wsrd1.name = i18n.t("content.wpn.wsrd1.name");
-wpn.wsrd1.desc =
-  "Simple long sword carved from light wood. Easy to handle and is suitable as amateurish training weapon" +
-  dom.dseparator;
+wpn.wsrd1.desc = i18n.t("content.wpn.wsrd1.desc") + dom.dseparator;
 wpn.wsrd1.slot = 1;
 wpn.wsrd1.str = 7;
 wpn.wsrd1.cls = [1, 0, 3];
@@ -329,9 +310,7 @@ wpn.wsrd1.ctype = 2;
 wpn.wsrd2 = new Eqp();
 wpn.wsrd2.id = 10029;
 wpn.wsrd2.name = i18n.t("content.wpn.wsrd2.name");
-wpn.wsrd2.desc =
-  "A training sword for kenjutsu lessons. Designed in the late Edo period, it is strung together from four bamboo planks. The ruthless chief of a female bandit group named Danfu is known to wield it" +
-  dom.dseparator;
+wpn.wsrd2.desc = i18n.t("content.wpn.wsrd2.desc") + dom.dseparator;
 wpn.wsrd2.slot = 1;
 wpn.wsrd2.str = 10;
 wpn.wsrd2.cls = [2, 0, 3];
@@ -342,9 +321,7 @@ wpn.wsrd2.ctype = 2;
 wpn.nssrd = new Eqp();
 wpn.nssrd.id = 10030;
 wpn.nssrd.name = i18n.t("content.wpn.nssrd.name");
-wpn.nssrd.desc =
-  "Short crude sword designed for self-defence. It's not that useful in battle, especially in unskilled hands" +
-  dom.dseparator;
+wpn.nssrd.desc = i18n.t("content.wpn.nssrd.desc") + dom.dseparator;
 wpn.nssrd.slot = 1;
 wpn.nssrd.str = 55;
 wpn.nssrd.cls = [4, 2, 1];
@@ -354,16 +331,12 @@ wpn.nssrd.wtype = 1;
 wpn.heyit = new Eqp();
 wpn.heyit.id = 10031;
 wpn.heyit.name = i18n.t("content.wpn.heyit.name");
-wpn.heyit.desc =
-  "Nothing flashy or noticeable about his sword. It reflects the samurai spirit" +
-  dom.dseparator;
+wpn.heyit.desc = i18n.t("content.wpn.heyit.desc") + dom.dseparator;
 
 wpn.fksrd = new Eqp();
 wpn.fksrd.id = 10032;
 wpn.fksrd.name = i18n.t("content.wpn.fksrd.name");
-wpn.fksrd.desc =
-  "The sword is made of bamboo. Poorer ronin sometimes pretend to be full-fledged samurai with this" +
-  dom.dseparator;
+wpn.fksrd.desc = i18n.t("content.wpn.fksrd.desc") + dom.dseparator;
 wpn.fksrd.slot = 1;
 wpn.fksrd.str = 23;
 wpn.fksrd.cls = [2, 0, 4];
@@ -374,9 +347,7 @@ wpn.fksrd.ctype = 2;
 wpn.tkmts = new Eqp();
 wpn.tkmts.id = 10033;
 wpn.tkmts.name = i18n.t("content.wpn.tkmts.name");
-wpn.tkmts.desc =
-  "This reinforced sword is made of bamboo. Not much as a weapon, but makes you seem stronger" +
-  dom.dseparator;
+wpn.tkmts.desc = i18n.t("content.wpn.tkmts.desc") + dom.dseparator;
 wpn.tkmts.slot = 1;
 wpn.tkmts.str = 35;
 wpn.tkmts.cls = [2, 1, 5];
@@ -387,9 +358,7 @@ wpn.tkmts.ctype = 2;
 wpn.bsrd = new Eqp();
 wpn.bsrd.id = 10034;
 wpn.bsrd.name = i18n.t("content.wpn.bsrd.name");
-wpn.bsrd.desc =
-  "This is the blunt sword used as a bad example of a knife in demonstration sales for housewives. Good luck trying to cut onions with this" +
-  dom.dseparator;
+wpn.bsrd.desc = i18n.t("content.wpn.bsrd.desc") + dom.dseparator;
 wpn.bsrd.slot = 1;
 wpn.bsrd.str = 20;
 wpn.bsrd.cls = [2, 3, 3];
@@ -400,9 +369,7 @@ wpn.bsrd.ctype = 2;
 wpn.bdsrd = new Eqp();
 wpn.bdsrd.id = 10035;
 wpn.bdsrd.name = i18n.t("content.wpn.bdsrd.name");
-wpn.bdsrd.desc =
-  "A sword designed for mass production by reducing labor and material cost down to a minimum. It may look like a sword, but it's not really fit to cut anything. The manual suggests it be used to cut radishes" +
-  dom.dseparator;
+wpn.bdsrd.desc = i18n.t("content.wpn.bdsrd.desc") + dom.dseparator;
 wpn.bdsrd.slot = 1;
 wpn.bdsrd.str = 27;
 wpn.bdsrd.cls = [2, 3, 3];
@@ -413,9 +380,7 @@ wpn.bdsrd.ctype = 2;
 wpn.bcsrd = new Eqp();
 wpn.bcsrd.id = 10036;
 wpn.bcsrd.name = i18n.t("content.wpn.bcsrd.name");
-wpn.bcsrd.desc =
-  'This sword is sold at the 100 Cout store under the name "Big Loss". You get what you pay for. There are even competitions to see who can sharpen this sword the best' +
-  dom.dseparator;
+wpn.bcsrd.desc = i18n.t("content.wpn.bcsrd.desc") + dom.dseparator;
 wpn.bcsrd.slot = 1;
 wpn.bcsrd.str = 40;
 wpn.bcsrd.cls = [4, 3, 3];
@@ -425,38 +390,30 @@ wpn.bcsrd.wtype = 1;
 wpn.ktsk = new Eqp();
 wpn.ktsk.id = 10037; //2
 wpn.ktsk.name = i18n.t("content.wpn.ktsk.name");
-wpn.ktsk.desc =
-  "A light sword a ight-heartet guy begged the swordsmith to make. He thought his sword would make him more popular with the ladies. He managed to rack up some wins by cheating, but the ladies still don't like him" +
-  dom.dseparator;
+wpn.ktsk.desc = i18n.t("content.wpn.ktsk.desc") + dom.dseparator;
 
 wpn.crsto = new Eqp();
 wpn.crsto.id = 10038; //3
 wpn.crsto.name = i18n.t("content.wpn.crsto.name");
-wpn.crsto.desc =
-  "A samurai wrongly imprisoned for a crime he didn't commit carved this weapon from his cell walls. He did this in a secret from the guards, but by the time he finished, his sentence was over" +
-  dom.dseparator;
+wpn.crsto.desc = i18n.t("content.wpn.crsto.desc") + dom.dseparator;
 
 wpn.ksbmr = new Eqp();
 wpn.ksbmr.id = 10039; //4
 wpn.ksbmr.name = i18n.t("content.wpn.ksbmr.name");
-wpn.ksbmr.desc =
-  'A swordsman who loves sumo made this sword to cheer on his favorite sumo wrestler. But the name "Komusubi" is a low rank in sumo. It was bad luck, and the wrestler never got promoted' +
-  dom.dseparator;
+wpn.ksbmr.desc = i18n.t("content.wpn.ksbmr.desc") + dom.dseparator;
 
 wpn.hsmts = new Eqp();
 wpn.hsmts.id = 10040; //5
 wpn.hsmts.name = i18n.t("content.wpn.hsmts.name");
-wpn.hsmts.desc =
-  "A swordsmith created this blade as he danced around bragging about his skill. You may think he was just screwing around, but this sword is actually quiet nice" +
-  dom.dseparator;
+wpn.hsmts.desc = i18n.t("content.wpn.hsmts.desc") + dom.dseparator;
 
 wpn.kiknif = new Eqp();
 wpn.kiknif.id = 10041;
 wpn.kiknif.name = i18n.t("content.wpn.kiknif.name");
 wpn.kiknif.desc =
-  "A knife originally used to cut fish, not people. It's not a sword, but ordering one won't get you yelled at" +
+  i18n.t("content.wpn.kiknif.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Cooking EXP gain +15%</span><br>';
+  i18n.t("content.wpn.kiknif.bonus");
 wpn.kiknif.slot = 1;
 wpn.kiknif.str = 24;
 wpn.kiknif.cls = [3, 2, 0];
@@ -472,66 +429,49 @@ wpn.kiknif.onuneq = function () {
 wpn.gamas = new Eqp();
 wpn.gamas.id = 10042; //6
 wpn.gamas.name = i18n.t("content.wpn.gamas.name");
-wpn.gamas.desc =
-  "A man's wife who had a face that resembles a frog died, so he hired a medium to do a seance to summon his wife's spirit. But the medium summoned the spirit of some toad. The husband used this sword to kill the medium" +
-  dom.dseparator;
+wpn.gamas.desc = i18n.t("content.wpn.gamas.desc") + dom.dseparator;
 
 wpn.wsdmbld = new Eqp();
 wpn.wsdmbld.id = 10043; //7
 wpn.wsdmbld.name = i18n.t("content.wpn.wsdmbld.name");
-wpn.wsdmbld.desc =
-  "This is the sword used by a serial killer that struck fear in Edo. The killer stole his family sword to do his killing, so you can imagine that things got weird at the house when they found the sword missing" +
-  dom.dseparator;
+wpn.wsdmbld.desc = i18n.t("content.wpn.wsdmbld.desc") + dom.dseparator;
 
 wpn.kurum = new Eqp();
 wpn.kurum.id = 10044; //8
 wpn.kurum.name = i18n.t("content.wpn.kurum.name");
-wpn.kurum.desc =
-  "This is the sword used by a great tengu when he taught Ushiwakamaru how to fight at Mt. Kuruma. Ushiwakamaru is trained to fight and also became great at the pommel horse" +
-  dom.dseparator;
+wpn.kurum.desc = i18n.t("content.wpn.kurum.desc") + dom.dseparator;
 
 wpn.hrsm = new Eqp();
 wpn.hrsm.id = 10045; //9 ice
 wpn.hrsm.name = i18n.t("content.wpn.hrsm.name");
-wpn.hrsm.desc =
-  "A sword made in the quiet rain in spring. It is easy to wield and can be chewy. When dried, it won't be as sharp, but putting water turns it back to normal" +
-  dom.dseparator;
+wpn.hrsm.desc = i18n.t("content.wpn.hrsm.desc") + dom.dseparator;
 
 wpn.kosgi = new Eqp();
 wpn.kosgi.id = 10046; //10
 wpn.kosgi.name = i18n.t("content.wpn.kosgi.name");
-wpn.kosgi.desc =
-  "A sword used by the famous ninja who left the country and took and extremely dangerous mission. This sword encompasses his very being" +
-  dom.dseparator;
+wpn.kosgi.desc = i18n.t("content.wpn.kosgi.desc") + dom.dseparator;
 
 wpn.shiran = new Eqp();
 wpn.shiran.id = 10047; //11
 wpn.shiran.name = i18n.t("content.wpn.shiran.name");
-wpn.shiran.desc =
-  "Its name comes from its purple orchid-like accessory. The true etymology of the sword is a mystery to even its swordsmith" +
-  dom.dseparator;
+wpn.shiran.desc = i18n.t("content.wpn.shiran.desc") + dom.dseparator;
 
 wpn.shnztt = new Eqp();
 wpn.shnztt.id = 10048; //12
 wpn.shnztt.name = i18n.t("content.wpn.shnztt.name");
-wpn.shnztt.desc =
-  "Those who wield this sword also command the shaky nervousness of the rookie blacksmith who crafted it" +
-  dom.dseparator;
+wpn.shnztt.desc = i18n.t("content.wpn.shnztt.desc") + dom.dseparator;
 
 wpn.lsrd = new Eqp();
 wpn.lsrd.id = 10049;
 wpn.lsrd.name = i18n.t("content.wpn.lsrd.name");
-wpn.lsrd.desc =
-  "A basic, easy to wield civilian-level light sword" + dom.dseparator;
+wpn.lsrd.desc = i18n.t("content.wpn.lsrd.desc") + dom.dseparator;
 wpn.lsrd.slot = 1;
 wpn.lsrd.wtype = 1;
 
 wpn.log = new Eqp();
 wpn.log.id = 10050;
 wpn.log.name = i18n.t("content.wpn.log.name");
-wpn.log.desc =
-  "A massive heavy tree log. How did you even think about swinging it as a weapon?" +
-  dom.dseparator;
+wpn.log.desc = i18n.t("content.wpn.log.desc") + dom.dseparator;
 wpn.log.slot = 1;
 wpn.log.twoh = true;
 wpn.log.str = 48;
@@ -544,9 +484,7 @@ wpn.log.dp = wpn.log.dpmax = 68;
 wpn.sprw = new Eqp();
 wpn.sprw.id = 10051;
 wpn.sprw.name = i18n.t("content.wpn.sprw.name");
-wpn.sprw.desc =
-  "Long piece of wood with a sharp metal chunk at the end of it. Couldn't get simpler than that" +
-  dom.dseparator;
+wpn.sprw.desc = i18n.t("content.wpn.sprw.desc") + dom.dseparator;
 wpn.sprw.slot = 1;
 wpn.sprw.str = 11;
 wpn.sprw.cls = [2, 4, 1];
@@ -557,8 +495,7 @@ wpn.sprw.dp = wpn.sprw.dpmax = 26;
 wpn.gsprw = new Eqp();
 wpn.gsprw.id = 10052;
 wpn.gsprw.name = i18n.t("content.wpn.gsprw.name");
-wpn.gsprw.desc =
-  "Basic and easy to wield spear used in self-defence" + dom.dseparator;
+wpn.gsprw.desc = i18n.t("content.wpn.gsprw.desc") + dom.dseparator;
 wpn.gsprw.slot = 1;
 wpn.gsprw.str = 27;
 wpn.gsprw.cls = [2, 5, 2];
@@ -570,9 +507,9 @@ wpn.scspt1 = new Eqp();
 wpn.scspt1.id = 10053;
 wpn.scspt1.name = i18n.t("content.wpn.scspt1.name");
 wpn.scspt1.desc =
-  "Burning sword that looks like a scissors blade. Its flames can evaporate any liquid" +
+  i18n.t("content.wpn.scspt1.desc") +
   dom.dseparator +
-  '<span style="color:orange;text-shadow:red 0px 0px 5px,red 0px 0px 5px">Fire Affinity +25</span><br>';
+  i18n.t("content.wpn.scspt1.bonus");
 wpn.scspt1.slot = 1;
 wpn.scspt1.str = 54;
 wpn.scspt1.cls = [10, 7, 3];
@@ -586,9 +523,9 @@ wpn.scspt2 = new Eqp();
 wpn.scspt2.id = 10054;
 wpn.scspt2.name = i18n.t("content.wpn.scspt2.name");
 wpn.scspt2.desc =
-  "Freezing sword that looks like a scissors blade. Its edge can calm the fieriest fire" +
+  i18n.t("content.wpn.scspt2.desc") +
   dom.dseparator +
-  '<span style="color:cyan;text-shadow:blue 0px 0px 5px,blue 0px 0px 5px">Water Affinity +25</span><br>';
+  i18n.t("content.wpn.scspt2.bonus");
 wpn.scspt2.slot = 1;
 wpn.scspt2.str = 52;
 wpn.scspt2.cls = [11, 8, 5];
@@ -602,9 +539,9 @@ wpn.scspt3 = new Eqp();
 wpn.scspt3.id = 10055;
 wpn.scspt3.name = i18n.t("content.wpn.scspt3.name");
 wpn.scspt3.desc =
-  "Two swords combined together, forming a scissors-shaped weapon. It is said a mad blacksmith created this blade to hunt demigods" +
+  i18n.t("content.wpn.scspt3.desc") +
   dom.dseparator +
-  '<span style="color:mediumorchid;text-shadow:darkblue 0px 0px 5px,darkblue 0px 0px 5px">Dark Affinity +30</span><br>';
+  i18n.t("content.wpn.scspt3.bonus");
 wpn.scspt3.slot = 1;
 wpn.scspt3.twoh = true;
 wpn.scspt3.str = 108;
@@ -618,9 +555,7 @@ wpn.scspt3.rar = 4;
 wpn.shrsb = new Eqp();
 wpn.shrsb.id = 10056;
 wpn.shrsb.name = i18n.t("content.wpn.shrsb.name");
-wpn.shrsb.desc =
-  "Massive gardening shears, for tiding up the bushes and other decorative flora. A murderer in the past was known to commit atrocities with a similar tool" +
-  dom.dseparator;
+wpn.shrsb.desc = i18n.t("content.wpn.shrsb.desc") + dom.dseparator;
 wpn.shrsb.slot = 1;
 wpn.shrsb.twoh = true;
 wpn.shrsb.str = 40;
@@ -632,9 +567,7 @@ wpn.shrsb.wtype = 3;
 wpn.evob = new Eqp();
 wpn.evob.id = 10057;
 wpn.evob.name = i18n.t("content.wpn.evob.name");
-wpn.evob.desc =
-  "This living blade can absorb the blood and souls of defeated foes, it gets sharper with each kill" +
-  dom.dseparator;
+wpn.evob.desc = i18n.t("content.wpn.evob.desc") + dom.dseparator;
 wpn.evob.slot = 1;
 wpn.evob.str = 1;
 wpn.evob.rar = 4;
@@ -661,9 +594,7 @@ wpn.evob.onuneq = function () {
 wpn.mkrdwk = new Eqp();
 wpn.mkrdwk.id = 10058;
 wpn.mkrdwk.name = i18n.t("content.wpn.mkrdwk.name");
-wpn.mkrdwk.desc =
-  "Old wakizashi variant with red hilt. Scarred and chipped blade hints that it was used rather heavily in the past" +
-  dom.dseparator;
+wpn.mkrdwk.desc = i18n.t("content.wpn.mkrdwk.desc") + dom.dseparator;
 wpn.mkrdwk.slot = 1;
 wpn.mkrdwk.important = true;
 wpn.mkrdwk.rar = 2;
@@ -675,8 +606,7 @@ wpn.mkrdwk.wtype = 1;
 eqp.bnd = new Eqp();
 eqp.bnd.id = 20001;
 eqp.bnd.name = i18n.t("content.eqp.bnd.name");
-eqp.bnd.desc =
-  "Thin cloth bandana. It protects your face from sweat" + dom.dseparator;
+eqp.bnd.desc = i18n.t("content.eqp.bnd.desc") + dom.dseparator;
 eqp.bnd.slot = 3;
 eqp.bnd.str = 3;
 eqp.bnd.agl = 1;
@@ -688,7 +618,7 @@ eqp.bnd.dp = eqp.bnd.dpmax = 11;
 eqp.pnt = new Eqp();
 eqp.pnt.id = 20002;
 eqp.pnt.name = i18n.t("content.eqp.pnt.name");
-eqp.pnt.desc = "Perfect for morning runs" + dom.dseparator;
+eqp.pnt.desc = i18n.t("content.eqp.pnt.desc") + dom.dseparator;
 eqp.pnt.slot = 7;
 eqp.pnt.str = 4;
 eqp.pnt.agl = 2;
@@ -700,7 +630,7 @@ eqp.pnt.dp = eqp.pnt.dpmax = 19;
 eqp.brc = new Eqp();
 eqp.brc.id = 20003;
 eqp.brc.name = i18n.t("content.eqp.brc.name");
-eqp.brc.desc = "Simple handwraps" + dom.dseparator;
+eqp.brc.desc = i18n.t("content.eqp.brc.desc") + dom.dseparator;
 eqp.brc.slot = 5;
 eqp.brc.str = 2;
 eqp.brc.agl = 1;
@@ -713,9 +643,7 @@ eqp.brc.dp = eqp.brc.dpmax = 11;
 eqp.gnt = new Eqp();
 eqp.gnt.id = 20004;
 eqp.gnt.name = i18n.t("content.eqp.gnt.name");
-eqp.gnt.desc =
-  "Tough leather gauntlet that covers your entire hand. May prevent you from losing fingers" +
-  dom.dseparator;
+eqp.gnt.desc = i18n.t("content.eqp.gnt.desc") + dom.dseparator;
 eqp.gnt.slot = 5;
 eqp.gnt.str = 10;
 eqp.gnt.stype = 3;
@@ -726,7 +654,7 @@ eqp.gnt.dp = eqp.gnt.dpmax = 24;
 eqp.vst = new Eqp();
 eqp.vst.id = 20005;
 eqp.vst.name = i18n.t("content.eqp.vst.name");
-eqp.vst.desc = "You'll feel chilly without sleeves" + dom.dseparator;
+eqp.vst.desc = i18n.t("content.eqp.vst.desc") + dom.dseparator;
 eqp.vst.slot = 4;
 eqp.vst.str = 6;
 eqp.vst.stype = 3;
@@ -846,9 +774,7 @@ eqp.fmsk.onuneq = function () {
 eqp.nkgd = new Eqp();
 eqp.nkgd.id = 20013;
 eqp.nkgd.name = i18n.t("content.eqp.nkgd.name");
-eqp.nkgd.desc =
-  "Metal plating worn around the neck. Minor protection from direct frontal attacks" +
-  dom.dseparator;
+eqp.nkgd.desc = i18n.t("content.eqp.nkgd.desc") + dom.dseparator;
 eqp.nkgd.str = 7;
 eqp.nkgd.slot = 3;
 eqp.nkgd.stype = 3;
@@ -859,9 +785,7 @@ eqp.nkgd.dp = eqp.nkgd.dpmax = 35;
 eqp.sndl = new Eqp();
 eqp.sndl.id = 20014;
 eqp.sndl.name = i18n.t("content.eqp.sndl.name");
-eqp.sndl.desc =
-  "Cheap unremarkable sandals made from light leather. Aren't even that comfortable to wear" +
-  dom.dseparator;
+eqp.sndl.desc = i18n.t("content.eqp.sndl.desc") + dom.dseparator;
 eqp.sndl.slot = 7;
 eqp.sndl.str = 3;
 eqp.sndl.agl = 1;
@@ -873,9 +797,7 @@ eqp.sndl.dp = eqp.sndl.dpmax = 12;
 eqp.ykkr = new Eqp();
 eqp.ykkr.id = 20015;
 eqp.ykkr.name = i18n.t("content.eqp.ykkr.name");
-eqp.ykkr.desc =
-  "Warm deerskin boots, worn by civilians and hunters during winter for maximum protection from cold and environmental hazards" +
-  dom.dseparator;
+eqp.ykkr.desc = i18n.t("content.eqp.ykkr.desc") + dom.dseparator;
 eqp.ykkr.slot = 7;
 eqp.ykkr.str = 11;
 eqp.ykkr.agl = 2;
@@ -887,9 +809,7 @@ eqp.ykkr.dp = eqp.ykkr.dpmax = 22;
 eqp.tnc = new Eqp();
 eqp.tnc.id = 20016;
 eqp.tnc.name = i18n.t("content.eqp.tnc.name");
-eqp.tnc.desc =
-  "A simple, short-sleeved shirt. It's somewhat short in length and tailored to snugly fit the wearer's body" +
-  dom.dseparator;
+eqp.tnc.desc = i18n.t("content.eqp.tnc.desc") + dom.dseparator;
 eqp.tnc.slot = 4;
 eqp.tnc.str = 9;
 eqp.tnc.stype = 3;
@@ -900,9 +820,7 @@ eqp.tnc.dp = eqp.tnc.dpmax = 26;
 eqp.rncp = new Eqp();
 eqp.rncp.id = 20017;
 eqp.rncp.name = i18n.t("content.eqp.rncp.name");
-eqp.rncp.desc =
-  "The cap with the wide brim for keeping the rain from the wearer's eyes" +
-  dom.dseparator;
+eqp.rncp.desc = i18n.t("content.eqp.rncp.desc") + dom.dseparator;
 eqp.rncp.slot = 3;
 eqp.rncp.str = 9;
 eqp.rncp.aff = [2, 3, 2, 5, 14, 5, -5];
@@ -913,9 +831,7 @@ eqp.rncp.dp = eqp.rncp.dpmax = 17;
 eqp.rnss = new Eqp();
 eqp.rnss.id = 20018;
 eqp.rnss.name = i18n.t("content.eqp.rnss.name");
-eqp.rnss.desc =
-  "Simple shoes made from tree rubber. Sturdy and longlasting, they protect one's toes from cold" +
-  dom.dseparator;
+eqp.rnss.desc = i18n.t("content.eqp.rnss.desc") + dom.dseparator;
 eqp.rnss.slot = 7;
 eqp.rnss.str = 9;
 eqp.rnss.agl = 2;
@@ -927,9 +843,7 @@ eqp.rnss.dp = eqp.rnss.dpmax = 22;
 eqp.hkgd = new Eqp();
 eqp.hkgd.id = 20019;
 eqp.hkgd.name = i18n.t("content.eqp.hkgd.name");
-eqp.hkgd.desc =
-  "A simple and light helmet that provides minimal protection against falling debris and the like" +
-  dom.dseparator;
+eqp.hkgd.desc = i18n.t("content.eqp.hkgd.desc") + dom.dseparator;
 eqp.hkgd.str = 14;
 eqp.hkgd.slot = 3;
 eqp.hkgd.stype = 3;
@@ -940,9 +854,7 @@ eqp.hkgd.dp = eqp.hkgd.dpmax = 28;
 eqp.wkss = new Eqp();
 eqp.wkss.id = 20020;
 eqp.wkss.name = i18n.t("content.eqp.wkss.name");
-eqp.wkss.desc =
-  "Safety shoes for laborers. The metal reinforcement offers dependable protection for the toes" +
-  dom.dseparator;
+eqp.wkss.desc = i18n.t("content.eqp.wkss.desc") + dom.dseparator;
 eqp.wkss.slot = 7;
 eqp.wkss.str = 16;
 eqp.wkss.agl = 2;
@@ -954,9 +866,7 @@ eqp.wkss.dp = eqp.wkss.dpmax = 22;
 eqp.jhmt = new Eqp();
 eqp.jhmt.id = 20021;
 eqp.jhmt.name = i18n.t("content.eqp.jhmt.name");
-eqp.jhmt.desc =
-  "A helmet clobbled together from scrap material. It looks terribly heavy but provides good protection around the head and neck" +
-  dom.dseparator;
+eqp.jhmt.desc = i18n.t("content.eqp.jhmt.desc") + dom.dseparator;
 eqp.jhmt.str = 18;
 eqp.jhmt.slot = 3;
 eqp.jhmt.stype = 3;
@@ -967,9 +877,7 @@ eqp.jhmt.dp = eqp.jhmt.dpmax = 28;
 eqp.knkn = new Eqp();
 eqp.knkn.id = 20022;
 eqp.knkn.name = i18n.t("content.eqp.knkn.name");
-eqp.knkn.desc =
-  "Long boots woven from linen. Light and breathable, so they're comfortable when it's hot" +
-  dom.dseparator;
+eqp.knkn.desc = i18n.t("content.eqp.knkn.desc") + dom.dseparator;
 eqp.knkn.slot = 7;
 eqp.knkn.str = 19;
 eqp.knkn.agl = 2;
@@ -981,9 +889,7 @@ eqp.knkn.dp = eqp.knkn.dpmax = 32;
 eqp.brbn = new Eqp();
 eqp.brbn.id = 20023;
 eqp.brbn.name = i18n.t("content.eqp.brbn.name");
-eqp.brbn.desc =
-  "A long, hooded cloak. Protetcs the wearer from both the scorching sun and chilling cold" +
-  dom.dseparator;
+eqp.brbn.desc = i18n.t("content.eqp.brbn.desc") + dom.dseparator;
 eqp.brbn.slot = 4;
 eqp.brbn.str = 33;
 eqp.brbn.agl = -4;
@@ -995,9 +901,7 @@ eqp.brbn.dp = eqp.brbn.dpmax = 41;
 eqp.ovrl = new Eqp();
 eqp.ovrl.id = 20024;
 eqp.ovrl.name = i18n.t("content.eqp.ovrl.name");
-eqp.ovrl.desc =
-  "Work clothes made of heavy cloth that cover the entire body. Protects from bumps and scratches" +
-  dom.dseparator;
+eqp.ovrl.desc = i18n.t("content.eqp.ovrl.desc") + dom.dseparator;
 eqp.ovrl.slot = 4;
 eqp.ovrl.str = 25;
 eqp.ovrl.stype = 3;
@@ -1008,9 +912,7 @@ eqp.ovrl.dp = eqp.ovrl.dpmax = 33;
 eqp.prsnu = new Eqp();
 eqp.prsnu.id = 20025;
 eqp.prsnu.name = i18n.t("content.eqp.prsnu.name");
-eqp.prsnu.desc =
-  "Made of ugly, coarse cloth, this garment's sturdiness is its only redeeming trait. It holds up well under what washing it does get" +
-  dom.dseparator;
+eqp.prsnu.desc = i18n.t("content.eqp.prsnu.desc") + dom.dseparator;
 eqp.prsnu.slot = 4;
 eqp.prsnu.str = 40;
 eqp.prsnu.stype = 3;
@@ -1021,9 +923,7 @@ eqp.prsnu.dp = eqp.prsnu.dpmax = 38;
 eqp.prsna = new Eqp();
 eqp.prsna.id = 20026;
 eqp.prsna.name = i18n.t("content.eqp.prsna.name");
-eqp.prsna.desc =
-  "It looks just like any other prison uniform, but the neck, sleeves and elbows have been made far more comfortable with soft threads" +
-  dom.dseparator;
+eqp.prsna.desc = i18n.t("content.eqp.prsna.desc") + dom.dseparator;
 eqp.prsna.slot = 4;
 eqp.prsna.rar = 2;
 eqp.prsna.str = 44;
@@ -1036,9 +936,7 @@ eqp.prsna.dp = eqp.prsna.dpmax = 38;
 eqp.strwks = new Eqp();
 eqp.strwks.id = 20027;
 eqp.strwks.name = i18n.t("content.eqp.strwks.name");
-eqp.strwks.desc =
-  "A Sando-gasa is made by weaving straw together. Great for boys who are too embarrassed to use a parasol" +
-  dom.dseparator;
+eqp.strwks.desc = i18n.t("content.eqp.strwks.desc") + dom.dseparator;
 eqp.strwks.slot = 3;
 eqp.strwks.str = 6;
 eqp.strwks.aff = [3, 3, 2, 13, 2, 5, -5];
@@ -1050,9 +948,9 @@ eqp.knkls = new Eqp();
 eqp.knkls.id = 20028;
 eqp.knkls.name = i18n.t("content.eqp.knkls.name");
 eqp.knkls.desc =
-  "Leather bands that cover fingers" +
+  i18n.t("content.eqp.knkls.desc") +
   dom.dseparator +
-  'Unarmed STR: <span style="color:lime">+4</span><br>';
+  i18n.t("content.eqp.knkls.bonus");
 eqp.knkls.slot = 5;
 eqp.knkls.str = 4;
 eqp.knkls.undc = 4;
@@ -1070,9 +968,7 @@ eqp.knkls.onuneq = function () {
 eqp.reedhd = new Eqp();
 eqp.reedhd.id = 20029;
 eqp.reedhd.name = i18n.t("content.eqp.reedhd.name");
-eqp.reedhd.desc =
-  "A hat that covers the face of Zen monks made from woven reed. Wearing this doesn't necessarily make you a monk, though" +
-  dom.dseparator;
+eqp.reedhd.desc = i18n.t("content.eqp.reedhd.desc") + dom.dseparator;
 eqp.reedhd.slot = 3;
 eqp.reedhd.str = 25;
 eqp.reedhd.aff = [4, 1, 7, 13, 2, 9, -5];
@@ -1083,9 +979,7 @@ eqp.reedhd.dp = eqp.reedhd.dpmax = 28;
 eqp.ptchct = new Eqp();
 eqp.ptchct.id = 20030;
 eqp.ptchct.name = i18n.t("content.eqp.ptchct.name");
-eqp.ptchct.desc =
-  "Coat stitched together from patches of cloth of various sizes and thickness. Somewhat durable but looks desperate" +
-  dom.dseparator;
+eqp.ptchct.desc = i18n.t("content.eqp.ptchct.desc") + dom.dseparator;
 eqp.ptchct.slot = 4;
 eqp.ptchct.str = 14;
 eqp.ptchct.stype = 3;
@@ -1096,9 +990,7 @@ eqp.ptchct.dp = eqp.ptchct.dpmax = 40;
 eqp.ptchpts = new Eqp();
 eqp.ptchpts.id = 20031;
 eqp.ptchpts.name = i18n.t("content.eqp.ptchpts.name");
-eqp.ptchpts.desc =
-  "Crude attempt at pants, very baggy looking and somewhat uncomfortable to wear. Potential holes near stitch areas make your lower body shiver when it's windy" +
-  dom.dseparator;
+eqp.ptchpts.desc = i18n.t("content.eqp.ptchpts.desc") + dom.dseparator;
 eqp.ptchpts.slot = 7;
 eqp.ptchpts.str = 12;
 eqp.ptchpts.stype = 3;
@@ -1109,9 +1001,7 @@ eqp.ptchpts.dp = eqp.ptchpts.dpmax = 38;
 sld.bkl = new Eqp();
 sld.bkl.id = 30001;
 sld.bkl.name = i18n.t("content.sld.bkl.name");
-sld.bkl.desc =
-  "Tiny shield that is supposed to be strapped onto an arm. Low defence, but provides high mobility" +
-  dom.dseparator;
+sld.bkl.desc = i18n.t("content.sld.bkl.desc") + dom.dseparator;
 sld.bkl.slot = 2;
 sld.bkl.str = 5;
 sld.bkl.aff = [2, 2, 2, 2, 2, 2, 2];
@@ -1122,7 +1012,7 @@ sld.bkl.dp = sld.bkl.dpmax = 36;
 sld.tge = new Eqp();
 sld.tge.id = 30002;
 sld.tge.name = i18n.t("content.sld.tge.name");
-sld.tge.desc = "Simple square shield with reinforced corners" + dom.dseparator;
+sld.tge.desc = i18n.t("content.sld.tge.desc") + dom.dseparator;
 sld.tge.slot = 2;
 sld.tge.str = 9;
 sld.tge.aff = [4, 3, 3, 3, 3, 3, 3];
@@ -1253,9 +1143,9 @@ sld.stksld = new Eqp();
 sld.stksld.id = 30017;
 sld.stksld.name = i18n.t("content.sld.stksld.name");
 sld.stksld.desc =
-  "Not actually a shield, but a row of spiky wood stakes tightly packed together to form a square panel. It's a bit heavy" +
+  i18n.t("content.sld.stksld.desc") +
   dom.dseparator +
-  '<span style="color:hotpink">Physical ATK +4</span><br>';
+  i18n.t("content.sld.stksld.bonus");
 sld.stksld.slot = 2;
 sld.stksld.str = 7;
 sld.stksld.aff = [2, 2, 2, 2, 2, 2, 2];

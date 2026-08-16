@@ -2927,12 +2927,33 @@ function offline_a() {
   global.offline_evil_index = Math.sqrt(global.offline_evil_index + 2100) / 45;
 }
 
+function positionDescription(c) {
+  const scale = Number.parseFloat(document.body.style.zoom) || 1;
+  const gap = 16 / scale;
+  const cursorX = c.clientX / scale;
+  const cursorY = c.clientY / scale;
+  const viewportWidth = window.innerWidth / scale;
+  const viewportHeight = window.innerHeight / scale;
+  const tooltipWidth = global.dscr.offsetWidth;
+  const tooltipHeight = global.dscr.offsetHeight;
+  let left = cursorX + gap;
+  let top = cursorY + gap;
+
+  if (left + tooltipWidth + gap > viewportWidth) {
+    left = cursorX - tooltipWidth - gap;
+  }
+  if (top + tooltipHeight + gap > viewportHeight) {
+    top = cursorY - tooltipHeight - gap;
+  }
+
+  global.dscr.style.left = `${Math.max(gap, left)}px`;
+  global.dscr.style.top = `${Math.max(gap, top)}px`;
+}
+
 function dscr(c, what, type, ttl, dsc, id) {
   id = id || 0;
   global.dscr.style.display = "";
   empty(global.dscr);
-  global.dscr.style.top = c.clientY + 30;
-  global.dscr.style.left = c.clientX + 30;
   if (!type || type === 1) {
     this.label = addElement(global.dscr, "div", "d_l");
     this.label.innerHTML = what.name;
@@ -3596,6 +3617,7 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.text = addElement(global.dscr, "div", "d_t");
     this.text.innerHTML = typeof dsc === "function" ? dsc(what) : dsc;
   }
+  positionDescription(c);
 }
 
 function msg(txt, c, dsc, type, bc, chck) {
@@ -3730,30 +3752,7 @@ function addDesc(dm, what, type, ttl, dsc, f, id) {
     if (global.kkey === 1) descsinfo(global.shiftid);
   });
   dm.addEventListener("mousemove", (a) => {
-    global.dscr.style.top =
-      global.dscr.clientHeight + 60 + a.clientY > document.body.clientHeight
-        ? a.clientY +
-          30 +
-          global.dscr.clientHeight -
-          (a.clientY +
-            30 +
-            global.dscr.clientHeight -
-            document.body.clientHeight) -
-          global.dscr.clientHeight -
-          30
-        : a.clientY + 30;
-    global.dscr.style.left =
-      global.dscr.clientWidth + 60 + a.clientX > document.body.clientWidth
-        ? a.clientX +
-          30 +
-          global.dscr.clientWidth -
-          (a.clientX +
-            30 +
-            global.dscr.clientWidth -
-            document.body.clientWidth) -
-          global.dscr.clientWidth -
-          30
-        : a.clientX + 30;
+    positionDescription(a);
   });
   dm.addEventListener("mouseleave", () => {
     global.shiftid = 0;

@@ -36,3 +36,32 @@ if (!combatPanelLayout.every((pattern) => pattern.test(interfaceSource))) {
 }
 
 console.log("Validated the player/enemy combat-panel positioning contract.");
+
+const tooltipPositioning = [
+  /function positionDescription\(c\)/,
+  /global\.dscr\.style\.left\s*=\s*`\$\{Math\.max\(gap, left\)\}px`/,
+  /global\.dscr\.style\.top\s*=\s*`\$\{Math\.max\(gap, top\)\}px`/,
+  /dm\.addEventListener\("mousemove", \(a\) => \{\s*positionDescription\(a\);/,
+];
+
+if (!tooltipPositioning.every((pattern) => pattern.test(interfaceSource))) {
+  throw new Error(
+    "Tooltip regression: hover descriptions need pixel-based, viewport-aware pointer positioning.",
+  );
+}
+
+const equipmentSource = fs.readFileSync(
+  path.join(root, "js", "data", "equipment.js"),
+  "utf8",
+);
+const staticEquipmentDescription = /\b(?:wpn|eqp|sld)\.\w+\.desc\s*=\s*["'`]/;
+
+if (staticEquipmentDescription.test(equipmentSource)) {
+  throw new Error(
+    "Localization regression: static equipment descriptions must come from locale JSON.",
+  );
+}
+
+console.log(
+  "Validated hover-description positioning and equipment-description localization.",
+);

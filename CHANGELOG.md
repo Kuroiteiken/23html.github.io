@@ -10,6 +10,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added browser regression coverage for pointer-following hover descriptions at
+  normal and viewport-edge positions.
+- Added a source regression check that rejects direct static equipment
+  descriptions outside locale JSON.
 - Added a browser layout regression scenario that reveals both combat panels and
   verifies their rendered rectangles do not overlap.
 - Added a regression check that locks the Moon Bloom area-size update to the
@@ -42,6 +46,11 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Incremented the game to v474 for hover-description positioning and equipment
+  localization fixes.
+- Moved 83 remaining static weapon, armor, and shield descriptions, including
+  eight formatted bonus labels, from JavaScript into synchronized English and
+  Turkish locale keys.
 - Incremented the game to v473 for the combat-panel positioning fix.
 - Replaced duplicate combat-panel IDs with explicit player/enemy identities and a
   shared styling class.
@@ -74,6 +83,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Fixed hover descriptions being anchored over the character panel because
+  unitless CSS coordinates were rejected in standards mode.
+- Made hover descriptions account for UI scaling, follow the pointer, and flip
+  away from viewport edges without overflowing the visible screen.
 - Fixed the enemy panel falling back to the player's top-left position in HTML5
   standards mode by adding pixel units to its coordinates.
 - Fixed the Moon Bloom area leave handler by changing its randomized size update

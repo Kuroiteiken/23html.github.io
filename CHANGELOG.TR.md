@@ -10,6 +10,10 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Normal konumda ve ekran kenarlarında imleci izleyen hover açıklamaları için
+  tarayıcı regresyon kapsamı eklendi.
+- Dil JSON'u dışında doğrudan statik ekipman açıklamalarını reddeden kaynak
+  regresyon kontrolü eklendi.
 - İki savaş panelini görünür yapıp render edilmiş dikdörtgenlerinin çakışmadığını
   doğrulayan tarayıcı yerleşim regresyon senaryosu eklendi.
 - Moon Bloom alan boyutu güncellemesini düzeltilmiş çıkarma davranışına sabitleyen
@@ -44,6 +48,11 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Hover açıklaması konumlandırma ve ekipman yerelleştirme düzeltmeleri için oyun
+  v474'e yükseltildi.
+- Kalan 83 statik silah, zırh ve kalkan açıklaması ile biçimlendirilmiş sekiz
+  bonus etiketi JavaScript'ten eşlenmiş İngilizce ve Türkçe dil anahtarlarına
+  taşındı.
 - Savaş paneli konumlandırma düzeltmesi için oyun v473'e yükseltildi.
 - Yinelenen savaş paneli kimlikleri açık oyuncu/düşman kimlikleri ve ortak stil
   sınıfıyla değiştirildi.
@@ -78,6 +87,10 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Standards mode'da birimsiz CSS koordinatları reddedildiği için karakter
+  panosunun üzerinde sabitlenen hover açıklamaları düzeltildi.
+- Hover açıklamalarının arayüz ölçeğini hesaba katması, imleci izlemesi ve görünür
+  ekranın dışına taşmadan kenarlardan ters yöne açılması sağlandı.
 - Düşman panelinin HTML5 standards mode'da oyuncunun sol üst konumuna düşmesi,
   koordinatlarına piksel birimi eklenerek düzeltildi.
 - Moon Bloom alanından ayrılma işleyicisindeki rastgele boyut güncellemesi

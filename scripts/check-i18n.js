@@ -152,6 +152,28 @@ if (missingKeys.length) {
   throw new Error(`Missing English locale keys: ${missingKeys.join(", ")}`);
 }
 
+const equipmentSource = fs.readFileSync(
+  path.join(root, "js", "data", "equipment.js"),
+  "utf8",
+);
+const localizedEquipmentDescriptions = [
+  ...equipmentSource.matchAll(
+    /i18n\.t\("(content\.(?:wpn|eqp|sld|acc)\.[^"]+\.(?:desc(?:_\d+)?|bonus))"\)/g,
+  ),
+].map((match) => match[1]);
+const untranslatedEquipmentDescriptions = [
+  ...new Set(localizedEquipmentDescriptions),
+].filter(
+  (key) =>
+    getPath(english, key) && getPath(english, key) === getPath(turkish, key),
+);
+
+if (untranslatedEquipmentDescriptions.length) {
+  throw new Error(
+    `Untranslated Turkish equipment descriptions: ${untranslatedEquipmentDescriptions.join(", ")}`,
+  );
+}
+
 console.log(
   `Validated ${manifest.locales.length} locale and ${referencedKeys.size} translation keys.`,
 );
