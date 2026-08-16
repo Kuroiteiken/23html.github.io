@@ -1154,6 +1154,7 @@ function make(rc, rp, times) {
         }
       }
       rc.onmake();
+      callback.onCraft.fire(rc);
     }
   }
   isort(global.sm);

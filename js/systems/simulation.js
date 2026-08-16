@@ -1167,6 +1167,7 @@ function lvlup(p, t) {
   }
   p.stat_r();
   update_d();
+  callback.onLevel.fire(p);
 }
 
 function giveExp(exp, r, g, b) {

@@ -220,6 +220,7 @@ function finishQst(q) {
     msg_add('"' + q.name + '"', "orange");
     q.rwd();
     global.stat.qstc++;
+    callback.onQuestComplete.fire(q);
   }
 }
 

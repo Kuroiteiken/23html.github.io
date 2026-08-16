@@ -10,6 +10,22 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added `showConfirmModal`, a shared confirmation dialog built on the native
+  `<dialog>` element and the existing `game-modal` styling, with Escape and
+  backdrop dismissal, focus restoration, and removal from the DOM on close.
+- Added the `onLevel`, `onEnterArea`, `onCraft`, and `onQuestComplete` hooks to
+  the existing `callbackManager` and gave it a variadic `fire`, so game systems
+  have subscription points without introducing a second dispatch mechanism.
+- Added the writing game version to the save payload and read it back into
+  `global.save_ver` on load, so future changes can migrate saves deliberately. A
+  save written by a newer build is now reported instead of silently
+  reinterpreted.
+- Added a page description, theme colour, and Open Graph tags to `index.html` so
+  a shared link renders as more than a bare title.
+- Added `docs/STORY.md` and `docs/STORY.TR.md` recording the quest chain, where
+  the story stops, and the finished content that cannot currently be reached.
+- Added three favicon proposals under `docs/favicon/`, drawn from the palette
+  already used by `css/game.css`.
 - Added browser regression coverage for message-log control bounds, hidden empty
   state indicators, theme scale preservation, localized missed-attack messages,
   and the styled save-deletion modal, including cancel, Escape, backdrop, focus,
@@ -144,6 +160,11 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Replaced the hand-positioned overlays behind the destroy and disassemble
+  confirmations with the shared modal. Both used unitless CSS values and a
+  hard-coded 1300px centre, so they rendered off-screen or with no size at all.
+- Moved the reference documentation into `docs/`, leaving the developer guide
+  and a root `AGENTS.md` pointer that agent tooling still discovers.
 - Clamped every resistance damage reduction through a shared `resistanceFactor`
   helper. Resistance skills scale linearly, so the previous `1 - use()`
   multipliers crossed zero and inverted: food-poison and corruption resistance

@@ -8,7 +8,8 @@
       "close": "Kapat",
       "unknown": "???????",
       "yesLowercase": "evet",
-      "noLowercase": "hayır"
+      "noLowercase": "hayır",
+      "cancel": "Vazgeç"
     },
     "navigation": {
       "actions": "Eylemler",
@@ -135,11 +136,15 @@
       },
       "delete": {
         "description": "<span style=\"color:cyan\">\"{item}\"</span> eşyasını kalıcı olarak siler",
-        "confirm": "\"{item}\" gerçekten yok edilsin mi?"
+        "confirm": "\"{item}\" gerçekten yok edilsin mi?",
+        "title": "Eşyayı yok et",
+        "confirmAction": "Yok et"
       },
       "disassemble": {
         "description": "<span style=\"color:cyan\">\"{item}\"</span> şu malzemelere sökülür:<br>{results}",
-        "confirmEquipped": "Şu anda \"<span style=\"color:crimson\">{item}</span>\" kuşanıyorsun.<br>Gerçekten sökülsün mü?"
+        "confirmEquipped": "Şu anda \"<span style=\"color:crimson\">{item}</span>\" kuşanıyorsun.<br>Gerçekten sökülsün mü?",
+        "title": "Eşyayı parçala",
+        "confirmAction": "Parçala"
       }
     },
     "cat": {

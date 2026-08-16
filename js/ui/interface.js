@@ -2873,6 +2873,75 @@ dom.sl_kill.innerHTML = i18n.t(
 dom.sl_kill.tabIndex = 0;
 dom.sl_kill.setAttribute("role", "button");
 
+// Shared confirmation dialog. Builds a native <dialog> using the same
+// `game-modal` styling as the save-deletion modal, so every confirmation in the
+// game is keyboard accessible, dismissable with Escape or a backdrop click, and
+// returns focus to whatever opened it. The dialog is removed from the DOM once
+// it closes, so callers can open one per interaction without leaking elements.
+let confirmModalCount = 0;
+
+function showConfirmModal({ title, message, confirmLabel, onConfirm }) {
+  confirmModalCount++;
+  const titleId = "confirm-modal-title-" + confirmModalCount;
+  const messageId = "confirm-modal-message-" + confirmModalCount;
+  const modal = addElement(document.body, "dialog", null, "game-modal");
+  modal.setAttribute("aria-labelledby", titleId);
+  modal.setAttribute("aria-describedby", messageId);
+  modal.setAttribute("aria-modal", "true");
+
+  const header = addElement(modal, "div", null, "game-modal__header");
+  const heading = addElement(header, "strong", titleId);
+  heading.textContent = title;
+  const body = addElement(modal, "p", messageId, "game-modal__message");
+  body.innerHTML = message;
+
+  const actions = addElement(modal, "div", null, "game-modal__actions");
+  const cancel = addElement(actions, "button", null, "game-modal__button");
+  cancel.type = "button";
+  cancel.textContent = i18n.t("ui.common.cancel");
+  const confirm = addElement(
+    actions,
+    "button",
+    null,
+    "game-modal__button game-modal__button--danger",
+  );
+  confirm.type = "button";
+  confirm.textContent = confirmLabel;
+
+  const restoreFocus = document.activeElement;
+  function close() {
+    if (modal.open) modal.close();
+  }
+  cancel.addEventListener("click", close);
+  confirm.addEventListener("click", () => {
+    close();
+    onConfirm();
+  });
+  modal.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    close();
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target !== modal) return;
+    const bounds = modal.getBoundingClientRect();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    )
+      close();
+  });
+  modal.addEventListener("close", () => {
+    modal.remove();
+    restoreFocus?.focus();
+  });
+
+  modal.showModal();
+  cancel.focus();
+  return modal;
+}
+
 dom.save_delete_modal = addElement(
   document.body,
   "dialog",
@@ -4929,6 +4998,7 @@ function renderSkl(skl) {
 
 function area_init(area) {
   if (area.size !== 0) {
+    callback.onEnterArea.fire(area);
     if (area.id !== 101) {
       const rnd = random();
       for (const obj in area.pop)
@@ -5732,71 +5802,16 @@ function renderItem(obj) {
       );
       dom.inv_del.addEventListener("click", () => {
         if (obj.data.uid === you.eqp[obj.slot - 1].data.uid) {
-          const prm = addElement(document.body, "div");
-          prm.style.backgroundColor = "grey";
-          prm.style.width = document.body.clientWidth;
-          prm.style.height = document.body.clientHeight;
-          prm.style.position = "absolute";
-          prm.style.left = 0;
-          prm.style.top = 0;
-          prm.style.opacity = 0.4;
-          const prm2 = addElement(document.body, "div");
-          prm2.style.position = "absolute";
-          prm2.style.top = document.body.clientHeight / 2 - 40;
-          prm2.style.left = 1300 / 2 - 195;
-          prm2.style.width = 390;
-          prm2.style.height = 80;
-          prm2.style.border = "4px black solid";
-          prm2.style.padding = 5;
-          prm2.style.backgroundColor = "lightgrey";
-          const pin = addElement(prm2, "div");
-          pin.style.height = 32;
-          pin.innerHTML = i18n.t("ui.inventory.delete.confirm", {
-            item: obj.name,
-          });
-          pin.style.textAlign = "center";
-          pin.style.width = "100%";
-          pin.style.borderBottom = "2px solid black";
-          pin.style.paddingTop = 10;
-          const pcon = addElement(prm2, "div");
-          pcon.style.display = "flex";
-          pcon.style.textAlign = "center";
-          pcon.style.backgroundColor = "darkgrey";
-          const phai = addElement(pcon, "div");
-          phai.style.width = "50%";
-          phai.innerHTML = i18n.t(
-            "runtime.ui.interface.interface.yes_8fff0398",
-          );
-          phai.style.paddingTop = 9;
-          phai.style.paddingBottom = 9;
-          const piie = addElement(pcon, "div");
-          piie.style.width = "50%";
-          piie.innerHTML = i18n.t("runtime.ui.interface.interface.no_a0509b77");
-          piie.style.paddingTop = 9;
-          piie.style.paddingBottom = 9;
-          phai.addEventListener("mouseenter", function () {
-            this.style.backgroundColor = "#666";
-          });
-          piie.addEventListener("mouseenter", function () {
-            this.style.backgroundColor = "#666";
-          });
-          phai.addEventListener("mouseleave", function () {
-            this.style.backgroundColor = "darkgrey";
-          });
-          piie.addEventListener("mouseleave", function () {
-            this.style.backgroundColor = "darkgrey";
-          });
-          phai.addEventListener("click", () => {
-            giveSkExp(skl.rccln, 2 ** obj.rar * 5 - 9.5);
-            giveSkExp(skl.thr, 0.5);
-            global.stat.thrt++;
-            removeItem(obj);
-            document.body.removeChild(prm);
-            document.body.removeChild(prm2);
-          });
-          piie.addEventListener("click", () => {
-            document.body.removeChild(prm);
-            document.body.removeChild(prm2);
+          showConfirmModal({
+            title: i18n.t("ui.inventory.delete.title"),
+            message: i18n.t("ui.inventory.delete.confirm", { item: obj.name }),
+            confirmLabel: i18n.t("ui.inventory.delete.confirmAction"),
+            onConfirm: () => {
+              giveSkExp(skl.rccln, 2 ** obj.rar * 5 - 9.5);
+              giveSkExp(skl.thr, 0.5);
+              global.stat.thrt++;
+              removeItem(obj);
+            },
           });
         } else {
           giveSkExp(skl.rccln, 2 ** obj.rar * 5 - 9.5);
@@ -5893,68 +5908,13 @@ function renderItem(obj) {
       );
       dom.inv_dss.addEventListener("click", () => {
         if (obj.slot && obj.data.uid === you.eqp[obj.slot - 1].data.uid) {
-          const prm = addElement(document.body, "div");
-          prm.style.backgroundColor = "grey";
-          prm.style.width = document.body.clientWidth;
-          prm.style.height = document.body.clientHeight;
-          prm.style.position = "absolute";
-          prm.style.left = 0;
-          prm.style.top = 0;
-          prm.style.opacity = 0.4;
-          const prm2 = addElement(document.body, "div");
-          prm2.style.position = "absolute";
-          prm2.style.top = document.body.clientHeight / 2 - 40;
-          prm2.style.left = 1300 / 2 - 195;
-          prm2.style.width = 390;
-          prm2.style.height = 90;
-          prm2.style.border = "4px black solid";
-          prm2.style.padding = 5;
-          prm2.style.backgroundColor = "lightgrey";
-          const pin = addElement(prm2, "div");
-          pin.style.height = 42;
-          pin.innerHTML = i18n.t("ui.inventory.disassemble.confirmEquipped", {
-            item: obj.name,
-          });
-          pin.style.textAlign = "center";
-          pin.style.width = "100%";
-          pin.style.borderBottom = "2px solid black";
-          pin.style.paddingTop = 10;
-          const pcon = addElement(prm2, "div");
-          pcon.style.display = "flex";
-          pcon.style.textAlign = "center";
-          pcon.style.backgroundColor = "darkgrey";
-          const phai = addElement(pcon, "div");
-          phai.style.width = "50%";
-          phai.innerHTML = i18n.t(
-            "runtime.ui.interface.interface.yes_8fff0398",
-          );
-          phai.style.paddingTop = 9;
-          phai.style.paddingBottom = 9;
-          const piie = addElement(pcon, "div");
-          piie.style.width = "50%";
-          piie.innerHTML = i18n.t("runtime.ui.interface.interface.no_a0509b77");
-          piie.style.paddingTop = 9;
-          piie.style.paddingBottom = 9;
-          phai.addEventListener("mouseenter", function () {
-            this.style.backgroundColor = "#666";
-          });
-          piie.addEventListener("mouseenter", function () {
-            this.style.backgroundColor = "#666";
-          });
-          phai.addEventListener("mouseleave", function () {
-            this.style.backgroundColor = "darkgrey";
-          });
-          piie.addEventListener("mouseleave", function () {
-            this.style.backgroundColor = "darkgrey";
-          });
-          phai.addEventListener("click", () => {
-            disassembleGeneric(obj);
-            document.body.removeChild(prm);
-            document.body.removeChild(prm2);
-          });
-          piie.addEventListener("click", () => {
-            document.body.removeChild(prm);
-            document.body.removeChild(prm2);
+          showConfirmModal({
+            title: i18n.t("ui.inventory.disassemble.title"),
+            message: i18n.t("ui.inventory.disassemble.confirmEquipped", {
+              item: obj.name,
+            }),
+            confirmLabel: i18n.t("ui.inventory.disassemble.confirmAction"),
+            onConfirm: () => disassembleGeneric(obj),
           });
         } else disassembleGeneric(obj);
       });

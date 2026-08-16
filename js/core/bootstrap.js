@@ -446,7 +446,11 @@ function save(lvr) {
   let nindxat = 0;
   for (const obj in item)
     if (item[obj].data.finished === true) datare[nindxat++] = item[obj].id;
+  // `a1` is a JSON object rather than a positional segment, so new fields are
+  // safe to add: an older save simply yields undefined for them.
+  global.stat.lastver = global.ver;
   const a1 = {
+    v: global.ver,
     uid: global.uid,
     jj: global.stat,
     x: global.current_z.id,
@@ -712,7 +716,7 @@ function load(dt) {
     global.flags.loadstate = true;
     for (const a in callback)
       for (let b = callback[a].hooks.length - 1; b >= 0; b--)
-        if (callback[a].hooks[b].data.q) callback[a].hooks.splice(b, 1);
+        if (callback[a].hooks[b].data?.q) callback[a].hooks.splice(b, 1);
     for (const obj in item) {
       item[obj].amount = 0;
       item[obj].have = false;
@@ -821,6 +825,14 @@ function load(dt) {
     global.spirits = a1.f;
     global.lst_loc = a1.i;
     global.uid = a1.uid;
+    // Which build wrote this save. Saves from before the field was added report
+    // 0. A save from a newer build than the running game is reported rather
+    // than silently reinterpreted, since its fields may not mean the same thing.
+    global.save_ver = a1.v || 0;
+    if (global.save_ver > global.ver)
+      console.warn(
+        `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
+      );
     global.msgs_max = a1.g;
     global.flags = {};
     global.sinv = [];

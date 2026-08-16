@@ -10,6 +10,22 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Yerel `<dialog>` öğesi ve mevcut `game-modal` stili üzerine kurulu ortak onay
+  diyaloğu `showConfirmModal` eklendi; Escape ve arka plana tıklayarak kapanma,
+  odak geri yükleme ve kapanışta DOM'dan silinme içeriyor.
+- Mevcut `callbackManager` yapısına `onLevel`, `onEnterArea`, `onCraft` ve
+  `onQuestComplete` kancaları eklendi ve değişken argümanlı bir `fire` verildi;
+  böylece oyun sistemleri ikinci bir dağıtım mekanizması kurmadan abone olabiliyor.
+- Kaydı yazan oyun sürümü kayıt içeriğine eklendi ve yüklemede
+  `global.save_ver` değerine okunuyor; böylece ileride kayıtlar bilinçli olarak
+  taşınabilir. Daha yeni bir sürümün yazdığı kayıt artık sessizce yorumlanmak
+  yerine bildiriliyor.
+- `index.html` dosyasına sayfa açıklaması, tema rengi ve Open Graph etiketleri
+  eklendi; paylaşılan bağlantı artık yalın bir başlıktan fazlasını gösteriyor.
+- Görev zincirini, hikayenin nerede durduğunu ve şu anda erişilemeyen tamamlanmış
+  içeriği kaydeden `docs/STORY.md` ve `docs/STORY.TR.md` eklendi.
+- `css/game.css` içinde zaten kullanılan paletten türetilmiş üç favicon önerisi
+  `docs/favicon/` altına eklendi.
 - Mesaj günlüğü kontrol sınırları, boş durum göstergelerinin gizlenmesi, tema
   ölçeğinin korunması, çevrilmiş ıskalama mesajları ve stilli kayıt silme modalı
   için tarayıcı regresyon kapsamı eklendi. Modal kapsamında vazgeçme, Escape, arka
@@ -153,6 +169,12 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Yok etme ve parçalama onaylarının arkasındaki elle konumlandırılmış katmanlar
+  ortak modalla değiştirildi. İkisi de birimsiz CSS değerleri ve sabit 1300
+  piksellik bir merkez kullanıyordu, bu yüzden ekran dışında veya hiç boyutsuz
+  çiziliyorlardı.
+- Referans dokümantasyon `docs/` altına taşındı; kökte geliştirici rehberi ve
+  ajan araçlarının bulmaya devam ettiği bir `AGENTS.md` yönlendirmesi kaldı.
 - Tüm direnç hasar azaltmaları ortak bir `resistanceFactor` yardımcısıyla
   sınırlandırıldı. Direnç becerileri doğrusal ölçeklendiği için önceki
   `1 - use()` çarpanları sıfırı geçip işaret değiştiriyordu: yiyecek zehri ve

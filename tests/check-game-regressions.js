@@ -422,3 +422,81 @@ if (
 
 console.log("Validated save, load, callback, and death-penalty regressions.");
 console.log("Validated clamped resistance damage reductions.");
+
+const sharedConfirmModal = [
+  /function showConfirmModal\(\{ title, message, confirmLabel, onConfirm \}\)/,
+  /addElement\(document\.body, "dialog", null, "game-modal"\)/,
+  /modal\.showModal\(\)/,
+  /modal\.addEventListener\("cancel"/,
+  /modal\.addEventListener\("close"/,
+  /i18n\.t\("ui\.inventory\.delete\.confirmAction"\)/,
+  /i18n\.t\("ui\.inventory\.disassemble\.confirmAction"\)/,
+];
+
+if (
+  !sharedConfirmModal.every((pattern) => pattern.test(interfaceSource)) ||
+  /style\.width = document\.body\.clientWidth/.test(interfaceSource) ||
+  /1300 \/ 2 - 195/.test(interfaceSource)
+) {
+  throw new Error(
+    "Confirmation regression: item destroy and disassemble must use the shared accessible modal, not hand-positioned unitless overlays.",
+  );
+}
+
+const callbackHooks = [
+  /callback\.onDeath = new callbackManager\(1\)/,
+  /callback\.onLevel = new callbackManager\(2\)/,
+  /callback\.onEnterArea = new callbackManager\(3\)/,
+  /callback\.onCraft = new callbackManager\(4\)/,
+  /callback\.onQuestComplete = new callbackManager\(5\)/,
+  /this\.fire = function \(\.\.\.args\)/,
+];
+const questSource = fs.readFileSync(
+  path.join(root, "js", "data", "quests.js"),
+  "utf8",
+);
+const craftingSource = fs.readFileSync(
+  path.join(root, "js", "systems", "crafting.js"),
+  "utf8",
+);
+
+if (
+  !callbackHooks.every((pattern) => pattern.test(titlesSource)) ||
+  !/callback\.onQuestComplete\.fire\(q\)/.test(questSource) ||
+  !/callback\.onCraft\.fire\(rc\)/.test(craftingSource) ||
+  !/callback\.onLevel\.fire\(p\)/.test(simulationSource) ||
+  !/callback\.onEnterArea\.fire\(area\)/.test(interfaceSource)
+) {
+  throw new Error(
+    "Callback regression: the shared dispatcher must expose the death, level, area, craft, and quest hooks and fire each of them.",
+  );
+}
+
+if (
+  !/v: global\.ver,/.test(bootstrapSource) ||
+  !/global\.save_ver = a1\.v \|\| 0;/.test(bootstrapSource) ||
+  !/global\.stat\.lastver = global\.ver;/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Save regression: the writing game version must be recorded in the save and read back on load.",
+  );
+}
+
+const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const sharingMetadata = [
+  /<meta\s+name="description"/,
+  /<meta\s+name="theme-color" content="#002840" \/>/,
+  /<meta\s+property="og:title" content="Proto23" \/>/,
+  /<meta\s+property="og:description"/,
+  /<meta\s+name="twitter:card"/,
+];
+
+if (!sharingMetadata.every((pattern) => pattern.test(indexHtml))) {
+  throw new Error(
+    "Metadata regression: index.html must carry a description, theme colour, and Open Graph tags for shared links.",
+  );
+}
+
+console.log(
+  "Validated the shared confirmation modal, callback hooks, save version, and sharing metadata.",
+);

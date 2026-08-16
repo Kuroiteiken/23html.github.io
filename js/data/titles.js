@@ -660,14 +660,24 @@ weather.thunder.ontick = function () {
 
 function callbackManager(id) {
   this.id = id || 0;
-  this.hooks = [{ f(victim, killer) {}, id: 0, data: {} }];
-  this.fire = function () {};
+  this.hooks = [];
+  this.fire = function (...args) {
+    // Iterate a copy: a hook may detach itself, or another hook, while the
+    // event is still being delivered.
+    const hooks = this.hooks.slice();
+    for (let a = 0; a < hooks.length; a++) hooks[a].f(...args);
+  };
 }
 
-callback.onDeath = new callbackManager(1);
-callback.onDeath.fire = function (victim, killer) {
-  for (const a in this.hooks) this.hooks[a].f(victim, killer);
-};
+// Event hooks the rest of the game subscribes to through attachCallback. A hook
+// is `{ f, id, data }`; a hook whose `data.q` is true is owned by a quest and is
+// cleared before a save is restored. Add a hook here rather than introducing a
+// second dispatch mechanism alongside this one.
+callback.onDeath = new callbackManager(1); // (victim, killer)
+callback.onLevel = new callbackManager(2); // (who)
+callback.onEnterArea = new callbackManager(3); // (area)
+callback.onCraft = new callbackManager(4); // (recipe)
+callback.onQuestComplete = new callbackManager(5); // (quest)
 
 function attachCallback(callback, what, data) {
   callback.hooks.push(what);

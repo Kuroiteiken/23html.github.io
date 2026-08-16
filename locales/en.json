@@ -8,7 +8,8 @@
       "close": "Close",
       "unknown": "???????",
       "yesLowercase": "yes",
-      "noLowercase": "no"
+      "noLowercase": "no",
+      "cancel": "Cancel"
     },
     "navigation": {
       "actions": "actions",
@@ -135,11 +136,15 @@
       },
       "delete": {
         "description": "Deletes <span style=\"color:cyan\">\"{item}\"</span> permanently",
-        "confirm": "Really destroy \"{item}\"?"
+        "confirm": "Really destroy \"{item}\"?",
+        "title": "Destroy item",
+        "confirmAction": "Destroy"
       },
       "disassemble": {
         "description": "Deconstruct <span style=\"color:cyan\">\"{item}\"</span> into:<br>{results}",
-        "confirmEquipped": "You are currently wearing \"<span style=\"color:crimson\">{item}</span>\"<br>Really deconstruct?"
+        "confirmEquipped": "You are currently wearing \"<span style=\"color:crimson\">{item}</span>\"<br>Really deconstruct?",
+        "title": "Disassemble item",
+        "confirmAction": "Disassemble"
       }
     },
     "cat": {
