@@ -2162,6 +2162,79 @@ function rstcrtthg() {
   for (const a in global.spbtsr) global.spbtsr[a].style.color = "inherit";
 }
 
+// The background is a display preference rather than part of a run, so it is
+// stored under its own key like the language is. Keeping it only inside the
+// save meant the choice survived a reload only if the player happened to save
+// afterwards.
+const themeStorageKey = "proto23.theme";
+
+function applyBackground() {
+  if (global.flags.bgspc) {
+    document.body.style.background = "linear-gradient(180deg,#000,#123)";
+    const special = i18n.t("runtime.ui.interface.interface.spcl_a4cfc73e");
+    dom.ct_bt4_31b.innerHTML = special;
+    dom.ct_bt4_32b.innerHTML = special;
+    dom.ct_bt4_33b.innerHTML = special;
+  } else {
+    document.body.style.background = "";
+    document.body.style.backgroundColor =
+      "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
+    dom.ct_bt4_31b.innerHTML = global.bg_r;
+    dom.ct_bt4_32b.innerHTML = global.bg_g;
+    dom.ct_bt4_33b.innerHTML = global.bg_b;
+  }
+  dom.ct_bt4_21b.value = global.bg_r;
+  dom.ct_bt4_22b.value = global.bg_g;
+  dom.ct_bt4_23b.value = global.bg_b;
+}
+
+function storeBackground() {
+  try {
+    window.localStorage.setItem(
+      themeStorageKey,
+      JSON.stringify({
+        r: Number(global.bg_r),
+        g: Number(global.bg_g),
+        b: Number(global.bg_b),
+        special: global.flags.bgspc === true,
+      }),
+    );
+  } catch (err) {
+    // Storing the preference is best effort; storage may be unavailable.
+  }
+}
+
+function setBackground(r, g, b, special) {
+  global.flags.bgspc = special === true;
+  if (!global.flags.bgspc) {
+    global.bg_r = r;
+    global.bg_g = g;
+    global.bg_b = b;
+  }
+  applyBackground();
+  storeBackground();
+}
+
+// Returns whether a stored preference was found, so callers can fall back to
+// whatever the save carried for players who never changed the background.
+function restoreBackgroundPreference() {
+  let stored = null;
+  try {
+    stored = JSON.parse(window.localStorage.getItem(themeStorageKey));
+  } catch (err) {
+    stored = null;
+  }
+  if (!stored) return false;
+  global.flags.bgspc = stored.special === true;
+  if (!global.flags.bgspc) {
+    global.bg_r = stored.r;
+    global.bg_g = stored.g;
+    global.bg_b = stored.b;
+  }
+  applyBackground();
+  return true;
+}
+
 dom.ct_bt4_2 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_2a = addElement(dom.ct_bt4_2, "div", null, "opt_t");
 dom.ct_bt4_2a.innerHTML = i18n.t("ui.settings.backgroundColor");
@@ -2173,12 +2246,7 @@ dom.ct_bt4_21b.max = 255;
 dom.ct_bt4_21b.style.width = "85px";
 dom.ct_bt4_21b.style.height = "16px";
 dom.ct_bt4_21b.addEventListener("input", function () {
-  document.body.style.background = "";
-  global.flags.bgspc = false;
-  global.bg_r = this.value;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
-  dom.ct_bt4_31b.innerHTML = global.bg_r;
+  setBackground(this.value, global.bg_g, global.bg_b, false);
 });
 dom.ct_bt4_22b = addElement(dom.ct_bt4_2, "input", null, "opt_v");
 dom.ct_bt4_22b.value = global.bg_g;
@@ -2190,12 +2258,7 @@ dom.ct_bt4_22b.max = 255;
 dom.ct_bt4_22b.style.width = "85px";
 dom.ct_bt4_22b.style.left = "367px";
 dom.ct_bt4_22b.addEventListener("input", function () {
-  document.body.style.background = "";
-  global.flags.bgspc = false;
-  global.bg_g = this.value;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
-  dom.ct_bt4_32b.innerHTML = global.bg_g;
+  setBackground(global.bg_r, this.value, global.bg_b, false);
 });
 dom.ct_bt4_23b = addElement(dom.ct_bt4_2, "input", null, "opt_v");
 dom.ct_bt4_23b.value = global.bg_b;
@@ -2207,12 +2270,7 @@ dom.ct_bt4_23b.max = 255;
 dom.ct_bt4_23b.style.width = "85px";
 dom.ct_bt4_23b.style.left = "459px";
 dom.ct_bt4_23b.addEventListener("input", function () {
-  document.body.style.background = "";
-  global.flags.bgspc = false;
-  global.bg_b = this.value;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
-  dom.ct_bt4_33b.innerHTML = global.bg_b;
+  setBackground(global.bg_r, global.bg_g, this.value, false);
 });
 
 dom.ct_bt4_3 = addElement(dom.ctrwin4, "div", null, "opt_c");
@@ -2278,63 +2336,21 @@ dom.ct_bt4_03b3.style.color = "yellow";
 dom.ct_bt4_03b3.style.backgroundColor = "rgb(18,18,46)";
 dom.ct_bt4_03b4.style.background = "linear-gradient(180deg,#000,#123)";
 dom.ct_bt4_03b1.addEventListener("click", function () {
-  global.flags.bgspc = false;
-  global.bg_r = 255;
-  global.bg_g = 255;
-  global.bg_b = 255;
-  document.body.style.background = "";
-  dom.ct_bt4_31b.innerHTML = 255;
-  dom.ct_bt4_32b.innerHTML = 255;
-  dom.ct_bt4_33b.innerHTML = 255;
-  dom.ct_bt4_21b.value = global.bg_r;
-  dom.ct_bt4_22b.value = global.bg_g;
-  dom.ct_bt4_23b.value = global.bg_b;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
+  setBackground(255, 255, 255, false);
 });
 dom.ct_bt4_03b2.addEventListener("click", function () {
-  global.flags.bgspc = false;
-  global.bg_r = 188;
-  global.bg_g = 188;
-  global.bg_b = 188;
-  document.body.style.background = "";
-  dom.ct_bt4_31b.innerHTML = 188;
-  dom.ct_bt4_32b.innerHTML = 188;
-  dom.ct_bt4_33b.innerHTML = 188;
-  dom.ct_bt4_21b.value = global.bg_r;
-  dom.ct_bt4_22b.value = global.bg_g;
-  dom.ct_bt4_23b.value = global.bg_b;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
+  setBackground(188, 188, 188, false);
 });
 dom.ct_bt4_03b3.addEventListener("click", function () {
-  global.flags.bgspc = false;
-  global.bg_r = 18;
-  global.bg_g = 18;
-  global.bg_b = 46;
-  document.body.style.background = "";
-  dom.ct_bt4_31b.innerHTML = 18;
-  dom.ct_bt4_32b.innerHTML = 18;
-  dom.ct_bt4_33b.innerHTML = 46;
-  dom.ct_bt4_21b.value = global.bg_r;
-  dom.ct_bt4_22b.value = global.bg_g;
-  dom.ct_bt4_23b.value = global.bg_b;
-  document.body.style.backgroundColor =
-    "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
+  setBackground(18, 18, 46, false);
 });
 dom.ct_bt4_03b4.addEventListener("click", function () {
-  global.flags.bgspc = true;
-  dom.ct_bt4_31b.innerHTML = i18n.t(
-    "runtime.ui.interface.interface.spcl_a4cfc73e",
-  );
-  dom.ct_bt4_32b.innerHTML = i18n.t(
-    "runtime.ui.interface.interface.spcl_a4cfc73e",
-  );
-  dom.ct_bt4_33b.innerHTML = i18n.t(
-    "runtime.ui.interface.interface.spcl_a4cfc73e",
-  );
-  document.body.style.background = "linear-gradient(180deg,#000,#123)";
+  setBackground(global.bg_r, global.bg_g, global.bg_b, true);
 });
+
+// Apply the stored preference now that every control exists. With no stored
+// preference the values carried by the save are used instead.
+restoreBackgroundPreference();
 
 dom.ct_bt4_4 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_4a = addElement(dom.ct_bt4_4, "div", null, "opt_t");

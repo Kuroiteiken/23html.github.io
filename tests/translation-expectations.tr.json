@@ -75,7 +75,7 @@
   "runtime.world.locations.dialogue.bed_rest_summary": "Vakit geçirmek için ne güzel bir yol{extra}",
   "runtime.data.creatures.interface.default_name": "Hiçbir şey",
   "runtime.data.creatures.interface.default_description": "Boş alan",
-  "ui.hud.rank": "rütbe: {rank}",
+  "ui.hud.rank": "Rütbe: {rank}",
   "ui.save.lastSave": "Son kayıt: {date}",
   "runtime.ui.interface.dialogue.item_acquired": "Eşya alındı: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
   "runtime.data.creatures.dialogue.died": "{name} öldü",

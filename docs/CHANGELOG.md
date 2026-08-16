@@ -160,6 +160,18 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Moved the background preference into its own `proto23.theme` storage key and
+  routed every preset and slider through a shared `setBackground` helper. The
+  preference previously lived only in the save payload, so it was remembered
+  only if the player saved after changing it, and the numeric readouts were
+  never resynchronized on load. A stored preference now outranks the value the
+  save carries.
+- Closed the changelog tab when returning to the game instead of navigating,
+  which used to open a second copy of the game whose autosave competed with the
+  first. A changelog opened directly by the player keeps the plain link.
+- Gave the settings rows vertical padding and centred their controls.
+- Synchronized `tests/translation-expectations.tr.json` with the reviewed
+  capitalization of the HUD labels.
 - Added `px` units to 104 style assignments that passed bare numbers. A unitless
   CSS length is invalid and is discarded silently, so each of these declarations
   had no effect. This single class of defect caused the invisible destroy

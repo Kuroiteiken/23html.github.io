@@ -169,6 +169,17 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Arka plan tercihi kendi `proto23.theme` anahtarına taşındı ve tüm hazır
+  ayarlar ile sürgüler ortak bir `setBackground` yardımcısından geçirildi. Tercih
+  önceden yalnızca kayıt içeriğinde duruyordu, bu yüzden ancak değişiklikten
+  sonra kaydedilirse hatırlanıyordu; sayısal göstergeler de yüklemede hiç
+  eşitlenmiyordu. Saklanan tercih artık kaydın taşıdığı değerin önüne geçiyor.
+- Changelog'dan oyuna dönerken sayfaya gitmek yerine sekme kapatılıyor; önceki
+  davranış, otomatik kaydı birbiriyle yarışan ikinci bir oyun kopyası açıyordu.
+  Oyuncunun doğrudan açtığı changelog düz bağlantıyı koruyor.
+- Ayar satırlarına dikey boşluk verildi ve kontroller dikeyde ortalandı.
+- `tests/translation-expectations.tr.json`, HUD etiketlerinin gözden geçirilmiş
+  büyük harf kullanımıyla eşitlendi.
 - Çıplak sayı atayan 104 stil satırına `px` birimi eklendi. Birimsiz bir CSS
   uzunluğu geçersizdir ve sessizce atılır, yani bu tanımların hiçbiri işe
   yaramıyordu. Görünmeyen yok etme onayı, ürün adının üstüne binen market

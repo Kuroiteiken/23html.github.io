@@ -76,13 +76,13 @@
       "unreadable": "Kayıtlı oyunun okunamadı, bu yüzden yeni bir oyun başlatıldı. Okunamayan kayıt yedek olarak saklandı ve üzerine yazılmadı."
     },
     "hud": {
-      "levelTitle": " sv:{level} '{title}'",
+      "levelTitle": " Sv:{level} '{title}'",
       "criticalChance": "Kritik şansı: %{chance}",
       "defense": "DEF: {value}",
-      "health": "can: {current}/{max}",
-      "experience": "tp: {current}/{max}",
-      "energy": "enerji: {current}/{max} verim: %{efficiency}",
-      "rank": "rütbe: {rank}",
+      "health": "Can: {current}/{max}",
+      "experience": "TP: {current}/{max}",
+      "energy": "Enerji: {current}/{max} verim: %{efficiency}",
+      "rank": "Rütbe: {rank}",
       "area": "Alan: {area} / {remaining}",
       "stat": "{stat}: {value}",
       "hitAndDodgeChance": "isabet şansı: {hit} / kaçınma şansı: {dodge}{modifier}",

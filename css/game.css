@@ -222,13 +222,15 @@ input:focus {
   color: cadetblue;
 }
 .opt_c {
-  padding-bottom: 2px;
   display: flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 0 5px;
   border-bottom: 1px solid lightslategray;
   background-color: rgb(10 30 54);
 }
 .opt_t {
-  padding-left: 4px;
+  padding-left: 8px;
 }
 .opt_v {
   border: none;

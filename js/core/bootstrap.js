@@ -905,9 +905,6 @@ function load(dt) {
         [0, 0],
       ];
     if (global.stat.msks === 0) global.stat.msks = [0, 0, 0, 0, 0, 0, 0];
-    dom.ct_bt4_21b.value = global.bg_r;
-    dom.ct_bt4_22b.value = global.bg_g;
-    dom.ct_bt4_23b.value = global.bg_b;
     global.stat.wsnburst = 50;
     dom.ctrwin4.style.display = "none";
     dom.ctrwin2.style.display = "none";
@@ -1257,11 +1254,9 @@ function load(dt) {
     addToContainer(home.trunk, item.bonig);
     global.flags.stbxinifld = true;
   }
-  if (global.flags.bgspc)
-    document.body.style.background = "linear-gradient(180deg,#000,#123)";
-  else
-    document.body.style.backgroundColor =
-      "rgb(" + global.bg_r + "," + global.bg_g + "," + global.bg_b + ")";
+  // A stored background preference outranks whatever the save carried, since it
+  // is the more recent explicit choice; without one, apply the save's values.
+  if (!restoreBackgroundPreference()) applyBackground();
   if (dom.bkssttbd) {
     empty(dom.bkssttbd);
     document.body.removeChild(dom.bkssttbd);
