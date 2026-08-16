@@ -1,0 +1,43 @@
+{
+  "name": "proto23",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.js && node scripts/build-site.js",
+    "build:game": "node scripts/build.js",
+    "check": "node --check js/game.js && eslint js scripts && stylelint css/game.css",
+    "format": "prettier --write css js scripts index.html \"*.md\" eslint.config.js package.json .github/workflows"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard"
+    ],
+    "rules": {
+      "color-function-notation": "modern",
+      "font-family-no-missing-generic-family-keyword": null,
+      "no-descending-specificity": null,
+      "property-no-vendor-prefix": null,
+      "rule-empty-line-before": null,
+      "selector-class-pattern": null,
+      "selector-id-pattern": null,
+      "selector-pseudo-element-no-unknown": [
+        true,
+        {
+          "ignorePseudoElements": [
+            "-webkit-scrollbar",
+            "-webkit-scrollbar-track",
+            "-webkit-scrollbar-thumb"
+          ]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "eslint": "^10.8.1",
+    "prettier": "^3.9.6",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
