@@ -1,0 +1,16 @@
+# Prettier writes LF and every check in `npm run check` reads the working tree,
+# so the working tree is kept on LF as well. Without this, a Windows clone with
+# core.autocrlf=true converts files to CRLF on checkout, which makes Git warn on
+# every `git add` and leaves the checkout disagreeing with the formatter.
+* text=auto eol=lf
+
+# Assets must never be line-ending normalized.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.wav binary
+*.mp3 binary
+*.woff binary
+*.woff2 binary
