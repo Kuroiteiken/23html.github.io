@@ -115,7 +115,8 @@
       "owned": "owned: <span style=\"color:{color}\">{state}</span>",
       "perishable": "<span style=\"color:orange\">perishable</span>",
       "talentEffect": "<small style=\"color:cyan\">talent effect<br></small><br><small style=\"color:darkorange\">{effect}</small>",
-      "perkLevel": "lvl {level}:<span style=\"color:yellow\"> {perk} </span>"
+      "perkLevel": "lvl {level}:<span style=\"color:yellow\"> {perk} </span>",
+      "durability": "Durability"
     },
     "crafting": {
       "repeatable": {

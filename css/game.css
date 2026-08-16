@@ -512,16 +512,36 @@ input:focus {
 }
 #dr_l {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   bottom: 0;
-  right: 66px;
+  right: 6px;
   padding-bottom: 5px;
-  width: 30%;
+  max-width: 64%;
+}
+.durability-label {
+  color: rgb(188 254 254);
+  white-space: nowrap;
+}
+.durability-track {
+  display: inline-block;
+  position: relative;
+  width: 54px;
+  height: 8px;
+  border: 1px solid #44c;
+  background: #0b1c30;
 }
 #dp_m {
-  display: inline;
+  display: block;
   position: absolute;
-  height: 6px;
-  margin-top: 3px;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.durability-value {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 #ainfo {
   position: absolute;
@@ -830,51 +850,38 @@ input:focus {
   flex: 0 0 42px;
 }
 
-/* The panel is a column: filter bar, scrolling item list, sort bar. The list is
-   the only part that scrolls, so a long inventory can no longer grow behind the
-   sort bar the way it did while that bar was positioned absolutely over a list
-   whose percentage height had no definite parent to resolve against. */
 #inv {
-  display: flex;
-  flex-direction: column;
   color: rgb(188 254 254);
   width: 330px;
   height: 430px;
   border: solid 3px black;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
   position: absolute;
-  overflow: hidden;
+  overflow: auto;
   resize: vertical;
   top: 337px;
 }
-#inv_body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 0;
-}
-#inv_ctx_b {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 0;
-}
 #inv_control {
   display: flex;
-  flex: none;
   border-bottom: solid 2px grey;
 }
 #inv_control_b {
+  position: absolute;
   display: flex;
-  flex: none;
   width: 100%;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
+  bottom: 7px;
 }
+
+/* The sort bar below is positioned over the list, so the list reserves room for
+   it. Without this the last rows of a long inventory sit underneath the bar and
+   cannot be read. */
 #inv_con {
-  flex: 1;
-  min-height: 0;
   overflow: auto;
+  height: 86%;
   position: relative;
+  box-sizing: border-box;
+  padding-bottom: 26px;
 }
 #eq_w {
   background-color: rgb(22 52 104);

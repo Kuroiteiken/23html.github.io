@@ -115,7 +115,8 @@
       "owned": "sahip olunan: <span style=\"color:{color}\">{state}</span>",
       "perishable": "<span style=\"color:orange\">bozulabilir</span>",
       "talentEffect": "<small style=\"color:cyan\">yetenek etkisi<br></small><br><small style=\"color:darkorange\">{effect}</small>",
-      "perkLevel": "sv {level}:<span style=\"color:yellow\"> {perk} </span>"
+      "perkLevel": "sv {level}:<span style=\"color:yellow\"> {perk} </span>",
+      "durability": "Dayanıklılık"
     },
     "crafting": {
       "repeatable": {
@@ -2965,27 +2966,27 @@
         "desc": "İçinde bilgi olan küçük bir kağıt parçası. Bazı şeyleri hatırlamak için kendin yazdın."
       },
       "skl1": {
-        "name": "Talebe Beceri Kitabı (Kılıçlar)",
+        "name": "Talebe Beceri Kitabı (Kılıç Ustalığı)",
         "desc": "Kılıç dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Kılıç Ustalığı DP kazanımı +5%</span>"
       },
       "skl2": {
-        "name": "Talebe Beceri Kitabı (Bıçaklar)",
+        "name": "Talebe Beceri Kitabı (Bıçak Ustalığı)",
         "desc": "Bıçak dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Bıçak Ustalığı DP kazanımı +5%</span>"
       },
       "skl3": {
-        "name": "Talebe Beceri Kitabı (Baltalar)",
+        "name": "Talebe Beceri Kitabı (Balta Ustalığı)",
         "desc": "Balta dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Balta Ustalığı DP kazanımı +5%</span>"
       },
       "skl4": {
-        "name": "Talebe Beceri Kitabı (Mızraklar)",
+        "name": "Talebe Beceri Kitabı (Sırıklı Silah Ustalığı)",
         "desc": "Sırıklı silah dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Sırıklı Silah Ustalığı DP kazanımı +5%</span>"
       },
       "skl5": {
-        "name": "Talebe Beceri Kitabı (Çekiçler)",
+        "name": "Talebe Beceri Kitabı (Çekiç Ustalığı)",
         "desc": "Çekiç dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Çekiç Ustalığı DP kazanımı +5%</span>"
       },
       "skl6": {
-        "name": "Talebe Beceri Kitabı (Dövüş)",
+        "name": "Talebe Beceri Kitabı (Silahsız Dövüş Ustalığı)",
         "desc": "Silahsız dövüş hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Silahsız Dövüş Ustalığı DP kazanımı +5%</span>"
       },
       "bstr": {

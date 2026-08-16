@@ -3363,19 +3363,21 @@ function dscr(c, what, type, ttl, dsc, id) {
         });
 
       if (what.slot < 8) {
+        // Label, gauge, and number sit side by side. The number used to be
+        // rendered inside the coloured fill bar, where it was unreadable at the
+        // yellow and green levels and drifted as the bar shortened.
         this.dp_c = addElement(global.dscr, "div", "dr_l");
-        this.dp_t = addElement(this.dp_c, "small");
-        this.dp_t.innerHTML = i18n.t(
-          "runtime.ui.interface.interface.dp_b5001e05",
+        this.dp_t = addElement(this.dp_c, "small", null, "durability-label");
+        this.dp_t.innerHTML = i18n.t("ui.itemDescription.durability");
+        this.dp_track = addElement(
+          this.dp_c,
+          "small",
+          null,
+          "durability-track",
         );
-        this.dp_m = addElement(this.dp_c, "small", "dp_m");
-        this.dp_mn = addElement(this.dp_m, "small");
+        this.dp_m = addElement(this.dp_track, "small", "dp_m");
+        this.dp_mn = addElement(this.dp_c, "small", null, "durability-value");
         this.dp_mn.innerHTML = ((what.dp * 10) << 0) / 10 + "\/" + what.dpmax;
-        this.dp_mn.style.textShadow = "1px 1px black"; //this.dp_mn.style.backgroundColor='rgba(102, 51, 153,.8)';
-        this.dp_mn.style.position = "inherit";
-        this.dp_mn.style.top = "-4px"; //this.dp_mn.style.border='1px black solid';
-        this.dp_mn.style.padding = "1px";
-        this.dp_mn.style.left = "35%";
         const dp = (what.dp * 100) / what.dpmax;
         this.dp_m.style.width = dp + "%";
         if (dp >= 90) this.dp_m.style.backgroundColor = "royalblue";

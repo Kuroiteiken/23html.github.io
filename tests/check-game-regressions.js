@@ -591,20 +591,13 @@ if (
   );
 }
 
-const inventoryLayout = [
-  /#inv \{[^}]*display: flex;[^}]*flex-direction: column;/s,
-  /#inv_body \{[^}]*flex: 1;[^}]*min-height: 0;/s,
-  /#inv_ctx_b \{[^}]*flex: 1;[^}]*min-height: 0;/s,
-  /#inv_con \{[^}]*flex: 1;[^}]*min-height: 0;[^}]*overflow: auto;/s,
-];
-
 if (
-  !inventoryLayout.every((pattern) => pattern.test(gameCss)) ||
-  /#inv_control_b \{[^}]*position: absolute;/s.test(gameCss) ||
-  !/addElement\(dom\.inv_ctx, "div", "inv_body"\)/.test(interfaceSource)
+  !/#inv_con \{[^}]*box-sizing: border-box;[^}]*padding-bottom: 26px;/s.test(
+    gameCss,
+  )
 ) {
   throw new Error(
-    "Inventory regression: the item list must occupy the space between the filter and sort bars instead of growing behind an absolutely positioned bar.",
+    "Inventory regression: the item list must reserve room for the sort bar that sits over it, or its last rows become unreadable.",
   );
 }
 

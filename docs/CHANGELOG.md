@@ -166,10 +166,15 @@ changes. Player-facing game content and release notes belong in
   without clearing the first, and the load path only ever ticked the checkbox
   on. There is now one `restartAutosave` helper, a Settings row for the
   interval, and a default of 15 seconds.
-- Rebuilt the inventory panel as a flex column. `#inv_ctx_b` had no rule at all,
-  so `#inv_con`'s `height: 86%` had no definite parent to resolve against and a
-  long item list grew behind the absolutely positioned sort bar. The list now
-  occupies exactly the space between the filter and sort bars.
+- Reserved room below the inventory list for the sort bar positioned over it, so
+  the last rows of a long inventory are no longer hidden underneath it.
+- Rebuilt the durability readout as a label, a gauge, and a number placed beside
+  each other. The number was rendered inside the coloured fill bar, where it was
+  unreadable against the yellow and green levels and drifted as the bar
+  shortened. The label moved from the machine-extracted `runtime.*` abbreviation
+  "DP" to a translated `ui.itemDescription.durability`.
+- Renamed the student skill books after the masteries they teach, so an item and
+  its skill panel entry use the same words.
 - Corrected the Turkish for "Shady Kid", which used the shadow sense of the word
   rather than the suspicious one. "The Shaded Path" keeps the shadow sense,
   which is correct there.

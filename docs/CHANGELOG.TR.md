@@ -175,11 +175,15 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   öncekini temizlemeden ikinci bir zamanlayıcı kuruyor ve yükleme yolu kutuyu
   yalnızca işaretliyordu. Artık tek bir `restartAutosave` yardımcısı, ayarlarda
   bir aralık satırı ve 15 saniyelik bir varsayılan var.
-- Envanter paneli esnek sütun olarak yeniden kuruldu. `#inv_ctx_b` için hiç kural
-  yoktu, bu yüzden `#inv_con` üzerindeki `height: 86%` çözülecek kesin bir üst
-  yükseklik bulamıyordu ve uzun bir eşya listesi, mutlak konumlanmış sıralama
-  çubuğunun arkasına doğru büyüyordu. Liste artık filtre ve sıralama çubukları
-  arasındaki alanı birebir kaplıyor.
+- Envanter listesinin altında, üzerine konumlanan sıralama çubuğu için yer
+  ayrıldı; uzun bir envanterin son satırları artık çubuğun altında kalmıyor.
+- Dayanıklılık göstergesi etiket, ölçek ve sayı yan yana gelecek şekilde yeniden
+  kuruldu. Sayı, renkli dolgu çubuğunun içine çiziliyordu; sarı ve yeşil
+  seviyelerde okunmuyor ve çubuk kısaldıkça kayıyordu. Etiket, makine tarafından
+  çıkarılmış `runtime.*` kısaltması "DP" yerine çevrilmiş
+  `ui.itemDescription.durability` anahtarına taşındı.
+- Talebe beceri kitapları, öğrettikleri ustalıkların adıyla yeniden adlandırıldı;
+  böylece bir eşya ile beceri panelindeki karşılığı aynı kelimeleri kullanıyor.
 - "Shady Kid" ifadesinin Türkçesi düzeltildi; kelimenin gölge anlamı yerine
   şüpheli anlamı kullanılmalıydı. "Gölgeli Yol" ise gölge anlamını koruyor,
   orada doğru olan bu.
