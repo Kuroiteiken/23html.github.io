@@ -10,6 +10,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added a regression check that locks the Moon Bloom area-size update to the
+  corrected subtraction behavior.
 - Added structural regression validation for the responsive HTML changelog and
   its project-path-safe navigation.
 - Added delayed-asset, cached-profile reload, malformed-save recovery, version
@@ -38,6 +40,7 @@ changes. Player-facing game content and release notes belong in
 
 ### Changed
 
+- Incremented the game to v472 for the Moon Bloom bug fix.
 - Redesigned `changelog/changelog.html` as a responsive, accessible release-card
   timeline with clearer version, date, warning, and navigation hierarchy.
 - Incremented the game to v471 and documented when fixes, features, and additions
@@ -66,6 +69,8 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Fixed the Moon Bloom area leave handler by changing its randomized size update
+  from `rand(5) + 20` to `rand(5) - 20`.
 - Added a visible localized recovery message when save decoding fails before the
   legacy loader can create its own error panel.
 - Prevented the loading overlay from remaining indefinitely when a legacy or

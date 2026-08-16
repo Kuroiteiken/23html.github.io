@@ -4,6 +4,15 @@ const path = require("path");
 const { execFile } = require("child_process");
 const { createSiteServer } = require("./serve");
 
+const gameVersion = Number(
+  fs
+    .readFileSync(
+      path.resolve(__dirname, "..", "js", "core", "bootstrap.js"),
+      "utf8",
+    )
+    .match(/global\.ver\s*=\s*(\d+);/)[1],
+);
+
 const candidates = [
   process.env.CHROME_PATH,
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -68,7 +77,7 @@ function assertCommonStartup(stdout, port) {
   if (!stdout.includes('id="ctrmg"')) {
     throw new Error("The game interface did not initialize.");
   }
-  if (!stdout.includes(">v471</a>")) {
+  if (!stdout.includes(`>v${gameVersion}</a>`)) {
     throw new Error("The expected game version was not rendered.");
   }
   if (

@@ -10,6 +10,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- Moon Bloom alan boyutu güncellemesini düzeltilmiş çıkarma davranışına sabitleyen
+  regresyon kontrolü eklendi.
 - Responsive HTML changelog yapısı ve proje-alt-yoluna uyumlu navigasyonu için
   yapısal regresyon doğrulaması eklendi.
 - Geciken asset, önbellekli profil yenileme, bozuk kayıt kurtarma, sürüm
@@ -40,6 +42,7 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Değiştirilenler
 
+- Moon Bloom hata düzeltmesi için oyun v472'ye yükseltildi.
 - `changelog/changelog.html`; sürüm, tarih, uyarı ve navigasyon hiyerarşisi daha
   belirgin olan responsive ve erişilebilir sürüm kartları zaman çizelgesi olarak
   yeniden tasarlandı.
@@ -70,6 +73,8 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Moon Bloom alanından ayrılma işleyicisindeki rastgele boyut güncellemesi
+  `rand(5) + 20` yerine `rand(5) - 20` kullanacak şekilde düzeltildi.
 - Kayıt çözümleme işlemi eski yükleyicinin kendi hata panelini oluşturmasından
   önce başarısız olduğunda gösterilen yerelleştirilmiş kurtarma mesajı eklendi.
 - Eski veya hatalı oyun kaydı başlangıç sırasında hata verdiğinde yükleme

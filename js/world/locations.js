@@ -1289,7 +1289,7 @@ chss.frstn1a4.onEnter = function () {
   if (area.frstn1a4.size > 0) area_init(area.frstn1a4);
 };
 chss.frstn1a4.onLeave = function () {
-  area.frstn1a4.size = rand(5) + 20;
+  area.frstn1a4.size = rand(5) - 20;
 };
 chss.frstn1a4.data = {
   scoutm: 600,
