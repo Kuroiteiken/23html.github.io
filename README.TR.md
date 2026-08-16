@@ -67,6 +67,10 @@ ekranından değiştirilebilir ve oyun kayıtlarından bağımsız olarak saklan
 doğrulaması, kayıtlı her dilin İngilizce anahtar yapısını, değişken yer tutucuları
 ve HTML biçimlendirme parçalarını eksiksiz korumasını zorunlu tutar.
 
+Bir dili doğrudan test etmek veya paylaşmak için `?lang=tr` gibi `lang` sorgu
+parametresini kullanın. Geçerli sorgu seçimi o sayfa yüklemesinde uygulanır;
+Ayarlar üzerinden yapılan değişiklik kalıcı tercih olarak saklanır.
+
 Almanca gibi başka bir dil eklemek için:
 
 1. `locales/en.json` dosyasını `locales/de.json` olarak kopyalayın ve anahtarları
@@ -88,6 +92,9 @@ Başka bir dilde eksik kalan anahtarlar İngilizceye geri döner.
 tarafından build edilir, kontrol edilir ve `dist/` klasörü yayınlanır. Repository
 ayarlarında bir kez **Pages → Build and deployment → Source → GitHub Actions**
 seçilmelidir.
+
+Deployment build'i CSS, JavaScript ve dil isteklerine içerik özeti ekler; böylece
+yeni sürüm, eski sürümden önbellekte kalan dosyalarla karışarak askıda kalmaz.
 
 Bakımı yapılan yayın
 [`https://kuroiteiken.github.io/23html.github.io/`](https://kuroiteiken.github.io/23html.github.io/)

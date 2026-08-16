@@ -291,7 +291,13 @@ function scheduleGameViewportFit() {
 
 function startGame() {
   fitGameToViewport();
-  load();
+  try {
+    load();
+  } catch (error) {
+    console.error("The saved game could not be loaded.", error);
+    if (dom.error) dom.error.style.opacity = 1;
+    clearLoadingScreen();
+  }
   scheduleGameViewportFit();
 }
 
@@ -560,6 +566,7 @@ function save(lvr) {
 }
 
 dom.loading = addElement(document.body, "div");
+dom.loading.id = "loading-overlay";
 dom.loading.style.zIndex = 9997;
 dom.loading.style.width = "100%";
 dom.loading.style.height = "100%";
@@ -567,6 +574,7 @@ dom.loading.style.position = "absolute";
 dom.loading.style.backgroundColor = "lightgrey";
 dom.loading.style.margin = -8;
 dom.loadingt = addElement(document.body, "div");
+dom.loadingt.id = "loading-text";
 dom.loadingt.style.zIndex = 9998;
 dom.loadingt.innerHTML = i18n.t(
   "runtime.core.bootstrap.interface.loading_bb8af242",
@@ -1210,6 +1218,10 @@ function load(dt) {
   if (skl.pet.lvl >= 10) giveTitle(ttl.pet3);
   if (item.amrthsck.data.finished) giveRcp(rcp.appljc);
   ////////////////
+  clearLoadingScreen();
+}
+
+function clearLoadingScreen() {
   if (dom.loading) {
     fade(dom.loading, 5, true);
     delete dom.loading;

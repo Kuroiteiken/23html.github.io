@@ -34,7 +34,8 @@ ardından bu çeviriyi eşitleyin.
 1. Düzenlemeyi üretilen dosyada değil ilgili kaynak dosyada yapın.
 2. Oyuncuya veya geliştiriciye dönük değişikliği doğru changelog'a ekleyin.
 3. İngilizce Markdown dosyalarıyla `.TR.md` çevirilerini eşit tutun.
-4. `npm run format` çalıştırın.
+4. `changelog/changelog.html` dahil desteklenen tüm repository dosyalarını
+   Prettier ile biçimlendirmek için `npm run format` çalıştırın.
 5. `npm run build` ile bundle ve `dist/` çıktısını yeniden üretin.
 6. `npm run check` çalıştırın.
 7. Chrome veya Chromium kullanılabiliyorsa `npm run test:browser` çalıştırın.
@@ -73,3 +74,5 @@ ardından bu çeviriyi eşitleyin.
 - Dahili bağlantılar hem alan adı kökünde hem GitHub Pages proje alt yolunda
   çalışmalıdır. `/changelog/...` gibi köke göre yolları sabit kodlamayın; belge
   tabanını dikkate alan veya göreli bir URL kullanın.
+- Tarayıcı önbelleğinin farklı sürümlere ait HTML, JavaScript, CSS ve dil
+  dosyalarını karıştırmaması için deployment asset sürümlemesini koruyun.

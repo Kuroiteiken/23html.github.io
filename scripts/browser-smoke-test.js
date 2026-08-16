@@ -30,7 +30,7 @@ server.listen(0, "127.0.0.1", () => {
     "--virtual-time-budget=4000",
     "--window-size=900,600",
     "--dump-dom",
-    `http://127.0.0.1:${port}/`,
+    `http://127.0.0.1:${port}/?lang=tr`,
   ];
 
   execFile(
@@ -52,8 +52,20 @@ server.listen(0, "127.0.0.1", () => {
       if (!stdout.includes('<option value="tr">Türkçe</option>')) {
         throw new Error("The Turkish language option was not rendered.");
       }
+      if (!stdout.includes('<html lang="tr"')) {
+        throw new Error("The Turkish locale was not loaded.");
+      }
+      if (!stdout.includes(">Ayarlar</div>")) {
+        throw new Error("The Turkish interface text was not rendered.");
+      }
       if (!stdout.includes('id="ctrmg"')) {
         throw new Error("The game interface did not initialize.");
+      }
+      if (
+        stdout.includes('id="loading-overlay"') ||
+        stdout.includes('id="loading-text"')
+      ) {
+        throw new Error("The loading screen did not clear after startup.");
       }
       const scaleMatch = stdout.match(/data-ui-scale="([\d.]+)"/);
       if (!scaleMatch || Number(scaleMatch[1]) >= 1) {

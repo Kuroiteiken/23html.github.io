@@ -10,6 +10,11 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Eklenenler
 
+- CSS, JavaScript ve dil dosyaları için deployment sırasında içerik özetiyle
+  sürümleme eklendi.
+- İsteğe bağlı `lang` sorgu parametresiyle doğrudan dil seçimi ve eksiksiz Türkçe
+  başlangıç için tarayıcı testi eklendi.
+- Oyun HTML changelog'u dahil repository genelinde Prettier kontrolü eklendi.
 - Arayüz, oyun içeriği, açıklamalar, diyaloglar ve çalışma zamanı mesajlarının
   tamamını kapsayan eksiksiz Türkçe dil dosyası eklendi.
 - Kayıtlı her İngilizce dışı dil için dil şeması ve biçimlendirme parçaları
@@ -47,6 +52,10 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### Düzeltilenler
 
+- Eski veya hatalı oyun kaydı başlangıç sırasında hata verdiğinde yükleme
+  katmanının süresiz olarak ekranda kalması engellendi.
+- Pages deployment sonrasında tarayıcının eski çalışma zamanı ve dil dosyalarını
+  yeni sürümle karıştırması engellendi.
 - Repository proje alt yolunda yayınlanan GitHub Pages dağıtımlarındaki oyun içi
   changelog bağlantısı düzeltildi.
 - Ayrılmış kaynaklardan tek bir tarayıcı bundle'ı üretilerek eski global

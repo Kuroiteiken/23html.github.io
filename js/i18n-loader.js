@@ -1,8 +1,15 @@
 (function bootstrapInternationalization() {
   const storageKey = "proto23.locale";
   const loaderUrl = new URL(document.currentScript.src, window.location.href);
+  const assetVersion = loaderUrl.searchParams.get("v");
   const localeRoot = new URL("../locales/", loaderUrl);
-  const gameBundleUrl = new URL("game.js", loaderUrl);
+
+  function versioned(url) {
+    if (assetVersion) url.searchParams.set("v", assetVersion);
+    return url;
+  }
+
+  const gameBundleUrl = versioned(new URL("game.js", loaderUrl));
 
   function getPath(source, path) {
     return path.split(".").reduce((value, key) => value?.[key], source);
@@ -33,7 +40,9 @@
   }
 
   async function start() {
-    const manifest = await getJson(new URL("manifest.json", localeRoot));
+    const manifest = await getJson(
+      versioned(new URL("manifest.json", localeRoot)),
+    );
     const defaultDefinition = manifest.locales.find(
       ({ code }) => code === manifest.defaultLocale,
     );
@@ -43,17 +52,23 @@
       );
     }
 
+    const requestedLocale = new URL(window.location.href).searchParams.get(
+      "lang",
+    );
     const storedLocale = window.localStorage.getItem(storageKey);
     const selectedDefinition =
+      manifest.locales.find(({ code }) => code === requestedLocale) ??
       manifest.locales.find(({ code }) => code === storedLocale) ??
       defaultDefinition;
     const fallbackMessages = await getJson(
-      new URL(defaultDefinition.file, localeRoot),
+      versioned(new URL(defaultDefinition.file, localeRoot)),
     );
     const selectedMessages =
       selectedDefinition.code === defaultDefinition.code
         ? fallbackMessages
-        : await getJson(new URL(selectedDefinition.file, localeRoot));
+        : await getJson(
+            versioned(new URL(selectedDefinition.file, localeRoot)),
+          );
 
     window.i18n = {
       availableLocales: manifest.locales.map(({ code, name }) => ({

@@ -35,7 +35,8 @@ translation.
 1. Edit the relevant source file, never a generated output.
 2. Add player-facing or developer-facing changes to the correct changelog.
 3. Keep English Markdown files and their `.TR.md` translations synchronized.
-4. Run `npm run format`.
+4. Run `npm run format` so every supported repository file, including
+   `changelog/changelog.html`, is formatted with Prettier.
 5. Run `npm run build` to regenerate the bundle and `dist/` output.
 6. Run `npm run check`.
 7. Run `npm run test:browser` when Chrome or Chromium is available.
@@ -73,3 +74,5 @@ translation.
 - Internal links must work both at a domain root and below a GitHub Pages project
   path. Do not hard-code root-relative paths such as `/changelog/...`; use a
   document-base-aware URL or a relative URL.
+- Keep deploy asset versioning intact so HTML, JavaScript, CSS, and locale files
+  from different releases cannot be mixed by browser caches.

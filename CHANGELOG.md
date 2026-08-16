@@ -10,6 +10,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Added
 
+- Added deployment-time content hashes for CSS, JavaScript, and locale assets.
+- Added direct locale selection through the optional `lang` query parameter and
+  browser coverage for a complete Turkish startup.
+- Added repository-wide Prettier checking, including the game HTML changelog.
 - Added a complete Turkish locale containing the full interface, game content,
   descriptions, dialogue, and runtime message schema.
 - Added locale-schema and formatting-token validation for every registered
@@ -46,6 +50,10 @@ changes. Player-facing game content and release notes belong in
 
 ### Fixed
 
+- Prevented the loading overlay from remaining indefinitely when a legacy or
+  malformed saved game throws during startup.
+- Prevented browsers from mixing stale runtime and locale assets after a Pages
+  deployment.
 - Fixed the in-game changelog link on GitHub Pages deployments hosted below a
   repository project path.
 - Preserved legacy global function-hoisting behavior by generating a single

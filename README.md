@@ -67,6 +67,10 @@ independently from game saves. Locale validation requires every registered
 language to preserve the full English key structure, interpolation placeholders,
 and HTML formatting tokens.
 
+For testing or sharing a language directly, use the `lang` query parameter, such
+as `?lang=tr`. A valid query selection applies to that page load; changes made in
+Settings remain the persistent preference.
+
 To add another language such as German:
 
 1. Copy `locales/en.json` to `locales/de.json` and translate its values without
@@ -89,6 +93,10 @@ Changes pushed to `main` are built and validated by
 `.github/workflows/deploy-pages.yml`, which publishes the `dist/` directory. In
 the repository settings, select **Pages → Build and deployment → Source → GitHub
 Actions** once.
+
+The deployment build adds a content hash to CSS, JavaScript, and locale requests
+so a new release cannot become stuck by mixing cached assets from an older
+release.
 
 The maintained deployment is
 [`https://kuroiteiken.github.io/23html.github.io/`](https://kuroiteiken.github.io/23html.github.io/).
