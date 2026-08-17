@@ -671,6 +671,9 @@ const statMilestones = [
   { stat: "dmgrt", at: 5000, title: "tghs1" },
   { stat: "dmgrt", at: 50000, title: "tghs2" },
   { stat: "dmgrt", at: 500000, title: "tghs3" },
+  // Kills that finished from poison or bleeding rather than a blow. The counter was
+  // already kept in two places in effects.js; the title had no grant path.
+  { stat: "indkill", at: 50, title: "indkill" },
 ];
 
 function checkStatMilestones() {

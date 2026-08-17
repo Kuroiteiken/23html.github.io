@@ -195,6 +195,12 @@
       "questions": "AÇIK SORULAR",
       "unanswered": "— hâlâ cevapsız —",
       "nothingYet": "Henüz bir şey yazılmadı."
+    },
+    "statistics": {
+      "indirectKills": "Yaralardan ölenler",
+      "threatCleared": "Temizlenen tehdit",
+      "bloodSpilled": "Akan kan",
+      "shopStanding": "Esnaf itibarı"
     }
   },
   "gameText": {

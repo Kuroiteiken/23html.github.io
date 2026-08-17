@@ -1492,14 +1492,16 @@ dom.ct_bt6.addEventListener("click", function () {
         );
         dom.tcright.innerHTML = global.stat.medst;
       }
-      if (global.stat.potst > 0) {
+      // Potions are counted in `potnst`, which items.js increments in four places.
+      // This read `potst`, which nothing writes, so the row never appeared at all.
+      if (global.stat.potnst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
         dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
         dom.tcright = addElement(dom.tccon, "div", null, "sttr");
         dom.tcleft.innerHTML = i18n.t(
           "runtime.ui.interface.interface.potions_consumed_fa286d01",
         );
-        dom.tcright.innerHTML = global.stat.potst;
+        dom.tcright.innerHTML = global.stat.potnst;
       }
       if (global.stat.plst > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");
@@ -1763,6 +1765,34 @@ dom.ct_bt6.addEventListener("click", function () {
           (((br / HOUR) % 24) << 0) +
           ":" +
           (br % 60 < 10 ? "0" + (br % 60) : br % 60);
+      }
+      if (global.stat.indkill > 0) {
+        dom.tccon = addElement(dom.statbod, "small", null, "sttc");
+        dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
+        dom.tcright = addElement(dom.tccon, "div", null, "sttr");
+        dom.tcleft.innerHTML = i18n.t("ui.statistics.indirectKills");
+        dom.tcright.innerHTML = global.stat.indkill;
+      }
+      if (global.stat.pts > 0) {
+        dom.tccon = addElement(dom.statbod, "small", null, "sttc");
+        dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
+        dom.tcright = addElement(dom.tccon, "div", null, "sttr");
+        dom.tcleft.innerHTML = i18n.t("ui.statistics.threatCleared");
+        dom.tcright.innerHTML = formatw(global.stat.pts);
+      }
+      if (global.stat.bloodt > 0) {
+        dom.tccon = addElement(dom.statbod, "small", null, "sttc");
+        dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
+        dom.tcright = addElement(dom.tccon, "div", null, "sttr");
+        dom.tcleft.innerHTML = i18n.t("ui.statistics.bloodSpilled");
+        dom.tcright.innerHTML = Math.round(global.stat.bloodt * 100) / 100;
+      }
+      if (global.stat.shppnt > 0) {
+        dom.tccon = addElement(dom.statbod, "small", null, "sttc");
+        dom.tcleft = addElement(dom.tccon, "div", null, "sttl");
+        dom.tcright = addElement(dom.tccon, "div", null, "sttr");
+        dom.tcleft.innerHTML = i18n.t("ui.statistics.shopStanding");
+        dom.tcright.innerHTML = Math.round(global.stat.shppnt * 10) / 10;
       }
       if (global.stat.popt > 0) {
         dom.tccon = addElement(dom.statbod, "small", null, "sttc");

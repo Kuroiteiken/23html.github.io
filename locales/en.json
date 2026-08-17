@@ -195,6 +195,12 @@
       "questions": "OPEN QUESTIONS",
       "unanswered": "— still unanswered —",
       "nothingYet": "Nothing written down yet."
+    },
+    "statistics": {
+      "indirectKills": "Killed by wounds",
+      "threatCleared": "Threat cleared",
+      "bloodSpilled": "Blood spilled",
+      "shopStanding": "Shop standing"
     }
   },
   "gameText": {
