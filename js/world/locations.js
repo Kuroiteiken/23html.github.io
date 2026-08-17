@@ -2753,6 +2753,36 @@ chss.fdwrg1qt.sl = () => {
     ),
     true,
   );
+  // He is a hook for later story work rather than a quest giver, so pressing
+  // him only ever earns patience, and backing off is what the game rewards.
+  chs(
+    i18n.t("runtime.world.locations.dialogue.nervous_guy_ask"),
+    false,
+  ).addEventListener("click", () => {
+    msg(
+      select(
+        i18n.get(
+          "runtime.world.locations.dialogue.nervous_guy_brushoff_messages",
+        ),
+      ),
+      "lightgrey",
+    );
+    giveSkExp(skl.ptnc, 1);
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.nervous_guy_leave_alone"),
+    false,
+  ).addEventListener("click", () => {
+    if (!global.flags.fdwrgkind) {
+      global.flags.fdwrgkind = true;
+      you.karma++;
+      msg(
+        i18n.t("runtime.world.locations.dialogue.nervous_guy_kindness"),
+        "lime",
+      );
+    }
+    smove(chss.mrktvg1, false);
+  });
   chs(
     i18n.t("runtime.world.locations.dialogue.walk_away_10f56939"),
     false,

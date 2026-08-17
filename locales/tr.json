@@ -95,7 +95,9 @@
         "agl": "ÇEV",
         "int": "ZEK",
         "spd": "HIZ",
-        "luck": "ŞANS"
+        "luck": "ŞANS",
+        "hp": "CAN",
+        "sat": "TOKLUK"
       }
     },
     "statDescriptions": {
@@ -171,8 +173,7 @@
     },
     "mastery": {
       "effects": "Etkiler:",
-      "current": "Şu an:",
-      "statLine": "GÜÇ +{str}  |  CAN +{hp}  |  TOKLUK +{sat}"
+      "current": "Şu an:"
     }
   },
   "gameText": {
@@ -4318,7 +4319,8 @@
         "desc": "Bedensel yapıda basit iyileştirmeler"
       },
       "agl1": {
-        "name": "Atletizm"
+        "name": "Atletizm",
+        "desc": "Dengeyi, ayak işini ve tepki süresini keskinleştiren çalışmalar"
       },
       "xtr1": {
         "name": "Gözlem"
@@ -5242,7 +5244,7 @@
           "lookout_guard_work_s_done_for_today_you_b11ed2ce": "Gözcü: Bugünlük iş bitti, görevini layıkıyla yaptın, maaşını aldın, al. Çıkış yaptıktan sonra doğrudan eve gitmeniz tavsiye edilir.",
           "a_passerby_dropped_a_coin_sweet_fbb80e82": "Yoldan geçen biri bozuk para düşürdü. Tatlı!",
           "marketplace_stalls_e2ed2335": "Pazaryeri, Tezgahlar",
-          "nervous_guy_argh_what_am_i_gonna_do_128a87bb": "\"<span style=\"color:cyan\">Sinirli Adam:</span> Ahhh, şimdi ne yapacağım! Bu nasıl... Uh? Üzgünüm, şu anda konuşamam, lütfen beni rahat bırak. Ahh kahretsin...\"<div style=\"color: darkgrey\">Adam daha sonra huzursuzluk içinde kıpırdanmaya devam ediyor</div>",
+          "nervous_guy_argh_what_am_i_gonna_do_128a87bb": "\"<span style=\"color:cyan\">Gergin Adam:</span> Ahhh, şimdi ne yapacağım! Bu nasıl... Uh? Üzgünüm, şu anda konuşamam, lütfen beni rahat bırak. Ahh kahretsin...\"<div style=\"color: darkgrey\">Adam daha sonra huzursuzluk içinde kıpırdanmaya devam ediyor</div>",
           "walk_away_10f56939": "\"<= Uzaklaş\"",
           "marketplace_grocery_shop_aa1c7f40": "Pazar yeri, Bakkal",
           "purchase_20fc044d": "\"Satın al\"",
@@ -5410,7 +5412,15 @@
           "catacombs_eleven_wisemen_c3327aac": "Yeraltı Mezarları, On Bir Bilge Adam",
           "catacombs_the_end_of_journey_5607474f": "Yeraltı Mezarları, Yolculuğun Sonu",
           "leave_guard_post": "\"<= Nöbeti bırak\"",
-          "guard_post_abandoned": "Kapıdan uzaklaşıyorsun. Vardiya tamamlanmadığı için ödeme yok."
+          "guard_post_abandoned": "Kapıdan uzaklaşıyorsun. Vardiya tamamlanmadığı için ödeme yok.",
+          "nervous_guy_ask": "\"Ne olduğunu sor\"",
+          "nervous_guy_leave_alone": "\"Ona biraz alan tanı\"",
+          "nervous_guy_brushoff_messages": [
+            "<span style=\"color:cyan\">Gergin Adam:</span> Şimdi olmaz. Lütfen.",
+            "<span style=\"color:cyan\">Gergin Adam:</span> Beni rahat bırak dedim, değil mi?",
+            "<span style=\"color:cyan\">Gergin Adam:</span> ...Hâlâ buradasın. Peki. İlle de duracaksan dur."
+          ],
+          "nervous_guy_kindness": "Bir adım geri çekilip adamın nefes almasına izin veriyorsun. Sana teşekkür etmiyor ama omuzları biraz düşüyor."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

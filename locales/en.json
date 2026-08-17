@@ -95,7 +95,9 @@
         "agl": "AGL",
         "int": "INT",
         "spd": "SPD",
-        "luck": "LUCK"
+        "luck": "LUCK",
+        "hp": "HP",
+        "sat": "SAT"
       }
     },
     "statDescriptions": {
@@ -171,8 +173,7 @@
     },
     "mastery": {
       "effects": "Effects:",
-      "current": "Current:",
-      "statLine": "STR +{str}  |  HP +{hp}  |  SAT +{sat}"
+      "current": "Current:"
     }
   },
   "gameText": {
@@ -4318,7 +4319,8 @@
         "desc": "Simple improvements to body physique"
       },
       "agl1": {
-        "name": "Athletics"
+        "name": "Athletics",
+        "desc": "Drills that sharpen balance, footwork, and reaction"
       },
       "xtr1": {
         "name": "Observation"
@@ -5406,7 +5408,15 @@
           "catacombs_eleven_wisemen_c3327aac": "Catacombs, Eleven Wisemen",
           "catacombs_the_end_of_journey_5607474f": "Catacombs, The End Of Journey",
           "leave_guard_post": "\"<= Leave your post\"",
-          "guard_post_abandoned": "You walk away from the gate. The shift is not finished, so there is no pay."
+          "guard_post_abandoned": "You walk away from the gate. The shift is not finished, so there is no pay.",
+          "nervous_guy_ask": "\"Ask what happened\"",
+          "nervous_guy_leave_alone": "\"Give him some space\"",
+          "nervous_guy_brushoff_messages": [
+            "<span style=\"color:cyan\">Nervous Guy:</span> Not now. Please.",
+            "<span style=\"color:cyan\">Nervous Guy:</span> I said leave me be, didn't I?",
+            "<span style=\"color:cyan\">Nervous Guy:</span> ...You are still here. Fine. Stand there if you must."
+          ],
+          "nervous_guy_kindness": "You step back and let the man breathe. He does not thank you, but his shoulders drop a little."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

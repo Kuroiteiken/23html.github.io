@@ -125,10 +125,25 @@ function Mastery(id) {
   this.onlevel = function () {};
 }
 
-// Both masteries render the same shell: prose, the per-level effect, and the
-// player's current total. `mastery.agl1` shows `str1`'s numbers because its own
-// levelling has never been implemented; that is content work, not a wording
-// change, so the behaviour is kept as it is here. See docs/STORY.md.
+// Masteries render a shared shell: prose, the per-level effect, and the
+// player's current total. Stat lines are assembled from the HUD abbreviations
+// so a mastery can list whichever stats it actually grants, in the player's
+// language, instead of each one hardcoding its own line.
+// Spelled out rather than built by concatenation so tests/check-i18n.js can see
+// each key and verify it exists in every locale.
+const masteryStatLabels = {
+  str: i18n.t("ui.hud.abbr.str"),
+  agl: i18n.t("ui.hud.abbr.agl"),
+  hp: i18n.t("ui.hud.abbr.hp"),
+  sat: i18n.t("ui.hud.abbr.sat"),
+};
+
+function masteryStatLine(entries) {
+  return entries
+    .map(([stat, value]) => masteryStatLabels[stat] + " +" + value)
+    .join("  |  ");
+}
+
 function masteryDescription(prose, perLevel, current) {
   const heading =
     '<div style="color:cyan;background-color:midnightblue;font-size:small">';
@@ -138,28 +153,38 @@ function masteryDescription(prose, perLevel, current) {
     heading +
     i18n.t("ui.mastery.effects") +
     '</div><div style="color:yellow;background-color:#123;font-size:small"><br>' +
-    i18n.t("ui.mastery.statLine", perLevel) +
+    masteryStatLine(perLevel) +
     "<br><br></div>" +
     heading +
     i18n.t("ui.mastery.current") +
     '</div><div style="color:lime;background-color:#123;font-size:small"><br>' +
-    i18n.t("ui.mastery.statLine", current) +
+    masteryStatLine(current) +
     "<br><br></div>"
   );
 }
 
-function strengthMasteryTotals() {
-  const lvl = mastery.str1.data.lvl;
-  return { str: lvl * 0.5, hp: lvl * 5, sat: lvl };
+function masteryTotals(entry, perLevel) {
+  const lvl = entry.data.lvl;
+  return perLevel.map(([stat, value]) => [stat, value * lvl]);
 }
+
+const strengthPerLevel = [
+  ["str", 0.5],
+  ["hp", 5],
+  ["sat", 1],
+];
+const agilityPerLevel = [
+  ["agl", 0.5],
+  ["sat", 1],
+];
 
 mastery.str1 = new Mastery(1);
 mastery.str1.name = i18n.t("content.mastery.str1.name");
 mastery.str1.desc = function () {
   return masteryDescription(
     i18n.t("content.mastery.str1.desc"),
-    { str: 0.5, hp: 5, sat: 1 },
-    strengthMasteryTotals(),
+    strengthPerLevel,
+    masteryTotals(mastery.str1, strengthPerLevel),
   );
 };
 mastery.str1.have = true;
@@ -174,12 +199,16 @@ mastery.agl1 = new Mastery(2);
 mastery.agl1.name = i18n.t("content.mastery.agl1.name");
 mastery.agl1.desc = function () {
   return masteryDescription(
-    "",
-    { str: 0.5, hp: 5, sat: 1 },
-    strengthMasteryTotals(),
+    i18n.t("content.mastery.agl1.desc"),
+    agilityPerLevel,
+    masteryTotals(mastery.agl1, agilityPerLevel),
   );
 };
 mastery.agl1.have = true;
+mastery.agl1.onlevel = function () {
+  you.agla += 0.5;
+  you.sata += 1;
+};
 mastery.agl1.x = 230;
 mastery.agl1.limit = 10;
 mastery.agl1.icon = [7, 3];

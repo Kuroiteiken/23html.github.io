@@ -171,10 +171,18 @@ changes. Player-facing game content and release notes belong in
   "purchasing" and "do not buy"; the same shape appeared on the reward claim,
   the message board, and five other clickable choices. Five of them were also in
   the formal plural while the rest of the game uses the singular.
-- Extracted `masteryDescription`, since the strength and agility masteries
-  duplicated the same markup. Agility still shows strength's numbers because its
-  levelling was never implemented; that is content work and is recorded in
-  `docs/STORY.md` rather than silently changed here.
+- Extracted `masteryDescription` and `masteryStatLine`, since the strength and
+  agility masteries duplicated the same markup. A mastery now declares the stats
+  it grants and the line is assembled from the shared HUD abbreviations.
+- Implemented `mastery.agl1.onlevel`, which did not exist, so levelling the
+  agility mastery granted nothing. Its description also listed strength's
+  bonuses and read strength's level. It now grants AGL and SAT and describes
+  itself.
+- Gave the nervous man at the market stalls something to do. The scene had one
+  line and one exit; pressing him now trains Patience and backing off grants
+  karma once. He remains a hook for later story work rather than a quest giver.
+- Fixed the nervous man being called "Sinirli Adam" (irritable) in his own
+  dialogue while the choice that opens the scene calls him "Gergin Adam".
 - Derived game ticks from elapsed wall-clock time instead of counting callbacks.
   Browsers throttle background timers, and after a few minutes hidden drop them
   to roughly once a minute, so the world genuinely stopped rather than merely

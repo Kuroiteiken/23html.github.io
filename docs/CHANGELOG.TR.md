@@ -181,9 +181,17 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   tıklanabilir seçenekte daha vardı. Bunların beşi ayrıca, oyunun geri kalanı
   tekil kullanırken çoğul-nazik kipteydi.
 - Güç ve çeviklik ustalıkları aynı işaretlemeyi tekrarladığı için
-  `masteryDescription` çıkarıldı. Çeviklik hâlâ gücün sayılarını gösteriyor,
-  çünkü kendi seviye atlaması hiç yazılmamış; bu bir içerik işi ve sessizce
-  değiştirilmek yerine `docs/STORY.md` dosyasına kaydedildi.
+  `masteryDescription` ve `masteryStatLine` çıkarıldı. Bir ustalık artık
+  verdiği statları bildiriyor ve satır ortak HUD kısaltmalarından kuruluyor.
+- Var olmayan `mastery.agl1.onlevel` yazıldı; çeviklik ustalığı seviye
+  atladığında hiçbir şey vermiyordu. Açıklaması da gücün bonuslarını listeliyor
+  ve gücün seviyesini okuyordu. Artık ÇEV ve TOKLUK veriyor ve kendini anlatıyor.
+- Pazar tezgâhlarındaki gergin adama bir işlev verildi. Sahnenin tek bir satırı
+  ve tek bir çıkışı vardı; üstelemek artık Sabır becerisini geliştiriyor, geri
+  çekilmek ise bir kez karma kazandırıyor. Kendisi bir görev vereni değil,
+  ileriki hikâye çalışması için bir kanca olmayı sürdürüyor.
+- Gergin adamın kendi diyaloğunda "Sinirli Adam" olarak anılması düzeltildi;
+  sahneyi açan seçenek onu "Gergin Adam" diye adlandırıyordu.
 - Oyun tikleri, geri çağrım saymak yerine geçen gerçek süreden türetiliyor.
   Tarayıcılar arka plandaki zamanlayıcıları kısıtlıyor ve birkaç dakika sonra
   dakikada bire düşürüyor; bu yüzden dünya yalnızca daha seyrek çizilmiyor,
