@@ -4425,6 +4425,9 @@
       },
       "frstn10a1": {
         "name": "Southern forest hollow"
+      },
+      "cata1a": {
+        "name": "Upper catacombs"
       }
     }
   },
@@ -5474,7 +5477,18 @@
           "follow_the_trail_deeper": "Follow the trail deeper",
           "report_back_to_the_lodge": "Report back to the lodge",
           "ask_about_the_digging": "Ask about the digging",
-          "shopkeeper_digging_account": "Sleeping Old Man: The Head Hunter sent you. Him. After a month.<br><br>Under the floors, is what I have been saying. Not rats — rats scratch, and rats stop when you hit the wall. This digs, and it does not stop for anything. Mine started at the back of the cellar, where the old wall is. Then the family two doors down. Then the houses by the well.<br><br>And things go missing. Not food, which would at least make sense to me. Tools. A lantern. My wife's good knife. Whatever is taking them is not hungry, and that sits worse with me than if it were.<br><br>Ask at the market if you like. They will tell you I am a drunk. Then go and look at your own cellar wall, hunter. Look at it properly."
+          "shopkeeper_digging_account": "Sleeping Old Man: The Head Hunter sent you. Him. After a month.<br><br>Under the floors, is what I have been saying. Not rats — rats scratch, and rats stop when you hit the wall. This digs, and it does not stop for anything. Mine started at the back of the cellar, where the old wall is. Then the family two doors down. Then the houses by the well.<br><br>And things go missing. Not food, which would at least make sense to me. Tools. A lantern. My wife's good knife. Whatever is taking them is not hungry, and that sits worse with me than if it were.<br><br>Ask at the market if you like. They will tell you I am a drunk. Then go and look at your own cellar wall, hunter. Look at it properly.",
+          "ask_around_the_market": "Ask around the market",
+          "market_rumours": "The fishmonger laughs before you have finished the question. The old man has been on about his cellar since spring, and before that it was wolves in the grain store, and before that it was his wife's cousin taking from the till.<br><br>The woman at the next stall does not laugh. She says the well has been coming up cloudy for three weeks, and that nobody wants to discuss it because the alternative to drinking it is not drinking.<br><br>A carter tells you it is the old drainage settling. The village was built on top of something older, everyone knows this, and it means nothing.<br><br>Then a boy who has been listening the whole time says his father's chisels went missing out of a locked cellar, and that his father beat him for losing them, and asks you not to repeat it.",
+          "examine_the_old_wall": "Examine the old wall",
+          "basement_wall_examined": "The back of your cellar is older than the rest of the house. The courses run differently, and someone has patched it more than once with whatever was to hand.<br><br>Two of the stones near the floor sit proud of the others. Not fallen out — pushed. The mortar around them has gone to powder, and the powder is on your side of the wall.<br><br>You put your hand flat over the gap. The air coming through it is moving, and it is colder than the season, and it smells like the inside of a jar that has been shut a long time.<br><br>Something is on the other side of your wall, and it has been for a while.",
+          "report_what_is_under_the_village": "Report what is under the village",
+          "yamato_undercity_briefing": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: A locked cellar. Say that part again.<br><br>...No. I heard you. Tools out of a locked cellar, mortar pushed from the inside, and the well going cloudy. That is not something that wandered in off the woods and lost its way.<br><br>I owe the old man an apology, and he is not getting it, because he would enjoy it far too much.<br><br>Go down. I will not tell you to wait for me — by the time I have men, whatever is under your floor will have had another month at it. But hear this first: it is dark down there, and dark is not an inconvenience. It is how things like that hunt. You will not see well enough to swing straight, and you will not see them coming at all.<br><br>Buy candles. Every candle the general store has. And when your light goes out you turn around, whatever you happen to be standing next to. That is not advice, hunter. That is the whole of it.",
+          "break_through_the_wall": "Break through the wall",
+          "basement_wall_opened": "The two proud stones come out with the flat of a tool, and the rest comes away in your hands like wet bread. Behind them the gap runs back further than your arm, and then it stops being a gap and starts being a room.<br><br>The air rising out of it is old and still, and it moves anyway. Somewhere past where your light reaches, water is going where it has been going for a very long time.<br><br>Your candle will not last as long as you would like it to.",
+          "take_it_down": "Take it down",
+          "leave_it_standing": "Leave it standing",
+          "go_down_into_the_dark": "Go down into the dark"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

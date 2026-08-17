@@ -4425,6 +4425,9 @@
       },
       "frstn10a1": {
         "name": "Güney ormanı çukuru"
+      },
+      "cata1a": {
+        "name": "Üst katakomplar"
       }
     }
   },
@@ -5478,7 +5481,18 @@
           "follow_the_trail_deeper": "İzi daha derine takip et",
           "report_back_to_the_lodge": "Kulübeye dönüp haber ver",
           "ask_about_the_digging": "Kazma meselesini sor",
-          "shopkeeper_digging_account": "Uykulu Yaşlı Adam: Kelle Avcısı mı yolladı seni. O adam. Bir ay sonra.<br><br>Döşemelerin altında diyorum ben. Fare değil; fare kemirir ve duvara vurunca susar. Bu kazıyor ve hiçbir şey için durmuyor. Bende bodrumun arkasında, eski duvarın olduğu yerde başladı. Sonra iki kapı ötedeki ailede. Sonra kuyunun yanındaki evlerde.<br><br>Bir de eşyalar kayboluyor. Yiyecek değil, o hiç olmazsa bana anlaşılır gelirdi. Alet. Bir fener. Karımın iyi bıçağı. Onları alan şey aç değil ve bu bana, aç olmasından daha kötü geliyor.<br><br>İstersen pazarda sor. Sana ayyaşın teki derler. Sonra git kendi bodrum duvarına bak avcı. Adam gibi bak."
+          "shopkeeper_digging_account": "Uykulu Yaşlı Adam: Kelle Avcısı mı yolladı seni. O adam. Bir ay sonra.<br><br>Döşemelerin altında diyorum ben. Fare değil; fare kemirir ve duvara vurunca susar. Bu kazıyor ve hiçbir şey için durmuyor. Bende bodrumun arkasında, eski duvarın olduğu yerde başladı. Sonra iki kapı ötedeki ailede. Sonra kuyunun yanındaki evlerde.<br><br>Bir de eşyalar kayboluyor. Yiyecek değil, o hiç olmazsa bana anlaşılır gelirdi. Alet. Bir fener. Karımın iyi bıçağı. Onları alan şey aç değil ve bu bana, aç olmasından daha kötü geliyor.<br><br>İstersen pazarda sor. Sana ayyaşın teki derler. Sonra git kendi bodrum duvarına bak avcı. Adam gibi bak.",
+          "ask_around_the_market": "Pazarda etrafa sor",
+          "market_rumours": "Balıkçı, sen soruyu bitirmeden gülüyor. Yaşlı adam ilkbahardan beri bodrumunu anlatıyor; ondan önce tahıl ambarındaki kurtlardı, ondan önce de kasadan alan karısının kuzeni.<br><br>Yan tezgâhtaki kadın gülmüyor. Kuyunun üç haftadır bulanık geldiğini, kimsenin bunu konuşmak istemediğini, çünkü onu içmemenin karşılığının susuz kalmak olduğunu söylüyor.<br><br>Bir arabacı bunun eski su yollarının oturması olduğunu anlatıyor. Köy daha eski bir şeyin üstüne kurulmuş, bunu herkes bilir ve hiçbir anlama gelmez.<br><br>Sonra baştan beri dinleyen bir çocuk, babasının keskilerinin kilitli bir bodrumdan kaybolduğunu, babasının da onları kaybettiği için kendisini dövdüğünü söylüyor ve bunu kimseye anlatmamanı istiyor.",
+          "examine_the_old_wall": "Eski duvarı incele",
+          "basement_wall_examined": "Bodrumunun arka duvarı evin geri kalanından eski. Sıralar farklı gidiyor ve biri onu birden fazla kez, eline ne geçtiyse onunla yamamış.<br><br>Zeminin yakınındaki iki taş diğerlerinden dışarı taşıyor. Düşmemiş — itilmiş. Çevresindeki harç toz olmuş ve toz duvarın senin tarafında.<br><br>Elini aralığın üstüne yapıştırıyorsun. İçeriden gelen hava kımıldıyor, mevsimin izin vereceğinden soğuk ve uzun süre kapalı kalmış bir kavanozun içi gibi kokuyor.<br><br>Duvarının öte yanında bir şey var ve bir süredir orada.",
+          "report_what_is_under_the_village": "Köyün altındakini anlat",
+          "yamato_undercity_briefing": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Kilitli bir bodrum. Şu kısmı bir daha söyle.<br><br>...Hayır. Duydum. Kilitli bir bodrumdan alet, içeriden itilmiş harç, bulanan kuyu. Bu, ormandan sapıp yolunu kaybetmiş bir şey değil.<br><br>Yaşlı adama bir özür borçluyum ve o özrü almayacak, çünkü fazlasıyla keyif alırdı.<br><br>İn aşağı. Beni bekle demeyeceğim; ben adam toplayana kadar döşemenin altındaki şey bir ay daha kazmış olur. Ama gitmeden şunu duy: aşağısı karanlık ve karanlık bir zahmet değil. O tarz şeylerin avlanma biçimi. Ne düzgün vurabilecek kadar göreceksin, ne de onların geldiğini.<br><br>Mum al. Genel dükkânda ne kadar mum varsa al. Ve ışığın söndüğü an, yanında ne olursa olsun geri dön. Bu tavsiye değil avcı. İşin tamamı bu.",
+          "break_through_the_wall": "Duvarı kır",
+          "basement_wall_opened": "Dışarı taşan iki taş bir aletin yanıyla çıkıyor, gerisi ıslak ekmek gibi elinde kalıyor. Arkasındaki aralık kolundan daha derine gidiyor, sonra aralık olmayı bırakıp oda olmaya başlıyor.<br><br>İçinden yükselen hava eski ve durgun, buna rağmen kımıldıyor. Işığının ulaştığı yerin ötesinde bir yerde su, çok uzun zamandır gittiği yere gidiyor.<br><br>Mumun, isteyeceğin kadar dayanmayacak.",
+          "take_it_down": "Duvarı indir",
+          "leave_it_standing": "Duvarı yerinde bırak",
+          "go_down_into_the_dark": "Karanlığa in"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

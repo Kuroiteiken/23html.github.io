@@ -13,7 +13,7 @@ plan veya temenni değildir.
 
 ## Görev zinciri
 
-`js/data/quests.js` içinde altı görev tanımlı. Beşi erişilebilir.
+`js/data/quests.js` içinde yedi görev tanımlı. Altısı erişilebilir.
 
 | Görev       | Ad                | Nereden alınır                     | Gerekenler                                                     | Ödül                                            |
 | ----------- | ----------------- | ---------------------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
@@ -23,6 +23,7 @@ plan veya temenni değildir.
 | `grds1`     | Nöbet Görevi      | Pazar yeri kontrol noktası         | 4. ilan panosu yazısı (`fwd1` + `hnt1` ister); 7–10 saat arası | 65 servet, 3.000 exp, tekrarlanabilir           |
 | `lmfstkil1` | Canavar Temizliği | Avcı Kulübesi iş panosu            | `fwd1` + `hnt1`, 20. seviye ve dojo Golem 4'ün yenilmesi       | 300 servet, `wpn.gsprw`, `eqp.nkgd`, 18.000 exp |
 | `pckld1`    | Sürü Lideri       | Avcı Kulübesi iş panosu            | `lmfstkil1` tamamlanmış ve üzerinden bir oyun günü geçmiş      | 600 servet, `eqp.amsk`, 26.000 exp              |
+| `undcty1`   | Köyün Altında     | Genel dükkândaki yaşlı esnaf       | `pckld1` tamamlanmış; `global.flags.undercity1` kurulur        | 250 servet, 9.000 exp ve aşağı inen yol         |
 
 `fwd1` ve `hnt1` birlikte tamamlandığında kulübede bir sahne tetiklenir;
 `wpn.dgknf` ve `item.htrsvr` çantasını verir, köy ilan panosunu ve şifacıyı açan
@@ -59,9 +60,26 @@ köy kapısı (6. seviye) ──► Batı Ormanı ──► Avcı Kulübesi
                                                           çalılığın ötesindeki çukur
                                                           1 × creature.wolfa1
                                                                     │
+                                                      flags.undercity1 kurulur
+                                                                    │
                                                                     ▼
-                                                    ── HİKAYE BURADA, ÇUKURUN
-                                                       ALTINDAKİ YARIKTA DURUYOR ──
+                                                          undcty1 Köyün Altında
+                                                          3 iz, herhangi bir sırada:
+                                                            esnafın anlattıkları
+                                                            pazar yeri
+                                                            kendi bodrum duvarın
+                                                                    │
+                                                          Yamato'ya rapor
+                                                      flags.undercity2 kurulur
+                                                                    │
+                                                                    ▼
+                                                          duvarı kır
+                                                          chss.bsmnthm1 ──► chss.catamn
+                                                          26 oda, 5'i dolu
+                                                                    │
+                                                                    ▼
+                                                    ── HİKAYE BURADA, ÜST
+                                                       KATAKOMPLARDA DURUYOR ──
 ```
 
 ## Hikaye nerede duruyor
@@ -87,9 +105,42 @@ Onu öldürmek aynı sahneyi kendi sonrasına çevirir: lider sana değil, yarı
 bir aydır köyün altının kazıldığını söyleyen esnafı işaret eder ve doğuya haber
 salacağını belirtir.
 
-**Hikaye artık boş bir panoda değil, bir soruda duruyor:** yarık takip edilemeyecek
-kadar dar. Altındakine ulaşmak üçüncü bölümdür ve girişin oyuncunun kendi bodrumu
-olması amaçlanıyor.
+### Üçüncü bölüm — Köyün Altında
+
+`quest.undcty1` olarak uygulandı. Çukurun altındaki yarık takip edilemeyecek kadar
+dar, o yüzden aşağı inen yol, diyaloğun bir aydır işaret ettiği yol oldu.
+
+Yamato'nun raporu `global.flags.undercity1` bayrağını kuruyor ve bu, genel
+dükkândaki yaşlı esnafla bir konuşma açıyor. Bunun anlatı kadar mekanik bir önemi
+de var: onun "yeraltında bir şey doğrudan insanların evlerine doğru kazıyor"
+cümlesi yalnızca istila teklifinin içinde vardı ve o teklif
+`area.hmbsmnt.size >= 1000` koşulunun arkasındaydı — yani kabaca yüz oyun günü
+sonra açılan bir kapı. Hikaye artık ona Yamato'nun sözüyle ulaşıyor.
+
+Görev üç izin soruşturması; izler herhangi bir sırada toplanıyor ve adla
+kaydediliyor, böylece hiçbir sahne aynı izi iki kez veremiyor:
+
+| İz       | Nerede              | Ne kuruyor                                                                                                                                  |
+| -------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cellar` | esnaf, `chss.gens1` | kemirmiyor, kazıyor; eski duvarın dibinde başlamış, kuyuya doğru yayılmış; kaybolanlar yiyecek değil, alet ve bir fener                     |
+| `market` | `chss.mrktvg1`      | üç yetişkin birbiriyle çelişiyor ve yaşlı adamla alay ediyor; bir çocuk babasının keskilerinin **kilitli** bir bodrumdan gittiğini söylüyor |
+| `home`   | `chss.bsmnthm1`     | içeriden itilmiş iki taş, oyuncunun tarafına dökülmüş toz olmuş harç, mevsimden soğuk ve kımıldayan hava                                    |
+
+Yamato'ya rapor vermek görevi tamamlıyor ve `global.flags.undercity2` bayrağını
+kuruyor; duvarın yıkılmasını açan da bu, çünkü Yamato dokunmadan önce haber
+verilmesini istemişti. O konuşma aynı zamanda oyunun, köyün altına ışıksız inmenin
+bir plan olmadığını ilk kez açıkça söylediği yer ve oyuncuya mum almasını
+söylüyor — çünkü karanlığı başka hiçbir şey anlatmıyor.
+
+### Şimdi nerede duruyor
+
+Üst katakomplarda. `chss.catamn` bodrumdan erişilebilir ve kendi çıkışı — ki eskiden
+köy merkezine açılıyordu, bölgenin yarım değil sahipsiz olduğunun en net işareti buydu
+— artık oyuncunun girdiği bodruma dönüyor.
+
+Yirmi altı odanın beşi dolu. Uzun batı koridoru bilinçli olarak hâlâ sessiz: ona ait
+ölümsüz kademesi henüz statlandırılmadı ve yirmi altı odanın tamamını aynı üç
+yaratıkla doldurmak, haritanın kurulduğu derinlik hissini düzleştirirdi.
 
 ### Diğer çıkmazlar
 
@@ -138,14 +189,14 @@ rağmen arayüzün hiçbir yerinde görünmez.
 
 Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları eksik.
 
-| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                      |
-| ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Katakomplar**        | 26 tamamlanmış sahne | `sector.cata1`, `chss.catamn` ve `cata1`–`cata25`, id 132–157. İsimlendirilmiş odalar, 14 ortam metni, sektördeki karanlık effector'ı, 11.000 puanlık takip. Hâlâ **içeriye bağlanan hiçbir şey yok** ve aşağıya bakın: odalarda hiç dövüş yok.                            |
-| **Ölümsüz bestiyeri**  | 20 yaratık           | Zombiler, gulyabaniler, ghast'lar, mumyalar, kuklalar, bebekler, mağara yarasaları, stirge'ler. Hiçbiri hiçbir alan popülasyonunda yer almıyor ve çoğu **taslak**: `hp_r` yok, istatistik yok, düşen eşya yok ve `type = 2` (Ölümsüz) yerine `type = 3` (Kötü) bırakılmış. |
-| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                    |
-| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                    |
-| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                             |
-| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                     |
+| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                   |
+| ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Katakomplar**        | 26 tamamlanmış sahne | `sector.cata1`, `chss.catamn` ve `cata1`–`cata25`, id 132–157. İsimlendirilmiş odalar, 14 ortam metni, sektördeki karanlık effector'ı, 11.000 puanlık takip. Hâlâ **içeriye bağlanan hiçbir şey yok** ve aşağıya bakın: odalarda hiç dövüş yok.                         |
+| **Ölümsüz bestiyeri**  | 20'nin 17'si         | `cbat`, `stirge` ve `zomb1` statlandırıldı, ait oldukları Ölümsüz türüne alındı ve erişilebilir. Kalanlar — gulyabaniler, ghast'lar, mumyalar, zombi şövalye ve büyücüleri, bebek ve kukla ailesi, `dcrps1`, `unsctn` — hâlâ **taslak**: bir rütbe ve başka hiçbir şey. |
+| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                 |
+| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                 |
+| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                          |
+| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                  |
 
 Bu kümelerin birbirine oturması tesadüf okumakta zorlanacağımız kadar düzenli:
 karanlık 26 odalı bir zindan, hiçbir yerde satılmayan bir meşale, kilidi olmayan
@@ -218,26 +269,38 @@ belirti yapmak kurtlara bir sebep veriyor ve o sebep, üçüncü bölümün ara�
 Güney sahneleri hâlâ bir sektöre bağlı değil, yani güneyin keşif veya ortam
 katmanı yok.
 
-### Adım 3 — Yeraltı şehri
+### Adım 3 — Yeraltı şehri — **açıldı (üçüncü bölüm)**
 
-Kanca zaten yazılmış. Bodrumdaki dükkâncı şöyle diyor:
+Aşağı inen yol var: `quest.undcty1`, üç iz ve oyuncunun kendi bodrumundaki duvar.
+Bkz. [Üçüncü bölüm](#üçüncü-bölüm--köyün-altında).
 
-> "Yeraltında bir şey doğrudan insanların evlerine doğru kazıyor… Bazıları
-> yakınlarda bir canavar mağarası olduğunu düşünüyor ama henüz bir şey
-> bulunamadı."
+Bölümün tamamını şekillendiren şey, karanlığın ne olduğunun ortaya çıkmasıydı:
 
-Yamato'nun raporu artık oyuncuyu doğrudan ona yönlendiriyor; bu önemli, çünkü
-cümlenin kendi koşulu (`area.hmbsmnt.size >= 1000`) neredeyse erişilemez.
+- `cansee()` şu: `(global.flags.isdark && you.mods.light > 0) || skl.ntst.lvl >= 12`.
+  Işık yoksa oyuncunun isabeti `0.3 + skl.ntst.lvl * 0.07` ile çarpılıyor, keşif
+  çalışmayı reddediyor ve bodrum kendini bile tarif etmiyor.
+- `mods.light` veren yalnızca iki şey var. Meşale `wpn.trch`'in **oyunda hiçbir
+  kaynağı yoktu** — artık üst katakomplardan düşüyor ve bu aynı zamanda esnafın
+  "bir fener kayboldu" cümlesinin karşılığı. `effect.cdlt` ise genel dükkânın zaten
+  sattığı mum `item.cndl`'den geliyor ve 360 tik sürüyor.
+- Yani amaçlanan giriş yolu, sayaçlı ve tükenen bir ışık: sinir bozucu bir ayrıntı
+  değil, gerçek bir kısıt. Ve bunu oyunda hiçbir şey anlatmıyordu. Yamato'nun
+  brifinginin bunu açıkça söylemesinin sebebi bu.
 
-Oyuncunun kendi bodrumu doğal giriştir: `chss.bsmnthm1`'den `chss.catamn`'e tek
-bir bağlantı 26 odayı ve karanlık mekaniğini açar. Ayrıca meşaleye satılma,
-anahtarlara var olma sebebi verir.
+### Adım 3b — Katakompların kalanı
 
-İkinci adımın aksine bu adım yalnızca bağlantı işi değil. Odalarda dövüş yok;
-yani ölümsüzlere gerçek istatistikler, `type = 2` ve düşen eşya tabloları
-verilmeli ve onları barındıracak en az bir alan tanımlanmalı. `sector.cata1`'in
-11.000 puanlık takibi de, odaların açıkça yazıldığı keşif katmanına dönüşmek için
-bir `scout` tablosu istiyor.
+Yirmi altı odanın yirmi biri hâlâ dövüşsüz ve bu bir ihmal değil, sıradaki iş:
+
+- Kalan ölümsüzler bir rütbe ve başka hiçbir şeyden oluşan taslaklar. İstatistikleri
+  `rnk`'a göre değil oyuncunun ilerleyişine göre kurulmalı; çünkü `rnk` Yamato'nun
+  tehlike sınıflandırması, güç eğrisi değil — `creature.skl` rütbe 7 ve 132 can,
+  `wolf1` rütbe 4 ve 400 can.
+- `type = 2` olmalı ki bestiyer onları Ölümsüz diye dosyalasın ve
+  `Creature.onDeath` onları yaşayanların ruh sayacından ayrı tutsun.
+- `sector.cata1.data.scoutm` 11.000 ama `scout` tablosu ve `onScout` işleyicisi yok;
+  odaların açıkça yazıldığı keşif katmanı hâlâ ilerleyemiyor.
+- Yedi anahtarın hâlâ kilidi yok. İsimlendirilmiş odalardan oluşan bir zindan, tam
+  olarak onların yeri.
 
 ### Adım 4 — Doğu ve Dein
 

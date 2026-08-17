@@ -180,19 +180,68 @@ creature.bat.drop = [
 creature.bat.rnk = 3;
 creature.bat.pts = 6;
 
+// The first tier of the catacombs. These three were declared with a rank and
+// nothing else — no hp, no stats, no drops — so they could not have been put in an
+// area even if one had existed. Their numbers are set against the player's actual
+// progress rather than against `rnk`, which in this game is Yamato's danger
+// classification and not a power curve: creature.skl is rank 7 with 132 hp while
+// wolf1 is rank 4 with 400. A player arriving here has just taken down the pack
+// leader, so the bats and stirges are a nuisance and the zombie is the wall.
 creature.cbat = new Creature();
 creature.cbat.id = 109;
 creature.cbat.name = i18n.t("content.creature.cbat.name");
 creature.cbat.desc = i18n.t("content.creature.cbat.desc");
+creature.cbat.type = 1;
+creature.cbat.exp = 30;
+creature.cbat.hp_r = 180;
+creature.cbat.stat_p = [0.9, 1, 1.6, 0.8];
+creature.cbat.aff = [16, 30, 0, -8, 6, -40, 44];
+creature.cbat.cls = [22, 20, 26];
+creature.cbat.eqp[0].aff = [8, 18, 0, -8, 6, -40, 44];
+creature.cbat.eqp[0].cls = [5, 6, 5];
+creature.cbat.ctype = 1;
+creature.cbat.str_r = 16;
+creature.cbat.agl_r = 34;
+creature.cbat.int_r = 4;
+creature.cbat.spd_r = 6;
+creature.cbat.eva = 40;
+creature.cbat.drop = [{ item: item.sbone, chance: 0.05 }];
 creature.cbat.rnk = 3;
-creature.cbat.drop = [];
+creature.cbat.blood = 0.99;
+creature.cbat.pts = 12;
+creature.cbat.battle_ai = function (x, y, z) {
+  if (random() <= 0.35) return attack(x, y, abl.bite);
+  return attack(x, y);
+};
 
 creature.stirge = new Creature();
 creature.stirge.id = 110;
 creature.stirge.name = i18n.t("content.creature.stirge.name");
 creature.stirge.desc = i18n.t("content.creature.stirge.desc");
+creature.stirge.type = 1;
+creature.stirge.exp = 45;
+creature.stirge.hp_r = 240;
+creature.stirge.stat_p = [1, 1.1, 1.45, 0.7];
+creature.stirge.aff = [18, 26, 2, -10, 10, -36, 40];
+creature.stirge.cls = [26, 24, 30];
+creature.stirge.eqp[0].aff = [9, 16, 2, -10, 10, -36, 40];
+creature.stirge.eqp[0].cls = [6, 7, 6];
+creature.stirge.ctype = 1;
+creature.stirge.str_r = 20;
+creature.stirge.agl_r = 30;
+creature.stirge.int_r = 3;
+creature.stirge.spd_r = 5;
+creature.stirge.eva = 35;
+creature.stirge.drop = [{ item: item.sbone, chance: 0.08 }];
 creature.stirge.rnk = 4;
-creature.stirge.drop = [];
+creature.stirge.blood = 0.99;
+creature.stirge.pts = 16;
+// It feeds by drinking, so it leads with the bite that carries rot.
+creature.stirge.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.pbite);
+  else if (random() <= 0.25) return attack(x, y, abl.bite);
+  return attack(x, y);
+};
 
 creature.spd1 = new Creature();
 creature.spd1.name = i18n.t("content.creature.spd1.name");
@@ -358,11 +407,47 @@ creature.cdoll.rnk = 12;
 creature.cdoll.drop = [];
 creature.cdoll.battle_ai = function (x, y, z) {};
 
+// The first thing down there that used to be a person. type = 2 puts it in the
+// Undead category the bestiary already has and keeps it out of the spirit count
+// that Creature.onDeath keeps for the living; every undead stub was left on the
+// constructor default of 3, which reads as Evil. Its resistances are the point of
+// the fight: rot does not bleed and cannot be poisoned or frightened to death, but
+// it is slow, and it burns.
 creature.zomb1 = new Creature();
 creature.zomb1.id = 113;
 creature.zomb1.name = i18n.t("content.creature.zomb1.name");
 creature.zomb1.desc = i18n.t("content.creature.zomb1.desc");
+creature.zomb1.type = 2;
+creature.zomb1.exp = 90;
+creature.zomb1.hp_r = 700;
+creature.zomb1.stat_p = [1.6, 1.15, 0.6, 0.4];
+creature.zomb1.aff = [24, -6, 8, -30, 4, -52, 62];
+creature.zomb1.cls = [34, 30, 44];
+creature.zomb1.eqp[0].aff = [12, -6, 8, -30, 4, -52, 62];
+creature.zomb1.eqp[0].cls = [8, 8, 10];
+creature.zomb1.ctype = 1;
+creature.zomb1.str_r = 26;
+creature.zomb1.agl_r = 8;
+creature.zomb1.int_r = 2;
+creature.zomb1.spd_r = 1;
+creature.zomb1.eva = 5;
+creature.zomb1.res.poison = 0;
+creature.zomb1.res.venom = 0;
+creature.zomb1.res.bleed = 0.15;
+creature.zomb1.res.death = 0.25;
+creature.zomb1.res.sleep = 0;
+creature.zomb1.res.paralize = 0.2;
+creature.zomb1.drop = [
+  { item: item.sbone, chance: 0.35 },
+  { item: item.cclth, chance: 0.12 },
+];
 creature.zomb1.rnk = 6;
+creature.zomb1.blood = 0.4;
+creature.zomb1.pts = 40;
+creature.zomb1.battle_ai = function (x, y, z) {
+  if (random() <= 0.2) return attack(x, y, abl.bash);
+  return attack(x, y);
+};
 
 creature.mumy = new Creature();
 creature.mumy.id = 114;

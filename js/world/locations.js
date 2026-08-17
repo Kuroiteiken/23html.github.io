@@ -2030,6 +2030,42 @@ chss.frstn1b1j.sl = () => {
       });
     }
   }
+  // Chapter III's payoff. Yamato said to come back before touching whatever the
+  // player found, and this is where he is told. It is also where the game says out
+  // loud that going under the village unlit is not a plan, because nothing else
+  // ever tells the player that and the only light they can buy is a candle.
+  if (
+    quest.undcty1.data.started &&
+    !quest.undcty1.data.done &&
+    undercitySignsFound()
+  ) {
+    chs(
+      i18n.t(
+        "runtime.world.locations.dialogue.report_what_is_under_the_village",
+      ),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.yamato_undercity_briefing"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.accept_the_reward_d2c12b50"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        finishQst(quest.undcty1);
+        global.flags.undercity2 = true;
+        smove(chss.frstn1main);
+      });
+    });
+  }
   if (!quest.fwd1.data.done) {
     chs(
       i18n.t("runtime.world.locations.dialogue.firewood_gathering_0fea8bf3"),
@@ -2750,6 +2786,36 @@ chss.mrktvg1.sl = () => {
           smove(chss.mrktvg1);
         });
       }
+    });
+  // Chapter III, the second sign. The old man told the player they would be
+  // laughed at here, and they are — but the market contradicts itself, and the
+  // contradictions are the point. Nobody in the village is a witness; they are
+  // people with opinions.
+  if (
+    quest.undcty1.data.started &&
+    !quest.undcty1.data.signs.includes("market")
+  )
+    chs(
+      i18n.t("runtime.world.locations.dialogue.ask_around_the_market"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.market_rumours"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      findUndercitySign("market");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mrktvg1, false);
+      });
     });
   chs(
     i18n.t(
@@ -4712,6 +4778,75 @@ chss.bsmnthm1.sl = () => {
             });
           }
         });
+      // Chapter III. All of this needs light, which is the point: the old man told
+      // the player to go and look at their own cellar wall properly, and you
+      // cannot look at anything down here without a candle lit.
+      if (
+        quest.undcty1.data.started &&
+        !quest.undcty1.data.signs.includes("home")
+      )
+        chs(
+          i18n.t("runtime.world.locations.dialogue.examine_the_old_wall"),
+          false,
+          "yellow",
+        ).addEventListener("click", () => {
+          chs(
+            i18n.t("runtime.world.locations.dialogue.basement_wall_examined"),
+            true,
+            "yellow",
+            0,
+            0,
+            0,
+            ".9em",
+          );
+          findUndercitySign("home");
+          chs(
+            i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+            false,
+          ).addEventListener("click", () => {
+            smove(chss.bsmnthm1, false);
+          });
+        });
+      // Yamato asked to be told before the player touched whatever they found, so
+      // the wall stays shut until he has been told and has said his piece.
+      else if (global.flags.undercity2 && !quest.undcty1.data.opened)
+        chs(
+          i18n.t("runtime.world.locations.dialogue.break_through_the_wall"),
+          false,
+          "crimson",
+        ).addEventListener("click", () => {
+          chs(
+            i18n.t("runtime.world.locations.dialogue.basement_wall_opened"),
+            true,
+            "crimson",
+            0,
+            0,
+            0,
+            ".9em",
+          );
+          chs(
+            i18n.t("runtime.world.locations.dialogue.take_it_down"),
+            false,
+            "lime",
+          ).addEventListener("click", () => {
+            quest.undcty1.data.opened = true;
+            smove(chss.bsmnthm1, false);
+          });
+          chs(
+            i18n.t("runtime.world.locations.dialogue.leave_it_standing"),
+            false,
+          ).addEventListener("click", () => {
+            smove(chss.bsmnthm1, false);
+          });
+        });
+      if (quest.undcty1.data.opened)
+        chs(
+          i18n.t("runtime.world.locations.dialogue.go_down_into_the_dark"),
+          false,
+          "crimson",
+        ).addEventListener("click", () => {
+          smove(chss.catamn);
+        });
     }
   }
   chs(
@@ -5026,7 +5161,11 @@ chss.catamn.sl = () => {
     i18n.t("runtime.world.locations.dialogue.exit_24c04d4e"),
     false,
   ).addEventListener("click", () => {
-    smove(chss.lsmain1);
+    // This used to come up in the village centre, which was the only sign that
+    // the region was orphaned rather than unfinished: nothing led down, and what
+    // led up arrived somewhere the player had never left from. The way out is now
+    // the way in.
+    smove(chss.bsmnthm1);
   });
 };
 
@@ -5656,3 +5795,13 @@ chss.cata25.sl = () => {
     smove(chss.cata24);
   });
 };
+
+// The catacombs held no combat at all: not one of the twenty-six rooms called
+// area_init and no area existed for them. The first stretch is populated now, so
+// the descent has something in it; the long western corridor stays quiet until its
+// own tier of undead is statted, which keeps the depth meaningful rather than
+// filling the whole map with the same three creatures.
+for (const room of [chss.cata1, chss.cata2, chss.cata3, chss.cata4, chss.cata5])
+  room.onEnter = function () {
+    area_init(area.cata1a);
+  };

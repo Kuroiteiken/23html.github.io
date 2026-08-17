@@ -12,7 +12,7 @@ aspirational unless it appears under [Continuing the story](#continuing-the-stor
 
 ## The quest chain
 
-Six quests are defined in `js/data/quests.js`. Five are reachable.
+Seven quests are defined in `js/data/quests.js`. Six are reachable.
 
 | Quest       | Name                | Given at                           | Requires                                                | Reward                                          |
 | ----------- | ------------------- | ---------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
@@ -22,6 +22,7 @@ Six quests are defined in `js/data/quests.js`. Five are reachable.
 | `grds1`     | Guarding Duty       | Marketplace checkpoint             | Notice board post 4, which needs `fwd1` + `hnt1`; 7–10h | 65 wealth, 3,000 exp, repeatable                |
 | `lmfstkil1` | Monster Eradication | Hunter's Lodge job board           | `fwd1` + `hnt1`, level 20, and beating dojo Golem 4     | 300 wealth, `wpn.gsprw`, `eqp.nkgd`, 18,000 exp |
 | `pckld1`    | The Pack Leader     | Hunter's Lodge job board           | `lmfstkil1` done, and one more in-game day since        | 600 wealth, `eqp.amsk`, 26,000 exp              |
+| `undcty1`   | Beneath the Village | The general store's old shopkeeper | `pckld1` done, which sets `global.flags.undercity1`     | 250 wealth, 9,000 exp, and the way down         |
 
 Completing `fwd1` and `hnt1` together triggers a gate scene at the lodge that
 grants `wpn.dgknf` and the satchel `item.htrsvr`, and sets the flags that open
@@ -58,9 +59,26 @@ village gate (level 6) ──► Western Woods ──► Hunter's Lodge
                                                           hollow past the foliage
                                                           1 × creature.wolfa1
                                                                     │
+                                                        sets flags.undercity1
+                                                                    │
                                                                     ▼
-                                                    ── STORY STOPS HERE, on the
-                                                       crack under the hollow ──
+                                                          undcty1 Beneath the Village
+                                                          3 signs, any order:
+                                                            shopkeeper's account
+                                                            the marketplace
+                                                            your own cellar wall
+                                                                    │
+                                                          report to Yamato
+                                                        sets flags.undercity2
+                                                                    │
+                                                                    ▼
+                                                          break through the wall
+                                                          chss.bsmnthm1 ──► chss.catamn
+                                                          26 rooms, 5 of them populated
+                                                                    │
+                                                                    ▼
+                                                    ── STORY STOPS HERE, in the
+                                                       upper catacombs ──
 ```
 
 ## Where the story stops
@@ -86,9 +104,45 @@ crack, not facing the player. Yamato's report pays off the hunt, hands over the
 Wolf Mask, points at the shopkeeper who has been complaining about digging under
 the village for a month, and says he will send word east.
 
-**The story now stops on a question rather than an empty board:** the crack is
-too narrow to follow. Reaching what is below it is Chapter III, and the entrance
-is meant to be the player's own basement.
+### Chapter III — Beneath the Village
+
+Implemented as `quest.undcty1`. The crack under the hollow is too narrow to
+follow, so the way down is the one the dialogue had already pointed at for a
+month.
+
+Yamato's report sets `global.flags.undercity1`, which opens a conversation with
+the general store's old shopkeeper. This matters mechanically as well as
+narratively: his "something is drilling underground right into people's homes"
+line existed only inside the infestation offer, behind
+`area.hmbsmnt.size >= 1000` — a gate that opens after roughly a hundred in-game
+days. The story now reaches it on Yamato's word alone.
+
+The quest is an investigation of three signs, gathered in any order and recorded
+by name so no scene can award one twice:
+
+| Sign     | Where                        | What it establishes                                                                                                                      |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `cellar` | the shopkeeper, `chss.gens1` | it digs rather than scratches; it started at the old wall and spread toward the well; what goes missing is tools and a lantern, not food |
+| `market` | `chss.mrktvg1`               | three adults contradict each other and mock the old man; a boy mentions his father's chisels went out of a **locked** cellar             |
+| `home`   | `chss.bsmnthm1`              | two stones pushed proud from the inside, mortar gone to powder on the player's side, moving air colder than the season                   |
+
+Reporting to Yamato completes the quest and sets `global.flags.undercity2`, which
+is what unlocks breaking the wall down — he had asked to be told before the
+player touched anything. That conversation is also where the game finally says
+out loud that going under the village unlit is not a plan, and tells the player
+to buy candles, because nothing else in the game ever explains darkness.
+
+### Where it stops now
+
+In the upper catacombs. `chss.catamn` is reachable from the basement, and its own
+exit — which used to come up in the village centre, the clearest sign the region
+was orphaned rather than unfinished — now returns to the basement the player came
+from.
+
+Five of the twenty-six rooms are populated. The long western corridor is
+deliberately still quiet: its own tier of undead is not statted yet, and filling
+all twenty-six rooms with the same three creatures would flatten the depth the
+map was clearly built to have.
 
 ### Other dead ends
 
@@ -136,14 +190,14 @@ the interface, even though `item.bstr` claims to unlock a bestiary.
 This is the important part. The game is not short of content; it is short of
 connections.
 
-| Asset                   | Amount             | State                                                                                                                                                                                                                                 |
-| ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catacombs**           | 26 finished scenes | `sector.cata1`, `chss.catamn` and `cata1`–`cata25`, ids 132–157. Named rooms, 14 ambient lines, a darkness effector on the sector, an 11,000-point track. Still **nothing links in**, and see below: the rooms hold no combat at all. |
-| **Undead bestiary**     | 20 creatures       | Zombies, ghouls, ghasts, mummies, puppets, dolls, cave bats, stirges and more. None appears in any area population, and most are **stubs**: no `hp_r`, no stats, no drops, and left at `type = 3` (Evil) rather than 2 (Undead).      |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                         |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                 |
-| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                 |
-| **Items and equipment** | ~309 of 544        | No drop, recipe, or vendor source. Includes 7 keys, 6 essences, 5 remaining masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, and roughly 150 foods.                                                               |
+| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                         |
+| ----------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Catacombs**           | 26 finished scenes | **Now reachable** from `chss.bsmnthm1`, and `chss.catamn`'s exit returns there instead of the village centre. Five rooms are populated via `area.cata1a`; the other twenty-one still hold no combat, and `sector.cata1`'s 11,000-point track still has no `scout` table so it cannot advance. |
+| **Undead bestiary**     | 17 of 20 creatures | `cbat`, `stirge` and `zomb1` are statted, typed as Undead where they belong, and reachable. The rest — ghouls, ghasts, mummies, zombie knights and mages, the doll and puppet family, `dcrps1`, `unsctn` — are still **stubs**: a rank and nothing else.                                      |
+| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                 |
+| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                         |
+| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                         |
+| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.     |
 
 ### What the catacombs actually lack
 
@@ -218,24 +272,40 @@ Chapter III investigates.
 The southern scenes are still not attached to a sector, so the south has no
 exploration or ambient layer.
 
-### Step 3 — The undercity
+### Step 3 — The undercity — **opened (Chapter III)**
 
-The hook is already written. The basement shopkeeper says:
+The way down exists: `quest.undcty1`, the three signs, and the wall in the
+player's own cellar. See [Chapter III](#chapter-iii--beneath-the-village).
 
-> "Something is drilling underground right into people's homes… Some speculate
-> there's a monster cave nearby, but nothing has been found yet."
+What darkness turned out to be, which shaped the whole chapter:
 
-Yamato's report now points the player straight at him, which matters because the
-line's own condition (`area.hmbsmnt.size >= 1000`) is close to unreachable.
+- `cansee()` is `(global.flags.isdark && you.mods.light > 0) || skl.ntst.lvl >= 12`.
+  Without light the player's accuracy is multiplied by `0.3 + skl.ntst.lvl * 0.07`,
+  scouting refuses to run, and the basement will not even describe itself.
+- Only two things grant `mods.light`. `wpn.trch`, the torch, had **no source
+  anywhere in the game** — it now drops from the upper catacombs, which is also
+  the payoff for the lantern the shopkeeper says went missing. `effect.cdlt` comes
+  from `item.cndl`, a candle, which the general store already sells, and it lasts
+  360 ticks.
+- So the intended way in is consumable light on a timer, which is a real
+  constraint rather than a nuisance — and nothing in the game explained it. That
+  is why Yamato's briefing says it out loud.
 
-The player's own basement is the natural entrance: one link from
-`chss.bsmnthm1` into `chss.catamn` opens 26 rooms and the darkness mechanic. It
-also gives the torch a reason to be sold and the keys a reason to exist.
+### Step 3b — The rest of the catacombs
 
-Unlike Step 2, this step is not only wiring. The rooms hold no combat, so the
-undead have to be given real stats, `type = 2`, and drop tables, and at least one
-area has to exist for them to populate. `sector.cata1`'s 11,000-point track wants
-a scout table to become the exploration layer the rooms were clearly written for.
+Twenty-one of the twenty-six rooms still hold no combat, and that is the next
+piece of work rather than an oversight:
+
+- The remaining undead are stubs with a rank and nothing else. They want stats set
+  against the player's progress rather than against `rnk`, which is Yamato's danger
+  classification and not a power curve — `creature.skl` is rank 7 with 132 hp while
+  `wolf1` is rank 4 with 400.
+- They want `type = 2` so the bestiary files them as Undead and
+  `Creature.onDeath` keeps them out of the spirit count for the living.
+- `sector.cata1.data.scoutm` is 11,000 with no `scout` table and no `onScout`, so
+  the exploration layer the rooms were clearly written for still cannot advance.
+- The seven keys still have no locks. A dungeon with named rooms is where they
+  would belong.
 
 ### Step 4 — East, and Dein
 

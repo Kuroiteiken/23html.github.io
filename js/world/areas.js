@@ -384,6 +384,39 @@ area.frstn10a1.drop = [
   { item: item.hrb1, c: 0.02 },
 ];
 
+// The upper catacombs. The 26 rooms held no combat whatever — not one of them
+// called area_init and no area existed for them — so wiring only the entrance
+// would have opened a large, silent, empty map. This populates the first stretch;
+// the deeper corridor stays quiet until its own tier exists, which also makes the
+// descent read as a change of depth rather than more of the same.
+//
+// Appended, like every area above: load() restores sizes by position.
+area.cata1a = new Area();
+area.cata1a.id = 120;
+area.cata1a.name = i18n.t("content.area.cata1a.name");
+area.cata1a.pop = [
+  { crt: creature.cbat, lvlmin: 9, lvlmax: 12, c: 0.45 },
+  { crt: creature.stirge, lvlmin: 10, lvlmax: 13, c: 0.35 },
+  { crt: creature.zomb1, lvlmin: 12, lvlmax: 15, c: 0.2 },
+];
+area.cata1a.size = 26;
+z_bake(area.cata1a);
+area.cata1a.onEnd = function () {
+  // What the village lost turns up down here. The lantern the old man mentioned is
+  // wpn.trch, which until now had no drop, recipe, or vendor anywhere in the game.
+  roll(item.sbone, 0.5, 1, 4);
+  roll(item.cclth, 0.3, 1, 2);
+  roll(item.cndl, 0.35, 1, 2);
+  roll(wpn.trch, 0.2);
+  roll(item.cp, 0.4, 1, 6);
+  this.size = rand(12) + 20;
+  smove(chss.cata1);
+};
+area.cata1a.drop = [
+  { item: item.sbone, c: 0.05 },
+  { item: item.cndl, c: 0.02 },
+];
+
 function z_bake(area) {
   let c = 0;
   let d = 0;
