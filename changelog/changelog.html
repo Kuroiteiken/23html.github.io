@@ -278,7 +278,12 @@
           </div>
         </header>
         <ul class="release-changes">
-          <li>Returning to a backgrounded tab now says how much time passed. Energy drains every tick, so catching up several minutes at once looked like it was draining for no reason</li>
+          <li>Fixed the energy drain rate creeping up permanently every time you started and stopped running. Opening the Actions panel left the previous rows in place, so one click could start running twice while stopping it refunded once</li>
+          <li>
+            Returning to a backgrounded tab now says how much time passed.
+            Energy drains every tick, so catching up several minutes at once
+            looked like it was draining for no reason
+          </li>
           <li>
             Mastery levels are now saved. Every level bought was silently lost
             on reload, because mastery progress was never written to the save at

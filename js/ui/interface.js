@@ -628,7 +628,12 @@ dom.ct_bt3.addEventListener("click", () => {
       this.acch_e.style.top = "-6px";
       this.acch_e.style.right = "-2px";
       this.acch_e.style.height = "20px";
-      dom.acccon = addElement(dom.ctrwin5, "div");
+      // This used to create a fresh container on every open and then empty the
+      // new one, leaving the previous rows in the panel with their click
+      // handlers attached. Opening the panel twice therefore gave every action
+      // two live rows, so one click ran activate twice while stopping refunded
+      // once, permanently inflating the shared modifiers it adds to.
+      if (!dom.acccon) dom.acccon = addElement(dom.ctrwin5, "div");
       empty(dom.acccon);
       for (const a in acts) {
         renderAct(acts[a]);

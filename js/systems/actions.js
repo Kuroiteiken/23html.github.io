@@ -66,6 +66,10 @@ act.demo.use = function () {
   you.eqp[6].dp = you.eqp[6].dp - 0.005 < 0 ? 0 : you.eqp[6].dp - 0.005;
 };
 act.demo.activate = function () {
+  // These adjust shared modifiers, so activating twice without an intervening
+  // stop would stack the cost and leave it behind. The guards make the pair
+  // idempotent whatever the caller does.
+  if (this.active) return;
   msg(
     i18n.t("runtime.systems.actions.dialogue.you_start_running_d11dfd8c"),
     "orange",
@@ -80,6 +84,7 @@ act.demo.activate = function () {
   }, 1000);
 };
 act.demo.deactivate = function () {
+  if (!this.active) return;
   msg(i18n.t("runtime.systems.actions.dialogue.you_stop_45fed8fc"), "skyblue");
   clearInterval(timers.actm);
   this.active = false;
