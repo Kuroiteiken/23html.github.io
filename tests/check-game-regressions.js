@@ -598,6 +598,44 @@ if (!/crt: creature\.dcrps1, lvlmin: 26, lvlmax: 28/.test(areasSource)) {
   );
 }
 
+// Selling. The sell price is derived from the same vendor supply lines the shops
+// buy from, and it has to stay well under them: if it ever reached the buy price
+// there would be an unbounded money loop through any vendor's stock.
+const craftingSourceForSelling = fs.readFileSync(
+  path.join(root, "js", "systems", "crafting.js"),
+  "utf8",
+);
+
+if (
+  !/function sellBasePrice\(itm\)/.test(craftingSourceForSelling) ||
+  !/function itemSellValue\(itm\)/.test(craftingSourceForSelling) ||
+  !/function sellableInventory\(\)/.test(craftingSourceForSelling) ||
+  !/const rate = Math\.min\(0\.45, 0\.2 \+ skl\.trad\.use\(\)\);/.test(
+    craftingSourceForSelling,
+  )
+) {
+  throw new Error(
+    "Selling regression: the sell price must be derived from the vendor supply lines and capped below the buy side.",
+  );
+}
+
+if (
+  !/if \(obj\.important === true\) continue;/.test(craftingSourceForSelling) ||
+  !/if \(obj\.slot && wearing\(obj\)\) continue;/.test(craftingSourceForSelling)
+) {
+  throw new Error(
+    "Selling regression: quest items and equipped items must never appear on the sell list.",
+  );
+}
+
+// A vendor with no markup priced its entire stock as NaN, which passed the
+// affordability check and turned the player's purse into NaN when spent.
+if (!/^  this\.infl = 1;$/m.test(craftingSourceForSelling)) {
+  throw new Error(
+    "Vendor regression: the Vendor constructor must default its price multiplier, or a vendor that sets none prices everything as NaN.",
+  );
+}
+
 if (
   !/\(100 \+ you\.eqp\[1\]\.aff\[att\.atype\] \* 5 \* shdc\)/.test(
     interfaceSource,

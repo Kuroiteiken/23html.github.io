@@ -1162,6 +1162,12 @@ function make(rc, rp, times) {
 
 function Vendor() {
   this.name = "";
+  // The counter multiplies a supply line's base price by this. Four of the five
+  // vendors set their own; the kid running the stall of odds and ends did not, and
+  // the constructor never had a default -- so every price in his shop resolved to
+  // NaN, the "can you afford it" check passed because NaN compares false, and
+  // spending it turned the player's whole purse into NaN.
+  this.infl = 1;
   this.items = [];
   this.stock = [];
   this.data = { time: 1, rep: 0 };
@@ -1318,4 +1324,59 @@ function shuffle(arr) {
     arr[index++] = copy[val];
     copy.splice(val, 1);
   }
+}
+
+// What a shopkeeper will pay. Nothing in this game carries a price: a price lives
+// on a vendor's own supply line, as `p`, and the shop multiplies it up at the
+// counter. So the index below is built from every vendor's list the first time it
+// is asked for, which makes the sell side agree with the buy side by construction
+// rather than by a second table someone has to remember to keep in step.
+//
+// An item no vendor stocks falls back to its rarity, which is the only other thing
+// the game ever says about what something is worth.
+const sellRarityValue = [0, 2, 9, 30, 80, 200];
+
+let sellPriceIndex;
+
+function sellBasePrice(itm) {
+  if (!sellPriceIndex) {
+    sellPriceIndex = new Map();
+    for (const key in vendor)
+      for (const line of vendor[key].items || [])
+        if (line.item && line.p > (sellPriceIndex.get(line.item.id) || 0))
+          sellPriceIndex.set(line.item.id, line.p);
+  }
+  const listed = sellPriceIndex.get(itm.id);
+  if (listed) return listed;
+  return sellRarityValue[Math.min(itm.rar || 1, sellRarityValue.length - 1)];
+}
+
+// Deliberately well under what the same shop charges for the same thing. Buying
+// costs the base price multiplied by the vendor's inflation and never less than
+// the base, so there is no loop here: nothing can be bought and sold back at a
+// profit. The Trade skill improves the rate and the ceiling keeps it short of the
+// buy side however high that skill goes.
+function itemSellValue(itm) {
+  const rate = Math.min(0.45, 0.2 + skl.trad.use());
+  return Math.max(1, Math.floor(sellBasePrice(itm) * rate));
+}
+
+// Equipment is sold as the single instance the player is holding; everything else
+// goes by the stack. A quest item is never on the list, and neither is anything
+// currently worn -- selling the sword out of your own hand is a mistake a shop
+// should not help you make.
+function sellableInventory() {
+  const lines = [];
+  for (const obj of inv) {
+    if (obj.important === true) continue;
+    if (obj.slot && wearing(obj)) continue;
+    const amount = obj.slot ? 1 : obj.amount;
+    if (!(amount > 0)) continue;
+    const unit = itemSellValue(obj);
+    lines.push({ obj, amount, unit, total: unit * amount });
+  }
+  lines.sort(
+    (a, b) => b.total - a.total || a.obj.name.localeCompare(b.obj.name),
+  );
+  return lines;
 }

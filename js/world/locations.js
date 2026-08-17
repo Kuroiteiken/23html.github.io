@@ -3404,6 +3404,13 @@ chss.gens1.sl = () => {
       clearInterval(timers.vndrstkchk);
     });
   });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.sell_goods_action"),
+    false,
+    "orange",
+  ).addEventListener("click", () => {
+    smove(chss.gensell, false);
+  });
   if (item.wvbkt.have)
     chs(
       i18n.t("runtime.world.locations.dialogue.sell_straw_baskets_action", {
@@ -3556,6 +3563,74 @@ chss.gens1.scout = [
 ];
 chss.gens1.onScout = function () {
   scoutGeneric(this);
+};
+
+// Selling. Until now the only things the game would buy back were firewood, straw
+// baskets and cure grass, each written out by hand at the one vendor who wanted it
+// -- so everything else a hunter came home with had no buyer at all and the only
+// thing to do with it was destroy it. The general store buys anything, which is
+// what a general store is for.
+//
+// Its own scene rather than a nested dialogue, so that selling one thing returns to
+// the list with the rest of it still there.
+chss.gensell = new Chs();
+chss.gensell.id = 171;
+chss.gensell.effectors = [{ e: effector.shop }];
+chss.gensell.sl = () => {
+  global.flags.inside = true;
+  d_loc(
+    i18n.t(
+      "runtime.world.locations.dialogue.marketplace_shabby_general_store_fb5064cb",
+    ),
+  );
+  global.lst_loc = 171;
+  const lines = sellableInventory();
+  chs(
+    lines.length
+      ? i18n.t("runtime.world.locations.dialogue.shopkeeper_sell_offer")
+      : i18n.t("runtime.world.locations.dialogue.shopkeeper_sell_nothing"),
+    true,
+  );
+  for (const line of lines) {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.sell_goods_line", {
+        item: line.obj.name,
+        amount: line.amount,
+        price: formatw(line.total),
+      }),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      // Re-read the stack rather than trusting what was drawn: an action running
+      // in the background can consume from the inventory between the list being
+      // rendered and the line being clicked.
+      const amount = line.obj.slot ? 1 : line.obj.amount;
+      if (!(amount > 0)) {
+        smove(chss.gensell, false);
+        return;
+      }
+      const paid = itemSellValue(line.obj) * amount;
+      if (!line.obj.slot) line.obj.amount = 0;
+      removeItem(line.obj);
+      giveWealth(paid);
+      // Trading with him is how he comes to know you, the same as buying does.
+      vendor.gens1.data.rep += Math.min(0.5, paid / 2000);
+      msg(
+        i18n.t("runtime.world.locations.dialogue.sell_goods_sold", {
+          item: line.obj.name,
+          amount,
+        }),
+        "lime",
+      );
+      smove(chss.gensell, false);
+    });
+  }
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.gens1, false);
+  });
 };
 
 chss.pha1 = new Chs();

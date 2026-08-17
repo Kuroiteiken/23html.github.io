@@ -5667,7 +5667,12 @@
           "ask_what_he_wanted": "Avcının ne istediğini sor",
           "tell_him_it_is_not_his_fault": "Suçun onda olmadığını söyle",
           "nervous_guy_confession": "Gergin Adam: Beni rahat bıraktın. Bir kez. Bu pazardaki herkes üstüme geldi, sen rahat bıraktın; o yüzden sen olacaksın.<br><br>On dört ay. Bu tezgâha bir avcı geldi — iyi paltolu, daha iyi kılıçlı, pazarlık etmeyen türden. Halat. Kandil yağı. Bir kutu tebeşir. Fazlasını ödedi ve buraya geldiğini unutmamı istedi; ben de olur dedim, çünkü fazlasını ödemişti.<br><br>Sonra önümden bir daha geçmedi. Sonra Kelle Avcısı bir adamı sormaya başladı ve ben hiçbir şey söylemedim, çünkü hiçbir şey söylememek için zaten para almıştım, üstünden bir ay geçmişti ve o noktada ne diyecektim?<br><br>On dört aydır burada bununla dikiliyorum. Bunun nasıl bir şey olduğunu biliyor musun.",
-          "nervous_guy_second_way": "Gergin Adam: Aşağı inen ikinci bir yolu soruyordu.<br><br>Mezarlığı değil — onu biliyordu, kendi söyledi, hem de çoktan aleyhine karar verdiği bir şeyi söyler gibi söyledi. Köyün altına oradan geçmeyen başka bir yol var mı, onu bilmek istiyordu.<br><br>Ona değirmenin yanındaki eski su yolundan bahsettim, çünkü bildiğim tek delik oydu ve gitmesini istiyordum. Not aldı. Tebeşir, halat ve şalgam satan bir adamdan öğrenmek zorunda kaldığı bir delik.<br><br>Kaybolmamıştı avcı. Bir şeyin etrafından bilerek dolanıyordu."
+          "nervous_guy_second_way": "Gergin Adam: Aşağı inen ikinci bir yolu soruyordu.<br><br>Mezarlığı değil — onu biliyordu, kendi söyledi, hem de çoktan aleyhine karar verdiği bir şeyi söyler gibi söyledi. Köyün altına oradan geçmeyen başka bir yol var mı, onu bilmek istiyordu.<br><br>Ona değirmenin yanındaki eski su yolundan bahsettim, çünkü bildiğim tek delik oydu ve gitmesini istiyordum. Not aldı. Tebeşir, halat ve şalgam satan bir adamdan öğrenmek zorunda kaldığı bir delik.<br><br>Kaybolmamıştı avcı. Bir şeyin etrafından bilerek dolanıyordu.",
+          "sell_goods_action": "=> Bir şey sat",
+          "shopkeeper_sell_offer": "Dükkâncı: Göster bakalım. Getirdiğinin çoğunu alırım — ettiği paraya değil ama. Ben de rafa geri koyacağım sonuçta.",
+          "shopkeeper_sell_nothing": "Dükkâncı: Üzerinde fiyat biçebileceğim bir şey yok.",
+          "sell_goods_line": "=> {item} x{amount} sat ({price})",
+          "sell_goods_sold": "{item} x{amount} satıldı."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",
