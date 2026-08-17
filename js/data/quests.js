@@ -194,6 +194,10 @@ quest.lmfstkil1.rwd = function () {
   // The Wolf Slayer title existed but had no grant path, even though this is
   // the quest that has the player hunt down a wolf pack.
   giveTitle(ttl.wsl);
+  // Yamato closes this quest promising to send for the player later. The day the
+  // promise was made is recorded so the lodge can honour it after a rest rather
+  // than the moment the reward is taken.
+  this.data.rday = time.day;
   detachCallback(callback.onDeath, 1005);
 };
 quest.lmfstkil1.goals = function () {
@@ -214,6 +218,68 @@ quest.lmfstkil1.goalsf = function () {
       color: "lime",
       current: 35,
       required: 35,
+    }),
+  ];
+};
+
+// The wolf hunt ends on Yamato's own hook: the wail the player heard might have
+// been the leader of the pack. This is that hook paid off. It is also the first
+// quest that treats the player as a hunter Yamato relies on rather than a
+// rookie working a board.
+quest.pckld1 = new Quest();
+quest.pckld1.id = 6;
+quest.pckld1.name = i18n.t("content.quest.pckld1.name");
+quest.pckld1.rar = 2;
+quest.pckld1.loc = i18n.t(
+  "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
+);
+quest.pckld1.desc = i18n.t("content.quest.pckld1.desc");
+quest.pckld1.data = { t: 0, killed: false };
+quest.pckld1.init = function () {
+  this.callback();
+};
+// Rebuilt on load the same way the wolf hunt's hook is: load() drops every hook
+// marked with `q` and then calls each started quest's callback again.
+quest.pckld1.callback = function () {
+  if (!quest.pckld1.data.done)
+    attachCallback(callback.onDeath, {
+      f(victim) {
+        if (victim.id !== creature.wolfa1.id || quest.pckld1.data.killed)
+          return;
+        quest.pckld1.data.killed = true;
+        msg(i18n.t("runtime.data.quests.dialogue.pack_leader_falls"), "orange");
+        smove(chss.frstn10main);
+      },
+      id: 1006,
+      data: { q: true },
+    });
+};
+quest.pckld1.rwd = function () {
+  this.data.t++;
+  giveWealth(600);
+  // The Wolf Mask had no source at all. The pack leader is the one creature in
+  // the game it belongs to.
+  giveItem(eqp.amsk);
+  giveExp(26000, true, true, true);
+  detachCallback(callback.onDeath, 1006);
+};
+quest.pckld1.goals = function () {
+  return [
+    i18n.t("content.quest.pckld1.goal", {
+      color: quest.pckld1.data.killed ? "lime" : "yellow",
+      state: i18n.t(
+        quest.pckld1.data.killed
+          ? "content.quest.pckld1.stateDone"
+          : "content.quest.pckld1.stateInProgress",
+      ),
+    }),
+  ];
+};
+quest.pckld1.goalsf = function () {
+  return [
+    i18n.t("content.quest.pckld1.goal", {
+      color: "lime",
+      state: i18n.t("content.quest.pckld1.stateDone"),
     }),
   ];
 };

@@ -1952,6 +1952,84 @@ chss.frstn1b1j.sl = () => {
       });
     }
   }
+  // The board used to render nothing but its header once the wolf hunt was done,
+  // which made an empty board the real end of the game. Yamato promised to send
+  // for the player; this is where he keeps that promise. A save made before the
+  // promise was recorded has no day to wait for, so it is treated as already due.
+  if (quest.lmfstkil1.data.done) {
+    const promisedOn = quest.lmfstkil1.data.rday;
+    const due = promisedOn === undefined || time.day > promisedOn + 1;
+    if (!quest.pckld1.data.started && !quest.pckld1.data.done) {
+      if (!due)
+        chs(
+          i18n.t("runtime.world.locations.dialogue.yamato_rest_first"),
+          true,
+          "yellow",
+        );
+      else
+        chs(
+          i18n.t("runtime.world.locations.dialogue.pack_leader_posting"),
+          false,
+        ).addEventListener("click", () => {
+          chs(
+            i18n.t("runtime.world.locations.dialogue.yamato_pack_leader_brief"),
+            true,
+            "yellow",
+            0,
+            0,
+            0,
+            ".9em",
+          );
+          chs(
+            i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+            false,
+            "lime",
+          ).addEventListener("click", () => {
+            giveQst(quest.pckld1);
+            smove(chss.frstn1b1, false);
+          });
+          chs(
+            i18n.t("runtime.world.locations.dialogue.refuse_b896d9e7"),
+            false,
+            "crimson",
+          ).addEventListener("click", () => {
+            smove(chss.frstn1b1, false);
+          });
+        });
+    } else if (quest.pckld1.data.started) {
+      if (!quest.pckld1.data.killed) {
+        chs(
+          i18n.t("runtime.world.locations.dialogue.yamato_pack_leader_waiting"),
+          true,
+        );
+        chs(
+          i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+          false,
+        ).addEventListener("click", () => {
+          smove(chss.frstn1b1, false);
+        });
+        return;
+      }
+      chs(
+        i18n.t("runtime.world.locations.dialogue.yamato_pack_leader_report"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.accept_the_reward_d2c12b50"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        finishQst(quest.pckld1);
+        global.flags.undercity1 = true;
+        smove(chss.frstn1main);
+      });
+    }
+  }
   if (!quest.fwd1.data.done) {
     chs(
       i18n.t("runtime.world.locations.dialogue.firewood_gathering_0fea8bf3"),
@@ -2318,6 +2396,15 @@ chss.frstn9a1m.sl = () => {
     i18n.t("runtime.world.locations.dialogue.this_place_looks_dark_a6f528d6"),
     true,
   );
+  // The foliage was a terminal grinding area. Taking Yamato's second commission
+  // opens the way past it, so the two-scene south finally has a destination.
+  if (quest.pckld1.data.started || quest.pckld1.data.done)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.follow_the_trail_deeper"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.frstn10main);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
     false,
@@ -2327,6 +2414,46 @@ chss.frstn9a1m.sl = () => {
 };
 chss.frstn9a1m.onEnter = function () {
   area_init(area.frstn9a1);
+};
+
+// The pack leader's hollow. Yamato asks the player to look before killing, so the
+// room leads with what is written on the ground and keeps the fight behind a
+// deliberate choice. After the kill the same scene reports the aftermath instead,
+// and the crack it describes is the question Chapter III answers.
+chss.frstn10main = new Chs();
+chss.frstn10main.id = 170;
+chss.frstn10main.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("runtime.world.locations.dialogue.southern_forest_the_hollow"));
+  global.lst_loc = 170;
+  if (quest.pckld1.data.killed) {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hollow_aftermath"),
+      true,
+      "yellow",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.report_back_to_the_lodge"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      smove(chss.frstn1b1j);
+    });
+  } else {
+    chs(i18n.t("runtime.world.locations.dialogue.hollow_signs"), true);
+    chs(
+      i18n.t("runtime.world.locations.dialogue.search_the_hollow"),
+      false,
+    ).addEventListener("click", () => {
+      area_init(area.frstn10a1);
+    });
+  }
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.frstn9a1m);
+  });
 };
 
 chss.lsmain1 = new Chs();

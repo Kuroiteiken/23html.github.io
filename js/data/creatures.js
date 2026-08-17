@@ -760,7 +760,11 @@ creature.wolf1.blood = 0.986;
 creature.wolf1.pts = 9;
 creature.wolf1.battle_ai = function (x, y, z) {
   if (random() <= 0.3) return attack(x, y, abl.bite);
-  else if (random() <= 0.1) return attack(x, y, abl.scratch);
+  // This read `abl.scratch`, which does not exist. attack() falls back to
+  // abl.default for an undefined ability, so the wolf's scratch silently lost
+  // both its bleed chance and its damage bonus, and abl.scrtch was dead code
+  // that no creature reached.
+  else if (random() <= 0.1) return attack(x, y, abl.scrtch);
   return attack(x, y);
 };
 
@@ -792,5 +796,46 @@ creature.slm5.rnk = 3;
 creature.slm5.pts = 5;
 creature.slm5.battle_ai = function (x, y, z) {
   if (random() <= 0.15) return attack(x, y, abl.bash);
+  return attack(x, y);
+};
+
+// The pack leader Yamato warned about after the wolf hunt. Deliberately not just
+// a bigger wolf: every other wolf in the game is a Weakened Wolf, and this is
+// the one that is not. What it carries instead is the taint of whatever pushed
+// the pack north, which is why its dark affinity and its resistances run so far
+// ahead of the rest of its stats, and why it bites with rot.
+creature.wolfa1 = new Creature();
+creature.wolfa1.name = i18n.t("content.creature.wolfa1.name");
+creature.wolfa1.id = 138;
+creature.wolfa1.desc = i18n.t("content.creature.wolfa1.desc");
+creature.wolfa1.type = 1;
+creature.wolfa1.exp = 900;
+creature.wolfa1.hp_r = 2600;
+creature.wolfa1.stat_p = [1.5, 1.35, 1.4, 1];
+creature.wolfa1.aff = [30, 26, 4, -14, 34, -48, 66];
+creature.wolfa1.cls = [58, 52, 66];
+creature.wolfa1.eqp[0].aff = [20, 26, 4, -14, 34, -48, 66];
+creature.wolfa1.eqp[0].cls = [14, 15, 14];
+creature.wolfa1.ctype = 1;
+creature.wolfa1.str_r = 46;
+creature.wolfa1.agl_r = 34;
+creature.wolfa1.int_r = 16;
+creature.wolfa1.spd_r = 5;
+creature.wolfa1.eva = 30;
+creature.wolfa1.res.curse = 0.55;
+creature.wolfa1.res.death = 0.7;
+creature.wolfa1.res.frost = 0.7;
+creature.wolfa1.drop = [
+  { item: item.wfng, chance: 0.9 },
+  { item: item.sbone, chance: 0.5 },
+  { item: item.rwmt1, chance: 0.3 },
+];
+creature.wolfa1.rnk = 7;
+creature.wolfa1.blood = 0.986;
+creature.wolfa1.pts = 140;
+creature.wolfa1.battle_ai = function (x, y, z) {
+  if (random() <= 0.25) return attack(x, y, abl.pbite);
+  else if (random() <= 0.3) return attack(x, y, abl.bite);
+  else if (random() <= 0.2) return attack(x, y, abl.scrtch);
   return attack(x, y);
 };

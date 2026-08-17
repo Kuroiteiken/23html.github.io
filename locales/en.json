@@ -679,6 +679,10 @@
       "slm5": {
         "name": "Blue Slime",
         "desc": "Slime of a very deep darkblue hue, which looks shiny under the light and almost completely dark in the shade"
+      },
+      "wolfa1": {
+        "name": "Pack Leader",
+        "desc": "The one wolf in the southern forest that no disease touched. It is larger than the rest, but that is not what kept it alive: it held the pack between itself and something else, and whatever that was has left its mark in the rot along its jaw"
       }
     },
     "effect": {
@@ -3122,6 +3126,13 @@
         "name": "Monster Eradication",
         "desc": "Dangerous monsters have invaded the southern forest and terrorizing the villagers. Get rid of them!",
         "goal": "Wolves killed: <span style=\"color:{color}\">{current}/{required}</span>"
+      },
+      "pckld1": {
+        "name": "The Pack Leader",
+        "desc": "Yamato kept his word and sent for you. The wolves you killed were starving and sick; something drove them north. Find the hollow past the foliage, and look before you kill",
+        "goal": "Pack leader (<span style=\"color:{color}\">{state}</span>)",
+        "stateInProgress": "still out there",
+        "stateDone": "slain"
       }
     },
     "skl": {
@@ -4394,6 +4405,9 @@
       },
       "frstn9a1": {
         "name": "Southern forest hunting area"
+      },
+      "frstn10a1": {
+        "name": "Southern forest hollow"
       }
     }
   },
@@ -4588,7 +4602,8 @@
           "you_hear_a_piercing_wail_6db06040": "You hear a piercing wail",
           "quest_completed_36971938": "Quest completed: ",
           "quest_accepted": "Quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
-          "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>"
+          "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
+          "pack_leader_falls": "The great wolf goes down, and the forest does not make a sound."
         }
       },
       "titles": {
@@ -5428,7 +5443,18 @@
             "<span style=\"color:cyan\">Nervous Guy:</span> I said leave me be, didn't I?",
             "<span style=\"color:cyan\">Nervous Guy:</span> ...You are still here. Fine. Stand there if you must."
           ],
-          "nervous_guy_kindness": "You step back and let the man breathe. He does not thank you, but his shoulders drop a little."
+          "nervous_guy_kindness": "You step back and let the man breathe. He does not thank you, but his shoulders drop a little.",
+          "yamato_rest_first": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: I told you to rest and I meant it. I need you steady, not quick. Sleep on it and come back to me.",
+          "pack_leader_posting": "The pack leader — Yamato's own request",
+          "yamato_pack_leader_brief": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: I said I would send for you. I would have, in a day or two; you have saved me a runner.<br><br>I had the carcasses looked at. Every wolf you brought down was underfed, and most of them were sick. That is not a pack that came north to hunt us. That is a pack that was pushed.<br><br>Something holds the deep south now, and it is not a wolf. The leader knows what it is: it kept the pack between itself and that thing, and it did not choose us. Find the hollow past the foliage.<br><br>And hunter, look before you kill. If you find what pushed them, you come back to me before you touch it.",
+          "yamato_pack_leader_waiting": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: The hollow is past the foliage, not in this room. Go on.",
+          "yamato_pack_leader_report": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Sit down. You are bleeding on my floor.<br><br>Rot in a wolf's jaw, weeks old, and it still held its ground. Against what, if not us? You saw the crack. So did it: it died facing the crack, not facing you.<br><br>Take the mask. It was cut from the last thing I hunted that had no business existing, and I have no use for keepsakes.<br><br>Something is under the ground, hunter. The south, and now the village. The old shopkeeper by the cellars has been saying for a month that something is digging under people's homes, and I called him a drunk to his face. Go and hear him out properly. I will send word east; if this is what I think it is, the two of us will not be enough.",
+          "southern_forest_the_hollow": "Southern Forest, The Hollow",
+          "hollow_signs": "The ground gives way into a bowl of dead pine. There are bones here and not all of them belong to prey: a wolf's own skull, cracked open, half buried in needles. The claw marks on the trunks run higher than any wolf could reach. Under the roots on the far side, cold air is coming up out of the rock.",
+          "hollow_aftermath": "The leader lies where it fell, and up close it is a poor ruined thing: ribs like a fence, one eye gone milky, the rot in its jaw old enough to have set into the bone. It is facing the crack in the rocks, not facing you.<br><br>The crack breathes. It is far too narrow to follow, and the air coming out of it is colder than the season has any right to be.",
+          "search_the_hollow": "Search the hollow",
+          "follow_the_trail_deeper": "Follow the trail deeper",
+          "report_back_to_the_lodge": "Report back to the lodge"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

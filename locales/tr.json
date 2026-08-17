@@ -679,6 +679,10 @@
       "slm5": {
         "name": "Mavi Balçık",
         "desc": "Işık altında parlak görünen, gölgede neredeyse tamamen koyu görünen, çok koyu lacivert renkte slime"
+      },
+      "wolfa1": {
+        "name": "Sürü Lideri",
+        "desc": "Güney ormanında hastalığın dokunmadığı tek kurt. Diğerlerinden büyük ama onu ayakta tutan bu değil: sürüyü kendisiyle başka bir şeyin arasında tuttu ve o şey, çenesine yayılan çürümede izini bıraktı"
       }
     },
     "effect": {
@@ -3122,6 +3126,13 @@
         "name": "Canavarların Yok Edilmesi",
         "desc": "Tehlikeli canavarlar güney ormanını istila etti ve köylüleri terörize etti. Onlardan kurtulun!",
         "goal": "Öldürülen kurt: <span style=\"color:{color}\">{current}/{required}</span>"
+      },
+      "pckld1": {
+        "name": "Sürü Lideri",
+        "desc": "Yamato sözünü tuttu ve seni çağırttı. Öldürdüğün kurtlar aç ve hastaydı; onları kuzeye bir şey sürmüş. Çalılığın ötesindeki çukuru bul ve öldürmeden önce bak",
+        "goal": "Sürü lideri (<span style=\"color:{color}\">{state}</span>)",
+        "stateInProgress": "hâlâ dışarıda",
+        "stateDone": "öldürüldü"
       }
     },
     "skl": {
@@ -4394,6 +4405,9 @@
       },
       "frstn9a1": {
         "name": "Güney ormanı avlanma alanı"
+      },
+      "frstn10a1": {
+        "name": "Güney ormanı çukuru"
       }
     }
   },
@@ -4588,7 +4602,8 @@
           "you_hear_a_piercing_wail_6db06040": "Delici bir feryat duyuyorsun",
           "quest_completed_36971938": "Görev tamamlandı: ",
           "quest_accepted": "Görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
-          "repeatable_quest_accepted": "<span style=\"color:cyan\">Tekrarlanabilir</span> görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>"
+          "repeatable_quest_accepted": "<span style=\"color:cyan\">Tekrarlanabilir</span> görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
+          "pack_leader_falls": "Büyük kurt yere yığılıyor ve orman tek bir ses çıkarmıyor."
         }
       },
       "titles": {
@@ -5432,7 +5447,18 @@
             "<span style=\"color:cyan\">Gergin Adam:</span> Beni rahat bırak dedim, değil mi?",
             "<span style=\"color:cyan\">Gergin Adam:</span> ...Hâlâ buradasın. Peki. İlle de duracaksan dur."
           ],
-          "nervous_guy_kindness": "Bir adım geri çekilip adamın nefes almasına izin veriyorsun. Sana teşekkür etmiyor ama omuzları biraz düşüyor."
+          "nervous_guy_kindness": "Bir adım geri çekilip adamın nefes almasına izin veriyorsun. Sana teşekkür etmiyor ama omuzları biraz düşüyor.",
+          "yamato_rest_first": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Dinlen dedim ve ciddiydim. Bana hızlı değil sağlam biri gerek. Bir uyu, sonra yanıma gel.",
+          "pack_leader_posting": "Sürü lideri — Yamato'nun kendi talebi",
+          "yamato_pack_leader_brief": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Sana haber salacağım demiştim. Bir iki gün içinde salacaktım da; bir habercimi kurtardın.<br><br>Leşlere baktırdım. Yere serdiğin her kurt aç kalmıştı, çoğu da hastaydı. Bizi avlamak için kuzeye inen bir sürü böyle olmaz. Bu, yerinden edilmiş bir sürü.<br><br>Güneyin derinlerini artık bir şey tutuyor ve o şey kurt değil. Lider ne olduğunu biliyor: sürüyü kendisiyle o şeyin arasına dizdi ve bizi seçmedi. Çalılığın ötesindeki çukuru bul.<br><br>Bir de avcı, öldürmeden önce bak. Onları yerinden edeni bulursan, dokunmadan önce bana döneceksin.",
+          "yamato_pack_leader_waiting": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Çukur çalılığın ötesinde, bu odada değil. Yürü hadi.",
+          "yamato_pack_leader_report": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Otur şöyle. Tahtalarıma kan damlatıyorsun.<br><br>Bir kurdun çenesinde haftalar öncesine dayanan bir çürüme var ve o hayvan hâlâ yerini bırakmamış. Bize karşı değilse, neye karşı? Yarığı gördün. O da görmüş: sana değil, yarığa dönük ölmüş.<br><br>Maskeyi al. Var olmaya hakkı olmayan son şeyden kesilmişti; bende hatıra durmaz.<br><br>Yerin altında bir şey var avcı. Güneyde, şimdi de köyde. Bodrumların oradaki yaşlı esnaf bir aydır insanların evinin altını bir şeyin kazdığını söylüyor, ben de yüzüne karşı ayyaş dedim. Git, bu kez doğru dürüst dinle. Ben doğuya haber salacağım; bu, düşündüğüm şeyse ikimiz yetmeyeceğiz.",
+          "southern_forest_the_hollow": "Güney Ormanı, Çukur",
+          "hollow_signs": "Zemin ölü çamlardan oluşan bir çanağa doğru çöküyor. Burada kemikler var ve hepsi av hayvanlarına ait değil: çatlamış bir kurt kafatası, çam iğnelerinin arasına yarı gömülü. Gövdelerdeki pençe izleri hiçbir kurdun uzanamayacağı kadar yüksekte. Karşı tarafta, köklerin altında, kayanın içinden soğuk hava yukarı vuruyor.",
+          "hollow_aftermath": "Lider düştüğü yerde duruyor ve yakından bakınca zavallı, çökmüş bir hayvan: kaburgaları çit gibi, bir gözü sütlenmiş, çenesindeki çürüme kemiğe oturacak kadar eski. Sana değil, kayadaki yarığa dönük.<br><br>Yarık soluyor. İçine girilemeyecek kadar dar ve oradan gelen hava mevsimin izin vereceğinden çok daha soğuk.",
+          "search_the_hollow": "Çukuru ara",
+          "follow_the_trail_deeper": "İzi daha derine takip et",
+          "report_back_to_the_lodge": "Kulübeye dönüp haber ver"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

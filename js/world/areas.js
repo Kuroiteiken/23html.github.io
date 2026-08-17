@@ -364,6 +364,26 @@ area.frstn9a1.drop = [
   { item: item.wdc, c: 0.06 },
 ];
 
+// The hollow at the far end of the southern forest, where the pack leader dens.
+// Appended rather than inserted: load() restores area sizes by position, so the
+// order of the definitions above is part of the save format. A single-creature
+// population keeps the hollow from becoming another grinding spot, and onEnd
+// restores the size so a player who retreats can sweep it again.
+area.frstn10a1 = new Area();
+area.frstn10a1.id = 119;
+area.frstn10a1.name = i18n.t("content.area.frstn10a1.name");
+area.frstn10a1.pop = [{ crt: creature.wolfa1, lvlmin: 12, lvlmax: 13, c: 1 }];
+area.frstn10a1.size = 8;
+z_bake(area.frstn10a1);
+area.frstn10a1.onEnd = function () {
+  this.size = 8;
+  smove(chss.frstn10main);
+};
+area.frstn10a1.drop = [
+  { item: item.sbone, c: 0.08 },
+  { item: item.hrb1, c: 0.02 },
+];
+
 function z_bake(area) {
   let c = 0;
   let d = 0;

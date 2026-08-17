@@ -12,7 +12,7 @@ aspirational unless it appears under [Continuing the story](#continuing-the-stor
 
 ## The quest chain
 
-Five quests are defined in `js/data/quests.js`. Four are reachable.
+Six quests are defined in `js/data/quests.js`. Five are reachable.
 
 | Quest       | Name                | Given at                           | Requires                                                | Reward                                          |
 | ----------- | ------------------- | ---------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
@@ -21,6 +21,7 @@ Five quests are defined in `js/data/quests.js`. Four are reachable.
 | `hnt1`      | First Hunt          | Hunter's Lodge job board           | none, runs parallel to `fwd1`                           | 130 wealth, 10× `item.jrk1`, 12,000 exp, karma  |
 | `grds1`     | Guarding Duty       | Marketplace checkpoint             | Notice board post 4, which needs `fwd1` + `hnt1`; 7–10h | 65 wealth, 3,000 exp, repeatable                |
 | `lmfstkil1` | Monster Eradication | Hunter's Lodge job board           | `fwd1` + `hnt1`, level 20, and beating dojo Golem 4     | 300 wealth, `wpn.gsprw`, `eqp.nkgd`, 18,000 exp |
+| `pckld1`    | The Pack Leader     | Hunter's Lodge job board           | `lmfstkil1` done, and one more in-game day since        | 600 wealth, `eqp.amsk`, 26,000 exp              |
 
 Completing `fwd1` and `hnt1` together triggers a gate scene at the lodge that
 grants `wpn.dgknf` and the satchel `item.htrsvr`, and sets the flags that open
@@ -47,48 +48,77 @@ village gate (level 6) ──► Western Woods ──► Hunter's Lodge
                                                                     ▼
                                                           Southern Forest opens
                                                           35 × wolf kills
-                                                          ── STORY ENDS HERE ──
+                                                                    │
+                                                     Yamato records the day he
+                                                     promised to send for you
+                                                                    │
+                                                       one in-game day later
+                                                                    ▼
+                                                          pckld1 The Pack Leader
+                                                          hollow past the foliage
+                                                          1 × creature.wolfa1
+                                                                    │
+                                                                    ▼
+                                                    ── STORY STOPS HERE, on the
+                                                       crack under the hollow ──
 ```
 
 ## Where the story stops
 
-The 35th wolf kill fires a callback that moves the player to the Southern
-Forest gate. Reporting back at the lodge completes `lmfstkil1` and returns the
-player to the Western Woods gate. Yamato's closing line is:
+Chapter I and II are implemented. The 35th wolf kill still moves the player to
+the Southern Forest gate, and reporting back completes `lmfstkil1`; that reward
+now also records `quest.lmfstkil1.data.rday`, the in-game day Yamato promised to
+send for the player. One day later the job board carries his second commission
+instead of rendering an empty header.
 
-> "…As for you, go and have a good hard earned rest, you have done very well.
-> Expect to be contacted later for further monster subjugation."
+`pckld1` opens a third southern scene, `chss.frstn10main`, past the foliage. The
+hollow leads with what is written on the ground — a wolf's own cracked skull,
+claw marks above any wolf's reach, cold air rising out of the rock — and keeps
+the fight behind a deliberate "Search the hollow" choice, because Yamato asks the
+player to look before killing. `creature.wolfa1` is the only wolf in the game
+that is not a _Weakened Wolf_; the existing description of `wolf1` already says
+those wolves were "affected by a disease" and are far less dangerous than "its
+healthy counterpart", so the leader is that counterpart, carrying weeks-old rot
+in its jaw.
 
-That contact never comes. There is no ending, no epilogue, and no end flag. From
-that point the job board renders its header and a single "Return" choice, because
-every posting condition is false. **A permanently empty job board is the real end
-of the game.**
+Killing it turns the same scene into its aftermath: the leader died facing the
+crack, not facing the player. Yamato's report pays off the hunt, hands over the
+Wolf Mask, points at the shopkeeper who has been complaining about digging under
+the village for a month, and says he will send word east.
 
-The region the final quest unlocks is two scenes deep: the Southern Forest gate
-and one respawning hunting area. Neither is attached to a sector, so the south
-has no exploration or ambient layer at all.
+**The story now stops on a question rather than an empty board:** the crack is
+too narrow to follow. Reaching what is below it is Chapter III, and the entrance
+is meant to be the player's own basement.
 
 ### Other dead ends
 
-- `chss.jbgd1`, the guard duty post, has **no exit choice**. The player is held
-  there until the hour reaches 20.
-- `chss.frstn9a1m` is a terminal grind area whose population respawns forever.
+- `chss.frstn9a1m` remains a respawning grind area, but it is no longer terminal:
+  it carries the choice into the hollow once `pckld1` is started.
 - `chss.cata25` terminates the catacomb map, which is unreachable regardless.
+- The shopkeeper line that Chapter III depends on sits behind
+  `area.hmbsmnt.size >= 1000` in `chss.gens1`. The basement refills by
+  `rand(5, 15)` per day from a base of 10, so that gate takes on the order of a
+  hundred in-game days to open. Chapter III has to surface the hook properly
+  rather than rely on it.
 
 ## The Head Hunter
 
 Yamato is the story's only sustained character and its natural spine. He runs
-the Western Woods lodge, gives three of the four reachable quests, and holds a
+the Western Woods lodge, gives four of the five reachable quests, and holds a
 lore hub covering monster ranks G through SSS and six creature categories.
 
-His dialogue makes three promises the game does not keep:
+His dialogue made three promises. Two are now kept:
 
-1. **"Expect to be contacted later for further monster subjugation."** No further
-   subjugation exists.
-2. **"We're going east soon."** No eastern sector, area, or scene exists.
+1. **"Expect to be contacted later for further monster subjugation."** Kept: the
+   day of the promise is recorded, and `pckld1` appears on the board a day later.
+2. **"We're going east soon."** Still unpaid. No eastern sector, area, or scene
+   exists. His pack-leader report now states it as an intention — he will send
+   word east because two hunters will not be enough — which sharpens the debt
+   rather than settling it.
 3. **"Might have been the leader of the pack, furious about death of his
-   underlings. This matter will need to be resolved quickly."** No pack leader
-   exists.
+   underlings. This matter will need to be resolved quickly."** Kept:
+   `creature.wolfa1` dens in the hollow, and the reason it left its territory is
+   the question Chapter III inherits.
 
 He also has a self-contained arc around a marked sword belonging to Dein, the
 missing deputy chief, which ends with the sword confiscated and a search
@@ -106,14 +136,29 @@ the interface, even though `item.bstr` claims to unlock a bestiary.
 This is the important part. The game is not short of content; it is short of
 connections.
 
-| Asset                   | Amount             | State                                                                                                                                                                           |
-| ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catacombs**           | 26 finished scenes | `sector.cata1`, `chss.catamn` and `cata1`–`cata25`. Named rooms, 14 ambient lines, a darkness effector, an 11,000-point exploration track. **Nothing in the game links to it.** |
-| **Undead bestiary**     | 20 creatures       | Zombies, ghouls, ghasts, mummies, puppets, dolls, cave bats, stirges and more. None appears in any area population.                                                             |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized. Its completion handler calls two scenes that do not exist.                                                                        |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                           |
-| **Titles**              | 32 of 108          | No grant path. Includes **Wolf Slayer**, and the three job titles despite the game already counting completed jobs.                                                             |
-| **Items and equipment** | 310 of 544         | No drop, recipe, or vendor source. Includes 7 keys, 6 essences, 6 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, and roughly 150 foods.                   |
+| Asset                   | Amount             | State                                                                                                                                                                                                                                 |
+| ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Catacombs**           | 26 finished scenes | `sector.cata1`, `chss.catamn` and `cata1`–`cata25`, ids 132–157. Named rooms, 14 ambient lines, a darkness effector on the sector, an 11,000-point track. Still **nothing links in**, and see below: the rooms hold no combat at all. |
+| **Undead bestiary**     | 20 creatures       | Zombies, ghouls, ghasts, mummies, puppets, dolls, cave bats, stirges and more. None appears in any area population, and most are **stubs**: no `hp_r`, no stats, no drops, and left at `type = 3` (Evil) rather than 2 (Undead).      |
+| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                         |
+| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                 |
+| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                 |
+| **Items and equipment** | ~309 of 544        | No drop, recipe, or vendor source. Includes 7 keys, 6 essences, 5 remaining masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, and roughly 150 foods.                                                               |
+
+### What the catacombs actually lack
+
+Worth stating precisely, because it changes the size of Chapter IV. The 26 rooms
+are fully written and fully interconnected — every internal edge is reciprocal,
+with `cata1` as a hub, an east ring (`5→6→7→8→9→10→11→12→5`) and a west corridor
+(`13`→`25`) — but:
+
+- **No room calls `area_init`, and no area exists for them.** The dungeon has
+  zero combat population. Wiring an entrance alone would open 26 empty rooms.
+- No room declares `effectors`, `onEnter`, `onScout`, `scout` or `data`. The
+  darkness comes from `sector.cata1` only.
+- `chss.catamn`'s exit already leads to `chss.lsmain1` (village centre), with no
+  reciprocal link back, which is why the region reads as orphaned rather than
+  unfinished.
 
 The clusters line up with each other in a way that is hard to read as
 coincidence: a dark 26-room dungeon, a torch that nothing sells, seven keys with
@@ -122,18 +167,31 @@ prepared as one region and never connected.
 
 ## Defects in story code
 
-These are bugs, not design gaps, and should be fixed independently of any story
-work.
+These were bugs rather than design gaps. All of them are now fixed; the list is
+kept because each one shaped the content around it.
 
-- `js/world/areas.js` — an `area.trn.id` assignment sits inside the `area.trnf`
-  block. It overwrites the training area's id and leaves `area.trnf.id` at 0.
-- `js/world/locations.js` — guard duty completion increments
-  `global.flags.jcom`, which does not exist, instead of `global.stat.jcom`. The
-  result is `NaN`, and the job counter the interface already displays never
-  advances.
-- `js/world/areas.js` — `area.clg.onEnd` calls `chss.q1lwn` and `chss.q1l`,
-  neither of which is defined. It would throw if the area were ever reachable.
-- `chss.jbgd1` has no exit choice.
+- `js/world/areas.js` — an `area.trn.id` assignment sat inside the `area.trnf`
+  block, overwriting the training area's id and leaving `area.trnf.id` at 0.
+- `js/data/quests.js` — guard duty completion incremented `global.flags.jcom`,
+  which does not exist, instead of `global.stat.jcom`. The result was `NaN`, and
+  the job counter the interface already displayed never advanced.
+- `js/world/areas.js` — `area.clg.onEnd` called `chss.q1lwn` and `chss.q1l`,
+  neither of which is defined. It would have thrown if the area were reachable.
+- `chss.jbgd1` had no exit choice, holding the player until hour 20.
+- `js/data/creatures.js` — `creature.wolf1.battle_ai` attacked with
+  `abl.scratch`, which does not exist. `attack()` falls back to `abl.default`
+  for an undefined ability, so the wolf the player kills thirty-five of silently
+  lost its scratch's bleed chance and damage bonus, and `abl.scrtch` was dead
+  code no creature reached.
+
+### Still open
+
+- `chss.bsmnthm1.data.gets` has two entries but the third scout result writes
+  `gets[2]`, so that find is never latched as already taken.
+- `global.flags.bsmntchck`, the gate on the basement's "Examine your
+  surroundings" choice, is never assigned anywhere.
+- `sector.cata1.data.scoutm` is 11,000, but the sector has no `scout` table and
+  no `onScout`, so the track can never advance.
 
 ## Continuing the story
 
@@ -141,40 +199,48 @@ The cheapest continuation does not require inventing a new region. It requires
 connecting the one that is already finished, and paying off promises the
 dialogue has already made.
 
-### Step 1 — Reachable rewards for what the player already did
+### Step 1 — Reachable rewards for what the player already did — **done**
 
-No new content, no new scenes. Grant the titles the game already earns:
-**Wolf Slayer** for the wolf quest, and the three job titles from the existing
-completed-job counter once its `NaN` bug is fixed. Fix the area id collision, the
-`area.clg` crash, and give guard duty an exit. Restore the commented-out
-marketplace sector.
+Wolf Slayer is granted by `lmfstkil1`. The job titles are granted by stat
+milestones now that the completed-job counter increments the field the interface
+reads. The area id collision, the `area.clg` crash, the missing guard-duty exit
+and the wolf's undefined scratch are all fixed. The commented-out marketplace
+sector is still commented out.
 
-### Step 2 — The undercity
+### Step 2 — The pack leader — **done (Chapter I and II)**
+
+Implemented as `quest.pckld1`, `creature.wolfa1`, `area.frstn10a1` and
+`chss.frstn10main`. See [Where the story stops](#where-the-story-stops). This
+was moved ahead of the undercity deliberately: making the pack leader the first
+symptom rather than a side errand gives the wolves a cause, and the cause is what
+Chapter III investigates.
+
+The southern scenes are still not attached to a sector, so the south has no
+exploration or ambient layer.
+
+### Step 3 — The undercity
 
 The hook is already written. The basement shopkeeper says:
 
 > "Something is drilling underground right into people's homes… Some speculate
 > there's a monster cave nearby, but nothing has been found yet."
 
-This is the contact Yamato promised. The player's own basement is the natural
-entrance, and one link from `chss.bsmnthm1` into `chss.catamn` opens 26 rooms, a
-darkness mechanic, and 20 idle creatures at once. It also gives the torch a
-reason to be sold and the keys a reason to exist.
+Yamato's report now points the player straight at him, which matters because the
+line's own condition (`area.hmbsmnt.size >= 1000`) is close to unreachable.
 
-Narratively this closes the loop without touching the opening: the player is
-contacted, as promised, about something digging under the village, and the
-answer is beneath their own house.
+The player's own basement is the natural entrance: one link from
+`chss.bsmnthm1` into `chss.catamn` opens 26 rooms and the darkness mechanic. It
+also gives the torch a reason to be sold and the keys a reason to exist.
 
-### Step 3 — The pack leader
-
-The final quest already ends on this hook. One boss creature and one area at the
-end of the Southern Forest resolves it and gives the two-scene southern region a
-destination. The southern scenes also need to be attached to a sector so the
-region gains an exploration layer.
+Unlike Step 2, this step is not only wiring. The rooms hold no combat, so the
+undead have to be given real stats, `type = 2`, and drop tables, and at least one
+area has to exist for them to populate. `sector.cata1`'s 11,000-point track wants
+a scout table to become the exploration layer the rooms were clearly written for.
 
 ### Step 4 — East, and Dein
 
-Yamato's "we're going east soon" and the unresolved search for Dein are the two
+Yamato's "we're going east soon" — which his pack-leader report now states as an
+intention rather than an aside — and the unresolved search for Dein are the two
 threads that need genuinely new content. They are the right place to write an
 original arc, once the finished content above is connected.
 
