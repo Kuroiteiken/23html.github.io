@@ -3034,7 +3034,12 @@ chss.mrktvg1.onEnter = function () {
           global.text.mktwawa1 = i18n.get("gameText.mktwawa1");
         msg(
           i18n.format(select(global.text.mktwawa1), { amount: rand(15) }),
-          "rgb(" + rand(255) + "," + rand(255) + "," + rand(255) + ")",
+          // The crier drew a fully random rgb(), which regularly landed on a
+          // colour as dark as the message log's own rgb(36, 21, 59) background
+          // and left the line unreadable. The hue still changes every shout —
+          // that variety is the whole point of a marketplace — but lightness and
+          // saturation are fixed where the text stays legible.
+          "hsl(" + rand(359) + ", 75%, 70%)",
         );
       }
     }, 1000);

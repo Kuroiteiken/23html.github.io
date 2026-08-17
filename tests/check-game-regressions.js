@@ -451,6 +451,20 @@ if (
   );
 }
 
+// A message colour drawn at random has to stay readable on the log's own dark
+// background. The marketplace crier used rand() on each rgb channel, so it
+// regularly printed a line the player could not see at all.
+if (
+  /rgb\("\s*\+\s*rand\(/.test(locations) ||
+  !/"hsl\(" \+ rand\(359\) \+ ", 75%, 70%\)"/.test(locations)
+) {
+  throw new Error(
+    "Message-colour regression: a randomised message colour must fix its lightness, or it can come out as dark as the log background.",
+  );
+}
+
+console.log("Validated readable randomised message colours.");
+
 console.log("Validated the new-version announcement and its stored key.");
 
 const sharedConfirmModal = [
