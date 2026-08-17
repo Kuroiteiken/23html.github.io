@@ -4599,7 +4599,9 @@ function dmg_calc(att, def, atk) {
       const b = you.luck / 25 + 1;
       let undc = 0;
       if (you.eqp[0].id === 10000) undc = you.mods.undc;
-      dmg =
+      // Held on its own so the landed-blow floor below has something to take a
+      // share of. The expression is otherwise unchanged.
+      const swing =
         ((att.str * eff +
           ((att.eqp[0].str + undc) * (att.eqp[0].dp / att.eqp[0].dpmax) * 0.9 +
             0.1) *
@@ -4611,9 +4613,16 @@ function dmg_calc(att, def, atk) {
               att.maff[global.current_m.type] * 10 +
               att.aff[atea] * 10) *
               (att.eqp[0].id === 10000 ? 1 : ta))) /
-          100 -
+        100;
+      dmg =
+        swing -
         (def.str * (100 + def.aff[atea] * 5 + def.cls[atcs] * 5)) / 100 +
         1;
+      // See minimumLandedDamage: a hit that connected must be worth something, or a
+      // creature whose armour exceeds the player's whole output becomes immune rather
+      // than merely hard, silently and permanently.
+      const floor = minimumLandedDamage(swing);
+      if (dmg < floor) dmg = floor;
     } else {
       // A shield's affinity scales the shield's own contribution, the way armour's
       // affinity scales armour's just below and the way a creature's scales its own
@@ -4774,6 +4783,23 @@ function dmg_calc(att, def, atk) {
       ? rand(1, 5)
       : Math.ceil((dmg + cdmg) * att.dmlt * randf(0.9, 1.1)) + rand(1, 5);
   } else return dmg > 0 ? Math.ceil(dmg * att.dmlt * randf(0.9, 1.1)) : 0;
+}
+
+// A blow the player landed must never come to nothing. Mitigation is subtracted flat
+// from the attack and the result is floored at zero, so a creature whose armour
+// happens to exceed the player's whole output stops taking damage entirely -- not
+// slowly, not for a little, but never, with no message and no error. The combat log
+// reads "x5(5) total 0" and there is nothing to do but leave.
+//
+// This is the safety net rather than the balance: a landed hit returns a small share
+// of what it was worth, so a fight that is far too hard is a long fight instead of an
+// impossible one. It is deliberately only the player's outgoing damage. Flooring what
+// a creature deals to the player would mean armour could never fully stop anything,
+// which is the opposite of what armour is for.
+const MINIMUM_LANDED_SHARE = 0.05;
+
+function minimumLandedDamage(attackTerm) {
+  return Math.max(1, Math.floor(attackTerm * MINIMUM_LANDED_SHARE));
 }
 
 function dumb(x) {
@@ -6774,7 +6800,7 @@ function rendersellitem(root, line, vnd) {
   row.addEventListener("click", () => {
     const amount = line.obj.slot ? 1 : line.obj.amount;
     if (!(amount > 0)) {
-      chs_spec(6, vnd);
+      smove(chss.gensell, false);
       return;
     }
     const paid = itemSellValue(line.obj) * amount;
@@ -6791,7 +6817,10 @@ function rendersellitem(root, line, vnd) {
       }),
       "lime",
     );
-    chs_spec(6, vnd);
+    // Rebuild the scene, not just the panel. chs_spec starts with clr_chs(), which
+    // clears the Return choice the scene added after it -- calling it directly left
+    // the list on screen with no way back out.
+    smove(chss.gensell, false);
   });
   return row;
 }

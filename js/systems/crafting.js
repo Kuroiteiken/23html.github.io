@@ -1365,11 +1365,31 @@ function itemSellValue(itm) {
 // goes by the stack. A quest item is never on the list, and neither is anything
 // currently worn -- selling the sword out of your own hand is a mistake a shop
 // should not help you make.
+// Things a shopkeeper will not take, whatever they are worth. The eight keys are
+// here because a key is worth nothing until it meets its lock, and selling the one
+// that opens something is a mistake with no way back. `important` already covers
+// quest items; this covers the ones that are one-of-a-kind without being flagged.
+const unsellable = new Set([
+  "key0",
+  "key1",
+  "key2",
+  "key3",
+  "key4",
+  "key5",
+  "key6",
+  "key7",
+]);
+
 function sellableInventory() {
   const lines = [];
   for (const obj of inv) {
     if (obj.important === true) continue;
     if (obj.slot && wearing(obj)) continue;
+    // Matched by id rather than by name, so a translation cannot change what is
+    // sellable, and by looking the id up in the registry so a renamed key still
+    // resolves.
+    if ([...unsellable].some((key) => item[key] && item[key].id === obj.id))
+      continue;
     const amount = obj.slot ? 1 : obj.amount;
     if (!(amount > 0)) continue;
     const unit = itemSellValue(obj);
