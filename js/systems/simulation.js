@@ -1496,6 +1496,7 @@ function wdrseason(flag) {
 
 function ontick() {
   global.stat.tick++;
+  checkStatMilestones();
   time.minute += global.timescale;
   wManager();
   for (const a in plans[0]) plans[0][a].f();

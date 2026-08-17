@@ -173,7 +173,9 @@
     },
     "mastery": {
       "effects": "Effects:",
-      "current": "Current:"
+      "current": "Current:",
+      "locked": "Locked",
+      "revealed": "A branch you had not noticed opens on the mastery tree: <span style=\"color:orange\">Second Wind</span>"
     }
   },
   "gameText": {
@@ -3935,31 +3937,31 @@
       },
       "geti1": {
         "name": "Collector",
-        "desc": ""
+        "desc": "You cannot walk past something useful without picking it up"
       },
       "geti2": {
         "name": "Packmule",
-        "desc": ""
+        "desc": "Your pack has stopped closing properly and you do not care"
       },
       "geti3": {
         "name": "Hoarder",
-        "desc": ""
+        "desc": "Nothing is thrown away. Everything might be needed later"
       },
       "geti4": {
         "name": "Treasure Hunter",
-        "desc": ""
+        "desc": "You have hauled home more than most caravans carry"
       },
       "tghs1": {
         "name": "Scarred",
-        "desc": ""
+        "desc": "You have taken enough hits to stop flinching at the next one"
       },
       "tghs2": {
         "name": "Thickskinned",
-        "desc": ""
+        "desc": "Pain arrives, is noted, and is set aside"
       },
       "tghs3": {
         "name": "Brute",
-        "desc": ""
+        "desc": "Punishment that would end most people barely slows you down"
       },
       "dth4": {
         "name": "Carcass",
@@ -4003,15 +4005,15 @@
       },
       "jbs1": {
         "name": "Errand Boy",
-        "desc": ""
+        "desc": "You have run enough errands for the village to know its streets by name"
       },
       "jbs2": {
         "name": "Part-Timer",
-        "desc": ""
+        "desc": "Steady work, steady pay. The postings have started to expect you"
       },
       "jbs3": {
         "name": "Hired Hand",
-        "desc": ""
+        "desc": "Whoever needs a job done in this village asks for you first"
       },
       "pet3": {
         "name": "Wild Kid",
@@ -4323,10 +4325,19 @@
         "desc": "Drills that sharpen balance, footwork, and reaction"
       },
       "xtr1": {
-        "name": "Observation"
+        "name": "Observation",
+        "desc": "Learning to read a room, a track, and a tell before they matter",
+        "cond": "Available from the start"
       },
       "fse1": {
-        "name": "Reflexes"
+        "name": "Reflexes",
+        "desc": "Body and eye finally moving together, faster than thought",
+        "cond": "Requires one level in Physical Training, Athletics, and Observation"
+      },
+      "hstr1": {
+        "name": "Second Wind",
+        "desc": "The trick of finding one more push when the body says there is none",
+        "cond": "Hidden until Physical Training and Athletics are both mastered"
       }
     },
     "area": {

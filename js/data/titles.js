@@ -657,6 +657,32 @@ weather.thunder.ontick = function () {
   }
 };
 
+// Titles that track a running total. Each entry names the statistic, the
+// threshold, and the title it awards. Ten of these titles shipped with a name
+// and no grant path at all, even though the game was already counting what they
+// describe: completed jobs, items collected, and damage survived. Granted
+// titles are skipped, so checkStatMilestones is cheap enough to run on the tick.
+const statMilestones = [
+  { stat: "jcom", at: 5, title: "jbs1" },
+  { stat: "jcom", at: 25, title: "jbs2" },
+  { stat: "jcom", at: 100, title: "jbs3" },
+  { stat: "igtttl", at: 500, title: "geti1" },
+  { stat: "igtttl", at: 5000, title: "geti2" },
+  { stat: "igtttl", at: 50000, title: "geti3" },
+  { stat: "igtttl", at: 250000, title: "geti4" },
+  { stat: "dmgrt", at: 5000, title: "tghs1" },
+  { stat: "dmgrt", at: 50000, title: "tghs2" },
+  { stat: "dmgrt", at: 500000, title: "tghs3" },
+];
+
+function checkStatMilestones() {
+  for (const milestone of statMilestones) {
+    const title = ttl[milestone.title];
+    if (!title || title.have) continue;
+    if ((global.stat[milestone.stat] || 0) >= milestone.at) giveTitle(title);
+  }
+}
+
 function callbackManager(id) {
   this.id = id || 0;
   this.hooks = [];

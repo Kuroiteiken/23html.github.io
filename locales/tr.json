@@ -173,7 +173,9 @@
     },
     "mastery": {
       "effects": "Etkiler:",
-      "current": "Şu an:"
+      "current": "Şu an:",
+      "locked": "Kilitli",
+      "revealed": "Ustalık ağacında fark etmediğin bir dal açılıyor: <span style=\"color:orange\">İkinci Nefes</span>"
     }
   },
   "gameText": {
@@ -3935,31 +3937,31 @@
       },
       "geti1": {
         "name": "Koleksiyoncu",
-        "desc": ""
+        "desc": "İşe yarar bir şeyin yanından elin boş geçemiyorsun"
       },
       "geti2": {
         "name": "Yük Katırı",
-        "desc": ""
+        "desc": "Çantan artık düzgün kapanmıyor ve bu seni hiç ilgilendirmiyor"
       },
       "geti3": {
         "name": "İstifçi",
-        "desc": ""
+        "desc": "Hiçbir şey atılmaz. Her şey sonradan gerekebilir"
       },
       "geti4": {
         "name": "Hazine Avcısı",
-        "desc": ""
+        "desc": "Pek çok kervanın taşıdığından fazlasını eve taşıdın"
       },
       "tghs1": {
         "name": "Yaralı",
-        "desc": ""
+        "desc": "Bir sonrakinde irkilmeyi bırakacak kadar darbe aldın"
       },
       "tghs2": {
         "name": "Kalın derili",
-        "desc": ""
+        "desc": "Acı geliyor, kaydediliyor ve bir kenara konuluyor"
       },
       "tghs3": {
         "name": "Kaba Kuvvet",
-        "desc": ""
+        "desc": "Çoğu insanı bitirecek hasar seni ancak yavaşlatıyor"
       },
       "dth4": {
         "name": "Karkas",
@@ -4003,15 +4005,15 @@
       },
       "jbs1": {
         "name": "Ayakçı Çocuk",
-        "desc": ""
+        "desc": "Köye yeterince ayak işi yaptın; sokakları adıyla tanıyorsun"
       },
       "jbs2": {
         "name": "Yarı Zamanlı",
-        "desc": ""
+        "desc": "Düzenli iş, düzenli kazanç. İlanlar seni beklemeye başladı"
       },
       "jbs3": {
         "name": "Yevmiyeci",
-        "desc": ""
+        "desc": "Bu köyde bir iş yapılacaksa önce sana soruluyor"
       },
       "pet3": {
         "name": "Vahşi Çocuk",
@@ -4323,10 +4325,19 @@
         "desc": "Dengeyi, ayak işini ve tepki süresini keskinleştiren çalışmalar"
       },
       "xtr1": {
-        "name": "Gözlem"
+        "name": "Gözlem",
+        "desc": "Bir odayı, bir izi ve bir belirtiyi geç kalmadan okumayı öğrenmek",
+        "cond": "Başlangıçtan itibaren açık"
       },
       "fse1": {
-        "name": "Refleksler"
+        "name": "Refleksler",
+        "desc": "Beden ile gözün nihayet birlikte, düşünceden hızlı hareket etmesi",
+        "cond": "Beden Eğitimi, Atletizm ve Gözlem'de birer seviye ister"
+      },
+      "hstr1": {
+        "name": "İkinci Nefes",
+        "desc": "Beden bitti derken bir hamle daha bulmanın hüneri",
+        "cond": "Beden Eğitimi ve Atletizm ustalaşılana kadar gizli"
       }
     },
     "area": {

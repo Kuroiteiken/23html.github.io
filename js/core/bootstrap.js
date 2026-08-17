@@ -452,6 +452,15 @@ function save(lvr) {
   global.stat.lastver = global.ver;
   const a1 = {
     v: global.ver,
+    // Mastery levels were never saved, so every level the player bought was
+    // lost on reload. Only the level is stored: the stat bonuses `onlevel`
+    // applies are already part of the saved additive stats, so replaying them
+    // here would double them.
+    mastery: Object.fromEntries(
+      Object.entries(mastery)
+        .filter(([, entry]) => entry.data.lvl > 0)
+        .map(([id, entry]) => [id, entry.data.lvl]),
+    ),
     uid: global.uid,
     jj: global.stat,
     x: global.current_z.id,
@@ -901,6 +910,10 @@ function load(dt) {
     global.spirits = a1.f;
     global.lst_loc = a1.i;
     global.uid = a1.uid;
+    for (const id in mastery) mastery[id].data.lvl = 0;
+    for (const [id, lvl] of Object.entries(a1.mastery || {}))
+      if (mastery[id]) mastery[id].data.lvl = lvl;
+    revealHiddenMasteries();
     // Which build wrote this save. Saves from before the field was added report
     // 0. A save from a newer build than the running game is reported rather
     // than silently reinterpreted, since its fields may not mean the same thing.

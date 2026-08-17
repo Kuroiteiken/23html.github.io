@@ -10,6 +10,30 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v476 — kararlılık ve sözü tutma
 
+- Ustalık seviyeleri kaydediliyor. Hiç kayda yazılmıyorlardı, bu yüzden oyuncunun
+  aldığı her seviye yenilemede kayboluyordu. Yalnızca seviye saklanıyor:
+  `onlevel` işlevinin verdiği stat bonusları kaydedilen toplamsal statların
+  içinde zaten var, tekrar uygulamak onları ikiye katlardı. JSON olduğu ve bu
+  yüzden segment sırasını bozmadan genişletilebildiği için `a1` globaller
+  nesnesine eklendi.
+- Ustalık ağacı tamamlandı. Gözlem ve Refleksler seviye alıyordu ama ne açıklaması
+  ne `onlevel` işlevi vardı; yani seviye tüketip hiçbir şey vermiyorlardı. İkisi
+  de artık kendini anlatıyor ve stat veriyor; kilitli her düğüm `????????` yerine
+  koşulunu açıklıyor.
+- Hiçbir şeyin gizliliğini kaldırmadığı, bu yüzden diğer dalları açan `linkfrom`
+  kuralının hiç ulaşamadığı `hstr1` dalı ortaya çıkarıldı. Artık adı İkinci Nefes
+  ve Beden Eğitimi ile Atletizm tam ustalaşıldığında görünüyor; kayıt geri
+  yüklendiğinde yeniden denetleniyor.
+- Adı olan, açıklaması boş ve kazanılma yolu bulunmayan on unvan verilebilir hale
+  geldi; oysa oyun tam olarak anlattıkları şeyi zaten sayıyordu.
+  `statMilestones` tamamlanan işleri üç iş unvanına, toplanan eşyaları dört
+  toplama unvanına ve alınan hasarı üç dayanıklılık unvanına bağlıyor ve onunun
+  da açıklamasını yazıyor.
+- Ortak dağıtıcı üzerine sekiz davranış testi içeren `tests/callbacks.test.js`
+  eklendi: kanca kimliği, argüman aktarımı, konuma göre değil id'ye göre ayırma,
+  aynı id'yi paylaşan tüm kancaları ayırma, var olmayan id, kancaların
+  birbirinden bağımsızlığı ve bir kancanın yayılım sırasında kendini ayırdığında
+  kalanların atlanmaması — görev kancalarının fiilen yaptığı şey.
 - Kaydın biçimi, hiçbir parçası geri yüklenmeden önce doğrulanıyor. Format
   konumsal — 18. sırada `savevalid` sabiti bulunan, boruyla ayrılmış segmentler —
   bu yüzden kayan veya kırpılmış bir kayıt yanlış veri olarak yükleniyor ya da

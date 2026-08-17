@@ -134,6 +134,8 @@ function Mastery(id) {
 const masteryStatLabels = {
   str: i18n.t("ui.hud.abbr.str"),
   agl: i18n.t("ui.hud.abbr.agl"),
+  int: i18n.t("ui.hud.abbr.int"),
+  spd: i18n.t("ui.hud.abbr.spd"),
   hp: i18n.t("ui.hud.abbr.hp"),
   sat: i18n.t("ui.hud.abbr.sat"),
 };
@@ -177,6 +179,37 @@ const agilityPerLevel = [
   ["agl", 0.5],
   ["sat", 1],
 ];
+const observationPerLevel = [
+  ["int", 0.5],
+  ["sat", 1],
+];
+const reflexPerLevel = [
+  ["agl", 0.5],
+  ["hp", 3],
+];
+const secondWindPerLevel = [
+  ["str", 1],
+  ["agl", 1],
+  ["hp", 20],
+];
+
+// hstr1 is a hidden single-level node branching off the first two masteries. It
+// stayed out of the tree permanently because nothing ever cleared its hidden flag, so
+// the linkfrom rule that unlocks the other branches never reached it. It is
+// revealed once both parents are fully mastered, which is checked here and again
+// after a save is restored.
+function revealHiddenMasteries() {
+  if (!mastery.hstr1 || !mastery.hstr1.hidden) return;
+  if (
+    mastery.str1.data.lvl < mastery.str1.limit ||
+    mastery.agl1.data.lvl < mastery.agl1.limit
+  )
+    return;
+  mastery.hstr1.hidden = false;
+  mastery.hstr1.dscv = true;
+  if (!global.flags.loadstate)
+    msg(i18n.t("ui.mastery.revealed"), "orange", null, 6);
+}
 
 mastery.str1 = new Mastery(1);
 mastery.str1.name = i18n.t("content.mastery.str1.name");
@@ -192,6 +225,7 @@ mastery.str1.onlevel = function () {
   you.stra += 0.5;
   you.sata += 1;
   you.hpa += 5;
+  revealHiddenMasteries();
 };
 mastery.str1.icon = [6, 3];
 
@@ -208,6 +242,7 @@ mastery.agl1.have = true;
 mastery.agl1.onlevel = function () {
   you.agla += 0.5;
   you.sata += 1;
+  revealHiddenMasteries();
 };
 mastery.agl1.x = 230;
 mastery.agl1.limit = 10;
@@ -215,6 +250,21 @@ mastery.agl1.icon = [7, 3];
 
 mastery.xtr1 = new Mastery(3);
 mastery.xtr1.name = i18n.t("content.mastery.xtr1.name");
+mastery.xtr1.desc = function () {
+  return masteryDescription(
+    i18n.t("content.mastery.xtr1.desc"),
+    observationPerLevel,
+    masteryTotals(mastery.xtr1, observationPerLevel),
+  );
+};
+mastery.xtr1.condd = function () {
+  return i18n.t("content.mastery.xtr1.cond");
+};
+mastery.xtr1.onlevel = function () {
+  you.inta += 0.5;
+  you.sata += 1;
+  skl.scout.p += 0.05;
+};
 mastery.xtr1.have = true;
 mastery.xtr1.x = 430;
 mastery.xtr1.limit = 10;
@@ -222,6 +272,20 @@ mastery.xtr1.icon = [1, 7];
 
 mastery.fse1 = new Mastery(4);
 mastery.fse1.name = i18n.t("content.mastery.fse1.name");
+mastery.fse1.desc = function () {
+  return masteryDescription(
+    i18n.t("content.mastery.fse1.desc"),
+    reflexPerLevel,
+    masteryTotals(mastery.fse1, reflexPerLevel),
+  );
+};
+mastery.fse1.condd = function () {
+  return i18n.t("content.mastery.fse1.cond");
+};
+mastery.fse1.onlevel = function () {
+  you.agla += 0.5;
+  you.hpa += 3;
+};
 mastery.fse1.x = 230;
 mastery.fse1.y = 200;
 mastery.fse1.linkfrom = [mastery.str1, mastery.agl1, mastery.xtr1];
@@ -229,6 +293,22 @@ mastery.xtr1.linkto = [mastery.fse1];
 mastery.fse1.icon = [6, 1];
 
 mastery.hstr1 = new Mastery(9);
+mastery.hstr1.name = i18n.t("content.mastery.hstr1.name");
+mastery.hstr1.desc = function () {
+  return masteryDescription(
+    i18n.t("content.mastery.hstr1.desc"),
+    secondWindPerLevel,
+    masteryTotals(mastery.hstr1, secondWindPerLevel),
+  );
+};
+mastery.hstr1.condd = function () {
+  return i18n.t("content.mastery.hstr1.cond");
+};
+mastery.hstr1.onlevel = function () {
+  you.stra += 1;
+  you.agla += 1;
+  you.hpa += 20;
+};
 mastery.hstr1.have = false;
 mastery.hstr1.x = 125;
 mastery.hstr1.linkfrom = [mastery.str1, mastery.agl1];

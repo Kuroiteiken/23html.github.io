@@ -8,13 +8,14 @@
     "build": "node scripts/build.js && node scripts/build-site.js",
     "build:game": "node scripts/build.js",
     "dev": "node scripts/dev.js",
-    "check": "node --check js/game.js && node tests/check-changelog.js && node tests/check-game-regressions.js && node tests/check-i18n.js && node tests/check-version.js && npm run test:dev-server && npm run test:save && eslint js scripts tests && stylelint css/game.css && npm run check:format",
+    "check": "node --check js/game.js && node tests/check-changelog.js && node tests/check-game-regressions.js && node tests/check-i18n.js && node tests/check-version.js && npm run test:dev-server && npm run test:save && npm run test:callbacks && eslint js scripts tests && stylelint css/game.css && npm run check:format",
     "check:format": "prettier --check . --ignore-path .gitignore",
     "format": "prettier --write . --ignore-path .gitignore",
     "serve": "node scripts/serve.js",
     "test:browser": "node tests/browser-smoke-test.js",
     "test:dev-server": "node --test tests/dev-server.test.js",
-    "test:save": "node --test tests/save-format.test.js"
+    "test:save": "node --test tests/save-format.test.js",
+    "test:callbacks": "node --test tests/callbacks.test.js"
   },
   "stylelint": {
     "extends": [

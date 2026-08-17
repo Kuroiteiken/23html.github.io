@@ -10,6 +10,29 @@ changes. Player-facing game content and release notes belong in
 
 ### v476 — stability and follow-through
 
+- Save mastery levels. They were never written to the save, so every level the
+  player bought was lost on reload. Only the level is stored: the stat bonuses
+  `onlevel` applies are already part of the saved additive stats, so replaying
+  them would double them. Added to the `a1` globals object, which is JSON and
+  therefore safe to extend without disturbing segment order.
+- Completed the mastery tree. Observation and Reflexes were spendable but had no
+  description and no `onlevel`, so they consumed levels and granted nothing.
+  Both now describe themselves and grant stats, and each locked node explains
+  its requirement instead of showing `????????`.
+- Revealed `hstr1`, a hidden single-level branch that nothing ever unhid, so the
+  `linkfrom` rule that unlocks the other branches could never reach it. It is
+  now named Second Wind and appears once Physical Training and Athletics are
+  both fully mastered, rechecked after a save is restored.
+- Granted ten titles that shipped with a name, an empty description, and no
+  grant path, even though the game was already counting exactly what they
+  describe. `statMilestones` maps completed jobs to the three job titles, items
+  collected to the four collecting titles, and damage survived to the three
+  toughness titles, and gives all ten a description.
+- Added `tests/callbacks.test.js`, eight behaviour tests over the shared
+  dispatcher: hook identity, argument pass-through, detaching by id rather than
+  position, detaching every hook sharing an id, detaching an absent id, hook
+  independence, and that a hook detaching itself mid-fire does not skip the rest
+  — which is what the quest hooks actually do.
 - Validate the save's shape before restoring any of it. The format is positional
   — pipe-separated segments with a `savevalid` sentinel at index 18 — so a
   shifted or truncated save used to restore as the wrong data, or throw partway

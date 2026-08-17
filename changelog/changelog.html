@@ -279,6 +279,22 @@
         </header>
         <ul class="release-changes">
           <li>
+            Mastery levels are now saved. Every level bought was silently lost
+            on reload, because mastery progress was never written to the save at
+            all
+          </li>
+          <li>
+            Observation and Reflexes now have descriptions and actual effects;
+            both were spendable but did nothing. A hidden fourth branch, Second
+            Wind, opens once Physical Training and Athletics are fully mastered
+          </li>
+          <li>
+            Ten titles that could never be earned are now awarded: the three job
+            titles from completed work, four collecting titles, and three
+            toughness titles from damage survived. All of them already had
+            counters running behind them
+          </li>
+          <li>
             A damaged save is now checked before anything is restored.
             Previously a shifted or truncated save could load as the wrong data;
             it is now backed up untouched and reported instead
