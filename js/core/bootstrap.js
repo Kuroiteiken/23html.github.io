@@ -659,7 +659,20 @@ function describeSaveProblems(segments) {
 // names the version it upgrades a save TO, so a save reporting a lower version
 // runs every later migration in order. Add one here whenever a release changes
 // what a field means, rather than guessing at load time.
-const saveMigrations = [];
+const saveMigrations = [
+  {
+    to: 476,
+    // Before v476 the idle satiation drain was a base 0.1 that applied with no
+    // action running, and the actions panel could leak another 0.1 onto it per
+    // run. Both are gone, so the only correct saved value is 0: save() unequips
+    // before serializing and deactivates the current action, so equipment and
+    // action contributions are re-derived on load and never stored.
+    apply(save) {
+      if (save.mods && typeof save.mods.sdrate === "number")
+        save.mods.sdrate = 0;
+    },
+  },
+];
 
 function migrateSave(globalsSegment, fromVersion) {
   let applied = 0;
@@ -922,7 +935,9 @@ function load(dt) {
       console.warn(
         `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
       );
-    else migrateSave(a1, global.save_ver);
+    // Migrations run against the state restored so far, which is why they get
+    // `you.mods` rather than only the parsed globals segment.
+    else migrateSave({ globals: a1, mods: you.mods }, global.save_ver);
     // Older saves stored this as a string, and it is compared numerically.
     global.msgs_max = Math.min(50, Math.max(1, Number(a1.g) || 36));
     dom.ct_bt4_1b.value = global.msgs_max;

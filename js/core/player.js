@@ -37,7 +37,9 @@ function You() {
   };
   this.mods = {
     sbonus: 0,
-    sdrate: 0.1,
+    // No action, no drain. Running adds its cost scaled by mods.runerg, and
+    // combat, weather, and effects subtract satiation directly.
+    sdrate: 0,
     infsrate: 1,
     enmondren: 0,
     enmondrts: 1,

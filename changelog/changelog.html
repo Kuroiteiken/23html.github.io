@@ -278,7 +278,14 @@
           </div>
         </header>
         <ul class="release-changes">
-          <li>Fixed the energy drain rate creeping up permanently every time you started and stopped running. Opening the Actions panel left the previous rows in place, so one click could start running twice while stopping it refunded once</li>
+          <li>Standing still no longer costs energy. Energy is spent by what you do: running, taking hits, and bad weather. Running still costs 0.1 per second, reduced by the running titles</li>
+          <li>Existing saves are corrected on load, so a save that carried the old idle drain stops draining while you stand still</li>
+          <li>
+            Fixed the energy drain rate creeping up permanently every time you
+            started and stopped running. Opening the Actions panel left the
+            previous rows in place, so one click could start running twice while
+            stopping it refunded once
+          </li>
           <li>
             Returning to a backgrounded tab now says how much time passed.
             Energy drains every tick, so catching up several minutes at once

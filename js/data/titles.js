@@ -97,9 +97,10 @@ ttl.wlk.desc = i18n.t("content.ttl.wlk.desc");
 ttl.wlk.talent = function () {
   you.mods.runerg -= 0.05;
 };
-ttl.wlk.onGet = function () {
-  if (act.demo.active) you.mods.sdrate -= 0.005;
-};
+// The running discount belongs to mods.runerg, which talent() already lowers and
+// which scales the run cost every time it is applied. This onGet also poked
+// sdrate directly, permanently, and only if the player happened to be running
+// when the title was earned.
 ttl.wlk.tdesc = i18n.t("content.ttl.wlk.tdesc");
 
 ttl.eat1 = new Title(18);
@@ -141,9 +142,6 @@ ttl.jgg.rar = 2;
 ttl.jgg.desc = i18n.t("content.ttl.jgg.desc");
 ttl.jgg.talent = function () {
   you.mods.runerg -= 0.15;
-};
-ttl.jgg.onGet = function () {
-  if (act.demo.active) you.mods.sdrate -= 0.015;
 };
 ttl.jgg.tdesc = i18n.t("content.ttl.jgg.tdesc");
 

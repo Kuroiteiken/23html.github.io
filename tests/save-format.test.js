@@ -132,16 +132,35 @@ test("every malformed segment is reported, not just the first", () => {
   assert.equal(problems.length, 2);
 });
 
-test("an empty migration table changes nothing", () => {
+test("a save from the current build needs no migration", () => {
   const { api } = sandbox();
-  const payload = { v: 1 };
-  assert.equal(api.migrateSave(payload, 1), 0);
-  assert.deepEqual(payload, { v: 1 });
+  const payload = { mods: { sdrate: 0.4 } };
+  assert.equal(api.migrateSave(payload, 500), 0);
+  assert.equal(payload.mods.sdrate, 0.4, "nothing is touched");
+});
+
+test("the v476 migration clears the retired idle drain", () => {
+  // Before v476 the saved drain rate was the retired base of 0.1, plus anything
+  // the actions panel leaked onto it. Equipment and action contributions are
+  // never stored, so zero is the only correct value.
+  const { api } = sandbox();
+  const payload = { mods: { sdrate: 0.3, runerg: 1 } };
+  assert.equal(api.migrateSave(payload, 475), 1);
+  assert.equal(payload.mods.sdrate, 0);
+  assert.equal(payload.mods.runerg, 1, "other modifiers are left alone");
+});
+
+test("the v476 migration tolerates a save with no modifiers", () => {
+  const { api } = sandbox();
+  assert.doesNotThrow(() => api.migrateSave({}, 100));
+  assert.doesNotThrow(() => api.migrateSave({ mods: {} }, 100));
 });
 
 test("only migrations newer than the save are applied, in order", () => {
   const { api, messages } = sandbox();
   const order = [];
+  // Replace the real table so the ordering rule is tested on its own.
+  api.saveMigrations.splice(0);
   api.saveMigrations.push(
     {
       to: 300,
@@ -174,6 +193,7 @@ test("only migrations newer than the save are applied, in order", () => {
 test("a save older than every migration runs all of them in order", () => {
   const { api } = sandbox();
   const order = [];
+  api.saveMigrations.splice(0);
   api.saveMigrations.push(
     { to: 300, apply: () => order.push(300) },
     { to: 400, apply: () => order.push(400) },
