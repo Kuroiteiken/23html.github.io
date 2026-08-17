@@ -1,7 +1,11 @@
 // Action definitions: the ongoing activities the player can start, such as
 // training, working, and resting. Only one action runs at a time, tracked by
 // `global.current_a`; `cond()` decides whether it can be started, and
-// `activate`/`deactivate` manage the timers that advance it.
+// `activate`/`deactivate` set it up and tear it down. Progress itself is driven
+// by ontick(), which calls the active action's `use()` once per tick — an action
+// must not run a timer of its own, because a background tab throttles those to
+// roughly once a minute and the action would silently stop making progress while
+// the rest of the world replayed the time it had missed.
 
 function Action() {
   this.name = "dummy";
@@ -86,16 +90,13 @@ act.demo.activate = function () {
   );
   this.active = true;
   you.mods.stdstps += 0.5;
-  clearInterval(timers.actm);
+  // Progress is driven by ontick() rather than an interval of this action's own,
+  // so it keeps advancing while the tab is in the background.
   giveEff(you, effect.run);
-  timers.actm = setInterval(() => {
-    this.use();
-  }, 1000);
 };
 act.demo.deactivate = function () {
   if (!this.active) return;
   msg(i18n.t("runtime.systems.actions.dialogue.you_stop_45fed8fc"), "skyblue");
-  clearInterval(timers.actm);
   this.active = false;
   removeEff(effect.run);
   you.mods.stdstps -= 0.5;
@@ -137,7 +138,6 @@ act.scout.activate = function () {
     "springgreen",
   );
   this.active = true;
-  clearInterval(timers.actm);
   giveEff(you, effect.scout);
   let t = 2;
   for (const a in global.current_l.sector) {
@@ -149,9 +149,6 @@ act.scout.activate = function () {
       i18n.t("runtime.systems.actions.dialogue.you_sense_something_ca7deb6c"),
       "white",
     );
-  timers.actm = setInterval(() => {
-    this.use();
-  }, 1000);
 };
 
 act.scout.use = function () {
@@ -203,7 +200,6 @@ act.scout.use = function () {
 };
 act.scout.deactivate = function () {
   msg(i18n.t("runtime.systems.actions.dialogue.you_stop_45fed8fc"), "skyblue");
-  clearInterval(timers.actm);
   this.active = false;
   removeEff(effect.scout);
 };

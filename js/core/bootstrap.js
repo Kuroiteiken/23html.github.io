@@ -811,7 +811,8 @@ function load(dt) {
     clearInterval(timers.rdng);
     clearInterval(timers.rdngdots);
     global.menuo = 0;
-    clearInterval(timers.actm);
+    // timers.actm is gone: actions advance from ontick() now, so there is no
+    // per-action interval left to clear here.
     clearInterval(timers.job1t);
     clearInterval(timers.bstmonupdate);
     clearInterval(timers.rptbncgt);

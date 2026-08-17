@@ -75,7 +75,12 @@ function sandbox() {
     skl: { walk: {} },
     effect: { run: {} },
     clearInterval: () => {},
-    setInterval: () => 1,
+    // An action must not run a timer of its own. A background tab throttles
+    // setInterval to roughly once a minute, so the action would stop making
+    // progress while ontick() replayed the time everything else had missed.
+    setInterval: () => {
+      throw new Error("an action must not schedule its own interval");
+    },
   };
   vm.createContext(context);
   vm.runInContext(extractRunAction(), context);
@@ -212,4 +217,14 @@ test("cycles with a changing discount do not drift either", () => {
   }
   assert.equal(ctx.you.mods.sdrate, 0);
   assert.equal(ctx.you.mods.stdstps, 1);
+});
+
+test("starting an action schedules no timer of its own", () => {
+  // The sandbox's setInterval throws, so this passes only while progress is
+  // driven from ontick(). A background tab throttles intervals to roughly once a
+  // minute, which is what used to stop running and scouting from advancing.
+  const ctx = sandbox();
+  assert.doesNotThrow(() => ctx.act.demo.activate());
+  assert.doesNotThrow(() => ctx.act.demo.use());
+  assert.doesNotThrow(() => ctx.act.demo.deactivate());
 });

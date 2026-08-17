@@ -1521,6 +1521,13 @@ function ontick() {
     sectors[a].onStay();
     runEffectors(sectors[a].effectors);
   }
+  // The running and scouting actions used to advance on a setInterval of their
+  // own. A background tab throttles those to roughly once a minute, so an action
+  // quietly stopped making progress while the rest of the world kept replaying
+  // the time it had missed. Driving them from the tick puts them back in step:
+  // one use per tick, the same rate as before, and they catch up with everything
+  // else. act.default.active is false, so nothing happens when idle.
+  if (global.current_a.active) global.current_a.use();
   giveSkExp(skl.aba, 0.004);
   const timeh = (time.minute / DAY) << 0;
   if (global.timehold !== timeh) {
@@ -1614,7 +1621,12 @@ function ontick() {
 const maxCatchUpPerFrame = 60;
 const maxBacklogTicks = 3600;
 let lastTickAt = Date.now();
-let catchUpAnnounced = false;
+// Ticks replayed during the gap currently being caught up on. A hidden tab is
+// woken roughly once a minute, so the old code announced the first of those
+// wake-ups — "1 minute" — set its announced flag, and then stayed silent for the
+// entire rest of the absence, however long it was. The total is accumulated here
+// instead and reported once, when the catching up stops.
+let caughtUpTicks = 0;
 
 (function update() {
   const interval = 1000 / global.fps;
@@ -1629,23 +1641,25 @@ let catchUpAnnounced = false;
       pending = maxBacklogTicks;
       lastTickAt = now - maxBacklogTicks * interval;
     }
-    // Say so when a real gap is being replayed. Energy drains every tick, so
-    // several points disappearing at once on return otherwise reads as a glitch
-    // rather than as time having passed. Announced once per gap, not per frame.
-    if (pending > 5) {
-      if (!catchUpAnnounced && !global.flags.loadstate) {
-        catchUpAnnounced = true;
-        msg(
-          i18n.t("runtime.systems.simulation.dialogue.time_caught_up", {
-            minutes: Math.round((pending * interval) / 60000) || 1,
-          }),
-          "grey",
-        );
-      }
-    } else catchUpAnnounced = false;
     const ticks = Math.min(pending, maxCatchUpPerFrame);
     lastTickAt += ticks * interval;
     for (let tick = 0; tick < ticks; tick++) ontick();
+    // Energy drains every tick, so a stack of it disappearing at once on return
+    // reads as a glitch rather than as time having passed. The whole gap is
+    // reported, once, at the point the game stops replaying it — which is when
+    // the player is looking again.
+    if (pending > 5) caughtUpTicks += ticks;
+    else if (caughtUpTicks) {
+      const minutes = Math.round((caughtUpTicks * interval) / 60000) || 1;
+      caughtUpTicks = 0;
+      if (!global.flags.loadstate)
+        msg(
+          i18n.t("runtime.systems.simulation.dialogue.time_caught_up", {
+            minutes,
+          }),
+          "grey",
+        );
+    }
   }, interval);
 })();
 
