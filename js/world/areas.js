@@ -417,6 +417,34 @@ area.cata1a.drop = [
   { item: item.cndl, c: 0.02 },
 ];
 
+// The eastern ring, past the Web Corridor. Deeper than the entry rooms: the same
+// zombies still turn up, but the things that used to fight for a living are here
+// too, and a ghoul and a zombie fighter together cannot be handled on either
+// one's terms — one is too fast to corner, the other too solid to out-trade.
+area.cata2a = new Area();
+area.cata2a.id = 121;
+area.cata2a.name = i18n.t("content.area.cata2a.name");
+area.cata2a.pop = [
+  { crt: creature.zomb1, lvlmin: 13, lvlmax: 16, c: 0.35 },
+  { crt: creature.zmbf, lvlmin: 14, lvlmax: 18, c: 0.4 },
+  { crt: creature.ghl, lvlmin: 15, lvlmax: 19, c: 0.25 },
+];
+area.cata2a.size = 34;
+z_bake(area.cata2a);
+area.cata2a.onEnd = function () {
+  roll(item.sbone, 0.6, 2, 6);
+  roll(item.cclth, 0.4, 1, 3);
+  roll(item.cndl, 0.4, 1, 3);
+  roll(item.cp, 0.5, 3, 12);
+  roll(item.cn, 0.3, 1, 4);
+  this.size = rand(14) + 26;
+  smove(chss.cata6);
+};
+area.cata2a.drop = [
+  { item: item.sbone, c: 0.06 },
+  { item: item.cndl, c: 0.03 },
+];
+
 function z_bake(area) {
   let c = 0;
   let d = 0;

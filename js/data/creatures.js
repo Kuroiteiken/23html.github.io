@@ -455,11 +455,45 @@ creature.mumy.name = i18n.t("content.creature.mumy.name");
 creature.mumy.desc = i18n.t("content.creature.mumy.desc");
 creature.mumy.rnk = 13;
 
+// Its own description already says ghouls lurk in the catacombs, so it has been
+// waiting for the region to be reachable. Where the zombie is a wall, this is the
+// opposite problem: fast, evasive, and it opens wounds.
 creature.ghl = new Creature();
 creature.ghl.id = 115;
 creature.ghl.name = i18n.t("content.creature.ghl.name");
 creature.ghl.desc = i18n.t("content.creature.ghl.desc");
+creature.ghl.type = 2;
+creature.ghl.exp = 200;
+creature.ghl.hp_r = 640;
+creature.ghl.stat_p = [1.3, 1.25, 1.5, 0.8];
+creature.ghl.aff = [26, 8, 10, -26, 6, -58, 68];
+creature.ghl.cls = [40, 36, 42];
+creature.ghl.eqp[0].aff = [14, 8, 10, -26, 6, -58, 68];
+creature.ghl.eqp[0].cls = [10, 10, 9];
+creature.ghl.ctype = 1;
+creature.ghl.str_r = 30;
+creature.ghl.agl_r = 30;
+creature.ghl.int_r = 6;
+creature.ghl.spd_r = 4;
+creature.ghl.eva = 22;
+creature.ghl.res.poison = 0;
+creature.ghl.res.venom = 0;
+creature.ghl.res.bleed = 0.2;
+creature.ghl.res.death = 0.35;
+creature.ghl.res.sleep = 0;
+creature.ghl.drop = [
+  { item: item.sbone, chance: 0.3 },
+  { item: item.cclth, chance: 0.1 },
+  { item: item.cndl, chance: 0.06 },
+];
 creature.ghl.rnk = 10;
+creature.ghl.blood = 0.5;
+creature.ghl.pts = 90;
+creature.ghl.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.scrtch);
+  else if (random() <= 0.25) return attack(x, y, abl.pbite);
+  return attack(x, y);
+};
 
 creature.ght = new Creature();
 creature.ght.id = 116;
@@ -467,11 +501,45 @@ creature.ght.name = i18n.t("content.creature.ght.name");
 creature.ght.desc = i18n.t("content.creature.ght.desc");
 creature.ght.rnk = 12;
 
+// One that still remembers how it used to fight. Slower than the ghoul and far
+// harder to put down, which is what makes the two of them together a problem: you
+// cannot deal with either one on its own terms.
 creature.zmbf = new Creature();
 creature.zmbf.id = 117;
 creature.zmbf.name = i18n.t("content.creature.zmbf.name");
 creature.zmbf.desc = i18n.t("content.creature.zmbf.desc");
+creature.zmbf.type = 2;
+creature.zmbf.exp = 160;
+creature.zmbf.hp_r = 900;
+creature.zmbf.stat_p = [1.5, 1.3, 0.9, 0.5];
+creature.zmbf.aff = [28, -4, 8, -28, 4, -54, 64];
+creature.zmbf.cls = [38, 34, 46];
+creature.zmbf.eqp[0].aff = [15, -4, 8, -28, 4, -54, 64];
+creature.zmbf.eqp[0].cls = [11, 10, 12];
+creature.zmbf.ctype = 1;
+creature.zmbf.str_r = 34;
+creature.zmbf.agl_r = 16;
+creature.zmbf.int_r = 3;
+creature.zmbf.spd_r = 2;
+creature.zmbf.eva = 10;
+creature.zmbf.res.poison = 0;
+creature.zmbf.res.venom = 0;
+creature.zmbf.res.bleed = 0.15;
+creature.zmbf.res.death = 0.3;
+creature.zmbf.res.sleep = 0;
+creature.zmbf.res.paralize = 0.2;
+creature.zmbf.drop = [
+  { item: item.sbone, chance: 0.4 },
+  { item: item.cclth, chance: 0.15 },
+  { item: item.cp, chance: 0.2 },
+];
 creature.zmbf.rnk = 9;
+creature.zmbf.blood = 0.4;
+creature.zmbf.pts = 70;
+creature.zmbf.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.bash);
+  return attack(x, y);
+};
 
 creature.zmbk = new Creature();
 creature.zmbk.id = 118;

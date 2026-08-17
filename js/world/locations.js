@@ -5797,11 +5797,24 @@ chss.cata25.sl = () => {
 };
 
 // The catacombs held no combat at all: not one of the twenty-six rooms called
-// area_init and no area existed for them. The first stretch is populated now, so
-// the descent has something in it; the long western corridor stays quiet until its
-// own tier of undead is statted, which keeps the depth meaningful rather than
-// filling the whole map with the same three creatures.
+// area_init and no area existed for them. Depth is expressed by which area a room
+// initialises rather than by making one population stronger, so the entry rooms
+// and the eastern ring feel like different places. The long western corridor is
+// still quiet until its own tier is statted.
 for (const room of [chss.cata1, chss.cata2, chss.cata3, chss.cata4, chss.cata5])
   room.onEnter = function () {
     area_init(area.cata1a);
+  };
+
+for (const room of [
+  chss.cata6,
+  chss.cata7,
+  chss.cata8,
+  chss.cata9,
+  chss.cata10,
+  chss.cata11,
+  chss.cata12,
+])
+  room.onEnter = function () {
+    area_init(area.cata2a);
   };

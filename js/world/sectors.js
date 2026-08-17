@@ -156,7 +156,69 @@ sector.cata1 = new Sector();
 sector.cata1.id = 4;
 sector.cata1.inside = true;
 sector.cata1.effectors = [{ e: effector.dark }];
-sector.cata1.data = { scoutm: 11000, scout: 0, scoutf: false };
+// The 11,000-point track was authored and then left inert: there was no `scout`
+// table and no onScout, so canScout() had nothing to offer and the counter could
+// never advance. What the rooms are full of is what the village has been losing,
+// so that is what searching them turns up. scoutGeneric refuses to run in the
+// dark, which means every find here costs candle time.
+sector.cata1.data = {
+  scoutm: 11000,
+  scout: 0,
+  scoutf: false,
+  gets: [false, false, false, false],
+  gotmod: 0,
+};
+sector.cata1.scout = [
+  {
+    c: 0.05,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.catacombs_candles"), "lime");
+      giveItem(item.cndl, rand(1, 3));
+      sector.cata1.data.gets[0] = true;
+    },
+    exp: 25,
+  },
+  {
+    c: 0.04,
+    f: () => {
+      msg(
+        i18n.t("runtime.world.sectors.dialogue.catacombs_grave_coins"),
+        "lime",
+      );
+      giveItem(item.cp, rand(2, 9));
+      giveItem(item.cn, rand(1, 4));
+      sector.cata1.data.gets[1] = true;
+    },
+    exp: 20,
+  },
+  {
+    // The lantern the old shopkeeper said went missing. wpn.trch had no drop,
+    // recipe, or vendor anywhere in the game before this.
+    c: 0.03,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.catacombs_lantern"), "gold");
+      giveItem(wpn.trch);
+      sector.cata1.data.gets[2] = true;
+    },
+    exp: 45,
+  },
+  {
+    c: 0.03,
+    f: () => {
+      msg(
+        i18n.t("runtime.world.sectors.dialogue.catacombs_stolen_tools"),
+        "lime",
+      );
+      giveItem(item.sbone, rand(1, 3));
+      giveItem(item.cclth, rand(1, 2));
+      sector.cata1.data.gets[3] = true;
+    },
+    exp: 30,
+  },
+];
+sector.cata1.onScout = function () {
+  scoutGeneric(this);
+};
 
 sector.vmain1 = new Sector();
 sector.vmain1.id = 5; /*

@@ -4428,6 +4428,9 @@
       },
       "cata1a": {
         "name": "Üst katakomplar"
+      },
+      "cata2a": {
+        "name": "Mezar çevrimi"
       }
     }
   },
@@ -5439,25 +5442,25 @@
           "catacombs_the_last_breath_1c3a13b1": "Yeraltı Mezarları, Son Nefes",
           "catacombs_tunnel_of_the_dead_175fc32a": "Yeraltı Mezarları, Ölülerin Tüneli",
           "catacombs_movement_below_63215d59": "Yeraltı Mezarları, Aşağıda Hareket",
-          "catacombs_the_web_corridor_deeaf7ac": "Yeraltı Mezarları, Web Koridoru",
-          "catacombs_grievance_5e05c597": "Yeraltı Mezarları, Şikayet",
-          "catacombs_forgotten_post_02fdf9b5": "Yeraltı Mezarları, Unutulan Posta",
+          "catacombs_the_web_corridor_deeaf7ac": "Yeraltı Mezarları, Örümcek Ağı Koridoru",
+          "catacombs_grievance_5e05c597": "Yeraltı Mezarları, Keder",
+          "catacombs_forgotten_post_02fdf9b5": "Yeraltı Mezarları, Unutulmuş Nöbet Yeri",
           "catacombs_withered_hand_83f16c0e": "Yeraltı Mezarları, Solmuş El",
-          "catacombs_the_rusted_arc_8223ac87": "Yeraltı Mezarları, Paslanmış Ark",
+          "catacombs_the_rusted_arc_8223ac87": "Yeraltı Mezarları, Paslı Kemer",
           "catacombs_old_one_s_destination_7795619b": "Yeraltı Mezarları, İhtiyarın Varış Noktası",
-          "catacombs_thawing_candles_5bbb55d1": "Yeraltı Mezarları, Çözülen Mumlar",
+          "catacombs_thawing_candles_5bbb55d1": "Yeraltı Mezarları, Eriyen Mumlar",
           "catacombs_the_endless_echoes_556de87e": "Yeraltı Mezarları, Sonsuz Yankılar",
           "catacombs_the_dusty_underpass_2e5053c3": "Yeraltı Mezarları, Tozlu Alt Geçit",
           "catacombs_light_s_corner_682954e6": "Yeraltı Mezarları, Işığın Köşesi",
-          "catacombs_son_s_last_visit_82b43ea9": "Yeraltı Mezarları, Oğlunun Son Ziyareti",
-          "catacombs_the_stone_plate_4b2290e4": "Yeraltı Mezarları, Taş Tabak",
+          "catacombs_son_s_last_visit_82b43ea9": "Yeraltı Mezarları, Oğulun Son Ziyareti",
+          "catacombs_the_stone_plate_4b2290e4": "Yeraltı Mezarları, Taş Levha",
           "catacombs_cracked_passageway_45316ad0": "Yeraltı Mezarları, Çatlak Geçit",
-          "catacombs_the_limited_leeway_f2743a66": "Yeraltı Mezarları, Sınırlı Geçiş Yolu",
-          "catacombs_the_brittle_turn_16750cd7": "Yeraltı Mezarları, Gevrek Dönüş",
+          "catacombs_the_limited_leeway_f2743a66": "Yeraltı Mezarları, Dar Geçit",
+          "catacombs_the_brittle_turn_16750cd7": "Yeraltı Mezarları, Kırılgan Dönemeç",
           "catacombs_bright_ray_above_2b1ab006": "Yeraltı Mezarları, Yukarıda Parlak Işın",
           "catacombs_nowhere_to_run_05519955": "Yeraltı Mezarları, Kaçacak Yer Yok",
-          "catacombs_the_aging_room_7856a318": "Yeraltı Mezarları, Yaşlanma Odası",
-          "catacombs_eleven_wisemen_c3327aac": "Yeraltı Mezarları, On Bir Bilge Adam",
+          "catacombs_the_aging_room_7856a318": "Yeraltı Mezarları, Çürütme Odası",
+          "catacombs_eleven_wisemen_c3327aac": "Yeraltı Mezarları, On Bir Bilge",
           "catacombs_the_end_of_journey_5607474f": "Yeraltı Mezarları, Yolculuğun Sonu",
           "leave_guard_post": "\"<= Nöbeti bırak\"",
           "guard_post_abandoned": "Kapıdan uzaklaşıyorsun. Vardiya tamamlanmadığı için ödeme yok.",
@@ -5527,7 +5530,11 @@
             "Odanın köşesinde bir şey duruyordu. Muhtemelen kedin bırakmış",
             "Kedin önüne bir şey bıraktı"
           ],
-          "area_explored_82dc9682": "Alan keşfedildi!"
+          "area_explored_82dc9682": "Alan keşfedildi!",
+          "catacombs_candles": "Duvardaki bir oyukta sıra sıra mum dipleri var; onları geri almaya döneceğini sanan biri dizmiş.",
+          "catacombs_grave_coins": "Sikkeler, tanımadığın bir düzende dizilmiş. Onları bırakan kişi oldukları yerde kalmalarını istemiş.",
+          "catacombs_lantern": "Bir fener, yan devrilmiş, fitili hâlâ nemli. Bir aydır burada değil — ve yaşlı esnaf kendisinin alındığını söylemişti.",
+          "catacombs_stolen_tools": "Kemik ve bez, bir şeyin işine yaramayan parçaları yığması gibi yığılmış. Yığının içinde bir keski sapı var, bir elin altında aşınmış."
         }
       }
     }

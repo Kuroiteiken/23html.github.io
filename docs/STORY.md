@@ -74,7 +74,7 @@ village gate (level 6) ──► Western Woods ──► Hunter's Lodge
                                                                     ▼
                                                           break through the wall
                                                           chss.bsmnthm1 ──► chss.catamn
-                                                          26 rooms, 5 of them populated
+                                                          26 rooms, 12 of them populated
                                                                     │
                                                                     ▼
                                                     ── STORY STOPS HERE, in the
@@ -139,10 +139,18 @@ exit — which used to come up in the village centre, the clearest sign the regi
 was orphaned rather than unfinished — now returns to the basement the player came
 from.
 
-Five of the twenty-six rooms are populated. The long western corridor is
-deliberately still quiet: its own tier of undead is not statted yet, and filling
-all twenty-six rooms with the same three creatures would flatten the depth the
-map was clearly built to have.
+Twelve of the twenty-six rooms are populated, in two tiers. The entry rooms
+(`cata1`–`cata5`) run `area.cata1a` — cave bats, stirges, and the first thing down
+there that used to be a person. The eastern ring past the Web Corridor
+(`cata6`–`cata12`) runs `area.cata2a`, which adds the ones that still remember how
+to fight.
+
+Searching works down here too, now that `sector.cata1` has the scout table its
+11,000-point track was written for. What it turns up is what the village has been
+losing, including the shopkeeper's lantern. It costs candle time: `scoutGeneric`
+refuses to run in the dark, like everything else.
+
+The fourteen-room western corridor is deliberately still quiet.
 
 ### Other dead ends
 
@@ -190,14 +198,14 @@ the interface, even though `item.bstr` claims to unlock a bestiary.
 This is the important part. The game is not short of content; it is short of
 connections.
 
-| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                         |
-| ----------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catacombs**           | 26 finished scenes | **Now reachable** from `chss.bsmnthm1`, and `chss.catamn`'s exit returns there instead of the village centre. Five rooms are populated via `area.cata1a`; the other twenty-one still hold no combat, and `sector.cata1`'s 11,000-point track still has no `scout` table so it cannot advance. |
-| **Undead bestiary**     | 17 of 20 creatures | `cbat`, `stirge` and `zomb1` are statted, typed as Undead where they belong, and reachable. The rest — ghouls, ghasts, mummies, zombie knights and mages, the doll and puppet family, `dcrps1`, `unsctn` — are still **stubs**: a rank and nothing else.                                      |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                 |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                         |
-| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                         |
-| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.     |
+| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                             |
+| ----------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Catacombs**           | 26 finished scenes | **Now reachable** from `chss.bsmnthm1`, and `chss.catamn`'s exit returns there instead of the village centre. Twelve rooms populated: `area.cata1a` on the entry rooms, `area.cata2a` on the eastern ring. `sector.cata1`'s 11,000-point track is live. The fourteen-room western corridor still holds no combat. |
+| **Undead bestiary**     | 15 of 20 creatures | `cbat`, `stirge`, `zomb1`, `zmbf` and `ghl` are statted, typed as Undead where they belong, and reachable. The rest — ghasts, mummies, zombie knights and mages, the doll and puppet family, `dcrps1`, `unsctn` — are still **stubs**: a rank and nothing else.                                                   |
+| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                     |
+| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                             |
+| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                             |
+| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.                         |
 
 ### What the catacombs actually lack
 
@@ -293,19 +301,40 @@ What darkness turned out to be, which shaped the whole chapter:
 
 ### Step 3b — The rest of the catacombs
 
-Twenty-one of the twenty-six rooms still hold no combat, and that is the next
-piece of work rather than an oversight:
+The entry rooms and the eastern ring are done. Depth is expressed by which area a
+room initialises rather than by scaling one population, so the two stretches read
+as different places: the ring adds `zmbf`, too solid to out-trade, and `ghl`, too
+fast to corner, and neither can be handled on the other's terms.
 
-- The remaining undead are stubs with a rank and nothing else. They want stats set
-  against the player's progress rather than against `rnk`, which is Yamato's danger
-  classification and not a power curve — `creature.skl` is rank 7 with 132 hp while
-  `wolf1` is rank 4 with 400.
-- They want `type = 2` so the bestiary files them as Undead and
-  `Creature.onDeath` keeps them out of the spirit count for the living.
-- `sector.cata1.data.scoutm` is 11,000 with no `scout` table and no `onScout`, so
-  the exploration layer the rooms were clearly written for still cannot advance.
+`sector.cata1`'s exploration track is live. Its four finds are what the village has
+been losing — candles, grave coins, a chisel handle in a heap of bone and rag, and
+the lantern the shopkeeper said was taken, which is `wpn.trch`. Searching costs
+candle time, because `scoutGeneric` refuses to run in the dark.
+
+What is left:
+
+- The fourteen-room western corridor, `cata13` through `cata25`, ending at The End
+  Of Journey. `ght`, `zmbk`, `zmbm` and `mumy` are the stubs that fit it, and they
+  are the deepest ranks the game defines.
+- Those stubs want stats set against the player's progress rather than against
+  `rnk`, which is Yamato's danger classification and not a power curve —
+  `creature.skl` is rank 7 with 132 hp while `wolf1` is rank 4 with 400 — and
+  `type = 2` so the bestiary files them as Undead.
+- Worth knowing before statting them: `rnk` drives the rank-drop tier through
+  `ar = ((rnk - 1) / 3) << 0` into `global.rdrop`, and only tiers 0, 1 and 2 are
+  populated. Anything from rank 10 to 21 gets no rank drop at all, so a deep tier
+  has to carry its rewards in its own drop table.
 - The seven keys still have no locks. A dungeon with named rooms is where they
   would belong.
+
+### A note on the room names
+
+The twenty-six rooms had never been reachable, so nobody had read their Turkish.
+Eleven titles were mechanical mistranslations and are now corrected: _Web
+Corridor_ had been read as the internet rather than a spider's, _Forgotten Post_ as
+mail rather than a sentry's station, _The Stone Plate_ as dinnerware rather than a
+slab, _The Brittle Turn_ as something crispy, and _Son's Last Visit_ had gained a
+possessive that made it the player's own son.
 
 ### Step 4 — East, and Dein
 

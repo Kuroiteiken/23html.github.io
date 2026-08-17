@@ -75,7 +75,7 @@ köy kapısı (6. seviye) ──► Batı Ormanı ──► Avcı Kulübesi
                                                                     ▼
                                                           duvarı kır
                                                           chss.bsmnthm1 ──► chss.catamn
-                                                          26 oda, 5'i dolu
+                                                          26 oda, 12'si dolu
                                                                     │
                                                                     ▼
                                                     ── HİKAYE BURADA, ÜST
@@ -138,9 +138,18 @@ söylüyor — çünkü karanlığı başka hiçbir şey anlatmıyor.
 köy merkezine açılıyordu, bölgenin yarım değil sahipsiz olduğunun en net işareti buydu
 — artık oyuncunun girdiği bodruma dönüyor.
 
-Yirmi altı odanın beşi dolu. Uzun batı koridoru bilinçli olarak hâlâ sessiz: ona ait
-ölümsüz kademesi henüz statlandırılmadı ve yirmi altı odanın tamamını aynı üç
-yaratıkla doldurmak, haritanın kurulduğu derinlik hissini düzleştirirdi.
+Yirmi altı odanın on ikisi iki kademe hâlinde dolu. Giriş odaları
+(`cata1`–`cata5`) `area.cata1a`'yı çalıştırıyor: mağara yarasaları, stirge'ler ve
+aşağıdaki, bir zamanlar insan olan ilk şey. Örümcek Ağı Koridoru'nun ötesindeki doğu
+çevrimi (`cata6`–`cata12`) ise `area.cata2a`'yı çalıştırıyor; oraya hâlâ nasıl
+dövüşüldüğünü hatırlayanlar ekleniyor.
+
+Artık aşağıda arama da işliyor, çünkü `sector.cata1` 11.000 puanlık takibi için
+yazılmış keşif tablosuna kavuştu. Bulduğu şeyler köyün kaybettikleri — esnafın feneri
+dâhil. Bunun bedeli mum süresi: `scoutGeneric` de her şey gibi karanlıkta çalışmayı
+reddediyor.
+
+On dört odalık batı koridoru bilinçli olarak hâlâ sessiz.
 
 ### Diğer çıkmazlar
 
@@ -189,14 +198,14 @@ rağmen arayüzün hiçbir yerinde görünmez.
 
 Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları eksik.
 
-| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                   |
-| ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Katakomplar**        | 26 tamamlanmış sahne | `sector.cata1`, `chss.catamn` ve `cata1`–`cata25`, id 132–157. İsimlendirilmiş odalar, 14 ortam metni, sektördeki karanlık effector'ı, 11.000 puanlık takip. Hâlâ **içeriye bağlanan hiçbir şey yok** ve aşağıya bakın: odalarda hiç dövüş yok.                         |
-| **Ölümsüz bestiyeri**  | 20'nin 17'si         | `cbat`, `stirge` ve `zomb1` statlandırıldı, ait oldukları Ölümsüz türüne alındı ve erişilebilir. Kalanlar — gulyabaniler, ghast'lar, mumyalar, zombi şövalye ve büyücüleri, bebek ve kukla ailesi, `dcrps1`, `unsctn` — hâlâ **taslak**: bir rütbe ve başka hiçbir şey. |
-| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                 |
-| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                 |
-| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                          |
-| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                  |
+| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                      |
+| ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Katakomplar**        | 26 tamamlanmış sahne | **Artık erişilebilir**: `chss.bsmnthm1`'den iniliyor ve `chss.catamn`'in çıkışı köy merkezi yerine oraya dönüyor. On iki oda dolu: giriş odalarında `area.cata1a`, doğu çevriminde `area.cata2a`. `sector.cata1`'in 11.000 puanlık takibi artık çalışıyor. On dört odalık batı koridorunda hâlâ dövüş yok. |
+| **Ölümsüz bestiyeri**  | 20'nin 15'i          | `cbat`, `stirge`, `zomb1`, `zmbf` ve `ghl` statlandırıldı, ait oldukları Ölümsüz türüne alındı ve erişilebilir. Kalanlar — ghast'lar, mumyalar, zombi şövalye ve büyücüleri, bebek ve kukla ailesi, `dcrps1`, `unsctn` — hâlâ **taslak**: bir rütbe ve başka hiçbir şey.                                   |
+| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                    |
+| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                    |
+| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                             |
+| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                                                     |
 
 Bu kümelerin birbirine oturması tesadüf okumakta zorlanacağımız kadar düzenli:
 karanlık 26 odalı bir zindan, hiçbir yerde satılmayan bir meşale, kilidi olmayan
@@ -289,18 +298,40 @@ Bölümün tamamını şekillendiren şey, karanlığın ne olduğunun ortaya ç
 
 ### Adım 3b — Katakompların kalanı
 
-Yirmi altı odanın yirmi biri hâlâ dövüşsüz ve bu bir ihmal değil, sıradaki iş:
+Giriş odaları ve doğu çevrimi bitti. Derinlik, tek bir popülasyonu güçlendirerek
+değil odanın hangi alanı başlattığıyla anlatılıyor; bu yüzden iki bölüm farklı
+yerler gibi okunuyor: çevrime `zmbf` ekleniyor — takas edilemeyecek kadar sağlam —
+ve `ghl` — sıkıştırılamayacak kadar hızlı; hiçbiri diğerinin şartlarıyla
+karşılanamıyor.
 
-- Kalan ölümsüzler bir rütbe ve başka hiçbir şeyden oluşan taslaklar. İstatistikleri
-  `rnk`'a göre değil oyuncunun ilerleyişine göre kurulmalı; çünkü `rnk` Yamato'nun
-  tehlike sınıflandırması, güç eğrisi değil — `creature.skl` rütbe 7 ve 132 can,
-  `wolf1` rütbe 4 ve 400 can.
-- `type = 2` olmalı ki bestiyer onları Ölümsüz diye dosyalasın ve
-  `Creature.onDeath` onları yaşayanların ruh sayacından ayrı tutsun.
-- `sector.cata1.data.scoutm` 11.000 ama `scout` tablosu ve `onScout` işleyicisi yok;
-  odaların açıkça yazıldığı keşif katmanı hâlâ ilerleyemiyor.
+`sector.cata1`'in keşif takibi artık çalışıyor. Dört bulgusu köyün kaybettiği
+şeyler: mumlar, mezar sikkeleri, kemik ve bez yığınının içinde bir keski sapı ve
+esnafın alındığını söylediği fener — yani `wpn.trch`. Arama mum süresine mal oluyor,
+çünkü `scoutGeneric` karanlıkta çalışmayı reddediyor.
+
+Kalanlar:
+
+- On dört odalık batı koridoru: `cata13`'ten `cata25`'e, Yolculuğun Sonu'nda
+  bitiyor. Ona uyan taslaklar `ght`, `zmbk`, `zmbm` ve `mumy`; bunlar oyunun
+  tanımladığı en derin rütbeler.
+- O taslakların istatistikleri `rnk`'a göre değil oyuncunun ilerleyişine göre
+  kurulmalı — çünkü `rnk` Yamato'nun tehlike sınıflandırması, güç eğrisi değil:
+  `creature.skl` rütbe 7 ve 132 can, `wolf1` rütbe 4 ve 400 can — ve `type = 2`
+  olmalı ki bestiyer onları Ölümsüz diye dosyalasın.
+- Statlandırmadan önce bilinmesi gereken: `rnk`, `ar = ((rnk - 1) / 3) << 0`
+  üzerinden `global.rdrop` içindeki rütbe düşme kademesini belirliyor ve yalnızca
+  0, 1 ve 2. kademeler dolu. Rütbe 10 ile 21 arasındaki hiçbir şey rütbe düşmesi
+  almıyor; yani derin bir kademe ödülünü kendi düşme tablosunda taşımak zorunda.
 - Yedi anahtarın hâlâ kilidi yok. İsimlendirilmiş odalardan oluşan bir zindan, tam
   olarak onların yeri.
+
+### Oda adları üzerine bir not
+
+Yirmi altı oda hiç erişilebilir olmadığı için Türkçelerini kimse okumamıştı. On bir
+başlık makine çevirisi hatasıydı ve düzeltildi: _Web Corridor_ örümcek ağı yerine
+internet, _Forgotten Post_ nöbet yeri yerine mektup, _The Stone Plate_ taş levha
+yerine tabak olarak okunmuş; _The Brittle Turn_ "gevrek" olmuş ve _Son's Last Visit_
+İngilizcede olmayan bir iyelik kazanarak oyuncunun kendi oğluna dönüşmüştü.
 
 ### Adım 4 — Doğu ve Dein
 

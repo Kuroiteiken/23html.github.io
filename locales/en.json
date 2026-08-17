@@ -4428,6 +4428,9 @@
       },
       "cata1a": {
         "name": "Upper catacombs"
+      },
+      "cata2a": {
+        "name": "Catacomb ring"
       }
     }
   },
@@ -5523,7 +5526,11 @@
             "Something was lying in the corner of the room. Probably the cat's",
             "Your cat dropped something before you"
           ],
-          "area_explored_82dc9682": "Area Explored!"
+          "area_explored_82dc9682": "Area Explored!",
+          "catacombs_candles": "A niche in the wall holds a row of candle stubs, set out by someone who expected to come back for them.",
+          "catacombs_grave_coins": "Coins, laid out in a pattern you do not recognise. Whoever left them meant them to stay where they were.",
+          "catacombs_lantern": "A lantern, on its side, wick still damp. It has not been down here a month — and the old shopkeeper said his was taken.",
+          "catacombs_stolen_tools": "Bone and rag, piled the way something piles the parts it has no use for. A chisel handle is in the heap, worn smooth by a hand."
         }
       }
     }
