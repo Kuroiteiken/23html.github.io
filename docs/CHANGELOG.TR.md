@@ -8,6 +8,20 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ## [Yayınlanmamış]
 
+### v476 — kararlılık ve sözü tutma
+
+- Yaratık rehberine okunacak bir şey verildi. Her kayıt artık üzerine gelindiğinde
+  yaratığın kendi çevrilmiş açıklamasını gösteriyor; panel önceden yalnızca ad,
+  rütbe ve öldürme sayısı listeliyordu, oysa kilidi açan eşya bir ansiklopedi
+  vadediyor.
+- Kurucu varsayılanı `0` değerinde kalan 16 yaratığa rütbe atandı; rehber bu
+  değeri `???` olarak gösteriyordu. Rütbeler mevcut ölçeğe göre verildi: jölelerin
+  1–4, dojo golemlerinin 10–11 aralığında olduğu ölçek. Bu, kadronun neredeyse
+  yarısıydı ve tamamı katakomp ölümsüzleri.
+- Mesaj günlüğü üst sınırı 120'den 50'ye indirildi. Daha uzun bir günlük,
+  depolama ve DOM işi olarak geri verdiğinden fazlasına mal oluyordu; varsayılan
+  36 olarak kalıyor.
+
 ### Eklenenler
 
 - Yerel `<dialog>` öğesi ve mevcut `game-modal` stili üzerine kurulu ortak onay

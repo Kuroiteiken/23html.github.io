@@ -8,6 +8,18 @@ changes. Player-facing game content and release notes belong in
 
 ## [Unreleased]
 
+### v476 — stability and follow-through
+
+- Gave the bestiary something to read. Every entry now shows the creature's own
+  localized description on hover; the panel previously listed only a name, a
+  rank, and a kill count, while the unlocking item promises an encyclopedia.
+- Assigned ranks to the 16 creatures still on the constructor default of `0`,
+  which the bestiary renders as `???`. They are graded against the existing
+  scale, where slimes sit at 1–4 and the dojo golems at 10–11. This was almost
+  half the roster, and all of it is the catacomb undead.
+- Lowered the message log ceiling from 120 to 50. A longer log cost more in
+  storage and DOM work than it returned; the default stays at 36.
+
 ### Added
 
 - Added `showConfirmModal`, a shared confirmation dialog built on the native

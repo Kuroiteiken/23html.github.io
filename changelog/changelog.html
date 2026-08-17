@@ -266,7 +266,35 @@
       </div>
     </header>
     <main class="changelog" aria-label="Release history">
-      <article class="release release-latest" data-version="475">
+      <article class="release release-latest" data-version="476">
+        <header class="release-header">
+          <div>
+            <span class="release-kicker">Release</span>
+            <h2>v476</h2>
+          </div>
+          <div class="release-meta">
+            <span class="release-range">v475 → v476</span>
+            <time datetime="2026-08-17">2026/08/17</time>
+          </div>
+        </header>
+        <ul class="release-changes">
+          <li>
+            Every creature now has a rank, so the bestiary's rank column reads
+            properly instead of showing '???' for almost half the roster
+          </li>
+          <li>
+            Hovering a bestiary entry now shows what the encyclopedia says about
+            that creature; the book previously listed only a name, a rank, and a
+            kill count
+          </li>
+          <li>
+            Lowered the message log limit ceiling from 120 to 50; a longer log
+            cost more than it gave back
+          </li>
+        </ul>
+      </article>
+
+      <article class="release" data-version="475">
         <header class="release-header">
           <div>
             <span class="release-kicker">Release</span>

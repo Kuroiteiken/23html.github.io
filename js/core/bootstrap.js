@@ -56,7 +56,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 475;
+global.ver = 476;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -850,7 +850,7 @@ function load(dt) {
         `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
       );
     // Older saves stored this as a string, and it is compared numerically.
-    global.msgs_max = Math.min(120, Math.max(1, Number(a1.g) || 36));
+    global.msgs_max = Math.min(50, Math.max(1, Number(a1.g) || 36));
     dom.ct_bt4_1b.value = global.msgs_max;
     global.flags = {};
     global.sinv = [];

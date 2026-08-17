@@ -1126,6 +1126,10 @@ dom.ct_bt6.addEventListener("click", function () {
           "bst_entr",
         );
         this.bst_entr_m_case.style.backgroundColor = "rgb(10,30,54)";
+        // The encyclopedia listed only a name, a rank, and a kill count. Every
+        // creature already carries a localized description, so hovering an
+        // entry now shows what the book actually says about it.
+        addDesc(this.bst_entr_m_case, mon);
         this.bst_entr_m_e1 = addElement(
           this.bst_entr_m_case,
           "div",
@@ -2210,11 +2214,11 @@ dom.ct_bt4_1b = addElement(dom.ct_bt4_1, "input", null, "opt_v");
 dom.ct_bt4_1b.value = global.msgs_max;
 dom.ct_bt4_1b.type = "number";
 dom.ct_bt4_1b.min = 1;
-dom.ct_bt4_1b.max = 120;
+dom.ct_bt4_1b.max = 50;
 // This limit governs both how many messages stay on screen and how many are
 // kept in history, so raising it lengthens what survives a reload.
 dom.ct_bt4_1b.addEventListener("change", function () {
-  const limit = Math.min(120, Math.max(1, Number(this.value) || 1));
+  const limit = Math.min(50, Math.max(1, Number(this.value) || 1));
   this.value = limit;
   global.msgs_max = limit;
   trimMessageLog();

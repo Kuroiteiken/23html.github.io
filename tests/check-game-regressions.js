@@ -533,7 +533,7 @@ const messageLogHistory = [
   /function clearMessageLog\(\)/,
   /dom\.m_b_3\.addEventListener\("click", clearMessageLog\);/,
   /window\.localStorage\.removeItem\(messageLogStorageKey\)/,
-  /dom\.ct_bt4_1b\.max = 120;/,
+  /dom\.ct_bt4_1b\.max = 50;/,
 ];
 
 if (

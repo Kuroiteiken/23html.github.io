@@ -184,12 +184,14 @@ creature.cbat = new Creature();
 creature.cbat.id = 109;
 creature.cbat.name = i18n.t("content.creature.cbat.name");
 creature.cbat.desc = i18n.t("content.creature.cbat.desc");
+creature.cbat.rnk = 3;
 creature.cbat.drop = [];
 
 creature.stirge = new Creature();
 creature.stirge.id = 110;
 creature.stirge.name = i18n.t("content.creature.stirge.name");
 creature.stirge.desc = i18n.t("content.creature.stirge.desc");
+creature.stirge.rnk = 4;
 creature.stirge.drop = [];
 
 creature.spd1 = new Creature();
@@ -320,6 +322,7 @@ creature.puppet = new Creature();
 creature.puppet.id = 105;
 creature.puppet.name = i18n.t("content.creature.puppet.name");
 creature.puppet.desc = i18n.t("content.creature.puppet.desc");
+creature.puppet.rnk = 5;
 creature.puppet.drop = [];
 creature.puppet.battle_ai = function (x, y, z) {};
 
@@ -327,6 +330,7 @@ creature.bpuppet = new Creature();
 creature.bpuppet.id = 106;
 creature.bpuppet.name = i18n.t("content.creature.bpuppet.name");
 creature.bpuppet.desc = i18n.t("content.creature.bpuppet.desc");
+creature.bpuppet.rnk = 7;
 creature.bpuppet.drop = [];
 creature.bpuppet.battle_ai = function (x, y, z) {};
 
@@ -334,6 +338,7 @@ creature.doll = new Creature();
 creature.doll.id = 107;
 creature.doll.name = i18n.t("content.creature.doll.name");
 creature.doll.desc = i18n.t("content.creature.doll.desc");
+creature.doll.rnk = 6;
 creature.doll.drop = [];
 creature.doll.battle_ai = function (x, y, z) {};
 
@@ -341,6 +346,7 @@ creature.ndoll = new Creature();
 creature.ndoll.id = 108;
 creature.ndoll.name = i18n.t("content.creature.ndoll.name");
 creature.ndoll.desc = i18n.t("content.creature.ndoll.desc");
+creature.ndoll.rnk = 8;
 creature.ndoll.drop = [];
 creature.ndoll.battle_ai = function (x, y, z) {};
 
@@ -348,6 +354,7 @@ creature.cdoll = new Creature();
 creature.cdoll.id = 111;
 creature.cdoll.name = i18n.t("content.creature.cdoll.name");
 creature.cdoll.desc = i18n.t("content.creature.cdoll.desc");
+creature.cdoll.rnk = 12;
 creature.cdoll.drop = [];
 creature.cdoll.battle_ai = function (x, y, z) {};
 
@@ -355,36 +362,43 @@ creature.zomb1 = new Creature();
 creature.zomb1.id = 113;
 creature.zomb1.name = i18n.t("content.creature.zomb1.name");
 creature.zomb1.desc = i18n.t("content.creature.zomb1.desc");
+creature.zomb1.rnk = 6;
 
 creature.mumy = new Creature();
 creature.mumy.id = 114;
 creature.mumy.name = i18n.t("content.creature.mumy.name");
 creature.mumy.desc = i18n.t("content.creature.mumy.desc");
+creature.mumy.rnk = 13;
 
 creature.ghl = new Creature();
 creature.ghl.id = 115;
 creature.ghl.name = i18n.t("content.creature.ghl.name");
 creature.ghl.desc = i18n.t("content.creature.ghl.desc");
+creature.ghl.rnk = 10;
 
 creature.ght = new Creature();
 creature.ght.id = 116;
 creature.ght.name = i18n.t("content.creature.ght.name");
 creature.ght.desc = i18n.t("content.creature.ght.desc");
+creature.ght.rnk = 12;
 
 creature.zmbf = new Creature();
 creature.zmbf.id = 117;
 creature.zmbf.name = i18n.t("content.creature.zmbf.name");
 creature.zmbf.desc = i18n.t("content.creature.zmbf.desc");
+creature.zmbf.rnk = 9;
 
 creature.zmbk = new Creature();
 creature.zmbk.id = 118;
 creature.zmbk.name = i18n.t("content.creature.zmbk.name");
 creature.zmbk.desc = i18n.t("content.creature.zmbk.desc");
+creature.zmbk.rnk = 12;
 
 creature.zmbm = new Creature();
 creature.zmbm.id = 119;
 creature.zmbm.name = i18n.t("content.creature.zmbm.name");
 creature.zmbm.desc = i18n.t("content.creature.zmbm.desc");
+creature.zmbm.rnk = 11;
 
 creature.skl = new Creature();
 creature.skl.name = i18n.t("content.creature.skl.name");
@@ -710,11 +724,13 @@ creature.dcrps1 = new Creature();
 creature.dcrps1.id = 134;
 creature.dcrps1.name = i18n.t("content.creature.dcrps1.name");
 creature.dcrps1.desc = i18n.t("content.creature.dcrps1.desc");
+creature.dcrps1.rnk = 15;
 
 creature.unsctn = new Creature();
 creature.unsctn.id = 135;
 creature.unsctn.name = i18n.t("content.creature.unsctn.name");
 creature.unsctn.desc = i18n.t("content.creature.unsctn.desc");
+creature.unsctn.rnk = 14;
 
 creature.wolf1 = new Creature();
 creature.wolf1.name = i18n.t("content.creature.wolf1.name");
