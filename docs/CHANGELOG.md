@@ -8,6 +8,97 @@ changes. Player-facing game content and release notes belong in
 
 ## [Unreleased]
 
+### v478 — statting that cannot silently break
+
+- Added `scripts/check-combat.js` to `npm run check`. It measures two budgets from
+  the creatures the original game shipped -- mitigation per level and attack per
+  level -- and fails any creature added since that goes past either with 15% headroom.
+  It does not model the player's skills, equipment or titles, because no static check
+  can honestly pin those down; anchoring on shipped, playable content is what makes a
+  failure mean "this is mis-statted" rather than "the model is pessimistic". Both
+  budgets currently come out on `wolf1` at level 7 in the western woods: 16.0 and 13.4.
+- The budget measurement excludes `area.tst`, a developer bench rather than content,
+  and any level below 4. The first attempt included both and produced an attack ceiling
+  of 39.1 per level set by a level 1 skeleton, which flagged nothing at all.
+- Added `scripts/check-refs.js` to `npm run check`. It resolves every registry
+  reference passed to a granting call -- `giveItem`, `giveQuest`, `smove`, `area_init`
+  and five others -- against the keys those registries define. A bad reference throws
+  inside a dialogue click handler, so the only symptom is that the scene never
+  advances and the choice can be clicked again; that is how a dojo reward shipped
+  handing out the same shield indefinitely. The checker strips comments with a small
+  state machine, because commented-out scenes are everywhere in these sources and
+  their references are not live.
+- Moved the bundle's source list to `scripts/sources.js` so `scripts/build.js` and the
+  checks share one copy.
+- Added a v478 save migration that tops an existing character up to the SPD and LUCK
+  the new level milestones owe them. It is written as "top up to the total" rather
+  than "add the total", so running it twice cannot double the grant and a character
+  already ahead on gear is not dragged down. `migrateSave` now receives `you` itself
+  rather than only the parsed globals and `you.mods`.
+- `callback.onLevel` has its first subscriber since the callback registry was written.
+  It also carries how many levels were gained, because a level 1 creature is generated
+  through `lvlup` with `t === 0` and a subscriber that grants something has to tell
+  that apart from a real level-up.
+- Level milestones added to a skill are appended to their `mlstn` array rather than
+  inserted in level order. `save()` writes the granted flags positionally, as
+  `a6[obj].mst[m] = mlstn[m].g`, so an insert would shift every flag after it and
+  re-fire milestones a player already holds.
+- Population ceilings can now be getters. `mon_gen` reads `lvlmin` and `lvlmax` off the
+  live population entry when it generates a creature and `z_bake` only precomputes the
+  spawn weights, so a band can follow the player without touching either.
+- `docs/AGENTS.md` and its Turkish twin gained the creature-statting rule, and lost a
+  contradiction: they told the reader to translate `perk` as "yetenek" fifteen lines
+  above telling them to translate it as "Avantaj" and never "Yetenek".
+- Regression coverage added for the level milestone grants and their positional
+  ordering, the weapon-mastery grant paths and talents, the shield mitigation term, the
+  world-level bands and the fixed encounter that must not scale, the sell valuation and
+  its cap below the buy side, and that no shield is left at `str = 0`. The
+  save-format behaviour tests now lift `levelGrants` and `levelGrantTotal` out of
+  `js/systems/simulation.js` so the migration is exercised against real numbers.
+- `Vendor()` defaults its price multiplier. One vendor set none and there was no
+  default, so every price in that shop resolved to `NaN`, the affordability check
+  passed because `NaN` compares false, and spending it turned the player's purse into
+  `NaN`.
+- The save bar no longer shrinks the game to reserve room for itself, and the browser
+  scenario that pinned that now asserts what matters -- the bar must not cover the
+  game's bottom row -- with a pixel of tolerance, since the two are meant to meet and
+  sub-pixel rounding through body zoom must not read as a collision.
+- `docs/PROPOSALS.md` now carries every outstanding request from the repository owner,
+  recorded before work starts, and the balance decision this work deliberately did not
+  take: armour's class resistance is counted twice in the mitigation term with opposite
+  signs, and correcting it alongside the shield half takes an unshielded player from
+  36.9 damage taken to 9.9.
+
+### v477 — the tick, the journal, and the catacombs
+
+- Moved action progress onto `ontick()`. Running and scouting advanced on timers of
+  their own, which a browser throttles to about once a minute in a background tab, so
+  they quietly stopped making progress while the rest of the world caught up. An action
+  must not run a timer of its own; `tests/actions.test.js` asserts that.
+- Rewrote the tick as a catch-up loop with a backlog ceiling of eight hours and a
+  12 ms budget per frame, so returning to a background tab replays the gap as fast as
+  the machine allows rather than a minute at a time. If the player died while away, the
+  remainder is discarded rather than fought from a corpse.
+- Derived the running energy cost from the action instead of accumulating it onto
+  `mods.sdrate`. Charging on start and refunding on stop left a residue whenever a
+  title lowered `mods.runerg` mid-run, and `save()` persisted it. A v477 migration
+  clears the stored value, which is 0 by construction now.
+- Added `js/data/lore.js` to the bundle, with `global.lore` saved in the `a1` globals
+  object. `learnLore()` is idempotent and silent until the journal is open.
+- Added `windowPanelHeight(share)`. A percentage height inside a container that
+  declares none behaves as `auto`, which is why the shop's stock list grew with its
+  stock and its footer collapsed to nothing. Taking the share from the window gives the
+  column something definite to divide.
+- Added a seen-version key, `proto23.seenversion`, kept separately from the save so a
+  returning player is told what changed even if they never press Save, and a first-time
+  player is not.
+- Six creature stubs statted and typed as Undead, five areas appended to
+  `js/world/areas.js` for the catacombs, and `sector.cata1`'s scout table filled in.
+  Areas are appended because their sizes are restored positionally.
+- Turkish: seven pairs of distinct things that shared one name, and eleven machine
+  mistranslations of catacomb room titles that had never been reachable and so had
+  never been read.
+
 ### v476 — stability and follow-through
 
 - Save mastery levels. They were never written to the save, so every level the

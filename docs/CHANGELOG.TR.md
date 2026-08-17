@@ -8,6 +8,97 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ## [Yayınlanmamış]
 
+### v478 — sessizce bozulamayan statlandırma
+
+- `npm run check` içine `scripts/check-combat.js` eklendi. Orijinal oyunun getirdiği
+  yaratıklardan iki bütçe ölçüyor -- seviye başına hasar azaltma ve seviye başına
+  saldırı -- ve sonradan eklenmiş, bunlardan birini %15 payla aşan her yaratıkta hata
+  veriyor. Oyuncunun becerilerini, ekipmanını ya da ünvanlarını modellemiyor; hiçbir
+  statik kontrol bunları dürüstçe belirleyemez. Yayınlanmış ve oynanabilir içeriğe
+  dayanması, bir hatanın "bu yanlış statlanmış" demesini sağlıyor, "model karamsar"
+  demesini değil. İki bütçe de şu an batı ormanındaki 7. seviye `wolf1`'den çıkıyor:
+  16,0 ve 13,4.
+- Bütçe ölçümü `area.tst` alanını ve 4'ün altındaki seviyeleri dışarıda bırakıyor.
+  İlk deneme ikisini de içeriyordu ve 1. seviye bir iskeletin belirlediği 39,1'lik bir
+  saldırı tavanı üretiyordu; bu da hiçbir şeyi yakalamıyordu.
+- `npm run check` içine `scripts/check-refs.js` eklendi. Verme çağrılarına geçen her
+  kayıt referansını -- `giveItem`, `giveQuest`, `smove`, `area_init` ve beş tanesi
+  daha -- o kayıtların tanımladığı anahtarlara karşı çözüyor. Hatalı bir referans
+  diyalog tıklama işleyicisinin içinde patlıyor, yani tek belirti sahnenin hiç
+  ilerlememesi ve seçeneğin tekrar tıklanabilmesi oluyor; dojo ödülünün aynı kalkanı
+  sınırsız vermesi tam böyle oldu. Kontrol yorumları küçük bir durum makinesiyle
+  ayıklıyor, çünkü bu kaynaklarda yoruma alınmış sahneler her yerde ve referansları
+  canlı değil.
+- Paketin kaynak listesi `scripts/sources.js` dosyasına taşındı; `scripts/build.js` ve
+  kontroller artık tek kopyayı paylaşıyor.
+- Mevcut bir karakteri yeni seviye eşiklerinin borçlu olduğu HIZ ve ŞANS'a tamamlayan
+  bir v478 kayıt göçü eklendi. "Toplamı ekle" değil "toplama tamamla" olarak yazıldı;
+  yani iki kez çalışsa da katlamıyor ve ekipmanla öne geçmiş bir karakteri geriye
+  çekmiyor. `migrateSave` artık yalnızca ayrıştırılmış globalleri ve `you.mods`'u değil,
+  `you` nesnesinin kendisini de alıyor.
+- `callback.onLevel`, callback kaydı yazıldığından beri ilk abonesine kavuştu. Ayrıca
+  kaç seviye kazanıldığını taşıyor: 1. seviye bir yaratık `lvlup` üzerinden `t === 0`
+  ile üretiliyor ve bir şey veren abonenin bunu gerçek bir seviye atlamadan ayırt
+  etmesi gerekiyor.
+- Bir beceriye eklenen seviye eşikleri, seviye sırasına sokulmak yerine `mlstn`
+  dizisinin sonuna ekleniyor. `save()` verilme bayraklarını
+  `a6[obj].mst[m] = mlstn[m].g` olarak konumsal yazıyor; araya ekleme sonrasındaki her
+  bayrağı kaydırır ve oyuncunun zaten sahip olduğu eşikleri tekrar tetikler.
+- Popülasyon tavanları artık getter olabiliyor. `mon_gen` bir yaratık üretirken
+  `lvlmin` ve `lvlmax` değerlerini canlı popülasyon girdisinden okuyor ve `z_bake`
+  yalnızca doğma ağırlıklarını önceden hesaplıyor; yani bir bant ikisine de dokunmadan
+  oyuncuyu takip edebiliyor.
+- `docs/AGENTS.md` ve Türkçe eşi yaratık statlandırma kuralını kazandı ve bir çelişkiyi
+  kaybetti: `perk` terimini "yetenek" olarak çevirmeyi söyleyen satır, on beş satır
+  aşağıda "Avantaj olarak çevir, asla Yetenek olmasın" diyen satırın üzerindeydi.
+- Seviye eşiği kazanımları ve konumsal sıralamaları, silah ustalığı verilme yolları ve
+  yetenekleri, kalkanın hasar azaltma terimi, dünya seviye bantları ve ölçeklenmemesi
+  gereken sabit karşılaşma, satış değerlemesi ile alış tarafının altında kalma sınırı,
+  ve hiçbir kalkanın `str = 0` bırakılmaması için regresyon testleri eklendi. Kayıt
+  formatı davranış testleri artık `levelGrants` ve `levelGrantTotal` tanımlarını
+  `js/systems/simulation.js` içinden çıkarıyor; böylece göç gerçek sayılarla sınanıyor.
+- `Vendor()` fiyat çarpanına varsayılan veriyor. Bir satıcı hiç atamıyordu ve varsayılan
+  yoktu; o dükkândaki her fiyat `NaN` çözülüyor, `NaN` karşılaştırması false döndüğü
+  için "param yetiyor mu" kontrolü geçiyor ve harcama oyuncunun kesesini `NaN`
+  yapıyordu.
+- Kaydet çubuğu artık kendisine yer ayırmak için oyunu küçültmüyor; bunu sabitleyen
+  tarayıcı senaryosu da asıl önemli olanı doğruluyor -- çubuk oyunun alt sırasını
+  kapatmamalı -- bir piksel toleransla, çünkü ikisi buluşmak üzere ve gövde
+  yakınlaştırmasından gelen alt-piksel yuvarlaması çakışma diye okunmamalı.
+- `docs/PROPOSALS.TR.md` artık sahibinin bekleyen bütün taleplerini işe başlamadan önce
+  taşıyor, ve bu çalışmanın bilinçli olarak almadığı denge kararını da: zırhın sınıf
+  direnci hasar azaltma teriminde zıt işaretlerle iki kez sayılıyor ve kalkan yarısıyla
+  birlikte düzeltmek kalkansız bir oyuncunun aldığı hasarı 36,9'dan 9,9'a indiriyor.
+
+### v477 — tick, günlük ve katakomplar
+
+- Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla
+  ilerliyordu; tarayıcı bunları arkaplan sekmesinde yaklaşık dakikada bire kısıyor,
+  yani dünyanın geri kalanı yakalanırken onlar sessizce ilerlemeyi bırakıyordu. Bir
+  eylem kendi zamanlayıcısını çalıştırmamalı; `tests/actions.test.js` bunu doğruluyor.
+- Tick, sekiz saatlik birikim üst sınırı ve kare başına 12 ms bütçesi olan bir yakalama
+  döngüsü olarak yeniden yazıldı; böylece arkaplan sekmesine dönmek aradaki süreyi
+  dakikada bir yerine makinenin izin verdiği hızda oynatıyor. Oyuncu uzaktayken
+  öldüyse kalan süre bir cesetten dövüşülmek yerine atılıyor.
+- Koşmanın enerji maliyeti `mods.sdrate` üzerine biriktirilmek yerine eylemden
+  türetiliyor. Başlangıçta yüklemek ve bitişte geri ödemek, bir ünvan koşu sırasında
+  `mods.runerg` değerini düşürdüğünde artık bırakıyordu ve `save()` bunu kalıcı
+  kılıyordu. Bir v477 göçü saklanan değeri temizliyor; artık yapısı gereği 0.
+- Pakete `js/data/lore.js` eklendi ve `global.lore`, `a1` globaller nesnesinde
+  saklanıyor. `learnLore()` idempotent ve günlük açılana kadar sessiz.
+- `windowPanelHeight(share)` eklendi. Yükseklik tanımlamayan bir kabın içindeki yüzde
+  yükseklik `auto` gibi davranıyor; mağazanın stok listesinin stokla birlikte büyüyüp
+  altlığının hiçe çökmesinin sebebi buydu. Payı pencereden almak kolona bölüşecek
+  belirli bir şey veriyor.
+- Kayıttan ayrı tutulan bir görülen-sürüm anahtarı, `proto23.seenversion`, eklendi;
+  böylece dönen bir oyuncuya Kaydet'e hiç basmasa da neyin değiştiği söyleniyor, ilk
+  kez oynayana ise söylenmiyor.
+- Altı yaratık taslağı statlandırılıp Ölümsüz türüne alındı, katakomplar için
+  `js/world/areas.js` sonuna beş alan eklendi ve `sector.cata1` keşif tablosu
+  dolduruldu. Alanlar sona ekleniyor, çünkü boyutları konumsal geri yükleniyor.
+- Türkçe: tek bir adı paylaşan yedi ayrı şey çifti ve hiç erişilebilir olmadığı için
+  hiç okunmamış katakomp oda başlıklarının on bir makine çevirisi hatası düzeltildi.
+
 ### v476 — kararlılık ve sözü tutma
 
 - Ustalık seviyeleri kaydediliyor. Hiç kayda yazılmıyorlardı, bu yüzden oyuncunun

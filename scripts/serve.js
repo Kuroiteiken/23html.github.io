@@ -299,19 +299,16 @@ function createSiteServer(options = {}) {
             bar.children[1]?.id === "load-game" &&
             bar.children[2]?.id === "save-bar-collapse";
 
-          // The bar is fixed to the viewport's bottom edge, so it must not cover the
-          // game's own bottom row, and must not leave a wide empty band above
-          // itself either. The game no longer shrinks to reserve room for the bar --
-          // the owner reviewed the layout and it sits correctly on its own -- so the
-          // two now meet rather than being held apart by a deliberate gap. A pixel
-          // of tolerance is for exactly that: touching is the intended result, and
-          // sub-pixel rounding through body zoom must not read as a collision.
+          // The bar is fixed to the viewport's bottom edge, so it has to clear the
+          // game's own bottom row by a slight gap without leaving a wide empty band
+          // above itself. Removing the reservation entirely took the gap to zero and
+          // the tabs ended up touching the bar, so it is back and this asserts it.
           const gameBounds = document
             .getElementById("ctrmg")
             .getBoundingClientRect();
           const scale = Number(document.documentElement.dataset.uiScale) || 1;
           const gapAboveBar = (barBounds.top - gameBounds.bottom) / scale;
-          const clearsGame = gapAboveBar >= -1;
+          const clearsGame = gapAboveBar >= 0;
           // Only meaningful while the game is scaled down to fit. On a window
           // tall enough to need no scaling the bar just sits on the viewport's
           // bottom edge, wherever that falls.
