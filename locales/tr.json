@@ -3145,6 +3145,11 @@
         "goal": "Sürü lideri (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "hâlâ dışarıda",
         "stateDone": "öldürüldü"
+      },
+      "undcty1": {
+        "name": "Köyün Altında",
+        "desc": "Bodrumların oradaki yaşlı esnaf bir aydır insanların evinin altını bir şeyin kazdığını söylüyor ve kimse ona inanmadı. Yamato seni onu doğru dürüst dinlemeye yolladı. Bunun canavar işi olduğuna karar vermeden önce köyün neler bildiğini öğren",
+        "goal": "Bulunan iz: <span style=\"color:{color}\">{current}/{required}</span>"
       }
     },
     "skl": {
@@ -4615,7 +4620,8 @@
           "quest_completed_36971938": "Görev tamamlandı: ",
           "quest_accepted": "Görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Tekrarlanabilir</span> görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
-          "pack_leader_falls": "Büyük kurt yere yığılıyor ve orman tek bir ses çıkarmıyor."
+          "pack_leader_falls": "Büyük kurt yere yığılıyor ve orman tek bir ses çıkarmıyor.",
+          "undercity_sign_found": "Bunu bir kenara yazıyorsun. ({current}/{required})"
         }
       },
       "titles": {
@@ -5470,7 +5476,9 @@
           "hollow_aftermath": "Lider düştüğü yerde duruyor ve yakından bakınca zavallı, çökmüş bir hayvan: kaburgaları çit gibi, bir gözü sütlenmiş, çenesindeki çürüme kemiğe oturacak kadar eski. Sana değil, kayadaki yarığa dönük.<br><br>Yarık soluyor. İçine girilemeyecek kadar dar ve oradan gelen hava mevsimin izin vereceğinden çok daha soğuk.",
           "search_the_hollow": "Çukuru ara",
           "follow_the_trail_deeper": "İzi daha derine takip et",
-          "report_back_to_the_lodge": "Kulübeye dönüp haber ver"
+          "report_back_to_the_lodge": "Kulübeye dönüp haber ver",
+          "ask_about_the_digging": "Kazma meselesini sor",
+          "shopkeeper_digging_account": "Uykulu Yaşlı Adam: Kelle Avcısı mı yolladı seni. O adam. Bir ay sonra.<br><br>Döşemelerin altında diyorum ben. Fare değil; fare kemirir ve duvara vurunca susar. Bu kazıyor ve hiçbir şey için durmuyor. Bende bodrumun arkasında, eski duvarın olduğu yerde başladı. Sonra iki kapı ötedeki ailede. Sonra kuyunun yanındaki evlerde.<br><br>Bir de eşyalar kayboluyor. Yiyecek değil, o hiç olmazsa bana anlaşılır gelirdi. Alet. Bir fener. Karımın iyi bıçağı. Onları alan şey aç değil ve bu bana, aç olmasından daha kötü geliyor.<br><br>İstersen pazarda sor. Sana ayyaşın teki derler. Sonra git kendi bodrum duvarına bak avcı. Adam gibi bak."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

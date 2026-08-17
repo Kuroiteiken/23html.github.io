@@ -284,6 +284,77 @@ quest.pckld1.goalsf = function () {
   ];
 };
 
+// Chapter III. The pack leader's report sends the player to the old shopkeeper by
+// the cellars, who has been saying for a month that something is digging under
+// people's homes and has been called a drunk for it. This one is an investigation
+// rather than a hunt: the player gathers signs around the village, in any order,
+// and only once enough of them line up does the last one — their own cellar —
+// become something they can act on.
+//
+// Signs are recorded by id rather than by count so a scene can never award the
+// same one twice, however many times the player revisits it.
+const undercitySigns = [
+  "cellar", // the shopkeeper's own account of what his neighbours report
+  "market", // what the marketplace is saying, and what has gone missing
+  "home", // the player's basement: the wall that is no longer sound
+];
+
+function findUndercitySign(sign) {
+  const q = quest.undcty1;
+  if (!q.data.started || q.data.done) return false;
+  if (!undercitySigns.includes(sign)) return false;
+  if (q.data.signs.includes(sign)) return false;
+  q.data.signs.push(sign);
+  msg(
+    i18n.t("runtime.data.quests.dialogue.undercity_sign_found", {
+      current: q.data.signs.length,
+      required: undercitySigns.length,
+    }),
+    "white",
+    q,
+    8,
+  );
+  return true;
+}
+
+function undercitySignsFound() {
+  return quest.undcty1.data.signs.length >= undercitySigns.length;
+}
+
+quest.undcty1 = new Quest();
+quest.undcty1.id = 7;
+quest.undcty1.name = i18n.t("content.quest.undcty1.name");
+quest.undcty1.rar = 2;
+quest.undcty1.loc = i18n.t(
+  "runtime.world.locations.dialogue.village_center_9264705d",
+);
+quest.undcty1.desc = i18n.t("content.quest.undcty1.desc");
+quest.undcty1.data = { t: 0, signs: [], opened: false };
+quest.undcty1.rwd = function () {
+  this.data.t++;
+  giveWealth(250);
+  giveExp(9000, true, true, true);
+};
+quest.undcty1.goals = function () {
+  const found = quest.undcty1.data.signs.length;
+  return [
+    i18n.t("content.quest.undcty1.goal", {
+      color: found >= undercitySigns.length ? "lime" : found ? "yellow" : "red",
+      current: found,
+      required: undercitySigns.length,
+    }),
+  ];
+};
+quest.undcty1.goalsf = function () {
+  return [
+    i18n.t("content.quest.undcty1.goal", {
+      color: "lime",
+      current: undercitySigns.length,
+      required: undercitySigns.length,
+    }),
+  ];
+};
+
 ////////////////////////////////////////////
 
 function giveQst(q) {

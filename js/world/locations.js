@@ -3098,6 +3098,55 @@ chss.gens1.sl = () => {
         smove(chss.gens1, false);
       });
     });
+  // Chapter III. The old man has been saying for a month that something is
+  // digging under the village, and the only place the game ever said it was
+  // behind the infestation offer below — which needs a badly infested basement
+  // and takes on the order of a hundred in-game days to unlock. Yamato's
+  // pack-leader report sends the player here on purpose, so this asks him
+  // directly and needs nothing but that word.
+  if (global.flags.undercity1 && !quest.undcty1.data.done)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.ask_about_the_digging"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.shopkeeper_digging_account"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      if (!quest.undcty1.data.started) {
+        chs(
+          i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+          false,
+          "lime",
+        ).addEventListener("click", () => {
+          giveQst(quest.undcty1);
+          // His account is the first sign, so listening to him counts for
+          // something even before the player goes looking.
+          findUndercitySign("cellar");
+          smove(chss.gens1, false);
+        });
+        chs(
+          i18n.t("runtime.world.locations.dialogue.maybe_next_time_b3689181"),
+          false,
+        ).addEventListener("click", () => {
+          smove(chss.gens1, false);
+        });
+      } else {
+        findUndercitySign("cellar");
+        chs(
+          i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+          false,
+        ).addEventListener("click", () => {
+          smove(chss.gens1, false);
+        });
+      }
+    });
   if (area.hmbsmnt.size >= 1000 && global.flags.hbs1 && !global.flags.bmntsmkgt)
     chs(
       i18n.t("runtime.world.locations.dialogue.infestation_problem_84399037"),

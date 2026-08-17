@@ -3145,6 +3145,11 @@
         "goal": "Pack leader (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "still out there",
         "stateDone": "slain"
+      },
+      "undcty1": {
+        "name": "Beneath the Village",
+        "desc": "The old shopkeeper by the cellars has been saying for a month that something is digging under people's homes, and nobody believed him. Yamato sent you to hear him out properly. Find out what the village already knows before you decide it is monsters",
+        "goal": "Signs found: <span style=\"color:{color}\">{current}/{required}</span>"
       }
     },
     "skl": {
@@ -4615,7 +4620,8 @@
           "quest_completed_36971938": "Quest completed: ",
           "quest_accepted": "Quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
-          "pack_leader_falls": "The great wolf goes down, and the forest does not make a sound."
+          "pack_leader_falls": "The great wolf goes down, and the forest does not make a sound.",
+          "undercity_sign_found": "You note it down. ({current}/{required})"
         }
       },
       "titles": {
@@ -5466,7 +5472,9 @@
           "hollow_aftermath": "The leader lies where it fell, and up close it is a poor ruined thing: ribs like a fence, one eye gone milky, the rot in its jaw old enough to have set into the bone. It is facing the crack in the rocks, not facing you.<br><br>The crack breathes. It is far too narrow to follow, and the air coming out of it is colder than the season has any right to be.",
           "search_the_hollow": "Search the hollow",
           "follow_the_trail_deeper": "Follow the trail deeper",
-          "report_back_to_the_lodge": "Report back to the lodge"
+          "report_back_to_the_lodge": "Report back to the lodge",
+          "ask_about_the_digging": "Ask about the digging",
+          "shopkeeper_digging_account": "Sleeping Old Man: The Head Hunter sent you. Him. After a month.<br><br>Under the floors, is what I have been saying. Not rats — rats scratch, and rats stop when you hit the wall. This digs, and it does not stop for anything. Mine started at the back of the cellar, where the old wall is. Then the family two doors down. Then the houses by the well.<br><br>And things go missing. Not food, which would at least make sense to me. Tools. A lantern. My wife's good knife. Whatever is taking them is not hungry, and that sits worse with me than if it were.<br><br>Ask at the market if you like. They will tell you I am a drunk. Then go and look at your own cellar wall, hunter. Look at it properly."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",
