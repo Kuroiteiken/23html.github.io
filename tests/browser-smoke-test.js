@@ -217,6 +217,14 @@ async function main() {
         `The hover description does not follow the pointer within the viewport: ${diagnostics?.join(" ") ?? "probe incomplete"}`,
       );
     }
+    if (!tooltipLayout.stdout.includes('data-item-footer-verified="true"')) {
+      const failures = tooltipLayout.stdout.match(
+        /data-item-footer-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `An item tooltip's kill counter, rarity row, and durability gauge collide: ${failures?.[1] || "probe incomplete"}`,
+      );
+    }
 
     const saveBarLayout = await runChrome(
       `${baseUrl}/__test-save-bar-layout.html?lang=tr`,

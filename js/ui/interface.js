@@ -3680,7 +3680,10 @@ function dscr(c, what, type, ttl, dsc, id) {
           "runtime.ui.interface.interface.never_40f2f2a5",
         );
     }
-    this.rar_c = addElement(global.dscr, "div", "d_l");
+    this.rar_c = addElement(global.dscr, "div", "d_l", "item-rarity");
+    // The durability gauge is absolutely pinned to this row's right-hand corner,
+    // so the stars have to stop short of it. Only equipment carries one.
+    if (what.slot < 8) this.rar_c.classList.add("item-rarity--with-gauge");
     this.rar = addElement(this.rar_c, "small");
     this.rar.innerHTML = i18n.t(
       "runtime.ui.interface.interface.rarity_d2a5dcc5",
@@ -3706,7 +3709,8 @@ function dscr(c, what, type, ttl, dsc, id) {
     this.text = addElement(global.dscr, "div", "d_t");
     this.text.innerHTML = dsc;
     dom.gde = addElement(global.dscr, "small");
-    dom.gde.style.position = "relavite";
+    // Was "relavite", which the browser discarded silently.
+    dom.gde.style.position = "relative";
     dom.gde.style.float = "left";
     dom.gde.innerHTML = i18n.t(
       "runtime.ui.interface.interface.duration_34776f74",

@@ -607,6 +607,17 @@ input:focus {
   font-variant-numeric: tabular-nums;
 }
 
+/* Last row of an item tooltip. #dr_l is pinned to its right-hand corner at up to
+   64% of the tooltip, so an equipment row reserves that much and clips rather
+   than letting the stars run under the gauge. */
+.item-rarity {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.item-rarity--with-gauge {
+  padding-right: 66%;
+}
+
 /* The area readout and the battle control row above it are both absolutely
    anchored to the bottom of the combat panel, 15px apart. The readout had no
    height of its own, so it grew over the row as soon as its single line rendered
@@ -763,13 +774,22 @@ input:focus {
 
 /* Pinned to the bottom-left of the tooltip, mirroring the durability readout
    that sits at the bottom-right, so both stay clear of the description text. */
-.item-description-kills {
-  position: absolute;
-  bottom: 0;
-  left: 6px;
-  box-sizing: border-box;
-  padding-bottom: 5px;
+
+/* The kill counter used to be pinned to the tooltip's bottom-left corner, which
+   is where the rarity row already sits in normal flow: the two rendered on top of
+   each other. It now shares the weapon-class row instead — class on the left,
+   kills held against the right edge — which is a line that belongs to it and is
+   never occupied by anything else. */
+#intfffx {
+  overflow: hidden;
   text-align: left;
+}
+
+.item-description-kills {
+  float: right;
+  padding-left: 8px;
+  text-align: right;
+  white-space: nowrap;
 }
 
 @keyframes cat-pet-reaction {
