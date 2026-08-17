@@ -7,24 +7,28 @@ olduğu hâlde erişilemeyen içeriği kaydeder. Hikayeyi sürdürmenin temelidi
 hikaye içeriği eklendiğinde veya daha önce erişilemeyen bir sistem bağlandığında
 güncellenmelidir.
 
+Yapılmış değil _önerilmiş_ olanlar [docs/PROPOSALS.TR.md](PROPOSALS.TR.md) içinde:
+sıradaki bölgeler, demirci ve hâlâ borçlu olduğumuz yan hikayeler.
+
 Aşağıdakilerin tamamı kaynaklar üzerinde doğrulanmıştır;
 [Hikayeyi sürdürmek](#hikayeyi-sürdürmek) başlığı altındakiler dışında hiçbiri
 plan veya temenni değildir.
 
 ## Görev zinciri
 
-`js/data/quests.js` içinde sekiz görev tanımlı. Yedisi erişilebilir.
+`js/data/quests.js` içinde dokuz görev tanımlı. Sekizi erişilebilir.
 
-| Görev       | Ad                | Nereden alınır                     | Gerekenler                                                     | Ödül                                            |
-| ----------- | ----------------- | ---------------------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
-| `test`      | yer tutucu        | hiçbir yer — `giveQst` çağrısı yok | —                                                              | —                                               |
-| `fwd1`      | Odun Toplama      | Avcı Kulübesi iş panosu            | Kulübeye ulaşmak; köy kapısı 6. seviye ister                   | 100 servet, `sld.bkl`, 15.000 exp, karma        |
-| `hnt1`      | İlk Av            | Avcı Kulübesi iş panosu            | yok, `fwd1` ile paralel                                        | 130 servet, 10× `item.jrk1`, 12.000 exp, karma  |
-| `grds1`     | Nöbet Görevi      | Pazar yeri kontrol noktası         | 4. ilan panosu yazısı (`fwd1` + `hnt1` ister); 7–10 saat arası | 65 servet, 3.000 exp, tekrarlanabilir           |
-| `lmfstkil1` | Canavar Temizliği | Avcı Kulübesi iş panosu            | `fwd1` + `hnt1`, 20. seviye ve dojo Golem 4'ün yenilmesi       | 300 servet, `wpn.gsprw`, `eqp.nkgd`, 18.000 exp |
-| `pckld1`    | Sürü Lideri       | Avcı Kulübesi iş panosu            | `lmfstkil1` tamamlanmış ve üzerinden bir oyun günü geçmiş      | 600 servet, `eqp.amsk`, 26.000 exp              |
-| `undcty1`   | Köyün Altında     | Genel dükkândaki yaşlı esnaf       | `pckld1` tamamlanmış; `global.flags.undercity1` kurulur        | 250 servet, 9.000 exp ve aşağı inen yol         |
-| `undcty2`   | Yolculuğun Sonu   | Avcı Kulübesi iş panosu            | `undcty1` tamamlanmış                                          | 1.400 servet, `acc.rmedlon`, 52.000 exp         |
+| Görev       | Ad                         | Nereden alınır                     | Gerekenler                                                          | Ödül                                            |
+| ----------- | -------------------------- | ---------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------- |
+| `test`      | yer tutucu                 | hiçbir yer — `giveQst` çağrısı yok | —                                                                   | —                                               |
+| `fwd1`      | Odun Toplama               | Avcı Kulübesi iş panosu            | Kulübeye ulaşmak; köy kapısı 6. seviye ister                        | 100 servet, `sld.bkl`, 15.000 exp, karma        |
+| `hnt1`      | İlk Av                     | Avcı Kulübesi iş panosu            | yok, `fwd1` ile paralel                                             | 130 servet, 10× `item.jrk1`, 12.000 exp, karma  |
+| `grds1`     | Nöbet Görevi               | Pazar yeri kontrol noktası         | 4. ilan panosu yazısı (`fwd1` + `hnt1` ister); 7–10 saat arası      | 65 servet, 3.000 exp, tekrarlanabilir           |
+| `lmfstkil1` | Canavar Temizliği          | Avcı Kulübesi iş panosu            | `fwd1` + `hnt1`, 20. seviye ve dojo Golem 4'ün yenilmesi            | 300 servet, `wpn.gsprw`, `eqp.nkgd`, 18.000 exp |
+| `pckld1`    | Sürü Lideri                | Avcı Kulübesi iş panosu            | `lmfstkil1` tamamlanmış ve üzerinden bir oyun günü geçmiş           | 600 servet, `eqp.amsk`, 26.000 exp              |
+| `undcty1`   | Köyün Altında              | Genel dükkândaki yaşlı esnaf       | `pckld1` tamamlanmış; `global.flags.undercity1` kurulur             | 250 servet, 9.000 exp ve aşağı inen yol         |
+| `undcty2`   | Yolculuğun Sonu            | Avcı Kulübesi iş panosu            | `undcty1` tamamlanmış                                               | 1.400 servet, `acc.rmedlon`, 52.000 exp         |
+| `nrvs1`     | Hiçbir Şey Söylemeyen Adam | Gergin adam, pazar tezgâhları      | `undcty2` tamamlanmış **ve** oyuncu onu bir zamanlar rahat bırakmış | 180 servet, karma, 11.000 exp                   |
 
 `fwd1` ve `hnt1` birlikte tamamlandığında kulübede bir sahne tetiklenir;
 `wpn.dgknf` ve `item.htrsvr` çantasını verir, köy ilan panosunu ve şifacıyı açan
@@ -239,6 +243,18 @@ haydutlar, iblisler, imler, ele geçirilmiş silah ve zırhlar, gremlinler,
 hayvanlar, ejderhalar, wyvernler, wyrmler, kertenkele-adamlar ve drakonidler.
 Öğrettiği canavar rütbe ölçeği, `item.bstr` bir bestiyer açtığını iddia etmesine
 rağmen arayüzün hiçbir yerinde görünmez.
+
+## Oyuncu bütün bunların ne kadarını görebiliyor
+
+Günlüğün dördüncü paneli — bu fork'tan önce beri arkasında hiçbir şey olmadan
+`????????????` yazan sekme — artık oyuncunun çıkardıklarını tutuyor: bulunan izler,
+hikayenin açtığı sorular ve kazanılan cevaplar. Kendine ait bir kilidi yok, çünkü
+günlüğün kendisi zaten `item.jnlbk`'i bulup okumaya bağlı; kayıtlar da oyuncu
+açabilsin ya da açamasın ilk saatten itibaren birikiyor. Yirmi dört kayıt var ve
+bunların dördü, sonraki bölümlerin cevaplamak için kurulduğu sorular.
+
+Ayrıca Yamato'nun bilgi merkezini nihayet saklıyor: G'den SSS'ye rütbe ölçeği ve altı
+yaratık türü, oyuncunun bir kez okuyup bir daha bakamadığı diyalogda öğretiliyordu.
 
 ## Var olan ama erişilemeyen içerik
 

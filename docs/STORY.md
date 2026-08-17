@@ -7,23 +7,27 @@ finished content exists in the sources but cannot be reached. It is the basis
 for continuing the story, and it must be updated whenever story content is added
 or a previously unreachable system is wired in.
 
+What is _proposed_ rather than built lives in [docs/PROPOSALS.md](PROPOSALS.md) —
+the next regions, the blacksmith, and the side stories still owed.
+
 Everything below was verified against the sources; no part of it is planned or
 aspirational unless it appears under [Continuing the story](#continuing-the-story).
 
 ## The quest chain
 
-Eight quests are defined in `js/data/quests.js`. Seven are reachable.
+Nine quests are defined in `js/data/quests.js`. Eight are reachable.
 
-| Quest       | Name                | Given at                           | Requires                                                | Reward                                          |
-| ----------- | ------------------- | ---------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
-| `test`      | placeholder         | nowhere — no `giveQst` call exists | —                                                       | —                                               |
-| `fwd1`      | Firewood Gathering  | Hunter's Lodge job board           | Reaching the lodge; the village gate needs level 6      | 100 wealth, `sld.bkl`, 15,000 exp, karma        |
-| `hnt1`      | First Hunt          | Hunter's Lodge job board           | none, runs parallel to `fwd1`                           | 130 wealth, 10× `item.jrk1`, 12,000 exp, karma  |
-| `grds1`     | Guarding Duty       | Marketplace checkpoint             | Notice board post 4, which needs `fwd1` + `hnt1`; 7–10h | 65 wealth, 3,000 exp, repeatable                |
-| `lmfstkil1` | Monster Eradication | Hunter's Lodge job board           | `fwd1` + `hnt1`, level 20, and beating dojo Golem 4     | 300 wealth, `wpn.gsprw`, `eqp.nkgd`, 18,000 exp |
-| `pckld1`    | The Pack Leader     | Hunter's Lodge job board           | `lmfstkil1` done, and one more in-game day since        | 600 wealth, `eqp.amsk`, 26,000 exp              |
-| `undcty1`   | Beneath the Village | The general store's old shopkeeper | `pckld1` done, which sets `global.flags.undercity1`     | 250 wealth, 9,000 exp, and the way down         |
-| `undcty2`   | The End of Journey  | Hunter's Lodge job board           | `undcty1` done                                          | 1,400 wealth, `acc.rmedlon`, 52,000 exp         |
+| Quest       | Name                     | Given at                            | Requires                                                | Reward                                          |
+| ----------- | ------------------------ | ----------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
+| `test`      | placeholder              | nowhere — no `giveQst` call exists  | —                                                       | —                                               |
+| `fwd1`      | Firewood Gathering       | Hunter's Lodge job board            | Reaching the lodge; the village gate needs level 6      | 100 wealth, `sld.bkl`, 15,000 exp, karma        |
+| `hnt1`      | First Hunt               | Hunter's Lodge job board            | none, runs parallel to `fwd1`                           | 130 wealth, 10× `item.jrk1`, 12,000 exp, karma  |
+| `grds1`     | Guarding Duty            | Marketplace checkpoint              | Notice board post 4, which needs `fwd1` + `hnt1`; 7–10h | 65 wealth, 3,000 exp, repeatable                |
+| `lmfstkil1` | Monster Eradication      | Hunter's Lodge job board            | `fwd1` + `hnt1`, level 20, and beating dojo Golem 4     | 300 wealth, `wpn.gsprw`, `eqp.nkgd`, 18,000 exp |
+| `pckld1`    | The Pack Leader          | Hunter's Lodge job board            | `lmfstkil1` done, and one more in-game day since        | 600 wealth, `eqp.amsk`, 26,000 exp              |
+| `undcty1`   | Beneath the Village      | The general store's old shopkeeper  | `pckld1` done, which sets `global.flags.undercity1`     | 250 wealth, 9,000 exp, and the way down         |
+| `undcty2`   | The End of Journey       | Hunter's Lodge job board            | `undcty1` done                                          | 1,400 wealth, `acc.rmedlon`, 52,000 exp         |
+| `nrvs1`     | The Man Who Said Nothing | The nervous man, marketplace stalls | `undcty2` done **and** the player once left him alone   | 180 wealth, karma, 11,000 exp                   |
 
 Completing `fwd1` and `hnt1` together triggers a gate scene at the lodge that
 grants `wpn.dgknf` and the satchel `item.htrsvr`, and sets the flags that open
@@ -236,6 +240,20 @@ imps, possessed weapons and armour, gremlins, devils, sprites, elementals,
 wraiths, necromancers, reanimated beasts, dragons, wyverns, wyrms, lizardmen,
 and draconids. The monster rank scale he teaches is never surfaced anywhere in
 the interface, even though `item.bstr` claims to unlock a bestiary.
+
+## What the player can see of all this
+
+The journal's fourth panel — the tab that rendered `????????????` with nothing
+behind it since before this fork — now holds what the player has worked out:
+clues found, questions the story has opened, and answers earned. It needs no
+unlock of its own, because the journal is already gated behind finding and reading
+`item.jnlbk`, and entries accumulate from the first hour whether or not the player
+can open it yet. Twenty-four entries exist, of which four are questions the later
+chapters are built to answer.
+
+It also finally keeps Yamato's lore hub: the monster rank scale from G to SSS and
+the six kinds of creature were taught in dialogue the player read once and could
+never look up again.
 
 ## Content that exists but cannot be reached
 
