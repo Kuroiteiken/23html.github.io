@@ -808,7 +808,7 @@ chss.t3.sl = () => {
                 global.flags.dj1rw7 = true;
                 giveWealth(500);
                 giveItem(sld.hpt);
-                giveItem(item.sp4, 2);
+                giveItem(item.sp3, 2);
                 smove(chss.t3, false);
               });
             });
@@ -891,7 +891,7 @@ chss.t3.sl = () => {
                 giveWealth(900);
                 giveItem(sld.drd);
                 giveItem(item.stthbm1, 2);
-                giveItem(item.sp4, 3);
+                giveItem(item.sp3, 3);
                 smove(chss.t3, false);
               });
             });

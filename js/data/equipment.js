@@ -1104,23 +1104,36 @@ sld.ovl.slot = 2;
 sld.ovl.str = 0;
 sld.ovl.stype = 3;
 
+// The three shields below are the dojo's level 35, 45 and 50 rewards. They shipped
+// as bare stubs -- rarity 4 and nothing else -- so a player who reached level 35
+// was handed a rare shield that defended exactly as well as an empty hand. They are
+// statted here on the ladder the finished shields already establish: Buckler 5,
+// Stake Shield 7, Targe 9, Pelta 15.
 sld.knt = new Eqp();
 sld.knt.id = 30013;
 sld.knt.name = i18n.t("content.sld.knt.name");
-sld.knt.desc = i18n.t("content.sld.knt.desc");
+sld.knt.desc = i18n.t("content.sld.knt.desc") + dom.dseparator;
 sld.knt.rar = 4;
 sld.knt.slot = 2;
-sld.knt.str = 0;
+sld.knt.str = 21;
+sld.knt.aff = [12, 6, 7, 7, 6, 3, 3];
+sld.knt.cls = [8, 7, 7];
 sld.knt.stype = 3;
+sld.knt.dp = sld.knt.dpmax = 50;
 
 sld.hpt = new Eqp();
 sld.hpt.id = 30014;
 sld.hpt.name = i18n.t("content.sld.hpt.name");
-sld.hpt.desc = i18n.t("content.sld.hpt.desc");
+sld.hpt.desc = i18n.t("content.sld.hpt.desc") + dom.dseparator;
 sld.hpt.rar = 4;
 sld.hpt.slot = 2;
-sld.hpt.str = 0;
+sld.hpt.str = 18;
+// Bronze over wood: it turns an edge or a point well and conducts lightning, and
+// it was never made with anything but men on the other side of it in mind.
+sld.hpt.aff = [10, 5, 6, 5, 4, 2, 2];
+sld.hpt.cls = [7, 7, 4];
 sld.hpt.stype = 3;
+sld.hpt.dp = sld.hpt.dpmax = 44;
 
 sld.jrt = new Eqp();
 sld.jrt.id = 30015;
@@ -1134,11 +1147,17 @@ sld.jrt.stype = 3;
 sld.drd = new Eqp();
 sld.drd.id = 30016;
 sld.drd.name = i18n.t("content.sld.drd.name");
-sld.drd.desc = i18n.t("content.sld.drd.desc");
+sld.drd.desc = i18n.t("content.sld.drd.desc") + dom.dseparator;
 sld.drd.rar = 4;
 sld.drd.slot = 2;
-sld.drd.str = 0;
+sld.drd.str = 23;
+// The only shield in the game that stands against dark, which is the whole reason
+// the instructor keeps it back for the top of the ladder: by the time a student is
+// worth it, what they are walking into is under the village rather than in it.
+sld.drd.aff = [12, 6, 7, 7, 6, 4, 11];
+sld.drd.cls = [8, 8, 8];
 sld.drd.stype = 3;
+sld.drd.dp = sld.drd.dpmax = 54;
 
 sld.stksld = new Eqp();
 sld.stksld.id = 30017;

@@ -1233,11 +1233,11 @@
       },
       "knt": {
         "name": "Knight Shield",
-        "desc": ""
+        "desc": "Steel shield tapering to a point, evenly made and well balanced. Nothing about it was improvised"
       },
       "hpt": {
         "name": "Hoplite Shield",
-        "desc": ""
+        "desc": "Large round shield of bronze faced over wood, made to be held in a line beside other men rather than carried alone"
       },
       "jrt": {
         "name": "Jazeraint Shield",
@@ -1245,7 +1245,7 @@
       },
       "drd": {
         "name": "Dread Shield",
-        "desc": ""
+        "desc": "Blackened shield the dark seems reluctant to settle on. Cold to hold, and heavier than its size accounts for"
       },
       "stksld": {
         "name": "Stake Shield",

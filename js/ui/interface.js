@@ -4608,6 +4608,28 @@ function dmg_calc(att, def, atk) {
         (def.str * (100 + def.aff[atea] * 5 + def.cls[atcs] * 5)) / 100 +
         1;
     } else {
+      // A shield's affinity scales the shield's own contribution, the way armour's
+      // affinity scales armour's just below and the way a creature's scales its own
+      // in the branch above. It used to be subtracted from the mitigation instead,
+      // and from the sum of armour *and* shield rather than from the shield alone,
+      // which inverted the whole point of carrying one: with a statted shield and
+      // any Shield skill the term went negative, so a better shield and more
+      // training in the skill that uses it both raised the damage taken.
+      //
+      // The outer factor is left exactly as it was on purpose. Armour's class
+      // resistance appears in it a second time with the opposite sign, which is a
+      // real bug of its own, but it is also what currently keeps combat dangerous
+      // at all -- correcting it as well makes an unshielded player take a quarter
+      // of the damage they take today. That is a balance decision rather than a
+      // fix, so it is written up in docs/PROPOSALS.md instead of made here.
+      const shdc = 1 + skl.shdc.lvl / 20;
+      const shield =
+        ((((you.eqp[1].str * shdc * (you.eqp[1].dp / you.eqp[1].dpmax) * 0.6 +
+          0.4) *
+          ta) /
+          2) *
+          (100 + you.eqp[1].aff[att.atype] * 5 * shdc)) /
+        100;
       dmg =
         (att.str *
           (100 +
@@ -4626,19 +4648,8 @@ function dmg_calc(att, def, atk) {
             you.cmaff[global.current_m.type] * 10 +
             you.ccls[att.ctype] * 10)) /
           100 +
-          ((you.eqp[1].str *
-            (1 + skl.shdc.lvl / 20) *
-            (you.eqp[1].dp / you.eqp[1].dpmax) *
-            0.6 +
-            0.4) *
-            ta) /
-            2) *
-          (100 -
-            (you.eqp[1].aff[att.atype] * 5 * (1 + skl.shdc.lvl / 20) +
-              global.target.cls[att.ctype] *
-                5 *
-                (1 + skl.shdc.lvl / 20) *
-                ta))) /
+          shield) *
+          (100 - global.target.cls[att.ctype] * 5 * shdc * ta)) /
           100;
       b = 1;
     }
@@ -4661,6 +4672,16 @@ function dmg_calc(att, def, atk) {
         (def.int * (100 + def.aff[atea] * 5 + def.cls[atcs] * 5)) / 100 +
         1;
     } else {
+      // Same correction as the physical branch above, and the same deliberate
+      // decision to leave the outer factor alone.
+      const shdc = 1 + skl.shdc.lvl / 20;
+      const shield =
+        ((((you.eqp[1].int * shdc * (you.eqp[1].dp / you.eqp[1].dpmax) * 0.6 +
+          0.4) *
+          ta) /
+          2) *
+          (100 + you.eqp[1].aff[att.atype] * 5 * shdc)) /
+        100;
       dmg =
         (att.int *
           (100 +
@@ -4679,19 +4700,8 @@ function dmg_calc(att, def, atk) {
             you.cmaff[global.current_m.type] * 10 +
             you.ccls[att.ctype] * 10)) /
           100 +
-          ((you.eqp[1].int *
-            (1 + skl.shdc.lvl / 20) *
-            (you.eqp[1].dp / you.eqp[1].dpmax) *
-            0.6 +
-            0.4) *
-            ta) /
-            2) *
-          (100 -
-            (you.eqp[1].aff[att.atype] * 5 * (1 + skl.shdc.lvl / 20) +
-              global.target.cls[att.ctype] *
-                5 *
-                (1 + skl.shdc.lvl / 20) *
-                ta))) /
+          shield) *
+          (100 - global.target.cls[att.ctype] * 5 * shdc * ta)) /
           100;
       b = 1;
     }

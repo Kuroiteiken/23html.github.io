@@ -1233,11 +1233,11 @@
       },
       "knt": {
         "name": "Şövalye Kalkanı",
-        "desc": ""
+        "desc": "Uca doğru daralan, özenle işlenmiş ve iyi dengelenmiş çelik bir kalkan. Hiçbir yanı geçici çözüm değil"
       },
       "hpt": {
         "name": "Hoplit Kalkanı",
-        "desc": ""
+        "desc": "Ahşap üzerine tunç kaplanmış, geniş ve yuvarlak bir kalkan; tek başına taşınmak için değil, başkalarının yanında saf tutmak için yapılmış"
       },
       "jrt": {
         "name": "Cezireint Kalkanı",
@@ -1245,7 +1245,7 @@
       },
       "drd": {
         "name": "Dehşet Kalkanı",
-        "desc": ""
+        "desc": "Karanlığın üzerine konmaya çekindiği, karartılmış bir kalkan. Elde soğuk durur ve boyutunun hesap veremediği kadar ağırdır"
       },
       "stksld": {
         "name": "Kazık Kalkanı",
