@@ -194,6 +194,8 @@ quest.lmfstkil1.rwd = function () {
   // The Wolf Slayer title existed but had no grant path, even though this is
   // the quest that has the player hunt down a wolf pack.
   giveTitle(ttl.wsl);
+  // The wail the player heard is the question this leaves behind.
+  learnLore("wolvesTurned");
   // Yamato closes this quest promising to send for the player later. The day the
   // promise was made is recorded so the lodge can honour it after a rest rather
   // than the moment the reward is taken.

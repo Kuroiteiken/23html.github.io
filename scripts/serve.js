@@ -469,6 +469,83 @@ function createSiteServer(options = {}) {
       return;
     }
 
+    if (options.enableTestRoutes && pathname === "/__test-lore-panel.html") {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      const loreProbe = `<script>
+        const loreProbe = setInterval(() => {
+          if (!document.getElementById("ctrmg") || !dom.ct_bt6) return;
+          if (typeof learnLore !== "function") return;
+          clearInterval(loreProbe);
+
+          // The journal button is inert until the journal is unlocked, which a
+          // fresh game has not done yet.
+          global.flags.jnlu = true;
+
+          const beforeTab = (() => {
+            dom.ct_bt6.click();
+            const label = document.getElementById("jcell3").textContent;
+            dom.ct_bt6.click();
+            return label;
+          })();
+
+          // A clue, a question that gets answered, and a question left open.
+          learnLore("itDigs", "whatDigs", "cameThrough", "whyTheEast");
+          const stored = global.lore.slice();
+
+          dom.ct_bt6.click();
+          const tabLabel = document.getElementById("jcell3").textContent;
+          document.getElementById("jcell3").click();
+
+          const panel = document.querySelector(".lore-panel");
+          const entries = [...document.querySelectorAll(".lore-entry")];
+          const openRows = [...document.querySelectorAll(".lore-open")];
+          const answers = [...document.querySelectorAll(".lore-entry--answer")];
+          const questions = [
+            ...document.querySelectorAll(".lore-entry--question"),
+          ];
+          const text = panel ? panel.textContent : "";
+
+          const checks = {
+            // Blank before anything is known, named afterwards.
+            tabHiddenAtFirst: beforeTab.indexOf("?") === 0,
+            tabNamedAfter: tabLabel.indexOf("?") !== 0 && tabLabel.length > 0,
+            panelRendered: Boolean(panel),
+            // Four learned: one clue, two questions, one answer.
+            entryCount: entries.length === 4,
+            questionCount: questions.length === 2,
+            answerShown: answers.length === 1,
+            // The unanswered question is marked as such; the answered one is not.
+            openMarked: openRows.length === 1,
+            // Nothing unlearned leaks in.
+            noUnknownLeak:
+              text.indexOf(lore.deinWasHere.name) === -1 &&
+              text.indexOf(lore.theOrder.name) === -1,
+            // Bound at definition time, so no raw keys on screen.
+            noRawKeys: text.indexOf("content.lore.") === -1,
+            fitsPanel:
+              panel &&
+              panel.getBoundingClientRect().bottom <=
+                document.getElementById("ctrmg").getBoundingClientRect()
+                  .bottom + 1,
+            // Idempotent: revisiting a scene cannot record the same thing twice.
+            idempotent:
+              learnLore("itDigs") === false &&
+              global.lore.length === stored.length,
+          };
+
+          document.documentElement.dataset.lorePanelVerified = String(
+            Object.values(checks).every(Boolean),
+          );
+          document.documentElement.dataset.lorePanelFailures = Object.keys(checks)
+            .filter((name) => !checks[name])
+            .join(",");
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${loreProbe}</body>`));
+      return;
+    }
+
     if (options.enableTestRoutes && pathname === "/__test-window-panels.html") {
       const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
       // Every panel rendered into #ctrm_2 asked for a percentage of a container

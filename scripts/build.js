@@ -8,6 +8,7 @@ const sources = [
   "js/data/effects.js",
   "js/data/furniture.js",
   "js/data/quests.js",
+  "js/data/lore.js",
   "js/data/skills.js",
   "js/data/items.js",
   "js/data/equipment.js",

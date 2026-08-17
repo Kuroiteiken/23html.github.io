@@ -29,7 +29,8 @@
       "statistics": "İ S T A T İ S T İ K L E R",
       "questList": "G Ö R E V  L İ S T E S İ",
       "stats": "İ S T A T İ S T İ K L E R",
-      "masteries": "U S T A L I K L A R"
+      "masteries": "U S T A L I K L A R",
+      "lore": "B İ L G İ"
     },
     "settings": {
       "backgroundColor": "Arka Plan Rengi",
@@ -188,6 +189,11 @@
         "Koşmak artık enerji tüketimini kalıcı olarak tırmandırmıyor ve koşu ünvanları indirimi doğrudan koşu maliyetine uyguluyor: %5'te saniyede 0,095, %15'te 0,085.",
         "Koş, eylemler panelinden kaybolmuyor; mağazalarda alış fiyatı ile itibar da yeniden panelin alt kenarında duruyor."
       ]
+    },
+    "lore": {
+      "known": "BİLDİKLERİN",
+      "questions": "AÇIK SORULAR",
+      "unanswered": "— hâlâ cevapsız —"
     }
   },
   "gameText": {
@@ -4448,6 +4454,88 @@
       "cata5a": {
         "name": "Yolculuğun sonu"
       }
+    },
+    "lore": {
+      "wolvesTurned": {
+        "name": "Kurtlar neden kuzeye indi?",
+        "desc": "Yamato seni kendi bölgesini terk etmiş bir sürünün üstüne yolladı. Sürüler bunu sebepsiz yapmaz."
+      },
+      "wolvesPushed": {
+        "name": "Yerlerinden edilmişler",
+        "desc": "Yamato leşlere baktırdı. Her kurt aç kalmıştı, çoğu da hastaydı. Bu, avlanmaya gelen bir sürü değil; bir yerden sürülmüş bir sürü."
+      },
+      "leaderNotWeak": {
+        "name": "Lider, sağlıklı olan tekti",
+        "desc": "Ormandaki her kurt bir Zayıflamış Kurt. Çukurda barınan değildi ve çenesinde hiçbir kurdun açmadığı, haftalar öncesine dayanan bir çürüme taşıyordu."
+      },
+      "leaderFacedCrack": {
+        "name": "Sana değil, yarığa dönük öldü",
+        "desc": "Sürü lideri kendisini sürüsüyle kayadaki bir yarığın arasına koymuştu. Onları neyden koruyorsa, o şey köy değildi."
+      },
+      "underTheSouth": {
+        "name": "Güney ormanının altında ne var?",
+        "desc": "Çukurdaki yarık soğuk hava soluyor ve takip edilemeyecek kadar dar. Arkasında ne varsa, sürü onu köydeki herkesten önce biliyordu."
+      },
+      "itDigs": {
+        "name": "Kazıyor ve durmuyor",
+        "desc": "Yaşlı esnaf bir aydır söylüyor: fare kemirir ve duvara vurunca susar. Bu kazıyor, en eski duvarların dibinde başladı ve kuyuya doğru yayıldı."
+      },
+      "lockedCellar": {
+        "name": "Kilitli bodrumlardan alet kayboluyor",
+        "desc": "Pazardaki bir çocuk, babasının keskilerini kilitli bir bodrumdan kaybetti ve bunun için dövüldü. Alet ile feneri alıp yiyeceği bırakan şey aç değildir."
+      },
+      "mortarPushed": {
+        "name": "Harç içeriden itilmiş",
+        "desc": "Kendi bodrumunun arkasındaki iki taş diğerlerinden dışarı taşıyor ve toz olmuş harç duvarın senin tarafında. Oradan hiçbir şey düşmemiş. Bir şey içeriden bastırmış."
+      },
+      "whatDigs": {
+        "name": "Köyün altını kazan şey ne?",
+        "desc": "Taşı geçiyor, yiyecek değil alet alıyor ve üç sokağın fark edeceği kadar uzun süredir bunu yapıyor."
+      },
+      "theOrder": {
+        "name": "Aşağıda bir tarikat gömülü",
+        "desc": "Koridor, Haç Şövalyeleri'nin ölüleriyle döşeli. Orada yürüyen şey eğitimini korumuş: üstüne öylece gelmiyor, önce savunmanı açıyor."
+      },
+      "deadMovingNow": {
+        "name": "Ölüler neden şimdi hareket etmeye başladı?",
+        "desc": "Bu katakomplar yüzyıllardır burada ve köy bunca zaman onların üstünde durdu. Bir şey, pazarda hâlâ tartışılacak kadar yakın bir zamanda değişti."
+      },
+      "deathKiPooling": {
+        "name": "Burada ölüm ki'si birikiyor",
+        "desc": "Bir Felaket Cesedi, karanlık ki'nin çoktan aşırı yoğunlaşmadığı hiçbir yerde oluşamaz — ve koridorun sonunda bir tanesi duruyordu. İskeletler de aynı şeyi söylüyor: ölüm ki'si üzerlerinde yeterince uzun çalışmadıkça kimseye zarar vermezler, bunlar ise çılgına dönmüştü."
+      },
+      "cameThrough": {
+        "name": "Buradan geçti, buradan çıkmadı",
+        "desc": "Katakompların sonundaki duvar öbür taraftan kesilmiş ve kesiğin tozu hâlâ solgun. Köyün altındaki şey burada başlamadı. Yukarı çıkarken buradan geçti."
+      },
+      "warmAir": {
+        "name": "Duvarın ötesindeki hava ılık",
+        "desc": "Üstündeki her şey mevsimden soğuk. Kesiğin ötesindeki geçit ılık hava soluyor ve o hava kımıldıyor."
+      },
+      "catacombsForgotten": {
+        "name": "Katakomplar neden unutuldu?",
+        "desc": "Yirmi altı isimli oda, bir tarikatın ölüleri ve bodrumlarını girişe dayayıp tek kişinin bile bahsetmediği bir köy. Biri bu yerden bilerek söz etmeyi bıraktı."
+      },
+      "threeAndAcross": {
+        "name": "Üç çizik ve bir çapraz kesik",
+        "desc": "Açıklığın yanında bir avcı işareti; vakti ve iyi bir bıçağı olan biri derin kazımış. Yalnızca tek kenarı yıpranmış, yani tam bir yağış mevsimi görmüş. Altında, seninkinden iyi bir çelikten kırılmış bir kılıç ucu."
+      },
+      "whoCameFirst": {
+        "name": "Senden önce buraya kim geldi?",
+        "desc": "Biri katakompların sonunu bulmuş, yolu işaretlemiş ve aşağı inmiş. Çok önce değil ve köyün yardımıyla da değil."
+      },
+      "deinWasHere": {
+        "name": "Dein buradaydı",
+        "desc": "Üç-ve-çapraz bir yol işareti değil. Yamato'nun yardımcı şefinin, arkasından gelen adama tek başına ilerlediğini ve aynı yoldan dönmeyeceğini söylemek için kazıdığı şey — yarısı öğretilmiş, yarısı da Yamato onun olduğunu, başkasının olmadığını bilsin diye uydurulmuş. Dein on dört aydır kayıp."
+      },
+      "whatDeinSought": {
+        "name": "Dein ne arıyordu?",
+        "desc": "Bir tarikatın mezarlarını geçip tek başına indi ve yolu kaçınılası değil, dönülesi diye işaretledi. İnmeden önce bir şey biliyordu."
+      },
+      "whyTheEast": {
+        "name": "Yamato neden hep doğuya bakıyor?",
+        "desc": "Bunların hiçbiri olmadan önce de bir doğu seferinden söz ediyordu; şimdi de yardımcısının köyün altına indiğini öğrendiği gece oraya haber salıyor. Doğu hakkında sana her şeyi anlatmıyor."
+      }
     }
   },
   "runtime": {
@@ -4650,6 +4738,11 @@
       "titles": {
         "dialogue": {
           "you_were_struck_by_lightning_abd1e6bf": "Yıldırım çarptı!"
+        }
+      },
+      "lore": {
+        "dialogue": {
+          "journal_updated": "Günlüğüne {count} yeni kayıt eklendi."
         }
       }
     },

@@ -929,8 +929,20 @@ dom.ct_bt6.addEventListener("click", function () {
       global.flags.bstu === true
         ? i18n.t("ui.panels.bestiary")
         : "????????????";
-    this.jlbrw2s1.innerHTML = "????????????";
+    // This slot has rendered "????????????" with nothing behind it since before
+    // this fork. It holds what the player has worked out about the world, and
+    // stays blank until they have worked out anything — the same way the bestiary
+    // tab beside it waits for a bestiary.
+    this.jlbrw2s1.innerHTML = global.flags.loreu
+      ? i18n.t("ui.panels.lore")
+      : "????????????";
     this.jlbrw2s2.innerHTML = i18n.t("ui.panels.statistics");
+    this.jlbrw2s1.addEventListener("click", () => {
+      if (!global.flags.loreu) return;
+      empty(dom.ctrwin6);
+      global.lw_op = -1;
+      renderLore();
+    });
     dom.jlbrw1s1.addEventListener("click", () => {
       empty(dom.ctrwin6);
       global.lw_op = -1;
@@ -6332,6 +6344,56 @@ global.text.cln = i18n.get("gameText.cln");
 // the window and does have a fixed height, so panel heights are taken from there.
 function windowPanelHeight(share) {
   return Math.round(dom.ctrmg.clientHeight * share) + "px";
+}
+
+function renderLoreEntry(root, entry, kind) {
+  const row = addElement(root, "div", null, "lore-entry lore-entry--" + kind);
+  const title = addElement(row, "div", null, "lore-entry__title");
+  title.innerHTML = entry.name;
+  const body = addElement(row, "div", null, "lore-entry__body");
+  body.innerHTML = entry.desc;
+  return row;
+}
+
+// The journal's lore panel: what the player has worked out, and what they have
+// not. Clues first, then the open questions with their answers folded in where one
+// has been earned. A question with no answer is left standing rather than hidden,
+// because the point of showing it is that the player can see the shape of what
+// they still do not know.
+function renderLore() {
+  const known = loreKnown();
+  const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
+  panel.style.height = windowPanelHeight(0.84);
+
+  const heading = addElement(panel, "div", null, "lore-heading");
+  heading.innerHTML = i18n.t("ui.panels.lore");
+
+  const body = addElement(panel, "div", null, "lore-body");
+
+  if (known.clues.length) {
+    const section = addElement(body, "div", null, "lore-section");
+    section.innerHTML = i18n.t("ui.lore.known");
+    for (const entry of known.clues) renderLoreEntry(body, entry, "clue");
+  }
+
+  if (known.questions.length) {
+    const section = addElement(body, "div", null, "lore-section");
+    section.innerHTML = i18n.t("ui.lore.questions");
+    for (const item of known.questions) {
+      renderLoreEntry(body, item.entry, "question");
+      if (item.answer) renderLoreEntry(body, item.answer, "answer");
+      else {
+        const open = addElement(body, "div", null, "lore-open");
+        open.innerHTML = i18n.t("ui.lore.unanswered");
+      }
+    }
+  }
+
+  const back = addElement(panel, "div", "qtrtn");
+  back.innerHTML = i18n.t("runtime.ui.interface.interface.return_9e4bb9d7");
+  back.addEventListener("click", () => {
+    dom.ct_bt6.click();
+  });
 }
 
 function chs_spec(type, x) {

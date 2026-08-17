@@ -1986,6 +1986,8 @@ chss.frstn1b1j.sl = () => {
             "lime",
           ).addEventListener("click", () => {
             giveQst(quest.pckld1);
+            // He is telling the player why, not just what.
+            learnLore("wolvesPushed");
             smove(chss.frstn1b1, false);
           });
           chs(
@@ -2137,6 +2139,7 @@ chss.frstn1b1j.sl = () => {
       ).addEventListener("click", () => {
         finishQst(quest.undcty2);
         global.flags.deintrail = true;
+        learnLore("deinWasHere", "whatDeinSought", "whyTheEast");
         smove(chss.frstn1main);
       });
     });
@@ -2538,6 +2541,7 @@ chss.frstn10main.sl = () => {
   d_loc(i18n.t("runtime.world.locations.dialogue.southern_forest_the_hollow"));
   global.lst_loc = 170;
   if (quest.pckld1.data.killed) {
+    learnLore("leaderNotWeak", "leaderFacedCrack", "underTheSouth");
     chs(
       i18n.t("runtime.world.locations.dialogue.hollow_aftermath"),
       true,
@@ -2884,6 +2888,7 @@ chss.mrktvg1.sl = () => {
         0,
         ".9em",
       );
+      learnLore("lockedCellar");
       findUndercitySign("market");
       chs(
         i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
@@ -3251,6 +3256,7 @@ chss.gens1.sl = () => {
       false,
       "yellow",
     ).addEventListener("click", () => {
+      learnLore("itDigs", "whatDigs");
       chs(
         i18n.t("runtime.world.locations.dialogue.shopkeeper_digging_account"),
         true,
@@ -4874,6 +4880,7 @@ chss.bsmnthm1.sl = () => {
             0,
             ".9em",
           );
+          learnLore("mortarPushed");
           findUndercitySign("home");
           chs(
             i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
@@ -5882,6 +5889,14 @@ chss.cata25.sl = () => {
       area_init(area.cata5a);
     });
   } else {
+    learnLore(
+      "deathKiPooling",
+      "cameThrough",
+      "warmAir",
+      "catacombsForgotten",
+      "threeAndAcross",
+      "whoCameFirst",
+    );
     chs(
       i18n.t("runtime.world.locations.dialogue.journey_end_aftermath"),
       true,
@@ -5940,6 +5955,7 @@ for (const room of [
   chss.cata22,
 ])
   room.onEnter = function () {
+    learnLore("theOrder", "deadMovingNow");
     area_init(area.cata3a);
   };
 

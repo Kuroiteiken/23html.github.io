@@ -29,7 +29,8 @@
       "statistics": "S T A T I S T I C S",
       "questList": "Q U E S T　　L I S T",
       "stats": "S T A T S",
-      "masteries": "M A S T E R I E S"
+      "masteries": "M A S T E R I E S",
+      "lore": "K N O W L E D G E"
     },
     "settings": {
       "backgroundColor": "BG Color",
@@ -188,6 +189,11 @@
         "Running no longer makes your energy drain creep up for good, and the running titles now discount the running cost itself: 0.095 per second at 5%, 0.085 at 15%.",
         "Run no longer disappears from the Actions panel, and a shop's buying price and reputation sit on the bottom edge of the panel again."
       ]
+    },
+    "lore": {
+      "known": "WHAT YOU KNOW",
+      "questions": "OPEN QUESTIONS",
+      "unanswered": "— still unanswered —"
     }
   },
   "gameText": {
@@ -4448,6 +4454,88 @@
       "cata5a": {
         "name": "The end of journey"
       }
+    },
+    "lore": {
+      "wolvesTurned": {
+        "name": "Why did the wolves come north?",
+        "desc": "Yamato sent you against a pack that had left its own range. Packs do not do that for nothing."
+      },
+      "wolvesPushed": {
+        "name": "They were pushed",
+        "desc": "Yamato had the carcasses looked at. Every wolf was underfed and most were sick. That is not a pack that came to hunt — it is a pack that was driven out of somewhere."
+      },
+      "leaderNotWeak": {
+        "name": "The leader was the only healthy one",
+        "desc": "Every wolf in the forest is a Weakened Wolf. The one denning in the hollow was not, and it carried weeks-old rot in its jaw that no wolf gave it."
+      },
+      "leaderFacedCrack": {
+        "name": "It died facing the crack, not you",
+        "desc": "The pack leader had put itself between its own pack and a fissure in the rock. Whatever it was guarding them from, it was not the village."
+      },
+      "underTheSouth": {
+        "name": "What is under the southern forest?",
+        "desc": "The fissure in the hollow breathes cold air and is far too narrow to follow. Whatever is behind it, the pack knew about it before anyone in the village did."
+      },
+      "itDigs": {
+        "name": "It digs, and it does not stop",
+        "desc": "The old shopkeeper has been saying it for a month: rats scratch and rats stop when you hit the wall. This digs, it started at the oldest walls, and it spread toward the well."
+      },
+      "lockedCellar": {
+        "name": "Tools go missing from locked cellars",
+        "desc": "A boy at the market lost his father's chisels out of a cellar that was locked, and took a beating for it. What takes tools and a lantern and leaves the food is not hungry."
+      },
+      "mortarPushed": {
+        "name": "The mortar was pushed from the inside",
+        "desc": "Two stones at the back of your own cellar stand proud of the rest, and the powdered mortar is on your side of the wall. Nothing fell out of it. Something pressed in."
+      },
+      "whatDigs": {
+        "name": "What has been digging under the village?",
+        "desc": "It works through stone, it takes tools rather than food, and it has been at it long enough for three streets to notice."
+      },
+      "theOrder": {
+        "name": "An order is buried down here",
+        "desc": "The corridor is lined with the dead of the Knights of the Cross. What walks it has kept the training: it does not simply come at you, it opens your guard first."
+      },
+      "deadMovingNow": {
+        "name": "Why has the dead started moving now?",
+        "desc": "These catacombs are centuries old and the village has stood above them the whole time. Something changed recently enough that people are still arguing about it at the market."
+      },
+      "deathKiPooling": {
+        "name": "Death ki has been pooling here",
+        "desc": "A Disaster Corpse cannot form anywhere the dark ki is not already extremely concentrated, and one was standing at the end of the corridor. The skeletons say the same thing: they harm nobody until death ki has worked on them long enough, and these had gone frenzied."
+      },
+      "cameThrough": {
+        "name": "It came through, not from",
+        "desc": "The wall at the end of the catacombs has been cut through from the far side, and the dust of the cut is still pale. Whatever is under the village did not begin here. It passed through on its way up."
+      },
+      "warmAir": {
+        "name": "The air past the wall is warm",
+        "desc": "Everything above it is colder than the season. The passage beyond the cut breathes warm air, and it moves."
+      },
+      "catacombsForgotten": {
+        "name": "Why were the catacombs forgotten?",
+        "desc": "Twenty-six named rooms, an order's dead, and a village that built its cellars against the entrance without one person mentioning it. Somebody stopped talking about this place on purpose."
+      },
+      "threeAndAcross": {
+        "name": "Three strokes and a cross-cut",
+        "desc": "A hunter's mark beside the opening, cut deep by someone with time and a good blade. Weathered along one edge only, so it has seen exactly one wet season. Below it, the broken tip of a sword in better steel than yours."
+      },
+      "whoCameFirst": {
+        "name": "Who came this far before you?",
+        "desc": "Someone found the end of the catacombs, marked the way, and went on down. Not long ago, and not with the village's help."
+      },
+      "deinWasHere": {
+        "name": "Dein was here",
+        "desc": "Three-and-across is not a route mark. It is what Yamato's deputy chief cut to tell the man behind him that he had gone on alone and was not coming back the same way — half of it taught, half of it invented so Yamato would know it was him and nobody else. Dein has been missing fourteen months."
+      },
+      "whatDeinSought": {
+        "name": "What was Dein looking for?",
+        "desc": "He went down alone, past an order's tombs, and he marked the way as worth returning to rather than worth avoiding. He knew something before he went."
+      },
+      "whyTheEast": {
+        "name": "Why does Yamato keep looking east?",
+        "desc": "He has mentioned an eastern expedition since before any of this, and now he is sending word there the same night he learns his deputy went under the village. He is not telling you everything about the east."
+      }
     }
   },
   "runtime": {
@@ -4650,6 +4738,11 @@
       "titles": {
         "dialogue": {
           "you_were_struck_by_lightning_abd1e6bf": "You were struck by lightning!"
+        }
+      },
+      "lore": {
+        "dialogue": {
+          "journal_updated": "Your journal gains {count} new entry."
         }
       }
     },

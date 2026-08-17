@@ -618,6 +618,71 @@ input:focus {
   padding-right: 66%;
 }
 
+/* The journal's lore panel. Clues and answers read as settled knowledge; an open
+   question is deliberately the thing that stands out on the page. */
+.lore-panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: rgb(0 20 44);
+}
+.lore-heading {
+  flex: 0 0 auto;
+  border-bottom: 1px solid #3848c0;
+  padding: 3px;
+  background-color: #050730;
+  text-align: center;
+}
+.lore-body {
+  min-height: 0;
+  overflow: auto;
+  flex: 1 1 auto;
+}
+.lore-section {
+  border-bottom: 1px dotted #2b408a;
+  padding: 4px 6px;
+  background-color: #12152f;
+  color: #ffc319;
+  font-size: 0.9em;
+  letter-spacing: 0.06em;
+}
+.lore-entry {
+  border-bottom: 1px solid #263a6e;
+  padding: 5px 8px;
+  text-align: left;
+}
+.lore-entry__title {
+  font-size: 0.9em;
+}
+.lore-entry__body {
+  color: #a9c6e4;
+  font-size: 0.8em;
+  line-height: 1.35;
+}
+.lore-entry--clue .lore-entry__title {
+  color: #dbe7f5;
+}
+.lore-entry--question {
+  background-color: rgb(46 41 99 / 55%);
+}
+.lore-entry--question .lore-entry__title {
+  color: #ffd76b;
+}
+.lore-entry--answer {
+  border-left: 3px solid #20c884;
+}
+.lore-entry--answer .lore-entry__title {
+  color: #71e6b1;
+}
+.lore-open {
+  border-bottom: 1px solid #263a6e;
+  padding: 3px 8px 6px 11px;
+  color: #8c7fb8;
+  font-size: 0.78em;
+  text-align: left;
+}
+
 /* The area readout and the battle control row above it are both absolutely
    anchored to the bottom of the combat panel, 15px apart. The readout had no
    height of its own, so it grew over the row as soon as its single line rendered
