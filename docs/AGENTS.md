@@ -62,6 +62,20 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
     `locales/en.json` and `locales/tr.json`, and add regression coverage for the
     migrated scope.
 
+12. Never stat a creature by eye. `aff` and `cls` are not percentages: they enter
+    a creature's defence as
+    `str * (100 + aff[atype] * 5 + cls[ctype] * 5) / 100`, so a value of 60
+    multiplies its whole strength by four, and its weapon's `eqp[0].aff` and
+    `eqp[0].cls` enter its attack at ten times each. Damage is floored at zero, so
+    a creature statted past the player's attack output simply stops taking damage
+    with no error anywhere. Express depth through `hp_r`, `str_r` and `stat_p`,
+    which the formula treats linearly, and keep `aff` and `cls` inside the family
+    the original game shipped -- nothing it came with exceeds `aff[0]` 22 or
+    `cls[0]` 36. A creature's own resistance array must never be copied into its
+    weapon's. Run `node scripts/check-combat.js` after touching any creature,
+    area population, or the damage formula; it measures the budget from the
+    original creatures and fails on anything past it.
+
 ## Compatibility rules
 
 - Do not change the save key, serialized field order, or Base64 compatibility
@@ -79,8 +93,6 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
   especially abbreviations, calendar terms, directions, statistics, equipment,
   and other short or polysemous labels. Translate what the source abbreviation
   means in context; never expand it into an unrelated literal word.
-- Keep the Turkish game glossary consistent: translate gameplay `perk` as
-  `yetenek`, not `avantaj`, including names, descriptions, and unlock messages.
 - Have a language-aware agent contextually review every new or changed locale
   key, not only bulk machine-assisted translations.
 - Keep the established Turkish gameplay terms stable. Translate `perk` as

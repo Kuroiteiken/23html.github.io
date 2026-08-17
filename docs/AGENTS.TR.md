@@ -61,6 +61,21 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
     `locales/en.json` ve `locales/tr.json` üzerinden geçirin ve taşınan kapsam
     için regresyon testi ekleyin.
 
+12. Bir yaratığı asla göz kararı statlandırma. `aff` ve `cls` yüzde değil:
+    yaratığın savunmasına
+    `str * (100 + aff[atype] * 5 + cls[ctype] * 5) / 100` olarak giriyor, yani 60
+    değeri onun bütün gücünü dörde katlıyor; silahının `eqp[0].aff` ve
+    `eqp[0].cls` dizileri ise saldırısına onar kat giriyor. Hasar sıfıra
+    tabanlandığı için, oyuncunun saldırı çıktısının ötesine statlanmış bir yaratık
+    hiçbir yerde hata vermeden hasar almayı bırakıyor. Derinliği, formülün
+    doğrusal işlediği `hp_r`, `str_r` ve `stat_p` üzerinden ifade et; `aff` ve
+    `cls` değerlerini orijinal oyunun getirdiği aile içinde tut — geldiği hâlde
+    hiçbir yaratıkta `aff[0]` 22'yi, `cls[0]` 36'yı geçmiyor. Bir yaratığın kendi
+    direnç dizisi asla silahının dizisine kopyalanmamalı. Herhangi bir yaratığa,
+    alan popülasyonuna ya da hasar formülüne dokunduktan sonra
+    `node scripts/check-combat.js` çalıştır; bütçeyi orijinal yaratıklardan ölçüp
+    onu aşan her şeyde hata veriyor.
+
 ## Uyumluluk kuralları
 
 - Kayıt anahtarı, kayıt veri sırası ve Base64 uyumluluğu açık bir migration
@@ -120,10 +135,6 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
   ekranda tutacak şekilde tasarlayın ve küçük ekran boyutlarında test edin.
 - Repository sahibine Türkçe cevap verin. Forklarda mevcut kullanıcının dil
   tercihini izleyin.
-
-- Türkçe oyun sözlüğünü tutarlı kullanın: oynanıştaki `perk` terimini adlarda,
-  açıklamalarda ve kilit açma mesajlarında `avantaj` değil `yetenek` olarak
-  çevirin.
 
 ## Deployment
 
