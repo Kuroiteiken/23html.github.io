@@ -260,34 +260,34 @@ never look up again.
 This is the important part. The game is not short of content; it is short of
 connections.
 
-| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                                              |
-| ----------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                      |
-| **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area. |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                                      |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                                              |
-| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                              |
-| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.                                          |
+| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                                                                                                                                                                              |
+| **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area.                                                                                                                                                         |
+| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                                                                                                                                                                                      |
+| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, ~35 weapons, roughly 150 foods. Three of the fourteen shields now come from the dojo ladder; the Hoplite, Knight and Dread shields had been listed as rare with no stats at all, so the level 35 reward defended exactly as well as an empty hand. |
 
-### What the catacombs actually lack
+### What the catacombs were missing
 
-Worth stating precisely, because it changes the size of Chapter IV. The 26 rooms
-are fully written and fully interconnected — every internal edge is reciprocal,
-with `cata1` as a hub, an east ring (`5→6→7→8→9→10→11→12→5`) and a west corridor
-(`13`→`25`) — but:
+Kept because it is what made Chapter IV the size it was. The 26 rooms were fully
+written and fully interconnected — every internal edge reciprocal, with `cata1` as
+a hub, an east ring (`5→6→7→8→9→10→11→12→5`) and a west corridor (`13`→`25`) — and
+yet:
 
-- **No room calls `area_init`, and no area exists for them.** The dungeon has
-  zero combat population. Wiring an entrance alone would open 26 empty rooms.
-- No room declares `effectors`, `onEnter`, `onScout`, `scout` or `data`. The
-  darkness comes from `sector.cata1` only.
-- `chss.catamn`'s exit already leads to `chss.lsmain1` (village centre), with no
-  reciprocal link back, which is why the region reads as orphaned rather than
-  unfinished.
+- **No room called `area_init`, and no area existed for them.** The dungeon had
+  zero combat population, so wiring an entrance alone would have opened 26 empty
+  rooms. Five areas were written for them and every room now initialises one.
+- No room declared `effectors`, `onEnter`, `onScout`, `scout` or `data`. The
+  darkness came from `sector.cata1` alone.
+- `chss.catamn`'s exit led to `chss.lsmain1` (village centre) with no reciprocal
+  link back, which is why the region read as orphaned rather than unfinished. It
+  returns to the cellar it is entered from now.
 
-The clusters line up with each other in a way that is hard to read as
-coincidence: a dark 26-room dungeon, a torch that nothing sells, seven keys with
-no locks, and a complete undead bestiary with nowhere to spawn. This was
-prepared as one region and never connected.
+The clusters lined up in a way that is hard to read as coincidence: a dark 26-room
+dungeon, a torch that nothing sold, seven keys with no locks, and a complete undead
+bestiary with nowhere to spawn. It was prepared as one region and never connected.
 
 ## Defects in story code
 
@@ -314,8 +314,9 @@ kept because each one shaped the content around it.
   `gets[2]`, so that find is never latched as already taken.
 - `global.flags.bsmntchck`, the gate on the basement's "Examine your
   surroundings" choice, is never assigned anywhere.
-- `sector.cata1.data.scoutm` is 11,000, but the sector has no `scout` table and
-  no `onScout`, so the track can never advance.
+- The seven keys still have no locks. A dungeon of named rooms is where they
+  would belong, and the catacombs are now that dungeon.
+- `vendor[*].dfl` is set on four of the five vendors and read nowhere.
 
 ## Continuing the story
 
@@ -373,21 +374,23 @@ been losing — candles, grave coins, a chisel handle in a heap of bone and rag,
 the lantern the shopkeeper said was taken, which is `wpn.trch`. Searching costs
 candle time, because `scoutGeneric` refuses to run in the dark.
 
-What is left:
+The western corridor is done as well: `cata13` through `cata25`, ending at The End
+Of Journey, with `ght`, `zmbk`, `zmbm` and `mumy` statted against the player's
+progress rather than against `rnk` — which is Yamato's danger classification and not
+a power curve, `creature.skl` being rank 7 with 132 hp while `wolf1` is rank 4 with
+400 — and all of them `type = 2` so the bestiary files them as Undead.
 
-- The fourteen-room western corridor, `cata13` through `cata25`, ending at The End
-  Of Journey. `ght`, `zmbk`, `zmbm` and `mumy` are the stubs that fit it, and they
-  are the deepest ranks the game defines.
-- Those stubs want stats set against the player's progress rather than against
-  `rnk`, which is Yamato's danger classification and not a power curve —
-  `creature.skl` is rank 7 with 132 hp while `wolf1` is rank 4 with 400 — and
-  `type = 2` so the bestiary files them as Undead.
-- Worth knowing before statting them: `rnk` drives the rank-drop tier through
-  `ar = ((rnk - 1) / 3) << 0` into `global.rdrop`, and only tiers 0, 1 and 2 are
-  populated. Anything from rank 10 to 21 gets no rank drop at all, so a deep tier
-  has to carry its rewards in its own drop table.
-- The seven keys still have no locks. A dungeon with named rooms is where they
-  would belong.
+Two things that shaped how they were statted, worth keeping:
+
+- `rnk` drives the rank-drop tier through `ar = ((rnk - 1) / 3) << 0` into
+  `global.rdrop`, and only tiers 0, 1 and 2 are populated. Anything from rank 10
+  to 21 gets no rank drop at all, so every deep tier carries its rewards in its
+  own drop table.
+- `cata3a` and `cata4a` are hunting grounds of forty and twenty-six rooms, so the
+  player has every reason to come back to them. Their ceilings follow the player
+  into the mid forties, floored at the level that was authored — see below.
+
+What is left is the seven keys, which still have no locks.
 
 ### A note on the room names
 
@@ -397,6 +400,50 @@ Corridor_ had been read as the internet rather than a spider's, _Forgotten Post_
 mail rather than a sentry's station, _The Stone Plate_ as dinnerware rather than a
 slab, _The Brittle Turn_ as something crispy, and _Son's Last Visit_ had gained a
 possessive that made it the player's own son.
+
+## Progression, and how far the world reaches
+
+The story's own numbers had stopped agreeing with each other. The dojo instructor
+hands out rewards to level 50 and level 50 costs 6,042,925 experience, while the
+highest monster level anywhere in the game was 28 — `area.trne4`'s golem and the
+corpse at the bottom of the catacombs. Past Chapter IV there was nothing left that
+could give a fight or worthwhile experience.
+
+What was done about it, all of it under the rule that connecting beats inflating:
+
+- **The dojo's endless bout tracks the student.** Its dummies were pinned at levels
+  12, 13 and 10 — below the dojo's own first trial at 20 — so the moment a student
+  was good enough to be sent at a golem, the room they trained in had nothing left
+  to teach them. Their health grows at a tenth of a point a level against a cubic
+  experience requirement, so it stays a place to practise rather than a place to
+  farm.
+- **The two deep catacomb hunting grounds follow the player** into the mid forties.
+  That is where the story already says the dark ki has been pooling, so what it has
+  been working on not stopping at a hand-written number is the premise rather than
+  a concession to it. Every band is floored at the authored level, so a first
+  descent meets exactly the fight that was designed, and the encounter at the very
+  bottom does not scale at all.
+- **SPD and LUCK grow.** SPD is what makes attacks miss — `hit_calc(2)` divides the
+  attacker's accuracy by `you.spd + you.agl + agl_bonus / 2` — and nothing in the
+  game had ever raised it: `stat_p`'s fourth entry is never read and `lvlup` never
+  touched `spd_r`, so it sat on 1 for an entire playthrough. It gains a point every
+  ten levels; LUCK gains one every five, which lifts the critical chance and every
+  drop roll in the game.
+- Both are paid out from a subscriber to `callback.onLevel`, which is what that hook
+  was for. It had been constructed, documented and fired on every level gain since
+  the callback registry was written, with no subscribers at all.
+- **A shield defends.** A shield's resistances were subtracted from the player's
+  protection rather than added to its own share of it, and taken off the armour's
+  share as well, so a better shield and more Shield training both raised the damage
+  taken. Statting the three shields the dojo awards is what exposed it.
+- **The general store buys what the player is carrying**, priced from the same
+  vendor supply lines the shops sell from and well under them. Before this the only
+  things in the game with a buyer were firewood, straw baskets and cure grass.
+
+One balance question is deliberately left open rather than decided here, and is
+written up in [PROPOSALS.md](PROPOSALS.md): armour's class resistance appears twice
+in the mitigation term with opposite signs, and correcting it drops an unshielded
+player's damage taken to roughly a quarter of what it is today.
 
 ### Step 4 — East, and Dein
 

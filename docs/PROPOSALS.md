@@ -111,6 +111,46 @@ first and treating mining and the anvil as a second step.
 
 ---
 
+## Balance decisions, not fixes
+
+### 4. Armour's class resistance is counted twice, with opposite signs
+
+**Status:** proposed, and needs a decision rather than a patch.
+
+In the branch of `dmg_calc` that runs when a creature attacks the player, the
+struck armour's class resistance appears inside the mitigation as
+`100 + armour.cls[ctype] * 5 * ta` and again outside it as
+`100 - armour.cls[ctype] * 5 * shdc * ta`, where `shdc` is `1 + skl.shdc.lvl / 20`.
+The two mostly cancel, and the outer one scales with the Shield skill, which has no
+business scaling armour at all.
+
+The shield half of that outer factor was a plain bug and is fixed: a shield's
+affinity now scales the shield's own share of the mitigation. The armour half is
+deliberately left alone, because it is doing real work. It is the only thing keeping
+combat dangerous.
+
+Measured on a level-35-ish character — STR 50, chest armour STR 12 at full
+durability with physical affinity 5 and edge resistance 4, Shield skill 10, against
+an attack term of 100:
+
+| Outer factor             | Unshielded damage taken | With the Hoplite Shield |
+| ------------------------ | ----------------------- | ----------------------- |
+| As it ships (armour `-`) | 36.9                    | 26.9                    |
+| Corrected (armour `+`)   | 9.9                     | 1.0                     |
+
+So correcting it makes an unshielded player roughly four times more survivable and
+floors damage at 1 for anyone carrying a shield. That is not a fix, it is a
+rebalance of every fight in the game, and it should be a deliberate choice — most
+likely alongside lowering the flat `def.str * eff` term, which is what actually
+dominates the mitigation.
+
+**Already exists:** the two terms, and a regression test pinning the shield half so
+it cannot silently revert.
+
+**Has to be new:** a decision, and if taken, a pass over creature damage.
+
+---
+
 ## Side stories still owed
 
 The brief asks for at least eight. One is in (**The Man Who Said Nothing**, the
@@ -148,3 +188,13 @@ nervous man at the market). These are the hooks already sitting in the sources:
   relies entirely on its own drop table.
 - **`item.svial1`** builds a throwaway area with a skeleton in it. Unclear whether
   that is finished or abandoned.
+- **`vendor[*].dfl`** is assigned on four of the five vendors and read nowhere.
+- **Eleven of the fourteen shields are still stubs** — `qad`, `crc`, `rnd`, `twr`,
+  `spk`, both `kit` entries, `htr`, `ovl` and `jrt` all carry `str = 0` and no
+  resistances, so any of them would defend exactly as well as an empty hand. The
+  three the dojo awards are done; these have no source either way, so they are
+  content waiting for a vendor or a drop rather than a bug.
+- **A stat-point pool does not exist.** Nothing in `js/` keeps unspent points, so
+  "spend a point on a stat every few levels" would be a new system rather than a
+  wiring job. The milestone grants in `levelGrants` are the cheap version of it and
+  are already in.

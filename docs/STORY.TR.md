@@ -260,32 +260,35 @@ yaratık türü, oyuncunun bir kez okuyup bir daha bakamadığı diyalogda öğr
 
 Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları eksik.
 
-| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                                      |
-| ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                     |
-| **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — artı statlı ama hiçbir alana ait olmayan `lrck`, `lsprt`, `kksh` ve `ngtmr1`. |
-| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                                    |
-| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                                    |
-| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                             |
-| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                                                                     |
+| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                                                        |
+| **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — artı statlı ama hiçbir alana ait olmayan `lrck`, `lsprt`, `kksh` ve `ngtmr1`.                                    |
+| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                                                                       |
+| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                                                                       |
+| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                                                                |
+| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, ~35 silah ve yaklaşık 150 yiyecek dâhil. On dört kalkanın üçü artık dojo merdiveninden geliyor; Hoplit, Şövalye ve Dehşet kalkanları nadir diye listelenmiş ama hiç statı olmayan taslaklardı, yani 35. seviye ödülü boş elden fazla korumuyordu. |
 
 Bu kümelerin birbirine oturması tesadüf okumakta zorlanacağımız kadar düzenli:
 karanlık 26 odalı bir zindan, hiçbir yerde satılmayan bir meşale, kilidi olmayan
 yedi anahtar ve doğacak yeri olmayan eksiksiz bir ölümsüz bestiyeri. Bunlar tek
 bir bölge olarak hazırlanmış ve hiç bağlanmamış.
 
-### Katakomplarda asıl eksik olan
+### Katakomplarda eksik olan neydi
 
-Dördüncü bölümün büyüklüğünü değiştirdiği için tam olarak yazmaya değer. 26 oda
-eksiksiz yazılmış ve eksiksiz bağlanmış — her iç kenar karşılıklı, `cata1` merkez,
-doğuda bir çevrim (`5→6→7→8→9→10→11→12→5`) ve batıda bir koridor (`13`→`25`) — ama:
+Dördüncü bölümün neden o büyüklükte olduğunu açıkladığı için saklanıyor. 26 oda
+eksiksiz yazılmış ve eksiksiz bağlanmıştı — her iç kenar karşılıklı, `cata1` merkez,
+doğuda bir çevrim (`5→6→7→8→9→10→11→12→5`) ve batıda bir koridor (`13`→`25`) — ve
+buna rağmen:
 
-- **Hiçbir oda `area_init` çağırmıyor ve onlar için tanımlı bir alan yok.** Zindanın
-  dövüş popülasyonu sıfır. Yalnızca bir giriş bağlamak 26 boş oda açardı.
-- Hiçbir oda `effectors`, `onEnter`, `onScout`, `scout` veya `data` tanımlamıyor.
-  Karanlık yalnızca `sector.cata1`'den geliyor.
-- `chss.catamn`'in çıkışı zaten `chss.lsmain1`'e (köy merkezi) gidiyor ve geri
-  dönen bir bağlantı yok; bölgenin yarım değil de sahipsiz görünmesinin sebebi bu.
+- **Hiçbir oda `area_init` çağırmıyordu ve onlar için tanımlı bir alan yoktu.**
+  Zindanın dövüş popülasyonu sıfırdı; yalnızca bir giriş bağlamak 26 boş oda
+  açardı. Onlar için beş alan yazıldı ve artık her oda birini başlatıyor.
+- Hiçbir oda `effectors`, `onEnter`, `onScout`, `scout` veya `data` tanımlamıyordu.
+  Karanlık yalnızca `sector.cata1`'den geliyordu.
+- `chss.catamn`'in çıkışı `chss.lsmain1`'e (köy merkezi) gidiyordu ve geri dönen bir
+  bağlantı yoktu; bölgenin yarım değil de sahipsiz görünmesinin sebebi buydu. Artık
+  içinden girildiği bodruma geri dönüyor.
 
 ## Hikaye kodundaki hatalar
 
@@ -313,8 +316,9 @@ etrafındaki içeriği biçimlendirdiği için tutuluyor.
   değerini yazıyor, yani o buluş "zaten alındı" olarak hiç kilitlenmiyor.
 - Bodrumdaki "Etrafını incele" seçeneğinin koşulu olan `global.flags.bsmntchck`
   hiçbir yerde atanmıyor.
-- `sector.cata1.data.scoutm` 11.000 ama sektörün ne `scout` tablosu ne de
-  `onScout` işleyicisi var; takip hiç ilerleyemiyor.
+- Yedi anahtarın hâlâ kilidi yok. İsimlendirilmiş odalardan oluşan bir zindan tam
+  olarak onların yeri ve katakomplar artık o zindan.
+- `vendor[*].dfl` beş satıcının dördünde atanıyor ve hiçbir yerde okunmuyor.
 
 ## Hikayeyi sürdürmek
 
@@ -371,21 +375,23 @@ karşılanamıyor.
 esnafın alındığını söylediği fener — yani `wpn.trch`. Arama mum süresine mal oluyor,
 çünkü `scoutGeneric` karanlıkta çalışmayı reddediyor.
 
-Kalanlar:
+Batı koridoru da tamamlandı: `cata13`'ten `cata25`'e, Yolculuğun Sonu'nda bitiyor.
+`ght`, `zmbk`, `zmbm` ve `mumy` istatistikleri `rnk`'a göre değil oyuncunun
+ilerleyişine göre kuruldu — çünkü `rnk` Yamato'nun tehlike sınıflandırması, güç
+eğrisi değil: `creature.skl` rütbe 7 ve 132 can, `wolf1` rütbe 4 ve 400 can — ve
+hepsi `type = 2`, yani bestiyer onları Ölümsüz diye dosyalıyor.
 
-- On dört odalık batı koridoru: `cata13`'ten `cata25`'e, Yolculuğun Sonu'nda
-  bitiyor. Ona uyan taslaklar `ght`, `zmbk`, `zmbm` ve `mumy`; bunlar oyunun
-  tanımladığı en derin rütbeler.
-- O taslakların istatistikleri `rnk`'a göre değil oyuncunun ilerleyişine göre
-  kurulmalı — çünkü `rnk` Yamato'nun tehlike sınıflandırması, güç eğrisi değil:
-  `creature.skl` rütbe 7 ve 132 can, `wolf1` rütbe 4 ve 400 can — ve `type = 2`
-  olmalı ki bestiyer onları Ölümsüz diye dosyalasın.
-- Statlandırmadan önce bilinmesi gereken: `rnk`, `ar = ((rnk - 1) / 3) << 0`
-  üzerinden `global.rdrop` içindeki rütbe düşme kademesini belirliyor ve yalnızca
-  0, 1 ve 2. kademeler dolu. Rütbe 10 ile 21 arasındaki hiçbir şey rütbe düşmesi
-  almıyor; yani derin bir kademe ödülünü kendi düşme tablosunda taşımak zorunda.
-- Yedi anahtarın hâlâ kilidi yok. İsimlendirilmiş odalardan oluşan bir zindan, tam
-  olarak onların yeri.
+İstatistikleri şekillendiren iki şey, saklamaya değer:
+
+- `rnk`, `ar = ((rnk - 1) / 3) << 0` üzerinden `global.rdrop` içindeki rütbe düşme
+  kademesini belirliyor ve yalnızca 0, 1 ve 2. kademeler dolu. Rütbe 10 ile 21
+  arasındaki hiçbir şey rütbe düşmesi almıyor; o yüzden her derin kademe ödülünü
+  kendi düşme tablosunda taşıyor.
+- `cata3a` ve `cata4a` kırk ve yirmi altı odalık av alanları, yani oyuncunun geri
+  dönmek için her sebebi var. Tavanları kırklı seviyelerin ortasına kadar oyuncuyu
+  takip ediyor, tabanları yazıldığı gibi duruyor — aşağıya bakın.
+
+Kalan iş yedi anahtar; hâlâ kilitleri yok.
 
 ### Oda adları üzerine bir not
 
@@ -394,6 +400,50 @@ başlık makine çevirisi hatasıydı ve düzeltildi: _Web Corridor_ örümcek a
 internet, _Forgotten Post_ nöbet yeri yerine mektup, _The Stone Plate_ taş levha
 yerine tabak olarak okunmuş; _The Brittle Turn_ "gevrek" olmuş ve _Son's Last Visit_
 İngilizcede olmayan bir iyelik kazanarak oyuncunun kendi oğluna dönüşmüştü.
+
+## İlerleme ve dünyanın nereye kadar uzandığı
+
+Hikayenin kendi sayıları birbiriyle çelişmeye başlamıştı. Dojo eğitmeni 50. seviyeye
+kadar ödül veriyor ve 50. seviye 6.042.925 tecrübe istiyor; oysa oyunun herhangi bir
+yerindeki en yüksek yaratık seviyesi 28'di — `area.trne4`'ün golemi ve katakompların
+dibindeki ceset. Dördüncü bölümden sonra dövüş de tecrübe de verebilecek hiçbir şey
+kalmıyordu.
+
+Bu konuda yapılanlar, hepsi "bağlamak şişirmekten iyidir" kuralı altında:
+
+- **Dojonun sonsuz maçı öğrenciyi takip ediyor.** Kuklaları 12, 13 ve 10.
+  seviyelere sabitlenmişti — dojonun kendi ilk sınavı olan 20'nin altında — yani bir
+  öğrenci goleme gönderilmeye değecek hâle geldiği anda, çalıştığı odanın ona
+  öğretecek bir şeyi kalmıyordu. Canları seviye başına onda bir puan büyüyor ve
+  tecrübe ihtiyacı kübik; yani orası çalışılacak bir yer olarak kalıyor,
+  sömürülecek bir yer olmuyor.
+- **İki derin katakomp av alanı oyuncuyu** kırklı seviyelerin ortasına kadar takip
+  ediyor. Hikaye zaten karanlık ki'nin orada biriktiğini söylüyor; dolayısıyla onun
+  üzerinde çalıştığı şeyin elle yazılmış bir sayıda durmaması bir taviz değil,
+  öncülün kendisi. Her bant yazılı seviyeye tabanlanıyor, yani ilk iniş tam olarak
+  tasarlanmış dövüşle karşılaşıyor ve en dipteki karşılaşma hiç ölçeklenmiyor.
+- **HIZ ve ŞANS artıyor.** HIZ saldırıların ıskalamasını sağlayan stat —
+  `hit_calc(2)` saldıranın isabetini `you.spd + you.agl + agl_bonus / 2`'ye bölüyor —
+  ve oyunda onu yükselten hiçbir şey yoktu: `stat_p`'nin dördüncü girdisi hiç
+  okunmuyor ve `lvlup` `spd_r`'ye hiç dokunmuyordu, yani bir oyun boyunca 1'de
+  kalıyordu. Artık on seviyede bir puan kazanıyor; ŞANS beş seviyede bir kazanıyor
+  ve kritik şansını da oyundaki her düşme zarını yükseltiyor.
+- İkisi de `callback.onLevel` abonesinden ödeniyor; o kanca tam bunun için var.
+  Callback kaydı yazıldığından beri kurulmuş, belgelenmiş ve her seviye atlamada
+  tetiklenmiş ama hiç abonesi olmamıştı.
+- **Kalkan koruyor.** Bir kalkanın dirençleri, kendi payına eklenmek yerine
+  oyuncunun korumasından çıkarılıyordu; üstelik zırhın payından da düşülüyordu. Yani
+  daha iyi bir kalkan ve daha fazla Kalkan eğitimi, ikisi de alınan hasarı
+  arttırıyordu. Bunu açığa çıkaran şey, dojonun verdiği üç kalkanı statlandırmak
+  oldu.
+- **Genel mağaza oyuncunun taşıdığını satın alıyor**, fiyatı dükkânların sattığı
+  aynı satıcı tedarik satırlarından ve onların belirgin biçimde altında. Bundan önce
+  oyunda alıcısı olan tek şeyler odun, hasır sepet ve şifa otuydu.
+
+Bir denge sorusu bilinçli olarak burada karara bağlanmadı ve
+[PROPOSALS.TR.md](PROPOSALS.TR.md) içinde yazıldı: zırhın sınıf direnci hasar azaltma
+teriminde zıt işaretlerle iki kez geçiyor ve bunu da düzeltmek, kalkansız bir
+oyuncunun aldığı hasarı bugünkünün yaklaşık çeyreğine indiriyor.
 
 ### Adım 4 — Doğu ve Dein
 

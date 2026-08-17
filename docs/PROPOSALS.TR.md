@@ -105,6 +105,44 @@ ele almayı öneriyorum.
 
 ---
 
+## Denge kararları, hata düzeltmesi değil
+
+### 4. Zırhın sınıf direnci zıt işaretlerle iki kez sayılıyor
+
+**Durum:** önerildi, yama değil karar gerekiyor.
+
+`dmg_calc` içinde bir yaratık oyuncuya saldırdığında çalışan dalda, isabet alan
+zırhın sınıf direnci hasar azaltmanın içinde
+`100 + armour.cls[ctype] * 5 * ta` olarak, dışında ise
+`100 - armour.cls[ctype] * 5 * shdc * ta` olarak geçiyor; buradaki `shdc`,
+`1 + skl.shdc.lvl / 20`. İkisi büyük ölçüde birbirini götürüyor ve dıştaki, Kalkan
+becerisiyle ölçekleniyor — oysa o becerinin zırhı ölçeklemesinin hiçbir gerekçesi yok.
+
+O dıştaki çarpanın kalkan yarısı düpedüz hataydı ve düzeltildi: bir kalkanın direnci
+artık kalkanın kendi payını ölçekliyor. Zırh yarısı ise bilinçli olarak öyle
+bırakıldı, çünkü gerçek bir iş yapıyor: dövüşü tehlikeli tutan tek şey o.
+
+35. seviye civarı bir karakterde ölçüldü — GÜÇ 50, göğüs zırhı GÜÇ 12 ve dayanıklılığı
+    tam, fiziksel yakınlık 5 ve kesici direnci 4, Kalkan becerisi 10, saldırı terimi 100:
+
+| Dıştaki çarpan          | Kalkansız alınan hasar | Hoplit Kalkanı ile |
+| ----------------------- | ---------------------- | ------------------ |
+| Bugünkü hâli (zırh `-`) | 36,9                   | 26,9               |
+| Düzeltilmiş (zırh `+`)  | 9,9                    | 1,0                |
+
+Yani bunu da düzeltmek, kalkansız bir oyuncuyu yaklaşık dört kat daha dayanıklı
+yapıyor ve kalkan taşıyan herkes için hasarı 1'e sabitliyor. Bu bir düzeltme değil,
+oyundaki her dövüşün yeniden dengelenmesi; o yüzden bilinçli bir tercih olmalı — ve
+muhtemelen hasar azaltmayı asıl domine eden düz `def.str * eff` terimini düşürmekle
+birlikte ele alınmalı.
+
+**Zaten var:** iki terim ve kalkan yarısını sabitleyen, sessizce geri dönmesini
+engelleyen bir regresyon testi.
+
+**Yeni olması gereken:** bir karar ve alınırsa yaratık hasarları üzerinden bir geçiş.
+
+---
+
 ## Hâlâ borçlu olduğumuz yan hikayeler
 
 Brief en az sekiz istiyor. Biri girdi (**Hiçbir Şey Söylemeyen Adam**, pazardaki
@@ -141,3 +179,12 @@ gergin adam). Kaynaklarda hazır duran kancalar şunlar:
   her derin yaratık tamamen kendi düşme tablosuna bağlı.
 - **`item.svila1`/`item.svial1`** içinde iskelet olan tek kullanımlık bir alan kuruyor.
   Bitmiş mi terk edilmiş mi belirsiz.
+- **`vendor[*].dfl`** beş satıcının dördünde atanıyor ve hiçbir yerde okunmuyor.
+- **On dört kalkanın on biri hâlâ taslak** — `qad`, `crc`, `rnd`, `twr`, `spk`, iki
+  `kit` girdisi, `htr`, `ovl` ve `jrt`; hepsinde `str = 0` ve hiç direnç yok, yani
+  herhangi biri boş elden fazla korumaz. Dojonun verdiği üçü bitti; bunların zaten
+  hiçbir kaynağı yok, dolayısıyla hata değil, satıcı ya da düşme bekleyen içerik.
+- **Stat puanı havuzu diye bir şey yok.** `js/` içinde harcanmamış puan tutan hiçbir
+  yer yok; yani "birkaç seviyede bir stata puan harca" bir bağlama işi değil, yeni
+  bir sistem olur. `levelGrants` içindeki eşik kazanımları bunun ucuz sürümü ve
+  hâlihazırda eklendi.
