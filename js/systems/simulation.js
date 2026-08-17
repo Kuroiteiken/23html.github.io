@@ -1867,6 +1867,30 @@ function col(txt, c, bc) {
   );
 }
 
+// The mastery for whatever is in the player's hand. The switch below applies its
+// strength bonus; this returns the skill itself so the damage calculation can also
+// read its level, which is what lets training tell against armour rather than only
+// against a number.
+function playerWeaponMastery() {
+  switch (you.eqp[0].wtype) {
+    case 0:
+      return skl.unc;
+    case 1:
+      return skl.srdc;
+    case 2:
+      return skl.axc;
+    case 3:
+      return skl.knfc;
+    case 4:
+      return skl.plrmc;
+    case 5:
+      return skl.hmrc;
+    case 6:
+      return skl.stfc;
+  }
+  return skl.unc;
+}
+
 function usePlayerWeaponSkill() {
   switch (you.eqp[0].wtype) {
     case 0:

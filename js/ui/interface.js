@@ -4614,10 +4614,20 @@ function dmg_calc(att, def, atk) {
               att.aff[atea] * 10) *
               (att.eqp[0].id === 10000 ? 1 : ta))) /
         100;
+      // Mastery in the weapon being held also tells against the target's armour, not
+      // only on the player's own strength. Training a weapon taught you where the
+      // gaps in a guard are, so each level takes a point off the class resistance
+      // that would otherwise be multiplied by five into the subtracted term. It
+      // cannot take it below zero: mastery finds the weak point, it does not turn
+      // armour into a liability.
+      //
+      // This exists because the strength bonus alone left the whole of a creature's
+      // armour standing whatever the player knew, and armour is subtracted flat --
+      // so against a well-armoured target a trained weapon and an untrained one came
+      // to nearly the same nothing.
+      const pierced = Math.max(0, def.cls[atcs] - playerWeaponMastery().lvl);
       dmg =
-        swing -
-        (def.str * (100 + def.aff[atea] * 5 + def.cls[atcs] * 5)) / 100 +
-        1;
+        swing - (def.str * (100 + def.aff[atea] * 5 + pierced * 5)) / 100 + 1;
       // See minimumLandedDamage: a hit that connected must be worth something, or a
       // creature whose armour exceeds the player's whole output becomes immune rather
       // than merely hard, silently and permanently.
