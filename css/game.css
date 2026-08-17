@@ -73,6 +73,23 @@ input:focus {
   border-right: solid 1px grey;
   position: relative;
   height: 25px;
+
+  /* nowrap keeps each control on one line, but with nothing else it let a label
+     that did not fit run straight over its neighbour: the two log controls and the
+     clear button ran together into one unreadable string. Clipping to an ellipsis
+     means a label can be too long for its box without ever becoming somebody
+     else's problem, whatever a translation does to its length. */
+  padding: 0 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The ellipsis needs the text itself to be the overflowing box, not the flex
+   container, which centres its child and lets it spill both ways. */
+.bts_m > span:not(.bts_m_b) {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .atrkmove2:hover,

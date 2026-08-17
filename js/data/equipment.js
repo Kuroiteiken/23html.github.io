@@ -682,9 +682,14 @@ eqp.amsk.rar = 2;
 eqp.amsk.dp = eqp.amsk.dpmax = 30;
 eqp.amsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The fire it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.abf.p += 0.15;
 };
 eqp.amsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.abf.p -= 0.15;
 };
 
 eqp.bmsk = new Eqp();
@@ -699,9 +704,14 @@ eqp.bmsk.rar = 2;
 eqp.bmsk.dp = eqp.bmsk.dpmax = 30;
 eqp.bmsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The water it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.abw.p += 0.15;
 };
 eqp.bmsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.abw.p -= 0.15;
 };
 
 eqp.cmsk = new Eqp();
@@ -716,9 +726,14 @@ eqp.cmsk.rar = 2;
 eqp.cmsk.dp = eqp.cmsk.dpmax = 30;
 eqp.cmsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The wind it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.aba.p += 0.15;
 };
 eqp.cmsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.aba.p -= 0.15;
 };
 
 eqp.dmsk = new Eqp();
@@ -733,9 +748,14 @@ eqp.dmsk.rar = 2;
 eqp.dmsk.dp = eqp.dmsk.dpmax = 30;
 eqp.dmsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The earth it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.abe.p += 0.15;
 };
 eqp.dmsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.abe.p -= 0.15;
 };
 
 eqp.emsk = new Eqp();
@@ -750,9 +770,14 @@ eqp.emsk.rar = 2;
 eqp.emsk.dp = eqp.emsk.dpmax = 30;
 eqp.emsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The light it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.abl.p += 0.15;
 };
 eqp.emsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.abl.p -= 0.15;
 };
 
 eqp.fmsk = new Eqp();
@@ -767,9 +792,14 @@ eqp.fmsk.rar = 2;
 eqp.fmsk.dp = eqp.fmsk.dpmax = 30;
 eqp.fmsk.oneq = function () {
   for (const afn in this.caff) you.caff[afn] += this.caff[afn];
+  // The dark it symbolises, on the offensive side. Equipment contributions are
+  // re-derived on load rather than stored, since save() unequips first, so this
+  // cannot accumulate across reloads.
+  skl.abd.p += 0.15;
 };
 eqp.fmsk.onuneq = function () {
   for (const afn in this.caff) you.caff[afn] -= this.caff[afn];
+  skl.abd.p -= 0.15;
 };
 
 eqp.nkgd = new Eqp();
