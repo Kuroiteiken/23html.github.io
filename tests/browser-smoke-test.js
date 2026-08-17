@@ -244,6 +244,24 @@ async function main() {
       );
     }
 
+    const shopLayout = await runChrome(
+      `${baseUrl}/__test-shop-layout.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(shopLayout.stderr);
+    assertCommonStartup(shopLayout.stdout, port);
+    if (!shopLayout.stdout.includes('data-shop-layout-verified="true"')) {
+      const failures = shopLayout.stdout.match(
+        /data-shop-layout-failures="([^"]*)"/,
+      );
+      const metrics = shopLayout.stdout.match(
+        /data-shop-layout-metrics="([^"]*)"/,
+      );
+      throw new Error(
+        `The shop buying price and reputation readouts left the bottom of the panel: ${failures?.[1] || "probe incomplete"} (${metrics?.[1] || "no metrics"})`,
+      );
+    }
+
     const saveDeleteReload = await runChrome(
       `${baseUrl}/__test-save-delete-reload.html?lang=tr`,
       profiles[0],

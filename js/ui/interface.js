@@ -6423,16 +6423,32 @@ function chs_spec(type, x) {
         global.menuo = 4;
         global.shprf = x;
         dom.ch_1 = addElement(dom.ctr_2, "div");
-        dom.ch_1.style.height = "76%";
+        // The panel asked for 76% of #ctrm_2, which declares no height of its
+        // own, so the percentage never resolved and neither did the 87% and 5%
+        // below it. Everything behaved as `auto`: the list grew with the stock
+        // and the footer collapsed to nothing, because it holds only floats.
+        // #ctrmg is the window and does have a fixed height, so taking the same
+        // 76% from it gives the column something definite to divide up.
+        dom.ch_1.style.height =
+          Math.round(dom.ctrmg.clientHeight * 0.76) + "px";
         dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        // With a definite height the list can take whatever is left over and the
+        // footer stays on the bottom edge whatever the shop stocks.
+        dom.ch_1.style.display = "flex";
+        dom.ch_1.style.flexDirection = "column";
         dom.flsthdr = addElement(dom.ch_1, "div");
         dom.flsthdr.innerHTML = x.name;
         dom.flsthdr.style.borderBottom = "1px #44c solid";
         dom.flsthdr.style.padding = "2px";
+        dom.flsthdr.style.flexShrink = "0";
         dom.ch_1h = addElement(dom.ch_1, "div");
         dom.ch_1h.style.textAlign = "left";
         dom.ch_1h.style.display = "block";
-        dom.ch_1h.style.height = "87%";
+        dom.ch_1h.style.flex = "1";
+        // Without this a flex item refuses to shrink below its content, so a
+        // long stock list would push the footer out of the panel instead of
+        // scrolling inside it.
+        dom.ch_1h.style.minHeight = "0";
         dom.ch_1h.style.overflow = "auto";
         if (dom.ch_etn) empty(dom.ch_etn);
         for (const it in x.stock) {
@@ -6440,7 +6456,11 @@ function chs_spec(type, x) {
         }
         dom.ch_1c = addElement(dom.ch_1, "div");
         dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        // Both readouts are floated, so the strip needs a height of its own or it
+        // would collapse to nothing.
         dom.ch_1c.style.height = "5%";
+        dom.ch_1c.style.minHeight = "1.2em";
+        dom.ch_1c.style.flexShrink = "0";
         dom.ch_1c.style.width = "100%";
         dom.ch_1e = addElement(dom.ch_1c, "small"); //dom.ch_1e.style.border='1px solid #9485ed';
         dom.ch_1e.style.float = dom.ch_1e.style.textAlign = "left";
