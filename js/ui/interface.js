@@ -6682,8 +6682,111 @@ function chs_spec(type, x) {
       {
       }
       break;
+    // Selling. Built the same way as the shop above rather than as a run of
+    // top-level choices: a bare chs() per item grows #ctrm_2, which declares no
+    // height and no overflow, so a full inventory ran straight off the bottom of
+    // the panel and over the game's own tabs.
+    case 6:
+      {
+        clr_chs();
+        global.menuo = 6;
+        global.shprf = x;
+        dom.ch_1 = addElement(dom.ctr_2, "div");
+        dom.ch_1.style.height = windowPanelHeight(0.76);
+        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.display = "flex";
+        dom.ch_1.style.flexDirection = "column";
+        dom.flsthdr = addElement(dom.ch_1, "div");
+        dom.flsthdr.innerHTML = x.name;
+        dom.flsthdr.style.borderBottom = "1px #44c solid";
+        dom.flsthdr.style.padding = "2px";
+        dom.flsthdr.style.flexShrink = "0";
+        dom.ch_1h = addElement(dom.ch_1, "div");
+        dom.ch_1h.style.textAlign = "left";
+        dom.ch_1h.style.display = "block";
+        dom.ch_1h.style.flex = "1";
+        // A flex item will not shrink below its content without this, so a long
+        // list would push the footer out instead of scrolling inside it.
+        dom.ch_1h.style.minHeight = "0";
+        dom.ch_1h.style.overflow = "auto";
+        const lines = sellableInventory();
+        if (lines.length === 0) {
+          const none = addElement(dom.ch_1h, "div", null, "chs_s");
+          none.innerHTML = i18n.t("ui.shop.sellNothing");
+        } else for (const line of lines) rendersellitem(dom.ch_1h, line, x);
+        dom.ch_1c = addElement(dom.ch_1, "div");
+        dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        dom.ch_1c.style.height = "5%";
+        dom.ch_1c.style.minHeight = "1.2em";
+        dom.ch_1c.style.flexShrink = "0";
+        dom.ch_1c.style.width = "100%";
+        dom.ch_1e = addElement(dom.ch_1c, "small");
+        dom.ch_1e.style.float = dom.ch_1e.style.textAlign = "left";
+        dom.ch_1e.innerHTML =
+          i18n.t("ui.shop.sellingPrice") +
+          '<span style="color:lime">' +
+          Math.round(Math.min(0.45, 0.2 + skl.trad.use()) * 10000) / 100 +
+          "%</span>";
+        dom.ch_2e = addElement(dom.ch_1c, "small");
+        dom.ch_2e.style.float = dom.ch_2e.style.textAlign = "right";
+        dom.ch_2e.style.paddingRight = "6px";
+        dom.ch_2e.innerHTML =
+          i18n.t("ui.shop.reputation") + col(x.data.rep << 0, "lime");
+      }
+      break;
   }
   return dom.ch_1;
+}
+
+// One line of the sell list: what it is on the left, what he pays on the right.
+// Selling re-reads the stack when clicked rather than trusting what was drawn,
+// because an action running in the background can consume from the inventory
+// between this row being rendered and the player pressing it.
+function rendersellitem(root, line, vnd) {
+  const row = addElement(root, "div", "bst_entrh", "bst_entr");
+  row.style.backgroundColor = "rgb(10,30,54)";
+  addDesc(row, line.obj);
+  const left = addElement(row, "div", null, "bst_entr1");
+  left.style.width = "74%";
+  left.innerHTML = line.obj.name + (line.obj.slot ? "" : " x" + line.amount);
+  switch (line.obj.stype) {
+    case 2:
+      left.style.color = "rgb(255,192,5)";
+      break;
+    case 3:
+      left.style.color = "rgb(0,235,255)";
+      break;
+    case 4:
+      left.style.color = "rgb(44,255,44)";
+      break;
+  }
+  const right = addElement(row, "div", null, "bst_entr2");
+  right.style.width = "24%";
+  right.style.textAlign = "right";
+  right.innerHTML = formatw(line.total);
+  row.addEventListener("click", () => {
+    const amount = line.obj.slot ? 1 : line.obj.amount;
+    if (!(amount > 0)) {
+      chs_spec(6, vnd);
+      return;
+    }
+    const paid = itemSellValue(line.obj) * amount;
+    const sold = line.obj.name;
+    if (!line.obj.slot) line.obj.amount = 0;
+    removeItem(line.obj);
+    giveWealth(paid);
+    // Trading with him is how he comes to know you, the same as buying is.
+    vnd.data.rep += Math.min(0.5, paid / 2000);
+    msg(
+      i18n.t("runtime.world.locations.dialogue.sell_goods_sold", {
+        item: sold,
+        amount,
+      }),
+      "lime",
+    );
+    chs_spec(6, vnd);
+  });
+  return row;
 }
 
 //linear-gradient(0deg,rgb(1,1,111),rgb(22,222,22))

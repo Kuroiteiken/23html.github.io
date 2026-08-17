@@ -3584,50 +3584,19 @@ chss.gensell.sl = () => {
     ),
   );
   global.lst_loc = 171;
-  const lines = sellableInventory();
-  chs(
-    lines.length
-      ? i18n.t("runtime.world.locations.dialogue.shopkeeper_sell_offer")
-      : i18n.t("runtime.world.locations.dialogue.shopkeeper_sell_nothing"),
-    true,
-  );
-  for (const line of lines) {
-    chs(
-      i18n.t("runtime.world.locations.dialogue.sell_goods_line", {
-        item: line.obj.name,
-        amount: line.amount,
-        price: formatw(line.total),
-      }),
-      false,
-      "lime",
-    ).addEventListener("click", () => {
-      // Re-read the stack rather than trusting what was drawn: an action running
-      // in the background can consume from the inventory between the list being
-      // rendered and the line being clicked.
-      const amount = line.obj.slot ? 1 : line.obj.amount;
-      if (!(amount > 0)) {
-        smove(chss.gensell, false);
-        return;
-      }
-      const paid = itemSellValue(line.obj) * amount;
-      if (!line.obj.slot) line.obj.amount = 0;
-      removeItem(line.obj);
-      giveWealth(paid);
-      // Trading with him is how he comes to know you, the same as buying does.
-      vendor.gens1.data.rep += Math.min(0.5, paid / 2000);
-      msg(
-        i18n.t("runtime.world.locations.dialogue.sell_goods_sold", {
-          item: line.obj.name,
-          amount,
-        }),
-        "lime",
-      );
-      smove(chss.gensell, false);
-    });
-  }
+  // The list itself is a bounded, scrolling panel built by chs_spec, the same as
+  // the shop's stock. Rendering one choice per item instead let a full inventory
+  // run off the bottom of the window.
+  chs_spec(6, vendor.gens1);
   chs(
     i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
     false,
+    "",
+    "",
+    null,
+    null,
+    null,
+    true,
   ).addEventListener("click", () => {
     smove(chss.gens1, false);
   });

@@ -243,7 +243,7 @@ async function main() {
     if (!saveBarLayout.stdout.includes('data-save-bar-clears-game="true"')) {
       const gap = saveBarLayout.stdout.match(/data-save-bar-gap="([^"]*)"/);
       throw new Error(
-        `The save bar must clear the game's bottom row by a slight gap, not cover it or float far above it: measured ${gap?.[1] ?? "?"}px`,
+        `The save bar must not cover the game's bottom row, nor float far above it: measured ${gap?.[1] ?? "?"}px`,
       );
     }
 

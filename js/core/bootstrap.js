@@ -279,32 +279,17 @@ dom.coingold = '<small style="color:rgb(255, 215, 0)">●</small>';
 
 let viewportFitFrame;
 
-// Breathing room left between the game's bottom row and the save bar above it.
-const saveBarGap = 6;
-
 function fitGameToViewport() {
   const layoutWidth = 1280;
   const layoutHeight = 780;
   const viewportPadding = 16;
   const widthScale = (window.innerWidth - viewportPadding) / layoutWidth;
-  let heightScale = (window.innerHeight - viewportPadding) / layoutHeight;
+  const heightScale = (window.innerHeight - viewportPadding) / layoutHeight;
 
-  // The save bar is fixed to the viewport's bottom edge rather than flowing after
-  // the game, so at shorter window sizes it landed on top of the game's own
-  // bottom row of buttons. Reserving its height against the nominal layout height
-  // overcorrects, because the game's panels stop well short of that: both slacks
-  // then stack up into one wide gap. Solving against where the content actually
-  // ends puts a fixed, small gap between the two instead. Both are scaled by the
-  // same body zoom, so s * (content + bar) = viewport - gap.
-  if (dom.sl && dom.ctrmg) {
-    const contentHeight = dom.ctrmg.offsetTop + dom.ctrmg.offsetHeight;
-    const barHeight = dom.sl.offsetHeight;
-    heightScale = Math.min(
-      heightScale,
-      (window.innerHeight - saveBarGap) / (contentHeight + barHeight),
-    );
-  }
-
+  // The save bar used to shrink the whole game to reserve room for itself, on the
+  // grounds that being fixed to the viewport's bottom edge it could land on the
+  // game's own bottom row of buttons. It lays out correctly on its own, so the
+  // reservation only cost the game scale for nothing and is deliberately gone.
   const scale = Math.max(0.1, Math.min(1, widthScale, heightScale));
 
   document.body.style.zoom = String(scale);

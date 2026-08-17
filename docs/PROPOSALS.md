@@ -16,6 +16,110 @@ do it), or **in progress**.
 
 ---
 
+## Queued by the repository owner
+
+Everything the owner has asked for that is not finished yet, recorded here before
+work starts so nothing is lost between sessions. An item leaves this list when it
+ships, and what it did goes into the changelog and, if it touches the story, into
+[STORY.md](STORY.md).
+
+### 5. Creature statting is unverified, and some of it is unwinnable — **in progress**
+
+The pack leader at the hollow cannot be hurt at all. Measured against the original
+game's own hardest creature, `wolf1` at its spawn band of level 7-8, whose
+mitigation term comes to 125:
+
+| Creature             | Level | Mitigation | Ratio to wolf1 |
+| -------------------- | ----- | ---------- | -------------- |
+| `wolfa1` pack leader | 13    | 380        | 3.0x           |
+| `zmbk`               | 24    | 521        | 4.2x           |
+| `mumy`               | 27    | 586        | 4.7x           |
+| `dcrps1` chapter IV  | 28    | 798        | 6.4x           |
+
+The cause is that `aff` and `cls` enter the defence as
+`def.str * (100 + def.aff[atype] * 5 + def.cls[ctype] * 5) / 100`, so a value of 60
+is a six-fold multiplier rather than a percentage. No creature the original game
+shipped exceeds `aff[0]` 22 or `cls[0]` 36. Everything statted for chapters I to IV
+went well past that.
+
+Owner's instruction: run the simulation for **every** creature, not only the
+reported one, and add a standing check plus an instruction in
+[AGENTS.md](AGENTS.md) so content added later cannot reintroduce it.
+
+### 6. Weapon-mastery titles, and titles that speed mastery up
+
+Grant `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3` and `sld3`-`sld5`, which have no grant
+path. The kill-count milestone table added in v476 can already express what they
+want. Additionally: some titles should raise the rate a mastery gains while the
+matching weapon is equipped, not only its damage.
+
+### 7. The shield stubs
+
+Eleven of the fourteen shields carry `str = 0` and no resistances, so any of them
+defends exactly as well as an empty hand. Stat them from their own tier and the
+ranks below them, the way the dojo's three were.
+
+### 8. Shield mastery should grow while a shield is carried
+
+`skl.shdc` gains experience only at `js/ui/interface.js:4426`, in the branch where a
+creature's blow lands on the player. A player who is not being hit never trains it,
+and it is the skill that makes a shield worth carrying.
+
+### 9. Furniture: more of it, and beds that mean something
+
+- More furniture generally.
+- When a bed is present, resting should not still describe crouching on the floor
+  for a nap. It needs its own text.
+- A bed should raise the rate health returns while resting, by tier -- a plain bed
+  less than a good one.
+
+### 10. The fireplace should matter
+
+- While it is lit: faster healing, and a small energy gain.
+- Sleeping with it lit should grant a **Rested** buff for a while afterwards --
+  attack speed, attack damage and mastery gain.
+
+### 11. The Nightmare needs a way out
+
+`chss.hbed.onStay` holds a fully written nightmare that is commented out because
+`creature.ngtmr1` has 100,000,000 hp and never attacks, so the fight can be neither
+won nor lost. It does not need to be winnable: it needs a **wake up** choice. Trying
+to wake, and waking, is the exit. Staying in it could train a skill, which gives a
+reason to stay.
+
+### 12. The search action deserves more places to be used
+
+`global.flags.bsmntchck` is fine -- it is set by the search action once search is
+unlocked, so the basement's "Examine your surroundings" works as intended. The real
+gap is that search is used in exactly one place. It would make sense in others.
+
+### 13. A loading screen for the boot, and a note while a save migrates — **in progress**
+
+The player sees only the CSS background for the whole boot, and a save migration
+reports itself to the console alone. index.html has an empty body, so nothing can
+appear until 1.7 MB of locale files and bundle have downloaded and run.
+
+---
+
+### 14. Background progression, checked properly rather than assumed
+
+The owner reports again that an action like searching does not advance while the tab
+is in another window. v477 moved the tick to a catch-up loop and took the actions off
+their own timers, and running was verified -- but searching, fighting, reading and
+every other action need checking one at a time, with evidence, not by assuming the
+tick covers them.
+
+---
+
+### 15. The bottom bar needs no viewport reservation — **resolved, revert it**
+
+`fitGameToViewport` solves the body zoom against where the game's content ends plus
+the save bar's height, so the fixed bar cannot land on the bottom row of buttons.
+The owner has looked at it and the bar sits correctly on its own: the reservation,
+and the `saveBarGap` constant with it, should come out.
+
+---
+
 ## Regions
 
 ### 1. Below the crack — where Dein went
@@ -171,30 +275,14 @@ nervous man at the market). These are the hooks already sitting in the sources:
 
 ## Smaller things worth not losing
 
-- **The player panel's effect strip overlaps the LUCK readout.** Confirmed by
-  measurement: from the first icon, and it covers the text entirely at ten or more
-  effects. There is no free space to move it into — the panel is a fixed 310px and
-  its in-flow column already reaches the strip's band — so it needs a deliberate
-  layout decision rather than a nudge.
 - **`chss.bsmnthm1.data.gets` has two entries but the third scout result writes
   `gets[2]`,** so that find is never latched as already taken.
-- **`global.flags.bsmntchck`** gates the basement's "Examine your surroundings"
-  choice and is never assigned anywhere.
-- **Weapon-mastery titles.** `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`
-  have no grant path. They want kill-count milestones, which the stat-milestone table
-  added in v476 can already express.
 - **`rnk` above 9 gets no rank drop.** `ar = ((rnk - 1) / 3) << 0` indexes
   `global.rdrop`, which only has tiers 0 to 2 populated, so every deep creature
   relies entirely on its own drop table.
 - **`item.svial1`** builds a throwaway area with a skeleton in it. Unclear whether
   that is finished or abandoned.
 - **`vendor[*].dfl`** is assigned on four of the five vendors and read nowhere.
-- **Eleven of the fourteen shields are still stubs** — `qad`, `crc`, `rnd`, `twr`,
-  `spk`, both `kit` entries, `htr`, `ovl` and `jrt` all carry `str = 0` and no
-  resistances, so any of them would defend exactly as well as an empty hand. The
-  three the dojo awards are done; these have no source either way, so they are
-  content waiting for a vendor or a drop rather than a bug.
-- **A stat-point pool does not exist.** Nothing in `js/` keeps unspent points, so
-  "spend a point on a stat every few levels" would be a new system rather than a
-  wiring job. The milestone grants in `levelGrants` are the cheap version of it and
-  are already in.
+- **Stats rise on a level and on certain item uses, and that is the whole design.**
+  There is no unspent-point pool anywhere in `js/` and none is wanted, so the
+  milestone grants in `levelGrants` are the shape this takes.

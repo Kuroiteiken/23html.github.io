@@ -16,6 +16,111 @@ karar verdik) veya **devam ediyor**.
 
 ---
 
+## Sahibinin sıraya aldığı işler
+
+Sahibinin istediği ve henüz bitmemiş her şey, işe başlamadan önce buraya
+yazılıyor; böylece oturumlar arasında hiçbir şey kaybolmuyor. Bir madde
+tamamlandığında bu listeden çıkıyor, yaptığı iş changelog'a ve hikayeye
+dokunuyorsa [STORY.TR.md](STORY.TR.md) dosyasına geçiyor.
+
+### 5. Yaratık statları doğrulanmadı ve bir kısmı kazanılamaz durumda — **devam ediyor**
+
+Çukurdaki sürü liderine hiç hasar verilemiyor. Orijinal oyunun kendi en sert
+yaratığı `wolf1`'e göre ölçüldü — 7-8. seviye doğma bandında hasar azaltma terimi
+125:
+
+| Yaratık                 | Seviye | Azaltma | wolf1'e oranı |
+| ----------------------- | ------ | ------- | ------------- |
+| `wolfa1` sürü lideri    | 13     | 380     | 3,0x          |
+| `zmbk`                  | 24     | 521     | 4,2x          |
+| `mumy`                  | 27     | 586     | 4,7x          |
+| `dcrps1` dördüncü bölüm | 28     | 798     | 6,4x          |
+
+Sebep şu: `aff` ve `cls` savunmaya
+`def.str * (100 + def.aff[atype] * 5 + def.cls[ctype] * 5) / 100` olarak giriyor,
+yani 60 değeri bir yüzde değil altı katlık bir çarpan. Orijinal oyunun getirdiği
+hiçbir yaratıkta `aff[0]` 22'yi, `cls[0]` 36'yı geçmiyor. Birinci ve dördüncü bölüm
+için statlandırılan her şey bunun çok ötesine geçmiş.
+
+Sahibinin talimatı: simülasyonu **bütün** yaratıklar için çalıştır, yalnızca
+bildirileni için değil; ve sonradan eklenen içeriğin bunu tekrar getirememesi için
+kalıcı bir kontrol ile [AGENTS.md](AGENTS.md) dosyasına bir talimat ekle.
+
+### 6. Silah ustalığı ünvanları ve ustalığı hızlandıran ünvanlar
+
+Verilme yolu olmayan `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3` ve `sld3`-`sld5`
+ünvanları verilsin. v476'da eklenen öldürme sayacı eşik tablosu istediklerini
+zaten ifade edebiliyor. Ayrıca: bazı ünvanlar, eşleşen silah takılıyken yalnızca
+hasarı değil ustalığın kazanım hızını da arttırmalı.
+
+### 7. Kalkan taslakları
+
+On dört kalkanın on birinde `str = 0` ve hiç direnç yok; yani herhangi biri boş
+elden fazla korumuyor. Dojonun üç kalkanında yapıldığı gibi, kendi kademelerine ve
+altlarındaki rütbelere göre statlandırılmalı.
+
+### 8. Kalkan ustalığı, kalkan taşınırken artmalı
+
+`skl.shdc` yalnızca `js/ui/interface.js:4426` satırında, bir yaratığın vuruşu
+oyuncuya isabet ettiği dalda deneyim kazanıyor. Vurulmayan bir oyuncu onu hiç
+geliştirmiyor — oysa kalkan taşımayı değerli kılan beceri o.
+
+### 9. Mobilya: daha fazlası ve bir anlamı olan yataklar
+
+- Genel olarak daha fazla mobilya.
+- Yatak varken dinlenme hâlâ "yere çök ve biraz kestir" diye anlatılmamalı. Kendi
+  metnine ihtiyacı var.
+- Yatak, dinlenirken canın geri gelme hızını yükseltmeli; kademesine göre — sade
+  bir yatak iyi bir yataktan daha az.
+
+### 10. Şöminenin bir işe yaraması
+
+- Yanarken: daha hızlı iyileşme ve hafif bir enerji kazanımı.
+- Şömine yanarken uyumak, sonrasında bir süre **Dinlenmiş** etkisi vermeli —
+  saldırı hızı, saldırı hasarı ve ustalık kazanımı.
+
+### 11. Kâbusun bir çıkışı olmalı
+
+`chss.hbed.onStay` içinde tamamen yazılmış bir kâbus yorum satırında duruyor;
+çünkü `creature.ngtmr1`'in 100.000.000 canı var ve hiç saldırmıyor, yani dövüş ne
+kazanılabiliyor ne kaybedilebiliyor. Kazanılabilir olması gerekmiyor: bir
+**uyan** seçeneğine ihtiyacı var. Uyanmayı denemek ve uyanmak, çıkışın kendisi.
+İçinde kalmak bir beceriyi geliştirebilir; bu da kalmak için bir sebep verir.
+
+### 12. Araştır eylemi daha fazla yerde kullanılmalı
+
+`global.flags.bsmntchck` sorunlu değil — araştırma açıldıktan sonra araştır eylemi
+onu atıyor, yani bodrumdaki "Etrafını incele" amaçlandığı gibi çalışıyor. Asıl
+eksik, araştır eyleminin tam olarak tek bir yerde kullanılması. Başka yerlerde de
+mantıklı olurdu.
+
+### 13. Açılış için yükleme ekranı ve kayıt göçü sırasında bir not — **devam ediyor**
+
+Oyuncu bütün açılış boyunca yalnızca CSS arkaplanını görüyor ve kayıt göçü kendini
+sadece konsola bildiriyor. index.html'in gövdesi boş, yani 1,7 MB dil dosyası ve
+paket inip çalışana kadar hiçbir şey görünemiyor.
+
+---
+
+### 14. Arkaplan ilerleyişi, varsayılmak yerine düzgün kontrol edilmeli
+
+Sahibi, araştır gibi bir eylemin sekme başka pencerede olduğunda ilerlemediğini
+tekrar bildirdi. v477 tick'i bir yakalama döngüsüne aldı ve eylemleri kendi
+zamanlayıcılarından kurtardı; koşma da doğrulandı — ama araştırma, dövüş, kitap
+okuma ve diğer bütün eylemler tek tek, kanıtla kontrol edilmeli; tick hepsini
+kapsıyor varsayımıyla değil.
+
+---
+
+### 15. Alt barın görüntü alanından yer ayırmasına gerek yok — **çözüldü, geri alınacak**
+
+`fitGameToViewport`, gövde yakınlaştırmasını oyunun içeriğinin bittiği yer artı
+kaydet çubuğunun yüksekliğine göre çözüyor; böylece sabit çubuk alt sıradaki
+butonların üzerine binemiyor. Sahibi baktı ve çubuk kendi başına doğru oturuyor:
+bu ayırma, yanındaki `saveBarGap` sabitiyle birlikte kaldırılmalı.
+
+---
+
 ## Bölgeler
 
 ### 1. Yarığın altı — Dein'in indiği yer
@@ -163,28 +268,14 @@ gergin adam). Kaynaklarda hazır duran kancalar şunlar:
 
 ## Kaybetmemek için küçük notlar
 
-- **Oyuncu panelindeki efekt şeridi ŞANS okumasına biniyor.** Ölçümle doğrulandı: ilk
-  ikondan itibaren ve on efektte metni tamamen kapatıyor. Kaçacak boş yer yok —
-  panel sabit 310px ve akıştaki kolon şeridin bandına zaten değiyor — yani dürtme
-  değil, bilinçli bir düzen kararı gerekiyor.
 - **`chss.bsmnthm1.data.gets`** iki girdi taşıyor ama üçüncü keşif sonucu `gets[2]`
   yazıyor; o buluş "alındı" olarak hiç kilitlenmiyor.
-- **`global.flags.bsmntchck`** bodrumdaki "Etrafını incele" seçeneğinin koşulu ve
-  hiçbir yerde atanmıyor.
-- **Silah ustalığı ünvanları.** `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`
-  verilme yolu yok. Öldürme sayısı eşikleri istiyorlar; v476'da eklenen eşik tablosu
-  bunu zaten ifade edebiliyor.
 - **Rütbe 9'un üstü rütbe düşmesi almıyor.** `ar = ((rnk - 1) / 3) << 0`,
   `global.rdrop` içinde yalnızca 0–2 kademeleri dolu olan bir diziyi indeksliyor; yani
   her derin yaratık tamamen kendi düşme tablosuna bağlı.
 - **`item.svila1`/`item.svial1`** içinde iskelet olan tek kullanımlık bir alan kuruyor.
   Bitmiş mi terk edilmiş mi belirsiz.
 - **`vendor[*].dfl`** beş satıcının dördünde atanıyor ve hiçbir yerde okunmuyor.
-- **On dört kalkanın on biri hâlâ taslak** — `qad`, `crc`, `rnd`, `twr`, `spk`, iki
-  `kit` girdisi, `htr`, `ovl` ve `jrt`; hepsinde `str = 0` ve hiç direnç yok, yani
-  herhangi biri boş elden fazla korumaz. Dojonun verdiği üçü bitti; bunların zaten
-  hiçbir kaynağı yok, dolayısıyla hata değil, satıcı ya da düşme bekleyen içerik.
-- **Stat puanı havuzu diye bir şey yok.** `js/` içinde harcanmamış puan tutan hiçbir
-  yer yok; yani "birkaç seviyede bir stata puan harca" bir bağlama işi değil, yeni
-  bir sistem olur. `levelGrants` içindeki eşik kazanımları bunun ucuz sürümü ve
-  hâlihazırda eklendi.
+- **Statlar seviye atlarken ve belirli eşyaların kullanımında artıyor, tasarım bu.**
+  `js/` içinde harcanmamış puan havuzu yok ve istenmiyor; dolayısıyla `levelGrants`
+  içindeki eşik kazanımları bu işin aldığı biçim.
