@@ -45,7 +45,49 @@
     document.body.append(message);
   }
 
+  // index.html is the one file in the deploy that carries no version of its own, so
+  // it is the one a browser will keep. When it is stale it asks for the ?v= of the
+  // build it came from, and every asset that follows is stale too -- the player can
+  // refresh all day and never see the update. So the running page asks the server
+  // what the current build is and, if it disagrees, replaces itself with a URL that
+  // carries the new version, which is a different resource and therefore fetched
+  // fresh rather than served from the cache.
+  //
+  // Guarded three ways so it can never loop: it only runs for a deploy that stamped a
+  // version, it records the version it has already tried in sessionStorage, and it
+  // does nothing at all if the check itself fails.
+  async function reloadIfStale() {
+    if (!assetVersion) return false;
+    let current;
+    try {
+      const response = await fetch(
+        versioned(new URL("version.json", loaderUrl)),
+        {
+          cache: "no-store",
+        },
+      );
+      if (!response.ok) return false;
+      current = (await response.json()).assetVersion;
+    } catch (error) {
+      return false;
+    }
+    if (!current || current === assetVersion) return false;
+    try {
+      const key = "proto23.staleindex";
+      if (window.sessionStorage.getItem(key) === current) return false;
+      window.sessionStorage.setItem(key, current);
+    } catch (error) {
+      // Storage blocked. Better to reload once too often than to strand the player
+      // on a build the server has replaced.
+    }
+    const fresh = new URL(window.location.href);
+    fresh.searchParams.set("v", current);
+    window.location.replace(fresh.href);
+    return true;
+  }
+
   async function start() {
+    if (await reloadIfStale()) return;
     const manifest = await getJson(
       versioned(new URL("manifest.json", localeRoot)),
     );

@@ -325,6 +325,19 @@
         </header>
         <ul class="release-changes">
           <li>
+            A new build reaches you without a hard refresh. Everything the game
+            loads already carried a version stamp, but index.html itself did
+            not, so a cached copy kept asking for the previous build’s files and
+            no amount of reloading helped. The page now asks the server which
+            build is current and fetches itself again, once, if it is behind
+          </li>
+          <li>
+            Turkish: Polearm Mastery was named after a pole rather than a
+            weapon, which made it hard to recognise in your own skill list. It
+            is Kargi Ustaligi now, shortened for the list the way the English
+            name is
+          </li>
+          <li>
             The level 35 reward from the dojo instructor was broken: accepting
             it gave you the shield and then left you stuck on the same screen
             with no way back, handing over another shield every time you pressed

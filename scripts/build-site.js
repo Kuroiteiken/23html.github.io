@@ -51,6 +51,20 @@ const deployedIndex = fs
 fs.writeFileSync(deployedIndexPath, deployedIndex, "utf8");
 fs.writeFileSync(path.join(output, ".nojekyll"), "", "utf8");
 
+// The asset version is written where the running page can read it back. Every
+// request the loader makes already carries ?v=, so css, the bundle and the locale
+// files can never be served stale -- but index.html itself carries no version and is
+// the one file a browser or CDN will happily keep. A player who reloads then gets
+// yesterday's index.html, which asks for yesterday's ?v=, and nothing about the
+// deploy reaches them however many times they refresh. This file is what lets the
+// page notice that and fix itself; GitHub Pages serves no cache headers we could set
+// instead. It is deliberately tiny so fetching it costs nothing.
+fs.writeFileSync(
+  path.join(output, "version.json"),
+  JSON.stringify({ assetVersion }) + "\n",
+  "utf8",
+);
+
 // The dev server rebuilds on every save, so it runs the build quietly and
 // prints its own single line instead.
 if (!process.argv.includes("--quiet"))

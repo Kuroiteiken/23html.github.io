@@ -3034,8 +3034,8 @@
         "desc": "Balta dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Balta Ustalığı DP kazanımı +5%</span>"
       },
       "skl4": {
-        "name": "Talebe Beceri Kitabı (Sırıklı Silah Ustalığı)",
-        "desc": "Sırıklı silah dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Sırıklı Silah Ustalığı DP kazanımı +5%</span>"
+        "name": "Talebe Beceri Kitabı (Kargı Ustalığı)",
+        "desc": "Kargı dövüşü hakkında başlangıç düzeyinde bir öğrenci kitabı{separator}<span style=\"color:deeppink\">Kargı Ustalığı DP kazanımı +5%</span>"
       },
       "skl5": {
         "name": "Talebe Beceri Kitabı (Çekiç Ustalığı)",
@@ -3099,7 +3099,7 @@
       },
       "skl4a": {
         "name": "\"Lancer Kılavuzu\"",
-        "desc": "Sırıklı silah dövüşünün temel bilgileriyle dolu bir teknik kitabı{separator}<span style=\"color:deeppink\">Sırıklı Silah Ustalığı DP kazanımı +15%</span>"
+        "desc": "Kargı dövüşünün temel bilgileriyle dolu bir teknik kitabı{separator}<span style=\"color:deeppink\">Kargı Ustalığı DP kazanımı +15%</span>"
       },
       "skl5a": {
         "name": "\"Sopacı El Kitabı\"",
@@ -3260,9 +3260,9 @@
         }
       },
       "plrmc": {
-        "name": "Sırıklı Silah Ustalığı",
-        "bname": "Sırıklı Silah Ustalığı",
-        "desc": "Sırıklı silahlar ve mızraklarla savaşma yeteneği",
+        "name": "Kargı Ustalığı",
+        "bname": "Kargı Ustalığı",
+        "desc": "Kargı ve mızrakla savaşma yeteneği",
         "bonus": "<small style=\"color:darkorange\">Elinde mızrak/sırıklı silah varken saldırı gücünü hafifçe artırır</small>",
         "mlstn": {
           "lv2": "ÇEV +1",
