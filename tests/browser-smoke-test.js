@@ -267,6 +267,21 @@ async function main() {
       );
     }
 
+    const windowPanels = await runChrome(
+      `${baseUrl}/__test-window-panels.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(windowPanels.stderr);
+    assertCommonStartup(windowPanels.stdout, port);
+    if (!windowPanels.stdout.includes('data-window-panels-verified="true"')) {
+      const failures = windowPanels.stdout.match(
+        /data-window-panel-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `A window panel grows with its contents instead of scrolling: ${failures?.[1] || "probe incomplete"}`,
+      );
+    }
+
     const inventoryBars = await runChrome(
       `${baseUrl}/__test-inventory-bars.html?lang=tr`,
       profiles[0],
@@ -401,7 +416,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

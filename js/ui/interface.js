@@ -1087,7 +1087,7 @@ dom.ct_bt6.addEventListener("click", function () {
       empty(dom.ctrwin6);
       global.lw_op = -1;
       const bst_entr_case = addElement(dom.ctrwin6, "div");
-      bst_entr_case.style.height = "84%";
+      bst_entr_case.style.height = windowPanelHeight(0.84);
       bst_entr_case.style.backgroundColor = "rgb(0,20,44)";
       bst_entr_case.style.overflow = "auto";
       this.bst_entr_head = addElement(bst_entr_case, "div", null, "bst_entr");
@@ -6324,6 +6324,16 @@ global.text.cfc = i18n.get("gameText.cfc");
 global.text.cfp = i18n.get("gameText.cfp");
 global.text.cln = i18n.get("gameText.cln");
 
+// The containers these panels are rendered into — #ctrm_2 and the .ctrwinbx
+// windows — declare no height of their own, so a percentage height on anything
+// placed inside them never resolves. Every such panel behaved as `auto`: it grew
+// with its contents, its own overflow:auto never had anything to clip, and the
+// choices rendered after it were pushed off the bottom of the screen. #ctrmg is
+// the window and does have a fixed height, so panel heights are taken from there.
+function windowPanelHeight(share) {
+  return Math.round(dom.ctrmg.clientHeight * share) + "px";
+}
+
 function chs_spec(type, x) {
   switch (type) {
     case 1:
@@ -6415,7 +6425,7 @@ function chs_spec(type, x) {
       {
         clr_chs();
         dom.ch_1 = addElement(dom.ctr_2, "div");
-        dom.ch_1.style.height = "76%";
+        dom.ch_1.style.height = windowPanelHeight(0.76);
         dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
         dom.flsthdr = addElement(dom.ch_1, "div");
         dom.flsthdra = addElement(dom.flsthdr, "div");
@@ -6459,14 +6469,18 @@ function chs_spec(type, x) {
         global.menuo = 3;
         global.cchest = x;
         dom.ch_1a = addElement(dom.ctr_2, "div");
-        dom.ch_1a.style.height = "74.5%";
+        dom.ch_1a.style.height = windowPanelHeight(0.745);
         dom.ch_1a.style.backgroundColor = "rgb(0,20,44)";
         dom.ch_1a.style.display = "flex";
-        dom.ch_1a.style.overflow = "auto";
+        dom.ch_1a.style.overflow = "hidden";
         dom.ch_1a.style.position = "relative";
         dom.invp1 = addElement(dom.ch_1a, "div");
         dom.invp2 = addElement(dom.ch_1a, "div");
         dom.invp1.style.width = dom.invp2.style.width = "50%";
+        // Each side scrolls on its own, so a long inventory cannot push the box's
+        // own contents off the panel and the two lists do not drag each other.
+        dom.invp1.style.overflow = dom.invp2.style.overflow = "auto";
+        dom.invp1.style.boxSizing = dom.invp2.style.boxSizing = "border-box";
         dom.invp2noth = addElement(dom.ctr_2, "div");
         dom.invp2noth.style.top = "150px";
         dom.invp2noth.style.position = "absolute";
@@ -6502,10 +6516,9 @@ function chs_spec(type, x) {
         // own, so the percentage never resolved and neither did the 87% and 5%
         // below it. Everything behaved as `auto`: the list grew with the stock
         // and the footer collapsed to nothing, because it holds only floats.
-        // #ctrmg is the window and does have a fixed height, so taking the same
-        // 76% from it gives the column something definite to divide up.
-        dom.ch_1.style.height =
-          Math.round(dom.ctrmg.clientHeight * 0.76) + "px";
+        // Taking the share from the window gives the column something definite
+        // to divide up.
+        dom.ch_1.style.height = windowPanelHeight(0.76);
         dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
         // With a definite height the list can take whatever is left over and the
         // footer stays on the bottom edge whatever the shop stocks.
