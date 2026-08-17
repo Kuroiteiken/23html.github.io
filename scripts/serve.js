@@ -183,11 +183,29 @@ function createSiteServer(options = {}) {
             bar.children[0]?.id === "save-game" &&
             bar.children[1]?.id === "load-game" &&
             bar.children[2]?.id === "save-bar-collapse";
+
+          // The bar is fixed to the viewport's bottom edge, so it has to clear the
+          // game's own bottom row without leaving a wide empty band above itself.
+          const gameBounds = document
+            .getElementById("ctrmg")
+            .getBoundingClientRect();
+          const scale = Number(document.documentElement.dataset.uiScale) || 1;
+          const gapAboveBar = (barBounds.top - gameBounds.bottom) / scale;
+          const clearsGame = gapAboveBar >= 0;
+          // Only meaningful while the game is scaled down to fit. On a window
+          // tall enough to need no scaling the bar just sits on the viewport's
+          // bottom edge, wherever that falls.
+          const gapIsSlight = scale >= 1 || gapAboveBar <= 24;
+
           document.documentElement.dataset.saveBarControlsSeparated = String(
             controlsSeparated &&
               controlsInsideBar &&
               collapseFollowsSaveAndLoad,
           );
+          document.documentElement.dataset.saveBarClearsGame = String(
+            clearsGame && gapIsSlight,
+          );
+          document.documentElement.dataset.saveBarGap = gapAboveBar.toFixed(1);
         }, 10);
       </script>`;
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
@@ -333,6 +351,61 @@ function createSiteServer(options = {}) {
       </script>`;
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
       response.end(index.replace("</body>", `${uiSafetyProbe}</body>`));
+      return;
+    }
+
+    if (options.enableTestRoutes && pathname === "/__test-release-notes.html") {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      // Written before the load event fires, so startGame() sees a player whose
+      // last visit was an older build.
+      const releaseNotesProbe = `<script>
+        localStorage.setItem("proto23.seenversion", "475");
+        const releaseNotesProbe = setInterval(() => {
+          if (!document.getElementById("ctrmg")) return;
+          clearInterval(releaseNotesProbe);
+
+          const dialogs = [...document.querySelectorAll("dialog.game-modal")];
+          const notice = dialogs.find((dialog) =>
+            dialog.querySelector(".release-notes__list"),
+          );
+          const shown = Boolean(notice && notice.open);
+          const items = notice
+            ? notice.querySelectorAll(".release-notes__list li").length
+            : 0;
+          const buttons = notice
+            ? notice.querySelectorAll(".game-modal__button")
+            : [];
+          const localized =
+            notice &&
+            notice.textContent.includes("475") &&
+            notice.textContent.includes("v477");
+          // A notice has nothing to cancel, and nothing destructive to warn about.
+          const singleNeutralButton =
+            buttons.length === 1 &&
+            !buttons[0].className.includes("--danger") &&
+            document.activeElement === buttons[0];
+          const fits =
+            notice &&
+            notice.getBoundingClientRect().top >= 0 &&
+            notice.getBoundingClientRect().bottom <= window.innerHeight + 1;
+          // The version is recorded before rendering, so it never repeats.
+          const recorded =
+            localStorage.getItem("proto23.seenversion") === String(global.ver);
+
+          const checks = { shown, localized, singleNeutralButton, fits, recorded };
+          document.documentElement.dataset.releaseNotesVerified = String(
+            Object.values(checks).every(Boolean) && items >= 3,
+          );
+          document.documentElement.dataset.releaseNotesFailures = Object.keys(
+            checks,
+          )
+            .filter((name) => !checks[name])
+            .concat(items >= 3 ? [] : ["items=" + items])
+            .join(",");
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${releaseNotesProbe}</body>`));
       return;
     }
 

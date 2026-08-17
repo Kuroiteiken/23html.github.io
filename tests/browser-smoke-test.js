@@ -223,6 +223,12 @@ async function main() {
     ) {
       throw new Error("The save-bar controls overlap or leave the footer.");
     }
+    if (!saveBarLayout.stdout.includes('data-save-bar-clears-game="true"')) {
+      const gap = saveBarLayout.stdout.match(/data-save-bar-gap="([^"]*)"/);
+      throw new Error(
+        `The save bar must clear the game's bottom row by a slight gap, not cover it or float far above it: measured ${gap?.[1] ?? "?"}px`,
+      );
+    }
 
     const uiSafety = await runChrome(
       `${baseUrl}/__test-ui-safety.html?lang=tr`,
@@ -241,6 +247,21 @@ async function main() {
     if (!uiSafety.stdout.includes('data-save-delete-modal-verified="true"')) {
       throw new Error(
         "The save deletion modal does not fit, localize, or cancel safely.",
+      );
+    }
+
+    const releaseNotes = await runChrome(
+      `${baseUrl}/__test-release-notes.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(releaseNotes.stderr);
+    assertCommonStartup(releaseNotes.stdout, port);
+    if (!releaseNotes.stdout.includes('data-release-notes-verified="true"')) {
+      const failures = releaseNotes.stdout.match(
+        /data-release-notes-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `A player returning from an older build was not shown what changed: ${failures?.[1] || "probe incomplete"}`,
       );
     }
 
@@ -348,7 +369,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

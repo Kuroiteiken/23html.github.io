@@ -2968,9 +2968,8 @@ dom.autosves.addEventListener("change", function () {
   storeAutosavePreference();
 });
 
-dom.vrs = addElement(dom.sl_controls, "a", null, "sl");
+dom.vrs = addElement(dom.sl_controls, "a", "game-version", "sl");
 dom.vrs.innerHTML = "v" + global.ver;
-dom.vrs.style.color = "black";
 dom.vrs.style.textDecoration = "underline";
 dom.vrs.href = new URL("changelog/changelog.html", document.baseURI).href;
 dom.vrs.target = "_blank";
@@ -2989,7 +2988,16 @@ dom.sl_kill.setAttribute("role", "button");
 // it closes, so callers can open one per interaction without leaking elements.
 let confirmModalCount = 0;
 
-function showConfirmModal({ title, message, confirmLabel, onConfirm }) {
+function showConfirmModal({
+  title,
+  message,
+  confirmLabel,
+  onConfirm,
+  // A notice has nothing to cancel and nothing destructive to warn about, so it
+  // gets a single neutral button instead of the cancel/danger pair.
+  showCancel = true,
+  danger = true,
+}) {
   confirmModalCount++;
   const titleId = "confirm-modal-title-" + confirmModalCount;
   const messageId = "confirm-modal-message-" + confirmModalCount;
@@ -3005,14 +3013,19 @@ function showConfirmModal({ title, message, confirmLabel, onConfirm }) {
   body.innerHTML = message;
 
   const actions = addElement(modal, "div", null, "game-modal__actions");
-  const cancel = addElement(actions, "button", null, "game-modal__button");
-  cancel.type = "button";
-  cancel.textContent = i18n.t("ui.common.cancel");
+  let cancel = null;
+  if (showCancel) {
+    cancel = addElement(actions, "button", null, "game-modal__button");
+    cancel.type = "button";
+    cancel.textContent = i18n.t("ui.common.cancel");
+  }
   const confirm = addElement(
     actions,
     "button",
     null,
-    "game-modal__button game-modal__button--danger",
+    danger
+      ? "game-modal__button game-modal__button--danger"
+      : "game-modal__button",
   );
   confirm.type = "button";
   confirm.textContent = confirmLabel;
@@ -3021,7 +3034,7 @@ function showConfirmModal({ title, message, confirmLabel, onConfirm }) {
   function close() {
     if (modal.open) modal.close();
   }
-  cancel.addEventListener("click", close);
+  if (cancel) cancel.addEventListener("click", close);
   confirm.addEventListener("click", () => {
     close();
     onConfirm();
@@ -3047,8 +3060,58 @@ function showConfirmModal({ title, message, confirmLabel, onConfirm }) {
   });
 
   modal.showModal();
-  cancel.focus();
+  (cancel || confirm).focus();
   return modal;
+}
+
+// Player-facing notes for releases the player may not have seen. The text lives
+// in the locale files so both languages stay in step; this table only says which
+// versions have notes and where to read them from, spelled out one key at a time
+// so the localization check can still verify them.
+const releaseNotes = [
+  {
+    version: 477,
+    read: () => i18n.get("ui.releaseNotes.v477"),
+  },
+];
+
+// Shows what changed since the build the player last opened. Returns whether
+// anything was worth showing, so the caller can tell "nothing new" from "shown".
+function showReleaseNotes(fromVersion) {
+  const unseen = releaseNotes
+    .filter(
+      (entry) => entry.version > fromVersion && entry.version <= global.ver,
+    )
+    .sort((a, b) => b.version - a.version);
+  if (!unseen.length) return false;
+
+  const sections = unseen.map((entry) => {
+    const notes = entry.read();
+    const items = (Array.isArray(notes) ? notes : [notes])
+      .map((note) => "<li>" + note + "</li>")
+      .join("");
+    return (
+      '<strong class="release-notes__version">v' +
+      entry.version +
+      '</strong><ul class="release-notes__list">' +
+      items +
+      "</ul>"
+    );
+  });
+
+  showConfirmModal({
+    title: i18n.t("ui.releaseNotes.title"),
+    message:
+      '<span class="release-notes__intro">' +
+      i18n.t("ui.releaseNotes.intro", { from: fromVersion }) +
+      "</span>" +
+      sections.join(""),
+    confirmLabel: i18n.t("ui.releaseNotes.dismiss"),
+    onConfirm: () => {},
+    showCancel: false,
+    danger: false,
+  });
+  return true;
 }
 
 dom.save_delete_modal = addElement(

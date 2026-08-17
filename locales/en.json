@@ -176,6 +176,18 @@
       "current": "Current:",
       "locked": "Locked",
       "revealed": "A branch you had not noticed opens on the mastery tree: <span style=\"color:orange\">Second Wind</span>"
+    },
+    "releaseNotes": {
+      "title": "What's new",
+      "intro": "You last opened v{from}. Since then:",
+      "dismiss": "Continue",
+      "v477": [
+        "The story continues past the wolf hunt. Yamato said to expect to be contacted later, and now he means it: a day after you collect your reward, his own commission is waiting on the lodge board.",
+        "A new quest, The Pack Leader, opens a third scene in the southern forest. Every wolf you have fought so far was a Weakened Wolf; what dens in the hollow is the one that never was.",
+        "The Wolf Mask can finally be obtained. It had no drop, recipe, or vendor anywhere in the game.",
+        "Running no longer makes your energy drain creep up for good, and the running titles now discount the running cost itself: 0.095 per second at 5%, 0.085 at 15%.",
+        "Run no longer disappears from the Actions panel, and a shop's buying price and reputation sit on the bottom edge of the panel again."
+      ]
     }
   },
   "gameText": {

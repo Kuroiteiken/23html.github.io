@@ -176,6 +176,18 @@
       "current": "Şu an:",
       "locked": "Kilitli",
       "revealed": "Ustalık ağacında fark etmediğin bir dal açılıyor: <span style=\"color:orange\">İkinci Nefes</span>"
+    },
+    "releaseNotes": {
+      "title": "Neler değişti",
+      "intro": "En son v{from} sürümünü açmıştın. O günden bu yana:",
+      "dismiss": "Devam et",
+      "v477": [
+        "Hikaye kurt avının ötesine geçiyor. Yamato ileride haber salacağını söylemişti; artık sözünü tutuyor: ödülünü aldıktan bir gün sonra kendi işi kulübenin panosunda seni bekliyor.",
+        "Yeni bir görev, Sürü Lideri, güney ormanında üçüncü bir sahne açıyor. Şimdiye kadar dövüştüğün her kurt bir Zayıflamış Kurt'tu; çukurda barınan ise hiç zayıflamamış olan.",
+        "Kurt Maskesi sonunda elde edilebiliyor. Oyunun hiçbir yerinde düşme, tarif veya satıcı kaynağı yoktu.",
+        "Koşmak artık enerji tüketimini kalıcı olarak tırmandırmıyor ve koşu ünvanları indirimi doğrudan koşu maliyetine uyguluyor: %5'te saniyede 0,095, %15'te 0,085.",
+        "Koş, eylemler panelinden kaybolmuyor; mağazalarda alış fiyatı ile itibar da yeniden panelin alt kenarında duruyor."
+      ]
     }
   },
   "gameText": {

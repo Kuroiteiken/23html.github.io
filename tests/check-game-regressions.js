@@ -423,8 +423,40 @@ if (
 console.log("Validated save, load, callback, and death-penalty regressions.");
 console.log("Validated clamped resistance damage reductions.");
 
+// Release notes are announced from a preference key rather than the save, so a
+// player who never presses Save still sees them once, and deleting a save does
+// not replay them. The version is stored before the notes are shown so a failure
+// to render cannot show them again on the next launch either.
+const versionAnnouncement = [
+  /const seenVersionKey = "proto23\.seenversion"/,
+  /function announceNewVersion\(\)/,
+  /readSeenVersion\(\) \|\| global\.save_ver \|\| 0/,
+  /storeSeenVersion\(global\.ver\);\s*\n\s*if \(!from \|\| from >= global\.ver\) return false/,
+  /load\(\);\s*\n\s*announceNewVersion\(\)/,
+];
+
+if (!versionAnnouncement.every((pattern) => pattern.test(bootstrapSource))) {
+  throw new Error(
+    "Version announcement regression: the last-seen build must come from the preference key, be recorded before the notes render, and stay silent for a first-time player.",
+  );
+}
+
+if (
+  !/const releaseNotes = \[/.test(interfaceSource) ||
+  !/i18n\.get\("ui\.releaseNotes\.v477"\)/.test(interfaceSource) ||
+  !/showCancel: false/.test(interfaceSource)
+) {
+  throw new Error(
+    "Version announcement regression: release notes must read spelled-out locale keys and open as a single-button notice.",
+  );
+}
+
+console.log("Validated the new-version announcement and its stored key.");
+
 const sharedConfirmModal = [
-  /function showConfirmModal\(\{ title, message, confirmLabel, onConfirm \}\)/,
+  // The option list is allowed to grow — release notes reuse the dialog with a
+  // single neutral button — but these four have to stay part of the contract.
+  /function showConfirmModal\(\{[\s\S]*?\btitle,[\s\S]*?\bmessage,[\s\S]*?\bconfirmLabel,[\s\S]*?\bonConfirm,?[\s\S]*?\}\)/,
   /addElement\(document\.body, "dialog", null, "game-modal"\)/,
   /modal\.showModal\(\)/,
   /modal\.addEventListener\("cancel"/,
