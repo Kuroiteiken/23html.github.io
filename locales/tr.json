@@ -3688,7 +3688,8 @@
       },
       "brw": {
         "name": "Kavgacı",
-        "desc": "Bir yumruk atabilecekmiş gibi hissediyorsun! Ve bir tane al. Çıplak yumruklarınla biraz daha rahat hissetmeye başlıyorsun"
+        "desc": "Bir yumruk atabilecekmiş gibi hissediyorsun! Ve bir tane al. Çıplak yumruklarınla biraz daha rahat hissetmeye başlıyorsun",
+        "tdesc": "Çıplak eller daha sert vurur"
       },
       "stb": {
         "name": "Bıçakçı",
@@ -3737,7 +3738,8 @@
       },
       "cck": {
         "name": "Kamp Ateşi Aşçısı",
-        "desc": "Övülecek bir şey değil ama kendinizi vahşi doğada uygun bir yemek yemeden bulursanız tamamen açlıktan ölmezsiniz."
+        "desc": "Övülecek bir şey değil ama kendinizi vahşi doğada uygun bir yemek yemeden bulursanız tamamen açlıktan ölmezsiniz.",
+        "tdesc": "Tarifleri gerektirdikleri ocak olmadan pişirmeni sağlar"
       },
       "rok": {
         "name": "Çaylak",
@@ -3745,7 +3747,8 @@
       },
       "rnr": {
         "name": "Koşucu",
-        "desc": "Vücudunuz çok daha iyi durumda, dayanıklılığınız da öyle. Hızlı hareket etmek artık sizi o kadar rahatsız etmiyor ama enerjinizi harcıyorsunuz ve bir nevi acıkıyorsunuz."
+        "desc": "Vücudunuz çok daha iyi durumda, dayanıklılığınız da öyle. Hızlı hareket etmek artık sizi o kadar rahatsız etmiyor ama enerjinizi harcıyorsunuz ve bir nevi acıkıyorsunuz.",
+        "tdesc": "Koşmak %8 daha az enerji harcar"
       },
       "jgg": {
         "name": "Hafif Koşucu",
@@ -3754,7 +3757,8 @@
       },
       "spn": {
         "name": "Kısa Mesafe Koşucusu",
-        "desc": "s"
+        "desc": "s",
+        "tdesc": "Koşmak %12 daha az enerji harcar"
       },
       "ilt": {
         "name": "Okumasız",
@@ -3827,7 +3831,8 @@
       },
       "rfpn3": {
         "name": "Hepçil",
-        "desc": "Görünüşe göre bir sürü berbat şey yiyip sonrasında kendinizi iyi hissedebiliyorsunuz. Buna gerçekten değer mi? Öyle olduğunu düşünüyorsun. Tadı daha iyi olamaz ama..."
+        "desc": "Görünüşe göre bir sürü berbat şey yiyip sonrasında kendinizi iyi hissedebiliyorsunuz. Buna gerçekten değer mi? Öyle olduğunu düşünüyorsun. Tadı daha iyi olamaz ama...",
+        "tdesc": "Bozuk yiyeceği daha da iyi ayırt eder (shift tuşu)"
       },
       "tqtm": {
         "name": "Malzeme Sorumlusu",
@@ -3876,7 +3881,8 @@
       },
       "pet2": {
         "name": "Hayvan Dostu",
-        "desc": "Küçük yırtıcılar sizi bir tehdit olarak görmüyorlar ki bu iyi bir şey ama yine de aç olduklarında onları rahatsız etmek istemezsiniz. En azından vahşi yaşamın tehlikelerinden kaçınmanın bir yolunun olduğunu düşünüyorsunuz"
+        "desc": "Küçük yırtıcılar sizi bir tehdit olarak görmüyorlar ki bu iyi bir şey ama yine de aç olduklarında onları rahatsız etmek istemezsiniz. En azından vahşi yaşamın tehlikelerinden kaçınmanın bir yolunun olduğunu düşünüyorsunuz",
+        "tdesc": "Kedin senden biraz daha hızlı öğrenir"
       },
       "dngs1": {
         "name": "Tedbirli",

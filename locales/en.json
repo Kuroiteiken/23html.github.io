@@ -3688,7 +3688,8 @@
       },
       "brw": {
         "name": "Brawler",
-        "desc": "You feel like you can pack a punch! And recieve one. You're starting to feel a bit more comfortable with your bare fists"
+        "desc": "You feel like you can pack a punch! And recieve one. You're starting to feel a bit more comfortable with your bare fists",
+        "tdesc": "Bare hands hit harder"
       },
       "stb": {
         "name": "Stabber",
@@ -3737,7 +3738,8 @@
       },
       "cck": {
         "name": "Campfire Cook",
-        "desc": "Not something to brag about, but you won't completely starve to death if you find yourself in the wilds without a proper meal"
+        "desc": "Not something to brag about, but you won't completely starve to death if you find yourself in the wilds without a proper meal",
+        "tdesc": "Lets you cook recipes without the fixture they call for"
       },
       "rok": {
         "name": "Rookie",
@@ -3745,7 +3747,8 @@
       },
       "rnr": {
         "name": "Runner",
-        "desc": "Your body is in much better shape, so is your stamina. Moving around fast doesn't bother you as much anymore, but you spend your energy and get kind of hungry from it"
+        "desc": "Your body is in much better shape, so is your stamina. Moving around fast doesn't bother you as much anymore, but you spend your energy and get kind of hungry from it",
+        "tdesc": "Running consumes 8% less energy"
       },
       "jgg": {
         "name": "Jogger",
@@ -3754,7 +3757,8 @@
       },
       "spn": {
         "name": "Sprinter",
-        "desc": "s"
+        "desc": "s",
+        "tdesc": "Running consumes a further 12% less energy"
       },
       "ilt": {
         "name": "Illiterate",
@@ -3827,7 +3831,8 @@
       },
       "rfpn3": {
         "name": "Omnivore",
-        "desc": "It seems like you can eat a lot of awful stuff and feel fine afterwards. Is that really worth it? You think it is. The taste doesn't get any better though..."
+        "desc": "It seems like you can eat a lot of awful stuff and feel fine afterwards. Is that really worth it? You think it is. The taste doesn't get any better though...",
+        "tdesc": "Judges spoiled food even more finely (shift key)"
       },
       "tqtm": {
         "name": "Quartermaster",
@@ -3876,7 +3881,8 @@
       },
       "pet2": {
         "name": "Animal Friend",
-        "desc": "Minor predators don't view you as a threat, which is good, but you don't want to bother them when they're hungry, though. You think you have a way to avoid the dangers of wild life, at least"
+        "desc": "Minor predators don't view you as a threat, which is good, but you don't want to bother them when they're hungry, though. You think you have a way to avoid the dangers of wild life, at least",
+        "tdesc": "Your cat learns from you a little faster"
       },
       "dngs1": {
         "name": "Wary",

@@ -2076,7 +2076,12 @@ chss.frstn1b1j.sl = () => {
   // promise was recorded has no day to wait for, so it is treated as already due.
   if (quest.lmfstkil1.data.done) {
     const promisedOn = quest.lmfstkil1.data.rday;
-    const due = promisedOn === undefined || time.day > promisedOn + 1;
+    // One night, which is what he actually asks for. This required the date to
+    // change twice, so a player who did as they were told and slept once came back
+    // to an empty board. A day is 1440 minutes and the bed runs time at five times
+    // normal, so sleeping it off is a few minutes of real time; staying awake for
+    // it is about twenty-four.
+    const due = promisedOn === undefined || time.day > promisedOn;
     if (!quest.pckld1.data.started && !quest.pckld1.data.done) {
       if (!due)
         chs(

@@ -62,6 +62,11 @@ ttl.pbg.desc = i18n.t("content.ttl.pbg.desc");
 ttl.brw = new Title(10);
 ttl.brw.name = i18n.t("content.ttl.brw.name");
 ttl.brw.desc = i18n.t("content.ttl.brw.desc");
+// undc only applies while the player is unarmed.
+ttl.brw.talent = function () {
+  you.mods.undc += 2;
+};
+ttl.brw.tdesc = i18n.t("content.ttl.brw.tdesc");
 
 ttl.stb = new Title(11);
 ttl.stb.name = i18n.t("content.ttl.stb.name");
@@ -125,6 +130,11 @@ ttl.eat5.desc = i18n.t("content.ttl.eat5.desc");
 ttl.cck = new Title(22);
 ttl.cck.name = i18n.t("content.ttl.cck.name");
 ttl.cck.desc = i18n.t("content.ttl.cck.desc");
+// ckfre is what lets a recipe be cooked without the fixture for it.
+ttl.cck.talent = function () {
+  you.mods.ckfre += 1;
+};
+ttl.cck.tdesc = i18n.t("content.ttl.cck.tdesc");
 
 ttl.rok = new Title(23);
 ttl.rok.name = i18n.t("content.ttl.rok.name");
@@ -135,6 +145,11 @@ ttl.rnr = new Title(24);
 ttl.rnr.name = i18n.t("content.ttl.rnr.name");
 ttl.rnr.rar = 3;
 ttl.rnr.desc = i18n.t("content.ttl.rnr.desc");
+// Walker and Jogger discount running and these two, above them, did not.
+ttl.rnr.talent = function () {
+  you.mods.runerg -= 0.08;
+};
+ttl.rnr.tdesc = i18n.t("content.ttl.rnr.tdesc");
 
 ttl.jgg = new Title(25);
 ttl.jgg.name = i18n.t("content.ttl.jgg.name");
@@ -149,6 +164,10 @@ ttl.spn = new Title(26);
 ttl.spn.name = i18n.t("content.ttl.spn.name");
 ttl.spn.rar = 4;
 ttl.spn.desc = i18n.t("content.ttl.spn.desc");
+ttl.spn.talent = function () {
+  you.mods.runerg -= 0.12;
+};
+ttl.spn.tdesc = i18n.t("content.ttl.spn.tdesc");
 
 ttl.ilt = new Title(27);
 ttl.ilt.name = i18n.t("content.ttl.ilt.name");
@@ -236,6 +255,11 @@ ttl.rfpn3 = new Title(44);
 ttl.rfpn3.name = i18n.t("content.ttl.rfpn3.name");
 ttl.rfpn3.rar = 3;
 ttl.rfpn3.desc = i18n.t("content.ttl.rfpn3.desc");
+// Completes the stomach ladder: rfpn2 already grants this and rfpn3 did not.
+ttl.rfpn3.talent = function () {
+  you.mods.survinf++;
+};
+ttl.rfpn3.tdesc = i18n.t("content.ttl.rfpn3.tdesc");
 
 ttl.tqtm = new Title(45);
 ttl.tqtm.name = i18n.t("content.ttl.tqtm.name");
@@ -298,6 +322,10 @@ ttl.pet2 = new Title(56);
 ttl.pet2.name = i18n.t("content.ttl.pet2.name");
 ttl.pet2.rar = 2;
 ttl.pet2.desc = i18n.t("content.ttl.pet2.desc");
+ttl.pet2.talent = function () {
+  you.mods.petxp += 0.05;
+};
+ttl.pet2.tdesc = i18n.t("content.ttl.pet2.tdesc");
 
 ttl.dngs1 = new Title(57);
 ttl.dngs1.name = i18n.t("content.ttl.dngs1.name");

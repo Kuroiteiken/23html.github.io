@@ -917,6 +917,12 @@ function getSeason(flag) {
   else return !flag ? 4 : "Winter";
 }
 
+// Derives the calendar fields from the running minute count. Note that timeDisp()
+// below calls this on the real `time` object every tick, so this is what actually
+// advances time.day, time.month and time.year — nothing else ever assigns them.
+// The weekday, the lunar phase, the seasons and the story's own day gates all
+// depend on that, so timeDisp must keep mutating `time` when called without a
+// `future` offset.
 function timeConv(chrono) {
   chrono.year = (chrono.minute / 518400) << 0;
   chrono.month = (chrono.minute / 43200) << 0;
@@ -925,6 +931,8 @@ function timeConv(chrono) {
 }
 
 function timeDisp(time, future) {
+  // Without an offset this deliberately works on the caller's own object, so the
+  // timeConv below updates the real calendar. With one it works on a copy.
   let time_t = time;
   if (future) {
     time_t = copy(time);
