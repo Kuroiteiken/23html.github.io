@@ -78,6 +78,11 @@ const ORIGINAL = new Set([
 // depth is expressed through health and strength, not through the multiplier.
 const BUDGET_HEADROOM = 1.15;
 
+// Levels below this are ignored when measuring the budget. At level 1 a creature is
+// all base and no curve, so dividing by the level produces a ceiling that says
+// nothing about the game past the tutorial.
+const BUDGET_FLOOR_LEVEL = 4;
+
 function read(file) {
   return fs.readFileSync(path.join(root, file), "utf8");
 }
@@ -102,13 +107,28 @@ function parseCreatures(source) {
       );
       return m ? m[1].split(",").map((v) => Number(v.trim())) : undefined;
     };
+    // The weapon arrays live on `creature.x.eqp[0].aff`, so the key itself carries
+    // regex metacharacters and is passed already escaped.
+    const arrayOf = (escapedKey) => {
+      const m = body.match(
+        new RegExp(
+          `^creature\\.${name}\\.${escapedKey} = \\[([^\\]]+)\\]`,
+          "m",
+        ),
+      );
+      return m ? m[1].split(",").map((v) => Number(v.trim())) : undefined;
+    };
     out[name] = {
       name,
       hp_r: num("hp_r"),
       str_r: num("str_r") ?? 1,
+      atype: num("atype") ?? 0,
+      ctype: num("ctype") ?? 0,
       aff: own("aff") ?? [0, 0, 0, 0, 0, 0, 0],
       cls: own("cls") ?? [0, 0, 0],
       stat_p: own("stat_p") ?? [1, 1, 1, 1],
+      eqpAff: arrayOf("eqp\\[0\\]\\.aff") ?? [0, 0, 0, 0, 0, 0, 0],
+      eqpCls: arrayOf("eqp\\[0\\]\\.cls") ?? [0, 0, 0],
     };
   }
   return out;
@@ -152,6 +172,23 @@ function mitigation(creature, lvl) {
   return strAtLevel(creature, lvl) * bestClassMultiplier(creature);
 }
 
+// The other half of the same mistake. A creature's own attack is
+//
+//   str * (100 + eqp[0].aff[atype] * 10 + eqp[0].cls[ctype] * 10) / 100
+//
+// at TEN times each, not five, and those are the creature's weapon arrays -- not the
+// resistance arrays that share their shape. Copying one into the other makes a
+// creature that shrugs off a blow also land one ten times harder. Being unable to
+// damage something is the louder failure, but being flattened in three blows by a
+// chapter's first boss is the same error wearing the other coat.
+function attackPower(creature, lvl) {
+  const weaponAff = creature.eqpAff[creature.atype] ?? 0;
+  const weaponCls = creature.eqpCls[creature.ctype] ?? 0;
+  return (
+    (strAtLevel(creature, lvl) * (100 + weaponAff * 10 + weaponCls * 10)) / 100
+  );
+}
+
 const creatures = parseCreatures(read("js/data/creatures.js"));
 const populations = parsePopulations(read("js/world/areas.js"));
 
@@ -166,16 +203,29 @@ if (populations.length < 40) {
 // them at, so the ceiling is a fact about shipped content rather than a guess.
 let steepest = 0;
 let steepestAt = "";
+let steepestAttack = 0;
+let steepestAttackAt = "";
 for (const entry of populations) {
   if (!ORIGINAL.has(entry.creature)) continue;
+  // area.tst is a developer test bench, not content anybody plays, and its level 1
+  // skeleton would otherwise set the budget on its own.
+  if (entry.area === "tst") continue;
   const creature = creatures[entry.creature];
   if (!creature || creature.hp_r === undefined) continue;
   for (const lvl of new Set([entry.lvlmin, entry.lvlmax])) {
-    if (lvl < 1) continue;
+    // A per-level ratio taken at level 1 or 2 is dominated by the creature's flat
+    // base rather than its curve, which makes a nonsense ceiling out of the
+    // weakest thing in the game.
+    if (lvl < BUDGET_FLOOR_LEVEL) continue;
     const perLevel = mitigation(creature, lvl) / lvl;
     if (perLevel > steepest) {
       steepest = perLevel;
       steepestAt = `${entry.creature} at level ${lvl} in area.${entry.area}`;
+    }
+    const attackPerLevel = attackPower(creature, lvl) / lvl;
+    if (attackPerLevel > steepestAttack) {
+      steepestAttack = attackPerLevel;
+      steepestAttackAt = `${entry.creature} at level ${lvl} in area.${entry.area}`;
     }
   }
 }
@@ -188,6 +238,7 @@ if (steepest <= 0) {
 }
 
 const budgetPerLevel = steepest * BUDGET_HEADROOM;
+const attackBudgetPerLevel = steepestAttack * BUDGET_HEADROOM;
 
 const problems = [];
 const checked = new Set();
@@ -202,6 +253,18 @@ for (const entry of populations) {
   // returning player meets on the same visit. Both have to be beatable.
   for (const lvl of new Set([entry.lvlmin, entry.lvlmax])) {
     if (lvl < 1) continue;
+    const hits = attackPower(creature, lvl);
+    const hitsAllowed = attackBudgetPerLevel * lvl;
+    if (hits > hitsAllowed) {
+      const weaponAff = creature.eqpAff[creature.atype] ?? 0;
+      const weaponCls = creature.eqpCls[creature.ctype] ?? 0;
+      problems.push(
+        `area.${entry.area} / ${entry.creature} at level ${lvl}: hits for ${hits.toFixed(0)} against a budget of ${hitsAllowed.toFixed(0)}.\n` +
+          `      STR ${strAtLevel(creature, lvl).toFixed(0)} multiplied by ${((100 + weaponAff * 10 + weaponCls * 10) / 100).toFixed(2)} from its weapon (eqp[0].aff[${creature.atype}] ${weaponAff}, eqp[0].cls[${creature.ctype}] ${weaponCls}, at ten times each).\n` +
+          `      Check that its own resistance array was not copied into its weapon's -- wolf1 resists physical at 22 and attacks with 12.`,
+      );
+    }
+
     const value = mitigation(creature, lvl);
     const allowed = budgetPerLevel * lvl;
     if (value <= allowed) continue;
@@ -222,7 +285,7 @@ for (const entry of populations) {
 }
 
 console.log(
-  `check-combat: budget measured from the original creatures at ${steepest.toFixed(1)} mitigation per level (${steepestAt}), allowed up to ${budgetPerLevel.toFixed(1)}.`,
+  `check-combat: budgets measured from the original creatures -- ${steepest.toFixed(1)} mitigation per level (${steepestAt}) and ${steepestAttack.toFixed(1)} attack per level (${steepestAttackAt}), allowed up to ${budgetPerLevel.toFixed(1)} and ${attackBudgetPerLevel.toFixed(1)}.`,
 );
 
 if (problems.length > 0) {
