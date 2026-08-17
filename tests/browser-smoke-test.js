@@ -198,8 +198,11 @@ async function main() {
     }
     if (!combatLayout.stdout.includes('data-battle-rows-stacked="true"')) {
       const gap = combatLayout.stdout.match(/data-battle-row-gap="([^"]*)"/);
+      const failures = combatLayout.stdout.match(
+        /data-battle-row-failures="([^"]*)"/,
+      );
       throw new Error(
-        `The area readout covers the battle control row above it: gap ${gap?.[1] ?? "?"}px`,
+        `The strips at the bottom of the enemy panel do not stack: ${failures?.[1] ?? "probe incomplete"} (control-to-readout gap ${gap?.[1] ?? "?"}px)`,
       );
     }
 

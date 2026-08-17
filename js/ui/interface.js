@@ -320,7 +320,15 @@ dom.d101m = addElement(dom.d1m, "div", "se_i");
 dom.d1m.style.top = "8px";
 dom.d1m.style.left = "457px";
 dom.d1m.style.position = "absolute";
-dom.d101m.style.top = "264px";
+// Three strips share the bottom of the enemy panel: these effect icons, the
+// battle control row (#bbts, bottom 25px) and the area readout (#ainfo, bottom
+// 5px). #se_i contributes bottom:5px and this only ever set a top offset, so the
+// box stretched across both rows below it while its 20px icons stayed top-aligned
+// — and they landed on the control row from the very first effect an enemy
+// carried, which in rain or cold is every enemy that spawns. A definite row
+// height keeps this a row, and 255px leaves 2px of air above #bbts.
+dom.d101m.style.top = "255px";
+dom.d101m.style.height = "20px";
 global.special_x = dom.d1m.style.left;
 global.special_y = dom.d1m.style.top;
 

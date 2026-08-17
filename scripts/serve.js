@@ -99,6 +99,12 @@ function createSiteServer(options = {}) {
           global.current_z = { name: longest, size: -1 };
           dom.d7m.update();
 
+          // Populate the enemy's effect strip. eff_d routes by target, and in rain
+          // or cold every enemy that spawns is given one of these, so a populated
+          // strip is the normal case rather than an edge case.
+          for (const eff of [effect.wet, effect.cold, effect.psn])
+            eff_d(eff, eff.x, eff.c, eff.b, { id: -999 });
+
           const controls = document.getElementById("bbts");
           const areaInfo = document.getElementById("ainfo");
           const controlBounds = controls.getBoundingClientRect();
@@ -111,9 +117,34 @@ function createSiteServer(options = {}) {
           const readoutStaysOneLine =
             areaInfo.getBoundingClientRect().height / scale <= 20;
 
-          document.documentElement.dataset.battleRowsStacked = String(
-            stacked && bothInsidePanel && readoutStaysOneLine,
+          // The enemy's effect icons are a third strip in the same corner and must
+          // stack above the control row rather than being painted over by it.
+          const enemyStrip = enemy.querySelector("#se_i");
+          const icons = [...enemyStrip.querySelectorAll(".se_ia")];
+          const iconBounds = icons.map((icon) => icon.getBoundingClientRect());
+          const iconsClearControls =
+            iconBounds.length > 0 &&
+            iconBounds.every((bounds) => bounds.bottom <= controlBounds.top + 0.5);
+          const iconsInsidePanel = iconBounds.every(
+            (bounds) => bounds.top >= enemyBounds.top - 0.5,
           );
+
+          const battleChecks = {
+            stacked,
+            bothInsidePanel,
+            readoutStaysOneLine,
+            iconsClearControls,
+            iconsInsidePanel,
+          };
+          document.documentElement.dataset.battleRowsStacked = String(
+            Object.values(battleChecks).every(Boolean),
+          );
+          document.documentElement.dataset.battleRowFailures = Object.keys(
+            battleChecks,
+          )
+            .filter((name) => !battleChecks[name])
+            .concat("icons=" + icons.length)
+            .join(",");
           document.documentElement.dataset.battleRowGap = (
             (areaBounds.top - controlBounds.bottom) /
             scale
