@@ -481,12 +481,13 @@ function createSiteServer(options = {}) {
           // fresh game has not done yet.
           global.flags.jnlu = true;
 
-          const beforeTab = (() => {
-            dom.ct_bt6.click();
-            const label = document.getElementById("jcell3").textContent;
-            dom.ct_bt6.click();
-            return label;
-          })();
+          // Open the journal with nothing learned: the panel must still be
+          // reachable and must say so rather than showing a blank box.
+          dom.ct_bt6.click();
+          document.getElementById("jcell3").click();
+          const emptyState = Boolean(document.querySelector(".lore-open"));
+          const emptyEntries = document.querySelectorAll(".lore-entry").length;
+          dom.ct_bt6.click();
 
           // A clue, a question that gets answered, and a question left open.
           learnLore("itDigs", "whatDigs", "cameThrough", "whyTheEast");
@@ -506,9 +507,9 @@ function createSiteServer(options = {}) {
           const text = panel ? panel.textContent : "";
 
           const checks = {
-            // Blank before anything is known, named afterwards.
-            tabHiddenAtFirst: beforeTab.indexOf("?") === 0,
-            tabNamedAfter: tabLabel.indexOf("?") !== 0 && tabLabel.length > 0,
+            // Reachable as soon as the journal is, and honest when empty.
+            emptyStateShown: emptyState && emptyEntries === 0,
+            tabNamed: tabLabel.indexOf("?") !== 0 && tabLabel.length > 0,
             panelRendered: Boolean(panel),
             // Four learned: one clue, two questions, one answer.
             entryCount: entries.length === 4,

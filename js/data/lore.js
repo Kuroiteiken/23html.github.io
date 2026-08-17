@@ -43,6 +43,22 @@ function defineLore(key, id, kind, chapter, answers) {
   return entry;
 }
 
+// What the game already teaches and then keeps nowhere. Yamato's lore hub explains
+// the whole monster rank scale and the six kinds of creature, and until now that
+// existed only as dialogue the player read once and could never look up again.
+// These are chapter 0 so they sort first, and they are what opens the panel: a
+// player taking their first job at the lodge has something to write down, rather
+// than waiting until the wolf hunt is over.
+defineLore("theLodge", 21, loreClue, 0);
+lore.theLodge.name = i18n.t("content.lore.theLodge.name");
+lore.theLodge.desc = i18n.t("content.lore.theLodge.desc");
+defineLore("monsterRanks", 22, loreClue, 0);
+lore.monsterRanks.name = i18n.t("content.lore.monsterRanks.name");
+lore.monsterRanks.desc = i18n.t("content.lore.monsterRanks.desc");
+defineLore("creatureKinds", 23, loreClue, 0);
+lore.creatureKinds.name = i18n.t("content.lore.creatureKinds.name");
+lore.creatureKinds.desc = i18n.t("content.lore.creatureKinds.desc");
+
 // Chapter I and II — the wolves.
 defineLore("wolvesTurned", 1, loreQuestion, 1);
 lore.wolvesTurned.name = i18n.t("content.lore.wolvesTurned.name");
@@ -130,13 +146,14 @@ function learnLore() {
     learned++;
   }
   if (!learned) return false;
-  // The journal's fourth tab is blank until there is something behind it, the
-  // same way the bestiary tab stays hidden until the player has a bestiary.
-  if (!global.flags.loreu) global.flags.loreu = true;
-  msg(
-    i18n.t("runtime.data.lore.dialogue.journal_updated", { count: learned }),
-    "plum",
-  );
+  // Entries are recorded from the start of the game, but announcing an addition to
+  // a journal the player has not found yet would be nonsense. They will be waiting
+  // in the panel when the journal opens.
+  if (global.flags.jnlu)
+    msg(
+      i18n.t("runtime.data.lore.dialogue.journal_updated", { count: learned }),
+      "plum",
+    );
   return true;
 }
 

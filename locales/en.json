@@ -193,7 +193,8 @@
     "lore": {
       "known": "WHAT YOU KNOW",
       "questions": "OPEN QUESTIONS",
-      "unanswered": "— still unanswered —"
+      "unanswered": "— still unanswered —",
+      "nothingYet": "Nothing written down yet."
     }
   },
   "gameText": {
@@ -4535,6 +4536,18 @@
       "whyTheEast": {
         "name": "Why does Yamato keep looking east?",
         "desc": "He has mentioned an eastern expedition since before any of this, and now he is sending word there the same night he learns his deputy went under the village. He is not telling you everything about the east."
+      },
+      "theLodge": {
+        "name": "The Hunter's Lodge",
+        "desc": "Head Hunter Yamato runs the lodge in the Western Woods and posts the work nobody else in the village will take. Everything that gets dealt with out here gets dealt with because he decided it should be."
+      },
+      "monsterRanks": {
+        "name": "How monsters are ranked",
+        "desc": "The scale runs from G upward through F, E, D, C and on to SSS. It measures what a thing can do to you, not what it is — a rank is a warning, not a description. Yamato teaches it at the lodge to anyone who asks."
+      },
+      "creatureKinds": {
+        "name": "The six kinds",
+        "desc": "Human, Beast, Undead, Evil, Phantom, Dragon. Each answers to different weapons and shrugs off different things, which is why the same blade that settles a wolf will barely mark something that was never alive."
       }
     }
   },
@@ -5610,7 +5623,15 @@
           "yamato_how_far_down_brief": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: You came back. Good. I had half decided who I would be sending after you.<br><br>Now the part I have been turning over since you left. A hole under a village is a hole. Something that digs under a village, through a burial ground, and keeps going, is not interested in the village.<br><br>I want to know how far it runs, and what is at the bottom of the part a man can walk. Not the bottom of all of it. The bottom of what you can walk with a candle.<br><br>Take everything you can carry. If the far end is what I think it is, you will not want to be counting candles when you get to it.",
           "yamato_how_far_down_waiting": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: The far end of it, hunter. Not the near end.",
           "report_the_mark_on_the_wall": "Report the mark on the wall",
-          "yamato_dein_reveal": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Three strokes and a cross-cut. Say it again. Three, and then across.<br><br>...Sit down. No — stay standing, it makes no difference.<br><br>That is not a route mark. It is close enough that anyone trained here would read it as one, but it is not. Three and across is what my deputy cut when he wanted the man behind him to know he had gone on alone and was not coming back the same way. I taught him half of it. He invented the rest so I would know it was him and nobody else.<br><br>Dein. Fourteen months. I took a sword with his mark on it off a boy in this marketplace and I told the boy I would look into it, and I did look, and I found nothing, and then I stopped looking.<br><br>And he was under our feet.<br><br>The steel you found — give it to me. No. Keep it. Keep it somewhere you can put your hand on it.<br><br>You are not going back down there this week. Neither am I, and I want to, which is precisely why not. Whatever is at the bottom of that passage got past him, and he was better than you and he was better than me.<br><br>Rest. Eat. I am sending word east tonight, and this time it is not a courtesy. Then you and I are going to find out what my deputy chief walked into."
+          "yamato_dein_reveal": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Three strokes and a cross-cut. Say it again. Three, and then across.<br><br>...Sit down. No — stay standing, it makes no difference.<br><br>That is not a route mark. It is close enough that anyone trained here would read it as one, but it is not. Three and across is what my deputy cut when he wanted the man behind him to know he had gone on alone and was not coming back the same way. I taught him half of it. He invented the rest so I would know it was him and nobody else.<br><br>Dein. Fourteen months. I took a sword with his mark on it off a boy in this marketplace and I told the boy I would look into it, and I did look, and I found nothing, and then I stopped looking.<br><br>And he was under our feet.<br><br>The steel you found — give it to me. No. Keep it. Keep it somewhere you can put your hand on it.<br><br>You are not going back down there this week. Neither am I, and I want to, which is precisely why not. Whatever is at the bottom of that passage got past him, and he was better than you and he was better than me.<br><br>Rest. Eat. I am sending word east tonight, and this time it is not a courtesy. Then you and I are going to find out what my deputy chief walked into.",
+          "level_35_reward": "Reward for reaching level 35",
+          "level_40_reward": "Reward for reaching level 40",
+          "level_45_reward": "Reward for reaching level 45",
+          "level_50_reward": "Reward for reaching level 50",
+          "instructor_level_35": "Instructor: You have stopped coming here to learn and started coming here to be told you have not forgotten. That is fine, it is what the room is for. Take the shield off the west wall — it is Hoplite work, older than the dojo, and heavier than anything you will want to carry until the day you are glad you did.",
+          "instructor_level_40": "Instructor: There is nothing left in my hands that will make you hit harder. So take this instead. It is a medal, and it does nothing in a fight; what it does is make everything you practise stick faster. Wear it and stop asking me for swords.",
+          "instructor_level_45": "Instructor: Jade skin, they used to call it. I have no idea if it works and I have never needed to find out. Take the knight's shield with it — you are past the age where I can pretend you are training rather than working.",
+          "instructor_level_50": "Instructor: Fifty. I have taught two people who got this far and I buried one of them.<br><br>The dread shield is not a gift, it is a loan from the dojo and it goes back on that wall when you are done with it. The medicine is a gift. Use it before you need it, not after — that is the last thing I have to teach you."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

@@ -193,7 +193,8 @@
     "lore": {
       "known": "BİLDİKLERİN",
       "questions": "AÇIK SORULAR",
-      "unanswered": "— hâlâ cevapsız —"
+      "unanswered": "— hâlâ cevapsız —",
+      "nothingYet": "Henüz bir şey yazılmadı."
     }
   },
   "gameText": {
@@ -4535,6 +4536,18 @@
       "whyTheEast": {
         "name": "Yamato neden hep doğuya bakıyor?",
         "desc": "Bunların hiçbiri olmadan önce de bir doğu seferinden söz ediyordu; şimdi de yardımcısının köyün altına indiğini öğrendiği gece oraya haber salıyor. Doğu hakkında sana her şeyi anlatmıyor."
+      },
+      "theLodge": {
+        "name": "Avcı Kulübesi",
+        "desc": "Kelle Avcısı Yamato, Batı Ormanı'ndaki kulübeyi işletiyor ve köyde başka kimsenin almadığı işleri panoya asıyor. Burada hallolan her şey, o halledilmesi gerektiğine karar verdiği için hallolur."
+      },
+      "monsterRanks": {
+        "name": "Canavarlar nasıl derecelendirilir",
+        "desc": "Ölçek G'den başlar; F, E, D, C ve sonunda SSS'ye kadar çıkar. Bir şeyin ne olduğunu değil, sana ne yapabileceğini ölçer — rütbe bir tarif değil, bir uyarıdır. Yamato bunu kulübede, soran herkese anlatır."
+      },
+      "creatureKinds": {
+        "name": "Altı tür",
+        "desc": "İnsan, Canavar, Ölümsüz, Şeytani, Hayalet, Ejderha. Her biri farklı silahlara karşılık verir ve farklı şeyleri üstünden atar; bir kurdu deviren bıçağın hiç canlı olmamış bir şeyde iz bile bırakmamasının sebebi bu."
       }
     }
   },
@@ -5614,7 +5627,15 @@
           "yamato_how_far_down_brief": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Dönmüşsün. İyi. Peşinden kimi yollayacağıma neredeyse karar vermiştim.<br><br>Şimdi sen gittiğinden beri kafamda çevirdiğim kısma gelelim. Bir köyün altındaki çukur, çukurdur. Ama bir köyün altını kazıp, bir mezarlığın içinden geçip yoluna devam eden şeyin derdi köy değildir.<br><br>Ne kadar uzadığını ve bir adamın yürüyebileceği kısmın dibinde ne olduğunu öğrenmek istiyorum. Hepsinin dibini değil. Mumla yürüyebildiğin kadarının dibini.<br><br>Taşıyabildiğin her şeyi al. Uzak uç düşündüğüm şeyse, oraya vardığında mum sayıyor olmak istemezsin.",
           "yamato_how_far_down_waiting": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Uzak ucunu dedim avcı. Yakın ucunu değil.",
           "report_the_mark_on_the_wall": "Duvardaki işareti anlat",
-          "yamato_dein_reveal": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Üç çizik ve bir çapraz kesik. Bir daha söyle. Üç, sonra çapraz.<br><br>...Otur. Hayır — ayakta kal, fark etmez.<br><br>O bir yol işareti değil. Burada eğitim görmüş herkesin öyle okuyacağı kadar benziyor ama değil. Üç ve çapraz, yardımcımın; arkasından gelen adam tek başına ilerlediğini ve aynı yoldan dönmeyeceğini bilsin diye kazıdığı şeydi. Yarısını ben öğrettim. Kalanını, onun olduğunu ve başkasının olmadığını bilmem için kendi uydurdu.<br><br>Dein. On dört ay. Bu pazarda bir çocuğun elinden üzerinde onun işareti olan bir kılıç aldım ve çocuğa araştıracağımı söyledim, araştırdım da, hiçbir şey bulamadım ve sonra aramayı bıraktım.<br><br>Ve o ayaklarımızın altındaydı.<br><br>Bulduğun çelik — ver onu bana. Hayır. Sende kalsın. Elini uzatınca bulabileceğin bir yerde kalsın.<br><br>Bu hafta oraya geri inmiyorsun. Ben de inmiyorum ve inmek istiyorum, tam olarak bu yüzden inmiyorum. O geçidin dibindeki şey onu geçti; o senden de iyiydi, benden de.<br><br>Dinlen. Bir şeyler ye. Bu gece doğuya haber salıyorum ve bu kez bu bir nezaket değil. Sonra sen ve ben, yardımcımın neyin içine yürüdüğünü öğreneceğiz."
+          "yamato_dein_reveal": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Üç çizik ve bir çapraz kesik. Bir daha söyle. Üç, sonra çapraz.<br><br>...Otur. Hayır — ayakta kal, fark etmez.<br><br>O bir yol işareti değil. Burada eğitim görmüş herkesin öyle okuyacağı kadar benziyor ama değil. Üç ve çapraz, yardımcımın; arkasından gelen adam tek başına ilerlediğini ve aynı yoldan dönmeyeceğini bilsin diye kazıdığı şeydi. Yarısını ben öğrettim. Kalanını, onun olduğunu ve başkasının olmadığını bilmem için kendi uydurdu.<br><br>Dein. On dört ay. Bu pazarda bir çocuğun elinden üzerinde onun işareti olan bir kılıç aldım ve çocuğa araştıracağımı söyledim, araştırdım da, hiçbir şey bulamadım ve sonra aramayı bıraktım.<br><br>Ve o ayaklarımızın altındaydı.<br><br>Bulduğun çelik — ver onu bana. Hayır. Sende kalsın. Elini uzatınca bulabileceğin bir yerde kalsın.<br><br>Bu hafta oraya geri inmiyorsun. Ben de inmiyorum ve inmek istiyorum, tam olarak bu yüzden inmiyorum. O geçidin dibindeki şey onu geçti; o senden de iyiydi, benden de.<br><br>Dinlen. Bir şeyler ye. Bu gece doğuya haber salıyorum ve bu kez bu bir nezaket değil. Sonra sen ve ben, yardımcımın neyin içine yürüdüğünü öğreneceğiz.",
+          "level_35_reward": "35. seviye ödülü",
+          "level_40_reward": "40. seviye ödülü",
+          "level_45_reward": "45. seviye ödülü",
+          "level_50_reward": "50. seviye ödülü",
+          "instructor_level_35": "Eğitmen: Artık buraya öğrenmeye değil, unutmadığını duymaya geliyorsun. Sorun değil, bu odanın işi bu. Batı duvarındaki kalkanı al — hoplit işi, dojodan da eski ve onu taşıdığına sevindiğin güne kadar taşımak istemeyeceğin kadar ağır.",
+          "instructor_level_40": "Eğitmen: Elimde seni daha sert vurduracak hiçbir şey kalmadı. O yüzden bunu al. Bir madalya ve dövüşte hiçbir işe yaramaz; yaptığı şey, çalıştığın her şeyin daha çabuk oturmasını sağlamak. Tak şunu ve benden kılıç istemeyi bırak.",
+          "instructor_level_45": "Eğitmen: Yeşim deri derlerdi buna. İşe yarayıp yaramadığını bilmiyorum ve öğrenmeye hiç ihtiyacım olmadı. Yanına şövalye kalkanını da al — çalıştığını varsayabileceğim yaşı geçtin, artık iş yapıyorsun.",
+          "instructor_level_50": "Eğitmen: Elli. Buraya kadar gelen iki kişi yetiştirdim ve birini gömdüm.<br><br>Dehşet kalkanı armağan değil, dojodan ödünç; işini bitirdiğinde o duvara geri döner. İlaç armağan. İhtiyacın olmadan önce kullan, sonrasında değil — sana öğretecek son şeyim bu."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

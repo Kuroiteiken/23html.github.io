@@ -930,15 +930,14 @@ dom.ct_bt6.addEventListener("click", function () {
         ? i18n.t("ui.panels.bestiary")
         : "????????????";
     // This slot has rendered "????????????" with nothing behind it since before
-    // this fork. It holds what the player has worked out about the world, and
-    // stays blank until they have worked out anything — the same way the bestiary
-    // tab beside it waits for a bestiary.
-    this.jlbrw2s1.innerHTML = global.flags.loreu
-      ? i18n.t("ui.panels.lore")
-      : "????????????";
+    // this fork. It holds what the player has worked out about the world, and it
+    // needs no unlock of its own: the journal is the thing you read, and the
+    // journal is already gated behind finding and reading item.jnlbk. Entries
+    // accumulate from the start of the game whether or not the player can open
+    // this yet, the same way quests and statistics do.
+    this.jlbrw2s1.innerHTML = i18n.t("ui.panels.lore");
     this.jlbrw2s2.innerHTML = i18n.t("ui.panels.statistics");
     this.jlbrw2s1.addEventListener("click", () => {
-      if (!global.flags.loreu) return;
       empty(dom.ctrwin6);
       global.lw_op = -1;
       renderLore();
@@ -6369,6 +6368,11 @@ function renderLore() {
   heading.innerHTML = i18n.t("ui.panels.lore");
 
   const body = addElement(panel, "div", null, "lore-body");
+
+  if (!known.clues.length && !known.questions.length) {
+    const empty_ = addElement(body, "div", null, "lore-open");
+    empty_.innerHTML = i18n.t("ui.lore.nothingYet");
+  }
 
   if (known.clues.length) {
     const section = addElement(body, "div", null, "lore-section");

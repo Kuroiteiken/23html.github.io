@@ -996,7 +996,6 @@ function load(dt) {
     // correctly as a player who has not written anything down yet. Unknown ids
     // are dropped so a removed entry cannot leave a blank row behind.
     global.lore = (a1.lore || []).filter((id) => loreById(id));
-    global.flags.loreu = global.lore.length > 0;
     for (const id in mastery) mastery[id].data.lvl = 0;
     for (const [id, lvl] of Object.entries(a1.mastery || {}))
       if (mastery[id]) mastery[id].data.lvl = lvl;

@@ -780,6 +780,122 @@ chss.t3.sl = () => {
               });
             });
           }
+          // The ladder used to stop at 30, which is roughly where the story now
+          // starts rather than ends: a player opening the catacombs is past it.
+          // These four tiers keep the instructor relevant without raising combat
+          // numbers — every item here already existed in the game with no drop,
+          // recipe, or vendor, and what they give is training speed, survivability
+          // and reach rather than damage.
+          if (
+            !global.flags.dj1rw7 &&
+            global.flags.dj1rw6 === true &&
+            you.lvl >= 35
+          ) {
+            chs(
+              i18n.t("runtime.world.locations.dialogue.level_35_reward"),
+              false,
+              "crimson",
+            ).addEventListener("click", () => {
+              chs(
+                i18n.t("runtime.world.locations.dialogue.instructor_level_35"),
+                true,
+              );
+              chs(
+                i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+                false,
+                "lime",
+              ).addEventListener("click", () => {
+                global.flags.dj1rw7 = true;
+                giveWealth(500);
+                giveItem(sld.hpt);
+                giveItem(item.sp4, 2);
+                smove(chss.t3, false);
+              });
+            });
+          }
+          if (
+            !global.flags.dj1rw8 &&
+            global.flags.dj1rw7 === true &&
+            you.lvl >= 40
+          ) {
+            chs(
+              i18n.t("runtime.world.locations.dialogue.level_40_reward"),
+              false,
+              "crimson",
+            ).addEventListener("click", () => {
+              chs(
+                i18n.t("runtime.world.locations.dialogue.instructor_level_40"),
+                true,
+              );
+              chs(
+                i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+                false,
+                "lime",
+              ).addEventListener("click", () => {
+                global.flags.dj1rw8 = true;
+                giveWealth(600);
+                // The Sword Medal raises experience and mastery gain rather than
+                // any stat, which is the only kind of gift this man would give.
+                giveItem(acc.otpin);
+                smove(chss.t3, false);
+              });
+            });
+          }
+          if (
+            !global.flags.dj1rw9 &&
+            global.flags.dj1rw8 === true &&
+            you.lvl >= 45
+          ) {
+            chs(
+              i18n.t("runtime.world.locations.dialogue.level_45_reward"),
+              false,
+              "crimson",
+            ).addEventListener("click", () => {
+              chs(
+                i18n.t("runtime.world.locations.dialogue.instructor_level_45"),
+                true,
+              );
+              chs(
+                i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+                false,
+                "lime",
+              ).addEventListener("click", () => {
+                global.flags.dj1rw9 = true;
+                giveWealth(750);
+                giveItem(acc.medl5);
+                giveItem(sld.knt);
+                smove(chss.t3, false);
+              });
+            });
+          }
+          if (
+            !global.flags.dj1rw10 &&
+            global.flags.dj1rw9 === true &&
+            you.lvl >= 50
+          ) {
+            chs(
+              i18n.t("runtime.world.locations.dialogue.level_50_reward"),
+              false,
+              "crimson",
+            ).addEventListener("click", () => {
+              chs(
+                i18n.t("runtime.world.locations.dialogue.instructor_level_50"),
+                true,
+              );
+              chs(
+                i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+                false,
+                "lime",
+              ).addEventListener("click", () => {
+                global.flags.dj1rw10 = true;
+                giveWealth(900);
+                giveItem(sld.drd);
+                giveItem(item.stthbm1, 2);
+                giveItem(item.sp4, 3);
+                smove(chss.t3, false);
+              });
+            });
+          }
           chs(
             i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
             false,
@@ -1584,6 +1700,7 @@ chss.htrtch0.sl = () => {
     i18n.t("runtime.world.locations.dialogue.what_are_monster_ranks_f4347c5c"),
     false,
   ).addEventListener("click", () => {
+    learnLore("monsterRanks");
     chs(
       i18n.t(
         "runtime.world.locations.dialogue.head_hunter_yamato_ranking_is_a_way_to_566a276d",
@@ -1636,6 +1753,7 @@ chss.htrtch1.sl = () => {
     0,
     "15px",
   ).addEventListener("click", () => {
+    learnLore("creatureKinds");
     chs(
       i18n.t(
         "runtime.world.locations.dialogue.head_hunter_yamato_humans_and_demihumans_fall_into_a4099cf4",
@@ -2163,6 +2281,7 @@ chss.frstn1b1j.sl = () => {
           "lime",
         ).addEventListener("click", () => {
           giveQst(quest.fwd1);
+          learnLore("theLodge");
           chs(
             i18n.t(
               "runtime.world.locations.dialogue.head_hunter_yamato_great_i_will_be_awaiting_c85db166",
@@ -2260,6 +2379,7 @@ chss.frstn1b1j.sl = () => {
           "lime",
         ).addEventListener("click", () => {
           giveQst(quest.hnt1);
+          learnLore("theLodge");
           chs(
             i18n.t(
               "runtime.world.locations.dialogue.head_hunter_yamato_great_i_will_be_awaiting_c85db166",
