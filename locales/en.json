@@ -3150,6 +3150,13 @@
         "name": "Beneath the Village",
         "desc": "The old shopkeeper by the cellars has been saying for a month that something is digging under people's homes, and nobody believed him. Yamato sent you to hear him out properly. Find out what the village already knows before you decide it is monsters",
         "goal": "Signs found: <span style=\"color:{color}\">{current}/{required}</span>"
+      },
+      "undcty2": {
+        "name": "The End of Journey",
+        "desc": "Yamato wants to know how far the passage under the village goes, and what is at the bottom of the part a man can walk with a candle. Take everything you can carry",
+        "goal": "The far end: <span style=\"color:{color}\">{state}</span>",
+        "stateInProgress": "not reached",
+        "stateDone": "reached"
       }
     },
     "skl": {
@@ -4431,6 +4438,15 @@
       },
       "cata2a": {
         "name": "Catacomb ring"
+      },
+      "cata3a": {
+        "name": "Catacomb corridor"
+      },
+      "cata4a": {
+        "name": "The deep rooms"
+      },
+      "cata5a": {
+        "name": "The end of journey"
       }
     }
   },
@@ -4627,7 +4643,8 @@
           "quest_accepted": "Quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
           "pack_leader_falls": "The great wolf goes down, and the forest does not make a sound.",
-          "undercity_sign_found": "You note it down. ({current}/{required})"
+          "undercity_sign_found": "You note it down. ({current}/{required})",
+          "the_end_falls_quiet": "It comes apart, and for the first time since you came down here the corridor is completely silent."
         }
       },
       "titles": {
@@ -5491,7 +5508,16 @@
           "basement_wall_opened": "The two proud stones come out with the flat of a tool, and the rest comes away in your hands like wet bread. Behind them the gap runs back further than your arm, and then it stops being a gap and starts being a room.<br><br>The air rising out of it is old and still, and it moves anyway. Somewhere past where your light reaches, water is going where it has been going for a very long time.<br><br>Your candle will not last as long as you would like it to.",
           "take_it_down": "Take it down",
           "leave_it_standing": "Leave it standing",
-          "go_down_into_the_dark": "Go down into the dark"
+          "go_down_into_the_dark": "Go down into the dark",
+          "journey_end_guardian": "The corridor stops. Not at a wall — at a room that was meant to be the last one, with eleven empty niches behind you and nothing ahead but a floor swept smooth by something moving across it, over and over, for a long time.<br><br>What is standing in the middle of it has not decayed, because it was never alive to begin with. It is the shape a man makes, held together by whatever has been pooling down here, and it has been waiting long enough to wear a path into stone.<br><br>The cold is coming from behind it.",
+          "face_what_stands_here": "Face what stands here",
+          "journey_end_aftermath": "It comes apart rather than falls, and what is left on the floor is not a body. It is the parts of a great many people, none of them recent.<br><br>Behind where it stood, the wall is not a wall. The stone has been cut through from the far side, and the cut is not old — the dust is still pale. The passage beyond keeps going down, and the air rising out of it is not cold at all. It is warm, and it moves.<br><br>Whatever has been digging under the village did not start here. It came through here.",
+          "journey_end_deins_mark": "There is a hunter's mark cut into the stone beside the opening. Three strokes and a cross-cut.<br><br>It is cut deep, by someone with time and a good blade, and it is weathered along one edge only, which means it has been here through one wet season and no more.<br><br>Wedged into the crack below it, where the blade could not reach to pry it out, is the broken-off tip of a sword. It is good steel. It is far better steel than anything you own.<br><br>Someone came this far before you, marked the way, and went down.",
+          "how_far_down_posting": "How far it goes — Yamato's request",
+          "yamato_how_far_down_brief": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: You came back. Good. I had half decided who I would be sending after you.<br><br>Now the part I have been turning over since you left. A hole under a village is a hole. Something that digs under a village, through a burial ground, and keeps going, is not interested in the village.<br><br>I want to know how far it runs, and what is at the bottom of the part a man can walk. Not the bottom of all of it. The bottom of what you can walk with a candle.<br><br>Take everything you can carry. If the far end is what I think it is, you will not want to be counting candles when you get to it.",
+          "yamato_how_far_down_waiting": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: The far end of it, hunter. Not the near end.",
+          "report_the_mark_on_the_wall": "Report the mark on the wall",
+          "yamato_dein_reveal": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Three strokes and a cross-cut. Say it again. Three, and then across.<br><br>...Sit down. No — stay standing, it makes no difference.<br><br>That is not a route mark. It is close enough that anyone trained here would read it as one, but it is not. Three and across is what my deputy cut when he wanted the man behind him to know he had gone on alone and was not coming back the same way. I taught him half of it. He invented the rest so I would know it was him and nobody else.<br><br>Dein. Fourteen months. I took a sword with his mark on it off a boy in this marketplace and I told the boy I would look into it, and I did look, and I found nothing, and then I stopped looking.<br><br>And he was under our feet.<br><br>The steel you found — give it to me. No. Keep it. Keep it somewhere you can put your hand on it.<br><br>You are not going back down there this week. Neither am I, and I want to, which is precisely why not. Whatever is at the bottom of that passage got past him, and he was better than you and he was better than me.<br><br>Rest. Eat. I am sending word east tonight, and this time it is not a courtesy. Then you and I are going to find out what my deputy chief walked into."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

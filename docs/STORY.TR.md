@@ -13,7 +13,7 @@ plan veya temenni değildir.
 
 ## Görev zinciri
 
-`js/data/quests.js` içinde yedi görev tanımlı. Altısı erişilebilir.
+`js/data/quests.js` içinde sekiz görev tanımlı. Yedisi erişilebilir.
 
 | Görev       | Ad                | Nereden alınır                     | Gerekenler                                                     | Ödül                                            |
 | ----------- | ----------------- | ---------------------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
@@ -24,6 +24,7 @@ plan veya temenni değildir.
 | `lmfstkil1` | Canavar Temizliği | Avcı Kulübesi iş panosu            | `fwd1` + `hnt1`, 20. seviye ve dojo Golem 4'ün yenilmesi       | 300 servet, `wpn.gsprw`, `eqp.nkgd`, 18.000 exp |
 | `pckld1`    | Sürü Lideri       | Avcı Kulübesi iş panosu            | `lmfstkil1` tamamlanmış ve üzerinden bir oyun günü geçmiş      | 600 servet, `eqp.amsk`, 26.000 exp              |
 | `undcty1`   | Köyün Altında     | Genel dükkândaki yaşlı esnaf       | `pckld1` tamamlanmış; `global.flags.undercity1` kurulur        | 250 servet, 9.000 exp ve aşağı inen yol         |
+| `undcty2`   | Yolculuğun Sonu   | Avcı Kulübesi iş panosu            | `undcty1` tamamlanmış                                          | 1.400 servet, `acc.rmedlon`, 52.000 exp         |
 
 `fwd1` ve `hnt1` birlikte tamamlandığında kulübede bir sahne tetiklenir;
 `wpn.dgknf` ve `item.htrsvr` çantasını verir, köy ilan panosunu ve şifacıyı açan
@@ -75,11 +76,23 @@ köy kapısı (6. seviye) ──► Batı Ormanı ──► Avcı Kulübesi
                                                                     ▼
                                                           duvarı kır
                                                           chss.bsmnthm1 ──► chss.catamn
-                                                          26 oda, 12'si dolu
+                                                          26 oda
                                                                     │
                                                                     ▼
-                                                    ── HİKAYE BURADA, ÜST
-                                                       KATAKOMPLARDA DURUYOR ──
+                                                          undcty2 Yolculuğun Sonu
+                                                          batı koridoru
+                                                          1 × creature.dcrps1
+                                                                    │
+                                                          kesilmiş bir duvar, ılık
+                                                          hava ve bir mevsimlik
+                                                          avcı işareti
+                                                                    │
+                                                          Yamato'ya rapor
+                                                       flags.deintrail kurulur
+                                                                    │
+                                                                    ▼
+                                                    ── HİKAYE BURADA, DEIN'DE
+                                                       DURUYOR ──
 ```
 
 ## Hikaye nerede duruyor
@@ -149,7 +162,40 @@ yazılmış keşif tablosuna kavuştu. Bulduğu şeyler köyün kaybettikleri �
 dâhil. Bunun bedeli mum süresi: `scoutGeneric` de her şey gibi karanlıkta çalışmayı
 reddediyor.
 
-On dört odalık batı koridoru bilinçli olarak hâlâ sessiz.
+### Dördüncü bölüm — Yolculuğun Sonu
+
+Yirmi altı odanın tamamı artık dolu; dört kademe hâlinde ve her kademe tek bir
+popülasyonun güçlendirilmesi değil ayrı bir alan: giriş odaları, doğu çevrimi, batı
+koridoru (`area.cata3a` — burayı inşa eden tarikat bu koridor boyunca gömülü, o
+yüzden orada yürüyen şeyler hâlâ düzen içinde dövüşmeyi ve büyü yapmayı biliyor) ve
+sondan önceki iki oda (`area.cata4a`, tarikattan bile eski).
+
+`chss.cata25`, yani Yolculuğun Sonu, haritanın hep son düğümü olmuştu; artık
+bölümün indiği yer. Üç durumda okunuyor: oyuncu bir şey aramaya başlamadan önceki
+ortam koridoru, aradığında ortada duran `creature.dcrps1`, ve sonrasında onun
+durduğu yerin arkasındaki şey.
+
+Felaket Cesedi "neden şimdi?" sorusunu cevaplıyor ve cevap zaten oyunun içinde
+yazılıydı: kendi açıklaması bunların yalnızca ölüm ki'sinden belirdiğini, karanlık
+ki'nin çoktan aşırı yoğunlaştığı yerlerde çıktığını söylüyor. Bir şey onu
+biriktirmiyorsa orada olamaz. Aynı düşünce koridorun iskeletlerini de açıklıyor:
+`unsctn` kendi açıklamasına göre kimseye zarar vermez — **ta ki** ölüm ki'si
+üzerinde yeterince uzun çalışana kadar.
+
+Onun arkasındaki duvar öbür taraftan kesilmiş, tozu hâlâ solgun ve ötesindeki
+geçitten yükselen hava soğuk değil, ılık. Köyün altını kazan şey buradan
+başlamamış; buradan geçmiş.
+
+Açıklığın yanında bir avcı işareti var: üç çizik ve bir çapraz kesik, yalnızca tek
+kenarı yıpranmış, yani bir yağış mevsimlik. Altındaki çatlakta, oyuncunun sahip
+olduğundan iyi bir çelikten kırılmış bir kılıç ucu sıkışmış.
+
+Bunu anlatmak, Yamato'nun kontrolünü bıraktığı yer. Üç-ve-çapraz bir yol işareti
+değil: yardımcısının, tek başına ilerlediğini ve aynı yoldan dönmeyeceğini söylemek
+için kazıdığı şey — yarısı öğretilmiş, yarısı da Yamato onun olduğunu ve
+başkasının olmadığını bilsin diye uydurulmuş. Dein on dört aydır ayaklarının
+altındaydı ve Yamato aramayı bırakmıştı. O gece doğuya haber salıyor ve bu kez bunun
+bir nezaket olmadığını söylüyor.
 
 ### Diğer çıkmazlar
 
@@ -198,14 +244,14 @@ rağmen arayüzün hiçbir yerinde görünmez.
 
 Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları eksik.
 
-| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                      |
-| ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Katakomplar**        | 26 tamamlanmış sahne | **Artık erişilebilir**: `chss.bsmnthm1`'den iniliyor ve `chss.catamn`'in çıkışı köy merkezi yerine oraya dönüyor. On iki oda dolu: giriş odalarında `area.cata1a`, doğu çevriminde `area.cata2a`. `sector.cata1`'in 11.000 puanlık takibi artık çalışıyor. On dört odalık batı koridorunda hâlâ dövüş yok. |
-| **Ölümsüz bestiyeri**  | 20'nin 15'i          | `cbat`, `stirge`, `zomb1`, `zmbf` ve `ghl` statlandırıldı, ait oldukları Ölümsüz türüne alındı ve erişilebilir. Kalanlar — ghast'lar, mumyalar, zombi şövalye ve büyücüleri, bebek ve kukla ailesi, `dcrps1`, `unsctn` — hâlâ **taslak**: bir rütbe ve başka hiçbir şey.                                   |
-| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                    |
-| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                    |
-| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                             |
-| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                                                     |
+| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                                      |
+| ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                     |
+| **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — artı statlı ama hiçbir alana ait olmayan `lrck`, `lsprt`, `kksh` ve `ngtmr1`. |
+| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                                    |
+| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                                    |
+| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                             |
+| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, 14 kalkanın 13'ü, ~35 silah ve yaklaşık 150 yiyecek dâhil.                                                                                                                                                     |
 
 Bu kümelerin birbirine oturması tesadüf okumakta zorlanacağımız kadar düzenli:
 karanlık 26 odalı bir zindan, hiçbir yerde satılmayan bir meşale, kilidi olmayan

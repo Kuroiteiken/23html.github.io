@@ -12,7 +12,7 @@ aspirational unless it appears under [Continuing the story](#continuing-the-stor
 
 ## The quest chain
 
-Seven quests are defined in `js/data/quests.js`. Six are reachable.
+Eight quests are defined in `js/data/quests.js`. Seven are reachable.
 
 | Quest       | Name                | Given at                           | Requires                                                | Reward                                          |
 | ----------- | ------------------- | ---------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
@@ -23,6 +23,7 @@ Seven quests are defined in `js/data/quests.js`. Six are reachable.
 | `lmfstkil1` | Monster Eradication | Hunter's Lodge job board           | `fwd1` + `hnt1`, level 20, and beating dojo Golem 4     | 300 wealth, `wpn.gsprw`, `eqp.nkgd`, 18,000 exp |
 | `pckld1`    | The Pack Leader     | Hunter's Lodge job board           | `lmfstkil1` done, and one more in-game day since        | 600 wealth, `eqp.amsk`, 26,000 exp              |
 | `undcty1`   | Beneath the Village | The general store's old shopkeeper | `pckld1` done, which sets `global.flags.undercity1`     | 250 wealth, 9,000 exp, and the way down         |
+| `undcty2`   | The End of Journey  | Hunter's Lodge job board           | `undcty1` done                                          | 1,400 wealth, `acc.rmedlon`, 52,000 exp         |
 
 Completing `fwd1` and `hnt1` together triggers a gate scene at the lodge that
 grants `wpn.dgknf` and the satchel `item.htrsvr`, and sets the flags that open
@@ -74,11 +75,22 @@ village gate (level 6) ──► Western Woods ──► Hunter's Lodge
                                                                     ▼
                                                           break through the wall
                                                           chss.bsmnthm1 ──► chss.catamn
-                                                          26 rooms, 12 of them populated
+                                                          26 rooms
                                                                     │
                                                                     ▼
-                                                    ── STORY STOPS HERE, in the
-                                                       upper catacombs ──
+                                                          undcty2 The End of Journey
+                                                          the western corridor
+                                                          1 × creature.dcrps1
+                                                                    │
+                                                          a cut wall, warm air, and
+                                                          a hunter's mark one wet
+                                                          season old
+                                                                    │
+                                                          report to Yamato
+                                                        sets flags.deintrail
+                                                                    │
+                                                                    ▼
+                                                    ── STORY STOPS HERE, on Dein ──
 ```
 
 ## Where the story stops
@@ -150,7 +162,39 @@ Searching works down here too, now that `sector.cata1` has the scout table its
 losing, including the shopkeeper's lantern. It costs candle time: `scoutGeneric`
 refuses to run in the dark, like everything else.
 
-The fourteen-room western corridor is deliberately still quiet.
+### Chapter IV — The End of Journey
+
+All twenty-six rooms are populated now, in four tiers, each a different area
+rather than one population scaled up: the entry rooms, the eastern ring, the
+western corridor (`area.cata3a` — the order that built this place is buried along
+it, which is why what walks there still knows how to fight in formation and how to
+cast), and the two rooms before the end (`area.cata4a`, older than the order).
+
+`chss.cata25`, The End Of Journey, has always been the last node on the map, and is
+now where the chapter lands. It reads in three states: the ambient corridor before
+the player is looking for anything, `creature.dcrps1` standing in it once they are,
+and afterwards what is behind where it stood.
+
+The Disaster Corpse answers _why now_, and the answer was already written into the
+game: its own description says these manifest purely from death ki, in places where
+dark ki is already extremely concentrated. It cannot be there unless something has
+been pooling it. The same idea explains the corridor's skeletons — `unsctn` harms
+nobody, by its own description, **until** death ki has worked on it long enough.
+
+Behind it the wall has been cut through from the far side, the dust is still pale,
+and the air rising out of the passage beyond is warm rather than cold. Whatever has
+been digging under the village did not start here; it came through here.
+
+Beside the opening is a hunter's mark: three strokes and a cross-cut, weathered
+along one edge only, so one wet season old. Wedged in the crack under it is the
+broken tip of a sword, in better steel than the player owns.
+
+Reporting it is where Yamato stops being controlled. Three-and-across is not a
+route mark: it is what his deputy cut to say he had gone on alone and was not
+coming back the same way — half of it taught, half invented so Yamato would know it
+was him and nobody else. Dein has been under their feet for fourteen months, and
+Yamato had stopped looking. He sends word east that night and says that this time
+it is not a courtesy.
 
 ### Other dead ends
 
@@ -198,14 +242,14 @@ the interface, even though `item.bstr` claims to unlock a bestiary.
 This is the important part. The game is not short of content; it is short of
 connections.
 
-| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                             |
-| ----------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catacombs**           | 26 finished scenes | **Now reachable** from `chss.bsmnthm1`, and `chss.catamn`'s exit returns there instead of the village centre. Twelve rooms populated: `area.cata1a` on the entry rooms, `area.cata2a` on the eastern ring. `sector.cata1`'s 11,000-point track is live. The fourteen-room western corridor still holds no combat. |
-| **Undead bestiary**     | 15 of 20 creatures | `cbat`, `stirge`, `zomb1`, `zmbf` and `ghl` are statted, typed as Undead where they belong, and reachable. The rest — ghasts, mummies, zombie knights and mages, the doll and puppet family, `dcrps1`, `unsctn` — are still **stubs**: a rank and nothing else.                                                   |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                     |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                             |
-| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                             |
-| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.                         |
+| Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                                              |
+| ----------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                      |
+| **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area. |
+| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                                      |
+| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                                              |
+| **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                              |
+| **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, 13 of 14 shields, ~35 weapons, roughly 150 foods.                                          |
 
 ### What the catacombs actually lack
 

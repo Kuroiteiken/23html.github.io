@@ -3150,6 +3150,13 @@
         "name": "Köyün Altında",
         "desc": "Bodrumların oradaki yaşlı esnaf bir aydır insanların evinin altını bir şeyin kazdığını söylüyor ve kimse ona inanmadı. Yamato seni onu doğru dürüst dinlemeye yolladı. Bunun canavar işi olduğuna karar vermeden önce köyün neler bildiğini öğren",
         "goal": "Bulunan iz: <span style=\"color:{color}\">{current}/{required}</span>"
+      },
+      "undcty2": {
+        "name": "Yolculuğun Sonu",
+        "desc": "Yamato, köyün altındaki geçidin ne kadar derine gittiğini ve bir adamın mumla yürüyebileceği kısmın dibinde ne olduğunu bilmek istiyor. Taşıyabildiğin her şeyi al",
+        "goal": "Uzak uç: <span style=\"color:{color}\">{state}</span>",
+        "stateInProgress": "ulaşılmadı",
+        "stateDone": "ulaşıldı"
       }
     },
     "skl": {
@@ -4431,6 +4438,15 @@
       },
       "cata2a": {
         "name": "Mezar çevrimi"
+      },
+      "cata3a": {
+        "name": "Mezar koridoru"
+      },
+      "cata4a": {
+        "name": "Derin odalar"
+      },
+      "cata5a": {
+        "name": "Yolculuğun sonu"
       }
     }
   },
@@ -4627,7 +4643,8 @@
           "quest_accepted": "Görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Tekrarlanabilir</span> görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
           "pack_leader_falls": "Büyük kurt yere yığılıyor ve orman tek bir ses çıkarmıyor.",
-          "undercity_sign_found": "Bunu bir kenara yazıyorsun. ({current}/{required})"
+          "undercity_sign_found": "Bunu bir kenara yazıyorsun. ({current}/{required})",
+          "the_end_falls_quiet": "Dağılıyor ve buraya indiğinden beri ilk kez koridor tamamen sessiz."
         }
       },
       "titles": {
@@ -5495,7 +5512,16 @@
           "basement_wall_opened": "Dışarı taşan iki taş bir aletin yanıyla çıkıyor, gerisi ıslak ekmek gibi elinde kalıyor. Arkasındaki aralık kolundan daha derine gidiyor, sonra aralık olmayı bırakıp oda olmaya başlıyor.<br><br>İçinden yükselen hava eski ve durgun, buna rağmen kımıldıyor. Işığının ulaştığı yerin ötesinde bir yerde su, çok uzun zamandır gittiği yere gidiyor.<br><br>Mumun, isteyeceğin kadar dayanmayacak.",
           "take_it_down": "Duvarı indir",
           "leave_it_standing": "Duvarı yerinde bırak",
-          "go_down_into_the_dark": "Karanlığa in"
+          "go_down_into_the_dark": "Karanlığa in",
+          "journey_end_guardian": "Koridor bitiyor. Bir duvarda değil — son olması istenmiş bir odada. Arkanda on bir boş niş var, önünde ise bir şeyin üzerinden defalarca, uzun süre geçmesiyle pürüzsüzleşmiş bir zeminden başka hiçbir şey.<br><br>Ortasında duran şey çürümemiş, çünkü hiç canlı olmamış. Bir insanın aldığı biçim; buraya birikmiş olan ne varsa onunla bir arada tutuluyor ve taşa yol açacak kadar uzun süredir bekliyor.<br><br>Soğuk, onun arkasından geliyor.",
+          "face_what_stands_here": "Karşısına dikil",
+          "journey_end_aftermath": "Düşmüyor, dağılıyor; yerde kalan da bir ceset değil. Pek çok insanın parçaları ve hiçbiri yeni değil.<br><br>Durduğu yerin arkasındaki duvar, duvar değil. Taş öbür taraftan kesilmiş ve kesik eski değil — tozu hâlâ solgun. Ötesindeki geçit aşağı inmeye devam ediyor ve içinden yükselen hava hiç de soğuk değil. Ilık ve kımıldıyor.<br><br>Köyün altını kazan şey buradan başlamamış. Buradan geçmiş.",
+          "journey_end_deins_mark": "Açıklığın yanındaki taşa kazınmış bir avcı işareti var. Üç çizik ve bir çapraz kesik.<br><br>Derin kazınmış; vakti ve iyi bir bıçağı olan biri tarafından. Yalnızca tek kenarı yıpranmış, yani bir yağış mevsimi geçirmiş, daha fazlasını değil.<br><br>Altındaki çatlağa, bıçağın çıkarmaya uzanamadığı yere sıkışmış bir kılıç ucu duruyor. İyi çelik. Senin sahip olduğun her şeyden çok daha iyi bir çelik.<br><br>Biri senden önce buraya kadar gelmiş, yolu işaretlemiş ve aşağı inmiş.",
+          "how_far_down_posting": "Ne kadar derine gidiyor — Yamato'nun talebi",
+          "yamato_how_far_down_brief": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Dönmüşsün. İyi. Peşinden kimi yollayacağıma neredeyse karar vermiştim.<br><br>Şimdi sen gittiğinden beri kafamda çevirdiğim kısma gelelim. Bir köyün altındaki çukur, çukurdur. Ama bir köyün altını kazıp, bir mezarlığın içinden geçip yoluna devam eden şeyin derdi köy değildir.<br><br>Ne kadar uzadığını ve bir adamın yürüyebileceği kısmın dibinde ne olduğunu öğrenmek istiyorum. Hepsinin dibini değil. Mumla yürüyebildiğin kadarının dibini.<br><br>Taşıyabildiğin her şeyi al. Uzak uç düşündüğüm şeyse, oraya vardığında mum sayıyor olmak istemezsin.",
+          "yamato_how_far_down_waiting": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Uzak ucunu dedim avcı. Yakın ucunu değil.",
+          "report_the_mark_on_the_wall": "Duvardaki işareti anlat",
+          "yamato_dein_reveal": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Üç çizik ve bir çapraz kesik. Bir daha söyle. Üç, sonra çapraz.<br><br>...Otur. Hayır — ayakta kal, fark etmez.<br><br>O bir yol işareti değil. Burada eğitim görmüş herkesin öyle okuyacağı kadar benziyor ama değil. Üç ve çapraz, yardımcımın; arkasından gelen adam tek başına ilerlediğini ve aynı yoldan dönmeyeceğini bilsin diye kazıdığı şeydi. Yarısını ben öğrettim. Kalanını, onun olduğunu ve başkasının olmadığını bilmem için kendi uydurdu.<br><br>Dein. On dört ay. Bu pazarda bir çocuğun elinden üzerinde onun işareti olan bir kılıç aldım ve çocuğa araştıracağımı söyledim, araştırdım da, hiçbir şey bulamadım ve sonra aramayı bıraktım.<br><br>Ve o ayaklarımızın altındaydı.<br><br>Bulduğun çelik — ver onu bana. Hayır. Sende kalsın. Elini uzatınca bulabileceğin bir yerde kalsın.<br><br>Bu hafta oraya geri inmiyorsun. Ben de inmiyorum ve inmek istiyorum, tam olarak bu yüzden inmiyorum. O geçidin dibindeki şey onu geçti; o senden de iyiydi, benden de.<br><br>Dinlen. Bir şeyler ye. Bu gece doğuya haber salıyorum ve bu kez bu bir nezaket değil. Sonra sen ve ben, yardımcımın neyin içine yürüdüğünü öğreneceğiz."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

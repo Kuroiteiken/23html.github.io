@@ -2066,6 +2066,81 @@ chss.frstn1b1j.sl = () => {
       });
     });
   }
+  // Chapter IV. Once the player has actually been down, Yamato wants to know how
+  // far it goes.
+  if (
+    quest.undcty1.data.done &&
+    !quest.undcty2.data.started &&
+    !quest.undcty2.data.done
+  )
+    chs(
+      i18n.t("runtime.world.locations.dialogue.how_far_down_posting"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.yamato_how_far_down_brief"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.accept_997df079"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        giveQst(quest.undcty2);
+        smove(chss.frstn1b1, false);
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.maybe_next_time_b3689181"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.frstn1b1, false);
+      });
+    });
+  else if (quest.undcty2.data.started && !quest.undcty2.data.done) {
+    if (!quest.undcty2.data.killed) {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.yamato_how_far_down_waiting"),
+        true,
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.frstn1b1, false);
+      });
+      return;
+    }
+    chs(
+      i18n.t("runtime.world.locations.dialogue.report_the_mark_on_the_wall"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.yamato_dein_reveal"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.accept_the_reward_d2c12b50"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        finishQst(quest.undcty2);
+        global.flags.deintrail = true;
+        smove(chss.frstn1main);
+      });
+    });
+  }
   if (!quest.fwd1.data.done) {
     chs(
       i18n.t("runtime.world.locations.dialogue.firewood_gathering_0fea8bf3"),
@@ -5787,7 +5862,37 @@ chss.cata25.sl = () => {
     ),
   );
   global.lst_loc = 157;
-  chs(select(global.text.catasound), true, "lightgrey", "black");
+  // The room the map has always ended on, and now the place Chapter IV lands. It
+  // reads in three states: the ambient corridor before the player is looking for
+  // anything, the thing that is standing here once they are, and what is written
+  // on the wall behind it afterwards.
+  if (!quest.undcty2.data.started)
+    chs(select(global.text.catasound), true, "lightgrey", "black");
+  else if (!quest.undcty2.data.killed) {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.journey_end_guardian"),
+      true,
+      "crimson",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.face_what_stands_here"),
+      false,
+      "crimson",
+    ).addEventListener("click", () => {
+      area_init(area.cata5a);
+    });
+  } else {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.journey_end_aftermath"),
+      true,
+      "yellow",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.journey_end_deins_mark"),
+      true,
+      "gold",
+    );
+  }
   chs(
     i18n.t("runtime.world.locations.dialogue.move_east_4c32e954"),
     false,
@@ -5817,4 +5922,28 @@ for (const room of [
 ])
   room.onEnter = function () {
     area_init(area.cata2a);
+  };
+
+// The western corridor, and then the two rooms before the end. cata25 is not in
+// either list: what stands there is an encounter the room itself offers, not a
+// population to walk into.
+for (const room of [
+  chss.cata13,
+  chss.cata14,
+  chss.cata15,
+  chss.cata16,
+  chss.cata17,
+  chss.cata18,
+  chss.cata19,
+  chss.cata20,
+  chss.cata21,
+  chss.cata22,
+])
+  room.onEnter = function () {
+    area_init(area.cata3a);
+  };
+
+for (const room of [chss.cata23, chss.cata24])
+  room.onEnter = function () {
+    area_init(area.cata4a);
   };

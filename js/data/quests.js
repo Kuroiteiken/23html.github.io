@@ -355,6 +355,70 @@ quest.undcty1.goalsf = function () {
   ];
 };
 
+// Chapter IV. The player has been down and come back, so Yamato wants to know how
+// far it goes. The corridor answers that; what is standing at the end of it
+// answers why any of this is happening now, because a Disaster Corpse cannot
+// manifest at all unless the dark ki in a place is already deep — its own
+// description says so. And the last thing the player finds there is not a monster.
+quest.undcty2 = new Quest();
+quest.undcty2.id = 8;
+quest.undcty2.name = i18n.t("content.quest.undcty2.name");
+quest.undcty2.rar = 3;
+quest.undcty2.loc = i18n.t(
+  "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
+);
+quest.undcty2.desc = i18n.t("content.quest.undcty2.desc");
+quest.undcty2.data = { t: 0, killed: false };
+quest.undcty2.init = function () {
+  this.callback();
+};
+quest.undcty2.callback = function () {
+  if (!quest.undcty2.data.done)
+    attachCallback(callback.onDeath, {
+      f(victim) {
+        if (victim.id !== creature.dcrps1.id || quest.undcty2.data.killed)
+          return;
+        quest.undcty2.data.killed = true;
+        msg(
+          i18n.t("runtime.data.quests.dialogue.the_end_falls_quiet"),
+          "orange",
+        );
+        smove(chss.cata25);
+      },
+      id: 1007,
+      data: { q: true },
+    });
+};
+quest.undcty2.rwd = function () {
+  this.data.t++;
+  giveWealth(1400);
+  // The Ruin Medallion had no drop, recipe, or vendor anywhere in the game, and
+  // there is no ruin in it older than this one.
+  giveItem(acc.rmedlon);
+  giveExp(52000, true, true, true);
+  detachCallback(callback.onDeath, 1007);
+};
+quest.undcty2.goals = function () {
+  return [
+    i18n.t("content.quest.undcty2.goal", {
+      color: quest.undcty2.data.killed ? "lime" : "yellow",
+      state: i18n.t(
+        quest.undcty2.data.killed
+          ? "content.quest.undcty2.stateDone"
+          : "content.quest.undcty2.stateInProgress",
+      ),
+    }),
+  ];
+};
+quest.undcty2.goalsf = function () {
+  return [
+    i18n.t("content.quest.undcty2.goal", {
+      color: "lime",
+      state: i18n.t("content.quest.undcty2.stateDone"),
+    }),
+  ];
+};
+
 ////////////////////////////////////////////
 
 function giveQst(q) {

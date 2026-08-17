@@ -445,6 +445,79 @@ area.cata2a.drop = [
   { item: item.cndl, c: 0.03 },
 ];
 
+// The long western corridor. The order that built this place is buried along it,
+// which is why what walks here still knows how to fight in formation and how to
+// cast. Its own descriptions say so: the Zombie Knight belonged to the Knights of
+// the Cross and the Zombie Mage to dark mages.
+area.cata3a = new Area();
+area.cata3a.id = 122;
+area.cata3a.name = i18n.t("content.area.cata3a.name");
+area.cata3a.pop = [
+  { crt: creature.zmbm, lvlmin: 18, lvlmax: 22, c: 0.3 },
+  { crt: creature.ght, lvlmin: 18, lvlmax: 23, c: 0.35 },
+  { crt: creature.zmbk, lvlmin: 19, lvlmax: 24, c: 0.35 },
+];
+area.cata3a.size = 40;
+z_bake(area.cata3a);
+area.cata3a.onEnd = function () {
+  roll(item.sbone, 0.7, 3, 8);
+  roll(item.cclth, 0.5, 2, 4);
+  roll(item.cndl, 0.45, 2, 4);
+  roll(item.cn, 0.5, 2, 8);
+  roll(item.cq, 0.2, 1, 3);
+  this.size = rand(16) + 32;
+  smove(chss.cata13);
+};
+area.cata3a.drop = [
+  { item: item.sbone, c: 0.07 },
+  { item: item.cndl, c: 0.03 },
+  { item: item.cn, c: 0.03 },
+];
+
+// The last rooms before the end: the Aging Room and the Eleven Wisemen. Older
+// than the order, and the skeletons here are the ones the game says would never
+// hurt anybody until death ki had been working on them long enough.
+area.cata4a = new Area();
+area.cata4a.id = 123;
+area.cata4a.name = i18n.t("content.area.cata4a.name");
+area.cata4a.pop = [
+  { crt: creature.zmbk, lvlmin: 21, lvlmax: 25, c: 0.3 },
+  { crt: creature.unsctn, lvlmin: 22, lvlmax: 26, c: 0.4 },
+  { crt: creature.mumy, lvlmin: 23, lvlmax: 27, c: 0.3 },
+];
+area.cata4a.size = 26;
+z_bake(area.cata4a);
+area.cata4a.onEnd = function () {
+  roll(item.sbone, 0.8, 4, 10);
+  roll(item.cclth, 0.6, 2, 5);
+  roll(item.cndl, 0.5, 2, 5);
+  roll(item.cq, 0.4, 1, 4);
+  roll(wpn.trch, 0.15);
+  this.size = rand(10) + 22;
+  smove(chss.cata23);
+};
+area.cata4a.drop = [
+  { item: item.sbone, c: 0.08 },
+  { item: item.cndl, c: 0.04 },
+  { item: item.cq, c: 0.02 },
+];
+
+// What is standing at the end of the journey, alone. A single population and a
+// size of one, so this is an encounter rather than a hunting ground: the quest's
+// onDeath hook moves the player back into the room once it falls.
+area.cata5a = new Area();
+area.cata5a.id = 124;
+area.cata5a.name = i18n.t("content.area.cata5a.name");
+area.cata5a.pop = [{ crt: creature.dcrps1, lvlmin: 26, lvlmax: 28, c: 1 }];
+area.cata5a.size = 1;
+z_bake(area.cata5a);
+area.cata5a.onEnd = function () {
+  // Restored so a player who retreats can come back to it.
+  this.size = 1;
+  smove(chss.cata25);
+};
+area.cata5a.drop = [];
+
 function z_bake(area) {
   let c = 0;
   let d = 0;
