@@ -707,12 +707,15 @@ input:focus {
   color: white;
   top: 4px;
 }
+
+/* Held against the right-hand end of the bottom bar. It used to be absolutely
+   placed 7px below the bar, which only landed correctly while the bar itself hung
+   off the panel's bottom edge. */
 #mn {
-  position: absolute;
-  right: 13px;
-  bottom: -7px;
   display: flex;
   width: 200px;
+  margin-left: auto;
+  padding-right: 13px;
 }
 #mnb {
   width: 25%;
@@ -953,38 +956,66 @@ input:focus {
   flex: 0 0 42px;
 }
 
+/* Three fixed parts: the filter row at the top, the item list scrolling in the
+   middle, and the sort/money bar at the bottom. The list used to ask for 86% of a
+   wrapper with no height of its own, so the percentage never resolved and the list
+   simply grew with the inventory — long enough and it scrolled the whole panel,
+   carrying the filter row off the top and burying the bottom bar. A flex column
+   gives the list the space that is actually left over and pins both bars. */
 #inv {
   color: rgb(188 254 254);
+  display: flex;
+  flex-direction: column;
   width: 330px;
   height: 430px;
   border: solid 3px black;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
   resize: vertical;
   top: 337px;
+}
+#inv_body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 #inv_control {
   display: flex;
   border-bottom: solid 2px grey;
+  flex: 0 0 auto;
+}
+#inv_ctx_b {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 #inv_control_b {
-  position: absolute;
   display: flex;
+  align-items: center;
   width: 100%;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
-  bottom: 7px;
+  border-top: solid 1px grey;
+  flex: 0 0 auto;
 }
 
-/* The sort bar below is positioned over the list, so the list reserves room for
-   it. Without this the last rows of a long inventory sit underneath the bar and
-   cannot be read. */
+/* .bts_b nudges itself down by 7px, which suited a bar that used to hang 7px off
+   the bottom edge. The bar sits in the flow now, so the nudge would push the
+   buttons out through it. The skill window still uses .bts_b as it was. */
+#inv_control_b > .bts_b {
+  top: 0;
+  border-top: none;
+}
+
 #inv_con {
+  min-height: 0;
   overflow: auto;
-  height: 86%;
   position: relative;
   box-sizing: border-box;
-  padding-bottom: 26px;
+  flex: 1 1 auto;
 }
 #eq_w {
   background-color: rgb(22 52 104);

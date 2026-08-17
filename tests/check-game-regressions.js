@@ -623,13 +623,28 @@ if (
   );
 }
 
+// The sort bar used to be laid over the list, which meant the list had to
+// reserve room for it and, because its own height was a percentage of a wrapper
+// with no height, a long inventory scrolled the whole panel instead — carrying
+// the filter row off the top and burying the bar. The panel is a flex column
+// now: both bars are fixed and only the list scrolls, so what has to be locked is
+// that neither bar can flex away and that the list can actually shrink.
+const inventoryPanel = [
+  /#inv \{[^}]*display: flex;[^}]*flex-direction: column;[^}]*overflow: hidden;/s,
+  /#inv_body \{[^}]*min-height: 0;[^}]*flex: 1 1 auto;/s,
+  /#inv_control \{[^}]*flex: 0 0 auto;/s,
+  /#inv_ctx_b \{[^}]*min-height: 0;[^}]*flex: 1 1 auto;/s,
+  /#inv_control_b \{[^}]*flex: 0 0 auto;/s,
+  /#inv_con \{[^}]*min-height: 0;[^}]*overflow: auto;[^}]*flex: 1 1 auto;/s,
+];
+
 if (
-  !/#inv_con \{[^}]*box-sizing: border-box;[^}]*padding-bottom: 26px;/s.test(
-    gameCss,
-  )
+  !inventoryPanel.every((pattern) => pattern.test(gameCss)) ||
+  /#inv_control_b \{[^}]*position: absolute;/s.test(gameCss) ||
+  /#inv_con \{[^}]*height: 86%;/s.test(gameCss)
 ) {
   throw new Error(
-    "Inventory regression: the item list must reserve room for the sort bar that sits over it, or its last rows become unreadable.",
+    "Inventory regression: the filter row and sort bar must stay pinned while only the item list scrolls, so the panel has to remain a flex column with a shrinkable list.",
   );
 }
 

@@ -264,6 +264,21 @@ async function main() {
       );
     }
 
+    const inventoryBars = await runChrome(
+      `${baseUrl}/__test-inventory-bars.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(inventoryBars.stderr);
+    assertCommonStartup(inventoryBars.stdout, port);
+    if (!inventoryBars.stdout.includes('data-inventory-bars-verified="true"')) {
+      const failures = inventoryBars.stdout.match(
+        /data-inventory-bars-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `A long inventory pushes its filter row or sort bar out of the panel: ${failures?.[1] || "probe incomplete"}`,
+      );
+    }
+
     const releaseNotes = await runChrome(
       `${baseUrl}/__test-release-notes.html?lang=tr`,
       profiles[0],
@@ -383,7 +398,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);
