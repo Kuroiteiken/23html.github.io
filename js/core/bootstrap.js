@@ -616,7 +616,59 @@ dom.loadingt.style.fontSize = "4em";
 dom.loadingt.style.position = "absolute";
 dom.loadingt.style.left = window.innerWidth / 2 - 150 + "px";
 
-function keepUnreadableSave(saved) {
+// The save is a positional format: pipe-separated segments with a sentinel at a
+// fixed index. Segments 0 to 17 hold JSON, 18 is the sentinel, and 19 was added
+// later so an older save may stop before it. A shifted or truncated segment used
+// to restore silently as the wrong data, so the shape is checked before anything
+// is applied.
+const saveSentinelIndex = 18;
+const saveSentinel = "savevalid";
+const saveJsonSegmentCount = 18;
+
+function describeSaveProblems(segments) {
+  const problems = [];
+  if (segments.length <= saveSentinelIndex)
+    problems.push(
+      `expected more than ${saveSentinelIndex} segments, found ${segments.length}`,
+    );
+  else if (segments[saveSentinelIndex] !== saveSentinel)
+    problems.push(
+      `segment ${saveSentinelIndex} should be "${saveSentinel}" but is "${segments[saveSentinelIndex]}"`,
+    );
+  for (let index = 0; index < saveJsonSegmentCount; index++) {
+    if (index >= segments.length) break;
+    try {
+      JSON.parse(segments[index]);
+    } catch (err) {
+      problems.push(`segment ${index} is not valid JSON`);
+    }
+  }
+  return problems;
+}
+
+// Migrations upgrade the parsed globals object of an older save. Each entry
+// names the version it upgrades a save TO, so a save reporting a lower version
+// runs every later migration in order. Add one here whenever a release changes
+// what a field means, rather than guessing at load time.
+const saveMigrations = [];
+
+function migrateSave(globalsSegment, fromVersion) {
+  let applied = 0;
+  for (const migration of saveMigrations) {
+    if (fromVersion >= migration.to) continue;
+    migration.apply(globalsSegment);
+    applied++;
+  }
+  if (applied)
+    console.info(
+      `Applied ${applied} save migration(s) from v${fromVersion} to v${global.ver}.`,
+    );
+  return applied;
+}
+
+function keepUnreadableSave(saved, problems) {
+  if (problems && problems.length)
+    console.warn("The save was rejected:\n- " + problems.join("\n- "));
   try {
     window.localStorage.setItem("v0.3.unreadable", saved);
   } catch (err) {
@@ -678,6 +730,14 @@ function load(dt) {
     global.flags.rptbncgtf = false;
     global.flags.rptbncgt = false;
     str = str.split("|");
+    const saveProblems = describeSaveProblems(str);
+    if (saveProblems.length) {
+      // Nothing has been applied yet, so stopping here leaves the running game
+      // untouched and keeps the original bytes for recovery.
+      keepUnreadableSave(saved, saveProblems);
+      clearLoadingScreen();
+      return;
+    }
     const yu_s = JSON.parse(str[0]);
     for (const a in ttl) {
       ttl[a].have = false;
@@ -849,6 +909,7 @@ function load(dt) {
       console.warn(
         `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
       );
+    else migrateSave(a1, global.save_ver);
     // Older saves stored this as a string, and it is compared numerically.
     global.msgs_max = Math.min(50, Math.max(1, Number(a1.g) || 36));
     dom.ct_bt4_1b.value = global.msgs_max;

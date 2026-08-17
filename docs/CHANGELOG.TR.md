@@ -10,6 +10,26 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v476 — kararlılık ve sözü tutma
 
+- Kaydın biçimi, hiçbir parçası geri yüklenmeden önce doğrulanıyor. Format
+  konumsal — 18. sırada `savevalid` sabiti bulunan, boruyla ayrılmış segmentler —
+  bu yüzden kayan veya kırpılmış bir kayıt yanlış veri olarak yükleniyor ya da
+  yarı yolda hata fırlatıp oyunu yarım bırakıyordu. `describeSaveProblems` artık
+  segment sayısını, sabiti ve 0–17 arasının JSON olarak ayrıştığını denetliyor;
+  başarısızlıkta özgün veri olduğu gibi yedeklenip bildiriliyor, hiçbir şey
+  uygulanmıyor. Sonradan eklenen 19. segment isteğe bağlı kalıyor.
+- Sürüme göre anahtarlanmış bir migrasyon tablosu (`saveMigrations`) eklendi; bir
+  kayıt bir değişiklikten önceye aitse ayrıştırılmış globallere uygulanıyor. Şu an
+  boş; amaç, bir alanın anlamını değiştiren ilk sürümün bunu yükleme anında tahmin
+  etmek yerine bildirebileceği bir yeri olması.
+- Paketteki ilk davranış testi olan `tests/save-format.test.js` eklendi. Kayıt
+  biçimi yardımcılarını paketten çıkarıp gerçek kayıt dizgileriyle çalıştırıyor;
+  kaynağın nasıl yazıldığını değil ne yaptığını doğruluyor. Dokuz durum
+  kapsanıyor: düzgün kayıt, isteğe bağlı son segment, eksik sabit, kırpılma, tek
+  ve çok bozuk segment, ve migrasyonların yalnızca kayıttan yeni olduğunda ve
+  sırayla çalışması. `npm run check` içine bağlandı.
+- Bozuk kayıt tarayıcı senaryosu, artık hata fırlatarak ulaştığı açılış hatası
+  yerine geri yükleme öncesi reddi doğruluyor.
+
 - Yaratık rehberine okunacak bir şey verildi. Her kayıt artık üzerine gelindiğinde
   yaratığın kendi çevrilmiş açıklamasını gösteriyor; panel önceden yalnızca ad,
   rütbe ve öldürme sayısı listeliyordu, oysa kilidi açan eşya bir ansiklopedi

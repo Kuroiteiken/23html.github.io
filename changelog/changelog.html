@@ -279,6 +279,11 @@
         </header>
         <ul class="release-changes">
           <li>
+            A damaged save is now checked before anything is restored.
+            Previously a shifted or truncated save could load as the wrong data;
+            it is now backed up untouched and reported instead
+          </li>
+          <li>
             Every creature now has a rank, so the bestiary's rank column reads
             properly instead of showing '???' for almost half the roster
           </li>

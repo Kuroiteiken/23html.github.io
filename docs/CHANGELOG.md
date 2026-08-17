@@ -10,6 +10,26 @@ changes. Player-facing game content and release notes belong in
 
 ### v476 — stability and follow-through
 
+- Validate the save's shape before restoring any of it. The format is positional
+  — pipe-separated segments with a `savevalid` sentinel at index 18 — so a
+  shifted or truncated save used to restore as the wrong data, or throw partway
+  through and leave the game half-loaded. `describeSaveProblems` now checks the
+  segment count, the sentinel, and that segments 0–17 parse as JSON; a failure
+  backs the original bytes up and reports them without applying anything. The
+  segment added later at index 19 stays optional.
+- Added a version-keyed migration table, `saveMigrations`, applied to the parsed
+  globals when a save predates a change. It is empty today; the point is that
+  the next release that changes a field's meaning has somewhere to declare it
+  instead of guessing at load time.
+- Added `tests/save-format.test.js`, the first behaviour test in the suite. It
+  lifts the save-format helpers out of the bundle and runs them against real
+  save strings, asserting what they do rather than how the source reads. Nine
+  cases cover the well-formed save, the optional trailing segment, a missing
+  sentinel, truncation, single and multiple bad segments, and that migrations
+  run only when newer than the save and in order. Wired into `npm run check`.
+- The malformed-save browser scenario now asserts the pre-restore rejection
+  rather than the startup error it used to reach by throwing.
+
 - Gave the bestiary something to read. Every entry now shows the creature's own
   localized description on hover; the panel previously listed only a name, a
   rank, and a kill count, while the unlocking item promises an encyclopedia.

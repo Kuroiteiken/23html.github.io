@@ -303,8 +303,14 @@ async function main() {
     );
     assertNoUnexpectedErrors(recovery.stderr, true);
     assertCommonStartup(recovery.stdout, port);
-    if (!recovery.stdout.includes('id="startup-error"')) {
-      throw new Error("A malformed save did not show the recovery message.");
+    // This fixture decodes but has the wrong shape, so it is rejected by the
+    // segment check before anything is restored. It used to reach JSON.parse and
+    // throw, which surfaced as the startup error instead; being caught up front
+    // means the save is backed up rather than partially applied.
+    if (!recovery.stdout.includes('id="save-unreadable"')) {
+      throw new Error(
+        "A malformed save was not reported before the restore began.",
+      );
     }
 
     const unreadable = await runChrome(

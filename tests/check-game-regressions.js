@@ -391,7 +391,7 @@ if (
 }
 
 if (
-  !/function keepUnreadableSave\(saved\)/.test(bootstrapSource) ||
+  !/function keepUnreadableSave\(saved, problems\)/.test(bootstrapSource) ||
   !/window\.localStorage\.setItem\("v0\.3\.unreadable", saved\)/.test(
     bootstrapSource,
   ) ||
