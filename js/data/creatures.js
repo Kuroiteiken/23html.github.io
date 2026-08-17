@@ -449,11 +449,46 @@ creature.zomb1.battle_ai = function (x, y, z) {
   return attack(x, y);
 };
 
+// Older than the order that buried it, and slow enough that the danger is
+// entirely in not being able to leave.
 creature.mumy = new Creature();
 creature.mumy.id = 114;
 creature.mumy.name = i18n.t("content.creature.mumy.name");
 creature.mumy.desc = i18n.t("content.creature.mumy.desc");
+creature.mumy.type = 2;
+creature.mumy.exp = 620;
+creature.mumy.hp_r = 2400;
+creature.mumy.stat_p = [1.8, 1.4, 0.7, 1.3];
+creature.mumy.aff = [36, -10, 26, -36, 4, -70, 86];
+creature.mumy.cls = [54, 50, 60];
+creature.mumy.eqp[0].aff = [36, -10, 26, -36, 4, -70, 86];
+creature.mumy.eqp[0].cls = [13, 12, 15];
+creature.mumy.ctype = 1;
+creature.mumy.str_r = 52;
+creature.mumy.agl_r = 14;
+creature.mumy.int_r = 22;
+creature.mumy.spd_r = 2;
+creature.mumy.eva = 6;
+creature.mumy.res.poison = 0;
+creature.mumy.res.venom = 0;
+creature.mumy.res.sleep = 0;
+creature.mumy.res.bleed = 0.15;
+creature.mumy.res.death = 0.3;
+creature.mumy.res.death = 0.2;
+creature.mumy.res.frost = 0.4;
+creature.mumy.res.paralize = 0.15;
+creature.mumy.drop = [
+  { item: item.sbone, chance: 0.5 },
+  { item: item.cclth, chance: 0.35 },
+  { item: item.cn, chance: 0.2 },
+];
 creature.mumy.rnk = 13;
+creature.mumy.blood = 0.2;
+creature.mumy.pts = 220;
+creature.mumy.battle_ai = function (x, y, z) {
+  if (random() <= 0.25) return attack(x, y, abl.bash);
+  return attack(x, y);
+};
 
 // Its own description already says ghouls lurk in the catacombs, so it has been
 // waiting for the region to be reachable. Where the zombie is a wall, this is the
@@ -495,11 +530,45 @@ creature.ghl.battle_ai = function (x, y, z) {
   return attack(x, y);
 };
 
+// Borrowed strength rather than its own, and it moves like something that has
+// been given more than a body can carry.
 creature.ght = new Creature();
 creature.ght.id = 116;
 creature.ght.name = i18n.t("content.creature.ght.name");
 creature.ght.desc = i18n.t("content.creature.ght.desc");
+creature.ght.type = 2;
+creature.ght.exp = 420;
+creature.ght.hp_r = 1100;
+creature.ght.stat_p = [1.4, 1.35, 1.5, 1.1];
+creature.ght.aff = [30, 14, 22, -24, 6, -66, 80];
+creature.ght.cls = [46, 42, 48];
+creature.ght.eqp[0].aff = [30, 14, 22, -24, 6, -66, 80];
+creature.ght.eqp[0].cls = [11, 10, 12];
+creature.ght.ctype = 1;
+creature.ght.str_r = 42;
+creature.ght.agl_r = 38;
+creature.ght.int_r = 14;
+creature.ght.spd_r = 5;
+creature.ght.eva = 28;
+creature.ght.res.poison = 0;
+creature.ght.res.venom = 0;
+creature.ght.res.sleep = 0;
+creature.ght.res.bleed = 0.15;
+creature.ght.res.death = 0.3;
+creature.ght.res.curse = 0.4;
+creature.ght.drop = [
+  { item: item.sbone, chance: 0.4 },
+  { item: item.cclth, chance: 0.2 },
+  { item: item.cndl, chance: 0.1 },
+];
 creature.ght.rnk = 12;
+creature.ght.blood = 0.4;
+creature.ght.pts = 150;
+creature.ght.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.scrtch);
+  else if (random() <= 0.3) return attack(x, y, abl.pbite);
+  return attack(x, y);
+};
 
 // One that still remembers how it used to fight. Slower than the ghoul and far
 // harder to put down, which is what makes the two of them together a problem: you
@@ -541,17 +610,86 @@ creature.zmbf.battle_ai = function (x, y, z) {
   return attack(x, y);
 };
 
+// It kept the training. That is what separates it from the rest: it does not
+// simply come at you, it still knows how to open a guard.
 creature.zmbk = new Creature();
 creature.zmbk.id = 118;
 creature.zmbk.name = i18n.t("content.creature.zmbk.name");
 creature.zmbk.desc = i18n.t("content.creature.zmbk.desc");
+creature.zmbk.type = 2;
+creature.zmbk.exp = 460;
+creature.zmbk.hp_r = 1600;
+creature.zmbk.stat_p = [1.6, 1.4, 1.0, 0.6];
+creature.zmbk.aff = [34, -6, 14, -26, 6, -58, 70];
+creature.zmbk.cls = [52, 48, 54];
+creature.zmbk.eqp[0].aff = [34, -6, 14, -26, 6, -58, 70];
+creature.zmbk.eqp[0].cls = [13, 12, 13];
+creature.zmbk.ctype = 1;
+creature.zmbk.str_r = 50;
+creature.zmbk.agl_r = 24;
+creature.zmbk.int_r = 6;
+creature.zmbk.spd_r = 3;
+creature.zmbk.eva = 12;
+creature.zmbk.res.poison = 0;
+creature.zmbk.res.venom = 0;
+creature.zmbk.res.sleep = 0;
+creature.zmbk.res.bleed = 0.15;
+creature.zmbk.res.death = 0.3;
+creature.zmbk.res.paralize = 0.2;
+creature.zmbk.res.frost = 0.5;
+creature.zmbk.drop = [
+  { item: item.sbone, chance: 0.45 },
+  { item: item.cclth, chance: 0.25 },
+  { item: item.cp, chance: 0.3 },
+  { item: item.cn, chance: 0.15 },
+];
 creature.zmbk.rnk = 12;
+creature.zmbk.blood = 0.4;
+creature.zmbk.pts = 170;
+creature.zmbk.battle_ai = function (x, y, z) {
+  if (random() <= 0.25) return attack(x, y, abl.dstab);
+  else if (random() <= 0.3) return attack(x, y, abl.bash);
+  return attack(x, y);
+};
 
+// It still casts, which is the whole problem: everything else down here has
+// to reach you first.
 creature.zmbm = new Creature();
 creature.zmbm.id = 119;
 creature.zmbm.name = i18n.t("content.creature.zmbm.name");
 creature.zmbm.desc = i18n.t("content.creature.zmbm.desc");
+creature.zmbm.type = 2;
+creature.zmbm.exp = 340;
+creature.zmbm.hp_r = 700;
+creature.zmbm.stat_p = [1.2, 1.1, 0.9, 2.2];
+creature.zmbm.aff = [20, 10, 30, -20, 8, -62, 74];
+creature.zmbm.cls = [30, 28, 30];
+creature.zmbm.eqp[0].aff = [20, 10, 30, -20, 8, -62, 74];
+creature.zmbm.eqp[0].cls = [7, 7, 7];
+creature.zmbm.ctype = 1;
+creature.zmbm.str_r = 22;
+creature.zmbm.agl_r = 18;
+creature.zmbm.int_r = 40;
+creature.zmbm.spd_r = 3;
+creature.zmbm.eva = 12;
+creature.zmbm.res.poison = 0;
+creature.zmbm.res.venom = 0;
+creature.zmbm.res.sleep = 0;
+creature.zmbm.res.bleed = 0.15;
+creature.zmbm.res.death = 0.3;
+creature.zmbm.res.paralize = 0.3;
+creature.zmbm.drop = [
+  { item: item.sbone, chance: 0.35 },
+  { item: item.cclth, chance: 0.2 },
+  { item: item.cndl, chance: 0.1 },
+];
 creature.zmbm.rnk = 11;
+creature.zmbm.blood = 0.35;
+creature.zmbm.pts = 120;
+creature.zmbm.battle_ai = function (x, y, z) {
+  if (random() <= 0.4) return attack(x, y, abl.spark);
+  return attack(x, y);
+};
 
 creature.skl = new Creature();
 creature.skl.name = i18n.t("content.creature.skl.name");
@@ -873,17 +1011,92 @@ creature.lsprt.drop = [
 ];
 creature.lsprt.rnk = 10;
 
+// The thing at the end of the corridor, and the proof of what is wrong: this
+// cannot manifest at all unless the dark ki here is already deep.
 creature.dcrps1 = new Creature();
 creature.dcrps1.id = 134;
 creature.dcrps1.name = i18n.t("content.creature.dcrps1.name");
 creature.dcrps1.desc = i18n.t("content.creature.dcrps1.desc");
+creature.dcrps1.type = 2;
+creature.dcrps1.exp = 1800;
+creature.dcrps1.hp_r = 4200;
+creature.dcrps1.stat_p = [1.9, 1.5, 1.2, 1.4];
+creature.dcrps1.aff = [42, 12, 34, -40, 8, -78, 96];
+creature.dcrps1.cls = [66, 62, 68];
+creature.dcrps1.eqp[0].aff = [42, 12, 34, -40, 8, -78, 96];
+creature.dcrps1.eqp[0].cls = [16, 15, 17];
+creature.dcrps1.ctype = 1;
+creature.dcrps1.str_r = 64;
+creature.dcrps1.agl_r = 30;
+creature.dcrps1.int_r = 30;
+creature.dcrps1.spd_r = 4;
+creature.dcrps1.eva = 18;
+creature.dcrps1.res.poison = 0;
+creature.dcrps1.res.venom = 0;
+creature.dcrps1.res.sleep = 0;
+creature.dcrps1.res.bleed = 0;
+creature.dcrps1.res.death = 0.1;
+creature.dcrps1.res.curse = 0.2;
+creature.dcrps1.res.frost = 0.35;
+creature.dcrps1.res.paralize = 0.1;
+creature.dcrps1.res.blind = 0.2;
+creature.dcrps1.drop = [
+  { item: item.ess6, chance: 0.35 },
+  { item: acc.sstn, chance: 0.15 },
+  { item: item.sbone, chance: 0.7 },
+  { item: item.cclth, chance: 0.4 },
+];
 creature.dcrps1.rnk = 15;
+creature.dcrps1.blood = 0.05;
+creature.dcrps1.pts = 500;
+creature.dcrps1.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.spark);
+  else if (random() <= 0.3) return attack(x, y, abl.bash);
+  else if (random() <= 0.25) return attack(x, y, abl.scrtch);
+  return attack(x, y);
+};
 
+// Its own description says these do not hurt anyone — they pull pranks — until
+// death ki has been on them too long, and then they go frenzied. The whole
+// point of this corridor is that something has been at them for a while.
 creature.unsctn = new Creature();
 creature.unsctn.id = 135;
 creature.unsctn.name = i18n.t("content.creature.unsctn.name");
 creature.unsctn.desc = i18n.t("content.creature.unsctn.desc");
+creature.unsctn.type = 2;
+creature.unsctn.exp = 700;
+creature.unsctn.hp_r = 1800;
+creature.unsctn.stat_p = [1.5, 1.5, 1.6, 0.8];
+creature.unsctn.aff = [32, 16, 20, -18, 10, -60, 76];
+creature.unsctn.cls = [50, 46, 44];
+creature.unsctn.eqp[0].aff = [32, 16, 20, -18, 10, -60, 76];
+creature.unsctn.eqp[0].cls = [12, 11, 11];
+creature.unsctn.ctype = 1;
+creature.unsctn.str_r = 46;
+creature.unsctn.agl_r = 40;
+creature.unsctn.int_r = 8;
+creature.unsctn.spd_r = 5;
+creature.unsctn.eva = 30;
+creature.unsctn.res.poison = 0;
+creature.unsctn.res.venom = 0;
+creature.unsctn.res.sleep = 0;
+creature.unsctn.res.bleed = 0.15;
+creature.unsctn.res.death = 0.3;
+creature.unsctn.res.death = 0.1;
+creature.unsctn.res.bleed = 0;
+creature.unsctn.res.paralize = 0.1;
+creature.unsctn.drop = [
+  { item: item.sbone, chance: 0.6 },
+  { item: item.cp, chance: 0.25 },
+];
 creature.unsctn.rnk = 14;
+creature.unsctn.blood = 0.05;
+creature.unsctn.pts = 250;
+creature.unsctn.battle_ai = function (x, y, z) {
+  if (random() <= 0.3) return attack(x, y, abl.rstab);
+  else if (random() <= 0.25) return attack(x, y, abl.scrtch);
+  return attack(x, y);
+};
 
 creature.wolf1 = new Creature();
 creature.wolf1.name = i18n.t("content.creature.wolf1.name");

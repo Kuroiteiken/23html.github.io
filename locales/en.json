@@ -27,7 +27,7 @@
       "quests": "Q U E S T S",
       "bestiary": "B E S T I A R Y",
       "statistics": "S T A T I S T I C S",
-      "questList": "Q U E S T??L I S T",
+      "questList": "Q U E S T　　L I S T",
       "stats": "S T A T S",
       "masteries": "M A S T E R I E S"
     },
@@ -88,8 +88,8 @@
       "stat": "{stat}: {value}",
       "hitAndDodgeChance": "hit chance: {hit} / dodge chance: {dodge}{modifier}",
       "skillLevel": "{skill} lvl: {level}",
-      "skillExperience": "?exp: {current}/{max}",
-      "skillExperiencePadded": "?exp: {current}/{max}?",
+      "skillExperience": " exp: {current}/{max}",
+      "skillExperiencePadded": " exp: {current}/{max} ",
       "abbr": {
         "str": "STR",
         "agl": "AGL",

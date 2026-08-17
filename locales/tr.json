@@ -79,7 +79,7 @@
     "hud": {
       "levelTitle": " Sv:{level} '{title}'",
       "criticalChance": "Kritik şansı: %{chance}",
-      "defense": "DEF: {value}",
+      "defense": "SAV: {value}",
       "health": "Can: {current}/{max}",
       "experience": "TP: {current}/{max}",
       "energy": "Enerji: {current}/{max} verim: %{efficiency}",
@@ -707,7 +707,7 @@
         "desc": "Sağlığı her saniye tüketir"
       },
       "vnm": {
-        "name": "Zehir",
+        "name": "Ağı",
         "desc": "Sağlığı her saniye tüketir"
       },
       "psnwrd": {
@@ -2867,7 +2867,7 @@
         "desc": "Fosilleşmiş organik kütlenin siyah kayaları. Bu kömür çok uzun süre yanıyor"
       },
       "coal2": {
-        "name": "Kömür",
+        "name": "Odun Kömürü",
         "desc": "Kaliteli odunun uzun süre özenle yakılmasıyla elde edilen kömür. Bu kömür çok uzun süre kül oluyor"
       },
       "cndl2": {
@@ -3482,7 +3482,7 @@
         }
       },
       "rtr": {
-        "name": "Kaçınma",
+        "name": "Sıyrılma",
         "desc": "Tehlikeden kaçma yeteneği"
       },
       "fmn": {
@@ -3632,7 +3632,7 @@
         "desc": "Dojo'nun değerli ekipmanlarını yok eden kişi. Biraz daha büyük olsaydın masrafları öderdin ama öğretmenini gururlandırdın."
       },
       "wsl": {
-        "name": "Kurt Avcısı",
+        "name": "Kurt Katili",
         "desc": "Bir vahşi kurt sürüsüne karşı tek başına gittin. Bu bir şey ifade ediyor!"
       },
       "knf": {
@@ -3676,7 +3676,7 @@
         "desc": "Dış dünyayı umursamadan derin uyumayı öğrendin. Bedenin her dinlenişinde uyum sağlıyor ve güçleniyor"
       },
       "slp3": {
-        "name": "Rüya gözlemcisi",
+        "name": "Rüya Gözcüsü",
         "desc": "3"
       },
       "tcvl": {
@@ -3721,20 +3721,20 @@
         "desc": "Vücudunuz çok daha iyi durumda, dayanıklılığınız da öyle. Hızlı hareket etmek artık sizi o kadar rahatsız etmiyor ama enerjinizi harcıyorsunuz ve bir nevi acıkıyorsunuz."
       },
       "jgg": {
-        "name": "Koşucu",
+        "name": "Hafif Koşucu",
         "desc": "Sadece yürümek artık işe yaramıyor, belki yürüyerek seyahat ederken biraz hız yapmalısınız?",
         "tdesc": "Koşmak %15 daha az enerji harcar"
       },
       "spn": {
-        "name": "Kısa mesafe koşucusu",
+        "name": "Kısa Mesafe Koşucusu",
         "desc": "s"
       },
       "ilt": {
-        "name": "Okuma yazma bilmeyen",
+        "name": "Okumasız",
         "desc": "Temel yazıları bile anlamakta gerçekten zorlanıyorsunuz. Dükkanların dışındaki tabelalar bile sorun çıkarıyor"
       },
       "und": {
-        "name": "eğitimsiz",
+        "name": "Eğitimsiz",
         "desc": "Kitaplarla pek aranız yok, tüm edebiyat bilginiz basit çocuk hikayeleri ve peri masallarından başka bir şey değil"
       },
       "aaa": {
@@ -3762,7 +3762,7 @@
         "desc": "Kılıç oyununuz sıradan bir piyade askerinin rütbesine ulaştı. Ya da sen öyle düşündün. Belki en düşük seviyeli bir paralı askerle eşleşebilirsin ki bu gurur duyulacak bir şey değil. Hala kendine gerçek bir kılıç ustası demekten çok uzaktasın"
       },
       "lnc1": {
-        "name": "Mızrak tutucu",
+        "name": "Mızrak Tutan",
         "desc": "Size çok yakıştığını düşündüğünüz Mızrakçılık sanatının hem saldırı hem de savunma amaçlı olarak nasıl kullanılabileceğini öğrendiniz. Ancak bir mızrağı beceriyle kullanmak başlangıçta düşündüğünüzden çok daha zordur."
       },
       "lnc2": {
@@ -3770,11 +3770,11 @@
         "desc": "Sırıklı silah kullanırken refleksleriniz biraz daha iyileşti, en azından artık her saniye vuruştan sonra silahınızı bırakmıyorsunuz. Zayıf becerilerinle köylü mızrak grubunun bir parçası olarak düşünülebilirsin"
       },
       "lnc3": {
-        "name": "Flanger",
+        "name": "Falanks Eri",
         "desc": "İlkel mızrakçılığınıza hakim olmaya başlıyorsunuz, eğitiminize ne kadar çaba harcadığınız göz önüne alındığında bu güven verici. Yeteneğinizle ikinci sınıf ön cephe askeri ekibinin bir parçası olabilirsiniz, ancak daha yükseği hedefleyeceksiniz"
       },
       "hmr2": {
-        "name": "Ezici",
+        "name": "Balyozcu",
         "desc": "Bir şeyleri çekiçle veya sopayla ezmek basit görünebilir, ancak bunu düzgün ve etkili bir şekilde yapmak biraz beceri gerektirir. Temelleri anlıyorsunuz ama bunun için yeterli güce sahip değilsiniz"
       },
       "hmr3": {
@@ -3852,7 +3852,7 @@
         "desc": "Küçük yırtıcılar sizi bir tehdit olarak görmüyorlar ki bu iyi bir şey ama yine de aç olduklarında onları rahatsız etmek istemezsiniz. En azından vahşi yaşamın tehlikelerinden kaçınmanın bir yolunun olduğunu düşünüyorsunuz"
       },
       "dngs1": {
-        "name": "dikkatli",
+        "name": "Tedbirli",
         "desc": "Bazen vurulduğunuzda normalden çok daha fazla acı verir. Bundan nefret ediyorsun ama bu neden oluyor? Bundan nasıl kaçınacağınızı bulmalısınız"
       },
       "dngs2": {
@@ -3892,7 +3892,7 @@
         "desc": "Milyonlar gitti, milyarlar gitti..."
       },
       "kill5": {
-        "name": "Nöbetçi",
+        "name": "Gözcü",
         "desc": "5 milyon ölüm! Küçük şehrin nüfusunu ortadan kaldırmayı başardınız. Düşük güç seviyeniz göz önüne alındığında bu oldukça sessiz bir başarı"
       },
       "axc1": {
