@@ -1717,6 +1717,16 @@ const maxBacklogTicks = 28800;
 // as fast as the machine allows without ever blocking a frame. At the old fixed 60
 // per frame, even the hour it did keep took a minute of real time to catch up.
 const catchUpBudgetMs = 12;
+// Catching up is a different situation from ordinary play, and 12 ms could not pay
+// for it. A hidden tab is woken about once a minute and owes sixty ticks, and a
+// combat tick is the expensive kind -- measured between 4 and 46 ticks in 12 ms
+// depending on how far apart the two speeds are, never the sixty owed. The shortfall
+// carried forward as debt, the debt grew on every wake, and once it reached
+// maxBacklogTicks the surplus was discarded: an unattended fight quietly lost most of
+// its time. A backlog therefore gets a far larger slice. Nothing being replayed is
+// being watched, and the only thing a small slice protects is the smoothness of a
+// screen showing a world that is already out of date.
+const catchUpBacklogBudgetMs = 400;
 let lastTickAt = Date.now();
 // Ticks replayed during the gap currently being caught up on. A hidden tab is
 // woken roughly once a minute, so the old code announced the first of those
@@ -1742,15 +1752,17 @@ let caughtUpTicks = 0;
     // burst stops early if the player died partway through it: replaying hours of
     // combat past the point of death would be both wrong and unwinnable.
     const startedAt = Date.now();
+    // More than five ticks owed at once is never ordinary play -- it is the same
+    // threshold the catch-up report below uses to decide there was a gap worth
+    // mentioning. Gating on this rather than on document.hidden covers a hidden tab,
+    // a frozen tab and a suspended machine alike, and stays inert while playing,
+    // where exactly one tick is owed.
+    const budget = pending > 5 ? catchUpBacklogBudgetMs : catchUpBudgetMs;
     let ticks = 0;
     do {
       ontick();
       ticks++;
-    } while (
-      ticks < pending &&
-      you.alive &&
-      Date.now() - startedAt < catchUpBudgetMs
-    );
+    } while (ticks < pending && you.alive && Date.now() - startedAt < budget);
     lastTickAt += ticks * interval;
     // Death ends the replay and discards whatever was left of it. The hours after
     // the player fell are not hours they were playing, so they are not owed back

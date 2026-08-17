@@ -325,6 +325,26 @@
         </header>
         <ul class="release-changes">
           <li>
+            A fight left running in another tab keeps fighting properly. Only
+            the faster of the two was landing blows: the slower one’s attack was
+            on a half-second timer, and a background tab slows a timer to about
+            once a minute, so sixty rounds went by with sixty of its blows
+            queued up behind them. At low levels the slower one is you, which
+            made an unwatched fight deadlier than the same fight watched
+          </li>
+          <li>
+            And an unattended fight no longer loses most of its time. Catching
+            up was given twelve milliseconds per wake-up, which is plenty when
+            one second is owed and nowhere near enough for the sixty a hidden
+            tab owes — a combat second is expensive. The shortfall carried
+            forward, grew on every wake, and past the eight-hour ceiling was
+            simply discarded. Catching up now gets the time it actually needs
+          </li>
+          <li>
+            Running, searching and reading were checked too, one at a time. All
+            three were already keeping up; nothing about them changed
+          </li>
+          <li>
             The message log controls fit their strip. The two toggles and the
             clear button ran together into one unreadable line, because a label
             that was too long for its box simply carried on over its neighbour.

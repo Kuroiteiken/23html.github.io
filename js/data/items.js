@@ -429,8 +429,6 @@ item.smkbmb.use = function () {
     );
     return;
   } else {
-    clearInterval(timers.btl);
-    clearInterval(timers.btl2);
     msg(
       i18n.t("runtime.data.items.dialogue.puff_67d0eacb"),
       "black",

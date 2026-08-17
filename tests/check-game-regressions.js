@@ -890,3 +890,38 @@ if (/^sld\.[a-z0-9]+\.str = 0;$/m.test(equipmentSource)) {
 console.log(
   "Validated weapon-mastery grant paths, positional milestone ordering, and statted shields.",
 );
+
+// Both blows of a combat round must resolve inside the tick that started it. The
+// slower combatant's blow used to be a setTimeout, which a background tab throttles
+// to about once a minute: the tick replayed sixty rounds while sixty callbacks queued
+// and landed in a clump, so the slower side stopped attacking, and any blow still
+// queued when the area ended was discarded by attack()'s !global.flags.btl guard.
+if (
+  interfaceSource.includes("timers.btl2") ||
+  !interfaceSource.includes("doSingleAttack(sc, inn, !isyouinn);")
+) {
+  throw new Error(
+    "Combat regression: the slower combatant's blow must resolve inside the tick, not on a timer. A background tab throttles timers and the slower side stops attacking.",
+  );
+}
+
+// Catching up on a backlog needs a far larger slice of time than a single live tick.
+// A combat tick is expensive enough that 12 ms could not pay for the sixty ticks a
+// hidden tab owes on each wake, so the debt grew until it was clamped and discarded.
+const simulationForCatchUp = fs.readFileSync(
+  path.join(root, "js", "systems", "simulation.js"),
+  "utf8",
+);
+
+if (
+  !simulationForCatchUp.includes("const catchUpBacklogBudgetMs = 400;") ||
+  !simulationForCatchUp.includes(
+    "const budget = pending > 5 ? catchUpBacklogBudgetMs : catchUpBudgetMs;",
+  )
+) {
+  throw new Error(
+    "Catch-up regression: a backlog must get its own, larger time budget, or an unattended fight loses most of its time to the backlog clamp.",
+  );
+}
+
+console.log("Validated in-tick combat rounds and the catch-up backlog budget.");

@@ -4356,12 +4356,20 @@ function fght(att, def) {
     you.stat_r();
     return;
   }
-  timers.btl2 = setTimeout(function () {
-    if (global.flags.btl === true) {
-      doSingleAttack(sc, inn, !isyouinn);
-      you.stat_r();
-    }
-  }, 500 / global.fps);
+  // The slower combatant's blow, resolved inline. This was a setTimeout of
+  // 500 / global.fps, which a background tab throttles to roughly once a minute: the
+  // tick replayed sixty rounds while sixty of these callbacks queued up and landed
+  // later in a clump, so whichever side was slower effectively stopped attacking. At
+  // low levels that side is the player, which made a hidden-tab fight deadlier than
+  // the same fight watched. A queued blow was also thrown away outright whenever the
+  // area ended in between, since attack() returns early on !global.flags.btl.
+  //
+  // Both halves of a round now resolve inside the tick that started it, the way the
+  // first half already did. The btl check is gone with the timer: nothing can change
+  // it between the !sc.alive return above and this line in the same frame. Do not
+  // turn this back into a timer.
+  doSingleAttack(sc, inn, !isyouinn);
+  you.stat_r();
 }
 
 function attack(att, def, atk, power) {
