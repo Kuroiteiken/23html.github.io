@@ -3170,6 +3170,13 @@
         "goal": "The far end: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "not reached",
         "stateDone": "reached"
+      },
+      "nrvs1": {
+        "name": "The Man Who Said Nothing",
+        "desc": "The nervous man at the market stalls has something he has been carrying for fourteen months, and he will only say it to someone who once let him alone instead of pressing him",
+        "goal": "His account: <span style=\"color:{color}\">{state}</span>",
+        "stateInProgress": "not heard",
+        "stateDone": "heard"
       }
     },
     "skl": {
@@ -4554,6 +4561,10 @@
       "creatureKinds": {
         "name": "The six kinds",
         "desc": "Human, Beast, Undead, Evil, Phantom, Dragon. Each answers to different weapons and shrugs off different things, which is why the same blade that settles a wolf will barely mark something that was never alive."
+      },
+      "secondWayIn": {
+        "name": "Dein was not looking for the catacombs",
+        "desc": "He bought rope, lamp oil and chalk at the market fourteen months ago and paid the stallholder to forget it. What he asked about was a second way down — one that did not go through the burial ground. He already knew the catacombs were there, and he wanted around them."
       }
     }
   },
@@ -5637,7 +5648,13 @@
           "instructor_level_35": "Instructor: You have stopped coming here to learn and started coming here to be told you have not forgotten. That is fine, it is what the room is for. Take the shield off the west wall — it is Hoplite work, older than the dojo, and heavier than anything you will want to carry until the day you are glad you did.",
           "instructor_level_40": "Instructor: There is nothing left in my hands that will make you hit harder. So take this instead. It is a medal, and it does nothing in a fight; what it does is make everything you practise stick faster. Wear it and stop asking me for swords.",
           "instructor_level_45": "Instructor: Jade skin, they used to call it. I have no idea if it works and I have never needed to find out. Take the knight's shield with it — you are past the age where I can pretend you are training rather than working.",
-          "instructor_level_50": "Instructor: Fifty. I have taught two people who got this far and I buried one of them.<br><br>The dread shield is not a gift, it is a loan from the dojo and it goes back on that wall when you are done with it. The medicine is a gift. Use it before you need it, not after — that is the last thing I have to teach you."
+          "instructor_level_50": "Instructor: Fifty. I have taught two people who got this far and I buried one of them.<br><br>The dread shield is not a gift, it is a loan from the dojo and it goes back on that wall when you are done with it. The medicine is a gift. Use it before you need it, not after — that is the last thing I have to teach you.",
+          "nervous_guy_approaches": "The nervous man is watching the road rather than his stall, and when he sees you he does not look away. He has been waiting for someone. He gets halfway through a sentence twice before he manages the start of it.",
+          "hear_him_out": "Hear him out",
+          "ask_what_he_wanted": "Ask what the hunter wanted",
+          "tell_him_it_is_not_his_fault": "Tell him it is not his fault",
+          "nervous_guy_confession": "Nervous Man: You let me be. The once. Everyone else in this market has had a go at me and you let me be, so it is going to be you.<br><br>Fourteen months. A hunter came to this stall — good coat, better sword, the kind that does not haggle. Rope. Lamp oil. A box of chalk. He paid over the odds and he asked me to forget he had been here, and I said yes, because he paid over the odds.<br><br>Then he never came back past me. And then the Head Hunter started asking after a man, and I said nothing, because I had already been paid to say nothing and a month had gone by and what was I going to say then?<br><br>I have stood here for fourteen months with that. Do you know what that is like.",
+          "nervous_guy_second_way": "Nervous Man: He wanted to know about a second way down.<br><br>Not the burial ground — he knew about that, he said so, he said it like a man saying a thing he had already decided against. He wanted to know if there was another way under the village that did not go through it.<br><br>I told him about the old drain by the mill, because it was the only hole I know of and I wanted him to go away. He wrote it down. Chalk and rope and a hole he had to be told about by a man selling turnips.<br><br>He was not lost, hunter. He was going around something on purpose."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

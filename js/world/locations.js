@@ -3145,6 +3145,72 @@ chss.fdwrg1qt = new Chs();
 chss.fdwrg1qt.id = 165;
 chss.fdwrg1qt.sl = () => {
   d_loc(i18n.t("runtime.world.locations.dialogue.marketplace_stalls_e2ed2335"));
+  // Once Yamato has named Dein, this man has something to say — but only to a
+  // player who once left him alone instead of pressing him. That is what
+  // flags.fdwrgkind has been recording all this time.
+  if (
+    global.flags.deintrail &&
+    global.flags.fdwrgkind &&
+    !quest.nrvs1.data.done
+  ) {
+    if (!quest.nrvs1.data.started) {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.nervous_guy_approaches"),
+        true,
+        "yellow",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.hear_him_out"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        giveQst(quest.nrvs1);
+        smove(chss.fdwrg1qt, false);
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.walk_away_10f56939"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mrktvg1, false);
+      });
+      return;
+    }
+    chs(
+      i18n.t("runtime.world.locations.dialogue.nervous_guy_confession"),
+      true,
+      "yellow",
+      0,
+      0,
+      0,
+      ".9em",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.ask_what_he_wanted"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.nervous_guy_second_way"),
+        true,
+        "gold",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      quest.nrvs1.data.heard = true;
+      learnLore("secondWayIn");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.tell_him_it_is_not_his_fault"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        finishQst(quest.nrvs1);
+        smove(chss.mrktvg1, false);
+      });
+    });
+    return;
+  }
   chs(
     i18n.t(
       "runtime.world.locations.dialogue.nervous_guy_argh_what_am_i_gonna_do_128a87bb",

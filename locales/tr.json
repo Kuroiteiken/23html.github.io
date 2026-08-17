@@ -3170,6 +3170,13 @@
         "goal": "Uzak uç: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "ulaşılmadı",
         "stateDone": "ulaşıldı"
+      },
+      "nrvs1": {
+        "name": "Hiçbir Şey Söylemeyen Adam",
+        "desc": "Pazar tezgâhlarındaki gergin adam on dört aydır bir şey taşıyor ve bunu yalnızca onu bir zamanlar sıkıştırmak yerine rahat bırakan birine anlatacak",
+        "goal": "Anlattıkları: <span style=\"color:{color}\">{state}</span>",
+        "stateInProgress": "dinlenmedi",
+        "stateDone": "dinlendi"
       }
     },
     "skl": {
@@ -4554,6 +4561,10 @@
       "creatureKinds": {
         "name": "Altı tür",
         "desc": "İnsan, Canavar, Ölümsüz, Şeytani, Hayalet, Ejderha. Her biri farklı silahlara karşılık verir ve farklı şeyleri üstünden atar; bir kurdu deviren bıçağın hiç canlı olmamış bir şeyde iz bile bırakmamasının sebebi bu."
+      },
+      "secondWayIn": {
+        "name": "Dein katakompları aramıyordu",
+        "desc": "On dört ay önce pazardan halat, kandil yağı ve tebeşir aldı ve tezgâh sahibine bunu unutması için para verdi. Sorduğu şey aşağı inen ikinci bir yoldu — mezarlığın içinden geçmeyen bir yol. Katakompların orada olduğunu zaten biliyordu ve onların etrafından dolanmak istiyordu."
       }
     }
   },
@@ -5641,7 +5652,13 @@
           "instructor_level_35": "Eğitmen: Artık buraya öğrenmeye değil, unutmadığını duymaya geliyorsun. Sorun değil, bu odanın işi bu. Batı duvarındaki kalkanı al — hoplit işi, dojodan da eski ve onu taşıdığına sevindiğin güne kadar taşımak istemeyeceğin kadar ağır.",
           "instructor_level_40": "Eğitmen: Elimde seni daha sert vurduracak hiçbir şey kalmadı. O yüzden bunu al. Bir madalya ve dövüşte hiçbir işe yaramaz; yaptığı şey, çalıştığın her şeyin daha çabuk oturmasını sağlamak. Tak şunu ve benden kılıç istemeyi bırak.",
           "instructor_level_45": "Eğitmen: Yeşim deri derlerdi buna. İşe yarayıp yaramadığını bilmiyorum ve öğrenmeye hiç ihtiyacım olmadı. Yanına şövalye kalkanını da al — çalıştığını varsayabileceğim yaşı geçtin, artık iş yapıyorsun.",
-          "instructor_level_50": "Eğitmen: Elli. Buraya kadar gelen iki kişi yetiştirdim ve birini gömdüm.<br><br>Dehşet kalkanı armağan değil, dojodan ödünç; işini bitirdiğinde o duvara geri döner. İlaç armağan. İhtiyacın olmadan önce kullan, sonrasında değil — sana öğretecek son şeyim bu."
+          "instructor_level_50": "Eğitmen: Elli. Buraya kadar gelen iki kişi yetiştirdim ve birini gömdüm.<br><br>Dehşet kalkanı armağan değil, dojodan ödünç; işini bitirdiğinde o duvara geri döner. İlaç armağan. İhtiyacın olmadan önce kullan, sonrasında değil — sana öğretecek son şeyim bu.",
+          "nervous_guy_approaches": "Gergin adam tezgâhına değil yola bakıyor ve seni görünce başını çevirmiyor. Birini bekliyormuş. Cümleye başlamayı başarana kadar iki kez ortasında tıkanıyor.",
+          "hear_him_out": "Anlatmasına izin ver",
+          "ask_what_he_wanted": "Avcının ne istediğini sor",
+          "tell_him_it_is_not_his_fault": "Suçun onda olmadığını söyle",
+          "nervous_guy_confession": "Gergin Adam: Beni rahat bıraktın. Bir kez. Bu pazardaki herkes üstüme geldi, sen rahat bıraktın; o yüzden sen olacaksın.<br><br>On dört ay. Bu tezgâha bir avcı geldi — iyi paltolu, daha iyi kılıçlı, pazarlık etmeyen türden. Halat. Kandil yağı. Bir kutu tebeşir. Fazlasını ödedi ve buraya geldiğini unutmamı istedi; ben de olur dedim, çünkü fazlasını ödemişti.<br><br>Sonra önümden bir daha geçmedi. Sonra Kelle Avcısı bir adamı sormaya başladı ve ben hiçbir şey söylemedim, çünkü hiçbir şey söylememek için zaten para almıştım, üstünden bir ay geçmişti ve o noktada ne diyecektim?<br><br>On dört aydır burada bununla dikiliyorum. Bunun nasıl bir şey olduğunu biliyor musun.",
+          "nervous_guy_second_way": "Gergin Adam: Aşağı inen ikinci bir yolu soruyordu.<br><br>Mezarlığı değil — onu biliyordu, kendi söyledi, hem de çoktan aleyhine karar verdiği bir şeyi söyler gibi söyledi. Köyün altına oradan geçmeyen başka bir yol var mı, onu bilmek istiyordu.<br><br>Ona değirmenin yanındaki eski su yolundan bahsettim, çünkü bildiğim tek delik oydu ve gitmesini istiyordum. Not aldı. Tebeşir, halat ve şalgam satan bir adamdan öğrenmek zorunda kaldığı bir delik.<br><br>Kaybolmamıştı avcı. Bir şeyin etrafından bilerek dolanıyordu."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

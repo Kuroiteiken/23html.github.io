@@ -421,6 +421,51 @@ quest.undcty2.goalsf = function () {
   ];
 };
 
+// Side story. The nervous man at the market stalls has stood there since before
+// this fork with nothing behind him: pressing him earns patience and backing off
+// earns karma, and that was all. The game already remembers which one you did, in
+// global.flags.fdwrgkind, and it has never once used it.
+//
+// So this is what that flag was for. Once Yamato has named Dein, the man comes to
+// the player rather than the other way round — and only if the player was the one
+// who let him alone. Being decent to someone who could do nothing for you is the
+// entry condition, which is the only kind of reward a flag like that should buy.
+quest.nrvs1 = new Quest();
+quest.nrvs1.id = 9;
+quest.nrvs1.name = i18n.t("content.quest.nrvs1.name");
+quest.nrvs1.rar = 2;
+quest.nrvs1.loc = i18n.t(
+  "runtime.world.locations.dialogue.marketplace_stalls_e2ed2335",
+);
+quest.nrvs1.desc = i18n.t("content.quest.nrvs1.desc");
+quest.nrvs1.data = { t: 0, heard: false };
+quest.nrvs1.rwd = function () {
+  this.data.t++;
+  you.karma++;
+  giveWealth(180);
+  giveExp(11000, true, true, true);
+};
+quest.nrvs1.goals = function () {
+  return [
+    i18n.t("content.quest.nrvs1.goal", {
+      color: quest.nrvs1.data.heard ? "lime" : "yellow",
+      state: i18n.t(
+        quest.nrvs1.data.heard
+          ? "content.quest.nrvs1.stateDone"
+          : "content.quest.nrvs1.stateInProgress",
+      ),
+    }),
+  ];
+};
+quest.nrvs1.goalsf = function () {
+  return [
+    i18n.t("content.quest.nrvs1.goal", {
+      color: "lime",
+      state: i18n.t("content.quest.nrvs1.stateDone"),
+    }),
+  ];
+};
+
 ////////////////////////////////////////////
 
 function giveQst(q) {

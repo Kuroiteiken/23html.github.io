@@ -125,6 +125,12 @@ defineLore("whyTheEast", 20, loreQuestion, 4);
 lore.whyTheEast.name = i18n.t("content.lore.whyTheEast.name");
 lore.whyTheEast.desc = i18n.t("content.lore.whyTheEast.desc");
 
+// Side stories can answer main-line questions too, which is the point of keeping
+// the questions in one place rather than per-quest.
+defineLore("secondWayIn", 24, loreAnswer, 5, 19);
+lore.secondWayIn.name = i18n.t("content.lore.secondWayIn.name");
+lore.secondWayIn.desc = i18n.t("content.lore.secondWayIn.desc");
+
 function knowsLore(id) {
   return global.lore.indexOf(id) !== -1;
 }

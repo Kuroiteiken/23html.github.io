@@ -1590,8 +1590,14 @@ function ontick() {
         global.current_m.eff[g].y,
         global.current_m.eff[g].z,
       );
-  if (global.flags.btl === true)
-    timers.btl = setTimeout(fght(you, global.current_m), 1000 / global.fps);
+  // Resolved inline, on purpose. This read
+  // `timers.btl = setTimeout(fght(you, global.current_m), 1000 / global.fps)`,
+  // which calls fght immediately and hands setTimeout its return value — so the
+  // timeout never did anything and the round has always resolved inside the tick.
+  // That is the behaviour to keep, and it is why combat survives a background tab
+  // at all: a genuinely scheduled round would be throttled to about once a minute,
+  // exactly as the actions were. Do not turn this back into a timer.
+  if (global.flags.btl === true) fght(you, global.current_m);
   else
     giveSkExp(
       skl.mdt,
@@ -1618,8 +1624,15 @@ function ontick() {
 // background rather than merely rendering less often. Ticks are now derived
 // from elapsed wall-clock time and replayed when the tab comes back, so reading
 // a book or fighting continues while the player is looking elsewhere.
-const maxCatchUpPerFrame = 60;
-const maxBacklogTicks = 3600;
+// How much elapsed time a return can replay. This was 3600 — one hour at one tick
+// a second — which is far too little for a game whose whole point is being left
+// running: a tab frozen overnight came back having lost everything past the first
+// hour, so an endless fight earned an hour of skill gain and nothing more.
+const maxBacklogTicks = 28800;
+// Replay is bounded by time rather than by a tick count, so a long backlog drains
+// as fast as the machine allows without ever blocking a frame. At the old fixed 60
+// per frame, even the hour it did keep took a minute of real time to catch up.
+const catchUpBudgetMs = 12;
 let lastTickAt = Date.now();
 // Ticks replayed during the gap currently being caught up on. A hidden tab is
 // woken roughly once a minute, so the old code announced the first of those
@@ -1635,15 +1648,31 @@ let caughtUpTicks = 0;
     const now = Date.now();
     let pending = Math.floor((now - lastTickAt) / interval);
     if (pending < 1) return;
-    // A very long absence is not replayed minute by minute: the backlog is
-    // trimmed so returning cannot lock the game up while it catches up.
+    // An absence longer than the cap is trimmed to it, so a machine that slept for
+    // a week does not owe the player a week.
     if (pending > maxBacklogTicks) {
       pending = maxBacklogTicks;
       lastTickAt = now - maxBacklogTicks * interval;
     }
-    const ticks = Math.min(pending, maxCatchUpPerFrame);
+    // At least one tick always runs, so ordinary play is unaffected. A catch-up
+    // burst stops early if the player died partway through it: replaying hours of
+    // combat past the point of death would be both wrong and unwinnable.
+    const startedAt = Date.now();
+    let ticks = 0;
+    do {
+      ontick();
+      ticks++;
+    } while (
+      ticks < pending &&
+      you.alive &&
+      Date.now() - startedAt < catchUpBudgetMs
+    );
     lastTickAt += ticks * interval;
-    for (let tick = 0; tick < ticks; tick++) ontick();
+    // Death ends the replay and discards whatever was left of it. The hours after
+    // the player fell are not hours they were playing, so they are not owed back
+    // once the player gets up — and replaying them would mean fighting on from a
+    // corpse.
+    if (!you.alive && ticks < pending) lastTickAt = now;
     // Energy drains every tick, so a stack of it disappearing at once on return
     // reads as a glitch rather than as time having passed. The whole gap is
     // reported, once, at the point the game stops replaying it — which is when
