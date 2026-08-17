@@ -20,6 +20,11 @@ const bootstrap = fs.readFileSync(
   "utf8",
 );
 
+const simulation = fs.readFileSync(
+  path.join(root, "js", "systems", "simulation.js"),
+  "utf8",
+);
+
 const wanted = new Set([
   "saveSentinelIndex",
   "saveSentinel",
@@ -29,32 +34,44 @@ const wanted = new Set([
   "migrateSave",
 ]);
 
-function extractSaveHelpers() {
-  const ast = espree.parse(bootstrap, { ecmaVersion: "latest", range: true });
+// The v478 migration tops a character up to the SPD and LUCK the level milestones
+// owe them, and the table it reads lives in simulation.js. Lifting it too is what
+// makes the migration testable against real numbers rather than only counted.
+const wantedFromSimulation = new Set(["levelGrants", "levelGrantTotal"]);
+
+function extractDeclarations(source, names, label) {
+  const ast = espree.parse(source, { ecmaVersion: "latest", range: true });
   const found = new Set();
   const parts = [];
   for (const node of ast.body) {
-    if (node.type === "FunctionDeclaration" && wanted.has(node.id.name)) {
-      parts.push(bootstrap.slice(...node.range));
+    if (node.type === "FunctionDeclaration" && names.has(node.id.name)) {
+      parts.push(source.slice(...node.range));
       found.add(node.id.name);
     }
     if (node.type === "VariableDeclaration") {
-      const names = node.declarations
+      const declared = node.declarations
         .map((declaration) => declaration.id.name)
-        .filter((name) => wanted.has(name));
-      if (names.length) {
-        parts.push(bootstrap.slice(...node.range));
-        names.forEach((name) => found.add(name));
+        .filter((name) => names.has(name));
+      if (declared.length) {
+        parts.push(source.slice(...node.range));
+        declared.forEach((name) => found.add(name));
       }
     }
   }
-  const missing = [...wanted].filter((name) => !found.has(name));
+  const missing = [...names].filter((name) => !found.has(name));
   assert.deepEqual(
     missing,
     [],
-    `bootstrap.js no longer declares: ${missing.join(", ")}`,
+    `${label} no longer declares: ${missing.join(", ")}`,
   );
   return parts.join("\n");
+}
+
+function extractSaveHelpers() {
+  return [
+    extractDeclarations(bootstrap, wanted, "bootstrap.js"),
+    extractDeclarations(simulation, wantedFromSimulation, "simulation.js"),
+  ].join("\n");
 }
 
 function sandbox() {
@@ -62,6 +79,9 @@ function sandbox() {
   const context = {
     // The bundle's own `global` object, not Node's.
     global: { ver: 500 },
+    // levelGrants labels its entries at definition time, which is what the i18n
+    // key checker requires. The labels are only ever shown in a message.
+    i18n: { t: (key) => key },
     console: {
       info: (message) => messages.push(message),
       warn: (message) => messages.push(message),
@@ -70,7 +90,7 @@ function sandbox() {
   vm.createContext(context);
   vm.runInContext(extractSaveHelpers(), context);
   const api = vm.runInContext(
-    "({ describeSaveProblems, migrateSave, saveMigrations, saveSentinelIndex })",
+    "({ describeSaveProblems, migrateSave, saveMigrations, saveSentinelIndex, levelGrants, levelGrantTotal })",
     context,
   );
   return { api, messages };
@@ -139,13 +159,13 @@ test("a save from the current build needs no migration", () => {
   assert.equal(payload.mods.sdrate, 0.4, "nothing is touched");
 });
 
-test("a pre-v476 save has both drain migrations applied", () => {
+test("a pre-v476 save has every later migration applied", () => {
   // Before v476 the saved drain rate was the retired base of 0.1, plus anything
   // the actions panel leaked onto it. Equipment and action contributions are
   // never stored, so zero is the only correct value.
   const { api } = sandbox();
   const payload = { mods: { sdrate: 0.3, runerg: 1 } };
-  assert.equal(api.migrateSave(payload, 475), 2);
+  assert.equal(api.migrateSave(payload, 475), 3);
   assert.equal(payload.mods.sdrate, 0);
   assert.equal(payload.mods.runerg, 1, "other modifiers are left alone");
 });
@@ -155,9 +175,56 @@ test("the v477 migration clears the residue left by mid-run discounts", () => {
   // at whatever mods.runerg had become, so the difference accumulated there.
   const { api } = sandbox();
   const payload = { mods: { sdrate: 0.145, runerg: 0.85 } };
-  assert.equal(api.migrateSave(payload, 476), 1);
+  assert.equal(api.migrateSave(payload, 476), 2);
   assert.equal(payload.mods.sdrate, 0);
   assert.equal(payload.mods.runerg, 0.85, "the earned discount itself is kept");
+});
+
+test("the v478 migration pays an existing character the milestones it owes", () => {
+  const { api } = sandbox();
+  // A level 37 character from before the grants existed: three SPD milestones at
+  // 10, 20 and 30, and seven LUCK milestones at 5 through 35, on top of the 1
+  // each stat starts on.
+  let recomputed = 0;
+  const player = {
+    lvl: 37,
+    spd_r: 1,
+    luck: 1,
+    stat_r: () => recomputed++,
+  };
+  assert.equal(api.migrateSave({ player }, 477), 1);
+  assert.equal(player.spd_r, 4);
+  assert.equal(player.luck, 8);
+  assert.equal(recomputed, 1, "the derived stats are recomputed once");
+});
+
+test("the v478 migration never takes anything away or pays twice", () => {
+  const { api } = sandbox();
+  // Already ahead of the schedule, from equipment or a title rather than levels.
+  const ahead = { lvl: 12, spd_r: 9, luck: 20, stat_r: () => {} };
+  api.migrateSave({ player: ahead }, 477);
+  assert.equal(ahead.spd_r, 9, "a higher value is left alone");
+  assert.equal(ahead.luck, 20);
+
+  // Running it a second time tops up to the same total rather than adding again.
+  const twice = { lvl: 20, spd_r: 1, luck: 1, stat_r: () => {} };
+  api.migrateSave({ player: twice }, 477);
+  const spd = twice.spd_r;
+  const luck = twice.luck;
+  api.migrateSave({ player: twice }, 477);
+  assert.equal(twice.spd_r, spd, "SPD is not paid a second time");
+  assert.equal(twice.luck, luck, "LUCK is not paid a second time");
+});
+
+test("the v478 migration tolerates a save with no player state", () => {
+  const { api } = sandbox();
+  assert.doesNotThrow(() => api.migrateSave({}, 100));
+  assert.doesNotThrow(() => api.migrateSave({ player: {} }, 100));
+  // A character whose stats were never serialized is skipped rather than seeded.
+  const partial = { lvl: 30, stat_r: () => {} };
+  api.migrateSave({ player: partial }, 477);
+  assert.equal(partial.spd_r, undefined);
+  assert.equal(partial.luck, undefined);
 });
 
 test("the v476 migration tolerates a save with no modifiers", () => {

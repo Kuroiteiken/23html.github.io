@@ -510,11 +510,74 @@ if (
   !callbackHooks.every((pattern) => pattern.test(titlesSource)) ||
   !/callback\.onQuestComplete\.fire\(q\)/.test(questSource) ||
   !/callback\.onCraft\.fire\(rc\)/.test(craftingSource) ||
-  !/callback\.onLevel\.fire\(p\)/.test(simulationSource) ||
+  // onLevel carries how many levels were gained, so a subscriber can tell a real
+  // level-up from the t === 0 call that resets a level 1 creature's stats.
+  !/callback\.onLevel\.fire\(p, t\)/.test(simulationSource) ||
   !/callback\.onEnterArea\.fire\(area\)/.test(interfaceSource)
 ) {
   throw new Error(
     "Callback regression: the shared dispatcher must expose the death, level, area, craft, and quest hooks and fire each of them.",
+  );
+}
+
+// onLevel had no subscribers for the whole life of the callback registry, so the
+// milestone grants are the only thing standing between SPD and LUCK growing and
+// them sitting on 1 for an entire playthrough. Each part is asserted separately:
+// the grant table, the subscriber that pays it out, the guard that keeps creature
+// level-ups from claiming it, and the migration that settles up with an existing
+// character.
+const levelGrantParts = [
+  /stat: "spd_r",\s*\n\s*(?:\/\/.*\n\s*)*every: 10,/,
+  /stat: "luck",\s*\n\s*(?:\/\/.*\n\s*)*every: 5,/,
+  /attachCallback\(callback\.onLevel, \{/,
+  /if \(who\.id !== you\.id \|\| !gained\) return;/,
+  /you\[grant\.stat\] \+= grant\.amount;/,
+  /function levelGrantTotal\(grant, lvl\)/,
+];
+
+if (!levelGrantParts.every((pattern) => pattern.test(simulationSource))) {
+  throw new Error(
+    "Progression regression: the level milestone grants must define SPD every ten levels and LUCK every five, and pay them out from an onLevel subscriber that ignores creatures.",
+  );
+}
+
+if (
+  !/to: 478,/.test(bootstrapSource) ||
+  !/for \(const grant of levelGrants\)/.test(bootstrapSource) ||
+  !/player: you/.test(bootstrapSource)
+) {
+  throw new Error(
+    "Progression regression: the v478 migration must top an existing character up to the SPD and LUCK the milestone grants owe them, which needs the player passed to migrateSave.",
+  );
+}
+
+// The three shields the dojo awards at levels 35, 45 and 50 shipped as stubs with
+// no stats, and a shield's affinity was subtracted from the player's protection
+// rather than added to its own share -- so a statted shield made things worse.
+for (const shield of ["hpt", "knt", "drd"]) {
+  const str = equipmentSource.match(
+    new RegExp(`sld\\.${shield}\\.str = (\\d+);`),
+  );
+  if (!str || Number(str[1]) <= 15) {
+    throw new Error(
+      `Reward regression: sld.${shield} is a dojo reward and must be statted above the Pelta Shield's 15, not left as a stub.`,
+    );
+  }
+  if (!new RegExp(`sld\\.${shield}\\.aff = \\[`).test(equipmentSource)) {
+    throw new Error(
+      `Reward regression: sld.${shield} must declare its own resistances.`,
+    );
+  }
+}
+
+if (
+  !/\(100 \+ you\.eqp\[1\]\.aff\[att\.atype\] \* 5 \* shdc\)/.test(
+    interfaceSource,
+  ) ||
+  /100 -\s*\n\s*\(you\.eqp\[1\]\.aff\[att\.atype\]/.test(interfaceSource)
+) {
+  throw new Error(
+    "Shield regression: a shield's affinity must scale the shield's own share of the mitigation, not be subtracted from the total.",
   );
 }
 

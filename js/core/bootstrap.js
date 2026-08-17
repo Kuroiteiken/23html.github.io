@@ -56,7 +56,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 477;
+global.ver = 478;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -740,6 +740,32 @@ const saveMigrations = [
         save.mods.sdrate = 0;
     },
   },
+  {
+    to: 478,
+    // v478 grants SPD every ten levels and LUCK every five. A character who
+    // levelled before that existed has none of it, and the grants only fire on
+    // future level-ups -- so a level 40 save would sit on SPD 1 forever while a
+    // fresh character overtook it. This settles up once, to exactly the total the
+    // character would have now if the grants had always been there.
+    //
+    // It is written as "top up to the total" rather than "add the total" so that
+    // running it twice cannot double the grant, and so a character who earned some
+    // of it legitimately is not paid for the same levels again.
+    //
+    // levelGrants and levelGrantTotal live in js/systems/simulation.js, which is
+    // concatenated after this file. That is safe because this body only runs when a
+    // save is loaded, long after the whole bundle has finished executing.
+    apply(save) {
+      const player = save.player;
+      if (!player || typeof player.lvl !== "number") return;
+      for (const grant of levelGrants) {
+        if (typeof player[grant.stat] !== "number") continue;
+        const owed = grant.base + levelGrantTotal(grant, player.lvl);
+        if (player[grant.stat] < owed) player[grant.stat] = owed;
+      }
+      player.stat_r();
+    },
+  },
 ];
 
 function migrateSave(globalsSegment, fromVersion) {
@@ -1009,8 +1035,12 @@ function load(dt) {
         `Save was written by v${global.save_ver}, newer than this build (v${global.ver}).`,
       );
     // Migrations run against the state restored so far, which is why they get
-    // `you.mods` rather than only the parsed globals segment.
-    else migrateSave({ globals: a1, mods: you.mods }, global.save_ver);
+    // `you.mods` and `you` itself rather than only the parsed globals segment.
+    else
+      migrateSave(
+        { globals: a1, mods: you.mods, player: you },
+        global.save_ver,
+      );
     // Older saves stored this as a string, and it is compared numerically.
     global.msgs_max = Math.min(50, Math.max(1, Number(a1.g) || 36));
     dom.ct_bt4_1b.value = global.msgs_max;

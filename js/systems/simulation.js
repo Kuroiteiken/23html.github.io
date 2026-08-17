@@ -1170,13 +1170,89 @@ function lvlup(p, t) {
         you.eqp[0].aff[0] = (you.lvl / 5) << 0;
         you.eqp[0].ctype = 2;
       }
-      if (global.stat.deadt < 1 && you.lvl >= 20) giveTitle(ttl.ndthextr);
     }
   }
   p.stat_r();
   update_d();
-  callback.onLevel.fire(p);
+  // `t` is how many levels were gained. A level 1 creature is generated with
+  // t === 0, which resets its stats to their reserves rather than raising them, so
+  // a subscriber that grants something has to be able to tell the two apart.
+  callback.onLevel.fire(p, t);
 }
+
+// What the player gains at a level rather than on every level. lvlup stays about
+// the three stats that grow continuously; anything keyed to a particular level
+// lives in the onLevel subscriber below.
+//
+// `every` is a level interval and `stat` is the reserve field, not the derived one:
+// stat_r() recomputes the derived value from the reserve plus equipment, titles and
+// effects, so writing the derived field would be overwritten on the next call.
+const levelGrants = [
+  {
+    // SPD is the player's evasion. hit_calc(2) divides the attacker's accuracy by
+    // (you.spd + you.agl + agl_bonus / 2), so it is the same currency as AGL. It
+    // was the one stat nothing ever raised: stat_p's fourth entry is never read
+    // and lvlup never touched spd_r, so a level 50 player dodged exactly as well
+    // as a level 1 one and the readout sat on 1 for an entire playthrough. It
+    // moves on the tens because a point of it is worth a point of AGL, and AGL
+    // already gains one or two every single level.
+    stat: "spd_r",
+    every: 10,
+    amount: 1,
+    // The value a fresh character starts on, used by the save migration to work
+    // out what an existing character is owed.
+    base: 1,
+    label: i18n.t("ui.hud.abbr.spd"),
+  },
+  {
+    // LUCK multiplies the critical chance -- crt * (luck / 25 + 1) -- and every
+    // drop roll in the game, which are all written as
+    // `chance + (chance / 100) * you.luck`: creature drops, rank drops, zone
+    // drops, gathering and pickpocketing.
+    stat: "luck",
+    every: 5,
+    amount: 1,
+    base: 1,
+    label: i18n.t("ui.hud.abbr.luck"),
+  },
+];
+
+// The accumulated total of every grant at or below a level. Used by the level-up
+// hook for the level just reached, and by the v478 save migration to settle up
+// with a character who levelled before the grants existed.
+function levelGrantTotal(grant, lvl) {
+  return ((lvl / grant.every) << 0) * grant.amount;
+}
+
+// callback.onLevel has existed since the callback registry was written and had no
+// subscribers at all -- it was constructed, documented, and fired on every level
+// gain into nothing. This is its first one. Creature level-ups fire the same hook,
+// hence the filter.
+attachCallback(callback.onLevel, {
+  f(who, gained) {
+    if (who.id !== you.id || !gained) return;
+    let granted = false;
+    for (const grant of levelGrants) {
+      if (you.lvl % grant.every !== 0) continue;
+      you[grant.stat] += grant.amount;
+      granted = true;
+      msg_add(
+        i18n.t("runtime.systems.simulation.dialogue.additional_stat_gain", {
+          stat: grant.label,
+          amount: grant.amount,
+        }),
+        "gold",
+      );
+    }
+    if (granted) you.stat_r();
+    if (global.stat.deadt < 1 && you.lvl >= 20) giveTitle(ttl.ndthextr);
+  },
+  // System hooks take the 9000 range; quest hooks use their own quest id. A quest
+  // hook carries data.q, which is what clears it when a save is restored -- this
+  // one has to survive a load, so it deliberately has none.
+  id: 9001,
+  data: {},
+});
 
 function giveExp(exp, r, g, b) {
   if (!r)

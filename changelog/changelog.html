@@ -312,7 +312,57 @@
       </div>
     </header>
     <main class="changelog" aria-label="Release history">
-      <article class="release release-latest" data-version="477">
+      <article class="release release-latest" data-version="478">
+        <header class="release-header">
+          <div>
+            <span class="release-kicker">Release</span>
+            <h2>v478</h2>
+          </div>
+          <div class="release-meta">
+            <span class="release-range">v477 → v478</span>
+            <time datetime="2026-08-17">2026/08/17</time>
+          </div>
+        </header>
+        <ul class="release-changes">
+          <li>
+            The level 35 reward from the dojo instructor was broken: accepting
+            it gave you the shield and then left you stuck on the same screen
+            with no way back, handing over another shield every time you pressed
+            Accept. It was trying to give a pill that does not exist. Level 50
+            had the same fault
+          </li>
+          <li>
+            The Hoplite, Knight and Dread shields now defend. All three were
+            listed as rare and had no stats at all, so reaching level 35 earned
+            you a rare shield that protected you exactly as well as an empty
+            hand
+          </li>
+          <li>
+            Carrying a shield now helps rather than hurts. A shield's
+            resistances were being taken off your protection instead of added to
+            it, and taken off your armour's share as well as its own — so a
+            better shield and more Shield training both increased the damage you
+            took. Nothing changes if you fight without one
+          </li>
+          <li>
+            SPD now increases, one point every ten levels. It is the stat that
+            makes attacks miss you, and nothing in the game had ever raised it:
+            it sat on 1 from the first level to the last
+          </li>
+          <li>
+            LUCK now increases, one point every five levels. It raises your
+            critical hit chance and every drop roll in the game — creature
+            drops, rank drops, gathering and pickpocketing
+          </li>
+          <li>
+            An existing character is paid what these two would have given them,
+            once, the first time the save is opened. A level 40 character does
+            not start over at SPD 1 behind a fresh one
+          </li>
+        </ul>
+      </article>
+
+      <article class="release" data-version="477">
         <header class="release-header">
           <div>
             <span class="release-kicker">Release</span>
