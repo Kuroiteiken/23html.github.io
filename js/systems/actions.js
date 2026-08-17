@@ -65,17 +65,26 @@ act.demo.use = function () {
   else giveSkExp(skl.walk, 0.5);
   you.eqp[6].dp = you.eqp[6].dp - 0.005 < 0 ? 0 : you.eqp[6].dp - 0.005;
 };
+// Satiation cost of running, derived on demand instead of being added to
+// you.mods.sdrate on start and subtracted again on stop. A charge/refund pair
+// leaks whenever the two sides disagree: earning a title that lowers
+// mods.runerg mid-run refunded less than it had charged, and the difference
+// stuck to the stored rate for good — including in the save, because save()
+// stops the action and stores whatever the refund left behind. Deriving the
+// cost makes the leak impossible rather than merely unlikely.
+act.demo.drain = function () {
+  return this.active ? 0.1 * you.mods.runerg : 0;
+};
 act.demo.activate = function () {
-  // These adjust shared modifiers, so activating twice without an intervening
-  // stop would stack the cost and leave it behind. The guards make the pair
-  // idempotent whatever the caller does.
+  // stdstps is still adjusted in a pair, so activating twice without an
+  // intervening stop would stack it. The guards make the pair idempotent
+  // whatever the caller does.
   if (this.active) return;
   msg(
     i18n.t("runtime.systems.actions.dialogue.you_start_running_d11dfd8c"),
     "orange",
   );
   this.active = true;
-  you.mods.sdrate += 0.1 * you.mods.runerg;
   you.mods.stdstps += 0.5;
   clearInterval(timers.actm);
   giveEff(you, effect.run);
@@ -89,7 +98,6 @@ act.demo.deactivate = function () {
   clearInterval(timers.actm);
   this.active = false;
   removeEff(effect.run);
-  you.mods.sdrate -= 0.1 * you.mods.runerg;
   you.mods.stdstps -= 0.5;
 };
 

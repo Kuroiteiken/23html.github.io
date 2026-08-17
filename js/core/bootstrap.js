@@ -56,7 +56,7 @@ const GOLD = 10000;
 const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
-global.ver = 476;
+global.ver = 477;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -672,6 +672,18 @@ const saveMigrations = [
         save.mods.sdrate = 0;
     },
   },
+  {
+    to: 477,
+    // v476 still charged the running cost onto mods.sdrate on start and
+    // refunded it on stop. Earning a title that lowered mods.runerg mid-run
+    // refunded less than it had charged, so a residue stuck to the stored rate
+    // and grew with every run. The cost is derived from the action now, which
+    // leaves 0 as the only correct stored value again.
+    apply(save) {
+      if (save.mods && typeof save.mods.sdrate === "number")
+        save.mods.sdrate = 0;
+    },
+  },
 ];
 
 function migrateSave(globalsSegment, fromVersion) {
@@ -1249,13 +1261,18 @@ function load(dt) {
       const a19 = JSON.parse(str[19]);
       for (const a in a19)
         for (const b in ttl) if (a19[a] === ttl[b].id) ttl[b].tget = true;
-    }
-    for (const a in ttl) {
-      if (ttl[a].have && ttl[a].talent && !ttl[a].tget) {
-        ttl[a].talent();
-        ttl[a].tget = true;
+      // Only a save that carried this segment can say which talents are still
+      // unapplied. Without it, every held talent is already baked into the
+      // restored you.mods, so re-running them would apply the same permanent
+      // bonus twice.
+      for (const a in ttl) {
+        if (ttl[a].have && ttl[a].talent && !ttl[a].tget) {
+          ttl[a].talent();
+          ttl[a].tget = true;
+        }
       }
-    }
+    } else
+      for (const a in ttl) if (ttl[a].have && ttl[a].talent) ttl[a].tget = true;
     isort(global.sm);
     rsort(global.rm);
     rstcrtthg();

@@ -1494,6 +1494,19 @@ function wdrseason(flag) {
   }
 }
 
+// Satiation lost per tick, and the single source of truth for the figure the
+// energy readout quotes. you.mods.sdrate carries the lasting contributions that
+// are applied and removed in matched pairs (equipment, effects); the running
+// cost is derived from the action instead of being accumulated into it. Weather
+// scales the whole rate the way it always has.
+function satiationDrain() {
+  let lose = you.mods.sdrate + act.demo.drain();
+  if (global.flags.iswet === true) lose *= 3 / (1 + skl.abw.lvl * 0.03);
+  if (global.flags.iscold === true)
+    lose += effect.cold.duration / 1000 / (1 + skl.coldr.lvl * 0.05);
+  return lose;
+}
+
 function ontick() {
   global.stat.tick++;
   checkStatMilestones();
@@ -1582,11 +1595,7 @@ function ontick() {
   for (const obj in furn) furn[obj].use();
   //for(let q in qsts) qsts[q].tracker();
   if (you.sat > 0) {
-    let lose = you.mods.sdrate;
-    if (global.flags.iswet === true) lose *= 3 / (1 + skl.abw.lvl * 0.03);
-    if (global.flags.iscold === true)
-      lose += effect.cold.duration / 1000 / (1 + skl.coldr.lvl * 0.05);
-    you.sat -= lose;
+    you.sat -= satiationDrain();
   } else giveSkExp(skl.fmn, 0.1);
   if (global.flags.sleepmode) global.stat.timeslp += global.timescale;
   if (random() < 0.00000001) {

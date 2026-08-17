@@ -100,11 +100,7 @@ addDesc(
   2,
   i18n.t("runtime.ui.interface.description.energy_meter_b53c9846"),
   function () {
-    let lose = you.mods.sdrate;
-    if (global.flags.iswet === true) lose *= 3 / (1 + skl.abw.lvl * 0.03);
-    if (global.flags.iscold === true)
-      lose += effect.cold.duration / 1000 / (1 + skl.coldr.lvl * 0.05);
-    lose = ((lose * 100) << 0) / 100;
+    const lose = Math.round(satiationDrain() * 1000) / 1000;
     return i18n.t("ui.statDescriptions.energy", {
       effectiveness: ((you.mods.sbonus + 1) * 100) << 0,
       consumption: lose,
@@ -628,13 +624,10 @@ dom.ct_bt3.addEventListener("click", () => {
       this.acch_e.style.top = "-6px";
       this.acch_e.style.right = "-2px";
       this.acch_e.style.height = "20px";
-      // This used to create a fresh container on every open and then empty the
-      // new one, leaving the previous rows in the panel with their click
-      // handlers attached. Opening the panel twice therefore gave every action
-      // two live rows, so one click ran activate twice while stopping refunded
-      // once, permanently inflating the shared modifiers it adds to.
-      if (!dom.acccon) dom.acccon = addElement(dom.ctrwin5, "div");
-      empty(dom.acccon);
+      // empty(dom.ctrwin5) above already detached the previous container, so the
+      // row list is rebuilt from scratch here. Reusing a stored reference would
+      // keep pointing at that detached node and render every row off-screen.
+      dom.acccon = addElement(dom.ctrwin5, "div");
       for (const a in acts) {
         renderAct(acts[a]);
       }

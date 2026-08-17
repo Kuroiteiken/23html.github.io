@@ -139,15 +139,25 @@ test("a save from the current build needs no migration", () => {
   assert.equal(payload.mods.sdrate, 0.4, "nothing is touched");
 });
 
-test("the v476 migration clears the retired idle drain", () => {
+test("a pre-v476 save has both drain migrations applied", () => {
   // Before v476 the saved drain rate was the retired base of 0.1, plus anything
   // the actions panel leaked onto it. Equipment and action contributions are
   // never stored, so zero is the only correct value.
   const { api } = sandbox();
   const payload = { mods: { sdrate: 0.3, runerg: 1 } };
-  assert.equal(api.migrateSave(payload, 475), 1);
+  assert.equal(api.migrateSave(payload, 475), 2);
   assert.equal(payload.mods.sdrate, 0);
   assert.equal(payload.mods.runerg, 1, "other modifiers are left alone");
+});
+
+test("the v477 migration clears the residue left by mid-run discounts", () => {
+  // A v476 save charged the running cost onto the stored rate and refunded it
+  // at whatever mods.runerg had become, so the difference accumulated there.
+  const { api } = sandbox();
+  const payload = { mods: { sdrate: 0.145, runerg: 0.85 } };
+  assert.equal(api.migrateSave(payload, 476), 1);
+  assert.equal(payload.mods.sdrate, 0);
+  assert.equal(payload.mods.runerg, 0.85, "the earned discount itself is kept");
 });
 
 test("the v476 migration tolerates a save with no modifiers", () => {

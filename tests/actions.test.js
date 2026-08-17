@@ -1,11 +1,12 @@
-// Behaviour tests for the run action's activate/deactivate pair.
+// Behaviour tests for the run action's cost and its activate/deactivate pair.
 //
-// The pair adjusts shared modifiers with += and -=, so calling either side twice
-// leaves the modifier permanently wrong. That is exactly what happened: the
-// actions panel rebuilt its container without removing the previous rows, so a
-// second copy of every row stayed live and one click could run activate twice
-// while stopping refunded once. These tests pin the guards that make the pair
-// idempotent regardless of how the caller behaves.
+// The running cost used to be charged onto you.mods.sdrate on start and
+// refunded on stop. That leaked twice: once when a duplicated panel row ran
+// activate two times against a single stop, and again when earning a title that
+// lowered mods.runerg mid-run made the refund smaller than the charge. The
+// residue stuck to the stored rate and was written to the save, so the drain
+// climbed a little with every run. The cost is derived from the action now, and
+// these tests pin both that and the idempotence of what is still paired.
 
 const test = require("node:test");
 const assert = require("node:assert");
@@ -23,6 +24,7 @@ const actions = fs.readFileSync(
 // The run action's handlers, lifted out of the bundle by the property they
 // assign. Everything they call is stubbed below.
 const wanted = new Set([
+  "act.demo.drain",
   "act.demo.activate",
   "act.demo.deactivate",
   "act.demo.use",
@@ -59,7 +61,7 @@ function sandbox() {
   const context = {
     act: { demo: { active: false } },
     you: {
-      mods: { sdrate: 0.1, stdstps: 1, runerg: 1 },
+      mods: { sdrate: 0, stdstps: 1, runerg: 1 },
       sat: 100,
       eqp: { 6: { dp: 10 } },
     },
@@ -80,6 +82,78 @@ function sandbox() {
   return context;
 }
 
+test("running costs nothing until it is started", () => {
+  const ctx = sandbox();
+  assert.equal(ctx.act.demo.drain(), 0);
+});
+
+test("running costs 0.1 per tick at full energy upkeep", () => {
+  const ctx = sandbox();
+  ctx.act.demo.activate();
+  assert.equal(ctx.act.demo.drain(), 0.1);
+  assert.equal(ctx.act.demo.active, true);
+});
+
+test("stopping ends the cost entirely", () => {
+  const ctx = sandbox();
+  ctx.act.demo.activate();
+  ctx.act.demo.deactivate();
+  assert.equal(ctx.act.demo.drain(), 0);
+});
+
+test("the title discounts come off the 0.1 cost, not off a stored rate", () => {
+  // The two running titles lower mods.runerg by 0.05 and 0.15, which the player
+  // reads as a 5% and a 15% discount on the running cost.
+  const ctx = sandbox();
+  ctx.act.demo.activate();
+
+  ctx.you.mods.runerg = 0.95;
+  assert.equal(Math.round(ctx.act.demo.drain() * 1000) / 1000, 0.095);
+
+  ctx.you.mods.runerg = 0.85;
+  assert.equal(Math.round(ctx.act.demo.drain() * 1000) / 1000, 0.085);
+
+  ctx.you.mods.runerg = 0.8;
+  assert.equal(Math.round(ctx.act.demo.drain() * 1000) / 1000, 0.08);
+});
+
+test("earning a discount mid-run leaves no residue behind", () => {
+  // This is the leak the derived cost exists to prevent: the charge happened at
+  // runerg 1 and the refund would have happened at 0.85, keeping the difference
+  // on the stored rate for good.
+  const ctx = sandbox();
+  const before = { ...ctx.you.mods };
+
+  ctx.act.demo.activate();
+  ctx.you.mods.runerg = 0.85;
+  ctx.act.demo.deactivate();
+
+  assert.equal(ctx.you.mods.sdrate, before.sdrate);
+  assert.equal(ctx.act.demo.drain(), 0);
+});
+
+test("the stored rate is never touched by running at all", () => {
+  const ctx = sandbox();
+  ctx.act.demo.activate();
+  assert.equal(ctx.you.mods.sdrate, 0, "the cost is derived, not accumulated");
+  ctx.act.demo.deactivate();
+  assert.equal(ctx.you.mods.sdrate, 0);
+});
+
+test("a lasting rate from equipment survives a run untouched", () => {
+  // Accessories such as acc.jln3 add to the stored rate in a matched pair, so
+  // running must neither consume nor inflate what they contribute.
+  const ctx = sandbox();
+  ctx.you.mods.sdrate = 0.2;
+
+  ctx.act.demo.activate();
+  assert.equal(ctx.you.mods.sdrate, 0.2);
+  assert.equal(ctx.act.demo.drain(), 0.1);
+
+  ctx.act.demo.deactivate();
+  assert.equal(ctx.you.mods.sdrate, 0.2);
+});
+
 test("starting and stopping leaves the modifiers exactly as they were", () => {
   const ctx = sandbox();
   const before = { ...ctx.you.mods };
@@ -90,20 +164,12 @@ test("starting and stopping leaves the modifiers exactly as they were", () => {
   assert.deepEqual(ctx.you.mods, before);
 });
 
-test("running raises the energy drain while active", () => {
-  const ctx = sandbox();
-  ctx.act.demo.activate();
-  assert.equal(ctx.you.mods.sdrate, 0.2);
-  assert.equal(ctx.act.demo.active, true);
-});
-
-test("activating twice does not stack the energy cost", () => {
+test("activating twice does not stack the paired modifiers", () => {
   // Two live rows for the same action used to do exactly this.
   const ctx = sandbox();
   ctx.act.demo.activate();
   ctx.act.demo.activate();
-  assert.equal(ctx.you.mods.sdrate, 0.2, "the cost is applied once");
-  assert.equal(ctx.you.mods.stdstps, 1.5);
+  assert.equal(ctx.you.mods.stdstps, 1.5, "the step bonus is applied once");
 });
 
 test("a doubled start followed by one stop leaves nothing behind", () => {
@@ -114,11 +180,8 @@ test("a doubled start followed by one stop leaves nothing behind", () => {
   ctx.act.demo.activate();
   ctx.act.demo.deactivate();
 
-  assert.deepEqual(
-    ctx.you.mods,
-    before,
-    "this is the leak that inflated the drain by 0.1 per run",
-  );
+  assert.deepEqual(ctx.you.mods, before);
+  assert.equal(ctx.act.demo.drain(), 0);
 });
 
 test("deactivating when not running refunds nothing", () => {
@@ -139,13 +202,14 @@ test("many start/stop cycles do not drift", () => {
   assert.deepEqual(ctx.you.mods, before);
 });
 
-test("the refund scales with runerg the same way the cost did", () => {
-  // A title that lowers runerg between start and stop would otherwise refund a
-  // different amount than it charged.
+test("cycles with a changing discount do not drift either", () => {
   const ctx = sandbox();
-  ctx.act.demo.activate();
-  const charged = ctx.you.mods.sdrate - 0.1;
-  ctx.act.demo.deactivate();
-  assert.equal(charged, 0.1);
-  assert.equal(ctx.you.mods.sdrate, 0.1);
+  const discounts = [1, 0.95, 0.85, 0.8];
+  for (let cycle = 0; cycle < 25; cycle++) {
+    ctx.act.demo.activate();
+    ctx.you.mods.runerg = discounts[cycle % discounts.length];
+    ctx.act.demo.deactivate();
+  }
+  assert.equal(ctx.you.mods.sdrate, 0);
+  assert.equal(ctx.you.mods.stdstps, 1);
 });

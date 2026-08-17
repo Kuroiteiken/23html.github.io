@@ -53,7 +53,37 @@
       }
 
       .page-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: clamp(24px, 5vw, 56px);
+        align-items: center;
         padding: 64px 0 32px;
+      }
+
+      .header-art {
+        position: relative;
+        width: clamp(168px, 26vw, 272px);
+      }
+
+      .header-art::before {
+        content: "";
+        position: absolute;
+        inset: -10%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgb(95 195 255 / 20%),
+          transparent 68%
+        );
+      }
+
+      .header-art img {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 18px 44px rgb(3 7 18 / 65%);
       }
 
       .eyebrow,
@@ -221,7 +251,13 @@
 
       @media (max-width: 600px) {
         .page-header {
+          grid-template-columns: minmax(0, 1fr);
           padding-top: 40px;
+        }
+
+        .header-art {
+          order: -1;
+          width: 108px;
         }
 
         .release-header {
@@ -246,27 +282,80 @@
   </head>
   <body>
     <header class="page-header">
-      <span class="eyebrow">Echoes Beneath development history</span>
-      <h1>Changelog</h1>
-      <p class="intro">
-        Player-facing releases, gameplay improvements, content additions, and
-        fixes.
-      </p>
-      <p class="fork-note">
-        <strong>This fork is now called Echoes Beneath.</strong> It began as a
-        fork of the upstream Proto23 game and keeps its save format, its
-        repository name, and its stored preferences, so existing saves and
-        language settings continue to work.
-      </p>
-      <div class="toolbar">
-        <a class="back-link" href="../">← Back to game</a>
-        <p class="alpha-warning">
-          Early alpha — systems and save compatibility may change.
+      <div class="header-text">
+        <span class="eyebrow">Echoes Beneath development history</span>
+        <h1>Changelog</h1>
+        <p class="intro">
+          Player-facing releases, gameplay improvements, content additions, and
+          fixes.
         </p>
+        <p class="fork-note">
+          <strong>This fork is now called Echoes Beneath.</strong> It began as a
+          fork of the upstream Proto23 game and keeps its save format, its
+          repository name, and its stored preferences, so existing saves and
+          language settings continue to work.
+        </p>
+        <div class="toolbar">
+          <a class="back-link" href="../">← Back to game</a>
+          <p class="alpha-warning">
+            Early alpha — systems and save compatibility may change.
+          </p>
+        </div>
+      </div>
+      <div class="header-art">
+        <img
+          src="../icons/icon-512.png"
+          width="512"
+          height="512"
+          alt="Echoes Beneath emblem: a sheathed blade over a moonlit village and a wolf's paw print"
+        />
       </div>
     </header>
     <main class="changelog" aria-label="Release history">
-      <article class="release release-latest" data-version="476">
+      <article class="release release-latest" data-version="477">
+        <header class="release-header">
+          <div>
+            <span class="release-kicker">Release</span>
+            <h2>v477</h2>
+          </div>
+          <div class="release-meta">
+            <span class="release-range">v476 → v477</span>
+            <time datetime="2026-08-17">2026/08/17</time>
+          </div>
+        </header>
+        <ul class="release-changes">
+          <li>
+            The running titles now discount the running cost itself, so a 5%
+            title costs 0.095 per second and a 15% title costs 0.085. The
+            discount used to be applied to a stored rate instead
+          </li>
+          <li>
+            Fixed the energy drain climbing a little with every run. The cost
+            was charged when you started and refunded when you stopped, so
+            earning a running title in between refunded less than it had charged
+            and the difference stayed on the rate for good. Running no longer
+            writes to the stored rate at all
+          </li>
+          <li>
+            Existing saves are corrected on load, so a save carrying that
+            residue stops draining while you stand still
+          </li>
+          <li>
+            The energy readout now shows three decimals, so a discounted cost of
+            0.085 is no longer displayed as 0.08
+          </li>
+          <li>
+            Fixed Run disappearing from the Actions panel after the panel had
+            been opened once
+          </li>
+          <li>
+            Fixed titles applying their permanent bonus a second time when an
+            older save was loaded
+          </li>
+          <li>The changelog header now carries the game's emblem</li>
+        </ul>
+      </article>
+      <article class="release" data-version="476">
         <header class="release-header">
           <div>
             <span class="release-kicker">Release</span>
@@ -278,8 +367,15 @@
           </div>
         </header>
         <ul class="release-changes">
-          <li>Standing still no longer costs energy. Energy is spent by what you do: running, taking hits, and bad weather. Running still costs 0.1 per second, reduced by the running titles</li>
-          <li>Existing saves are corrected on load, so a save that carried the old idle drain stops draining while you stand still</li>
+          <li>
+            Standing still no longer costs energy. Energy is spent by what you
+            do: running, taking hits, and bad weather. Running still costs 0.1
+            per second, reduced by the running titles
+          </li>
+          <li>
+            Existing saves are corrected on load, so a save that carried the old
+            idle drain stops draining while you stand still
+          </li>
           <li>
             Fixed the energy drain rate creeping up permanently every time you
             started and stopped running. Opening the Actions panel left the
