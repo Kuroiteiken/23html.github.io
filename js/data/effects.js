@@ -474,14 +474,6 @@ effect.fplc.duration = 2;
 effect.fplc.x = "火";
 effect.fplc.c = "yellow";
 effect.fplc.b = "crimson";
-effect.fplc.onGive = function () {
-  msg(
-    i18n.t(
-      "runtime.data.effects.dialogue.you_feel_the_warmth_of_the_fireplace_a514ffb8",
-    ),
-    "orange",
-  );
-};
 effect.fplc.use = function () {
   var fire = findbyid(furn, furniture.frplc.id);
   this.duration = fire.data.fuel;
@@ -492,7 +484,17 @@ effect.fplc.use = function () {
     rsort(global.rm);
   }
 };
+// There were two `onGive` assignments here. The first printed "you feel the warmth
+// of the fireplace" and the second, fifteen lines below it, replaced the whole
+// function -- so the message had never once been shown and the key sat unused in
+// both locale files. They are one handler now.
 effect.fplc.onGive = function () {
+  msg(
+    i18n.t(
+      "runtime.data.effects.dialogue.you_feel_the_warmth_of_the_fireplace_a514ffb8",
+    ),
+    "orange",
+  );
   you.mods.ckfre += 1;
 };
 effect.fplc.onRemove = function () {

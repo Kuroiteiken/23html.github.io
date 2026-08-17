@@ -5384,10 +5384,18 @@ chss.ofrplc.sl = () => {
       false,
     ).addEventListener("click", function () {
       its[a][0].amount--;
-      fire.data.fuel =
-        fire.data.fuel + its[a][2] > its[a][2]
-          ? its[a][2]
-          : fire.data.fuel + its[a][2];
+      // The clamp compared the new total against the value of the single piece
+      // just added, and `fuel + piece > piece` is true whenever there is any fuel
+      // at all -- so the fire was *assigned* the piece's own value every time. A
+      // stick worth 15 thrown onto a coal fire worth 300 took it down to 15, and
+      // the fire could never hold more than its largest single piece. That made
+      // the "blazing" and "roaring" states below, which want 300 and 540,
+      // unreachable by anything but one enormous log.
+      //
+      // A day's worth of burning is the ceiling. effect.fplc.use reads the fuel as
+      // the effect's remaining duration in ticks, and a tick is a minute, so this
+      // is the same DAY the calendar uses.
+      fire.data.fuel = Math.min(DAY, fire.data.fuel + its[a][2]);
       if (fire.data.fuel <= its[a][2])
         dom.frpls.innerHTML = global.text.frplcfrextra[0];
       else if (fire.data.fuel >= 130 && fire.data.fuel <= 300)
