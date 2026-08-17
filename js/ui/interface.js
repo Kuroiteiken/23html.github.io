@@ -28,6 +28,27 @@ dom.d3.innerHTML = i18n.t("ui.hud.levelTitle", {
   level: you.lvl,
   title: you.title.name,
 });
+// Rarity colouring for titles. This lived only inside the hover description, so
+// the selection list showed every title in the same colour and a second- or
+// third-class title was indistinguishable from a common one until the player
+// hovered each row in turn. Shared now, so the list and the tooltip cannot drift.
+function titleRarityStyle(rar) {
+  switch (rar) {
+    case 0:
+      return { color: "grey", shadow: "" };
+    case 2:
+      return { color: "cyan", shadow: "0px 0px 1px blue" };
+    case 3:
+      return { color: "lime", shadow: "0px 0px 2px lime" };
+    case 4:
+      return { color: "yellow", shadow: "0px 0px 3px orange" };
+    case 5:
+      return { color: "orange", shadow: "0px 0px 2px crimson,0px 0px 5px red" };
+    default:
+      return { color: "", shadow: "" };
+  }
+}
+
 dom.d3.addEventListener("click", function () {
   if (!global.flags.ttlscrnopn) {
     global.flags.ttlscrnopn = true;
@@ -48,6 +69,16 @@ dom.d3.addEventListener("click", function () {
         this.ttlent.innerHTML += i18n.t(
           "runtime.ui.interface.interface.text_967e8514",
         );
+      const rarity = titleRarityStyle(title.rar);
+      this.ttlent.style.color = rarity.color;
+      this.ttlent.style.textShadow = rarity.shadow;
+      // The rank was only ever readable by hovering the row. Added after the
+      // innerHTML writes above, which would otherwise discard the element.
+      this.ttlrank = addElement(this.ttlent, "small", null, "youttl__rank");
+      this.ttlrank.innerHTML = i18n.t("ui.titles.rankBadge", {
+        rank: title.id === 0 ? 0 : title.rar,
+      });
+      if (title.rars === true) this.ttlrank.innerHTML += "★";
       addDesc(this.ttlent, title, 5);
       this.ttlent.addEventListener("click", function () {
         you.title = title;
@@ -3787,42 +3818,9 @@ function dscr(c, what, type, ttl, dsc, id) {
     const t = ttl === true ? you.title : what;
     this.label = addElement(global.dscr, "div", "d_l");
     this.label.innerHTML = t.name;
-    switch (t.rar) {
-      case 0: {
-        this.label.style.color = "grey";
-        break;
-      }
-      case 2: {
-        this.label.style.textShadow = "0px 0px 1px blue";
-        this.label.style.color = "cyan";
-        break;
-      }
-      case 3: {
-        this.label.style.textShadow = "0px 0px 2px lime";
-        this.label.style.color = "lime";
-        break;
-      }
-      case 4: {
-        this.label.style.textShadow = "0px 0px 3px orange";
-        this.label.style.color = "yellow";
-        break;
-      }
-      case 5: {
-        this.label.style.textShadow = "0px 0px 2px crimson,0px 0px 5px red";
-        this.label.style.color = "orange";
-        break;
-      }
-      case 6: {
-        this.label.style.textShadow = "1px 1px 1px black,0px 0px 2px purple";
-        this.label.style.color = "purple";
-        break;
-      }
-      case 7: {
-        this.dl.style.textShadow = "hotpink 1px 1px .1em,cyan -1px -1px .1em";
-        this.dl.style.color = "black";
-        break;
-      }
-    }
+    const rarity = titleRarityStyle(t.rar);
+    this.label.style.color = rarity.color;
+    this.label.style.textShadow = rarity.shadow;
     this.text = addElement(global.dscr, "div", "d_t");
     this.text.innerHTML = t.desc;
     if (t.talent)

@@ -201,6 +201,9 @@
       "threatCleared": "Threat cleared",
       "bloodSpilled": "Blood spilled",
       "shopStanding": "Shop standing"
+    },
+    "titles": {
+      "rankBadge": "rank {rank}"
     }
   },
   "gameText": {

@@ -201,6 +201,9 @@
       "threatCleared": "Temizlenen tehdit",
       "bloodSpilled": "Akan kan",
       "shopStanding": "Esnaf itibarı"
+    },
+    "titles": {
+      "rankBadge": "rütbe {rank}"
     }
   },
   "gameText": {
