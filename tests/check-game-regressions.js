@@ -941,3 +941,23 @@ if (
 }
 
 console.log("Validated the quest list ordering.");
+
+// The stale-build check fetches version.json, which build-site.js writes beside
+// index.html. Resolved against js/i18n-loader.js the bare name becomes
+// js/version.json, which 404s -- and because a non-ok response returned quietly,
+// the protection was inert with nothing to show for it.
+const loaderSource = fs.readFileSync(
+  path.join(root, "js", "i18n-loader.js"),
+  "utf8",
+);
+
+if (
+  !loaderSource.includes('new URL("../version.json", loaderUrl)') ||
+  !loaderSource.includes("Stale-build check unavailable")
+) {
+  throw new Error(
+    "Cache regression: version.json must resolve against the site root, and a missing one must say so rather than disabling the staleness check in silence.",
+  );
+}
+
+console.log("Validated the stale-build check.");

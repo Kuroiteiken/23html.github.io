@@ -1400,3 +1400,32 @@ function sellableInventory() {
   );
   return lines;
 }
+
+// The smith. Durability exists on every piece of equipment, wears down in play, and
+// until now nothing in the game restored it -- a weapon whose durability ran out was
+// simply spent, and its contribution to damage collapsed to the flat 0.1 the formula
+// falls back on. That was a dead end with no way out of it.
+//
+// Repair is priced from what is missing rather than from the item, so keeping a
+// weapon in good order is cheap and letting one run to nothing is not.
+const REPAIR_COIN_PER_POINT = 4;
+
+function repairCost(obj) {
+  const missing = Math.max(0, obj.dpmax - obj.dp);
+  if (missing <= 0) return 0;
+  return Math.max(1, Math.ceil(missing * REPAIR_COIN_PER_POINT));
+}
+
+// Everything worn or carried that has taken damage. Equipment only: an item with no
+// slot has no durability to speak of.
+function repairableInventory() {
+  const lines = [];
+  for (const obj of inv) {
+    if (!obj.slot) continue;
+    if (!(obj.dpmax > 0)) continue;
+    if (obj.dp >= obj.dpmax) continue;
+    lines.push({ obj, cost: repairCost(obj), worn: wearing(obj) });
+  }
+  lines.sort((a, b) => b.cost - a.cost);
+  return lines;
+}

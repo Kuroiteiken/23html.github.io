@@ -60,15 +60,26 @@
     if (!assetVersion) return false;
     let current;
     try {
+      // Resolved against the site root, not against this script. build-site.js
+      // writes it beside index.html; relative to js/i18n-loader.js the bare name
+      // resolves to js/version.json, which 404s. The check swallows that and
+      // returns false, so the fault was silent and the whole protection inert.
       const response = await fetch(
-        versioned(new URL("version.json", loaderUrl)),
-        {
-          cache: "no-store",
-        },
+        versioned(new URL("../version.json", loaderUrl)),
+        { cache: "no-store" },
       );
-      if (!response.ok) return false;
+      if (!response.ok) {
+        // A missing file means the deploy is not laid out the way this expects, and
+        // the whole staleness protection is inert. Silence is what let the wrong
+        // path ship, so say so rather than returning quietly.
+        console.warn(
+          `Stale-build check unavailable: ${response.url} returned HTTP ${response.status}. A cached index.html will not correct itself.`,
+        );
+        return false;
+      }
       current = (await response.json()).assetVersion;
     } catch (error) {
+      // A network error is the ordinary offline case and not worth a warning.
       return false;
     }
     if (!current || current === assetVersion) return false;

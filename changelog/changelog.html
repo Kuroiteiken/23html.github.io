@@ -325,6 +325,14 @@
         </header>
         <ul class="release-changes">
           <li>
+            The check that pulls a new build through a stale cache was looking
+            in the wrong place and quietly doing nothing. It asked for the
+            version file beside the loader instead of beside the page, got a
+            404, and treated that as “nothing to do” — so the protection added a
+            build ago was never actually on. It says so out loud now if the file
+            is ever missing again
+          </li>
+          <li>
             The fireplace can be built up. Adding fuel replaced what was already
             burning with whatever you just threw on, so a stick worth fifteen
             minutes dropped a coal fire worth five hours down to fifteen
