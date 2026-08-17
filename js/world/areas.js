@@ -53,10 +53,41 @@ area.trnf = new Area();
 // and left this area on the constructor default of 0.
 area.trnf.id = 107;
 area.trnf.name = i18n.t("content.area.trnf.name");
+// The endless bout, and the only place in the dojo a student can simply keep
+// working. Its dummies were pinned at levels 12, 13 and 10, which is below the
+// dojo's own first trial at 20 -- so the moment a student was good enough to be
+// sent at a golem, the room they trained in had nothing left to teach them, and
+// the reward ladder that now runs to level 50 had nothing behind it at all.
+//
+// A dojo sets a training dummy to the student in front of it, which is what these
+// do now. They stay dummies: their health grows at a tenth of a point a level and
+// they are worth linear experience against a cubic requirement, so this is a place
+// to practise, never a place to farm.
 area.trnf.pop = [
-  { crt: creature.sdummy, lvlmin: 1, lvlmax: 12, c: 0.3 },
-  { crt: creature.tdummy, lvlmin: 7, lvlmax: 13, c: 0.3 },
-  { crt: creature.wdummy, lvlmin: 8, lvlmax: 10, c: 0.3 },
+  {
+    crt: creature.sdummy,
+    lvlmin: 1,
+    get lvlmax() {
+      return trackingLevel(12, 4, 46);
+    },
+    c: 0.3,
+  },
+  {
+    crt: creature.tdummy,
+    lvlmin: 7,
+    get lvlmax() {
+      return trackingLevel(13, 0, 50);
+    },
+    c: 0.3,
+  },
+  {
+    crt: creature.wdummy,
+    lvlmin: 8,
+    get lvlmax() {
+      return trackingLevel(10, 2, 48);
+    },
+    c: 0.3,
+  },
 ];
 area.trnf.size = -1;
 z_bake(area.trnf);
@@ -452,10 +483,35 @@ area.cata2a.drop = [
 area.cata3a = new Area();
 area.cata3a.id = 122;
 area.cata3a.name = i18n.t("content.area.cata3a.name");
+// A hunting ground of forty rooms rather than a single encounter, and one the
+// player has every reason to come back to. Its ceiling follows them from level 30
+// on: this is where the dark ki the story is about has been pooling, and what it
+// has been working on does not stop at the number someone wrote down.
 area.cata3a.pop = [
-  { crt: creature.zmbm, lvlmin: 18, lvlmax: 22, c: 0.3 },
-  { crt: creature.ght, lvlmin: 18, lvlmax: 23, c: 0.35 },
-  { crt: creature.zmbk, lvlmin: 19, lvlmax: 24, c: 0.35 },
+  {
+    crt: creature.zmbm,
+    lvlmin: 18,
+    get lvlmax() {
+      return trackingLevel(22, 8, 38);
+    },
+    c: 0.3,
+  },
+  {
+    crt: creature.ght,
+    lvlmin: 18,
+    get lvlmax() {
+      return trackingLevel(23, 7, 39);
+    },
+    c: 0.35,
+  },
+  {
+    crt: creature.zmbk,
+    lvlmin: 19,
+    get lvlmax() {
+      return trackingLevel(24, 6, 40);
+    },
+    c: 0.35,
+  },
 ];
 area.cata3a.size = 40;
 z_bake(area.cata3a);
@@ -480,10 +536,34 @@ area.cata3a.drop = [
 area.cata4a = new Area();
 area.cata4a.id = 123;
 area.cata4a.name = i18n.t("content.area.cata4a.name");
+// The deepest hunting ground in the game, and the highest its ceiling goes: the
+// two rooms before the end. Past this the only thing left is the encounter at the
+// bottom, which stays exactly as it was written.
 area.cata4a.pop = [
-  { crt: creature.zmbk, lvlmin: 21, lvlmax: 25, c: 0.3 },
-  { crt: creature.unsctn, lvlmin: 22, lvlmax: 26, c: 0.4 },
-  { crt: creature.mumy, lvlmin: 23, lvlmax: 27, c: 0.3 },
+  {
+    crt: creature.zmbk,
+    lvlmin: 21,
+    get lvlmax() {
+      return trackingLevel(25, 5, 45);
+    },
+    c: 0.3,
+  },
+  {
+    crt: creature.unsctn,
+    lvlmin: 22,
+    get lvlmax() {
+      return trackingLevel(26, 4, 46);
+    },
+    c: 0.4,
+  },
+  {
+    crt: creature.mumy,
+    lvlmin: 23,
+    get lvlmax() {
+      return trackingLevel(27, 3, 47);
+    },
+    c: 0.3,
+  },
 ];
 area.cata4a.size = 26;
 z_bake(area.cata4a);
@@ -517,6 +597,24 @@ area.cata5a.onEnd = function () {
   smove(chss.cata25);
 };
 area.cata5a.drop = [];
+
+// A level band that follows the player upward without ever dropping below what
+// was authored for the place. `floor` is the hand-written ceiling, so a player
+// arriving for the first time meets exactly the fight that was designed; `behind`
+// is how far under the player the band trails, and `cap` is where it stops.
+//
+// mon_gen reads lvlmin and lvlmax off the live population entry at the moment it
+// generates a creature, and z_bake only precomputes the spawn weights, so a
+// population entry can express its ceiling as a getter over this.
+//
+// This exists because the world stopped at level 28 while the dojo's reward ladder
+// runs to 50: past the catacombs there was nothing left in the game that could
+// give a fight or worthwhile experience. It raises no floor and it makes nothing
+// easier -- an over-level creature is worth more experience, not less.
+function trackingLevel(floor, behind, cap) {
+  const lvl = (you && you.lvl) || 1;
+  return Math.max(floor, Math.min(lvl - behind, cap));
+}
 
 function z_bake(area) {
   let c = 0;

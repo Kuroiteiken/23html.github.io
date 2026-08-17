@@ -570,6 +570,34 @@ for (const shield of ["hpt", "knt", "drd"]) {
   }
 }
 
+// The world's monster levels stopped at 28 while the dojo's reward ladder runs to
+// 50. Bands that follow the player were added to the endless training bout and the
+// two deep catacomb hunting grounds. The floors must stay authored, so a first
+// arrival still meets the fight that was designed, and the single-encounter boss
+// at the bottom must not scale at all.
+const areasSource = fs.readFileSync(
+  path.join(root, "js", "world", "areas.js"),
+  "utf8",
+);
+
+if (
+  !/function trackingLevel\(floor, behind, cap\)/.test(areasSource) ||
+  !/return Math\.max\(floor, Math\.min\(lvl - behind, cap\)\);/.test(
+    areasSource,
+  ) ||
+  (areasSource.match(/get lvlmax\(\) \{/g) || []).length < 9
+) {
+  throw new Error(
+    "World level regression: the training bout and the deep catacombs must express their ceilings as bands that follow the player, floored at the authored value.",
+  );
+}
+
+if (!/crt: creature\.dcrps1, lvlmin: 26, lvlmax: 28/.test(areasSource)) {
+  throw new Error(
+    "World level regression: the encounter at the end of the catacombs is a fixed fight and must not track the player's level.",
+  );
+}
+
 if (
   !/\(100 \+ you\.eqp\[1\]\.aff\[att\.atype\] \* 5 \* shdc\)/.test(
     interfaceSource,
