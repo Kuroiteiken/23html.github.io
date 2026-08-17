@@ -1605,6 +1605,7 @@ function ontick() {
 const maxCatchUpPerFrame = 60;
 const maxBacklogTicks = 3600;
 let lastTickAt = Date.now();
+let catchUpAnnounced = false;
 
 (function update() {
   const interval = 1000 / global.fps;
@@ -1619,6 +1620,20 @@ let lastTickAt = Date.now();
       pending = maxBacklogTicks;
       lastTickAt = now - maxBacklogTicks * interval;
     }
+    // Say so when a real gap is being replayed. Energy drains every tick, so
+    // several points disappearing at once on return otherwise reads as a glitch
+    // rather than as time having passed. Announced once per gap, not per frame.
+    if (pending > 5) {
+      if (!catchUpAnnounced && !global.flags.loadstate) {
+        catchUpAnnounced = true;
+        msg(
+          i18n.t("runtime.systems.simulation.dialogue.time_caught_up", {
+            minutes: Math.round((pending * interval) / 60000) || 1,
+          }),
+          "grey",
+        );
+      }
+    } else catchUpAnnounced = false;
     const ticks = Math.min(pending, maxCatchUpPerFrame);
     lastTickAt += ticks * interval;
     for (let tick = 0; tick < ticks; tick++) ontick();

@@ -4681,7 +4681,8 @@
           "perk_details": "Perk lvl {level}: <span style=\"color:yellow\">{perk}</span>",
           "title_earned": "New Title Earned! {title}",
           "player_action": "You {action}",
-          "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) for "
+          "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) for ",
+          "time_caught_up": "<span style=\"color:grey\">{minutes} minute(s) passed while the game was in the background.</span>"
         },
         "description": {
           "lunar_phase_0004b314": "Lunar Phase"

@@ -1842,7 +1842,7 @@
         "desc": "Birden fazla uçucu bileşenin bir arada yoğunlaştırılmasıyla yapılan yeniden tasarlanmış sis bombası, dumanı birkaç kat daha tehlikeli hale getiriyor, ancak yaşayan bir insana gerçek zarar vermeye yetmiyor. Böyle bir modifikasyonun ateşleme süresi çok daha uzun olduğundan, sıradan bir sis bombasından daha az kullanım alanı vardır."
       },
       "appl": {
-        "name": "elma",
+        "name": "Elma",
         "desc": "Sulu kırmızı bir meyve. Başka bir şeyin yoksa güzel bir kahvaltı olur...{separator}<span style='color:lime'> {val} </span>enerji yeniler"
       },
       "brd": {
@@ -4681,7 +4681,8 @@
           "perk_details": "Avantaj sv {level}: <span style=\"color:yellow\">{perk}</span>",
           "title_earned": "Yeni Unvan Kazanıldı! {title}",
           "player_action": "{action}",
-          "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) toplam "
+          "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) toplam ",
+          "time_caught_up": "<span style=\"color:grey\">Oyun arka plandayken {minutes} dakika geçti.</span>"
         },
         "description": {
           "lunar_phase_0004b314": "Ay Evresi"
