@@ -100,7 +100,7 @@ ttl.wlk.talent = function () {
 ttl.wlk.onGet = function () {
   if (act.demo.active) you.mods.sdrate -= 0.005;
 };
-ttl.wlk.tdesc = "Running consumes 5% less energy";
+ttl.wlk.tdesc = i18n.t("content.ttl.wlk.tdesc");
 
 ttl.eat1 = new Title(18);
 ttl.eat1.name = i18n.t("content.ttl.eat1.name");
@@ -145,7 +145,7 @@ ttl.jgg.talent = function () {
 ttl.jgg.onGet = function () {
   if (act.demo.active) you.mods.sdrate -= 0.015;
 };
-ttl.jgg.tdesc = "Running consumes 15% less energy";
+ttl.jgg.tdesc = i18n.t("content.ttl.jgg.tdesc");
 
 ttl.spn = new Title(26);
 ttl.spn.name = i18n.t("content.ttl.spn.name");
@@ -232,8 +232,7 @@ ttl.rfpn2.desc = i18n.t("content.ttl.rfpn2.desc");
 ttl.rfpn2.talent = function () {
   you.mods.survinf++;
 };
-ttl.rfpn2.tdesc =
-  "Allows you to roughly guess when perishable food rots (shift key)";
+ttl.rfpn2.tdesc = i18n.t("content.ttl.rfpn2.tdesc");
 
 ttl.rfpn3 = new Title(44);
 ttl.rfpn3.name = i18n.t("content.ttl.rfpn3.name");
@@ -247,7 +246,7 @@ ttl.tqtm.desc = i18n.t("content.ttl.tqtm.desc");
 ttl.tqtm.talent = function () {
   /*(:*/
 };
-ttl.tqtm.tdesc = "Dummies may drop something special";
+ttl.tqtm.tdesc = i18n.t("content.ttl.tqtm.tdesc");
 
 ttl.ddw = new Title(46);
 ttl.ddw.name = i18n.t("content.ttl.ddw.name");

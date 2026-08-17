@@ -160,6 +160,21 @@ changes. Player-facing game content and release notes belong in
   `v0.2a` key, so an imported save survives a reload.
 - Preserved an unreadable save under a backup key and reported it to the player
   instead of silently starting a new game over it.
+- Finished the localization sweep. Quest objectives and locations, six furniture
+  descriptions with their bonus lines, four title talents, three action
+  descriptions, the mastery panel, and the last stray area names now read from
+  the locale files. No player-facing English literal remains in live source: the
+  only English left is console output and `js/i18n-loader.js`, which by
+  definition runs before the locales exist.
+- Corrected eight Turkish choice labels written as verbal nouns, which read as
+  the negative imperative. `"Satın alma"` on the shop action means both
+  "purchasing" and "do not buy"; the same shape appeared on the reward claim,
+  the message board, and five other clickable choices. Five of them were also in
+  the formal plural while the rest of the game uses the singular.
+- Extracted `masteryDescription`, since the strength and agility masteries
+  duplicated the same markup. Agility still shows strength's numbers because its
+  levelling was never implemented; that is content work and is recorded in
+  `docs/STORY.md` rather than silently changed here.
 - Derived game ticks from elapsed wall-clock time instead of counting callbacks.
   Browsers throttle background timers, and after a few minutes hidden drop them
   to roughly once a minute, so the world genuinely stopped rather than merely

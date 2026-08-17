@@ -468,7 +468,7 @@ item.svial1.use = function () {
     }
     const ta = new Area();
     ta.id = -1;
-    ta.name = "Somewhere";
+    ta.name = i18n.t("content.area.nwh.name");
     ta.pop = [{ crt: creature.skl, lvlmin: 10, lvlmax: 10, c: 1 }];
     ta.protected = true;
     ta.onEnd = function () {

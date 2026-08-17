@@ -125,19 +125,41 @@ function Mastery(id) {
   this.onlevel = function () {};
 }
 
+// Both masteries render the same shell: prose, the per-level effect, and the
+// player's current total. `mastery.agl1` shows `str1`'s numbers because its own
+// levelling has never been implemented; that is content work, not a wording
+// change, so the behaviour is kept as it is here. See docs/STORY.md.
+function masteryDescription(prose, perLevel, current) {
+  const heading =
+    '<div style="color:cyan;background-color:midnightblue;font-size:small">';
+  return (
+    prose +
+    dom.dseparator +
+    heading +
+    i18n.t("ui.mastery.effects") +
+    '</div><div style="color:yellow;background-color:#123;font-size:small"><br>' +
+    i18n.t("ui.mastery.statLine", perLevel) +
+    "<br><br></div>" +
+    heading +
+    i18n.t("ui.mastery.current") +
+    '</div><div style="color:lime;background-color:#123;font-size:small"><br>' +
+    i18n.t("ui.mastery.statLine", current) +
+    "<br><br></div>"
+  );
+}
+
+function strengthMasteryTotals() {
+  const lvl = mastery.str1.data.lvl;
+  return { str: lvl * 0.5, hp: lvl * 5, sat: lvl };
+}
+
 mastery.str1 = new Mastery(1);
 mastery.str1.name = i18n.t("content.mastery.str1.name");
 mastery.str1.desc = function () {
-  return (
-    "Simple improvements to body physique" +
-    dom.dseparator +
-    '<div style="color:cyan;background-color:midnightblue;font-size:small">Effects:</div><div style="color:yellow;background-color:#123;font-size:small"><br>STR +0.5  |  HP +5  |  SAT +1<br><br></div><div style="color:cyan;background-color:midnightblue;font-size:small">Current:</div><div style="color:lime;background-color:#123;font-size:small"><br>STR +' +
-    mastery.str1.data.lvl * 0.5 +
-    "  |  HP +" +
-    mastery.str1.data.lvl * 5 +
-    "  |  SAT +" +
-    mastery.str1.data.lvl +
-    "<br><br></div>"
+  return masteryDescription(
+    i18n.t("content.mastery.str1.desc"),
+    { str: 0.5, hp: 5, sat: 1 },
+    strengthMasteryTotals(),
   );
 };
 mastery.str1.have = true;
@@ -151,16 +173,10 @@ mastery.str1.icon = [6, 3];
 mastery.agl1 = new Mastery(2);
 mastery.agl1.name = i18n.t("content.mastery.agl1.name");
 mastery.agl1.desc = function () {
-  return (
-    "" +
-    dom.dseparator +
-    '<div style="color:cyan;background-color:midnightblue;font-size:small">Effects:</div><div style="color:yellow;background-color:#123;font-size:small"><br>STR +0.5  |  HP +5  |  SAT +1<br><br></div><div style="color:cyan;background-color:midnightblue;font-size:small">Current:</div><div style="color:lime;background-color:#123;font-size:small"><br>STR +' +
-    mastery.str1.data.lvl * 0.5 +
-    "  |  HP +" +
-    mastery.str1.data.lvl * 5 +
-    "  |  SAT +" +
-    mastery.str1.data.lvl +
-    "<br><br></div>"
+  return masteryDescription(
+    "",
+    { str: 0.5, hp: 5, sat: 1 },
+    strengthMasteryTotals(),
   );
 };
 mastery.agl1.have = true;

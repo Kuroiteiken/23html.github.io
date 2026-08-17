@@ -32,9 +32,9 @@ act.demo.id = 1;
 act.demo.name = i18n.t("content.act.demo.name");
 act.demo.desc = function () {
   return (
-    "Run within this area to improve your physique" +
+    i18n.t("content.act.demo.desc") +
     dom.dseparator +
-    '<span style="color:pink">Exp +0.5/s</span><br><span style="color:skyblue">Trains Walking</span><br><span style="color:crimson">Energy Consumption +0.1\/s</span>'
+    i18n.t("content.act.demo.bonus")
   );
 };
 act.demo.cond = function (l) {
@@ -92,7 +92,7 @@ act.scout = new Action();
 act.scout.id = 2;
 act.scout.name = i18n.t("content.act.scout.name");
 act.scout.desc = function () {
-  return "Thoroughly examine current area in search for hidden passages, treasure, secrets or anything of interest";
+  return i18n.t("content.act.scout.desc");
 };
 act.scout.cond = function (l) {
   if (global.flags.isdark && !cansee()) {
@@ -200,7 +200,7 @@ act.demo2.id = -3;
 act.demo2.name = i18n.t("content.act.demo2.name");
 act.demo2.type = 2;
 act.demo2.desc = function () {
-  return "Injure yourself";
+  return i18n.t("content.act.demo2.desc");
 };
 act.demo2.use = function () {
   const f = findbyid(you.eff, effect.bled.id);

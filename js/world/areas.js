@@ -4,7 +4,7 @@
 // save, so their order here must stay stable.
 
 function Area() {
-  this.name = "Nowhere";
+  this.name = i18n.t("content.area.nwh.name");
   this.id = 0;
   this.pop = [];
   this.size = 10;

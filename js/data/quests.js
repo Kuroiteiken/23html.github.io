@@ -46,7 +46,9 @@ quest.fwd1.id = 2;
 quest.fwd1.name = i18n.t("content.quest.fwd1.name");
 quest.fwd1.rar = 1;
 quest.fwd1.desc = i18n.t("content.quest.fwd1.desc");
-quest.fwd1.loc = "Western Woods, Hunter's Lodge";
+quest.fwd1.loc = i18n.t(
+  "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
+);
 quest.fwd1.rwd = function () {
   you.karma++;
   giveWealth(100);
@@ -59,16 +61,22 @@ quest.fwd1.goals = function () {
   if (item.fwd1.amount >= 10) c = "lime";
   else if (item.fwd1.amount < 10 && item.fwd1.amount > 0) c = "yellow";
   else if (item.fwd1.amount <= 0) c = "red";
-  const txt =
-    'Firewood collected: <span style="color: ' +
-    c +
-    '">' +
-    item.fwd1.amount +
-    "/10</span>";
-  return [txt];
+  return [
+    i18n.t("content.quest.fwd1.goal", {
+      color: c,
+      current: item.fwd1.amount,
+      required: 10,
+    }),
+  ];
 };
 quest.fwd1.goalsf = function () {
-  return ['Firewood collected: <span style="color:lime">10/10</span>'];
+  return [
+    i18n.t("content.quest.fwd1.goal", {
+      color: "lime",
+      current: 10,
+      required: 10,
+    }),
+  ];
 };
 
 quest.hnt1 = new Quest();
@@ -76,7 +84,9 @@ quest.hnt1.id = 3;
 quest.hnt1.name = i18n.t("content.quest.hnt1.name");
 quest.hnt1.rar = 1;
 quest.hnt1.desc = i18n.t("content.quest.hnt1.desc");
-quest.hnt1.loc = "Western Woods, Hunter's Lodge";
+quest.hnt1.loc = i18n.t(
+  "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
+);
 quest.hnt1.rwd = function () {
   you.karma++;
   giveWealth(130);
@@ -88,23 +98,31 @@ quest.hnt1.goals = function () {
   if (item.rwmt1.amount >= 10) c = "lime";
   else if (item.rwmt1.amount < 10 && item.rwmt1.amount > 0) c = "yellow";
   else if (item.rwmt1.amount <= 0) c = "red";
-  const txt =
-    'Raw meat collected: <span style="color: ' +
-    c +
-    '">' +
-    item.rwmt1.amount +
-    "/10</span>";
-  return [txt];
+  return [
+    i18n.t("content.quest.hnt1.goal", {
+      color: c,
+      current: item.rwmt1.amount,
+      required: 10,
+    }),
+  ];
 };
 quest.hnt1.goalsf = function () {
-  return ['Raw meat collected: <span style="color:lime">10/10</span>'];
+  return [
+    i18n.t("content.quest.hnt1.goal", {
+      color: "lime",
+      current: 10,
+      required: 10,
+    }),
+  ];
 };
 
 quest.grds1 = new Quest();
 quest.grds1.id = 4;
 quest.grds1.name = i18n.t("content.quest.grds1.name");
 quest.grds1.rar = 1;
-quest.grds1.loc = "Village Center, Marketplace Entry Gate";
+quest.grds1.loc = i18n.t(
+  "runtime.world.locations.dialogue.village_center_marketplace_entry_gate_d83b4644",
+);
 quest.grds1.desc = i18n.t("content.quest.grds1.desc");
 quest.grds1.data.t = 0;
 quest.grds1.repeatable = true;
@@ -116,18 +134,28 @@ quest.grds1.rwd = function () {
 };
 quest.grds1.goals = function () {
   return [
-    'Guard the gate until 8PM (<span style="color:yellow">in progress</span>)',
+    i18n.t("content.quest.grds1.goal", {
+      color: "yellow",
+      state: i18n.t("content.quest.grds1.stateInProgress"),
+    }),
   ];
 };
 quest.grds1.goalsf = function () {
-  return ['Guard the gate until 8PM (<span style="color:lime">done!</span>)'];
+  return [
+    i18n.t("content.quest.grds1.goal", {
+      color: "lime",
+      state: i18n.t("content.quest.grds1.stateDone"),
+    }),
+  ];
 };
 
 quest.lmfstkil1 = new Quest();
 quest.lmfstkil1.id = 5;
 quest.lmfstkil1.name = i18n.t("content.quest.lmfstkil1.name");
 quest.lmfstkil1.rar = 1;
-quest.lmfstkil1.loc = "Western Woods, Hunter's Lodge";
+quest.lmfstkil1.loc = i18n.t(
+  "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
+);
 quest.lmfstkil1.desc = i18n.t("content.quest.lmfstkil1.desc");
 quest.lmfstkil1.data = { t: 0, mkilled: 0 };
 quest.lmfstkil1.init = function () {
@@ -172,16 +200,22 @@ quest.lmfstkil1.goals = function () {
   let c;
   if (quest.lmfstkil1.data.mkilled >= 35) c = "lime";
   else if (quest.lmfstkil1.data.mkilled < 35) c = "yellow";
-  const txt =
-    'Wolves killed: <span style="color: ' +
-    c +
-    '">' +
-    quest.lmfstkil1.data.mkilled +
-    "/35</span>";
-  return [txt];
+  return [
+    i18n.t("content.quest.lmfstkil1.goal", {
+      color: c,
+      current: quest.lmfstkil1.data.mkilled,
+      required: 35,
+    }),
+  ];
 };
 quest.lmfstkil1.goalsf = function () {
-  return ['Wolves killed: <span style="color:lime">35/35</span>'];
+  return [
+    i18n.t("content.quest.lmfstkil1.goal", {
+      color: "lime",
+      current: 35,
+      required: 35,
+    }),
+  ];
 };
 
 ////////////////////////////////////////////

@@ -169,6 +169,21 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   da kalıyor.
 - Okunamayan bir kayıt yedek anahtar altında saklanıp oyuncuya bildiriliyor;
   önceden üzerine sessizce yeni oyun başlatılıyordu.
+- Yerelleştirme taraması tamamlandı. Görev hedefleri ve konumları, bonus
+  satırlarıyla birlikte altı mobilya açıklaması, dört unvan yeteneği, üç eylem
+  açıklaması, ustalık paneli ve kalan birkaç alan adı artık dil dosyalarından
+  okunuyor. Canlı kaynakta oyuncuya görünen tek bir İngilizce metin kalmadı;
+  geriye yalnızca konsol çıktıları ve tanımı gereği diller yüklenmeden önce
+  çalışan `js/i18n-loader.js` kaldı.
+- İsim-fiil olarak yazıldığı için olumsuz emir gibi okunan sekiz Türkçe seçenek
+  etiketi düzeltildi. Mağaza eylemindeki `"Satın alma"` hem "satın alma işlemi"
+  hem "satın alma!" anlamına geliyordu; aynı kalıp ödül alma, ilan panosu ve beş
+  tıklanabilir seçenekte daha vardı. Bunların beşi ayrıca, oyunun geri kalanı
+  tekil kullanırken çoğul-nazik kipteydi.
+- Güç ve çeviklik ustalıkları aynı işaretlemeyi tekrarladığı için
+  `masteryDescription` çıkarıldı. Çeviklik hâlâ gücün sayılarını gösteriyor,
+  çünkü kendi seviye atlaması hiç yazılmamış; bu bir içerik işi ve sessizce
+  değiştirilmek yerine `docs/STORY.md` dosyasına kaydedildi.
 - Oyun tikleri, geri çağrım saymak yerine geçen gerçek süreden türetiliyor.
   Tarayıcılar arka plandaki zamanlayıcıları kısıtlıyor ve birkaç dakika sonra
   dakikada bire düşürüyor; bu yüzden dünya yalnızca daha seyrek çizilmiyor,

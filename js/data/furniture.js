@@ -30,7 +30,7 @@ furniture.cat.data = {
   amount: 0,
   named: false,
   sex: false,
-  name: "Cat",
+  name: i18n.t("content.furniture.cat.name"),
   mood: 1,
 };
 furniture.cat.v = 1;
@@ -81,9 +81,9 @@ furniture.tbwr1.id = 6;
 furniture.tbwr1.removable = true;
 furniture.tbwr1.name = i18n.t("content.furniture.tbwr1.name");
 furniture.tbwr1.desc =
-  "Cheap massproduced tableware carved from wood. Kind of a pain to wash" +
+  i18n.t("content.furniture.tbwr1.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Gluttony EXP gain +5%</span>';
+  i18n.t("content.furniture.tbwr1.bonus");
 furniture.tbwr1.data = { amount: 0 };
 furniture.tbwr1.sq = 1;
 furniture.tbwr1.v = 3;
@@ -140,9 +140,9 @@ furniture.bblkt.id = 11;
 furniture.bblkt.removable = true;
 furniture.bblkt.name = i18n.t("content.furniture.bblkt.name");
 furniture.bblkt.desc =
-  "More like a long sheet of cloth folded trice and stitched in. Barely offers any warmth, but keeps you from getting frostbites if it's windy" +
+  i18n.t("content.furniture.bblkt.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Sleep EXP gain +50%</span>';
+  i18n.t("content.furniture.bblkt.bonus");
 furniture.bblkt.data = { amount: 0 };
 furniture.bblkt.sq = 1;
 furniture.bblkt.v = 2;
@@ -164,9 +164,9 @@ furniture.spillw.id = 12;
 furniture.spillw.removable = true;
 furniture.spillw.name = i18n.t("content.furniture.spillw.name");
 furniture.spillw.desc =
-  "More like a healthy dose of dry grass in a sack. Uneven, hard, itchy, and probably bad for your neck. Despite that, it still passes as a basic tool of comfort" +
+  i18n.t("content.furniture.spillw.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Sleep EXP gain +30%</span>';
+  i18n.t("content.furniture.spillw.bonus");
 furniture.spillw.data = { amount: 0 };
 furniture.spillw.sq = 1;
 furniture.spillw.v = 3;
@@ -188,9 +188,9 @@ furniture.cyrn.id = 13;
 furniture.cyrn.removable = true;
 furniture.cyrn.name = i18n.t("content.furniture.cyrn.name");
 furniture.cyrn.desc =
-  "Fluffy ball of yarn which is normally used as a material for knitting. Cats love these and often claim them as toys" +
+  i18n.t("content.furniture.cyrn.desc") +
   dom.dseparator +
-  '<span style="color:deeppink">Patting EXP gain +15%</span><br><span style="color:springgreen">Passive Patting EXP +0.5</span>';
+  i18n.t("content.furniture.cyrn.bonus");
 furniture.cyrn.data = { amount: 0 };
 furniture.cyrn.v = 3;
 furniture.cyrn.activate = function () {
@@ -211,10 +211,12 @@ furniture.fwdpile.removable = true;
 furniture.fwdpile.name = i18n.t("content.furniture.fwdpile.name");
 furniture.fwdpile.desc = function () {
   return (
-    "Stockpile of firewood neatly packed together for easy storage" +
+    i18n.t("content.furniture.fwdpile.desc") +
     dom.dseparator +
-    '<span style="color:orange">Automatically supplies fireplace, but needs refueling</span><br>' +
-    '<div style="color:yellow"><br>Supply: <br><span>0</span><span style="display:inline-table;width:130px;border:1px solid darkgrey;margin: 7px;background-color:orange"><span style="display:block;background-color:black;float:right;width:' +
+    i18n.t("content.furniture.fwdpile.bonus") +
+    '<div style="color:yellow"><br>' +
+    i18n.t("content.furniture.fwdpile.supply") +
+    ' <br><span>0</span><span style="display:inline-table;width:130px;border:1px solid darkgrey;margin: 7px;background-color:orange"><span style="display:block;background-color:black;float:right;width:' +
     (100 - (this.data.fuel / (this.data.amount * 5)) * 100) +
     '%">　</span></span><span>' +
     5 * this.data.amount +
@@ -255,9 +257,12 @@ furniture.bookgen.removable = true;
 furniture.bookgen.name = i18n.t("content.furniture.bookgen.name");
 furniture.bookgen.desc = function () {
   return (
-    "Book which you've already read. It doesn't contain any new useful information" +
+    i18n.t("content.furniture.bookgen.desc") +
     dom.dseparator +
-    '<span style="color:deeppink">Literacy EXP gain +1%</span><br><br><small style="color:deeppink">Current:<span style="color:orange"> +' +
+    i18n.t("content.furniture.bookgen.bonus") +
+    '<br><br><small style="color:deeppink">' +
+    i18n.t("content.furniture.bookgen.current") +
+    '<span style="color:orange"> +' +
     Math.round(furniture.bookgen.data.p * 100) +
     "%</span></small>"
   );

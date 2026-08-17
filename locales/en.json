@@ -168,6 +168,11 @@
     "shop": {
       "buyingPrice": "&nbspBuying price: ",
       "reputation": "&nbspReputation: "
+    },
+    "mastery": {
+      "effects": "Effects:",
+      "current": "Current:",
+      "statLine": "STR +{str}  |  HP +{hp}  |  SAT +{sat}"
     }
   },
   "gameText": {
@@ -1640,7 +1645,9 @@
         "desc": "Crude planks cobbled together to form a container for a matress or such. Not a whole lot in terms of sleeping place, but somewhat better than a hard cold floor"
       },
       "tbwr1": {
-        "name": "Wooden Tableware"
+        "name": "Wooden Tableware",
+        "desc": "Cheap massproduced tableware carved from wood. Kind of a pain to wash",
+        "bonus": "<span style=\"color:deeppink\">Gluttony EXP gain +5%</span>"
       },
       "tbwr2": {
         "name": "Clay Tableware",
@@ -1659,19 +1666,31 @@
         "desc": "Huge container with a secure padlock. You can put your possessions inside to keep them safe."
       },
       "bblkt": {
-        "name": "Ragwork Blanket"
+        "name": "Ragwork Blanket",
+        "desc": "More like a long sheet of cloth folded trice and stitched in. Barely offers any warmth, but keeps you from getting frostbites if it's windy",
+        "bonus": "<span style=\"color:deeppink\">Sleep EXP gain +50%</span>"
       },
       "spillw": {
-        "name": "Straw Pillow"
+        "name": "Straw Pillow",
+        "desc": "More like a healthy dose of dry grass in a sack. Uneven, hard, itchy, and probably bad for your neck. Despite that, it still passes as a basic tool of comfort",
+        "bonus": "<span style=\"color:deeppink\">Sleep EXP gain +30%</span>"
       },
       "cyrn": {
-        "name": "Yarn Ball"
+        "name": "Yarn Ball",
+        "desc": "Fluffy ball of yarn which is normally used as a material for knitting. Cats love these and often claim them as toys",
+        "bonus": "<span style=\"color:deeppink\">Patting EXP gain +15%</span><br><span style=\"color:springgreen\">Passive Patting EXP +0.5</span>"
       },
       "fwdpile": {
-        "name": "Firewood Pile"
+        "name": "Firewood Pile",
+        "desc": "Stockpile of firewood neatly packed together for easy storage",
+        "bonus": "<span style=\"color:orange\">Automatically supplies fireplace, but needs refueling</span><br>",
+        "supply": "Supply:"
       },
       "bookgen": {
-        "name": "Book"
+        "name": "Book",
+        "desc": "Book which you've already read. It doesn't contain any new useful information",
+        "bonus": "<span style=\"color:deeppink\">Literacy EXP gain +1%</span>",
+        "current": "Current:"
       }
     },
     "item": {
@@ -3081,19 +3100,25 @@
       },
       "fwd1": {
         "name": "Firewood Gathering",
-        "desc": "Secure 10 bundles of firewood for hunter Yamato"
+        "desc": "Secure 10 bundles of firewood for hunter Yamato",
+        "goal": "Firewood collected: <span style=\"color:{color}\">{current}/{required}</span>"
       },
       "hnt1": {
         "name": "First Hunt",
-        "desc": "Hunt for 10 peices of meat for hunter Yamato"
+        "desc": "Hunt for 10 peices of meat for hunter Yamato",
+        "goal": "Raw meat collected: <span style=\"color:{color}\">{current}/{required}</span>"
       },
       "grds1": {
         "name": "Guarding Duty",
-        "desc": "You were tasked with guarding duty to watch over marketplace"
+        "desc": "You were tasked with guarding duty to watch over marketplace",
+        "goal": "Guard the gate until 8PM (<span style=\"color:{color}\">{state}</span>)",
+        "stateInProgress": "in progress",
+        "stateDone": "done!"
       },
       "lmfstkil1": {
         "name": "Monster Eradication",
-        "desc": "Dangerous monsters have invaded the southern forest and terrorizing the villagers. Get rid of them!"
+        "desc": "Dangerous monsters have invaded the southern forest and terrorizing the villagers. Get rid of them!",
+        "goal": "Wolves killed: <span style=\"color:{color}\">{current}/{required}</span>"
       }
     },
     "skl": {
@@ -3633,7 +3658,8 @@
       },
       "wlk": {
         "name": "Walker",
-        "desc": "All this walking around feels very beneficial for your body"
+        "desc": "All this walking around feels very beneficial for your body",
+        "tdesc": "Running consumes 5% less energy"
       },
       "eat1": {
         "name": "Starving Child",
@@ -3665,7 +3691,8 @@
       },
       "jgg": {
         "name": "Jogger",
-        "desc": "Simply walking doesn't cut it anymore, maybe you should speed up a bit while travelling on foot?"
+        "desc": "Simply walking doesn't cut it anymore, maybe you should speed up a bit while travelling on foot?",
+        "tdesc": "Running consumes 15% less energy"
       },
       "spn": {
         "name": "Sprinter",
@@ -3737,7 +3764,8 @@
       },
       "rfpn2": {
         "name": "Iron Stomach",
-        "desc": "Going through these desperate times of having such an unsafe diet, your stomach doesn't feel as awful anymore. You really shouldn't be doing that"
+        "desc": "Going through these desperate times of having such an unsafe diet, your stomach doesn't feel as awful anymore. You really shouldn't be doing that",
+        "tdesc": "Allows you to roughly guess when perishable food rots (shift key)"
       },
       "rfpn3": {
         "name": "Omnivore",
@@ -3745,7 +3773,8 @@
       },
       "tqtm": {
         "name": "Quartermaster",
-        "desc": "You have returned more than 300 pieces of dojo supplies. How much of that stuff do they have?"
+        "desc": "You have returned more than 300 pieces of dojo supplies. How much of that stuff do they have?",
+        "tdesc": "Dummies may drop something special"
       },
       "ddw": {
         "name": "Glass Bones",
@@ -4065,13 +4094,17 @@
     },
     "act": {
       "demo": {
-        "name": "Run"
+        "name": "Run",
+        "desc": "Run within this area to improve your physique",
+        "bonus": "<span style=\"color:pink\">Exp +0.5/s</span><br><span style=\"color:skyblue\">Trains Walking</span><br><span style=\"color:crimson\">Energy Consumption +0.1/s</span>"
       },
       "scout": {
-        "name": "Investigate"
+        "name": "Investigate",
+        "desc": "Thoroughly examine current area in search for hidden passages, treasure, secrets or anything of interest"
       },
       "demo2": {
-        "name": "Selfharm"
+        "name": "Selfharm",
+        "desc": "Injure yourself"
       }
     },
     "rcp": {
@@ -4281,7 +4314,8 @@
     },
     "mastery": {
       "str1": {
-        "name": "Physical Training"
+        "name": "Physical Training",
+        "desc": "Simple improvements to body physique"
       },
       "agl1": {
         "name": "Athletics"

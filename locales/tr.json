@@ -168,6 +168,11 @@
     "shop": {
       "buyingPrice": "&nbspSatın alma fiyatı: ",
       "reputation": "&nbspİtibar: "
+    },
+    "mastery": {
+      "effects": "Etkiler:",
+      "current": "Şu an:",
+      "statLine": "GÜÇ +{str}  |  CAN +{hp}  |  TOKLUK +{sat}"
     }
   },
   "gameText": {
@@ -1640,7 +1645,9 @@
         "desc": "Bir yatak veya benzeri için bir kap oluşturmak üzere bir araya getirilen ham kalaslar. Uyuma yeri açısından pek iyi değil ama sert ve soğuk bir zeminden biraz daha iyi"
       },
       "tbwr1": {
-        "name": "Ahşap Sofra Takımı"
+        "name": "Ahşap Sofra Takımı",
+        "desc": "Ahşaptan oyulmuş, ucuz ve seri üretim bir sofra takımı. Yıkaması biraz zahmetli",
+        "bonus": "<span style=\"color:deeppink\">Oburluk DP kazanımı +%5</span>"
       },
       "tbwr2": {
         "name": "Kil Sofra Takımı",
@@ -1659,19 +1666,31 @@
         "desc": "Sağlam bir asma kilidi olan büyük bir sandık. Eşyalarını güvende tutmak için içine koyabilirsin."
       },
       "bblkt": {
-        "name": "Paçavra Battaniyesi"
+        "name": "Paçavra Battaniyesi",
+        "desc": "Aslında üç kez katlanıp dikilmiş uzun bir kumaş parçası. Neredeyse hiç sıcak tutmuyor ama hava rüzgârlıysa donmanı engelliyor",
+        "bonus": "<span style=\"color:deeppink\">Uyku DP kazanımı +%50</span>"
       },
       "spillw": {
-        "name": "Hasır Yastık"
+        "name": "Hasır Yastık",
+        "desc": "Aslında bir çuvala doldurulmuş bir tutam kuru ot. Girintili çıkıntılı, sert, kaşındırıcı ve muhtemelen boynuna kötü geliyor. Buna rağmen temel bir rahatlık aracı sayılır",
+        "bonus": "<span style=\"color:deeppink\">Uyku DP kazanımı +%30</span>"
       },
       "cyrn": {
-        "name": "İplik Topu"
+        "name": "İplik Topu",
+        "desc": "Normalde örgü malzemesi olarak kullanılan kabarık bir yün yumağı. Kediler bunlara bayılır ve sık sık oyuncak ilan eder",
+        "bonus": "<span style=\"color:deeppink\">Sevme DP kazanımı +%15</span><br><span style=\"color:springgreen\">Pasif sevme DP +0,5</span>"
       },
       "fwdpile": {
-        "name": "Yakacak Odun Yığını"
+        "name": "Yakacak Odun Yığını",
+        "desc": "Kolay depolama için düzgünce istiflenmiş yakacak odun yığını",
+        "bonus": "<span style=\"color:orange\">Şömineyi otomatik besler, ancak yakıt ikmali ister</span><br>",
+        "supply": "Stok:"
       },
       "bookgen": {
-        "name": "Kitap"
+        "name": "Kitap",
+        "desc": "Zaten okuduğun bir kitap. Yeni ve işine yarayacak hiçbir bilgi içermiyor",
+        "bonus": "<span style=\"color:deeppink\">Okuryazarlık DP kazanımı +%1</span>",
+        "current": "Şu an:"
       }
     },
     "item": {
@@ -3081,19 +3100,25 @@
       },
       "fwd1": {
         "name": "Yakacak Odun Toplama",
-        "desc": "Avcı Yamato için 10 demet yakacak odun topla"
+        "desc": "Avcı Yamato için 10 demet yakacak odun topla",
+        "goal": "Toplanan odun: <span style=\"color:{color}\">{current}/{required}</span>"
       },
       "hnt1": {
         "name": "İlk Av",
-        "desc": "Avcı Yamato için 10 parça et avla"
+        "desc": "Avcı Yamato için 10 parça et avla",
+        "goal": "Toplanan çiğ et: <span style=\"color:{color}\">{current}/{required}</span>"
       },
       "grds1": {
         "name": "Koruma Görevi",
-        "desc": "Pazar yerini gözetmek için koruma göreviyle görevlendirildin"
+        "desc": "Pazar yerini gözetmek için koruma göreviyle görevlendirildin",
+        "goal": "Kapıyı 20.00’a kadar koru (<span style=\"color:{color}\">{state}</span>)",
+        "stateInProgress": "devam ediyor",
+        "stateDone": "tamamlandı!"
       },
       "lmfstkil1": {
         "name": "Canavarların Yok Edilmesi",
-        "desc": "Tehlikeli canavarlar güney ormanını istila etti ve köylüleri terörize etti. Onlardan kurtulun!"
+        "desc": "Tehlikeli canavarlar güney ormanını istila etti ve köylüleri terörize etti. Onlardan kurtulun!",
+        "goal": "Öldürülen kurt: <span style=\"color:{color}\">{current}/{required}</span>"
       }
     },
     "skl": {
@@ -3633,7 +3658,8 @@
       },
       "wlk": {
         "name": "Gezgin",
-        "desc": "Bütün bu etrafta dolaşmak vücudunuz için çok faydalı hissettiriyor"
+        "desc": "Bütün bu etrafta dolaşmak vücudunuz için çok faydalı hissettiriyor",
+        "tdesc": "Koşmak %5 daha az enerji harcar"
       },
       "eat1": {
         "name": "Açlıktan Ölen Çocuk",
@@ -3665,7 +3691,8 @@
       },
       "jgg": {
         "name": "Koşucu",
-        "desc": "Sadece yürümek artık işe yaramıyor, belki yürüyerek seyahat ederken biraz hız yapmalısınız?"
+        "desc": "Sadece yürümek artık işe yaramıyor, belki yürüyerek seyahat ederken biraz hız yapmalısınız?",
+        "tdesc": "Koşmak %15 daha az enerji harcar"
       },
       "spn": {
         "name": "Kısa mesafe koşucusu",
@@ -3737,7 +3764,8 @@
       },
       "rfpn2": {
         "name": "Demir Mide",
-        "desc": "Bu kadar güvensiz bir beslenmenin olduğu bu çaresiz zamanlardan geçerken, mideniz artık o kadar da kötü hissetmiyor. Gerçekten bunu yapmamalısın"
+        "desc": "Bu kadar güvensiz bir beslenmenin olduğu bu çaresiz zamanlardan geçerken, mideniz artık o kadar da kötü hissetmiyor. Gerçekten bunu yapmamalısın",
+        "tdesc": "Bozulabilir yiyeceklerin ne zaman çürüyeceğini kabaca kestirmeni sağlar (shift tuşu)"
       },
       "rfpn3": {
         "name": "Hepçil",
@@ -3745,7 +3773,8 @@
       },
       "tqtm": {
         "name": "Malzeme Sorumlusu",
-        "desc": "300'den fazla dojo malzemesini iade ettiniz. Ellerinde bu şeylerden ne kadar var?"
+        "desc": "300'den fazla dojo malzemesini iade ettiniz. Ellerinde bu şeylerden ne kadar var?",
+        "tdesc": "Kuklalar özel bir şey düşürebilir"
       },
       "ddw": {
         "name": "Cam Kemikler",
@@ -4065,13 +4094,17 @@
     },
     "act": {
       "demo": {
-        "name": "Koş"
+        "name": "Koş",
+        "desc": "Bedenini geliştirmek için bu alanda koş",
+        "bonus": "<span style=\"color:pink\">DP +0,5/sn</span><br><span style=\"color:skyblue\">Yürüyüş becerisini geliştirir</span><br><span style=\"color:crimson\">Enerji tüketimi +0,1/sn</span>"
       },
       "scout": {
-        "name": "Araştır"
+        "name": "Araştır",
+        "desc": "Gizli geçitler, hazineler, sırlar veya ilgi çekici herhangi bir şey aramak için bulunduğun alanı iyice incele"
       },
       "demo2": {
-        "name": "Kendine zarar verme"
+        "name": "Kendine zarar verme",
+        "desc": "Kendini yarala"
       }
     },
     "rcp": {
@@ -4281,7 +4314,8 @@
     },
     "mastery": {
       "str1": {
-        "name": "Beden Eğitimi"
+        "name": "Beden Eğitimi",
+        "desc": "Bedensel yapıda basit iyileştirmeler"
       },
       "agl1": {
         "name": "Atletizm"
@@ -5094,7 +5128,7 @@
           "head_hunter_yamato_the_body_in_the_forest_056f33cb": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Ormandaki ceset diyorsunuz... Lanet olsun! Senin gibi birinin böylesine önemli bir keşif yapması gerekiyorsa izcilerimizin hiçbir değeri yok! *iç çeker.* Elinde tuttuğun bu kılıç bir zamanlar şef yardımcımız Dein'e aitti. Köyün dışına adımınızı atmadıysanız daha önce tanışmamış olabilirsiniz, saha eğitimi için bu kadar uzak bir yerleşime görevlendirilmiş, gelecek vaat eden, yetenekli bir genç askerdi.",
           "text_4d2a1161": "=>",
           "head_hunter_yamato_then_one_day_he_staight_5fcb9352": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Sonra bir gün kimsenin haberi olmadan ortadan kayboldu ve yine de halkımıza çok saygı duyuldu ve onlarla ilgilenildi. Elbette ordunun bir parçası olması onun planlarını ve görevlerini açıklamasını engelleyecektir, ancak onun yokluğunun nedeninin yüksek komutadan gelen özel bir görev olduğu oldukça şüphelidir. Bütün eşyaları, kişisel eşyaları ve eşyaları hâlâ bıraktığı yerde. Delikanlı dövüşmeyi ve kılıç kullanmayı biliyordu, onun kalibresinde bir adamın bu şekilde yok olacağına ve öleceğine bir kez olsun inanmıyorum, bahsettiğiniz ceset onun olmayabilir...",
-          "express_your_condolences_to_the_deceased_fd9258a8": "Ölen kişiye taziyelerinizi iletin",
+          "express_your_condolences_to_the_deceased_fd9258a8": "Ölen kişiye taziyelerini ilet",
           "head_hunter_yamato_alright_enough_your_sentiment_is_e98eabd3": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Tamam, yeter. Duyarlılığınız takdire şayan ancak Dein'in hâlâ nefes aldığını umalım. Bu olayın tamamı soruşturma gerektiriyor, kısa sürede bir avcı ekibi gönderilecek ve siz de kendinizi tetikte tutun. Ve bunu senin elinden alacağım, buraya getirdiğin için teşekkürler. Bu kılıcın hatıra mı kalacağını yoksa gerçek sahibine mi döneceğini zaman gösterecek",
           "part_with_the_sword_99ff1458": "Kılıcı teslim et",
           "head_hunter_yamato_here_take_this_for_your_3222b577": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Zahmetin karşılığında şunu al",
@@ -5204,14 +5238,14 @@
           "return_back_to_the_village_center_f78bf32b": "\"<= Köy Merkezine geri dön\"",
           "village_center_marketplace_entry_gate_d83b4644": "Köy Merkezi, Pazaryeri Giriş Kapısı",
           "you_are_standing_on_guard_duty_this_isn_dae82c19": "Nöbet görevinde duruyorsun. Bu pek eğlenceli değil",
-          "be_bored_67b14685": "\"Sıkılmak\"",
+          "be_bored_67b14685": "\"Sıkıl\"",
           "lookout_guard_work_s_done_for_today_you_b11ed2ce": "Gözcü: Bugünlük iş bitti, görevini layıkıyla yaptın, maaşını aldın, al. Çıkış yaptıktan sonra doğrudan eve gitmeniz tavsiye edilir.",
           "a_passerby_dropped_a_coin_sweet_fbb80e82": "Yoldan geçen biri bozuk para düşürdü. Tatlı!",
           "marketplace_stalls_e2ed2335": "Pazaryeri, Tezgahlar",
           "nervous_guy_argh_what_am_i_gonna_do_128a87bb": "\"<span style=\"color:cyan\">Sinirli Adam:</span> Ahhh, şimdi ne yapacağım! Bu nasıl... Uh? Üzgünüm, şu anda konuşamam, lütfen beni rahat bırak. Ahh kahretsin...\"<div style=\"color: darkgrey\">Adam daha sonra huzursuzluk içinde kıpırdanmaya devam ediyor</div>",
-          "walk_away_10f56939": "\"<= Uzaklaşın\"",
+          "walk_away_10f56939": "\"<= Uzaklaş\"",
           "marketplace_grocery_shop_aa1c7f40": "Pazar yeri, Bakkal",
-          "purchase_20fc044d": "\"Satın alma\"",
+          "purchase_20fc044d": "\"Satın al\"",
           "we_re_restocking_step_out_for_a_minute_20bfc037": "Stoklarımızı dolduruyoruz, bir dakikalığına dışarı çıkın",
           "marketplace_shabby_general_store_fb5064cb": "Pazaryeri, Eski püskü Market",
           "sell_your_goods_df98aadf": "\"Mallarını sat\"",
@@ -5232,7 +5266,7 @@
           "show_me_something_better_62a6331a": "\"Bana daha iyi bir şey göster\"",
           "give_me_53bbe1b0": "\"Ver bana\"",
           "there_ya_go_enjoy_9ad43329": "\"İşte bu, keyfini çıkarın\"",
-          "sweet_purchase_46422d21": "\"Tatlı satın alma!\"",
+          "sweet_purchase_46422d21": "\"Tatlı bir alışveriş!\"",
           "no_money_no_goods_don_t_waste_my_b58c6055": "Para yok, mal yok! Zamanımı boşa harcamayın!",
           "nah_5ee4d9da": "\"<= Hayır\"",
           "no_worries_i_ll_keep_it_for_you_c57f533f": "Merak etme, senin için saklayacağım",
@@ -5249,20 +5283,20 @@
           "pet_the_cat_80e6fbdc": "\"Kediyi sev\"",
           "text_010cc1f8": "\"???\"",
           "cat_wants_to_tag_along_cd2ba7dc": "Kedi eşlik etmek istiyor",
-          "take_it_with_you_3aac4be9": "\"Yanınızda götürün\"",
+          "take_it_with_you_3aac4be9": "\"Yanına al\"",
           "the_cat_decided_to_move_into_your_house_59b78318": "Kedi evinize taşınmaya karar verdi!",
           "leave_it_as_is_b08b1981": "\"Olduğu gibi bırak\"",
           "village_center_message_board_f7afa0da": "Köy Merkezi, Mesaj Panosu",
           "you_notice_a_little_girl_with_emerald_green_7f452e97": "Zümrüt yeşili saçlı küçük bir kızın sana yaklaştığını fark edersin.",
           "xiao_xiao_hey_hey_what_are_those_dolls_98e52c9a": "<span style=\"color:lime\">Xiao Xiao</span>: \"Hey, hey, taşıdığın o bebekler ne? Benim için bir tane yap!!\"",
           "message_board_you_can_find_jobs_or_other_7da2f5ea": "Mesaj Panosu<br>Burada iş veya başka şeyler bulabilirsiniz",
-          "explore_the_posts_79dc1614": "\"Yayınları keşfedin\"",
-          "notice_4_f35f6eb5": "\"Dikkat #4\"",
+          "explore_the_posts_79dc1614": "\"İlanları incele\"",
+          "notice_4_f35f6eb5": "\"İlan #4\"",
           "it_says_here_looking_for_a_anyone_with_4523efd8": "Burada yazıyor:<br><span style=\"color:orange\">Yerel milis kuvvetlerine koruma görevinde yardımcı olacak boş zamanı olan biri aranıyor. Pazar alanı yakınındaki kontrol noktasına sabah 7 ile akşam 10 arasında başvurun\"</span>",
           "huh_df76ec94": "\"Hı.\"",
           "warning_aed1555d": "\"Uyarı!\"",
           "dangerous_beasts_were_sighted_in_vicinity_of_the_a33affe2": "Güney Ormanı civarında tehlikeli hayvanlar görüldü. Bu raporlar muhtemelen çiftlik hayvanlarının ve yerel halkın yaralanmasıyla bağlantılıdır, bu nedenle daha fazla zayiatı önlemek için, durum çözülene kadar izni olmayan veya yeterince öz savunma yeteneği olmayan kişilerin ormana girişi yasaktır<br><br><div style=\"text-align:right\">一Muhafız Şefi, Hitoshi</div>",
-          "i_see_ccf4fd83": "\"Görüyorum\"",
+          "i_see_ccf4fd83": "\"Anladım\"",
           "xiao_xiao_e5346004": "\"Xiao Xia =>\"",
           "xiao_xiao_what_is_it_what_is_it_7d8a6d88": "<span style=\"color:lime\">Xiao Xiao</span>: \"Nedir o?\"",
           "show_xiao_xiao_a_wooden_doll_702c4e01": "\"Xiao Xiao'ya tahta bir oyuncak bebek göster\"",
@@ -5274,7 +5308,7 @@
           "xiao_xiao_nooooo_it_s_scary_679be07b": "<span style=\"color:lime\">Xiao Xiao</span>: \"Hayır, çok korkutucu!!\"",
           "show_xiao_xiao_a_soul_doll_9140cb5e": "\"Xiao Xiao'ya bir ruh bebeği göster\"",
           "xiao_xiao_waai_thank_you_i_love_it_48a28997": "<span style=\"color:lime\">Xiao Xiao</span>: \"Waai teşekkür ederim! Onu seviyorum! Bunu sana vereceğim! Al, al!\"<br><br><span style=\"color:lightgrey\">Kız mutlu bir şekilde yeni oyuncağıyla kaçıyor</span>",
-          "claim_your_hardearned_reward_1ed71094": "\"Zor kazandığınız ödülünüzü alın\"",
+          "claim_your_hardearned_reward_1ed71094": "\"Zor kazandığın ödülünü al\"",
           "you_feel_more_peaceful_04e11bf4": "Daha huzurlu hissediyorsun",
           "stop_reading_90693f3a": "\"Okumayı bırak\"",
           "reading_progress": "<span style=\"color:orange\">{book}</span> kitabını okuyorsun.<br>Bitirmen yaklaşık <span style=\"color:lime\">{duration}</span> sürecek.",
