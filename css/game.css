@@ -606,22 +606,42 @@ input:focus {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
+
+/* The area readout and the battle control row above it are both absolutely
+   anchored to the bottom of the combat panel, 15px apart. The readout had no
+   height of its own, so it grew over the row as soon as its single line rendered
+   taller than that gap — and a long area name could wrap it to two lines and bury
+   the row completely. Capping its height and refusing the wrap makes the two
+   offsets add up, whatever the area is called in whichever language. */
 #ainfo {
   position: absolute;
   bottom: 5px;
+  box-sizing: border-box;
+  height: 18px;
+  overflow: hidden;
   background: linear-gradient(270deg, rgb(84 28 112), rgb(29 62 116));
   width: 97.5%;
   left: 5px;
+  line-height: 18px;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+/* Sits directly on top of #ainfo: its 5px offset plus its 18px height, and 2px of
+   air so the two read as separate strips rather than one block. */
 #bbts {
   display: flex;
   position: absolute;
-  bottom: 20px;
+  bottom: 25px;
   left: 5px;
+  box-sizing: border-box;
+  min-height: 18px;
+  align-items: center;
   text-align: left;
   background: linear-gradient(rgb(0 40 64), rgb(0 50 94));
   width: 97.5%;
+  white-space: nowrap;
 }
 #se_i {
   position: absolute;

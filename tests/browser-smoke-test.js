@@ -196,6 +196,12 @@ async function main() {
     if (!combatLayout.stdout.includes('data-combat-panels-separated="true"')) {
       throw new Error("The enemy panel overlaps the player panel.");
     }
+    if (!combatLayout.stdout.includes('data-battle-rows-stacked="true"')) {
+      const gap = combatLayout.stdout.match(/data-battle-row-gap="([^"]*)"/);
+      throw new Error(
+        `The area readout covers the battle control row above it: gap ${gap?.[1] ?? "?"}px`,
+      );
+    }
 
     const tooltipLayout = await runChrome(
       `${baseUrl}/__test-tooltip-layout.html?lang=en`,

@@ -87,6 +87,37 @@ function createSiteServer(options = {}) {
             enemyBounds.left >= playerBounds.right &&
             playerBounds.left < enemyBounds.left
           );
+
+          // The battle control row and the area readout are both anchored to the
+          // bottom of the enemy panel, so they have to stack rather than cover
+          // each other. Forced here with the longest area name the game defines
+          // plus an infinite size, which is what used to wrap the readout onto a
+          // second line and bury the row.
+          const longest = Object.keys(area)
+            .map((key) => area[key].name || "")
+            .reduce((a, b) => (b.length > a.length ? b : a), "");
+          global.current_z = { name: longest, size: -1 };
+          dom.d7m.update();
+
+          const controls = document.getElementById("bbts");
+          const areaInfo = document.getElementById("ainfo");
+          const controlBounds = controls.getBoundingClientRect();
+          const areaBounds = areaInfo.getBoundingClientRect();
+          const scale = Number(document.documentElement.dataset.uiScale) || 1;
+          const stacked = areaBounds.top >= controlBounds.bottom - 0.5;
+          const bothInsidePanel =
+            controlBounds.top >= enemyBounds.top - 0.5 &&
+            areaBounds.bottom <= enemyBounds.bottom + 0.5;
+          const readoutStaysOneLine =
+            areaInfo.getBoundingClientRect().height / scale <= 20;
+
+          document.documentElement.dataset.battleRowsStacked = String(
+            stacked && bothInsidePanel && readoutStaysOneLine,
+          );
+          document.documentElement.dataset.battleRowGap = (
+            (areaBounds.top - controlBounds.bottom) /
+            scale
+          ).toFixed(1);
           clearInterval(combatLayoutProbe);
         }, 10);
       </script>`;
