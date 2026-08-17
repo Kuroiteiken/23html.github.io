@@ -1035,73 +1035,103 @@ sld.plt.dp = sld.plt.dpmax = 41;
 sld.qad = new Eqp();
 sld.qad.id = 30004;
 sld.qad.name = i18n.t("content.sld.qad.name");
-sld.qad.desc = i18n.t("content.sld.qad.desc");
+sld.qad.desc = i18n.t("content.sld.qad.desc") + dom.dseparator;
 sld.qad.slot = 2;
-sld.qad.str = 0;
+sld.qad.str = 10;
+sld.qad.aff = [6, 4, 4, 3, 4, 2, 2];
+sld.qad.cls = [4, 4, 3];
+sld.qad.dp = sld.qad.dpmax = 34;
 sld.qad.stype = 3;
 
 sld.crc = new Eqp();
 sld.crc.id = 30005;
 sld.crc.name = i18n.t("content.sld.crc.name");
-sld.crc.desc = i18n.t("content.sld.crc.desc");
+sld.crc.desc = i18n.t("content.sld.crc.desc") + dom.dseparator;
 sld.crc.slot = 2;
-sld.crc.str = 0;
+sld.crc.str = 11;
+sld.crc.aff = [6, 5, 4, 3, 4, 2, 2];
+sld.crc.cls = [4, 4, 4];
+sld.crc.dp = sld.crc.dpmax = 36;
 sld.crc.stype = 3;
 
 sld.rnd = new Eqp();
 sld.rnd.id = 30006;
 sld.rnd.name = i18n.t("content.sld.rnd.name");
-sld.rnd.desc = i18n.t("content.sld.rnd.desc");
+sld.rnd.desc = i18n.t("content.sld.rnd.desc") + dom.dseparator;
 sld.rnd.slot = 2;
-sld.rnd.str = 0;
+sld.rnd.str = 12;
+sld.rnd.aff = [7, 5, 4, 3, 4, 2, 2];
+sld.rnd.cls = [5, 4, 4];
+sld.rnd.dp = sld.rnd.dpmax = 37;
 sld.rnd.stype = 3;
 
 sld.twr = new Eqp();
 sld.twr.id = 30007;
 sld.twr.name = i18n.t("content.sld.twr.name");
-sld.twr.desc = i18n.t("content.sld.twr.desc");
+sld.twr.desc = i18n.t("content.sld.twr.desc") + dom.dseparator;
 sld.twr.slot = 2;
-sld.twr.str = 0;
+sld.twr.str = 17;
+sld.twr.aff = [11, 7, 6, 5, 6, 3, 3];
+sld.twr.cls = [7, 7, 6];
+sld.twr.dp = sld.twr.dpmax = 46;
 sld.twr.stype = 3;
 
 sld.spk = new Eqp();
 sld.spk.id = 30008;
 sld.spk.name = i18n.t("content.sld.spk.name");
-sld.spk.desc = i18n.t("content.sld.spk.desc");
+sld.spk.desc = i18n.t("content.sld.spk.desc") + dom.dseparator;
 sld.spk.slot = 2;
-sld.spk.str = 0;
+sld.spk.str = 13;
+sld.spk.aff = [8, 5, 4, 3, 4, 2, 2];
+sld.spk.cls = [5, 6, 4];
+sld.spk.dp = sld.spk.dpmax = 36;
 sld.spk.stype = 3;
 
 sld.kit = new Eqp();
 sld.kit.id = 30009;
 sld.kit.name = i18n.t("content.sld.kit.name");
-sld.kit.desc = i18n.t("content.sld.kit.desc");
+sld.kit.desc = i18n.t("content.sld.kit.desc") + dom.dseparator;
 sld.kit.slot = 2;
-sld.kit.str = 0;
+sld.kit.str = 14;
+sld.kit.aff = [8, 6, 5, 4, 5, 2, 2];
+sld.kit.cls = [6, 6, 4];
+sld.kit.dp = sld.kit.dpmax = 40;
 sld.kit.stype = 3;
 
-sld.kit = new Eqp();
-sld.kit.id = 30010;
-sld.kit.name = i18n.t("content.sld.kit.name_2");
-sld.kit.desc = i18n.t("content.sld.kit.desc_2");
-sld.kit.slot = 2;
-sld.kit.str = 0;
-sld.kit.stype = 3;
+// Declared as a second `sld.kit` with id 30010, so it overwrote the Kite Shield
+// above and never existed. It is its own shield: the lid of a cooking pot, and the
+// only comic one in the set.
+sld.csr = new Eqp();
+sld.csr.id = 30010;
+sld.csr.name = i18n.t("content.sld.kit.name_2");
+sld.csr.desc = i18n.t("content.sld.kit.desc_2") + dom.dseparator;
+sld.csr.slot = 2;
+sld.csr.stype = 3;
+sld.csr.str = 4;
+sld.csr.aff = [1, 1, 1, 4, 1, 0, 0];
+sld.csr.cls = [1, 1, 3];
+sld.csr.dp = sld.csr.dpmax = 12;
 
 sld.htr = new Eqp();
 sld.htr.id = 30011;
 sld.htr.name = i18n.t("content.sld.htr.name");
-sld.htr.desc = i18n.t("content.sld.htr.desc");
+sld.htr.desc = i18n.t("content.sld.htr.desc") + dom.dseparator;
 sld.htr.slot = 2;
-sld.htr.str = 0;
+sld.htr.str = 16;
+sld.htr.aff = [9, 6, 5, 4, 5, 3, 3];
+sld.htr.cls = [7, 6, 5];
+sld.htr.dp = sld.htr.dpmax = 42;
 sld.htr.stype = 3;
 
 sld.ovl = new Eqp();
 sld.ovl.id = 30012;
 sld.ovl.name = i18n.t("content.sld.ovl.name");
-sld.ovl.desc = i18n.t("content.sld.ovl.desc");
+sld.ovl.desc = i18n.t("content.sld.ovl.desc") + dom.dseparator;
 sld.ovl.slot = 2;
-sld.ovl.str = 0;
+sld.ovl.str = 12;
+sld.ovl.aff = [7, 5, 5, 3, 4, 2, 2];
+sld.ovl.cls = [5, 5, 4];
+sld.ovl.dp = sld.ovl.dpmax = 38;
 sld.ovl.stype = 3;
 
 // The three shields below are the dojo's level 35, 45 and 50 rewards. They shipped
@@ -1138,10 +1168,13 @@ sld.hpt.dp = sld.hpt.dpmax = 44;
 sld.jrt = new Eqp();
 sld.jrt.id = 30015;
 sld.jrt.name = i18n.t("content.sld.jrt.name");
-sld.jrt.desc = i18n.t("content.sld.jrt.desc");
+sld.jrt.desc = i18n.t("content.sld.jrt.desc") + dom.dseparator;
 sld.jrt.rar = 4;
 sld.jrt.slot = 2;
-sld.jrt.str = 0;
+sld.jrt.str = 20;
+sld.jrt.aff = [11, 6, 6, 6, 6, 3, 3];
+sld.jrt.cls = [8, 7, 7];
+sld.jrt.dp = sld.jrt.dpmax = 48;
 sld.jrt.stype = 3;
 
 sld.drd = new Eqp();

@@ -4412,6 +4412,13 @@ function attack(att, def, atk, power) {
           break;
       }
       if (dk) giveSkExp(skl.ntst, 0.1);
+      // Carrying a shield trains the arm holding it, not only the blows it stops.
+      // The only grant used to be in the branch below, where a creature's blow
+      // lands on the player -- so a player who was not being hit never trained the
+      // one skill that makes carrying a shield worth anything. A quarter of the
+      // rate blocking gives, since blocking is still the real lesson.
+      if (you.eqp[1].id !== 10000 && !you.eqp[0].twoh)
+        giveSkExp(skl.shdc, 0.05);
       if (you.mods.tstl > 0) {
         itm = select(def.drop);
         if (

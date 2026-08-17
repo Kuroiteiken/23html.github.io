@@ -1201,37 +1201,37 @@
       },
       "qad": {
         "name": "Dörtlü Kalkan",
-        "desc": ""
+        "desc": "Deri kaplı bir yüzün arkasına çaprazlama kabaralanmış dört tahta. Ucuz, kare ve ikisi konusunda da dürüst"
       },
       "crc": {
         "name": "Çember Kalkanı",
-        "desc": ""
+        "desc": "Ortasına demir göbek geçirilmiş, bantlanmış ahşaptan sade bir disk; tutulduğu kadar ileri savrulmak için de yapılmış"
       },
       "rnd": {
         "name": "Yuvarlak Kalkan",
-        "desc": ""
+        "desc": "Köy milisine tutuşturulan kalkan: arkasına saklanacak kadar geniş, bütün gün taşınacak kadar hafif"
       },
       "twr": {
         "name": "Kule Kalkanı",
-        "desc": ""
+        "desc": "Yere dayanıp arkasına geçilecek kadar uzun. Hiçbir şey onu geçemiyor, çabuk hareket etmek isteyen sen de"
       },
       "spk": {
         "name": "Çivili Kalkan",
-        "desc": ""
+        "desc": "Göbeğinden bir kazık geçirilmiş yuvarlak kalkan; ileri gitmeyi kesmek istemeyen bir adam için"
       },
       "kit": {
-        "name": "Uçurtma Kalkanı",
-        "desc": "",
+        "name": "Damla Kalkan",
+        "desc": "Altı uca doğru daraldığı için bacağı kapatıyor ama ayağa dolanmıyor. Atlı için yapılmış, yürüyende de işe yarıyor",
         "name_2": "Güveç Kalkanı",
-        "desc_2": ""
+        "desc_2": "Büyük bir tencerenin kapağı; altındakinin kokusu hâlâ hafifçe üzerinde. Belki bir vuruşu çevirir, ateşe de gücenmez"
       },
       "htr": {
         "name": "Isıtıcı Kalkanı",
-        "desc": ""
+        "desc": "Eski biçimden kesilip düzleştirilmiş üstü olan bir kalkan; üzerinden görülecek kadar küçük, göğsü kapatacak kadar büyük"
       },
       "ovl": {
         "name": "Oval Kalkan",
-        "desc": ""
+        "desc": "Hafif bir iskelet üzerine kat kat deri geçirilmiş oval bir kalkan; vuruşu durdurmak yerine bir yana kaydıracak biçimde kavisli"
       },
       "knt": {
         "name": "Şövalye Kalkanı",
@@ -1243,7 +1243,7 @@
       },
       "jrt": {
         "name": "Cezireint Kalkanı",
-        "desc": ""
+        "desc": "Kapitone bir astara perçinlenmiş, pul gibi bindirmeli küçük plakalar. Delinmesinden çok taşınması ağır"
       },
       "drd": {
         "name": "Dehşet Kalkanı",
@@ -3225,7 +3225,9 @@
           "lv5": "GÜÇ +1, ÇEV +1, Yeni Unvan",
           "lv8": "DP Kazanımı +3%",
           "lv10": "DP Kazanımı +5%, Enerji Etkinliği +1%, Yeni Unvan",
-          "lv11": "Dövüş DP kazanımı +3%"
+          "lv11": "Dövüş DP kazanımı +3%",
+          "lv15": "Yanında bir rütbe ve buradan sonra %10 daha hızlı ustalık",
+          "lv20": "Yanında bir rütbe ve buradan sonra %15 daha hızlı ustalık"
         }
       },
       "knfc": {
@@ -3253,7 +3255,8 @@
           "lv5": "CAN +30, Künt SAV +1, Yeni Unvan",
           "lv8": "ÇEV +1, GÜÇ +1, DP Kazanımı +2%",
           "lv10": "Enerji Etkinliği +2%, GÜÇ Gelişim Potansiyeli +5%, Yeni Unvan",
-          "lv11": "Dövüş DP kazanımı +3%"
+          "lv11": "Dövüş DP kazanımı +3%",
+          "lv15": "Yanında bir rütbe ve buradan sonra %10 daha hızlı ustalık"
         }
       },
       "plrmc": {
@@ -3267,7 +3270,8 @@
           "lv5": "GÜÇ +1, Delici SAV +1, Yeni Unvan",
           "lv8": "GÜÇ +2, DP Kazanımı +3%",
           "lv10": "Fiziksel Direnç +1%, Yeni Unvan",
-          "lv11": "Dövüş DP kazanımı +3%"
+          "lv11": "Dövüş DP kazanımı +3%",
+          "lv15": "Yanında bir rütbe ve buradan sonra %10 daha hızlı ustalık"
         }
       },
       "hmrc": {
@@ -3281,7 +3285,8 @@
           "lv5": "GÜÇ +1, Yeni Unvan",
           "lv8": "GÜÇ +1, DP Kazanımı +3%",
           "lv10": "GÜÇ +3, DP Kazanımı +3%, Yeni Unvan",
-          "lv11": "Dövüş DP kazanımı +3%"
+          "lv11": "Dövüş DP kazanımı +3%",
+          "lv15": "Yanında bir rütbe ve buradan sonra %10 daha hızlı ustalık"
         }
       },
       "stfc": {
@@ -3299,7 +3304,10 @@
           "lv5": "GÜÇ +1, Ağrı Direnci DP kazanımı +7%, Yeni Unvan",
           "lv8": "ÇEV +2, DP Kazanımı +5%",
           "lv10": "CAN +30, GÜÇ +2, ÇEV +2, Yeni Unvan",
-          "lv11": "Dövüş DP kazanımı +8%"
+          "lv11": "Dövüş DP kazanımı +8%",
+          "lv15": "Yanında bir rütbe ve buradan sonra %10 daha hızlı ustalık",
+          "lv20": "Yanında bir rütbe ve buradan sonra %15 daha hızlı ustalık",
+          "lv25": "Yanında bir rütbe ve buradan sonra %20 daha hızlı ustalık"
         }
       },
       "sleep": {
@@ -3791,11 +3799,13 @@
       },
       "srd3": {
         "name": "Silahşor Yamağı",
-        "desc": "Binlerce swing antrenmanı boşuna değildi. Artık kılıcınızı biraz düz tutabilirsiniz ve duruşunuz daha iyi hale gelir. Ancak bir şeyleri kesmek hiç de kolay olmadı"
+        "desc": "Binlerce swing antrenmanı boşuna değildi. Artık kılıcınızı biraz düz tutabilirsiniz ve duruşunuz daha iyi hale gelir. Ancak bir şeyleri kesmek hiç de kolay olmadı",
+        "tdesc": "Kılıç ustalığı %10 daha hızlı gelişiyor"
       },
       "srd4": {
         "name": "Kiralık Bıçak",
-        "desc": "Kılıç oyununuz sıradan bir piyade askerinin rütbesine ulaştı. Ya da sen öyle düşündün. Belki en düşük seviyeli bir paralı askerle eşleşebilirsin ki bu gurur duyulacak bir şey değil. Hala kendine gerçek bir kılıç ustası demekten çok uzaktasın"
+        "desc": "Kılıç oyununuz sıradan bir piyade askerinin rütbesine ulaştı. Ya da sen öyle düşündün. Belki en düşük seviyeli bir paralı askerle eşleşebilirsin ki bu gurur duyulacak bir şey değil. Hala kendine gerçek bir kılıç ustası demekten çok uzaktasın",
+        "tdesc": "Kılıç ustalığı %15 daha hızlı gelişiyor"
       },
       "lnc1": {
         "name": "Mızrak Tutan",
@@ -3807,7 +3817,8 @@
       },
       "lnc3": {
         "name": "Falanks Eri",
-        "desc": "İlkel mızrakçılığınıza hakim olmaya başlıyorsunuz, eğitiminize ne kadar çaba harcadığınız göz önüne alındığında bu güven verici. Yeteneğinizle ikinci sınıf ön cephe askeri ekibinin bir parçası olabilirsiniz, ancak daha yükseği hedefleyeceksiniz"
+        "desc": "İlkel mızrakçılığınıza hakim olmaya başlıyorsunuz, eğitiminize ne kadar çaba harcadığınız göz önüne alındığında bu güven verici. Yeteneğinizle ikinci sınıf ön cephe askeri ekibinin bir parçası olabilirsiniz, ancak daha yükseği hedefleyeceksiniz",
+        "tdesc": "Kargı ustalığı %10 daha hızlı gelişiyor"
       },
       "hmr2": {
         "name": "Balyozcu",
@@ -3815,7 +3826,8 @@
       },
       "hmr3": {
         "name": "Ağır El",
-        "desc": "Güçlü, keskin olmayan silahları tercih ediyorsunuz, bu da ellerinizin ne kadar sağlam ve sert hale geldiğini gösteriyor. Bu genel gücünüz için iyidir. Ancak hâlâ herhangi bir beceri veya teknikten yoksunsunuz"
+        "desc": "Güçlü, keskin olmayan silahları tercih ediyorsunuz, bu da ellerinizin ne kadar sağlam ve sert hale geldiğini gösteriyor. Bu genel gücünüz için iyidir. Ancak hâlâ herhangi bir beceri veya teknikten yoksunsunuz",
+        "tdesc": "Çekiç ustalığı %10 daha hızlı gelişiyor"
       },
       "kill1": {
         "name": "Haşere Kontrolü",
@@ -3866,11 +3878,13 @@
       },
       "sld3": {
         "name": "Koruyucu",
-        "desc": "Kalkanların nasıl çalıştığını daha iyi anlıyorsunuz ve önden saldırılara karşı tepki süreniz de artıyor. Açıklıklarınız hâlâ çok ama hayatta kalmayı başarıyorsunuz"
+        "desc": "Kalkanların nasıl çalıştığını daha iyi anlıyorsunuz ve önden saldırılara karşı tepki süreniz de artıyor. Açıklıklarınız hâlâ çok ama hayatta kalmayı başarıyorsunuz",
+        "tdesc": "Kalkan ustalığı %10 daha hızlı gelişiyor"
       },
       "sld4": {
         "name": "Nöbetçi",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Kalkan ustalığı %15 daha hızlı gelişiyor"
       },
       "seye1": {
         "name": "Yarasa Gözleri",
@@ -3943,7 +3957,8 @@
       },
       "axc3": {
         "name": "Baltacı",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Balta ustalığı %10 daha hızlı gelişiyor"
       },
       "dth1": {
         "name": "Düşmüş",
@@ -3959,7 +3974,8 @@
       },
       "sld5": {
         "name": "Tabya",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Kalkan ustalığı %20 daha hızlı gelişiyor"
       },
       "seye3": {
         "name": "Disektör",

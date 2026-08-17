@@ -267,6 +267,22 @@ skl.srdc.mlstn = [
     g: false,
     p: i18n.t("content.skl.srdc.mlstn.lv11"),
   },
+  {
+    lv: 15,
+    f: () => {
+      giveTitle(ttl.srd3);
+    },
+    g: false,
+    p: i18n.t("content.skl.srdc.mlstn.lv15"),
+  },
+  {
+    lv: 20,
+    f: () => {
+      giveTitle(ttl.srd4);
+    },
+    g: false,
+    p: i18n.t("content.skl.srdc.mlstn.lv20"),
+  },
 ];
 
 skl.knfc = new Skill();
@@ -414,6 +430,14 @@ skl.axc.mlstn = [
     g: false,
     p: i18n.t("content.skl.axc.mlstn.lv11"),
   },
+  {
+    lv: 15,
+    f: () => {
+      giveTitle(ttl.axc3);
+    },
+    g: false,
+    p: i18n.t("content.skl.axc.mlstn.lv15"),
+  },
 ];
 
 skl.plrmc = new Skill();
@@ -486,6 +510,14 @@ skl.plrmc.mlstn = [
     },
     g: false,
     p: i18n.t("content.skl.plrmc.mlstn.lv11"),
+  },
+  {
+    lv: 15,
+    f: () => {
+      giveTitle(ttl.lnc3);
+    },
+    g: false,
+    p: i18n.t("content.skl.plrmc.mlstn.lv15"),
   },
 ];
 
@@ -560,6 +592,14 @@ skl.hmrc.mlstn = [
     },
     g: false,
     p: i18n.t("content.skl.hmrc.mlstn.lv11"),
+  },
+  {
+    lv: 15,
+    f: () => {
+      giveTitle(ttl.hmr3);
+    },
+    g: false,
+    p: i18n.t("content.skl.hmrc.mlstn.lv15"),
   },
 ];
 
@@ -648,6 +688,30 @@ skl.shdc.mlstn = [
     },
     g: false,
     p: i18n.t("content.skl.shdc.mlstn.lv11"),
+  },
+  {
+    lv: 15,
+    f: () => {
+      giveTitle(ttl.sld3);
+    },
+    g: false,
+    p: i18n.t("content.skl.shdc.mlstn.lv15"),
+  },
+  {
+    lv: 20,
+    f: () => {
+      giveTitle(ttl.sld4);
+    },
+    g: false,
+    p: i18n.t("content.skl.shdc.mlstn.lv20"),
+  },
+  {
+    lv: 25,
+    f: () => {
+      giveTitle(ttl.sld5);
+    },
+    g: false,
+    p: i18n.t("content.skl.shdc.mlstn.lv25"),
   },
 ];
 

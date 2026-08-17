@@ -200,11 +200,19 @@ ttl.srd3 = new Title(33);
 ttl.srd3.name = i18n.t("content.ttl.srd3.name");
 ttl.srd3.rar = 3;
 ttl.srd3.desc = i18n.t("content.ttl.srd3.desc");
+ttl.srd3.talent = function () {
+  skl.srdc.p += 0.1;
+};
+ttl.srd3.tdesc = i18n.t("content.ttl.srd3.tdesc");
 
 ttl.srd4 = new Title(34);
 ttl.srd4.name = i18n.t("content.ttl.srd4.name");
 ttl.srd4.rar = 4;
 ttl.srd4.desc = i18n.t("content.ttl.srd4.desc");
+ttl.srd4.talent = function () {
+  skl.srdc.p += 0.15;
+};
+ttl.srd4.tdesc = i18n.t("content.ttl.srd4.tdesc");
 
 ttl.lnc1 = new Title(35);
 ttl.lnc1.name = i18n.t("content.ttl.lnc1.name");
@@ -219,6 +227,10 @@ ttl.lnc3 = new Title(37);
 ttl.lnc3.name = i18n.t("content.ttl.lnc3.name");
 ttl.lnc3.rar = 3;
 ttl.lnc3.desc = i18n.t("content.ttl.lnc3.desc");
+ttl.lnc3.talent = function () {
+  skl.plrmc.p += 0.1;
+};
+ttl.lnc3.tdesc = i18n.t("content.ttl.lnc3.tdesc");
 
 ttl.hmr2 = new Title(38);
 ttl.hmr2.name = i18n.t("content.ttl.hmr2.name");
@@ -229,6 +241,10 @@ ttl.hmr3 = new Title(39);
 ttl.hmr3.name = i18n.t("content.ttl.hmr3.name");
 ttl.hmr3.rar = 3;
 ttl.hmr3.desc = i18n.t("content.ttl.hmr3.desc");
+ttl.hmr3.talent = function () {
+  skl.hmrc.p += 0.1;
+};
+ttl.hmr3.tdesc = i18n.t("content.ttl.hmr3.tdesc");
 
 ttl.kill1 = new Title(40);
 ttl.kill1.name = i18n.t("content.ttl.kill1.name");
@@ -299,11 +315,19 @@ ttl.sld3 = new Title(51);
 ttl.sld3.name = i18n.t("content.ttl.sld3.name");
 ttl.sld3.rar = 3;
 ttl.sld3.desc = i18n.t("content.ttl.sld3.desc");
+ttl.sld3.talent = function () {
+  skl.shdc.p += 0.1;
+};
+ttl.sld3.tdesc = i18n.t("content.ttl.sld3.tdesc");
 
 ttl.sld4 = new Title(52);
 ttl.sld4.name = i18n.t("content.ttl.sld4.name");
 ttl.sld4.rar = 4;
 ttl.sld4.desc = i18n.t("content.ttl.sld4.desc");
+ttl.sld4.talent = function () {
+  skl.shdc.p += 0.15;
+};
+ttl.sld4.tdesc = i18n.t("content.ttl.sld4.tdesc");
 
 ttl.seye1 = new Title(53);
 ttl.seye1.name = i18n.t("content.ttl.seye1.name");
@@ -395,6 +419,10 @@ ttl.axc3 = new Title(70);
 ttl.axc3.name = i18n.t("content.ttl.axc3.name");
 ttl.axc3.rar = 3;
 ttl.axc3.desc = i18n.t("content.ttl.axc3.desc");
+ttl.axc3.talent = function () {
+  skl.axc.p += 0.1;
+};
+ttl.axc3.tdesc = i18n.t("content.ttl.axc3.tdesc");
 
 ttl.dth1 = new Title(71);
 ttl.dth1.name = i18n.t("content.ttl.dth1.name");
@@ -414,6 +442,10 @@ ttl.sld5 = new Title(74);
 ttl.sld5.name = i18n.t("content.ttl.sld5.name");
 ttl.sld5.rar = 5;
 ttl.sld5.desc = i18n.t("content.ttl.sld5.desc");
+ttl.sld5.talent = function () {
+  skl.shdc.p += 0.2;
+};
+ttl.sld5.tdesc = i18n.t("content.ttl.sld5.tdesc");
 
 ttl.seye3 = new Title(75);
 ttl.seye3.name = i18n.t("content.ttl.seye3.name");

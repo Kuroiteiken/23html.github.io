@@ -1201,37 +1201,37 @@
       },
       "qad": {
         "name": "Quad Shield",
-        "desc": ""
+        "desc": "Four planks braced crosswise behind a hide face. Cheap, square, and honest about being both"
       },
       "crc": {
         "name": "Circle Shield",
-        "desc": ""
+        "desc": "A plain disc of banded wood with an iron boss at the centre, meant to be punched forward as much as held"
       },
       "rnd": {
         "name": "Round Shield",
-        "desc": ""
+        "desc": "The shield a village militia is handed: wide enough to hide behind, light enough to carry all day"
       },
       "twr": {
         "name": "Tower Shield",
-        "desc": ""
+        "desc": "Tall enough to set on the ground and stand behind. Nothing gets past it and neither do you, quickly"
       },
       "spk": {
         "name": "Spiked Shield",
-        "desc": ""
+        "desc": "A round shield with a spike run through the boss, for a man who would rather not stop moving forward"
       },
       "kit": {
         "name": "Kite Shield",
-        "desc": "",
+        "desc": "Tapered to a point at the bottom so it covers a leg without fouling it. Made for a rider, useful on foot",
         "name_2": "Casserole Shield",
-        "desc_2": ""
+        "desc_2": "The lid of a large cooking pot, still smelling faintly of what was under it. It will turn one blow, maybe, and it does not mind fire"
       },
       "htr": {
         "name": "Heater Shield",
-        "desc": ""
+        "desc": "A flat-topped shield cut down from the older shape, small enough to see over and still cover the chest"
       },
       "ovl": {
         "name": "Oval Shield",
-        "desc": ""
+        "desc": "An oval of layered hide over a light frame, curved to slide a blow off to one side rather than stop it"
       },
       "knt": {
         "name": "Knight Shield",
@@ -1243,7 +1243,7 @@
       },
       "jrt": {
         "name": "Jazeraint Shield",
-        "desc": ""
+        "desc": "Small plates riveted onto a quilted backing, overlapping like scales. Heavier to carry than to be hit through"
       },
       "drd": {
         "name": "Dread Shield",
@@ -3225,7 +3225,9 @@
           "lv5": "STR +1, AGL +1, New Title",
           "lv8": "EXP Gain +3%",
           "lv10": "EXP Gain +5%, Energy Effectiveness +1%, New Title",
-          "lv11": "Fighting EXP Gain +3%"
+          "lv11": "Fighting EXP Gain +3%",
+          "lv15": "A rank to go with it, and mastery 10% faster from here",
+          "lv20": "A rank to go with it, and mastery 15% faster from here"
         }
       },
       "knfc": {
@@ -3253,7 +3255,8 @@
           "lv5": "HP +30, Blunt DEF +1, New Title",
           "lv8": "AGL +1, STR +1, EXP Gain +2%",
           "lv10": "Energy Effectiveness +2%, STR training Potential +5%, New Title",
-          "lv11": "Fighting EXP Gain +3%"
+          "lv11": "Fighting EXP Gain +3%",
+          "lv15": "A rank to go with it, and mastery 10% faster from here"
         }
       },
       "plrmc": {
@@ -3267,7 +3270,8 @@
           "lv5": "STR +1, Pierce DEF +1, New Title",
           "lv8": "STR +2, EXP Gain +3%",
           "lv10": "Physical Resistance +1%, New Title",
-          "lv11": "Fighting EXP Gain +3%"
+          "lv11": "Fighting EXP Gain +3%",
+          "lv15": "A rank to go with it, and mastery 10% faster from here"
         }
       },
       "hmrc": {
@@ -3281,7 +3285,8 @@
           "lv5": "STR +1, New Title",
           "lv8": "STR +1, EXP Gain +3%",
           "lv10": "STR +3, EXP Gain +3%, New Title",
-          "lv11": "Fighting EXP Gain +3%"
+          "lv11": "Fighting EXP Gain +3%",
+          "lv15": "A rank to go with it, and mastery 10% faster from here"
         }
       },
       "stfc": {
@@ -3299,7 +3304,10 @@
           "lv5": "STR +1, Pain Resistance EXP Gain +7%, New Title",
           "lv8": "AGL +2, EXP Gain +5%",
           "lv10": "HP +30, STR +2, AGL +2, New Title",
-          "lv11": "Fighting EXP Gain +8%"
+          "lv11": "Fighting EXP Gain +8%",
+          "lv15": "A rank to go with it, and mastery 10% faster from here",
+          "lv20": "A rank to go with it, and mastery 15% faster from here",
+          "lv25": "A rank to go with it, and mastery 20% faster from here"
         }
       },
       "sleep": {
@@ -3791,11 +3799,13 @@
       },
       "srd3": {
         "name": "Squire",
-        "desc": "All those thousand swings training sessions weren't for nothing. Now you can hold your sword somewhat straight and your posture got better. Hovewer, slashing things didn't get any easier"
+        "desc": "All those thousand swings training sessions weren't for nothing. Now you can hold your sword somewhat straight and your posture got better. Hovewer, slashing things didn't get any easier",
+        "tdesc": "Sword mastery grows 10% faster"
       },
       "srd4": {
         "name": "Blade for Hire",
-        "desc": "Your swordplay has reached the rank of a common foot soldier. Or so you thought. Maybe you can match a lowest level mercenary, which isn't something to be proud of. You are still ways away from calling yourself a proper swordsman"
+        "desc": "Your swordplay has reached the rank of a common foot soldier. Or so you thought. Maybe you can match a lowest level mercenary, which isn't something to be proud of. You are still ways away from calling yourself a proper swordsman",
+        "tdesc": "Sword mastery grows 15% faster"
       },
       "lnc1": {
         "name": "Spearholder",
@@ -3807,7 +3817,8 @@
       },
       "lnc3": {
         "name": "Phlanger",
-        "desc": "You're getting a hold of your primitive spearmanship, which is reasurring considering how much effort went into your training. You could be a part of the second-rate frontline military squad with your ability, but you will aim higher"
+        "desc": "You're getting a hold of your primitive spearmanship, which is reasurring considering how much effort went into your training. You could be a part of the second-rate frontline military squad with your ability, but you will aim higher",
+        "tdesc": "Polearm mastery grows 10% faster"
       },
       "hmr2": {
         "name": "Basher",
@@ -3815,7 +3826,8 @@
       },
       "hmr3": {
         "name": "Heavy Hand",
-        "desc": "You favor strong blunt weaponry, which shows by how sturdy and hard your hands have become. This is good for your overall strength. You still lack any skill or technique, hovewer"
+        "desc": "You favor strong blunt weaponry, which shows by how sturdy and hard your hands have become. This is good for your overall strength. You still lack any skill or technique, hovewer",
+        "tdesc": "Hammer mastery grows 10% faster"
       },
       "kill1": {
         "name": "Pest Control",
@@ -3866,11 +3878,13 @@
       },
       "sld3": {
         "name": "Protector",
-        "desc": "You understand better how shields work, and your reaction time against frontal attacks has improved as well. Your openings are still plentiful, but you manage to stay alive"
+        "desc": "You understand better how shields work, and your reaction time against frontal attacks has improved as well. Your openings are still plentiful, but you manage to stay alive",
+        "tdesc": "Shield mastery grows 10% faster"
       },
       "sld4": {
         "name": "Sentry",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Shield mastery grows 15% faster"
       },
       "seye1": {
         "name": "Bat Eyes",
@@ -3943,7 +3957,8 @@
       },
       "axc3": {
         "name": "Axejack",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Axe mastery grows 10% faster"
       },
       "dth1": {
         "name": "Fallen",
@@ -3959,7 +3974,8 @@
       },
       "sld5": {
         "name": "Bastion",
-        "desc": ""
+        "desc": "",
+        "tdesc": "Shield mastery grows 20% faster"
       },
       "seye3": {
         "name": "Dissector",

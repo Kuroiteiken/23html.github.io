@@ -793,3 +793,100 @@ if (
 
 console.log("Validated message-log history and background preference storage.");
 console.log("Validated the autosave preference and inventory panel layout.");
+
+// Skill milestones are saved positionally -- save() writes
+// `a6[obj].mst[m] = you.skls[obj].mlstn[m].g` -- so a new milestone must be appended
+// to its array, never inserted in level order. Inserting one shifts every granted
+// flag after it and re-fires milestones the player already holds. The eight
+// weapon-mastery titles above tier two are granted this way, so this has to hold.
+const skillsSource = fs.readFileSync(
+  path.join(root, "js", "data", "skills.js"),
+  "utf8",
+);
+
+for (const skill of ["srdc", "axc", "plrmc", "hmrc", "shdc"]) {
+  // Located by index rather than by a constructed pattern: the identifiers here
+  // contain no regex metacharacters, and plain string work cannot be broken by an
+  // escaping mistake.
+  const opens = `skl.${skill}.mlstn = [`;
+  const start = skillsSource.indexOf(opens);
+  const end = start < 0 ? -1 : skillsSource.indexOf("\n];", start);
+  if (start < 0 || end < 0) {
+    throw new Error(
+      `Milestone regression: skl.${skill} has no mlstn array, but it grants a weapon-mastery title.`,
+    );
+  }
+  const body = skillsSource.slice(start + opens.length, end);
+  const levels = [...body.matchAll(/lv: (\d+)/g)].map((m) => Number(m[1]));
+  if (levels.length < 7) {
+    throw new Error(
+      `Milestone regression: skl.${skill} has only ${levels.length} milestones; the tiers above two are missing their grant path.`,
+    );
+  }
+  // The originals run to level 11 and the added ones start at 15, so the added ones
+  // must sit at the end. Checking the whole array is ascending would be stricter
+  // than the save format needs and would forbid a legitimate future insert.
+  const firstAdded = levels.findIndex((lv) => lv >= 15);
+  if (
+    firstAdded === -1 ||
+    firstAdded !== levels.length - levels.filter((lv) => lv >= 15).length
+  ) {
+    throw new Error(
+      `Milestone regression: the added milestones on skl.${skill} are not at the end of the array (${levels.join(", ")}). The granted flags are saved by index.`,
+    );
+  }
+}
+
+// Every one of those titles must actually carry the talent that speeds its mastery
+// up, or the milestone hands over a cosmetic name.
+const masteryTalents = {
+  srd3: "srdc",
+  srd4: "srdc",
+  axc3: "axc",
+  lnc3: "plrmc",
+  hmr3: "hmrc",
+  sld3: "shdc",
+  sld4: "shdc",
+  sld5: "shdc",
+};
+
+for (const [title, skill] of Object.entries(masteryTalents)) {
+  const talent = `ttl.${title}.talent = function () {\n  skl.${skill}.p += `;
+  if (!titlesSource.includes(talent)) {
+    throw new Error(
+      `Title regression: ttl.${title} must raise skl.${skill}.p, which is what makes it more than a name.`,
+    );
+  }
+  if (!titlesSource.includes(`ttl.${title}.tdesc = i18n.t(`)) {
+    throw new Error(
+      `Title regression: ttl.${title} has a talent with nothing telling the player what it does.`,
+    );
+  }
+  if (!skillsSource.includes(`giveTitle(ttl.${title})`)) {
+    throw new Error(
+      `Title regression: ttl.${title} has no grant path in js/data/skills.js.`,
+    );
+  }
+}
+
+// A shield trains its skill while it is carried, not only when a blow lands on the
+// player -- the grant used to exist solely in the branch where a creature hits you.
+if (
+  (interfaceSource.match(/giveSkExp\(skl\.shdc, [0-9.]+\)/g) || []).length < 2
+) {
+  throw new Error(
+    "Shield regression: shield mastery must also be trained while the player attacks with a shield in hand, not only when a creature's blow lands.",
+  );
+}
+
+// Every shield has to defend. Eleven of the fourteen shipped with str 0, which made
+// them worth exactly as much as an empty hand.
+if (/^sld\.[a-z0-9]+\.str = 0;$/m.test(equipmentSource)) {
+  throw new Error(
+    "Shield regression: a shield is left at str 0, which defends no better than an empty hand.",
+  );
+}
+
+console.log(
+  "Validated weapon-mastery grant paths, positional milestone ordering, and statted shields.",
+);
