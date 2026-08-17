@@ -925,3 +925,19 @@ if (
 }
 
 console.log("Validated in-tick combat rounds and the catch-up backlog budget.");
+
+// The quest list sorted with a comparator that compared one quest's state against
+// another's id and returned undefined for every other pair. That is not an ordering,
+// so the result was whatever the engine's sort happened to produce -- a finished quest
+// could sit above an active one with no rule visible anywhere.
+if (
+  !interfaceSource.includes("const questOrder = (q) =>") ||
+  !interfaceSource.includes("questOrder(a) - questOrder(b) || a.id - b.id") ||
+  interfaceSource.includes("if (a.id > b.id && a.data.started === true)")
+) {
+  throw new Error(
+    "Quest list regression: the sort must be a real comparator -- total, antisymmetric and transitive -- not a pair of half-tests that fall through to undefined.",
+  );
+}
+
+console.log("Validated the quest list ordering.");

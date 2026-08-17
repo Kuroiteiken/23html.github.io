@@ -976,10 +976,18 @@ dom.ct_bt6.addEventListener("click", function () {
     dom.jlbrw1s1.addEventListener("click", () => {
       empty(dom.ctrwin6);
       global.lw_op = -1;
+      // In progress first, then anything not finished, then what is done. Within a
+      // group, the order the quests were taken in, which is their id order.
+      //
+      // This replaces a comparator that was not one: it tested a's state against b's
+      // id and returned undefined for every other pair, which sort() reads as "equal".
+      // A comparator that is neither antisymmetric nor transitive gives an ordering
+      // the specification does not define, which is why the list came out with a
+      // finished quest above an active one and no discernible rule anywhere.
+      const questOrder = (q) =>
+        q.data.started === true ? 0 : q.data.done === true ? 2 : 1;
       qsts.sort(function (a, b) {
-        if (a.id > b.id && a.data.started === true) return -1;
-        if (a.id < b.id && a.data.done === true && a.data.started === false)
-          return 1;
+        return questOrder(a) - questOrder(b) || a.id - b.id;
       });
       dom.qstbody = addElement(dom.ctrwin6, "div");
       this.qstlbl = addElement(dom.qstbody, "div");
