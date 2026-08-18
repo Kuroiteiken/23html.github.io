@@ -206,6 +206,20 @@
     },
     "titles": {
       "rankBadge": "rütbe {rank}"
+    },
+    "elements": {
+      "physical": "Fiziksel",
+      "air": "Hava",
+      "earth": "Toprak",
+      "fire": "Ateş",
+      "water": "Su",
+      "light": "Işık",
+      "dark": "Karanlık"
+    },
+    "damageClasses": {
+      "edge": "Kesici",
+      "pierce": "Delici",
+      "blunt": "Künt"
     }
   },
   "gameText": {

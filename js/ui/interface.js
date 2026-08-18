@@ -3419,6 +3419,61 @@ function positionDescription(c) {
   global.dscr.style.top = `${Math.max(gap, top)}px`;
 }
 
+// What a piece of equipment does beyond its three stats. The tooltip listed STR,
+// AGL, INT and SPD and stopped there, so every resistance in the game was invisible:
+// the Wolf Mask has always given twenty points of fire protection and read as though
+// it were decoration, and the shields' class values -- the whole reason one shield
+// differs from another -- were never shown at all. Nothing here changes a number; it
+// says out loud what the numbers already were.
+//
+// Three arrays are involved and they mean different things:
+//   aff  on a shield or armour is what IT resists, by element
+//   cls  is what it resists by the attacker's weapon class
+//   caff is a resistance it grants the player directly, which is how the masks work
+const elementLabels = [
+  "ui.elements.physical",
+  "ui.elements.air",
+  "ui.elements.earth",
+  "ui.elements.fire",
+  "ui.elements.water",
+  "ui.elements.light",
+  "ui.elements.dark",
+];
+const damageClassLabels = [
+  "ui.damageClasses.edge",
+  "ui.damageClasses.pierce",
+  "ui.damageClasses.blunt",
+];
+
+function effectLine(label, value) {
+  const colour = value > 0 ? "lime" : "red";
+  const sign = value > 0 ? "+" : "";
+  return i18n.t("ui.itemDescription.stat", {
+    stat: label,
+    value: "<span style='color:" + colour + "'>" + sign + value + "</span><br>",
+  });
+}
+
+function equipmentEffectLines(what) {
+  // Bound at call time rather than at load, so the list follows a locale change.
+  // check-i18n wants a spelled-out literal in every i18n.t call, which is why the
+  // keys are enumerated above and read back by index here.
+  const elements = elementLabels.map((key) => i18n.t(key));
+  const classes = damageClassLabels.map((key) => i18n.t(key));
+  let out = "";
+  for (let i = 0; i < elements.length; i++) {
+    const own = (what.aff && what.aff[i]) || 0;
+    const granted = (what.caff && what.caff[i]) || 0;
+    const total = own + granted;
+    if (total !== 0) out += effectLine(elements[i], total);
+  }
+  for (let i = 0; i < classes.length; i++) {
+    const value = (what.cls && what.cls[i]) || 0;
+    if (value !== 0) out += effectLine(classes[i], value);
+  }
+  return out;
+}
+
 function dscr(c, what, type, ttl, dsc, id) {
   id = id || 0;
   global.dscr.style.display = "";
@@ -3514,6 +3569,7 @@ function dscr(c, what, type, ttl, dsc, id) {
           stat: "SPD",
           value: "<span style='color:red'>" + what.spd + "</span><br>",
         });
+      this.text.innerHTML += equipmentEffectLines(what);
 
       if (what.slot < 8) {
         // Label, gauge, and number sit side by side. The number used to be

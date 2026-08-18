@@ -206,6 +206,20 @@
     },
     "titles": {
       "rankBadge": "rank {rank}"
+    },
+    "elements": {
+      "physical": "Physical",
+      "air": "Air",
+      "earth": "Earth",
+      "fire": "Fire",
+      "water": "Water",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "damageClasses": {
+      "edge": "Edge",
+      "pierce": "Pierce",
+      "blunt": "Blunt"
     }
   },
   "gameText": {
