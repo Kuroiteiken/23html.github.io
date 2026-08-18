@@ -1425,8 +1425,56 @@ function repairCost(obj) {
   return Math.max(1, Math.ceil(missing * REPAIR_COIN_PER_POINT));
 }
 
+// Sharpening. Each step adds 6% of the weapon's own strength, so a +9 blade is worth
+// about half again what it was and a good weapon gains more from the work than a poor
+// one -- which is the point of taking a good weapon to a smith.
+//
+// The level lives on `data.plus` and nowhere else. Restoring a save rebuilds every item
+// from the registry and copies only `dp` and `data` back onto it, so a bonus written
+// into `str` would be lost on the next load; it has to be derived where damage is
+// calculated.
+const MAX_SHARPEN = 9;
+
+function sharpenLevel(obj) {
+  return (obj && obj.data && obj.data.plus) || 0;
+}
+
+// The effective strength of a weapon, its sharpening included. Read by dmg_calc.
+function weaponPower(obj) {
+  return obj.str * (1 + sharpenLevel(obj) * 0.06);
+}
+
+// It gets harder and dearer as it goes: the first step is near certain and cheap, the
+// ninth is a coin toss and costs many times the weapon's worth. A failed attempt takes
+// the fee and leaves the weapon exactly as it was -- it is never destroyed and never
+// set back, because losing a weapon to a dice roll at a shop is a different game than
+// this one.
+function sharpenCost(obj) {
+  const next = sharpenLevel(obj) + 1;
+  return Math.max(20, Math.ceil((obj.str + 10) * next * next * 0.9));
+}
+
+function sharpenChance(obj) {
+  const next = sharpenLevel(obj) + 1;
+  return Math.max(0.5, 1 - (next - 1) * 0.06);
+}
+
 // Everything worn or carried that has taken damage. Equipment only: an item with no
 // slot has no durability to speak of.
+// Weapons with room left to improve. Weapons only: sharpening a pair of trousers is
+// not a thing, and the bonus is read from the weapon slot in dmg_calc.
+function sharpenableInventory() {
+  const lines = [];
+  for (const obj of inv) {
+    if (obj.slot !== 1) continue;
+    if (!(obj.str > 0)) continue;
+    if (sharpenLevel(obj) >= MAX_SHARPEN) continue;
+    lines.push({ obj, cost: sharpenCost(obj), worn: wearing(obj) });
+  }
+  lines.sort((a, b) => a.cost - b.cost);
+  return lines;
+}
+
 function repairableInventory() {
   const lines = [];
   for (const obj of inv) {

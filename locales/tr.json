@@ -236,7 +236,11 @@
       "nothingWorn": "Taşıdıklarının hiçbirinin işe ihtiyacı yok",
       "rate": "Aşınma puanı başına: {rate}",
       "cannotAfford": "Bunun parasını ödeyemezsin.",
-      "repaired": "{item} yeniden sağlam."
+      "repaired": "{item} yeniden sağlam.",
+      "nothingToSharpen": "Üzerinde geliştirebileceği bir silah yok",
+      "sharpened": "{item} daha keskin bir ağız tutuyor. +{plus}.",
+      "sharpenFailed": "{item} tutmuyor. Emek boşa gitti.",
+      "benchTitleSharpen": "Demircinin Tezgâhı — Keskinleştirme"
     }
   },
   "gameText": {
@@ -5779,7 +5783,8 @@
           "nightmare_onset": "Günahların üstüne tırmanıyor.",
           "nightmare_body": "Uyanıksın ve kıpırdayamıyorsun. Yatağın ayakucunda, bunca zaman köyün altında olan bir şey duruyor; yukarı çıkmayı ancak şimdi bitirdi. Sana dokunmuyor. Bekliyor, ve mesele tamamen o bekleyiş.",
           "nightmare_wake": "\"Uyanmayı dene\"",
-          "nightmare_thins": "Oda birer kenar hâlinde geri geliyor. O şey gitmiyor, yalnızca seyreliyor."
+          "nightmare_thins": "Oda birer kenar hâlinde geri geliyor. O şey gitmiyor, yalnızca seyreliyor.",
+          "smith_sharpen_action": "\"=> Bir silah keskinleştir\""
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

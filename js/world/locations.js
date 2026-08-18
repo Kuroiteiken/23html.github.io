@@ -3597,10 +3597,35 @@ chss.smith.sl = () => {
   global.lst_loc = 172;
   chs(i18n.t("runtime.world.locations.dialogue.smith_greeting"), true);
   chs(
+    i18n.t("runtime.world.locations.dialogue.smith_sharpen_action"),
+    false,
+    "orange",
+  ).addEventListener("click", () => {
+    // The bench renders whichever list this says. Held on global rather than passed,
+    // because every row rebuilds the scene through smove and the mode has to survive
+    // that.
+    global.smithmode = 1;
+    chs_spec(7, null);
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+      "",
+      "",
+      null,
+      null,
+      null,
+      true,
+    ).addEventListener("click", () => {
+      global.smithmode = 0;
+      smove(chss.smith, false);
+    });
+  });
+  chs(
     i18n.t("runtime.world.locations.dialogue.smith_repair_action"),
     false,
     "orange",
   ).addEventListener("click", () => {
+    global.smithmode = 0;
     chs_spec(7, null);
     chs(
       i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
@@ -3619,6 +3644,7 @@ chss.smith.sl = () => {
     i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
     false,
   ).addEventListener("click", () => {
+    global.smithmode = 0;
     smove(chss.mrktvg1);
   });
 };

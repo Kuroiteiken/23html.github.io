@@ -3484,7 +3484,7 @@ function dscr(c, what, type, ttl, dsc, id) {
   empty(global.dscr);
   if (!type || type === 1) {
     this.label = addElement(global.dscr, "div", "d_l");
-    this.label.innerHTML = what.name;
+    this.label.innerHTML = what.name + sharpenSuffix(what);
     switch (what.rar) {
       case 0: {
         this.label.style.color = "grey";
@@ -4731,7 +4731,9 @@ function dmg_calc(att, def, atk) {
       // share of. The expression is otherwise unchanged.
       const swing =
         ((att.str * eff +
-          ((att.eqp[0].str + undc) * (att.eqp[0].dp / att.eqp[0].dpmax) * 0.9 +
+          ((weaponPower(att.eqp[0]) + undc) *
+            (att.eqp[0].dp / att.eqp[0].dpmax) *
+            0.9 +
             0.1) *
             (att.eqp[0].id === 10000 ? 1 : ta)) *
           (100 +
@@ -6281,6 +6283,15 @@ function descsinfo(id) {
     }
 }
 
+// A weapon's name with its sharpening on it. The colour climbs with the level so a
+// glance at the inventory says which blade is the worked one.
+function sharpenSuffix(obj) {
+  const plus = sharpenLevel(obj);
+  if (plus <= 0) return "";
+  const colour = plus >= 7 ? "#ff7f3f" : plus >= 4 ? "#ffd24a" : "#8fe3ff";
+  return " <span style='color:" + colour + "'>+" + plus + "</span>";
+}
+
 function renderItem(obj) {
   const inv_slot_c = addElement(dom.inv_con, "div", null, "noout");
   const inv_slot = addElement(inv_slot_c, "div", null, "inv_slot noout");
@@ -6290,7 +6301,7 @@ function renderItem(obj) {
     case 3:var z= icon(inv_slot,3,1,18,18);z.style.paddingRight="2px";break;
   }*/
   const inv_name = addElement(inv_slot, "span");
-  inv_name.innerHTML = obj.name;
+  inv_name.innerHTML = obj.name + sharpenSuffix(obj);
   if (!!obj.data.skey)
     inv_name.innerHTML +=
       "<small> {" + String.fromCharCode(obj.data.skey) + "}</small>";
@@ -6914,7 +6925,10 @@ function chs_spec(type, x) {
         dom.ch_1.style.display = "flex";
         dom.ch_1.style.flexDirection = "column";
         dom.flsthdr = addElement(dom.ch_1, "div");
-        dom.flsthdr.innerHTML = i18n.t("ui.smith.benchTitle");
+        dom.flsthdr.innerHTML =
+          global.smithmode === 1
+            ? i18n.t("ui.smith.benchTitleSharpen")
+            : i18n.t("ui.smith.benchTitle");
         dom.flsthdr.style.borderBottom = "1px #44c solid";
         dom.flsthdr.style.padding = "2px";
         dom.flsthdr.style.flexShrink = "0";
@@ -6924,8 +6938,16 @@ function chs_spec(type, x) {
         dom.ch_1h.style.flex = "1";
         dom.ch_1h.style.minHeight = "0";
         dom.ch_1h.style.overflow = "auto";
-        const worn = repairableInventory();
-        if (worn.length === 0) {
+        const worn =
+          global.smithmode === 1
+            ? sharpenableInventory()
+            : repairableInventory();
+        if (global.smithmode === 1) {
+          if (worn.length === 0) {
+            const none = addElement(dom.ch_1h, "div", null, "chs_s");
+            none.innerHTML = i18n.t("ui.smith.nothingToSharpen");
+          } else for (const line of worn) rendersharpenitem(dom.ch_1h, line);
+        } else if (worn.length === 0) {
           const none = addElement(dom.ch_1h, "div", null, "chs_s");
           none.innerHTML = i18n.t("ui.smith.nothingWorn");
         } else for (const line of worn) renderrepairitem(dom.ch_1h, line);
@@ -6996,6 +7018,56 @@ function chs_spec(type, x) {
       break;
   }
   return dom.ch_1;
+}
+
+// One line of the sharpening list. A failed attempt takes the fee and changes nothing:
+// the weapon is never destroyed and never set back, because losing a blade to a dice
+// roll at a shop belongs in a different game.
+function rendersharpenitem(root, line) {
+  const row = addElement(root, "div", "bst_entrh", "bst_entr");
+  row.style.backgroundColor = "rgb(10,30,54)";
+  addDesc(row, line.obj);
+  const left = addElement(row, "div", null, "bst_entr1");
+  left.style.width = "62%";
+  left.innerHTML =
+    line.obj.name +
+    sharpenSuffix(line.obj) +
+    " <small style='color:grey'>" +
+    Math.round(sharpenChance(line.obj) * 100) +
+    "%</small>";
+  const right = addElement(row, "div", null, "bst_entr2");
+  right.style.width = "36%";
+  right.style.textAlign = "right";
+  const cost = sharpenCost(line.obj);
+  right.innerHTML = formatw(cost);
+  if (you.wealth < cost) {
+    right.style.color = "red";
+    row.style.backgroundColor = "rgb(68,26,38)";
+  }
+  row.addEventListener("click", () => {
+    const due = sharpenCost(line.obj);
+    if (you.wealth < due) {
+      msg(i18n.t("ui.smith.cannotAfford"), "red");
+      return;
+    }
+    spend(due);
+    if (random() < sharpenChance(line.obj)) {
+      line.obj.data.plus = sharpenLevel(line.obj) + 1;
+      msg(
+        i18n.t("ui.smith.sharpened", {
+          item: line.obj.name,
+          plus: line.obj.data.plus,
+        }),
+        "lime",
+      );
+    } else {
+      msg(i18n.t("ui.smith.sharpenFailed", { item: line.obj.name }), "orange");
+    }
+    you.stat_r();
+    isort(global.sm);
+    smove(chss.smith, false);
+  });
+  return row;
 }
 
 // One line of the smith's bench: what is worn, and what putting it right costs.

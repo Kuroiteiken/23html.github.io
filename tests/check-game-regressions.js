@@ -986,6 +986,36 @@ if (
 
 console.log("Validated panel rebuilds and hover teardown.");
 
+// A sharpening level must live on the item's `data` and be derived where damage is
+// calculated. Restoring a save rebuilds every item from the registry and copies only
+// `dp` and `data` back onto it, so a bonus written into `str` is silently lost on the
+// next load -- the weapon would arrive home unsharpened with no message and no error.
+const craftingForSharpen = fs.readFileSync(
+  path.join(root, "js", "systems", "crafting.js"),
+  "utf8",
+);
+
+if (
+  !craftingForSharpen.includes(
+    "return (obj && obj.data && obj.data.plus) || 0;",
+  ) ||
+  !craftingForSharpen.includes(
+    "return obj.str * (1 + sharpenLevel(obj) * 0.06);",
+  )
+) {
+  throw new Error(
+    "Sharpening regression: the level must be read from data.plus and the strength derived from it, never written into str -- a save restores only dp and data onto a rebuilt item.",
+  );
+}
+
+if (!interfaceSource.includes("weaponPower(att.eqp[0])")) {
+  throw new Error(
+    "Sharpening regression: dmg_calc must read the weapon's strength through weaponPower, or a sharpened blade hits exactly as hard as a blunt one.",
+  );
+}
+
+console.log("Validated the sharpening bonus and where it lives.");
+
 // The stale-build check fetches version.json, which build-site.js writes beside
 // index.html. Resolved against js/i18n-loader.js the bare name becomes
 // js/version.json, which 404s -- and because a non-ok response returned quietly,
