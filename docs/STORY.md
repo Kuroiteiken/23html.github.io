@@ -289,6 +289,27 @@ The clusters lined up in a way that is hard to read as coincidence: a dark 26-ro
 dungeon, a torch that nothing sold, seven keys with no locks, and a complete undead
 bestiary with nowhere to spawn. It was prepared as one region and never connected.
 
+### A note on three bugs of one shape
+
+Worth keeping, because it cost three separate fixes to see it. Each of these was a
+handler that undid itself on an event the teardown prevented from ever firing:
+
+- The sell list and the smith's bench rebuilt themselves by calling `chs_spec`, which
+  begins by emptying the choice column -- taking the scene's own Return choice with it
+  and leaving the player with no way out.
+- A hover description belongs to the row under the pointer. Tearing the rows down while
+  the pointer is still on one means that row's `mouseleave` never fires, so the
+  description hung on screen.
+- Hovering an inventory row sets `global.flags.kfocus`, which gates the shortcut keys
+  off so that pressing 1 assigns rather than uses. Emptying the list removes the hovered
+  row, `mouseleave` never fires, and every shortcut goes quiet -- which showed up in
+  combat, because a fight calls `isort` constantly through `giveItem`, `removeItem` and
+  `reduce`.
+
+The cure is the same each time: undo it where the destruction happens, not where the
+pointer happens to be. Anything added here that attaches state on hover should be
+written that way from the start.
+
 ## Defects in story code
 
 These were bugs rather than design gaps. All of them are now fixed; the list is

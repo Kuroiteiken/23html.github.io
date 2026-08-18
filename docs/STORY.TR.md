@@ -290,6 +290,26 @@ buna rağmen:
   bağlantı yoktu; bölgenin yarım değil de sahipsiz görünmesinin sebebi buydu. Artık
   içinden girildiği bodruma geri dönüyor.
 
+### Tek bir şekle sahip üç hata üzerine bir not
+
+Görmek üç ayrı düzeltmeye mal olduğu için saklanıyor. Bunların her biri, kendini
+yalnızca yıkımın tetiklenmesine izin vermediği bir olayda geri alan bir işleyiciydi:
+
+- Satış listesi ve demircinin tezgâhı kendilerini `chs_spec` çağırarak yeniden
+  kuruyordu; o da işe seçenek kolonunu boşaltarak başlıyor — sahnenin kendi Geri dön
+  seçeneğini de alıp götürüyor ve oyuncuyu çıkışsız bırakıyor.
+- Bir ipucu, farenin üzerinde durduğu satıra aittir. Fare hâlâ üzerindeyken satırlar
+  yıkılırsa o satırın `mouseleave`'i hiç tetiklenmiyor ve açıklama ekranda kalıyor.
+- Bir envanter satırının üzerine gelmek `global.flags.kfocus`'u açıyor; bu da `1`'e
+  basmanın kullanmak yerine atamasını sağlıyor. Liste boşaltılınca üzerinde durulan
+  satır siliniyor, `mouseleave` hiç gelmiyor ve bütün kısayollar susuyor — dövüşte
+  ortaya çıkıyor, çünkü savaş `isort`'u `giveItem`, `removeItem` ve `reduce`
+  üzerinden sürekli çağırıyor.
+
+Çare her seferinde aynı: geri almayı farenin bulunduğu yerde değil, yıkımın
+gerçekleştiği yerde yapmak. Buraya eklenen ve fare üzerine gelince durum tutan her şey
+baştan böyle yazılmalı.
+
 ## Hikaye kodundaki hatalar
 
 Bunlar tasarım boşluğu değil, hataydı. Hepsi artık düzeltildi; liste, her biri
