@@ -440,6 +440,7 @@ function save(lvr) {
     lvl: you.lvl,
     exp: you.exp,
     exp_t: you.exp_t,
+    skxp: you.skxp,
     sat: you.sat,
     satmax: you.satmax,
     sat_r: you.sat_r,
@@ -879,6 +880,7 @@ function load(dt) {
     you.lvl = yu_s.lvl || 1;
     you.exp = yu_s.exp || 0;
     you.exp_t = yu_s.exp_t || 1;
+    you.skxp = yu_s.skxp || 1;
     you.expnext_t = you.expnext();
     you.sat = yu_s.sat ?? 200;
     you.satmax = yu_s.satmax || 200;

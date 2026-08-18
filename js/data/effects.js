@@ -971,3 +971,41 @@ effect.fbite.use = function () {
     this.duration = 5;
   }
 };
+
+// Rested. Given for sleeping the night through beside a lit fire, which is the only
+// thing in the game that asks the player to keep a woodpile stocked for its own sake.
+//
+// Type 5 on purpose. save() calls onRemove on every type-5 effect BEFORE it writes
+// the player literal and onGive again after, so everything below is correctly left
+// out of the save rather than banked into it permanently. That is also why the
+// mastery bonus goes through you.skxp and not skl.p: skl.p is written after the
+// re-apply and a temporary buff on it would never come off.
+effect.rested = new Effect();
+effect.rested.id = 27;
+effect.rested.name = i18n.t("content.effect.rested.name");
+effect.rested.desc = i18n.t("content.effect.rested.desc", {
+  separator: dom.dseparator,
+});
+effect.rested.type = 5;
+effect.rested.x = "☾";
+effect.rested.c = "gold";
+effect.rested.b = "saddlebrown";
+effect.rested.onGive = function () {
+  you.stra += 2;
+  you.spda += 1;
+  you.skxp += 0.1;
+  you.stat_r();
+};
+effect.rested.onRemove = function () {
+  you.stra -= 2;
+  you.spda -= 1;
+  you.skxp -= 0.1;
+  you.stat_r();
+};
+effect.rested.use = function () {
+  this.duration--;
+  if (this.duration <= 0) {
+    removeEff(this, this.target);
+    this.duration = 5;
+  }
+};

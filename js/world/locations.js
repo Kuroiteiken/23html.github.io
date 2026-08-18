@@ -5284,9 +5284,14 @@ chss.hbed.sl = () => {
     i18n.t("runtime.world.locations.dialogue.get_up_3fdf06df"),
     false,
   ).addEventListener("click", () => {
+    // Six hours beside a burning fire is a night's sleep. Anything less is a nap, and
+    // a nap is its own reward -- the healing it already gave.
+    if ((chss.hbed.data.warmrest || 0) >= 360) giveEff(you, effect.rested, 720);
+    chss.hbed.data.warmrest = 0;
     for (const i in chss) if (chss[i].id === global.home_loc) smove(chss[i]);
   });
 };
+chss.hbed.data = { warmrest: 0 };
 chss.hbed.onStay = function () {
   // A lit fire is worth resting beside. effect.fplc is active for exactly as long as
   // the fireplace has fuel -- its own use() reads the fuel as the effect's remaining
@@ -5307,6 +5312,11 @@ chss.hbed.onStay = function () {
   if (warm && you.sat < you.satmax) {
     you.sat = Math.min(you.satmax, you.sat + 0.1);
   }
+  // Counted here rather than measured on the way out, because the fire can burn down
+  // partway through the night and a player who slept through its last hour has still
+  // had most of a night beside it. The counter lives on the scene's own data, which
+  // the save keeps.
+  if (warm) chss.hbed.data.warmrest = (chss.hbed.data.warmrest || 0) + 1;
   // if(global.current_z.id!==-666&&random()<.00001){
   //   let ta = new Area(); ta.id=-666;
   //   ta.name = 'Nightmare';

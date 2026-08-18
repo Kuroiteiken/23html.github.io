@@ -28,6 +28,10 @@ function You() {
   };
   this.expnext_t = this.expnext();
   this.exp_t = 1;
+  // Multiplies everything giveSkExp hands a skill. Separate from skl.p, which is the
+  // skill's own permanent rate: this one is the player's, and it is the only place a
+  // temporary effect can raise mastery gain without banking itself into the save.
+  this.skxp = 1;
   this.efficiency = function () {
     let g = skl.fmn.use();
     g = g >= 0.6 ? 0.6 : g;

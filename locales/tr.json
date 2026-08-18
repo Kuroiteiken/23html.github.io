@@ -844,6 +844,10 @@
       "fbite": {
         "name": "Hipotermi",
         "desc": "Uzuvlarınız donma tehlikesi yaşıyor"
+      },
+      "rested": {
+        "name": "Dinlenmiş",
+        "desc": "Ateş başında geçen gece hâlâ üzerinde{separator}<span style=\"color:deeppink\">GÜÇ +2, HIZ +1, ustalık kazanımı +%10</span>"
       }
     },
     "wpn": {

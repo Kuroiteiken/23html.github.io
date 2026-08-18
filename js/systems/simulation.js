@@ -1291,7 +1291,10 @@ function giveExp(exp, r, g, b) {
 }
 
 function giveSkExp(skl, exp, res) {
-  exp = res === false ? exp : exp * skl.p; //skl.lastupd = time.minute+2;
+  // skl.p is the skill's own permanent rate; you.skxp is the player's, and is what
+  // a temporary effect raises. res === false means the caller has already decided the
+  // amount and neither should touch it.
+  exp = res === false ? exp : exp * skl.p * you.skxp;
   if (skl.exp + exp < skl.expnext_t) skl.exp += exp;
   else {
     const extra = skl.exp + exp - skl.expnext_t;
