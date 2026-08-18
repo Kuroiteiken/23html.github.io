@@ -957,7 +957,12 @@ dom.ct_bt6.addEventListener("click", function () {
     this.jlbrw2 = addElement(this.jlbod, "div", null, "jrow");
     this.jlbrw2s1 = addElement(this.jlbrw2, "div", "jcell3", "jcell");
     this.jlbrw2s2 = addElement(this.jlbrw2, "div", "jcell4", "jcell");
-    this.jlbod.style.height = "100px";
+    this.jlbrw3 = addElement(this.jlbod, "div", null, "jrow");
+    this.jlbrw3s1 = addElement(this.jlbrw3, "div", "jcell5", "jcell");
+    // One tab on this row, so it takes the width. A hidden sibling would leave half
+    // the row empty and read as a missing button.
+    this.jlbrw3s1.style.width = "100%";
+    this.jlbod.style.height = "150px";
     this.jlbod.style.width = "100%";
     dom.jlbrw1s1.innerHTML = i18n.t("ui.panels.quests");
     dom.jlbrw1s2.innerHTML =
@@ -972,6 +977,15 @@ dom.ct_bt6.addEventListener("click", function () {
     // this yet, the same way quests and statistics do.
     this.jlbrw2s1.innerHTML = i18n.t("ui.panels.lore");
     this.jlbrw2s2.innerHTML = i18n.t("ui.panels.statistics");
+    // What the player's gear adds up to. Open from the moment the journal is, like
+    // the statistics beside it: it reports state the player already has rather than
+    // anything that has to be discovered.
+    this.jlbrw3s1.innerHTML = i18n.t("ui.panels.defences");
+    this.jlbrw3s1.addEventListener("click", () => {
+      empty(dom.ctrwin6);
+      global.lw_op = -5;
+      renderDefences();
+    });
     this.jlbrw2s1.addEventListener("click", () => {
       empty(dom.ctrwin6);
       global.lw_op = -1;
@@ -3175,6 +3189,11 @@ const releaseNotes = [
     major: 478,
     minor: 2,
     read: () => i18n.get("ui.releaseNotes.v478_2"),
+  },
+  {
+    major: 478,
+    minor: 3,
+    read: () => i18n.get("ui.releaseNotes.v478_3"),
   },
 ];
 
@@ -6659,6 +6678,70 @@ function renderLoreEntry(root, entry, kind) {
 // has been earned. A question with no answer is left standing rather than hidden,
 // because the point of showing it is that the player can see the shape of what
 // they still do not know.
+// Everything the player's equipment and titles add up to, in one place. The tooltips
+// say what each piece gives; nothing anywhere said what the whole of it comes to, so a
+// player choosing between two shields had to hold seven numbers in their head.
+//
+// Read live from the same fields combat reads -- you.caff and you.ccls for what reaches
+// the player, the weapon for what the player reaches with -- rather than recomputed
+// from the equipment list, so this cannot drift from what the game actually does.
+function renderDefences() {
+  const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
+  panel.style.height = windowPanelHeight(0.84);
+  const label = addElement(panel, "div", null, "lore-entry__title");
+  label.innerHTML = i18n.t("ui.panels.defences");
+  label.style.textAlign = "center";
+
+  const row = (name, value, colour) => {
+    const line = addElement(panel, "div", null, "lore-entry");
+    const left = addElement(line, "div", null, "lore-entry__title");
+    left.innerHTML = name;
+    const right = addElement(line, "div", null, "lore-entry__body");
+    right.style.textAlign = "right";
+    right.innerHTML =
+      "<span style='color:" + (colour || "lime") + "'>" + value + "</span>";
+  };
+
+  const elements = elementLabels.map((key) => i18n.t(key));
+  const classes = damageClassLabels.map((key) => i18n.t(key));
+
+  const attack = addElement(panel, "div", null, "lore-entry__title");
+  attack.innerHTML = i18n.t("ui.panels.defencesAttack");
+  const weapon = you.eqp[0];
+  row(i18n.t("ui.hud.abbr.str"), Math.round(you.str_d), "gold");
+  row(
+    i18n.t("ui.panels.defencesWeapon"),
+    weapon.name + sharpenSuffix(weapon),
+    "orange",
+  );
+  row(
+    i18n.t("ui.panels.defencesClass"),
+    classes[weapon.ctype] + " / " + elements[weapon.atype],
+    "orange",
+  );
+  row(
+    i18n.t("ui.panels.defencesCrit"),
+    Math.round(you.crt * 1000) / 10 + "%",
+    "gold",
+  );
+
+  const defence = addElement(panel, "div", null, "lore-entry__title");
+  defence.innerHTML = i18n.t("ui.panels.defencesDefence");
+  for (let i = 0; i < elements.length; i++) {
+    // caff is what the player resists by element -- the same field the mitigation
+    // term reads. cmaff is by creature type and does not belong on an element row.
+    const total = you.caff[i] || 0;
+    if (total !== 0) row(elements[i], (total > 0 ? "+" : "") + total);
+  }
+  for (let i = 0; i < classes.length; i++) {
+    const total = you.ccls[i] || 0;
+    if (total !== 0) row(classes[i], (total > 0 ? "+" : "") + total);
+  }
+  const shield = you.eqp[1];
+  if (shield && shield.str > 0)
+    row(i18n.t("ui.panels.defencesShield"), shield.name, "orange");
+}
+
 function renderLore() {
   const known = loreKnown();
   const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");

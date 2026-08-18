@@ -1282,7 +1282,14 @@ input:focus {
 }
 .jrow {
   display: flex;
-  height: 50%;
+
+  /* The journal grew a third row. Dividing the body by the number of rows rather
+     than by a hard-coded 50% means adding another one is a markup change and not a
+     stylesheet constant somebody has to remember. */
+  flex: 1;
+}
+#jcell5:hover {
+  background-color: #7a5a12;
 }
 #jcell1:hover {
   background-color: #0d7680;

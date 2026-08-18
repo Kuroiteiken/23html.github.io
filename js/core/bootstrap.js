@@ -60,7 +60,7 @@ global.ver = 478;
 // The point release within v478. Raised on every deploy that changes something a
 // player would notice, so a returning player is told about the four small updates they
 // missed rather than only about the last big one.
-global.subver = 2;
+global.subver = 3;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;

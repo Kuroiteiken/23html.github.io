@@ -30,7 +30,14 @@
       "questList": "Q U E S T　　L I S T",
       "stats": "S T A T S",
       "masteries": "M A S T E R I E S",
-      "lore": "K N O W L E D G E"
+      "lore": "K N O W L E D G E",
+      "defences": "Gear Totals",
+      "defencesAttack": "What you strike with",
+      "defencesDefence": "What reaches you",
+      "defencesWeapon": "Weapon",
+      "defencesClass": "Damage",
+      "defencesCrit": "Critical chance",
+      "defencesShield": "Shield"
     },
     "settings": {
       "backgroundColor": "BG Color",
@@ -207,6 +214,9 @@
       "v478_2": [
         "The smith's bench stays open — repairing or sharpening no longer throws you back to his greeting after every item.",
         "A sharpened weapon shows what the sharpening is worth, on the item and in your own strength. The damage was always rising; nothing said so."
+      ],
+      "v478_3": [
+        "A new page in the journal: what your gear adds up to. Every resistance you carry and what you strike with, in one place, open from the moment the journal is."
       ]
     },
     "lore": {

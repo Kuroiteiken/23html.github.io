@@ -30,7 +30,14 @@
       "questList": "G Ö R E V  L İ S T E S İ",
       "stats": "İ S T A T İ S T İ K L E R",
       "masteries": "U S T A L I K L A R",
-      "lore": "B İ L G İ"
+      "lore": "B İ L G İ",
+      "defences": "Donanım Toplamı",
+      "defencesAttack": "Neyle vuruyorsun",
+      "defencesDefence": "Sana ne ulaşıyor",
+      "defencesWeapon": "Silah",
+      "defencesClass": "Hasar",
+      "defencesCrit": "Kritik şansı",
+      "defencesShield": "Kalkan"
     },
     "settings": {
       "backgroundColor": "Arka Plan Rengi",
@@ -207,6 +214,9 @@
       "v478_2": [
         "Demircinin tezgâhı açık kalıyor — onarım ya da keskinleştirme her eşyadan sonra seni selamlamaya geri atmıyor.",
         "Keskinleştirilmiş silah, keskinleştirmenin ne kazandırdığını hem eşyada hem kendi gücünde gösteriyor. Hasar hep artıyordu; bunu söyleyen bir şey yoktu."
+      ],
+      "v478_3": [
+        "Günlükte yeni bir sayfa: donanımının toplamı. Taşıdığın her direnç ve neyle vurduğun tek yerde, günlük açıldığı andan itibaren açık."
       ]
     },
     "lore": {
