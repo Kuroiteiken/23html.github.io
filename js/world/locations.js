@@ -3320,10 +3320,76 @@ chss.nfld1.sl = () => {
       });
   });
   chs(
+    i18n.t("runtime.world.locations.dialogue.on_to_the_far_field"),
+    false,
+    "gold",
+  ).addEventListener("click", () => {
+    smove(chss.nfld2);
+  });
+  chs(
     i18n.t("runtime.world.locations.dialogue.back_to_the_well_road"),
     false,
   ).addEventListener("click", () => {
     smove(chss.nrd1);
+  });
+};
+
+// The far field. The figures in it are the reason the harvest hands stopped coming, and
+// what turned them is the thing the player has been following since the catacombs: the
+// straw effigy in the game's own recipe book is described as a doll used to bind with
+// the souls of the living, appropriate for curses and dark magic. Field guardians in
+// this village were bound, not built, and the dark ki has reached what is in them.
+chss.nfld2 = new Chs();
+chss.nfld2.id = 176;
+addtosector(sector.north, chss.nfld2);
+chss.nfld2.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("runtime.world.locations.dialogue.north_fields_the_figures"));
+  global.lst_loc = 176;
+  chs(i18n.t("runtime.world.locations.dialogue.scarecrow_field_arrival"), true);
+  if (!knowsLore(29))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.examine_a_figure"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.scarecrow_examined"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("strawBound");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nfld2, false);
+      });
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.go_in_among_the_figures"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.nfld2);
+    // Never return from a scene having drawn neither a fight nor a door.
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nfld2, false);
+      });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_to_the_stubble"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nfld1);
   });
 };
 

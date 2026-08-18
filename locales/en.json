@@ -277,6 +277,11 @@
       ],
       "v478_18": [
         "Reworded three Turkish action labels that read as fragments rather than as things you do."
+      ],
+      "v478_19": [
+        "The far field, past the stubble, where the figures are. The Scarecrow has been fully statted and standing nowhere since before this fork.",
+        "Get close to one of them and look at the knot. Somebody in this village was not building scarecrows.",
+        "The furniture list scrolls. A well-furnished house pushed its rows out of the panel and over the Return button, so there was no way back."
       ]
     },
     "lore": {
@@ -4691,6 +4696,9 @@
       },
       "nfld1": {
         "name": "The stubble fields"
+      },
+      "nfld2": {
+        "name": "The far field"
       }
     },
     "lore": {
@@ -4805,6 +4813,10 @@
       "stoneDust": {
         "name": "The silt in the well is not soil",
         "desc": "Let a bucket from the village well stand and what settles out is grey grit, sharp between the fingers, with none of the smell soil has. That is stone, ground fine. Water carries down what is being cut somewhere above it, and everything above that well is fields."
+      },
+      "strawBound": {
+        "name": "The scarecrows were bound, not built",
+        "desc": "A straw figure in these fields has a knot at the throat that is tied wrong on purpose, and a name written on the board inside it. The recipe for a straw effigy says plainly what dolls of that make are for: binding with the souls of the living. Something was put into these to keep the birds off, and whatever has been pooling under the village has reached it."
       }
     }
   },
@@ -5941,7 +5953,14 @@
           "walk_out_into_the_stubble": "Walk out into it",
           "back_to_the_well_road": "Back along the road to the well",
           "notice_harvest_hands": "Notice: hired hands",
-          "notice_harvest_hands_body": "Written in a good hand and pinned crooked, which means somebody else pinned it up for the man who wrote it.<br><br><i>Wanted, hands for the north fields. Was six a day, now nine, and no questions about where you slept last. Apply at the mill.</i><br><br>Underneath, in a different hand and much smaller: <i>he has been paying nine for three weeks and nobody has taken it.</i>"
+          "notice_harvest_hands_body": "Written in a good hand and pinned crooked, which means somebody else pinned it up for the man who wrote it.<br><br><i>Wanted, hands for the north fields. Was six a day, now nine, and no questions about where you slept last. Apply at the mill.</i><br><br>Underneath, in a different hand and much smaller: <i>he has been paying nine for three weeks and nobody has taken it.</i>",
+          "on_to_the_far_field": "Go on to the far field, where the figures are",
+          "north_fields_the_figures": "North Fields, The Far Field",
+          "scarecrow_field_arrival": "This field was not gleaned. The crop is still standing in it, gone over and flattened in patches by weather nobody came out to see.<br><br>There are figures in it. More than a field this size has any use for, and they are not all facing the way a scarecrow faces.",
+          "examine_a_figure": "Get close to one of the figures",
+          "scarecrow_examined": "Sacking, stuffed hard, on a cross of ash with the arms lashed high. Ordinary work, and old — the straw at the shoulders has gone black where the rain sits.<br><br>The knot at its throat is wrong. Not badly tied: tied wrong on purpose, crossed back on itself the way you do when the knot is meant to hold something rather than hold something up.<br><br>You put a hand in through the seam. There is a board inside, flat against the pole where nobody would find it by accident, and there is a name written on it.<br><br>You have made one of these. The recipe is in your own book and it says what dolls of that make are for, in as many words: binding with the souls of the living. Somebody bound something into every figure in this field to keep the birds off a crop.<br><br>And something has been pooling under this village for a long time, and the fields are what it reached next.",
+          "go_in_among_the_figures": "Go in among them",
+          "back_to_the_stubble": "Go back to the stubble"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

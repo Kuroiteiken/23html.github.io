@@ -166,7 +166,6 @@ Kaynaklarda hâlâ duran kancalar şunlar:
 
 | Kanca            | Zaten var olan                                                                                                                           | İhtiyacı                                                        |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **Korkuluk**     | `creature.kksh`, tamamen statlı, karanlıkla bozulmuş, pusu kurduğu yazılı — ve hiçbir alanda yok.                                        | Tarlaların olduğu bir yer.                                      |
 | **Kandil ruhu**  | `creature.lsprt`, statlı, madenlerdeki kandillere musallat olduğu yazılı.                                                                | Madenler — demirci önerisine bakın.                             |
 | **Bebekler**     | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: ele geçirilme ve karanlık ritüellerle ilgili beş yaratık, hepsi taslak, hepsi erişilemez. | İstatistikler ve ritüelleri yapan biri.                         |
 | **Yedi anahtar** | Oyunda hiçbir kilidi olmayan yedi anahtar eşyası.                                                                                        | Kilitler. İsimlendirilmiş odalardan oluşan bir zindan bariz ev. |

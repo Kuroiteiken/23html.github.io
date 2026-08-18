@@ -857,11 +857,21 @@ creature.kksh.atype = 1;
 creature.kksh.str_r = 5;
 creature.kksh.agl_r = 13;
 creature.kksh.spd_r = 2;
+// Water, slime and jelly: a verbatim copy of a slime's table, which is what a straw
+// figure standing in a field is least likely to be carrying. `creature.lsprt` still
+// carries the same three lines, which is how both of them got here.
 creature.kksh.drop = [
-  { item: item.watr, chance: 0.03 },
-  { item: item.slm, chance: 0.06 },
-  { item: item.jll, chance: 0.02 },
+  { item: item.sstraw, chance: 0.85, min: 4, max: 11 },
+  { item: item.cclth, chance: 0.3, min: 1, max: 3 },
+  { item: item.wdc, chance: 0.25, min: 1, max: 4 },
+  { item: item.agrns, chance: 0.1, min: 1, max: 3 },
 ];
+// Set explicitly rather than left to the constructor. The source line is commented //u
+// for Undead, but the description says a field guardian turned by the influence of Dark
+// and the thing was never alive, so Evil is what it is -- which is also the default it
+// was silently running on.
+creature.kksh.type = 3;
+creature.kksh.pts = 14;
 creature.kksh.rnk = 10;
 
 creature.golem1 = new Creature();

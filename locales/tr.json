@@ -277,6 +277,11 @@
       ],
       "v478_18": [
         "Emir kipi olmayıp devrik parça gibi okunan üç eylem etiketi yeniden yazıldı."
+      ],
+      "v478_19": [
+        "Anızın ötesindeki uzak tarla; figürlerin olduğu yer. Korkuluk bu fork'tan önce de tam statlıydı ve hiçbir yerde durmuyordu.",
+        "Birine yaklaş ve düğüme bak. Bu köyde biri korkuluk yapmıyordu.",
+        "Mobilya listesi kayıyor. İyi döşenmiş bir ev satırlarını panelin dışına ve Geri Dön butonunun üstüne taşırıyordu; geri dönüş yolu yoktu."
       ]
     },
     "lore": {
@@ -4691,6 +4696,9 @@
       },
       "nfld1": {
         "name": "Anız tarlaları"
+      },
+      "nfld2": {
+        "name": "Uzak tarla"
       }
     },
     "lore": {
@@ -4805,6 +4813,10 @@
       "stoneDust": {
         "name": "Kuyudaki tortu toprak değil",
         "desc": "Köy kuyusundan bir kova çek ve beklet; dibe çöken şey gri bir kum; parmak arasında keskin ve toprağın kokusundan hiçbir iz yok. O taş — ince öğütülmüş. Su, üstünde bir yerde kesilmekte olan şeyi aşağı taşır, ve o kuyunun üstündeki her yer tarla."
+      },
+      "strawBound": {
+        "name": "Korkuluklar yapılmadı, bağlandı",
+        "desc": "Bu tarlalardaki bir saman figürünün boğazındaki düğüm bilerek yanlış atılmış, ve içindeki tahtaya bir isim yazılmış. Saman heykelinin tarifi, o yapıdaki bebeklerin ne işe yaradığını açıkça söylüyor: yaşayanların ruhlarıyla bağ kurmak. Kuşları uzak tutmak için bunların içine bir şey konmuş, ve köyün altında birikmekte olan şey ona ulaştı."
       }
     }
   },
@@ -5945,7 +5957,14 @@
           "walk_out_into_the_stubble": "Anızın içine doğru yürü",
           "back_to_the_well_road": "Yoldan kuyuya geri dön",
           "notice_harvest_hands": "İlan: ırgat aranıyor",
-          "notice_harvest_hands_body": "Güzel bir elle yazılmış ve eğri çakılmış; yani yazan adam için başkası çakmış.<br><br><i>Kuzey tarlaları için ırgat aranıyor. Günlüğü altıydı, dokuz oldu, ve dün gece nerede yattığın sorulmaz. Değirmene başvurun.</i><br><br>Altında, başka bir elle ve çok daha küçük: <i>üç haftadır dokuz veriyor ve kimse almadı.</i>"
+          "notice_harvest_hands_body": "Güzel bir elle yazılmış ve eğri çakılmış; yani yazan adam için başkası çakmış.<br><br><i>Kuzey tarlaları için ırgat aranıyor. Günlüğü altıydı, dokuz oldu, ve dün gece nerede yattığın sorulmaz. Değirmene başvurun.</i><br><br>Altında, başka bir elle ve çok daha küçük: <i>üç haftadır dokuz veriyor ve kimse almadı.</i>",
+          "on_to_the_far_field": "Uzak tarlaya geç, figürlerin olduğu yere",
+          "north_fields_the_figures": "Kuzey Tarlaları, Uzak Tarla",
+          "scarecrow_field_arrival": "Bu tarla toplanmamış. Ürün hâlâ ayakta; olgunluğu geçmiş ve kimsenin görmeye çıkmadığı havalarda yer yer yatmış.<br><br>İçinde figürler var. Bu büyüklükte bir tarlanın işine yarayacağından fazla, ve hepsi bir korkuluğun döndüğü yöne dönmüş değil.",
+          "examine_a_figure": "Figürlerden birine yaklaş",
+          "scarecrow_examined": "Çuval bezi, sıkı doldurulmuş, kolları yukarı bağlanmış bir dişbudak çarmıhın üstünde. Sıradan bir iş, ve eski — omuzlardaki saman yağmurun durduğu yerde kararmış.<br><br>Boğazındaki düğüm yanlış. Kötü atılmış değil: bilerek yanlış atılmış, düğüm bir şeyi taşımak yerine bir şeyi tutmak için atıldığında yapıldığı gibi kendi üstüne çaprazlanmış.<br><br>Elini dikişten içeri sokuyorsun. İçinde bir tahta var; kimsenin kazara bulamayacağı şekilde direğe yatık duruyor, ve üstüne bir isim yazılmış.<br><br>Sen bunlardan bir tane yaptın. Tarif kendi kitabında ve o yapıdaki bebeklerin ne işe yaradığını tam bu kelimelerle söylüyor: yaşayanların ruhlarıyla bağ kurmak. Biri, bir ürünü kuşlardan korumak için bu tarladaki her figürün içine bir şey bağlamış.<br><br>Ve bu köyün altında uzun süredir bir şey birikiyor, ve tarlalar onun ulaştığı sonraki yer.",
+          "go_in_among_the_figures": "Aralarına gir",
+          "back_to_the_stubble": "Anıza geri dön"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

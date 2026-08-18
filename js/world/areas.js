@@ -696,6 +696,35 @@ area.nfld1.drop = [
   { item: item.agrns, c: 0.03 },
 ];
 
+// The far field, where the figures are. Appended after every other area and it stays
+// that way: sizes are written in for...in order and read back by position.
+//
+// A step up from the stubble rather than a wall. `creature.kksh` has been fully statted
+// and reachable from nowhere since before this fork -- 100 base health, high agility, a
+// heavy dark and light affinity -- so nothing about it needed inventing except somewhere
+// for it to stand.
+area.nfld2 = new Area();
+area.nfld2.id = 127;
+area.nfld2.name = i18n.t("content.area.nfld2.name");
+area.nfld2.pop = [
+  { crt: creature.kksh, lvlmin: 14, lvlmax: 18, c: 0.7 },
+  { crt: creature.slm2, lvlmin: 12, lvlmax: 16, c: 0.3 },
+];
+area.nfld2.size = 24;
+z_bake(area.nfld2);
+area.nfld2.onEnd = function () {
+  roll(item.sstraw, 0.7, 4, 12);
+  roll(item.agrns, 0.4, 2, 6);
+  roll(item.cclth, 0.35, 1, 4);
+  roll(acc.sdl1, 0.08);
+  this.size = rand(10) + 18;
+  smove(chss.nfld2);
+};
+area.nfld2.drop = [
+  { item: item.sstraw, c: 0.08 },
+  { item: item.cclth, c: 0.03 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

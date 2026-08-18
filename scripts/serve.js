@@ -842,6 +842,74 @@ function createSiteServer(options = {}) {
             pick("runtime.world.locations.dialogue.notice_harvest_hands"),
           );
 
+          // The far field, and the scarecrow that has been statted and unreachable
+          // since before this fork.
+          smove(chss.nfld1);
+          const far = pick("runtime.world.locations.dialogue.on_to_the_far_field");
+          checks.farFieldReachable = Boolean(far);
+          if (far) far.click();
+          checks.atTheFarField = global.current_l === chss.nfld2;
+
+          const figure = pick("runtime.world.locations.dialogue.examine_a_figure");
+          checks.figureOffered = Boolean(figure);
+          if (figure) figure.click();
+          checks.strawClueLearned = knowsLore(lore.strawBound.id);
+          smove(chss.nfld2, false);
+          checks.figureReadOnce = !pick(
+            "runtime.world.locations.dialogue.examine_a_figure",
+          );
+
+          const among = pick(
+            "runtime.world.locations.dialogue.go_in_among_the_figures",
+          );
+          checks.figuresEnterable = Boolean(among);
+          if (among) among.click();
+          checks.farFieldSpawns = global.flags.btl === true;
+          checks.scarecrowOrSlime =
+            global.current_m.id === creature.kksh.id ||
+            global.current_m.id === creature.slm2.id;
+          // Its drop table was a slime's -- water, slime, jelly -- which is what a
+          // straw figure is least likely to be carrying.
+          checks.scarecrowDropsStraw = creature.kksh.drop.some(
+            (d) => d.item === item.sstraw,
+          );
+          checks.scarecrowNoSlimeLoot = !creature.kksh.drop.some(
+            (d) => d.item === item.slm || d.item === item.jll,
+          );
+
+          // The furniture list. A furnished house pushed its rows straight out of the
+          // panel and over the Return choice underneath. Stock the house well past what
+          // fits, open the panel the way the scene opens it, and measure.
+          for (const key of Object.keys(furniture))
+            if (furniture[key].id !== undefined) giveFurniture(furniture[key]);
+          smove(chss.home);
+          chs_spec(2);
+          // The scene draws its own exit after the panel; do the same so the geometry
+          // being measured is the geometry the player gets.
+          const furnDoor = chs(
+            i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+            false,
+            "",
+            "",
+            null,
+            null,
+            null,
+            true,
+          );
+          const box = dom.ch_1;
+          const list = dom.ch_1h;
+          checks.furnitureListOpens = Boolean(box && list);
+          checks.furnitureScrolls =
+            Boolean(list) &&
+            list.scrollHeight > list.clientHeight &&
+            list.getBoundingClientRect().bottom <=
+              box.getBoundingClientRect().bottom + 1;
+          // Deliberately not asserting where the exit lands relative to the box. The
+          // check that matters is furnitureScrolls: the list now stays inside the panel
+          // instead of spilling past it, which is what was burying the exit. Measuring
+          // the gap as well needs a tolerance I would be guessing at.
+          void furnDoor;
+
           // The regions page. It only means anything if standing somewhere records it,
           // if the tab renders, and if a creature the player has never killed stays
           // masked -- that masking is the whole point of the page.

@@ -3278,6 +3278,11 @@ const releaseNotes = [
     minor: 18,
     read: () => i18n.get("ui.releaseNotes.v478_18"),
   },
+  {
+    major: 478,
+    minor: 19,
+    read: () => i18n.get("ui.releaseNotes.v478_19"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -7159,9 +7164,22 @@ function chs_spec(type, x) {
             else v += furn[a].v;
           }
         dom.flsthdrbb.innerHTML = v;
+        // The panel had a height and nothing inside it could scroll, so a furnished
+        // house pushed its own rows straight out of the bottom and over the Return
+        // choice underneath. Same shape as the shop and the gear totals: the box is a
+        // flex column, the header keeps its size, and the list takes what is left and
+        // scrolls inside it. minHeight is what makes that work -- a flex item refuses
+        // to shrink below its content without it, which puts the overflow back on the
+        // parent where it is hidden.
+        dom.ch_1.style.display = "flex";
+        dom.ch_1.style.flexDirection = "column";
+        dom.flsthdr.style.flexShrink = "0";
         dom.ch_1h = addElement(dom.ch_1, "div", null);
         dom.ch_1h.style.textAlign = "left";
         dom.ch_1h.style.display = "block";
+        dom.ch_1h.style.flex = "1";
+        dom.ch_1h.style.minHeight = "0";
+        dom.ch_1h.style.overflowY = "auto";
         for (const a in furn) {
           renderFurniture(furn[a]);
         }
