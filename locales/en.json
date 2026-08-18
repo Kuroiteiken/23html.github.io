@@ -193,6 +193,16 @@
         "The Wolf Mask can finally be obtained. It had no drop, recipe, or vendor anywhere in the game.",
         "Running no longer makes your energy drain creep up for good, and the running titles now discount the running cost itself: 0.095 per second at 5%, 0.085 at 15%.",
         "Run no longer disappears from the Actions panel, and a shop's buying price and reputation sit on the bottom edge of the panel again."
+      ],
+      "v478_1": [
+        "The wolf pack leader and the deep undead can be fought — they could not be hurt at all, and every creature in the game is now checked against the toughest thing it originally shipped with.",
+        "A blow that lands is never worth nothing, and mastery in the weapon you are holding now tells against armour as well as your own strength.",
+        "A loading screen that appears before the game does, and tells you when your save is being brought up to date.",
+        "A smith at the market: he repairs what has worn out, and sharpens a weapon up to +9.",
+        "Every title from the second rank up now carries something, and an item's description says what it actually gives you.",
+        "Crafting has x5, x10 and All, and a repeated log line folds into one row instead of filling the log.",
+        "Fire can set things alight, the fireplace is worth keeping lit, and the statues go in your house instead of on your body.",
+        "The nightmare can happen, and you can wake from it."
       ]
     },
     "lore": {

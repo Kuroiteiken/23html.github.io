@@ -1419,3 +1419,12 @@ body {
   padding-right: 6px;
   color: #8fa9c4;
 }
+
+/* A point-release marker inside a release's list, so every change stays on one page
+   while still saying which update it arrived in. */
+.release-point {
+  margin-top: 14px;
+  color: #71e6b1;
+  list-style: none;
+  margin-left: -20px;
+}

@@ -3162,19 +3162,30 @@ function showConfirmModal({
 // so the localization check can still verify them.
 const releaseNotes = [
   {
-    version: 477,
+    major: 477,
+    minor: 0,
     read: () => i18n.get("ui.releaseNotes.v477"),
+  },
+  {
+    major: 478,
+    minor: 1,
+    read: () => i18n.get("ui.releaseNotes.v478_1"),
   },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
 // anything was worth showing, so the caller can tell "nothing new" from "shown".
 function showReleaseNotes(fromVersion) {
+  // fromVersion is a code, not a bare major, so a player who last opened v478.1 is
+  // told about .2, .3 and .4 and not about v478 itself again.
   const unseen = releaseNotes
-    .filter(
-      (entry) => entry.version > fromVersion && entry.version <= global.ver,
-    )
-    .sort((a, b) => b.version - a.version);
+    .filter((entry) => {
+      const code = versionCode(entry.major, entry.minor);
+      return code > fromVersion && code <= currentVersionCode();
+    })
+    .sort(
+      (a, b) => versionCode(b.major, b.minor) - versionCode(a.major, a.minor),
+    );
   if (!unseen.length) return false;
 
   const sections = unseen.map((entry) => {
@@ -3184,7 +3195,7 @@ function showReleaseNotes(fromVersion) {
       .join("");
     return (
       '<strong class="release-notes__version">v' +
-      entry.version +
+      versionLabel(entry.major, entry.minor) +
       '</strong><ul class="release-notes__list">' +
       items +
       "</ul>"
@@ -3195,7 +3206,9 @@ function showReleaseNotes(fromVersion) {
     title: i18n.t("ui.releaseNotes.title"),
     message:
       '<span class="release-notes__intro">' +
-      i18n.t("ui.releaseNotes.intro", { from: fromVersion }) +
+      i18n.t("ui.releaseNotes.intro", {
+        from: versionLabel((fromVersion / 1000) << 0, fromVersion % 1000),
+      }) +
       "</span>" +
       sections.join(""),
     confirmLabel: i18n.t("ui.releaseNotes.dismiss"),

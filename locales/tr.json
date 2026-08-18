@@ -193,6 +193,16 @@
         "Kurt Maskesi sonunda elde edilebiliyor. Oyunun hiçbir yerinde düşme, tarif veya satıcı kaynağı yoktu.",
         "Koşmak artık enerji tüketimini kalıcı olarak tırmandırmıyor ve koşu ünvanları indirimi doğrudan koşu maliyetine uyguluyor: %5'te saniyede 0,095, %15'te 0,085.",
         "Koş, eylemler panelinden kaybolmuyor; mağazalarda alış fiyatı ile itibar da yeniden panelin alt kenarında duruyor."
+      ],
+      "v478_1": [
+        "Kurt sürü lideri ve derindeki ölümsüzler dövülebiliyor — hiç hasar alamıyorlardı; artık oyundaki her yaratık, oyunun kendi getirdiği en sert şeye göre denetleniyor.",
+        "İsabet eden bir vuruş asla boşa gitmiyor, ve elindeki silahın ustalığı artık yalnızca gücüne değil zırha da işliyor.",
+        "Oyundan önce görünen bir yükleme ekranı, ve kaydın güncellenirken bunu söylemesi.",
+        "Pazarda bir demirci: aşınanı onarıyor ve silahı +9'a kadar keskinleştiriyor.",
+        "İkinci kademeden itibaren her ünvan artık bir şey taşıyor, ve eşya açıklaması gerçekten ne verdiğini söylüyor.",
+        "Üretimde x5, x10 ve Tümü var, ve tekrarlanan log satırı logu doldurmak yerine tek satıra katlanıyor.",
+        "Ateş tutuşturabiliyor, şömineyi yanık tutmak işe yarıyor, ve heykeller üzerinde değil evinde duruyor.",
+        "Kâbus gerçekleşebiliyor, ve ondan uyanabiliyorsun."
       ]
     },
     "lore": {

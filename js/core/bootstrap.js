@@ -57,6 +57,10 @@ const tempt = new Date();
 global.home_loc = 111;
 global.lst_sve = "?";
 global.ver = 478;
+// The point release within v478. Raised on every deploy that changes something a
+// player would notice, so a returning player is told about the four small updates they
+// missed rather than only about the last big one.
+global.subver = 1;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -342,10 +346,30 @@ function showStartupError(error) {
 // not lost when a save is deleted.
 const seenVersionKey = "proto23.seenversion";
 
+// One comparable number from the two. A thousand point releases in a major is more
+// than this will ever need, and it keeps the ordering an integer ordering -- as a
+// decimal, 478.10 would sort below 478.9.
+function versionCode(major, minor) {
+  return major * 1000 + (minor || 0);
+}
+
+function currentVersionCode() {
+  return versionCode(global.ver, global.subver);
+}
+
+// How a version reads to a player.
+function versionLabel(major, minor) {
+  return minor ? major + "." + minor : String(major);
+}
+
 function readSeenVersion() {
   try {
     const stored = Number(window.localStorage.getItem(seenVersionKey));
-    return Number.isFinite(stored) && stored > 0 ? stored : 0;
+    if (!Number.isFinite(stored) || stored <= 0) return 0;
+    // Values written before point releases existed are bare majors -- 477, not
+    // 477000. Anything under a thousand is one of those and is promoted, so an
+    // existing player is not told about every release since the beginning.
+    return stored < 1000 ? versionCode(stored, 0) : stored;
   } catch (error) {
     return 0;
   }
@@ -364,9 +388,11 @@ function storeSeenVersion(version) {
 // player who upgraded before the key existed. A first-time player has neither,
 // and gets nothing.
 function announceNewVersion() {
-  const from = readSeenVersion() || global.save_ver || 0;
-  storeSeenVersion(global.ver);
-  if (!from || from >= global.ver) return false;
+  const from =
+    readSeenVersion() ||
+    (global.save_ver ? versionCode(global.save_ver, 0) : 0);
+  storeSeenVersion(currentVersionCode());
+  if (!from || from >= currentVersionCode()) return false;
   return showReleaseNotes(from);
 }
 

@@ -147,3 +147,17 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
   document-base-aware URL or a relative URL.
 - Keep deploy asset versioning intact so HTML, JavaScript, CSS, and locale files
   from different releases cannot be mixed by browser caches.
+
+## Versioning
+
+- `global.ver` is the major and `global.subver` the point release. Raise `subver` on
+  every deploy that changes something a player would notice; raise `ver` and reset
+  `subver` to 0 only for a release large enough to want its own changelog article.
+- Comparison goes through `versionCode(major, minor)`, which is `major * 1000 + minor`.
+  Never compare versions as decimals: `478.10` sorts below `478.9`.
+- Every point release the game can announce needs an entry in `releaseNotes` in
+  `js/ui/interface.js` and an array under `ui.releaseNotes.*` in **both** locale files.
+  `tests/check-version.js` fails the build otherwise, because an announced release with
+  no notes shows the player an empty list.
+- `changelog/changelog.html` keeps one article per major, with a `release-point` line
+  marking where each point release begins, so every change stays readable on one page.

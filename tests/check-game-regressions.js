@@ -430,8 +430,17 @@ console.log("Validated clamped resistance damage reductions.");
 const versionAnnouncement = [
   /const seenVersionKey = "proto23\.seenversion"/,
   /function announceNewVersion\(\)/,
-  /readSeenVersion\(\) \|\| global\.save_ver \|\| 0/,
-  /storeSeenVersion\(global\.ver\);\s*\n\s*if \(!from \|\| from >= global\.ver\) return false/,
+  // The comparison is on a version CODE now rather than a bare major, so a point
+  // release can be announced on its own. As a decimal, 478.10 would sort below 478.9 --
+  // which is why the code is an integer, and why this asserts that the code is what
+  // gets stored and compared.
+  /function versionCode\(major, minor\)/,
+  /return major \* 1000 \+ \(minor \|\| 0\);/,
+  /readSeenVersion\(\) \|\|/,
+  /storeSeenVersion\(currentVersionCode\(\)\);\s*\n\s*if \(!from \|\| from >= currentVersionCode\(\)\) return false/,
+  // A value stored before point releases existed is a bare major and has to be
+  // promoted, or an existing player is told about every release since the beginning.
+  /return stored < 1000 \? versionCode\(stored, 0\) : stored;/,
   /load\(\);\s*\n\s*announceNewVersion\(\)/,
 ];
 
