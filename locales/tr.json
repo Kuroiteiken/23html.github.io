@@ -3009,7 +3009,7 @@
         "desc": "Dikiş ve terzilik projelerinde kullanılabilecek az miktarda iplik"
       },
       "sktbad": {
-        "name": "hata",
+        "name": "Başarısız İş",
         "desc": "Beceriksiz bir zanaatkârın başarısız ürünü. Bir zamanlar sergilenmeye değer bir şeye dönüşmesi beklenen bu yamru yumru şey, bakması bile itici bir hâle gelmiş"
       },
       "bblkt": {
@@ -5782,7 +5782,8 @@
           "catacombs_candles": "Duvardaki bir oyukta sıra sıra mum dipleri var; onları geri almaya döneceğini sanan biri dizmiş.",
           "catacombs_grave_coins": "Sikkeler, tanımadığın bir düzende dizilmiş. Onları bırakan kişi oldukları yerde kalmalarını istemiş.",
           "catacombs_lantern": "Bir fener, yan devrilmiş, fitili hâlâ nemli. Bir aydır burada değil — ve yaşlı esnaf kendisinin alındığını söylemişti.",
-          "catacombs_stolen_tools": "Kemik ve bez, bir şeyin işine yaramayan parçaları yığması gibi yığılmış. Yığının içinde bir keski sapı var, bir elin altında aşınmış."
+          "catacombs_stolen_tools": "Kemik ve bez, bir şeyin işine yaramayan parçaları yığması gibi yığılmış. Yığının içinde bir keski sapı var, bir elin altında aşınmış.",
+          "market_discard": "Sökülmüş bir tezgâhın yerinde bir şey duruyor: yapanın satamadığı, eve de taşımak istemediği baştan savma bir iş."
         }
       }
     }

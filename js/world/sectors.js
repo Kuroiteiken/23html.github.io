@@ -220,14 +220,57 @@ sector.cata1.onScout = function () {
   scoutGeneric(this);
 };
 
+// The marketplace. This table was written and then commented out, with its strings
+// inline in English, and the sector was left attached to seven scenes that could not
+// be searched: the village centre, the marketplace itself, two vendors, the cat, the
+// message board and the guard post. What a market loses is small change and the
+// things nobody would buy, so that is what searching one turns up.
+//
+// Four defects in the commented original are fixed rather than carried over: the
+// inline English literals are gone; `gets` declares both slots its entries write,
+// where the original declared one and wrote `gets[1]`; the second entry was a
+// duplicate of the first rather than a second thing to find; and `c: .11` is down to
+// the .01 the three shop scenes use, since eleven percent a search is not a find, it
+// is an income.
 sector.vmain1 = new Sector();
-sector.vmain1.id = 5; /*
-sector.vmain1.data={scoutm:400,scout:0,scoutf:false,gets:[false],gotmod:0}
-sector.vmain1.scout=[
-  {c:.11,f:()=>{msg(select(['You notice a coin on the ground!','You pick a coin from under the counter','You snatch a coin while no one is looking']),'lime');giveItem(select([item.cp,item.cn,item.cq,item.cd]));sector.vmain1.data.gets[0]=true},exp:5},
-  {c:.05,f:()=>{msg(select(['You notice a coin on the ground!','You pick a coin from under the counter','You snatch a coin while no one is looking']),'lime');giveItem(select([item.cp,item.cn,item.cq,item.cd]));sector.vmain1.data.gets[1]=true},exp:5},
-]
-sector.vmain1.onScout=function(){scoutGeneric(this)}*/
+sector.vmain1.id = 5;
+sector.vmain1.data = {
+  scoutm: 400,
+  scout: 0,
+  scoutf: false,
+  gets: [false, false],
+  gotmod: 0,
+};
+sector.vmain1.scout = [
+  {
+    c: 0.01,
+    f: () => {
+      msg(
+        select(
+          i18n.get(
+            "runtime.world.locations.dialogue.market_coin_find_messages",
+          ),
+        ),
+        "lime",
+      );
+      giveItem(select([item.cp, item.cn, item.cq, item.cd]));
+      sector.vmain1.data.gets[0] = true;
+    },
+    exp: 5,
+  },
+  {
+    c: 0.01,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.market_discard"), "lightgrey");
+      giveItem(item.sktbad);
+      sector.vmain1.data.gets[1] = true;
+    },
+    exp: 4,
+  },
+];
+sector.vmain1.onScout = function () {
+  scoutGeneric(this);
+};
 
 function giveCrExp(skl, am, lvl) {
   if (!lvl || skl.lvl < lvl) giveSkExp(skl, am);
