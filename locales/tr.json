@@ -274,6 +274,9 @@
       "v478_17": [
         "Görev listesi artık izler taşıyor: henüz bulmadığın işlerin her biri için bir satır; yeri ve sebebi söylüyor, butonu söylemiyor.",
         "Konum adının yanındaki kapanmamış işaretleme düzeltildi; yandaki şeride renk ve boyut sızdırıyordu."
+      ],
+      "v478_18": [
+        "Emir kipi olmayıp devrik parça gibi okunan üç eylem etiketi yeniden yazıldı."
       ]
     },
     "lore": {
@@ -5923,7 +5926,7 @@
           "joiners_cellar_back_wall": "Raflar tam adamın dediği gibi. İki küp turşu, bir taş kavanoz iç yağı, yumuşamış bir dizi soğan, geçen yılın elmalarından bir çuval. Hiçbiri açılmamış. Hiçbiri kemirilmemiş. Bir aileye bir aylık yiyecek, ve hepsi hâlâ burada.<br><br>Pencerenin altındaki sandık açık ve boş. İçi bezle kaplanmış ve bez, içinde duran şeyin biçimini hâlâ tutuyor: büyükten küçüğe dizilmiş, uzun ve dar yuvalı bir tabla. Dokuz yuva.<br><br>Arka duvar bodrumun geri kalanından eski. Sıralar farklı gidiyor ve harç birden fazla kez yamanmış. Zeminin yakınındaki iki taş diğerlerinden dışarı taşıyor, çevresindeki harç toz olmuş ve toz duvarın bu tarafında.<br><br>Bu duvarın önünde daha önce durdun. O, kendi evinin arkasında.",
           "go_up_and_tell_his_father": "Yukarı çık ve babasına duvarının arkasında ne olduğunu anlat",
           "joiners_cellar_father": "Hepsini dinliyor. Bitirmene izin veriyor — pazarın yaptığından fazlası.<br><br>Sonra kilidin zorlanmadığını söylüyor. Tam olarak oğlunun dokuz dediği gibi söylüyor.<br><br>Yine de haşere için sana ödeme yapıyor ve parayı eline sayarken, sana değil kendine, çocuğun yeniden evde yatabileceğini söylüyor.<br><br>Hepsi bu. Çocuğun istediğinden fazlası.",
-          "look_at_the_stone_plate": "Taş levhaya adam gibi bak",
+          "look_at_the_stone_plate": "Taş levhaya iyice bak",
           "stone_plate_examined": "Levha tek parça bir plaka; senden uzun ve koridorun bu bölümünün gerektireceğinden geniş. Bütün batı hattındaki tek yontulmuş taş.<br><br>Onu mezar taşı sanmıştın. Değil. Üstüne hiçbir şey kazınmamış — ne isim, ne tarih, ne bir tarikat işareti — ve kenarındaki ek harç değil. Levhanın kendisiyle aynı gri; ıslak tıkılmış ve donmaya bırakılmış. Bunu yapan şeyin elinin altında bu levha vardı ve duvarın kapı olmaktan çıkmasını istedi.<br><br>Sonra avucunu düz şekilde üstüne koyuyorsun, ve sıcak.<br><br>Duvardan tek parça halinde ayrılıyor, ve düşmüyor.",
           "break_it_open": "Öyleyse kır ve neyin önünde durduğunu gör",
           "leave_it_alone": "Elini cebine geri koy ve yürümeye devam et",
@@ -5939,8 +5942,8 @@
           "go_on_to_the_fields": "Devam et, tarlalara çık",
           "north_fields_the_stubble": "Kuzey Tarlaları, Anız",
           "north_fields_arrival": "Biçilmiş, toplanmış ve bırakılmış; içinde çizmenden yükseğe duran hiçbir şey yok. Karşıya kadar görebiliyorsun; tarlaların ormana benzemeyen ilk yanı bu.<br><br>Aynı zamanda burada olan her şeyin de seni görebileceği anlamına geliyor.",
-          "walk_out_into_the_stubble": "İçine yürü",
-          "back_to_the_well_road": "Yoldan geri, kuyuya",
+          "walk_out_into_the_stubble": "Anızın içine doğru yürü",
+          "back_to_the_well_road": "Yoldan kuyuya geri dön",
           "notice_harvest_hands": "İlan: ırgat aranıyor",
           "notice_harvest_hands_body": "Güzel bir elle yazılmış ve eğri çakılmış; yani yazan adam için başkası çakmış.<br><br><i>Kuzey tarlaları için ırgat aranıyor. Günlüğü altıydı, dokuz oldu, ve dün gece nerede yattığın sorulmaz. Değirmene başvurun.</i><br><br>Altında, başka bir elle ve çok daha küçük: <i>üç haftadır dokuz veriyor ve kimse almadı.</i>"
         },

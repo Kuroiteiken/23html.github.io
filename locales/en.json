@@ -274,6 +274,9 @@
       "v478_17": [
         "The quest list now carries leads: one line each toward work you have not found yet, naming the place and the reason but not the button.",
         "Fixed unclosed markup beside the location name that was leaking colour and size into the bar next to it."
+      ],
+      "v478_18": [
+        "Reworded three Turkish action labels that read as fragments rather than as things you do."
       ]
     },
     "lore": {
