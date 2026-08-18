@@ -3200,6 +3200,11 @@ const releaseNotes = [
     minor: 4,
     read: () => i18n.get("ui.releaseNotes.v478_4"),
   },
+  {
+    major: 478,
+    minor: 5,
+    read: () => i18n.get("ui.releaseNotes.v478_5"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -6693,12 +6698,19 @@ function renderLoreEntry(root, entry, kind) {
 function renderDefences() {
   const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
   panel.style.height = windowPanelHeight(0.84);
-  const label = addElement(panel, "div", null, "lore-entry__title");
+  const label = addElement(panel, "div", null, "lore-heading");
   label.innerHTML = i18n.t("ui.panels.defences");
   label.style.textAlign = "center";
+  // The heading stays put and everything below it scrolls. Without minHeight a flex
+  // item refuses to shrink below its content, which is how the overflow ends up on the
+  // panel -- where it is hidden -- instead of here.
+  const body = addElement(panel, "div", null, "gear-totals__body");
+  body.style.flex = "1";
+  body.style.minHeight = "0";
+  body.style.overflowY = "auto";
 
   const row = (name, value, colour) => {
-    const line = addElement(panel, "div", null, "lore-entry");
+    const line = addElement(body, "div", null, "lore-entry");
     const left = addElement(line, "div", null, "lore-entry__title");
     left.innerHTML = name;
     const right = addElement(line, "div", null, "lore-entry__body");
@@ -6710,7 +6722,7 @@ function renderDefences() {
   const elements = elementLabels.map((key) => i18n.t(key));
   const classes = damageClassLabels.map((key) => i18n.t(key));
 
-  const attack = addElement(panel, "div", null, "lore-entry__title");
+  const attack = addElement(body, "div", null, "lore-entry__title");
   attack.innerHTML = i18n.t("ui.panels.defencesAttack");
   const weapon = you.eqp[0];
   row(i18n.t("ui.hud.abbr.str"), Math.round(you.str_d), "gold");
@@ -6730,7 +6742,7 @@ function renderDefences() {
     "gold",
   );
 
-  const defence = addElement(panel, "div", null, "lore-entry__title");
+  const defence = addElement(body, "div", null, "lore-entry__title");
   defence.innerHTML = i18n.t("ui.panels.defencesDefence");
   for (let i = 0; i < elements.length; i++) {
     // caff is what the player resists by element -- the same field the mitigation

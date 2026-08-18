@@ -220,6 +220,9 @@
       ],
       "v478_4": [
         "Uzun bir konuşma altındaki seçenekleri artık gömmüyor. Yamato'nun kendi diyalog seçeneklerini pencerenin dışına itecek kadar uzun konuşmaları var; artık metin kayıyor, butonlar yerinde kalıyor."
+      ],
+      "v478_5": [
+        "Donanım toplamı sayfası kayıyor, yani aşağıda kalan dirençlere gerçekten ulaşılabiliyor."
       ]
     },
     "lore": {

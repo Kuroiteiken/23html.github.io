@@ -220,6 +220,9 @@
       ],
       "v478_4": [
         "A long speech no longer buries the choices under it. Yamato has some long enough to push his own dialogue options off the bottom of the window; the words scroll now and the buttons stay put."
+      ],
+      "v478_5": [
+        "The gear totals page scrolls, so the resistances further down can actually be reached."
       ]
     },
     "lore": {
