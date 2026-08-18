@@ -203,6 +203,10 @@
         "Crafting has x5, x10 and All, and a repeated log line folds into one row instead of filling the log.",
         "Fire can set things alight, the fireplace is worth keeping lit, and the statues go in your house instead of on your body.",
         "The nightmare can happen, and you can wake from it."
+      ],
+      "v478_2": [
+        "The smith's bench stays open — repairing or sharpening no longer throws you back to his greeting after every item.",
+        "A sharpened weapon shows what the sharpening is worth, on the item and in your own strength. The damage was always rising; nothing said so."
       ]
     },
     "lore": {

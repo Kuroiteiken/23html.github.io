@@ -3171,6 +3171,11 @@ const releaseNotes = [
     minor: 1,
     read: () => i18n.get("ui.releaseNotes.v478_1"),
   },
+  {
+    major: 478,
+    minor: 2,
+    read: () => i18n.get("ui.releaseNotes.v478_2"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -3534,10 +3539,24 @@ function dscr(c, what, type, ttl, dsc, id) {
       typeof what.desc === "function" ? what.desc(what) : what.desc;
     if (what.slot > 0) {
       if (what.slot === 1) {
+        // Sharpened strength, and what the sharpening is adding, shown separately so
+        // the work the player paid for is legible rather than folded into one number.
+        const sharpened = Math.round(weaponPower(what) * 10) / 10;
         if (what.str > 0)
           this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
             stat: "STR",
-            value: "<span style='color:lime'> +" + what.str + "</span><br>",
+            value:
+              "<span style='color:lime'> +" +
+              sharpened +
+              "</span>" +
+              (sharpened > what.str
+                ? " <small style='color:#8fe3ff'>(" +
+                  what.str +
+                  " +" +
+                  Math.round((sharpened - what.str) * 10) / 10 +
+                  ")</small>"
+                : "") +
+              "<br>",
           });
         else if (what.str < 0)
           this.text.innerHTML += i18n.t("ui.itemDescription.stat", {
@@ -7078,7 +7097,7 @@ function rendersharpenitem(root, line) {
     }
     you.stat_r();
     isort(global.sm);
-    smove(chss.smith, false);
+    openSmithBench(1);
   });
   return row;
 }
@@ -7086,6 +7105,29 @@ function rendersharpenitem(root, line) {
 // One line of the smith's bench: what is worn, and what putting it right costs.
 // Re-reads the item when clicked rather than trusting what was drawn, because
 // durability keeps falling while the panel is open if a fight is running.
+// Open the smith's bench and leave a way out of it. chs_spec begins with clr_chs(),
+// which empties the choice column -- so the Return choice has to be added after the
+// panel, every time, and both the scene and the rows that rebuild it need the same
+// thing. Rebuilding the whole scene instead put the player back at his greeting after
+// every repair.
+function openSmithBench(mode) {
+  global.smithmode = mode;
+  chs_spec(7, null);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+    "",
+    "",
+    null,
+    null,
+    null,
+    true,
+  ).addEventListener("click", () => {
+    global.smithmode = 0;
+    smove(chss.smith, false);
+  });
+}
+
 function renderrepairitem(root, line) {
   const row = addElement(root, "div", "bst_entrh", "bst_entr");
   row.style.backgroundColor = "rgb(10,30,54)";
@@ -7119,11 +7161,7 @@ function renderrepairitem(root, line) {
     line.obj.dp = line.obj.dpmax;
     msg(i18n.t("ui.smith.repaired", { item: line.obj.name }), "lime");
     you.stat_r();
-    // Rebuild the scene, not just the panel. chs_spec starts with clr_chs(), which
-    // also removes the Return choice the scene adds after it -- calling chs_spec
-    // directly left the player at the bench with no way back out. Same mistake, and
-    // the same fix, as the sell list.
-    smove(chss.smith, false);
+    openSmithBench(0);
   });
   return row;
 }

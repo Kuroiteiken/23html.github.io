@@ -193,7 +193,9 @@ function You() {
     this.spd_d = this.spd;
     this.hpmax = Math.ceil((this.hp_r + this.hpa) * this.hpm * this.hpe);
     this.satmax = Math.ceil((this.sat_r + this.sata) * this.satm * this.sate);
-    this.str_d += this.eqp[0].str;
+    // Sharpening included, so the panel agrees with the damage. str_d is the
+    // displayed figure only -- dmg_calc reads str and eqp[0].str and never this.
+    this.str_d += weaponPower(this.eqp[0]);
     this.dmlt = 1;
     for (const obj in this.eqp) {
       this.int_d += this.eqp[obj].int;
