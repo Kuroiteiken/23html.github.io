@@ -618,6 +618,31 @@ area.cata5a.onEnd = function () {
 };
 area.cata5a.drop = [];
 
+// The false wall in the western corridor. Appended, and it has to stay last:
+// `save()` writes every area's size in `for...in` order and `load()` reads them back
+// positionally, so inserting an area anywhere above this silently reassigns the size
+// of every area after it. An older save simply has no slot for this one and it keeps
+// the size authored here.
+//
+// One population and a size of one, like `area.cata5a`: an encounter, not a hunting
+// ground. Unlike that one the size is not restored, because a wall that has been
+// broken stays broken.
+area.lrck1 = new Area();
+area.lrck1.id = 125;
+area.lrck1.name = i18n.t("content.area.lrck1.name");
+area.lrck1.pop = [{ crt: creature.lrck, lvlmin: 20, lvlmax: 22, c: 1 }];
+area.lrck1.size = 1;
+z_bake(area.lrck1);
+area.lrck1.onEnd = function () {
+  // What comes down with the slab, and nothing that rewards the swinging: the
+  // passage behind it is the point.
+  roll(item.sbone, 0.5, 2, 5);
+  roll(item.cclth, 0.4, 1, 3);
+  roll(wpn.trch, 0.1);
+  smove(chss.cata17, false);
+};
+area.lrck1.drop = [];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

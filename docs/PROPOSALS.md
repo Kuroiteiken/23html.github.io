@@ -171,7 +171,6 @@ marketplace's own search table. These are the hooks still sitting in the sources
 | Hook                | What exists                                                                                                                  | What it wants                                        |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | **The scarecrow**   | `creature.kksh`, fully statted, dark-corrupted, described as ambushing — and in no area.                                     | Somewhere with fields.                               |
-| **The mimic**       | `creature.lrck`, 9000 hp, `battle_ai` returns false, described as pretending to be a wall in caves and dungeons.             | A wall to be, underground.                           |
 | **The lamp spirit** | `creature.lsprt`, statted, described as haunting oil lamps in mines.                                                         | Mines — see the blacksmith proposal.                 |
 | **The dolls**       | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: five creatures about possession and dark rituals, all stubs, all unreachable. | Stats, and someone performing the rituals.           |
 | **The seven keys**  | Seven key items with no lock anywhere in the game.                                                                           | Locks. A dungeon of named rooms is the obvious home. |

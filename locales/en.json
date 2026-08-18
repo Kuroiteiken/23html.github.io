@@ -233,6 +233,10 @@
       "v478_8": [
         "A side story at the market: the boy whose father's chisels went missing out of a locked cellar. He is not asking for them back.",
         "The damp cellar under the village can be entered. It has been finished content since before this fork and nothing could ever have spawned in it."
+      ],
+      "v478_9": [
+        "A slab in the catacombs' western corridor is not a wall. Search down there first: the passage behind it answers where the boy's chisels went.",
+        "The Locked Rock exists. It had no area, no scene, and 9000 health behind an attack it never makes."
       ]
     },
     "lore": {
@@ -4629,6 +4633,9 @@
       },
       "ngtmr": {
         "name": "Nightmare"
+      },
+      "lrck1": {
+        "name": "The stone plate"
       }
     },
     "lore": {
@@ -4731,6 +4738,14 @@
       "towardTheWell": {
         "name": "Everything it has touched is near the well",
         "desc": "The old man named his own cellar, then the family two doors down, then the houses by the well. The joiner's is the fourth. The woman at the next stall says the well has been coming up cloudy for three weeks, and that nobody wants to discuss it, because the alternative to drinking it is not drinking."
+      },
+      "toolMarks": {
+        "name": "The stone was cut, not clawed",
+        "desc": "The passage behind the false wall was opened with a chisel, from this side, by someone working one-handed in a space too tight to swing. A snapped chisel was left in the spoil with a village joiner's stamp still on the flat. The dead do not carry tools, sharpen them, or throw one away when it breaks."
+      },
+      "whoseHand": {
+        "name": "Whose hand is holding the chisel?",
+        "desc": "Something came up through the wall at the end of the catacombs from the far side. But these passages were opened from this side, recently, with tools made in the village — and the tools were taken out of cellars that were locked and not forced. Two different things have been working down here, and only one of them is dead."
       }
     }
   },
@@ -5846,7 +5861,13 @@
           "examine_the_back_wall": "Look at what the lamp was hanging over",
           "joiners_cellar_back_wall": "The shelves are exactly as the man said. Two crocks of pickled turnip, a stone jar of lard, a string of onions gone soft, a sack of last year's apples. Nothing has been opened. Nothing has been gnawed at. A month of food for a family, and it is all still here.<br><br>The chest under the window is open and empty. It is lined with cloth, and the cloth still holds the shape of what sat in it: a long tray of narrow slots, laid out biggest to smallest. Nine of them.<br><br>The back wall is older than the rest of the cellar. The courses run differently and the mortar has been patched more than once. Two stones near the floor sit proud of the others, and the mortar around them has gone to powder, and the powder is on this side of the wall.<br><br>You have stood in front of this wall before. It is at the back of your own house.",
           "go_up_and_tell_his_father": "Go up and tell his father what is behind his wall",
-          "joiners_cellar_father": "He listens to all of it. He lets you finish, which is more than the market did.<br><br>Then he says the lock was not forced. He says it exactly the way his son said nine.<br><br>He pays you for the vermin anyway, and while he is counting it into your hand he mentions, not to you, that the boy can sleep in the house again.<br><br>That is all of it. It is more than the boy asked for."
+          "joiners_cellar_father": "He listens to all of it. He lets you finish, which is more than the market did.<br><br>Then he says the lock was not forced. He says it exactly the way his son said nine.<br><br>He pays you for the vermin anyway, and while he is counting it into your hand he mentions, not to you, that the boy can sleep in the house again.<br><br>That is all of it. It is more than the boy asked for.",
+          "look_at_the_stone_plate": "Look at the stone plate properly",
+          "stone_plate_examined": "The plate is a single slab, taller than you are and wider than this stretch of corridor has any reason to be. It is the only dressed stone in the whole western run.<br><br>You had taken it for a grave marker. It is not one. Nothing is cut into it — no name, no date, no order's mark — and the seam around its edge is not mortar. It is the same grey the slab is, packed in wet and left to set, by something that had the slab to hand and wanted the wall to stop being a doorway.<br><br>Then you put your palm flat against it, and it is warm.<br><br>It comes away from the wall in one piece, and it does not fall.",
+          "break_it_open": "Break it, then, and see what it was standing in front of",
+          "leave_it_alone": "Put your hand back in your pocket and walk on",
+          "the_cut_passage": "Look into the passage behind the slab",
+          "stone_plate_opened": "There is a passage where the slab was standing, and it was cut. Not clawed, not fallen, not worn through by water. Cut.<br><br>The strokes are short and they overlap and they all run the same way, which is what a person does working one-handed in a space too tight to swing properly. They go on for the length of your arm, and then further than your lamp reaches, and they do not wander: whoever made them knew which direction they wanted before they started.<br><br>Something is lying in the spoil at the mouth of it. A chisel, snapped a third of the way down the shank, the break still bright where the rest of the metal has gone dull. There is a stamp on the flat — a joiner's mark, the kind a village smith punches into work he is paid for by the piece.<br><br>The dead do not carry tools. They do not stop to sharpen them, and they do not swear and throw one away when it breaks."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

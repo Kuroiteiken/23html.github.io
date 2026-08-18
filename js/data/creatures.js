@@ -973,16 +973,47 @@ creature.ngtmr1.battle_ai = function () {
   return false;
 };
 
+// Its own description says its fighting prowess is close to zero and that it
+// closes off paths by mimicking a wall, so it is not a fight -- it is a wall the
+// player breaks. `battle_ai` returning false is authored intent and is kept: the
+// rock never takes its turn, which in the single-hit path means it does not even
+// print one. Everything else here is new, because it had eleven fields and none of
+// the ones that decide what breaking it feels like.
+//
+// The numbers say "bring the right tool". `cls` is [blunt, edge, pierce] and higher
+// resists more, so the authored [90, 120, 60] had a rock turning aside hammers
+// better than spears. Reversed: a maul gets through, an edge skates off, a point
+// finds nothing to open. A player with the wrong weapon is slowed rather than
+// stopped, because the minimum-landed-damage floor guarantees every swing counts
+// for something.
+//
+// `hp_r` was 9000 with `stat_p[0]` at 1.5, which in this corridor's level band is
+// thousands of rounds of no risk whatever for no loot. It is a set piece, so the
+// health is the slab's thickness and the growth is a construct's: level barely
+// moves it.
 creature.lrck = new Creature();
 creature.lrck.name = i18n.t("content.creature.lrck.name");
 creature.lrck.id = 132;
 creature.lrck.desc = i18n.t("content.creature.lrck.desc");
+creature.lrck.type = 3;
 creature.lrck.exp = 123;
-creature.lrck.hp_r = 9000;
-creature.lrck.stat_p = [1.5, 1.2, 1, 1];
-creature.lrck.cls = [90, 120, 60];
-creature.lrck.str_r = 90;
+creature.lrck.hp_r = 1400;
+creature.lrck.stat_p = [0.05, 0.1, 0.05, 0.05];
+// Resists what stone resists. Weak along the seams: ethereal finds them and water
+// splits them, which is how stone has always been quarried.
+creature.lrck.aff = [18, 0, -15, 22, -8, 0, 6];
+creature.lrck.cls = [10, 70, 90];
+creature.lrck.eqp[0].aff = [0, 0, 0, 0, 0, 0, 0];
+creature.lrck.eqp[0].cls = [0, 0, 0];
+creature.lrck.ctype = 2;
+// It never attacks, so this is only what it would hit with. Left honest rather than
+// at the authored 90, which read as a threat the creature cannot carry out.
+creature.lrck.str_r = 10;
 creature.lrck.agl_r = 1;
+creature.lrck.int_r = 1;
+creature.lrck.spd_r = 1;
+creature.lrck.pts = 40;
+creature.lrck.drop = [];
 creature.lrck.rnk = 11;
 creature.lrck.battle_ai = function () {
   return false;

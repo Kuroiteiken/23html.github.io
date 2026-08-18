@@ -6238,6 +6238,62 @@ chss.cata17.sl = () => {
   );
   global.lst_loc = 149;
   chs(select(global.text.catasound), true, "lightgrey", "black");
+  // Optional, and earned by searching rather than by walking past. gets[3] is the
+  // heap with a chisel handle in it, found through this sector's scout table -- so
+  // the player has already been handed the idea that someone brought tools down
+  // here before the slab is worth a second look.
+  if (sector.cata1.data.gets[3] === true && area.lrck1.size > 0)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.look_at_the_stone_plate"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.stone_plate_examined"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.break_it_open"),
+        false,
+        "red",
+      ).addEventListener("click", () => {
+        area_init(area.lrck1);
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.leave_it_alone"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.cata17, false);
+      });
+    });
+  if (area.lrck1.size <= 0)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.the_cut_passage"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.stone_plate_opened"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("toolMarks", "whoseHand");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.cata17, false);
+      });
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.move_north_9fb42425"),
     false,

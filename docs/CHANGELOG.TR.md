@@ -10,6 +10,32 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- `creature.lrck`'ye eksik on bir alanı verildi ve oyuna `chss.cata17`, yani Taş
+  Levha'da bir yalancı duvar olarak kondu; `sector.cata1.data.gets[3]`'e bağlı — yani
+  oyuncunun eline bir keski sapı veren keşif bulgusuna. `area.lrck1` (id 125) yeni ve en
+  sona eklendi, çünkü `save()` alan boyutlarını `for...in` sırasıyla yazıyor ve
+  `load()` onları konumsal okuyor.
+- `creature.lrck.battle_ai`'nin false döndürmesi korundu. Kendi tarifi dövüş
+  kabiliyetinin sıfıra yakın olduğunu ve yolları duvarı taklit ederek kapattığını
+  söylüyor; yani tur almaması gözden kaçma değil, yazılmış niyet. Bozuk olan
+  `stat_p[0]`'ı 1.5 iken `hp_r = 9000` olmasıydı; o koridorun bandında bu, bedelsiz ve
+  ganimetsiz binlerce tur demek. Artık bir set parçası: 1400 can, bir yapının büyümesi
+  ve `ctype = 2`.
+- `cls`'si ters çevrildi. Yazılı [90, 120, 60] bir kayanın çekiçleri mızraklardan daha
+  iyi savuşturmasını sağlıyordu; [10, 70, 90] ise balyozun geçtiği, keskin kenarın
+  sıyırıp geçtiği ve ucun açacak bir şey bulamadığı anlamına geliyor. Yanlış silahı olan
+  oyuncu durdurulmuyor, yavaşlatılıyor; çünkü en-az-inen-hasar tabanı her vuruşun bir
+  şey ifade etmesini garanti ediyor.
+- `toolMarks` (id 26, ipucu) ve `whoseHand` (id 27, soru) eklendi; ikisi de Bölüm IV.
+  Bilinçli olarak `threeAndAcross` üzerine yazılmadılar: o, iyi bir bıçakla kesilmiş bir
+  avcı rota işareti; bunlar ise savurmaya yer olmayan bir darlıkta tek elle atılmış keski
+  darbeleri. İki imza, iki el, ve tarayıcı probe'u metinlerin tek bir şeye çökmediğini
+  doğruluyor.
+- `__test-stone-plate.html` probe'u eklendi: kapı, levha, dövüş, çekilme seçeneği, geçit
+  ve iki lore girdisi; ayrıca yeni alanın kayıtta son olduğu ve `area.clg`'nin yuvasını
+  koruduğu doğrulanıyor. Sonuncusu ilk seferde başarısız oldu — `clg` altıncı değil
+  yedinci tanım — ki doğrulamanın varlık sebebi tam olarak bu.
+
 - `npm run check` zincirine `scripts/check-flags.js` eklendi. Koşul olarak okunup
   hiçbir yerde yazılmayan her `global.flags` girdisinde hata veriyor. Başlangıç durumu
   temiz, yani muafiyet gerekmiyor: listenin yeniden büyümesini engellemek için var.

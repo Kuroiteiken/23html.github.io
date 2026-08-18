@@ -10,6 +10,31 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- Gave `creature.lrck` the eleven fields it was missing and put it in the game as a
+  false wall in `chss.cata17`, the Stone Plate, gated on `sector.cata1.data.gets[3]` --
+  the scout find that puts a chisel handle in the player's hands. `area.lrck1` (id 125)
+  is new and is appended last, because `save()` writes area sizes in `for...in` order
+  and `load()` reads them back positionally.
+- Kept `creature.lrck.battle_ai` returning false. Its own description says its fighting
+  prowess is close to zero and that it blocks paths by mimicking a wall, so not taking a
+  turn is authored intent rather than an oversight; what was wrong was `hp_r = 9000` with
+  `stat_p[0]` at 1.5, which in that corridor's band is thousands of rounds of no risk for
+  no loot. It is a set piece now: 1400 health, a construct's growth, and `ctype = 2`.
+- Reversed its `cls`. The authored [90, 120, 60] had a rock turning aside hammers better
+  than spears; [10, 70, 90] means a maul gets through, an edge skates off and a point
+  finds nothing to open. A player with the wrong weapon is slowed, not stopped, because
+  the minimum-landed-damage floor guarantees every swing counts.
+- Added `toolMarks` (id 26, clue) and `whoseHand` (id 27, question), both Chapter IV.
+  They are deliberately not written on `threeAndAcross`: that is a hunter's route mark
+  cut with a good blade, and these are one-handed chisel strokes in a space too tight to
+  swing. Two signatures, two hands, and the browser probe asserts the texts do not
+  collapse into one.
+- Added a `__test-stone-plate.html` probe: the gate, the slab, the fight, the walk-away
+  choice, the passage and both lore entries, plus assertions that the new area is last in
+  the registry and that `area.clg` keeps its slot. That last one failed first time --
+  `clg` is the seventh definition, not the sixth -- which is exactly what the assertion
+  is for.
+
 - Added `scripts/check-flags.js` to `npm run check`. It fails any `global.flags` entry
   that is read as a condition and written nowhere. The baseline is clean, so the check
   needs no allowances: it exists to stop the list growing again.

@@ -233,6 +233,10 @@
       "v478_8": [
         "Pazarda bir yan hikaye: babasının keskileri kilitli bir bodrumdan kaybolan çocuk. Onları geri istemiyor.",
         "Köyün altındaki nemli bodruma girilebiliyor. Bu fork'tan önce de bitmiş içerikti ve içinde hiçbir zaman hiçbir şey doğamazdı."
+      ],
+      "v478_9": [
+        "Katakompların batı koridorundaki bir levha duvar değil. Önce aşağıda araştır: arkasındaki geçit, çocuğun keskilerinin nereye gittiğini söylüyor.",
+        "Kilitli Kaya artık var. Ne alanı ne sahnesi vardı, ve hiç yapmadığı bir saldırının arkasında 9000 canı vardı."
       ]
     },
     "lore": {
@@ -4629,6 +4633,9 @@
       },
       "ngtmr": {
         "name": "Kâbus"
+      },
+      "lrck1": {
+        "name": "Taş levha"
       }
     },
     "lore": {
@@ -4731,6 +4738,14 @@
       "towardTheWell": {
         "name": "Dokunduğu her yer kuyunun yakınında",
         "desc": "Yaşlı adam önce kendi bodrumunu saydı, sonra iki kapı öteki aileyi, sonra kuyunun yanındaki evleri. Marangozun bodrumu dördüncüsü. Yan tezgâhtaki kadın kuyunun üç haftadır bulanık geldiğini, kimsenin bunu konuşmak istemediğini, çünkü onu içmemenin karşılığının susuz kalmak olduğunu söylüyor."
+      },
+      "toolMarks": {
+        "name": "Taş pençelenmemiş, kesilmiş",
+        "desc": "Yalancı duvarın arkasındaki geçit bir keskiyle, bu taraftan, savurmaya yer olmayan bir darlıkta tek elle çalışan biri tarafından açılmış. Molozda, düz yüzünde hâlâ bir köy marangozunun damgası olan kırık bir keski bırakılmış. Ölüler alet taşımaz, onları bilemez ve kırıldığında küfredip bir kenara atmaz."
+      },
+      "whoseHand": {
+        "name": "Keskiyi tutan el kimin?",
+        "desc": "Katakompların sonundaki duvardan bir şey öte taraftan yukarı geldi. Ama bu geçitler bu taraftan, kısa süre önce, köyde yapılmış aletlerle açıldı — ve o aletler kilitli ve zorlanmamış bodrumlardan alındı. Aşağıda iki ayrı şey çalışıyor ve yalnızca biri ölü."
       }
     }
   },
@@ -5850,7 +5865,13 @@
           "examine_the_back_wall": "Lambanın üstünde durduğu şeye bak",
           "joiners_cellar_back_wall": "Raflar tam adamın dediği gibi. İki küp turşu, bir taş kavanoz iç yağı, yumuşamış bir dizi soğan, geçen yılın elmalarından bir çuval. Hiçbiri açılmamış. Hiçbiri kemirilmemiş. Bir aileye bir aylık yiyecek, ve hepsi hâlâ burada.<br><br>Pencerenin altındaki sandık açık ve boş. İçi bezle kaplanmış ve bez, içinde duran şeyin biçimini hâlâ tutuyor: büyükten küçüğe dizilmiş, uzun ve dar yuvalı bir tabla. Dokuz yuva.<br><br>Arka duvar bodrumun geri kalanından eski. Sıralar farklı gidiyor ve harç birden fazla kez yamanmış. Zeminin yakınındaki iki taş diğerlerinden dışarı taşıyor, çevresindeki harç toz olmuş ve toz duvarın bu tarafında.<br><br>Bu duvarın önünde daha önce durdun. O, kendi evinin arkasında.",
           "go_up_and_tell_his_father": "Yukarı çık ve babasına duvarının arkasında ne olduğunu anlat",
-          "joiners_cellar_father": "Hepsini dinliyor. Bitirmene izin veriyor — pazarın yaptığından fazlası.<br><br>Sonra kilidin zorlanmadığını söylüyor. Tam olarak oğlunun dokuz dediği gibi söylüyor.<br><br>Yine de haşere için sana ödeme yapıyor ve parayı eline sayarken, sana değil kendine, çocuğun yeniden evde yatabileceğini söylüyor.<br><br>Hepsi bu. Çocuğun istediğinden fazlası."
+          "joiners_cellar_father": "Hepsini dinliyor. Bitirmene izin veriyor — pazarın yaptığından fazlası.<br><br>Sonra kilidin zorlanmadığını söylüyor. Tam olarak oğlunun dokuz dediği gibi söylüyor.<br><br>Yine de haşere için sana ödeme yapıyor ve parayı eline sayarken, sana değil kendine, çocuğun yeniden evde yatabileceğini söylüyor.<br><br>Hepsi bu. Çocuğun istediğinden fazlası.",
+          "look_at_the_stone_plate": "Taş levhaya adam gibi bak",
+          "stone_plate_examined": "Levha tek parça bir plaka; senden uzun ve koridorun bu bölümünün gerektireceğinden geniş. Bütün batı hattındaki tek yontulmuş taş.<br><br>Onu mezar taşı sanmıştın. Değil. Üstüne hiçbir şey kazınmamış — ne isim, ne tarih, ne bir tarikat işareti — ve kenarındaki ek harç değil. Levhanın kendisiyle aynı gri; ıslak tıkılmış ve donmaya bırakılmış. Bunu yapan şeyin elinin altında bu levha vardı ve duvarın kapı olmaktan çıkmasını istedi.<br><br>Sonra avucunu düz şekilde üstüne koyuyorsun, ve sıcak.<br><br>Duvardan tek parça halinde ayrılıyor, ve düşmüyor.",
+          "break_it_open": "Öyleyse kır ve neyin önünde durduğunu gör",
+          "leave_it_alone": "Elini cebine geri koy ve yürümeye devam et",
+          "the_cut_passage": "Levhanın arkasındaki geçide bak",
+          "stone_plate_opened": "Levhanın durduğu yerde bir geçit var ve kesilmiş. Pençelenmemiş, çökmemiş, suyun aşındırmasıyla açılmamış. Kesilmiş.<br><br>Darbeler kısa, üst üste biniyor ve hepsi aynı yöne gidiyor; savurmaya yer olmayan bir darlıkta tek elle çalışan biri öyle yapar. Bir kol boyu sürüyorlar, sonra lambanın yettiği yerden de öteye, ve dolanmıyorlar: bunları yapan, başlamadan önce hangi yöne gitmek istediğini biliyordu.<br><br>Geçidin ağzındaki molozun içinde bir şey duruyor. Bir keski; sapın üçte birinde kırılmış, metalin geri kalanı matlaşmışken kırık yeri hâlâ parlak. Düz yüzünde bir damga var — bir marangoz işareti; köy demircisinin parça başı ödendiği işe vurduğu türden.<br><br>Ölüler alet taşımaz. Onları bilemek için durmaz, ve kırıldığında küfredip bir kenara atmaz."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

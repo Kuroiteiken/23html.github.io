@@ -371,6 +371,21 @@ async function main() {
       );
     }
 
+    const stonePlate = await runChrome(
+      `${baseUrl}/__test-stone-plate.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(stonePlate.stderr);
+    assertCommonStartup(stonePlate.stdout, port);
+    if (!stonePlate.stdout.includes('data-stone-plate-verified="true"')) {
+      const failures = stonePlate.stdout.match(
+        /data-stone-plate-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `The stone plate cannot be found, broken, or read: ${failures?.[1] || "probe incomplete"}`,
+      );
+    }
+
     const windowPanels = await runChrome(
       `${baseUrl}/__test-window-panels.html?lang=tr`,
       profiles[0],
@@ -520,7 +535,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);
