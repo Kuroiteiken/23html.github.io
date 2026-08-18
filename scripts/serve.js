@@ -68,6 +68,37 @@ function createSiteServer(options = {}) {
       return;
     }
 
+    if (options.enableTestRoutes && pathname === "/__test-log-collapse.html") {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      // Repeated log lines must fold into one row with a tally. Exercised through the
+      // real msg() rather than by inspecting source, because the first attempt at this
+      // compared against the wrong element and shipped looking correct.
+      const probe = `<script>
+        const logProbe = setInterval(() => {
+          if (!document.getElementById("ctrmg") || typeof msg !== "function") return;
+          clearInterval(logProbe);
+          const root = document.documentElement;
+          clearMessageLog();
+          const rows = () => dom.mscont.children.length;
+          msg("aaa");
+          msg("aaa");
+          msg("aaa");
+          root.dataset.logCollapsedRows = String(rows());
+          const tally = dom.mscont.lastElementChild.querySelector(".msg-repeat");
+          root.dataset.logCollapsedTally = tally ? tally.innerHTML : "";
+          msg("bbb");
+          root.dataset.logDistinctRows = String(rows());
+          msg("ccc");
+          msg_add(" and more");
+          msg("ccc");
+          root.dataset.logAppendedRows = String(rows());
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", probe + "</body>"));
+      return;
+    }
+
     if (options.enableTestRoutes && pathname === "/__test-boot-screen.html") {
       const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
       // The boot screen has to be in the markup, not built by the bundle, or it

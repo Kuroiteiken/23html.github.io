@@ -358,3 +358,105 @@ furniture.sktbad.removable = true;
 furniture.sktbad.onRemove = function () {
   giveItem(item.sktbad, 1, true);
 };
+
+// The statues, as furniture. They are accessories in slot 8, which means the game has
+// always asked the player to WEAR a straw effigy or a wooden idol to get anything out
+// of it. They belong in the house, and standing one in the corner should be worth what
+// wearing it was worth.
+//
+// The accessory is deliberately left exactly as it is rather than converted. Its slot
+// is what lets rcp.gdl1 consume three of them out of the inventory, and removing it
+// would send make() down its stackable path, which equipment instances have no amount
+// for. So each statue can now be worn OR stood in the house, and the two do the same
+// thing.
+//
+// Each activate mirrors the accessory's own oneq exactly, so there is one set of
+// numbers rather than two to keep in step. deactivatef guards on `active`, so a second
+// copy of the same statue cannot apply the bonus twice.
+furniture.sdl1 = new Furniture();
+furniture.sdl1.id = 20;
+furniture.sdl1.name = i18n.t("content.acc.sdl1.name");
+furniture.sdl1.desc =
+  i18n.t("content.acc.sdl1.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.sdl1.bonus");
+furniture.sdl1.data = { amount: 0 };
+furniture.sdl1.v = 3;
+furniture.sdl1.removable = true;
+furniture.sdl1.activate = function () {
+  you.caff[0] += 5;
+};
+furniture.sdl1.deactivate = function () {
+  you.caff[0] -= 5;
+};
+furniture.sdl1.onRemove = function () {
+  giveItem(acc.sdl1, 1, true);
+};
+
+furniture.wdl1 = new Furniture();
+furniture.wdl1.id = 21;
+furniture.wdl1.name = i18n.t("content.acc.wdl1.name");
+furniture.wdl1.desc =
+  i18n.t("content.acc.wdl1.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.wdl1.bonus");
+furniture.wdl1.data = { amount: 0 };
+furniture.wdl1.v = 5;
+furniture.wdl1.removable = true;
+furniture.wdl1.activate = function () {
+  for (const i in acc.wdl1.ccls) you.ccls[i] += acc.wdl1.ccls[i];
+};
+furniture.wdl1.deactivate = function () {
+  for (const i in acc.wdl1.ccls) you.ccls[i] -= acc.wdl1.ccls[i];
+};
+furniture.wdl1.onRemove = function () {
+  giveItem(acc.wdl1, 1, true);
+};
+
+furniture.bdl1 = new Furniture();
+furniture.bdl1.id = 22;
+furniture.bdl1.name = i18n.t("content.acc.bdl1.name");
+furniture.bdl1.desc =
+  i18n.t("content.acc.bdl1.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.bdl1.bonus");
+furniture.bdl1.data = { amount: 0 };
+furniture.bdl1.v = 5;
+furniture.bdl1.removable = true;
+furniture.bdl1.activate = function () {
+  you.caff[6] += 5;
+  you.cmaff[3] += 5;
+};
+furniture.bdl1.deactivate = function () {
+  you.caff[6] -= 5;
+  you.cmaff[3] -= 5;
+};
+furniture.bdl1.onRemove = function () {
+  giveItem(acc.bdl1, 1, true);
+};
+
+furniture.gdl1 = new Furniture();
+furniture.gdl1.id = 23;
+furniture.gdl1.name = i18n.t("content.acc.gdl1.name");
+furniture.gdl1.desc =
+  i18n.t("content.acc.gdl1.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.gdl1.bonus");
+furniture.gdl1.data = { amount: 0 };
+furniture.gdl1.v = 12;
+furniture.gdl1.removable = true;
+furniture.gdl1.activate = function () {
+  you.caff[0] += 3;
+  you.caff[6] += 2;
+  you.cmaff[3] += 6;
+  for (const i in acc.gdl1.ccls) you.ccls[i] += acc.gdl1.ccls[i];
+};
+furniture.gdl1.deactivate = function () {
+  you.caff[0] -= 3;
+  you.caff[6] -= 2;
+  you.cmaff[3] -= 6;
+  for (const i in acc.gdl1.ccls) you.ccls[i] -= acc.gdl1.ccls[i];
+};
+furniture.gdl1.onRemove = function () {
+  giveItem(acc.gdl1, 1, true);
+};

@@ -270,6 +270,39 @@ async function main() {
       );
     }
 
+    // Repeated log lines fold into one row. Run through the real msg(), because the
+    // first attempt at this compared the new row against itself and so never folded
+    // anything, while looking entirely correct in the source.
+    const logCollapse = await runChrome(
+      `${baseUrl}/__test-log-collapse.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(logCollapse.stderr);
+    assertCommonStartup(logCollapse.stdout, port);
+    if (!logCollapse.stdout.includes('data-log-collapsed-rows="1"')) {
+      const got = logCollapse.stdout.match(/data-log-collapsed-rows="([^"]*)"/);
+      throw new Error(
+        `Three identical messages must leave one row in the log, not ${got?.[1] ?? "?"}.`,
+      );
+    }
+    if (!logCollapse.stdout.includes('data-log-collapsed-tally="x3"')) {
+      const got = logCollapse.stdout.match(
+        /data-log-collapsed-tally="([^"]*)"/,
+      );
+      throw new Error(
+        `The collapsed row must be tallied x3, not "${got?.[1] ?? ""}".`,
+      );
+    }
+    if (!logCollapse.stdout.includes('data-log-distinct-rows="2"')) {
+      throw new Error("A different message must start its own row.");
+    }
+    if (!logCollapse.stdout.includes('data-log-appended-rows="4"')) {
+      const got = logCollapse.stdout.match(/data-log-appended-rows="([^"]*)"/);
+      throw new Error(
+        `A row msg_add has appended to must not absorb a later repeat: expected 4 rows, got ${got?.[1] ?? "?"}.`,
+      );
+    }
+
     const saveBarLayout = await runChrome(
       `${baseUrl}/__test-save-bar-layout.html?lang=tr`,
       profiles[0],
@@ -472,7 +505,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

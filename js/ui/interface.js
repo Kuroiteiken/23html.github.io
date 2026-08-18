@@ -4238,10 +4238,11 @@ function msg(txt, c, dsc, type, bc, chck) {
     // own original text, since a collapsed row's innerHTML no longer equals what was
     // asked for; and a row that msg_add has already appended to must be left alone,
     // or the counter lands in the middle of somebody else's sentence.
-    const previous = dom.mscont.lastElementChild;
+    // The new row is already appended by addElement above, so mscont.lastElementChild
+    // IS this row. The one to compare against is its sibling.
+    const previous = msg.previousElementSibling;
     if (
       previous &&
-      previous !== msg &&
       previous.dataset.repeatOf === mtxt.innerHTML &&
       !previous.dataset.appended
     ) {
