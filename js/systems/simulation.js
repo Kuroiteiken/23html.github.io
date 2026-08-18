@@ -1381,6 +1381,17 @@ function giveTitle(title, lv) {
 }
 
 function isort(type, flags) {
+  // Hovering an inventory row sets global.flags.kfocus, which gates the shortcut keys
+  // off so that pressing 1 while pointing at something assigns rather than uses. The
+  // row clears it again on mouseleave -- but emptying the list removes the row the
+  // pointer is over, and a removed element never fires mouseleave. The flag then stayed
+  // true and every shortcut stopped working.
+  //
+  // That is why it showed up in a fight: combat calls isort through giveItem, removeItem
+  // and reduce constantly, so a player with the pointer anywhere near their inventory
+  // lost their potion key and could only get it back by hovering a fresh row and
+  // leaving it properly. Cleared here, where the rows are actually destroyed.
+  global.flags.kfocus = false;
   empty(dom.inv_con);
   if (type === 1) for (let k = 0; k < inv.length; k++) renderItem(inv[k]);
   else {

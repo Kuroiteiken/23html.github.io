@@ -3205,6 +3205,11 @@ const releaseNotes = [
     minor: 5,
     read: () => i18n.get("ui.releaseNotes.v478_5"),
   },
+  {
+    major: 478,
+    minor: 6,
+    read: () => i18n.get("ui.releaseNotes.v478_6"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether

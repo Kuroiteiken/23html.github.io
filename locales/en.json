@@ -223,6 +223,9 @@
       ],
       "v478_5": [
         "The gear totals page scrolls, so the resistances further down can actually be reached."
+      ],
+      "v478_6": [
+        "Item shortcut keys work in a fight. Pointing anywhere near your inventory could switch them off until you hovered a row and left it again, which is exactly when you need the potion key."
       ]
     },
     "lore": {
