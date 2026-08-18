@@ -776,6 +776,29 @@ area.mine1.drop = [
   { item: item.sbone, c: 0.04 },
 ];
 
+// The level below, standing in water. Appended last, as every new area must be.
+area.mine2 = new Area();
+area.mine2.id = 130;
+area.mine2.name = i18n.t("content.area.mine2.name");
+area.mine2.pop = [
+  { crt: creature.cbat, lvlmin: 18, lvlmax: 24, c: 0.55 },
+  { crt: creature.slm1, lvlmin: 16, lvlmax: 21, c: 0.45 },
+];
+area.mine2.size = 26;
+z_bake(area.mine2);
+area.mine2.onEnd = function () {
+  roll(item.coal1, 0.6, 3, 8);
+  roll(item.watr, 0.5, 1, 4);
+  roll(item.sbone, 0.4, 2, 6);
+  roll(wpn.trch, 0.12);
+  this.size = rand(10) + 20;
+  smove(chss.mine2);
+};
+area.mine2.drop = [
+  { item: item.coal1, c: 0.05 },
+  { item: item.watr, c: 0.04 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

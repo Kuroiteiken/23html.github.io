@@ -3642,11 +3642,138 @@ chss.mine1.sl = () => {
         smove(chss.mine1, false);
       });
   });
+  // The winze down. Trained miners only: it is half full of water and the skill the
+  // face trains is what tells the player where the footing is.
+  if (skl.mng.lvl >= 5)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.down_the_flooded_winze"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      smove(chss.mine2);
+    });
+  else
+    chs(
+      i18n.t("runtime.world.locations.dialogue.winze_too_deep"),
+      false,
+      "grey",
+    ).addEventListener("click", () => {
+      msg(
+        i18n.t(
+          "runtime.systems.simulation.dialogue.not_trained_enough_to_dive",
+        ),
+        "grey",
+      );
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.back_up_to_the_hills"),
     false,
   ).addEventListener("click", () => {
     smove(chss.nhill);
+  });
+};
+
+// The flooded level. Gated on the Mining skill rather than on a level or an item: the way
+// down is a winze half full of water and the player has to know what they are looking at
+// to get past it, which is exactly what the skill the adit trains is for.
+//
+// This is also where the two new regions turn out to be one thing. The well upstream of
+// the village runs grey with stone dust, and this is the stone it is being ground off.
+chss.mine2 = new Chs();
+chss.mine2.id = 181;
+chss.mine2.effectors = [{ e: effector.dark }];
+addtosector(sector.north, chss.mine2);
+chss.mine2.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.the_mine_flooded_level"));
+  global.lst_loc = 181;
+  if (!cansee()) {
+    chs(i18n.t("runtime.world.locations.dialogue.adit_dark"), true, "darkgrey");
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.mine1, false);
+    });
+    return;
+  }
+  chs(i18n.t("runtime.world.locations.dialogue.flooded_level_arrival"), true);
+  if (!knowsLore(32))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.taste_the_standing_water"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.standing_water_examined"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("sameWater");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mine2, false);
+      });
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.work_the_coal_face"),
+    false,
+    "gold",
+    "",
+    null,
+    null,
+    null,
+    true,
+  ).addEventListener("click", () => {
+    workTheFace();
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.wade_the_lower_workings"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.mine2);
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mine2, false);
+      });
+  });
+  // The way on. Described and not passable: what is past it is the bottom of the mine,
+  // and that is the next thing to be built.
+  chs(
+    i18n.t("runtime.world.locations.dialogue.look_at_the_way_down"),
+    false,
+  ).addEventListener("click", () => {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.way_down_blocked"),
+      true,
+      "darkgrey",
+      0,
+      0,
+      0,
+      ".9em",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.mine2, false);
+    });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_up_to_the_adit"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.mine1);
   });
 };
 

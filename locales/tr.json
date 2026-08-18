@@ -291,6 +291,10 @@
       "v478_21": [
         "Maden. Demirciden kazma al, ağzındaki göçüğü aç ve in. Madencilik artık gerçek bir yetenek — vardı ama geliştirecek ve okuyacak hiçbir şey yoktu.",
         "Bir yüzü işlemek kazmayı yiyor, ve onu geri getirebilen tek kişi demirci."
+      ],
+      "v478_22": [
+        "Galerinin altındaki kat, su içinde duruyor. Aşağı inen kuyu yarı dolu ve basamağı yalnızca eğitimli bir madenci okuyabilir; yüzü işle ve bir madenci ol.",
+        "O sudan biraz avucuna al ve çökmesini bekle. İçinden çıkanı daha önce gördün — köy kuyusunun taş ağzında."
       ]
     },
     "lore": {
@@ -4725,6 +4729,9 @@
       },
       "mine1": {
         "name": "Galeri ağzı"
+      },
+      "mine2": {
+        "name": "Su basmış kat"
       }
     },
     "lore": {
@@ -4851,6 +4858,10 @@
       "mineWorked": {
         "name": "Maden kapandığından beri biri içine girmiş",
         "desc": "Köy madeni, kimsenin adını anmayacağı kadar uzun süre önce kapanmış. Ağzındaki göçük bu yıl içinde elle karıştırılmış, ve içerideki taşta, yaparken keskin olan bir aletin açtığı kesikler var. On dört ay önce alınan halat, lamba yağı ve tebeşir. İşte onlar bunun içindi."
+      },
+      "sameWater": {
+        "name": "Maden ile kuyu aynı su",
+        "desc": "Madenin alt katındaki durgun su gri, ve köy kuyusunun kovada dibe çöktürdüğü aynı ince taşla gri. Maden tarlaların yukarısında, tarlalar da kuyunun yukarısında. Yıllardır burada kömür kesen olmadı; yani bu suya taş öğüten şey bunu şimdi yapıyor, ve köydeki herkes üç haftadır onu içiyor."
       }
     }
   },
@@ -5154,7 +5165,8 @@
           "pickaxe_blunt": "Baş körelmiş, sap gevşemiş. Demirci eline almadan bir daha taş kesmez.",
           "face_gives_nothing": "Yüzey darbeyi alıyor ve toz ile sarsılmış bir bilekten başka bir şey vermiyor.",
           "face_gives_coal": "Damardan kömür geliyor: {amount}.",
-          "pickaxe_spent": "Kazmanın son hâliydi bu. Demirci onu geri getirebilir."
+          "pickaxe_spent": "Kazmanın son hâliydi bu. Demirci onu geri getirebilir.",
+          "not_trained_enough_to_dive": "İçini göremediğin suyun altındaki basamağı okuyamazsın. Bir madenci okur. Yüzü işle ve bir madenci ol."
         },
         "description": {
           "lunar_phase_0004b314": "Ay Evresi"
@@ -6032,7 +6044,17 @@
           "adit_arrival": "Dörtgen kesilmiş, kirişlenmiş ve tükenmiş: kömür duvarlardan omuz hizasına kadar uzun ve temiz ısırıklarla alınmış, sonra bırakılmış.<br><br>Ama hepsi gitmiş değil. Burada duran kişi damar bittiği için değil zorlaştığı için durmuş, ve zorluk ancak bunu geçimin için yapıyorsan sorundur.",
           "work_the_coal_face": "Yüzü işle",
           "go_deeper_into_the_workings": "Galerilerin derinine in",
-          "back_up_to_the_hills": "Yamaca geri çık"
+          "back_up_to_the_hills": "Yamaca geri çık",
+          "down_the_flooded_winze": "Kuyudan aşağı in, suyun içine",
+          "winze_too_deep": "Aşağı inen kuyu, yarısı su dolu",
+          "the_mine_flooded_level": "Maden, Su Basmış Kat",
+          "flooded_level_arrival": "Diz boyu, yer yer daha derin, kıpırtısız su; ve bütün katın sesi, onun kendi içine damlamasının sesi.<br><br>Galeriler altından devam ediyor. Kirişlerin tepelerinin karanlığa doğru gittiğini, kendi yansımalarının içinde durduğunu görebiliyorsun — birinin çıkıp gittiği bir maden için doğru olmaması gereken bir şey.",
+          "taste_the_standing_water": "Avucuna biraz su al ve incele",
+          "standing_water_examined": "Gri. Kirli değil, kahverengi değil, suyun demirin üstünde durunca aldığı renk de değil. Gri, ve elde de gri kalıyor.<br><br>Çökmesini bekliyorsun. İçinden çıkan şey ince bir kum; parmak arasında keskin ve hiçbir kokusu yok.<br><br>Bunun bir kovada dibe çöktüğünü daha önce gördün: köy kuyusunun taş ağzında, iki tarla ve bir mil yol ötede.<br><br>Maden tarlaların üstünde. Tarlalar kuyunun üstünde. Ve yıllardır burada kömür kesen olmadı — yani bu suya taş öğüten şey bunu şimdi yapıyor, ve köy üç haftadır onu içip kimin suçu olduğunu tartışıyor.",
+          "wade_the_lower_workings": "Galerilere doğru suya gir",
+          "look_at_the_way_down": "Katın aşağı devam ettiği yeri ara",
+          "way_down_blocked": "En uçta, kirişlerin bittiği yerin ötesinde, ve eğim değil kuyu.<br><br>Su onun içine gidiyor. İçinde durmuyor — gidiyor, ve yüzeydeki dönüş, bunun altında bir yerde gidecek yeri olduğu anlamına geliyor; bu katın dolu değil yalnızca su basmış olmasının tek sebebi de bu.<br><br>İçine su boşalan bir kuyudan aşağı inmiyorsun; ne taşıdıklarınla ne bildiklerinle. Şimdilik.",
+          "back_up_to_the_adit": "Galeriye geri çık"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

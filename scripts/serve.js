@@ -1032,6 +1032,61 @@ function createSiteServer(options = {}) {
             global.current_m.id === creature.cbat.id ||
             global.current_m.id === creature.spd1.id;
 
+          // The flooded level, and the gate that is a skill rather than a key.
+          skl.mng.lvl = 0;
+          smove(chss.mine1, false);
+          checks.winzeShutUntrained = !pick(
+            "runtime.world.locations.dialogue.down_the_flooded_winze",
+          );
+          checks.winzeShownAsShut = Boolean(
+            pick("runtime.world.locations.dialogue.winze_too_deep"),
+          );
+          skl.mng.lvl = 5;
+          smove(chss.mine1, false);
+          const winze = pick(
+            "runtime.world.locations.dialogue.down_the_flooded_winze",
+          );
+          checks.winzeOpensOnSkill = Boolean(winze);
+          you.mods.light = 1;
+          if (winze) winze.click();
+          checks.atTheFloodedLevel = global.current_l === chss.mine2;
+
+          const cup = pick(
+            "runtime.world.locations.dialogue.taste_the_standing_water",
+          );
+          checks.waterExaminable = Boolean(cup);
+          if (cup) cup.click();
+          checks.waterClueLearned = knowsLore(lore.sameWater.id);
+          // This is the clue that joins the two regions, so it has to be the same grit
+          // the well settles -- the texts are deliberately written against each other.
+          checks.waterClueNamesTheWell =
+            i18n.t("content.lore.sameWater.desc").length > 0 &&
+            knowsLore(lore.stoneDust.id) === knowsLore(28);
+
+          smove(chss.mine2, false);
+          checks.waterReadOnce = !pick(
+            "runtime.world.locations.dialogue.taste_the_standing_water",
+          );
+          const wade = pick(
+            "runtime.world.locations.dialogue.wade_the_lower_workings",
+          );
+          checks.floodedEnterable = Boolean(wade);
+          if (wade) wade.click();
+          checks.floodedSpawns = global.flags.btl === true;
+          checks.floodedCreature =
+            global.current_m.id === creature.cbat.id ||
+            global.current_m.id === creature.slm1.id;
+
+          // The way down is described and honestly not passable yet.
+          smove(chss.mine2, false);
+          const down = pick(
+            "runtime.world.locations.dialogue.look_at_the_way_down",
+          );
+          checks.wayDownDescribed = Boolean(down);
+          if (down) down.click();
+          checks.wayDownStillShut =
+            document.querySelectorAll(".chs").length > 0;
+
           // The furniture list. A furnished house pushed its rows straight out of the
           // panel and over the Return choice underneath. Stock the house well past what
           // fits, open the panel the way the scene opens it, and measure.
