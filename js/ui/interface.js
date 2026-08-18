@@ -418,7 +418,9 @@ dom.d8m1.innerHTML = i18n.t(
 );
 dom.d8m1.addEventListener("click", function () {
   if (global.flags.to_pause === true) {
-    if (!global.flags.civil) global.flags.btl = true;
+    // Not during a nightmare. ngtmr1's battle_ai returns false, so switching rounds
+    // on would be unbounded weapon mastery against something that cannot hit back.
+    if (!global.flags.civil && !global.flags.nmare) global.flags.btl = true;
     global.flags.to_pause = false;
     this.innerHTML = i18n.t(
       "runtime.ui.interface.interface.pause_next_battle_nbspoff_1b765858",
@@ -437,7 +439,9 @@ dom.d8m2.innerHTML = i18n.t(
 dom.d8m2.style.right = "0px";
 dom.d8m2.style.position = "absolute";
 dom.d8m2.addEventListener("click", function () {
-  if (!global.flags.civil) global.flags.btl = true;
+  // Not during a nightmare. ngtmr1's battle_ai returns false, so switching rounds
+  // on would be unbounded weapon mastery against something that cannot hit back.
+  if (!global.flags.civil && !global.flags.nmare) global.flags.btl = true;
 });
 dom.d7m_c = addElement(dom.d1m, "div", "ainfo");
 dom.d7m = addElement(dom.d7m_c, "small");
@@ -4223,11 +4227,39 @@ function msg(txt, c, dsc, type, bc, chck) {
         txt +
         "</span>";
     else mtxt.innerHTML = txt;
+    // Collapse a repeat into the line above it. Crafting a stack of forty, or a fight
+    // that lands the same blow twenty times, otherwise fills the whole log with one
+    // sentence and pushes everything worth reading out of it -- and the log only keeps
+    // global.msgs_max lines, so the repeats were actively destroying history.
+    //
+    // The author tried this once and left it commented out here. It needs three things
+    // that attempt did not have: the comparison must be against the row still on
+    // screen rather than a global that msg_add also writes; the row must remember its
+    // own original text, since a collapsed row's innerHTML no longer equals what was
+    // asked for; and a row that msg_add has already appended to must be left alone,
+    // or the counter lands in the middle of somebody else's sentence.
+    const previous = dom.mscont.lastElementChild;
+    if (
+      previous &&
+      previous !== msg &&
+      previous.dataset.repeatOf === mtxt.innerHTML &&
+      !previous.dataset.appended
+    ) {
+      const count = Number(previous.dataset.repeatCount || 1) + 1;
+      previous.dataset.repeatCount = String(count);
+      const tally =
+        previous.querySelector(".msg-repeat") ||
+        addElement(previous, "small", null, "msg-repeat");
+      tally.innerHTML = "x" + count;
+      dom.mscont.removeChild(msg);
+      dom.mscont.scrollTop = dom.mscont.scrollHeight;
+      storeMessageLog();
+      return;
+    }
+    msg.dataset.repeatOf = mtxt.innerHTML;
     dom.mscont.scrollTop = dom.mscont.scrollHeight;
     storeMessageLog();
     global.lastmsg = msg.innerHTML;
-    //if(true) {if(msg.innerHTML==global.lstmsg) msg.innerHTML=global.lastmsg+'('+(++global.lastmsgc)+')';
-    //  else {global.lastmsg=msg.innerHTML;global.lastmsgc=0;}} else global.lastmsg=msg.innerHTML;
   }
 }
 
@@ -4258,6 +4290,12 @@ function msg_add(txt, c, bc, shd) {
     if (bc) bac = "background-color:" + bc;
     if (shd) b = "text-shadow:" + shd.toString();
     else b = "";
+    // Mark the row so the repeat collapser in msg() leaves it alone. A level-up writes
+    // one msg and then four msg_adds onto the same line; folding a later repeat into
+    // that would put an "x2" in the middle of somebody else's sentence.
+    const appendTarget =
+      dom.gmsgs.children[1].children[dom.gmsgs.children[1].children.length - 1];
+    if (appendTarget) appendTarget.dataset.appended = "true";
     if (c)
       dom.gmsgs.children[1].children[
         dom.gmsgs.children[1].children.length - 1

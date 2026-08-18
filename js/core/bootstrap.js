@@ -175,6 +175,7 @@ global.flags = {
   to_pause: false,
   civil: true,
   sleepmode: false,
+  nmare: false,
   loadstate: false,
   eshake: false,
   msgtm: false,
@@ -1255,6 +1256,10 @@ function load(dt) {
     global.flags.rdng = false;
     global.flags.civil = true;
     global.flags.btl = false;
+    // Never restore into a nightmare. chss data comes back from segment 17 after
+    // smove has already re-rendered the location, so a persisted one would return
+    // with no choices on screen and no way out.
+    global.flags.nmare = false;
     global.current_z = area.nwh;
     global.current_m = creature.default;
     update_m();

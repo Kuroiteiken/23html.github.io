@@ -540,6 +540,9 @@ item.smbpll.stype = 4;
 item.smbpll.use = function (x) {
   if (
     global.flags.btl ||
+    // This runs ontick 1,080 times in a plain loop. With btl false during a
+    // nightmare it would otherwise replay eighteen in-game hours in one click.
+    global.flags.nmare ||
     global.flags.rdng ||
     global.flags.isshop ||
     global.flags.busy ||

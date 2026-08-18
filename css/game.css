@@ -1411,3 +1411,11 @@ body {
   white-space: nowrap;
   cursor: pointer;
 }
+
+/* The repeat tally on a collapsed log line. Sits at the right so the sentence itself
+   never moves as the count climbs. */
+.msg-repeat {
+  float: right;
+  padding-right: 6px;
+  color: #8fa9c4;
+}
