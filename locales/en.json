@@ -227,6 +227,13 @@
       "stageRestore": "Restoring your save",
       "stageUpdate": "Applying an update to your save",
       "migrationApplied": "Your save was brought up to date for this version (v{from} to v{to})"
+    },
+    "smith": {
+      "benchTitle": "The Smith's Bench",
+      "nothingWorn": "Nothing you are carrying needs work",
+      "rate": "Per point of wear: {rate}",
+      "cannotAfford": "You cannot pay for that.",
+      "repaired": "{item} is sound again."
     }
   },
   "gameText": {
@@ -5710,7 +5717,11 @@
           "sell_goods_action": "=> Sell something",
           "sell_goods_sold": "Sold {item} x{amount}.",
           "turn_in_for_the_night": "\"Turn in for the night\"",
-          "bed_rest_summary_good": "The mattress gives under you properly{extra}"
+          "bed_rest_summary_good": "The mattress gives under you properly{extra}",
+          "marketplace_smithy": "Marketplace, The Smithy",
+          "smithy_4d2a1f70": "\"=> The smithy\"",
+          "smith_greeting": "Smith: Bring it here. I can put an edge back on most things, and what I cannot, I will tell you so.",
+          "smith_repair_action": "\"=> Have something repaired\""
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

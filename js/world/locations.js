@@ -2929,6 +2929,13 @@ chss.mrktvg1.sl = () => {
       smove(chss.pha1);
     });
   chs(
+    i18n.t("runtime.world.locations.dialogue.smithy_4d2a1f70"),
+    false,
+    "gold",
+  ).addEventListener("click", () => {
+    smove(chss.smith);
+  });
+  chs(
     i18n.t("runtime.world.locations.dialogue.nervous_guy_f59691fc"),
     false,
   ).addEventListener("click", () => {
@@ -3573,6 +3580,49 @@ chss.gens1.onScout = function () {
 //
 // Its own scene rather than a nested dialogue, so that selling one thing returns to
 // the list with the rest of it still there.
+// The smith. Durability is on every piece of equipment in the game, wears down in
+// play, and until now nothing restored it -- a weapon whose durability ran out was
+// simply spent, and its contribution to damage fell to the flat 0.1 the formula uses
+// when there is nothing in your hand. That was a dead end you could walk into and
+// not walk out of, which is what the owner did.
+//
+// He stands at the market rather than being rescued first. The rescue is a better
+// story and it is written down in docs/PROPOSALS.md, but a dead end should not wait
+// on a quest.
+chss.smith = new Chs();
+chss.smith.id = 172;
+chss.smith.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.marketplace_smithy"));
+  global.lst_loc = 172;
+  chs(i18n.t("runtime.world.locations.dialogue.smith_greeting"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.smith_repair_action"),
+    false,
+    "orange",
+  ).addEventListener("click", () => {
+    chs_spec(7, null);
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+      "",
+      "",
+      null,
+      null,
+      null,
+      true,
+    ).addEventListener("click", () => {
+      smove(chss.smith, false);
+    });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.mrktvg1);
+  });
+};
+
 chss.gensell = new Chs();
 chss.gensell.id = 171;
 chss.gensell.effectors = [{ e: effector.shop }];

@@ -6797,6 +6797,47 @@ function chs_spec(type, x) {
       {
       }
       break;
+    // The smith's bench. Same bounded, scrolling panel as the shop and the sell
+    // list, for the same reason: #ctrm_2 declares no height and no overflow, so a run
+    // of top-level choices grows straight off the bottom of the window.
+    case 7:
+      {
+        clr_chs();
+        global.menuo = 7;
+        dom.ch_1 = addElement(dom.ctr_2, "div");
+        dom.ch_1.style.height = windowPanelHeight(0.76);
+        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.display = "flex";
+        dom.ch_1.style.flexDirection = "column";
+        dom.flsthdr = addElement(dom.ch_1, "div");
+        dom.flsthdr.innerHTML = i18n.t("ui.smith.benchTitle");
+        dom.flsthdr.style.borderBottom = "1px #44c solid";
+        dom.flsthdr.style.padding = "2px";
+        dom.flsthdr.style.flexShrink = "0";
+        dom.ch_1h = addElement(dom.ch_1, "div");
+        dom.ch_1h.style.textAlign = "left";
+        dom.ch_1h.style.display = "block";
+        dom.ch_1h.style.flex = "1";
+        dom.ch_1h.style.minHeight = "0";
+        dom.ch_1h.style.overflow = "auto";
+        const worn = repairableInventory();
+        if (worn.length === 0) {
+          const none = addElement(dom.ch_1h, "div", null, "chs_s");
+          none.innerHTML = i18n.t("ui.smith.nothingWorn");
+        } else for (const line of worn) renderrepairitem(dom.ch_1h, line);
+        dom.ch_1c = addElement(dom.ch_1, "div");
+        dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        dom.ch_1c.style.height = "5%";
+        dom.ch_1c.style.minHeight = "1.2em";
+        dom.ch_1c.style.flexShrink = "0";
+        dom.ch_1c.style.width = "100%";
+        dom.ch_1e = addElement(dom.ch_1c, "small");
+        dom.ch_1e.style.float = dom.ch_1e.style.textAlign = "left";
+        dom.ch_1e.innerHTML = i18n.t("ui.smith.rate", {
+          rate: REPAIR_COIN_PER_POINT,
+        });
+      }
+      break;
     // Selling. Built the same way as the shop above rather than as a run of
     // top-level choices: a bare chs() per item grows #ctrm_2, which declares no
     // height and no overflow, so a full inventory ran straight off the bottom of
@@ -6851,6 +6892,47 @@ function chs_spec(type, x) {
       break;
   }
   return dom.ch_1;
+}
+
+// One line of the smith's bench: what is worn, and what putting it right costs.
+// Re-reads the item when clicked rather than trusting what was drawn, because
+// durability keeps falling while the panel is open if a fight is running.
+function renderrepairitem(root, line) {
+  const row = addElement(root, "div", "bst_entrh", "bst_entr");
+  row.style.backgroundColor = "rgb(10,30,54)";
+  addDesc(row, line.obj);
+  const left = addElement(row, "div", null, "bst_entr1");
+  left.style.width = "70%";
+  left.innerHTML =
+    line.obj.name +
+    " <small style='color:grey'>" +
+    ((line.obj.dp * 10) << 0) / 10 +
+    "/" +
+    line.obj.dpmax +
+    "</small>" +
+    (line.worn ? " <small style='color:#f80'>E</small>" : "");
+  const right = addElement(row, "div", null, "bst_entr2");
+  right.style.width = "28%";
+  right.style.textAlign = "right";
+  const cost = repairCost(line.obj);
+  right.innerHTML = formatw(cost);
+  if (you.wealth < cost) {
+    right.style.color = "red";
+    row.style.backgroundColor = "rgb(68,26,38)";
+  }
+  row.addEventListener("click", () => {
+    const due = repairCost(line.obj);
+    if (due <= 0 || you.wealth < due) {
+      msg(i18n.t("ui.smith.cannotAfford"), "red");
+      return;
+    }
+    spend(due);
+    line.obj.dp = line.obj.dpmax;
+    msg(i18n.t("ui.smith.repaired", { item: line.obj.name }), "lime");
+    you.stat_r();
+    chs_spec(7, null);
+  });
+  return row;
 }
 
 // One line of the sell list: what it is on the left, what he pays on the right.

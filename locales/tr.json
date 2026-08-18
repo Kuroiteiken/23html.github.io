@@ -227,6 +227,13 @@
       "stageRestore": "Kaydın geri yükleniyor",
       "stageUpdate": "Kaydına bir güncelleme uygulanıyor",
       "migrationApplied": "Kaydın bu sürüme uyarlandı (v{from} → v{to})"
+    },
+    "smith": {
+      "benchTitle": "Demircinin Tezgâhı",
+      "nothingWorn": "Taşıdıklarının hiçbirinin işe ihtiyacı yok",
+      "rate": "Aşınma puanı başına: {rate}",
+      "cannotAfford": "Bunun parasını ödeyemezsin.",
+      "repaired": "{item} yeniden sağlam."
     }
   },
   "gameText": {
@@ -5714,7 +5721,11 @@
           "sell_goods_action": "=> Bir şey sat",
           "sell_goods_sold": "{item} x{amount} satıldı.",
           "turn_in_for_the_night": "\"Yatağa geç ve uyu\"",
-          "bed_rest_summary_good": "Şilte altında düzgünce çöküyor{extra}"
+          "bed_rest_summary_good": "Şilte altında düzgünce çöküyor{extra}",
+          "marketplace_smithy": "Pazaryeri, Demirci",
+          "smithy_4d2a1f70": "\"=> Demirci\"",
+          "smith_greeting": "Demirci: Getir bakalım. Çoğu şeyin ağzını geri açarım, açamayacağımı da açıkça söylerim.",
+          "smith_repair_action": "\"=> Bir şey onart\""
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",
