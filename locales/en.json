@@ -241,6 +241,10 @@
       "v478_10": [
         "Fixed a room you could not leave. Going down into the joiner’s cellar could leave you with no buttons at all, and the only way out was closing the tab.",
         "No scene can strand you now: if there is no fight and nothing to click, the game always draws you a way back."
+      ],
+      "v478_11": [
+        "The smith sells. Shields mostly, which nobody in the village stocked before, plus coal and scrap for the forge.",
+        "Twelve of the game’s seventeen shields had no source anywhere. The light ones are on his counter now."
       ]
     },
     "lore": {
@@ -4535,6 +4539,9 @@
       },
       "pha1": {
         "name": "Herbalist"
+      },
+      "smith": {
+        "name": "The Smithy"
       }
     },
     "mastery": {
@@ -5872,7 +5879,8 @@
           "break_it_open": "Break it, then, and see what it was standing in front of",
           "leave_it_alone": "Put your hand back in your pocket and walk on",
           "the_cut_passage": "Look into the passage behind the slab",
-          "stone_plate_opened": "There is a passage where the slab was standing, and it was cut. Not clawed, not fallen, not worn through by water. Cut.<br><br>The strokes are short and they overlap and they all run the same way, which is what a person does working one-handed in a space too tight to swing properly. They go on for the length of your arm, and then further than your lamp reaches, and they do not wander: whoever made them knew which direction they wanted before they started.<br><br>Something is lying in the spoil at the mouth of it. A chisel, snapped a third of the way down the shank, the break still bright where the rest of the metal has gone dull. There is a stamp on the flat — a joiner's mark, the kind a village smith punches into work he is paid for by the piece.<br><br>The dead do not carry tools. They do not stop to sharpen them, and they do not swear and throw one away when it breaks."
+          "stone_plate_opened": "There is a passage where the slab was standing, and it was cut. Not clawed, not fallen, not worn through by water. Cut.<br><br>The strokes are short and they overlap and they all run the same way, which is what a person does working one-handed in a space too tight to swing properly. They go on for the length of your arm, and then further than your lamp reaches, and they do not wander: whoever made them knew which direction they wanted before they started.<br><br>Something is lying in the spoil at the mouth of it. A chisel, snapped a third of the way down the shank, the break still bright where the rest of the metal has gone dull. There is a stamp on the flat — a joiner's mark, the kind a village smith punches into work he is paid for by the piece.<br><br>The dead do not carry tools. They do not stop to sharpen them, and they do not swear and throw one away when it breaks.",
+          "smith_buy_action": "Ask what he has finished"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

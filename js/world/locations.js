@@ -3747,6 +3747,27 @@ chss.smith.sl = () => {
   global.lst_loc = 172;
   chs(i18n.t("runtime.world.locations.dialogue.smith_greeting"), true);
   chs(
+    i18n.t("runtime.world.locations.dialogue.smith_buy_action"),
+    false,
+    "gold",
+  ).addEventListener("click", () => {
+    chs_spec(4, vendor.smith);
+    vendor.smith.restocked = false;
+    clearInterval(timers.vndrstkchk);
+    timers.vndrstkchk = setInterval(function () {
+      if (vendor.smith.restocked === true) {
+        clearInterval(timers.vndrstkchk);
+        vendor.smith.restocked = false;
+        msg(
+          i18n.t(
+            "runtime.world.locations.dialogue.we_re_restocking_step_out_for_a_minute_20bfc037",
+          ),
+        );
+        smove(chss.smith, false);
+      }
+    }, 1000);
+  });
+  chs(
     i18n.t("runtime.world.locations.dialogue.smith_sharpen_action"),
     false,
     "orange",
@@ -3765,6 +3786,7 @@ chss.smith.sl = () => {
     false,
   ).addEventListener("click", () => {
     global.smithmode = 0;
+    clearInterval(timers.vndrstkchk);
     smove(chss.mrktvg1);
   });
 };

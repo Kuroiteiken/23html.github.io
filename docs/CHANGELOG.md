@@ -10,6 +10,29 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- Gave `chss.smith` a vendor. He had none: he repaired and sharpened what the player
+  already owned and sold nothing, while twelve of the game's seventeen shields had no
+  source anywhere -- no vendor, no drop, no recipe. The four light ones plus a heater,
+  a gauntlet, a headguard, `item.coal1` and `item.cq` are on his counter now, priced
+  level with the general store rather than above it. `item.coal1` is worth calling out:
+  it was the one item in the game with no source at all while its own description says
+  it burns for a long time and the fireplace already accepted it as fuel.
+- Vendor state is saved by key rather than positionally (`a10[obj]`) and the restore is
+  guarded on `a10[obj] && a10[obj].stock`, so a new vendor cannot disturb an existing
+  save, and `onDayPass` runs over `for (const vnd in vendor)` so it restocks with no
+  registration step. Verified both before adding it.
+- Left `dfl` off the smith deliberately. Four vendors set it and nothing in the game
+  reads it; `repsc` is the only one of the pair with a reader. Copying a dead field to
+  match a pattern is how dead fields spread.
+- The browser suite now restocks every vendor and asserts each line prices to a finite
+  positive number. The Vendor constructor already carries a comment about the child
+  trader, whose shop had no inflation multiplier, so every price resolved to NaN -- and
+  because NaN compares false the affordability check passed and paying turned the
+  player's purse into NaN. The check covers all vendors rather than only the new one.
+- Added `docs/REGIONS.md` and `docs/REGIONS.TR.md`: the design contract for the rural
+  region and the mine, with the criteria that open each step, what the player is meant
+  to take away, and what closes each arc. Linked from both proposal docs.
+
 - Gave `creature.lrck` the eleven fields it was missing and put it in the game as a
   false wall in `chss.cata17`, the Stone Plate, gated on `sector.cata1.data.gets[3]` --
   the scout find that puts a chisel handle in the player's hands. `area.lrck1` (id 125)

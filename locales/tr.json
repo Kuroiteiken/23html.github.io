@@ -241,6 +241,10 @@
       "v478_10": [
         "Çıkılamayan bir oda düzeltildi. Marangozun bodrumuna inmek seni hiç butonsuz bırakabiliyordu ve tek çıkış sekmeyi kapatmaktı.",
         "Artık hiçbir sahne seni mahsur bırakamıyor: dövüş de yoksa tıklanacak bir şey de yoksa, oyun sana her zaman bir dönüş yolu çiziyor."
+      ],
+      "v478_11": [
+        "Demirci artık satıyor. Çoğunlukla kalkan — köyde bunları kimse satmıyordu — artı ocak için kömür ve hurda.",
+        "Oyundaki on yedi kalkanın on ikisinin hiçbir kaynağı yoktu. Hafif olanlar artık onun tezgâhında."
       ]
     },
     "lore": {
@@ -4535,6 +4539,9 @@
       },
       "pha1": {
         "name": "Bitki uzmanı"
+      },
+      "smith": {
+        "name": "Demirci"
       }
     },
     "mastery": {
@@ -5876,7 +5883,8 @@
           "break_it_open": "Öyleyse kır ve neyin önünde durduğunu gör",
           "leave_it_alone": "Elini cebine geri koy ve yürümeye devam et",
           "the_cut_passage": "Levhanın arkasındaki geçide bak",
-          "stone_plate_opened": "Levhanın durduğu yerde bir geçit var ve kesilmiş. Pençelenmemiş, çökmemiş, suyun aşındırmasıyla açılmamış. Kesilmiş.<br><br>Darbeler kısa, üst üste biniyor ve hepsi aynı yöne gidiyor; savurmaya yer olmayan bir darlıkta tek elle çalışan biri öyle yapar. Bir kol boyu sürüyorlar, sonra lambanın yettiği yerden de öteye, ve dolanmıyorlar: bunları yapan, başlamadan önce hangi yöne gitmek istediğini biliyordu.<br><br>Geçidin ağzındaki molozun içinde bir şey duruyor. Bir keski; sapın üçte birinde kırılmış, metalin geri kalanı matlaşmışken kırık yeri hâlâ parlak. Düz yüzünde bir damga var — bir marangoz işareti; köy demircisinin parça başı ödendiği işe vurduğu türden.<br><br>Ölüler alet taşımaz. Onları bilemek için durmaz, ve kırıldığında küfredip bir kenara atmaz."
+          "stone_plate_opened": "Levhanın durduğu yerde bir geçit var ve kesilmiş. Pençelenmemiş, çökmemiş, suyun aşındırmasıyla açılmamış. Kesilmiş.<br><br>Darbeler kısa, üst üste biniyor ve hepsi aynı yöne gidiyor; savurmaya yer olmayan bir darlıkta tek elle çalışan biri öyle yapar. Bir kol boyu sürüyorlar, sonra lambanın yettiği yerden de öteye, ve dolanmıyorlar: bunları yapan, başlamadan önce hangi yöne gitmek istediğini biliyordu.<br><br>Geçidin ağzındaki molozun içinde bir şey duruyor. Bir keski; sapın üçte birinde kırılmış, metalin geri kalanı matlaşmışken kırık yeri hâlâ parlak. Düz yüzünde bir damga var — bir marangoz işareti; köy demircisinin parça başı ödendiği işe vurduğu türden.<br><br>Ölüler alet taşımaz. Onları bilemek için durmaz, ve kırıldığında küfredip bir kenara atmaz.",
+          "smith_buy_action": "Bitirdiği bir şey var mı diye sor"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

@@ -789,6 +789,29 @@ function createSiteServer(options = {}) {
           // the walking above, a scene is failing to offer its own exits and that
           // is the thing to fix, not the net.
           checks.netNeverFired = !global.stat.strandc;
+          // Every vendor line must price to a real number. The Vendor constructor
+          // carries a comment about the child trader, whose shop had no inflation
+          // multiplier, so every price resolved to NaN -- and NaN compares false, so
+          // the can-you-afford-it check passed and paying turned the purse into NaN.
+          // This walks all of them rather than only the new one.
+          const badPrices = [];
+          for (const key of Object.keys(vendor)) {
+            const v = vendor[key];
+            restock(v);
+            for (const line of v.stock || [])
+              if (!Number.isFinite(Number(line[1])) || Number(line[1]) <= 0)
+                badPrices.push(key + ":" + (line[0] && line[0].name));
+            for (const supply of v.items || [])
+              if (!Number.isFinite(Number(supply.p)) || !supply.item)
+                badPrices.push(key + ":supply");
+          }
+          checks.vendorPricesReal = badPrices.length === 0;
+          document.documentElement.dataset.cellarBadPrices = badPrices.join(",");
+          // And the smith actually has stock to show, since he sold nothing at all
+          // before this.
+          checks.smithSells =
+            Boolean(vendor.smith) && (vendor.smith.items || []).length > 0;
+
           document.documentElement.dataset.cellarNetFires = String(
             global.stat.strandc || 0,
           );

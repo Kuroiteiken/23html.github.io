@@ -1277,6 +1277,39 @@ vendor.gens1.extra = function () {
   if (random() < 0.2) chss.gens1.data.gets[0] = false;
 };
 
+// The smith had no stock at all: he repaired and sharpened what the player already
+// owned and sold nothing. Shields are the obvious gap he fills, because twelve of the
+// game's seventeen have no source anywhere -- no vendor, no drop, no recipe -- and a
+// village smith is who makes them.
+//
+// The tiers are picked against what the general store already sells, which tops out at
+// str 9 armour and a str 20 blunt sword. The four light shields here run str 9 to 12,
+// so they sit level with that rather than over it; the heater is str 16 and is stocked
+// rarely and priced accordingly. Nothing here leapfrogs anything a player has by the
+// time they can afford it.
+//
+// item.coal1 is in the list because it is the one thing in the game with no source at
+// all -- not a vendor, not a drop, not a recipe -- while its own description says it
+// burns for a very long time and the fireplace already accepts it as fuel.
+vendor.smith = new Vendor();
+vendor.smith.name = i18n.t("content.vendor.smith.name");
+vendor.smith.time = vendor.smith.timeorig = 4;
+vendor.smith.infl = 1.3;
+// No `dfl`. Four vendors set one and nothing in the game reads it; `repsc` is the
+// only one of the pair with a reader, at the reputation line in the shop panel.
+vendor.smith.repsc = 5;
+vendor.smith.items = [
+  { item: sld.tge, p: 90, c: 0.6, min: 1, max: 2 },
+  { item: sld.qad, p: 110, c: 0.5, min: 1, max: 2 },
+  { item: sld.crc, p: 130, c: 0.45, min: 1, max: 2 },
+  { item: sld.rnd, p: 165, c: 0.35, min: 1, max: 1 },
+  { item: sld.htr, p: 420, c: 0.12, min: 1, max: 1 },
+  { item: eqp.gnt, p: 95, c: 0.45, min: 1, max: 2 },
+  { item: eqp.hkgd, p: 240, c: 0.2, min: 1, max: 1 },
+  { item: item.coal1, p: 60, c: 0.7, min: 2, max: 6 },
+  { item: item.cq, p: 12, c: 0.8, min: 4, max: 20 },
+];
+
 vendor.pha1 = new Vendor();
 vendor.pha1.name = i18n.t("content.vendor.pha1.name");
 vendor.pha1.time = vendor.pha1.timeorig = 2;

@@ -10,6 +10,29 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- `chss.smith`'e bir satıcı verildi. Hiç yoktu: oyuncunun sahip olduğu şeyi onarıp
+  keskinleştiriyor, hiçbir şey satmıyordu; oysa oyundaki on yedi kalkanın on ikisinin
+  hiçbir kaynağı yoktu — ne satıcı, ne düşürme, ne tarif. Dört hafif kalkan artı bir
+  heater, bir eldiven, bir başlık, `item.coal1` ve `item.cq` artık tezgâhında; fiyatlar
+  bakkalın üstünde değil onunla aynı seviyede. `item.coal1` özellikle anılmaya değer:
+  kendi tarifi uzun süre yandığını söylerken ve şömine onu yakıt olarak zaten kabul
+  ederken, oyunda hiçbir kaynağı olmayan tek eşyaydı.
+- Satıcı durumu konumsal değil anahtarla kaydediliyor (`a10[obj]`) ve geri yükleme
+  `a10[obj] && a10[obj].stock` ile korumalı; yani yeni bir satıcı mevcut bir kaydı
+  bozamıyor, ve `onDayPass` `for (const vnd in vendor)` üzerinde döndüğü için kayıt
+  adımı olmadan stok yeniliyor. İkisi de eklemeden önce doğrulandı.
+- `dfl` demirciye bilinçli olarak konmadı. Dört satıcı onu kuruyor ve oyunda hiçbir yer
+  okumuyor; çiftin okuyucusu olan tek üyesi `repsc`. Deseni taklit etmek için ölü alan
+  kopyalamak, ölü alanların yayılma biçimi.
+- Tarayıcı takımı artık her satıcının stoğunu yenileyip her satırın sonlu ve pozitif bir
+  fiyata çözüldüğünü doğruluyor. Vendor yapıcısı, enflasyon çarpanı olmadığı için her
+  fiyatının NaN'a çözüldüğü çocuk tüccar hakkında zaten bir yorum taşıyor — ve NaN
+  karşılaştırmaları false olduğu için parayı yetirme kontrolü geçiyor ve ödeme oyuncunun
+  kesesini NaN yapıyordu. Kontrol yalnızca yeni satıcıyı değil hepsini kapsıyor.
+- `docs/REGIONS.md` ve `docs/REGIONS.TR.md` eklendi: kırsal bölge ile madenin tasarım
+  sözleşmesi; her adımı açan ölçütler, oyuncunun ne alması gerektiği ve her yayın neyle
+  kapandığı. İki öneri dosyasından da bağlandı.
+
 - `creature.lrck`'ye eksik on bir alanı verildi ve oyuna `chss.cata17`, yani Taş
   Levha'da bir yalancı duvar olarak kondu; `sector.cata1.data.gets[3]`'e bağlı — yani
   oyuncunun eline bir keski sapı veren keşif bulgusuna. `area.lrck1` (id 125) yeni ve en
