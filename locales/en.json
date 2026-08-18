@@ -855,6 +855,10 @@
       "rested": {
         "name": "Rested",
         "desc": "A night by the fire is still in you{separator}<span style=\"color:deeppink\">STR +2, SPD +1, mastery gain +10%</span>"
+      },
+      "brn": {
+        "name": "Burning",
+        "desc": "Fire has caught, and it is still going"
       }
     },
     "wpn": {
@@ -4740,7 +4744,8 @@
             "*Hack..*",
             "*Cough-cough..*",
             "*Khe..*"
-          ]
+          ],
+          "you_are_on_fire": "You have caught fire!"
         }
       },
       "equipment": {

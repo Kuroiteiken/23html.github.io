@@ -4525,6 +4525,23 @@ function attack(att, def, atk, power) {
     }
     dmg = Math.round(atk.f(att, def, power));
     def.hp -= dmg;
+    // A blow that landed with fire behind it can set what it hit alight. dmg_calc
+    // leaves the element it resolved in global.atype_d, and 3 is fire; a torch and the
+    // Scorpion Sceptre are the two weapons in the game that carry it, plus any ability
+    // whose own aff says so.
+    //
+    // The chance rises with how hard the blow was relative to what it hit, so a
+    // scratch rarely catches and a heavy hit usually does, and it is checked against
+    // the target's own res.burn -- a value every creature in the game has carried
+    // since before this fork with nothing ever reading it, because there was no burn
+    // to resist. The fire then does a fraction of the blow per tick, which is what
+    // keeps it a follow-up rather than a second attack.
+    if (dmg > 0 && global.atype_d === 3) {
+      const share = def.hpmax > 0 ? dmg / def.hpmax : 0;
+      const catches = Math.min(0.5, 0.12 + share * 2) * (def.res.burn ?? 1);
+      if (random() < catches)
+        giveEff(def, effect.brn, 6, Math.max(1, Math.ceil(dmg * 0.15)));
+    }
     global.flags.msd = false;
     if (
       global.flags.m_blh === false &&

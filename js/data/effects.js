@@ -1009,3 +1009,70 @@ effect.rested.use = function () {
     this.duration = 5;
   }
 };
+
+// Burning. Every creature in the game carries a res.burn value and nothing has ever
+// read one: there was no burn effect to resist. Fire could be an attack's element and
+// all it ever did was change a damage multiplier.
+//
+// Modelled on effect.psn, which is the working damage-over-time in this game and
+// already handles both directions -- the player burning and a creature burning are
+// different code paths, because the health bars, the death handling and the kill
+// counters are different. Follows it deliberately rather than inventing a second
+// shape.
+effect.brn = new Effect();
+effect.brn.id = 28;
+effect.brn.name = i18n.t("content.effect.brn.name");
+effect.brn.desc = i18n.t("content.effect.brn.desc");
+effect.brn.type = 3;
+effect.brn.atype = 3;
+effect.brn.duration = 6;
+effect.brn.x = "火";
+effect.brn.c = "orange";
+effect.brn.b = "darkred";
+effect.brn.onGive = function (x, y) {
+  if (!this.active) {
+    if (this.target.id === you.id)
+      msg(i18n.t("runtime.data.effects.dialogue.you_are_on_fire"), "orangered");
+  } else {
+    // Set alight again while already burning: it burns hotter and longer, but the
+    // duration is averaged up rather than added, so repeated hits cannot stack a
+    // creature into an unbounded fire.
+    this.y = Math.ceil((this.y + y) / 2);
+    this.duration += (x * 0.6) << 0;
+  }
+};
+effect.brn.use = function (y, z) {
+  this.duration--;
+  let dmg = y || 1;
+  this.power = y;
+  if (this.target.id === you.id) {
+    giveSkExp(skl.painr, this.power * 0.05);
+    dmg = Math.ceil(dmg * resistanceFactor(1 - you.res.burn));
+    global.stat.dmgrt += dmg;
+    if (you.hp - dmg > 0) you.hp -= dmg;
+    else {
+      you.hp = 0;
+      removeEff(this);
+      this.duration = 6;
+      you.onDeath();
+      global.atkdfty = [2, 28];
+    }
+    dom.d5_1_1.update();
+  } else {
+    dmg = Math.ceil(dmg * resistanceFactor(1 - (this.target.res.burn || 1)));
+    if (this.target.hp - dmg > 0) this.target.hp -= dmg;
+    else {
+      this.target.hp = 0;
+      removeEff(this, this.target);
+      this.duration = 6;
+      global.atkdftm = [-1, -1, 3];
+      this.target.onDeath(you);
+      global.stat.indkill++;
+    }
+    dom.d5_1_1m.update();
+  }
+  if (this.duration <= 0) {
+    removeEff(this, this.target);
+    this.duration = 6;
+  }
+};
