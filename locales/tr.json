@@ -220,6 +220,13 @@
       "edge": "Kesici",
       "pierce": "Delici",
       "blunt": "Künt"
+    },
+    "boot": {
+      "stageLocales": "Dil dosyaları okunuyor",
+      "stageGame": "Oyun yükleniyor",
+      "stageRestore": "Kaydın geri yükleniyor",
+      "stageUpdate": "Kaydına bir güncelleme uygulanıyor",
+      "migrationApplied": "Kaydın bu sürüme uyarlandı (v{from} → v{to})"
     }
   },
   "gameText": {

@@ -220,6 +220,13 @@
       "edge": "Edge",
       "pierce": "Pierce",
       "blunt": "Blunt"
+    },
+    "boot": {
+      "stageLocales": "Reading the language files",
+      "stageGame": "Loading the game",
+      "stageRestore": "Restoring your save",
+      "stageUpdate": "Applying an update to your save",
+      "migrationApplied": "Your save was brought up to date for this version (v{from} to v{to})"
     }
   },
   "gameText": {

@@ -713,7 +713,16 @@ const messageLogHistory = [
 
 if (
   !messageLogHistory.every((pattern) => pattern.test(interfaceSource)) ||
-  !/restoreMessageLog\(\);\s*clearLoadingScreen\(\);/.test(bootstrapSource) ||
+  // The invariant is the order, not adjacency: load() empties the log while it
+  // rebuilds the world, so the history must go back before the loading screen comes
+  // off, and anything the game wants to say about the load itself belongs between
+  // the two. Requiring them to touch forbade exactly that.
+  !/restoreMessageLog\(\);[\s\S]{0,600}?clearLoadingScreen\(\);/.test(
+    bootstrapSource,
+  ) ||
+  !/restoreMessageLog\(\);[\s\S]{0,600}?pendingMigrationNotice/.test(
+    bootstrapSource,
+  ) ||
   /while \(dom\.gmsgs\.children\[1\]\.children\.length > global\.msgs_max/.test(
     interfaceSource,
   )

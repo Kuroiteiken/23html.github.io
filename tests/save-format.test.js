@@ -32,6 +32,7 @@ const wanted = new Set([
   "describeSaveProblems",
   "saveMigrations",
   "migrateSave",
+  "bootPhase",
 ]);
 
 // The v478 migration tops a character up to the SPD and LUCK the level milestones

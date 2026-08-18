@@ -325,6 +325,27 @@
         </header>
         <ul class="release-changes">
           <li>
+            Opening the game shows a loading screen instead of a blank
+            background. There had been one all along, but it was built by the
+            game's own code near the end of a file that is itself the slowest
+            thing the page loads — so it could not appear until everything it
+            was meant to cover had already finished, and it was taken away about
+            fifty milliseconds later
+          </li>
+          <li>
+            It tells you where it has got to: reading the language files,
+            loading the game, restoring your save, and — when there is one —
+            applying an update to it. A save migration used to report itself to
+            the browser console alone; it now says so on the way in and again in
+            your message log
+          </li>
+          <li>
+            It is written in your language from the very first frame, before any
+            of the game exists to translate anything. Both languages are put
+            into the page when the site is built, straight out of the language
+            files, and the one you are not reading is removed
+          </li>
+          <li>
             An item's description now says what it actually gives you. It listed
             STR, AGL, INT and SPD and stopped, so every resistance in the game
             was invisible: the Wolf Mask has always been twenty points of fire

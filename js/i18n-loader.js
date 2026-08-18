@@ -97,6 +97,14 @@
     return true;
   }
 
+  // The boot screen in index.html shows one stage at a time, chosen by this
+  // attribute. Each change only becomes visible when the browser next paints, which
+  // is why the stages are set here, between awaited fetches, rather than inside the
+  // bundle's single long synchronous run.
+  function bootPhase(phase) {
+    document.documentElement.dataset.bootPhase = phase;
+  }
+
   async function start() {
     if (await reloadIfStale()) return;
     const manifest = await getJson(
@@ -157,6 +165,9 @@
     };
 
     document.documentElement.lang = selectedDefinition.code;
+    // The locale files are in hand; what is left to fetch is the bundle itself,
+    // which is by far the largest thing the page loads.
+    bootPhase("game");
     const gameScript = document.createElement("script");
     gameScript.src = gameBundleUrl.href;
     gameScript.onerror = () =>

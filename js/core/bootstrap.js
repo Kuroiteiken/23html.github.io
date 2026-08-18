@@ -369,8 +369,23 @@ function announceNewVersion() {
   return showReleaseNotes(from);
 }
 
+// The boot screen's stages. The loader sets the first two while it is awaiting
+// fetches, where the browser gets a paint between each; these last two are set from
+// inside the bundle's own synchronous run, so on a fast machine they may never be
+// painted before clearLoadingScreen fades the screen out. They are still worth
+// setting: a slow machine, a large save, or a migration is exactly when the browser
+// does find a frame, and that is exactly when the player is left wondering.
+function bootPhase(phase) {
+  // The save-format behaviour tests lift migrateSave out of this file and run it in
+  // a plain sandbox with no DOM, which is the point of them -- they exercise the real
+  // migrations against real numbers. A display helper must not be what stops that.
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.bootPhase = phase;
+}
+
 function startGame() {
   fitGameToViewport();
+  bootPhase("restore");
   try {
     load();
     announceNewVersion();
@@ -662,25 +677,14 @@ function save(lvr) {
   return str;
 }
 
-dom.loading = addElement(document.body, "div");
-dom.loading.id = "loading-overlay";
-dom.loading.style.zIndex = 9997;
-dom.loading.style.width = "100%";
-dom.loading.style.height = "100%";
-dom.loading.style.position = "absolute";
-dom.loading.style.backgroundColor = "lightgrey";
-dom.loading.style.margin = "-8px";
-dom.loadingt = addElement(document.body, "div");
-dom.loadingt.id = "loading-text";
-dom.loadingt.style.zIndex = 9998;
-dom.loadingt.innerHTML = i18n.t(
-  "runtime.core.bootstrap.interface.loading_bb8af242",
-);
-dom.loadingt.style.textAlign = "center";
-dom.loadingt.style.top = window.innerHeight / 2 - 50 + "px";
-dom.loadingt.style.fontSize = "4em";
-dom.loadingt.style.position = "absolute";
-dom.loadingt.style.left = window.innerWidth / 2 - 150 + "px";
+// The loading screen is markup in index.html and styled in css/game.css, so that it
+// can paint in the first frame. It used to be built here, sixteen hundred lines into
+// a bundle that is itself the slowest thing the page loads -- by the time these lines
+// ran, everything the screen was meant to cover had already finished, and fade()
+// removed it about fifty milliseconds later. These two lookups are all that is left:
+// clearLoadingScreen still fades the same two elements out.
+dom.loading = document.getElementById("loading-overlay");
+dom.loadingt = document.getElementById("loading-text");
 
 // The save is a positional format: pipe-separated segments with a sentinel at a
 // fixed index. Segments 0 to 17 hold JSON, 18 is the sentinel, and 19 was added
@@ -770,16 +774,24 @@ const saveMigrations = [
 ];
 
 function migrateSave(globalsSegment, fromVersion) {
+  // Say so on the boot screen. A migration is the one part of loading that can take
+  // real time and that the player has a reason to care about, and until now it
+  // announced itself to the console alone.
+  bootPhase("update");
   let applied = 0;
   for (const migration of saveMigrations) {
     if (fromVersion >= migration.to) continue;
     migration.apply(globalsSegment);
     applied++;
   }
-  if (applied)
+  if (applied) {
     console.info(
       `Applied ${applied} save migration(s) from v${fromVersion} to v${global.ver}.`,
     );
+    // And in the game, where the player will actually see it. The log is restored at
+    // the very end of load(), so this is queued rather than written directly.
+    global.pendingMigrationNotice = { applied, fromVersion };
+  } else bootPhase("restore");
   return applied;
 }
 
@@ -1491,6 +1503,18 @@ function load(dt) {
   // Restore history last: load() empties the log while it rebuilds the world,
   // so anything put back before this point would be wiped again.
   restoreMessageLog();
+  // A migration touched the save. Said here rather than earlier because load() empties
+  // the log while it rebuilds the world, so anything written before this is wiped.
+  if (global.pendingMigrationNotice) {
+    msg(
+      i18n.t("ui.boot.migrationApplied", {
+        from: global.pendingMigrationNotice.fromVersion,
+        to: global.ver,
+      }),
+      "orange",
+    );
+    delete global.pendingMigrationNotice;
+  }
   clearLoadingScreen();
 }
 

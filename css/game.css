@@ -24,6 +24,71 @@ html body {
   line-height: normal;
   text-align: center;
 }
+
+/* The boot screen lives in index.html so it can paint in the very first frame,
+   before a locale file or the 1.1 MB bundle has been fetched. It used to be built in
+   JavaScript at the top of js/core/bootstrap.js, which meant it could not appear
+   until everything it was meant to cover had already downloaded and run.
+
+   The geometry is what bootstrap.js used to set inline: absolutely positioned with
+   no top or left, so its containing block is the viewport and its static position
+   cancels against the body's 8px margin. That measures full-viewport under the body
+   zoom fitGameToViewport applies, which is why it is not switched to fixed
+   positioning or viewport units. */
+#loading-overlay {
+  position: absolute;
+  z-index: 9997;
+  width: 100%;
+  height: 100%;
+  margin: -8px;
+  background-color: #0b1a2b;
+}
+#loading-text {
+  position: absolute;
+  z-index: 9998;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin: -8px;
+  color: #cfe3f5;
+  line-height: normal;
+  text-align: center;
+}
+#loading-title {
+  color: #7fd8ff;
+  font-size: 3em;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 12px rgb(60 160 220 / 45%);
+}
+
+/* One stage is shown at a time, chosen by the phase stamped on the root element.
+   fade() sets display to the empty string when it removes the screen, which restores
+   the flex above rather than overriding it -- that is why the layout is declared
+   here and never inline. */
+#loading-text .boot-line {
+  display: none;
+  color: #8fa9c4;
+  font-size: 1.15em;
+}
+html[data-boot-phase="locales"] #loading-text [data-boot-stage="locales"],
+html[data-boot-phase="game"] #loading-text [data-boot-stage="game"],
+html[data-boot-phase="restore"] #loading-text [data-boot-stage="restore"],
+html[data-boot-phase="update"] #loading-text [data-boot-stage="update"] {
+  display: block;
+}
+
+/* Both languages ship in the markup, because i18n does not exist this early. The one
+   the player is not reading is removed. These rules target the inner spans while the
+   rules above target their containers, so the two never fight. */
+html:not([data-boot-lang="tr"]) #loading-text [lang="tr"],
+html[data-boot-lang="tr"] #loading-text [lang="en"] {
+  display: none;
+}
+
 input:focus {
   outline: none;
 }

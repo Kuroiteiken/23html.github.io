@@ -43,12 +43,50 @@ for (const asset of [
   versionHash.update(fs.readFileSync(path.join(root, asset)));
 }
 const assetVersion = versionHash.digest("hex").slice(0, 12);
+// The boot screen in index.html is markup rather than JavaScript, because it has to
+// paint before the bundle exists -- but i18n does not exist that early either, so its
+// text cannot come through i18n.t(). Both languages are therefore written into the
+// page here, straight out of the locale files, and CSS removes the one the player is
+// not reading. That keeps the project rule intact: the strings still live only in
+// locales/*.json, and nothing is hand-copied into the HTML where it could drift.
+//
+// A token that does not resolve is a hard error rather than a page shipping with
+// "{{boot:...}}" printed across it.
+function fillBootStrings(html) {
+  const messages = {};
+  for (const code of ["en", "tr"]) {
+    messages[code] = JSON.parse(
+      fs.readFileSync(path.join(root, "locales", code + ".json"), "utf8"),
+    );
+  }
+  return html.replace(/\{\{boot:([\w.]+):(\w+)\}\}/g, (match, key, code) => {
+    const value = key
+      .split(".")
+      .reduce((node, part) => (node ? node[part] : undefined), messages[code]);
+    if (typeof value !== "string") {
+      throw new Error(
+        `index.html asks for ${key} in ${code}, which locales/${code}.json does not define.`,
+      );
+    }
+    return value;
+  });
+}
+
 const deployedIndexPath = path.join(output, "index.html");
 const deployedIndex = fs
   .readFileSync(deployedIndexPath, "utf8")
-  .replace("css/game.css", `css/game.css?v=${assetVersion}`)
-  .replace("js/i18n-loader.js", `js/i18n-loader.js?v=${assetVersion}`);
-fs.writeFileSync(deployedIndexPath, deployedIndex, "utf8");
+  // Matched on the attribute rather than the bare filename. String.replace takes the
+  // first occurrence, so a comment or a description that happened to mention the file
+  // earlier in the page would take the version stamp instead of the tag that needs it
+  // -- which is exactly what happened once the boot screen's inline script was added
+  // above them, and it shipped a page whose bundle could never be cache-busted.
+  .replace('href="css/game.css"', `href="css/game.css?v=${assetVersion}"`)
+  .replace(
+    'src="js/i18n-loader.js"',
+    `src="js/i18n-loader.js?v=${assetVersion}"`,
+  );
+const localizedIndex = fillBootStrings(deployedIndex);
+fs.writeFileSync(deployedIndexPath, localizedIndex, "utf8");
 fs.writeFileSync(path.join(output, ".nojekyll"), "", "utf8");
 
 // The asset version is written where the running page can read it back. Every

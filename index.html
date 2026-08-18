@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-boot-phase="locales">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,57 @@
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   </head>
   <body class="noselect">
+    <script>
+      // The loading screen has to be painted before any of the game's own code
+      // exists, so the language it is written in is resolved here. This mirrors the
+      // precedence the locale bootstrap uses exactly: the lang query parameter first, then
+      // the stored preference, then English. Both reads are guarded, because a
+      // profile with storage blocked must still get a readable boot screen.
+      (function resolveBootLanguage() {
+        var codes = ["en", "tr"];
+        var requested = null;
+        var stored = null;
+        try {
+          requested = new URL(window.location.href).searchParams.get("lang");
+        } catch (error) {
+          requested = null;
+        }
+        try {
+          stored = window.localStorage.getItem("proto23.locale");
+        } catch (error) {
+          stored = null;
+        }
+        var code = codes.indexOf(requested) >= 0 ? requested : stored;
+        document.documentElement.dataset.bootLang =
+          codes.indexOf(code) >= 0 ? code : "en";
+      })();
+    </script>
+    <div id="loading-overlay"></div>
+    <div id="loading-text">
+      <strong id="loading-title">
+        <span lang="en"
+          >{{boot:runtime.core.bootstrap.interface.loading_bb8af242:en}}</span
+        ><span lang="tr"
+          >{{boot:runtime.core.bootstrap.interface.loading_bb8af242:tr}}</span
+        >
+      </strong>
+      <div class="boot-line" data-boot-stage="locales">
+        <span lang="en">{{boot:ui.boot.stageLocales:en}}</span
+        ><span lang="tr">{{boot:ui.boot.stageLocales:tr}}</span>
+      </div>
+      <div class="boot-line" data-boot-stage="game">
+        <span lang="en">{{boot:ui.boot.stageGame:en}}</span
+        ><span lang="tr">{{boot:ui.boot.stageGame:tr}}</span>
+      </div>
+      <div class="boot-line" data-boot-stage="restore">
+        <span lang="en">{{boot:ui.boot.stageRestore:en}}</span
+        ><span lang="tr">{{boot:ui.boot.stageRestore:tr}}</span>
+      </div>
+      <div class="boot-line" data-boot-stage="update">
+        <span lang="en">{{boot:ui.boot.stageUpdate:en}}</span
+        ><span lang="tr">{{boot:ui.boot.stageUpdate:tr}}</span>
+      </div>
+    </div>
     <script src="js/i18n-loader.js"></script>
   </body>
 </html>

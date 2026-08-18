@@ -229,6 +229,47 @@ async function main() {
       );
     }
 
+    // The boot screen has to be painted before any of the game's own code runs, which
+    // is the whole reason it moved from bootstrap.js into index.html. Turkish, so the
+    // build-time string injection is exercised on the locale that is not the default.
+    const bootScreen = await runChrome(
+      `${baseUrl}/__test-boot-screen.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(bootScreen.stderr);
+    assertCommonStartup(bootScreen.stdout, port);
+    if (!bootScreen.stdout.includes('data-boot-early-overlay="true"')) {
+      throw new Error(
+        "The loading screen must exist in the markup, before any of the game's code runs.",
+      );
+    }
+    if (!bootScreen.stdout.includes('data-boot-early-phase="locales"')) {
+      throw new Error(
+        "The first boot stage must be on the page from the first frame, or there is nothing for the CSS to show while the locale files download.",
+      );
+    }
+    if (!bootScreen.stdout.includes('data-boot-early-lang="tr"')) {
+      throw new Error(
+        "The boot screen must resolve its language before the game exists, from the URL or the stored preference.",
+      );
+    }
+    if (bootScreen.stdout.includes('data-boot-early-has-token="true"')) {
+      throw new Error(
+        "The boot screen shipped with an unresolved {{boot:...}} token: scripts/build-site.js did not fill it from the locale files.",
+      );
+    }
+    const bootText = bootScreen.stdout.match(/data-boot-early-text="([^"]*)"/);
+    if (!bootText || !bootText[1].trim()) {
+      throw new Error(
+        "The boot screen painted with no visible text; CSS has hidden both languages.",
+      );
+    }
+    if (!bootScreen.stdout.includes('data-boot-screen-gone="true"')) {
+      throw new Error(
+        "The loading screen is still on the page after the game finished loading.",
+      );
+    }
+
     const saveBarLayout = await runChrome(
       `${baseUrl}/__test-save-bar-layout.html?lang=tr`,
       profiles[0],
@@ -431,7 +472,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);
