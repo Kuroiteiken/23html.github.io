@@ -835,11 +835,27 @@ function createSiteServer(options = {}) {
             notice &&
             notice.getBoundingClientRect().top >= 0 &&
             notice.getBoundingClientRect().bottom <= window.innerHeight + 1;
-          // The version is recorded before rendering, so it never repeats.
+          // The version is recorded before rendering, so it never repeats. What is
+          // stored is the version CODE, major * 1000 + point release, because a
+          // decimal would sort 478.10 below 478.9.
           const recorded =
-            localStorage.getItem("proto23.seenversion") === String(global.ver);
+            localStorage.getItem("proto23.seenversion") ===
+            String(global.ver * 1000 + global.subver);
+          // The value this probe wrote was a bare major, which is what every build
+          // before point releases existed stored. It has to be promoted rather than
+          // read as a code, or a returning player is told about every release there
+          // has ever been -- and the notice above proves it was read as v475 and not
+          // as something in the year 475000.
+          const promoted = notice && notice.textContent.includes("475");
 
-          const checks = { shown, localized, singleNeutralButton, fits, recorded };
+          const checks = {
+            shown,
+            localized,
+            singleNeutralButton,
+            fits,
+            recorded,
+            promoted,
+          };
           document.documentElement.dataset.releaseNotesVerified = String(
             Object.values(checks).every(Boolean) && items >= 3,
           );
