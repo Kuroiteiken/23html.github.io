@@ -3727,11 +3727,13 @@
       },
       "knf": {
         "name": "Kelebek",
-        "desc": "Her zaman bıçakların havalı olduğunu düşünürdün. Henüz bıçak işinde tam olarak usta değilsin ama öğreneceksin"
+        "desc": "Her zaman bıçakların havalı olduğunu düşünürdün. Henüz bıçak işinde tam olarak usta değilsin ama öğreneceksin",
+        "tdesc": "Bıçak ustalığı %5 daha hızlı gelişiyor"
       },
       "bll": {
         "name": "Zorba",
-        "desc": "Sen sadece bir Zayıflık olmaktan mezun oldun. Güçlü hissediyorsun! Bir kavgada kendi başına ayakta durmakta hala zorlanıyorsun"
+        "desc": "Sen sadece bir Zayıflık olmaktan mezun oldun. Güçlü hissediyorsun! Bir kavgada kendi başına ayakta durmakta hala zorlanıyorsun",
+        "tdesc": "GÜÇ +2"
       },
       "cvl": {
         "name": "Sivil",
@@ -3743,7 +3745,8 @@
       },
       "fgt": {
         "name": "Dövüşçü",
-        "desc": "Dövüşmeyi sevmeye başlıyorsun! En azından artık hafif tehditlere karşı kendini biraz savunabiliyor ve tek vuruşta ölmüyorsun"
+        "desc": "Dövüşmeyi sevmeye başlıyorsun! En azından artık hafif tehditlere karşı kendini biraz savunabiliyor ve tek vuruşta ölmüyorsun",
+        "tdesc": "Dövüş %5 daha hızlı gelişiyor"
       },
       "pbg": {
         "name": "Zayıf",
@@ -3764,7 +3767,8 @@
       },
       "slp2": {
         "name": "Ağır Uyuyan",
-        "desc": "Dış dünyayı umursamadan derin uyumayı öğrendin. Bedenin her dinlenişinde uyum sağlıyor ve güçleniyor"
+        "desc": "Dış dünyayı umursamadan derin uyumayı öğrendin. Bedenin her dinlenişinde uyum sağlıyor ve güçleniyor",
+        "tdesc": "Uyuma %10 daha hızlı gelişiyor"
       },
       "slp3": {
         "name": "Rüya Gözcüsü",
@@ -3772,7 +3776,8 @@
       },
       "tcvl": {
         "name": "Eğitimli Sivil",
-        "desc": "Gerçek bir dövüşte hala neredeyse işe yaramazsın ama en azından tehlikenin olduğu yerden uzaklaşmayı öğrendin"
+        "desc": "Gerçek bir dövüşte hala neredeyse işe yaramazsın ama en azından tehlikenin olduğu yerden uzaklaşmayı öğrendin",
+        "tdesc": "ÇEV +2"
       },
       "plm": {
         "name": "Diken",
@@ -3789,7 +3794,8 @@
       },
       "eat2": {
         "name": "Aç Çocuk",
-        "desc": "Bütün bu sıkıcı ve kuru yiyecekleri yiyerek biraz kilo almaya başlıyorsun. Yine de şikâyet etmiyorsun; en azından hayattasın"
+        "desc": "Bütün bu sıkıcı ve kuru yiyecekleri yiyerek biraz kilo almaya başlıyorsun. Yine de şikâyet etmiyorsun; en azından hayattasın",
+        "tdesc": "Azami enerji +10"
       },
       "eat4": {
         "name": "Doymuş",
@@ -3806,7 +3812,8 @@
       },
       "rok": {
         "name": "Çaylak",
-        "desc": "Acemi bir dövüşçü. Dövüş sanatlarına karşı yeteneğin var ama henüz o kadar büyük değil"
+        "desc": "Acemi bir dövüşçü. Dövüş sanatlarına karşı yeteneğin var ama henüz o kadar büyük değil",
+        "tdesc": "GÜÇ +2, ÇEV +2"
       },
       "rnr": {
         "name": "Koşucu",
@@ -3829,7 +3836,8 @@
       },
       "und": {
         "name": "Eğitimsiz",
-        "desc": "Kitaplarla pek aranız yok, tüm edebiyat bilginiz basit çocuk hikayeleri ve peri masallarından başka bir şey değil"
+        "desc": "Kitaplarla pek aranız yok, tüm edebiyat bilginiz basit çocuk hikayeleri ve peri masallarından başka bir şey değil",
+        "tdesc": "CAN +5"
       },
       "aaa": {
         "name": "aa",
@@ -3837,7 +3845,8 @@
       },
       "eat3": {
         "name": "Yetersiz beslenmiş",
-        "desc": "Açıkça az yiyorsunuz, ancak yumuşak ve tatsız ekmekten başka bir şey yemek sizi olumlu bir ruh halinde bırakıyor "
+        "desc": "Açıkça az yiyorsunuz, ancak yumuşak ve tatsız ekmekten başka bir şey yemek sizi olumlu bir ruh halinde bırakıyor ",
+        "tdesc": "Azami enerji +15"
       },
       "srd1": {
         "name": "Hevesli Ronin",
@@ -3845,7 +3854,8 @@
       },
       "srd2": {
         "name": "Kılıç Talebesi",
-        "desc": "Kılıç Yolunu henüz yeni öğrenmeye başladınız, bu açıkça gösteriyor. Bırakın bir şeye vurmayı denemek şöyle dursun, kılıcı düzgün bir şekilde kullanmakta hâlâ zorlanıyorsunuz"
+        "desc": "Kılıç Yolunu henüz yeni öğrenmeye başladınız, bu açıkça gösteriyor. Bırakın bir şeye vurmayı denemek şöyle dursun, kılıcı düzgün bir şekilde kullanmakta hâlâ zorlanıyorsunuz",
+        "tdesc": "Kılıç ustalığı %5 daha hızlı gelişiyor"
       },
       "srd3": {
         "name": "Silahşor Yamağı",
@@ -3863,7 +3873,8 @@
       },
       "lnc2": {
         "name": "Köy Milisleri",
-        "desc": "Sırıklı silah kullanırken refleksleriniz biraz daha iyileşti, en azından artık her saniye vuruştan sonra silahınızı bırakmıyorsunuz. Zayıf becerilerinle köylü mızrak grubunun bir parçası olarak düşünülebilirsin"
+        "desc": "Sırıklı silah kullanırken refleksleriniz biraz daha iyileşti, en azından artık her saniye vuruştan sonra silahınızı bırakmıyorsunuz. Zayıf becerilerinle köylü mızrak grubunun bir parçası olarak düşünülebilirsin",
+        "tdesc": "Kargı ustalığı %5 daha hızlı gelişiyor"
       },
       "lnc3": {
         "name": "Falanks Eri",
@@ -3872,7 +3883,8 @@
       },
       "hmr2": {
         "name": "Balyozcu",
-        "desc": "Bir şeyleri çekiçle veya sopayla ezmek basit görünebilir, ancak bunu düzgün ve etkili bir şekilde yapmak biraz beceri gerektirir. Temelleri anlıyorsunuz ama bunun için yeterli güce sahip değilsiniz"
+        "desc": "Bir şeyleri çekiçle veya sopayla ezmek basit görünebilir, ancak bunu düzgün ve etkili bir şekilde yapmak biraz beceri gerektirir. Temelleri anlıyorsunuz ama bunun için yeterli güce sahip değilsiniz",
+        "tdesc": "Çekiç ustalığı %5 daha hızlı gelişiyor"
       },
       "hmr3": {
         "name": "Ağır El",
@@ -3924,7 +3936,8 @@
       },
       "sld2": {
         "name": "Savunmacı",
-        "desc": "Hala açıklıklarla dolu olsanız ve tuttuğunuz kalkanın ağırlığına alışmakta çok zorlansanız bile, karşılaştığınız en yavaş, en aptalca ve en doğrudan saldırıyı yine de yansıtmayı başarabilirsiniz. Bazen"
+        "desc": "Hala açıklıklarla dolu olsanız ve tuttuğunuz kalkanın ağırlığına alışmakta çok zorlansanız bile, karşılaştığınız en yavaş, en aptalca ve en doğrudan saldırıyı yine de yansıtmayı başarabilirsiniz. Bazen",
+        "tdesc": "Kalkan ustalığı %5 daha hızlı gelişiyor"
       },
       "sld3": {
         "name": "Koruyucu",
@@ -3942,7 +3955,8 @@
       },
       "seye2": {
         "name": "Şüpheli Gözler",
-        "desc": "Bunu onayladınız, düşmanın kafasına vurmak savaşlarınızın biraz daha hızlı bitmesini sağlar. Bunu yapan sadece kafa mı?"
+        "desc": "Bunu onayladınız, düşmanın kafasına vurmak savaşlarınızın biraz daha hızlı bitmesini sağlar. Bunu yapan sadece kafa mı?",
+        "tdesc": "Kritik şansı +%0,2"
       },
       "pet1": {
         "name": "Vadi Kedisi",
@@ -3959,7 +3973,8 @@
       },
       "dngs2": {
         "name": "Dikkatli",
-        "desc": "Sizin de öğrendiğiniz gibi hayati organlara darbe almaktan kaçınmak çok daha zordur. Kendi güvenliğinizi garanti altına almak için önlem almanın bir yolunu düşünmelisiniz."
+        "desc": "Sizin de öğrendiğiniz gibi hayati organlara darbe almaktan kaçınmak çok daha zordur. Kendi güvenliğinizi garanti altına almak için önlem almanın bir yolunu düşünmelisiniz.",
+        "tdesc": "Kaçınma %5 daha hızlı gelişiyor"
       },
       "rtr1": {
         "name": "Korkak",
@@ -4016,11 +4031,13 @@
       },
       "dth2": {
         "name": "Çöken",
-        "desc": "Çoğunlukla ağır yaralanmalardan sonra bile ölümden kaçmayı başarırsınız. Belki çok dayanıklı bir vücudun var ya da Tanrılar henüz seni kabul etmeye istekli değil"
+        "desc": "Çoğunlukla ağır yaralanmalardan sonra bile ölümden kaçmayı başarırsınız. Belki çok dayanıklı bir vücudun var ya da Tanrılar henüz seni kabul etmeye istekli değil",
+        "tdesc": "CAN +8"
       },
       "dth3": {
         "name": "Kadavra",
-        "desc": ""
+        "desc": "",
+        "tdesc": "CAN +12"
       },
       "sld5": {
         "name": "Tabya",
@@ -4029,7 +4046,8 @@
       },
       "seye3": {
         "name": "Disektör",
-        "desc": "Düşmanlarınızı bu kadar çok öldürerek, düşmanlarınızın zayıf noktalarını nasıl hızla fark edeceğinizi öğrendiniz. Bu bilgi, yolunuza çıkanları hızlı ve etkili bir şekilde ortadan kaldırmanıza olanak tanıyacaktır."
+        "desc": "Düşmanlarınızı bu kadar çok öldürerek, düşmanlarınızın zayıf noktalarını nasıl hızla fark edeceğinizi öğrendiniz. Bu bilgi, yolunuza çıkanları hızlı ve etkili bir şekilde ortadan kaldırmanıza olanak tanıyacaktır.",
+        "tdesc": "Kritik şansı +%0,4"
       },
       "fmn1": {
         "name": "sıska",
@@ -4037,11 +4055,13 @@
       },
       "fmn2": {
         "name": "Kemik Torbası",
-        "desc": "Açlık günleri vücudunuza zarar verdi, ancak enerjinizi başka yollarla korumayı öğrenmenizi sağladı, bu da gösteriyor. sadece biraz"
+        "desc": "Açlık günleri vücudunuza zarar verdi, ancak enerjinizi başka yollarla korumayı öğrenmenizi sağladı, bu da gösteriyor. sadece biraz",
+        "tdesc": "Enerji %2 daha uzun yetiyor"
       },
       "fmn3": {
         "name": "zayıflamış",
-        "desc": "Dünün zayıflığı bugünün gücüdür. Ya da öyle duydunuz. Kendinizi aç bıraktığınız için o kadar kötü ve zayıf hissetmiyorsunuz ama yine de gurur duyulacak bir şey yok"
+        "desc": "Dünün zayıflığı bugünün gücüdür. Ya da öyle duydunuz. Kendinizi aç bıraktığınız için o kadar kötü ve zayıf hissetmiyorsunuz ama yine de gurur duyulacak bir şey yok",
+        "tdesc": "Enerji %4 daha uzun yetiyor"
       },
       "shpt1": {
         "name": "Üçüncü Sınıf Müşteri",
@@ -4149,7 +4169,8 @@
       },
       "pet3": {
         "name": "Vahşi Çocuk",
-        "desc": "Kedinizle geçirdiğiniz onca zaman, vahşi yırtıcı hayvanların alışkanlıkları ve davranışları hakkında pek çok şey anlamanızı sağladı. Bilginin bir gün faydalı olabileceğini hissediyorsunuz"
+        "desc": "Kedinizle geçirdiğiniz onca zaman, vahşi yırtıcı hayvanların alışkanlıkları ve davranışları hakkında pek çok şey anlamanızı sağladı. Bilginin bir gün faydalı olabileceğini hissediyorsunuz",
+        "tdesc": "Hayvan Dostu %10 daha hızlı gelişiyor"
       },
       "ndthextr": {
         "name": "Güvenli Sığınak",

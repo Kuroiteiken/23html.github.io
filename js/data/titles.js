@@ -36,11 +36,19 @@ ttl.knf = new Title(4);
 ttl.knf.name = i18n.t("content.ttl.knf.name");
 ttl.knf.rar = 2;
 ttl.knf.desc = i18n.t("content.ttl.knf.desc");
+ttl.knf.talent = function () {
+  skl.knfc.p += 0.05;
+};
+ttl.knf.tdesc = i18n.t("content.ttl.knf.tdesc");
 
 ttl.bll = new Title(5);
 ttl.bll.name = i18n.t("content.ttl.bll.name");
 ttl.bll.rar = 2;
 ttl.bll.desc = i18n.t("content.ttl.bll.desc");
+ttl.bll.talent = function () {
+  you.stra += 2;
+};
+ttl.bll.tdesc = i18n.t("content.ttl.bll.tdesc");
 
 ttl.cvl = new Title(6);
 ttl.cvl.name = i18n.t("content.ttl.cvl.name");
@@ -54,6 +62,10 @@ ttl.fgt = new Title(8);
 ttl.fgt.name = i18n.t("content.ttl.fgt.name");
 ttl.fgt.rar = 2;
 ttl.fgt.desc = i18n.t("content.ttl.fgt.desc");
+ttl.fgt.talent = function () {
+  skl.fgt.p += 0.05;
+};
+ttl.fgt.tdesc = i18n.t("content.ttl.fgt.tdesc");
 
 ttl.pbg = new Title(9);
 ttl.pbg.name = i18n.t("content.ttl.pbg.name");
@@ -81,6 +93,10 @@ ttl.slp2 = new Title(13);
 ttl.slp2.name = i18n.t("content.ttl.slp2.name");
 ttl.slp2.rar = 2;
 ttl.slp2.desc = i18n.t("content.ttl.slp2.desc");
+ttl.slp2.talent = function () {
+  skl.sleep.p += 0.1;
+};
+ttl.slp2.tdesc = i18n.t("content.ttl.slp2.tdesc");
 
 ttl.slp3 = new Title(14);
 ttl.slp3.name = i18n.t("content.ttl.slp3.name");
@@ -91,6 +107,10 @@ ttl.tcvl = new Title(15);
 ttl.tcvl.name = i18n.t("content.ttl.tcvl.name");
 ttl.tcvl.rar = 2;
 ttl.tcvl.desc = i18n.t("content.ttl.tcvl.desc");
+ttl.tcvl.talent = function () {
+  you.agla += 2;
+};
+ttl.tcvl.tdesc = i18n.t("content.ttl.tcvl.tdesc");
 
 ttl.plm = new Title(16);
 ttl.plm.name = i18n.t("content.ttl.plm.name");
@@ -116,6 +136,10 @@ ttl.eat2 = new Title(19);
 ttl.eat2.name = i18n.t("content.ttl.eat2.name");
 ttl.eat2.rar = 2;
 ttl.eat2.desc = i18n.t("content.ttl.eat2.desc");
+ttl.eat2.talent = function () {
+  you.sata += 10;
+};
+ttl.eat2.tdesc = i18n.t("content.ttl.eat2.tdesc");
 
 ttl.eat4 = new Title(20);
 ttl.eat4.name = i18n.t("content.ttl.eat4.name");
@@ -140,6 +164,11 @@ ttl.rok = new Title(23);
 ttl.rok.name = i18n.t("content.ttl.rok.name");
 ttl.rok.rar = 3;
 ttl.rok.desc = i18n.t("content.ttl.rok.desc");
+ttl.rok.talent = function () {
+  you.stra += 2;
+  you.agla += 2;
+};
+ttl.rok.tdesc = i18n.t("content.ttl.rok.tdesc");
 
 ttl.rnr = new Title(24);
 ttl.rnr.name = i18n.t("content.ttl.rnr.name");
@@ -177,6 +206,10 @@ ttl.und = new Title(28);
 ttl.und.name = i18n.t("content.ttl.und.name");
 ttl.und.rar = 2;
 ttl.und.desc = i18n.t("content.ttl.und.desc");
+ttl.und.talent = function () {
+  you.hpa += 5;
+};
+ttl.und.tdesc = i18n.t("content.ttl.und.tdesc");
 
 ttl.aaa = new Title(29);
 ttl.aaa.name = i18n.t("content.ttl.aaa.name");
@@ -186,6 +219,10 @@ ttl.eat3 = new Title(30);
 ttl.eat3.name = i18n.t("content.ttl.eat3.name");
 ttl.eat3.rar = 3;
 ttl.eat3.desc = i18n.t("content.ttl.eat3.desc");
+ttl.eat3.talent = function () {
+  you.sata += 15;
+};
+ttl.eat3.tdesc = i18n.t("content.ttl.eat3.tdesc");
 
 ttl.srd1 = new Title(31);
 ttl.srd1.name = i18n.t("content.ttl.srd1.name");
@@ -195,6 +232,10 @@ ttl.srd2 = new Title(32);
 ttl.srd2.name = i18n.t("content.ttl.srd2.name");
 ttl.srd2.rar = 2;
 ttl.srd2.desc = i18n.t("content.ttl.srd2.desc");
+ttl.srd2.talent = function () {
+  skl.srdc.p += 0.05;
+};
+ttl.srd2.tdesc = i18n.t("content.ttl.srd2.tdesc");
 
 ttl.srd3 = new Title(33);
 ttl.srd3.name = i18n.t("content.ttl.srd3.name");
@@ -222,6 +263,10 @@ ttl.lnc2 = new Title(36);
 ttl.lnc2.name = i18n.t("content.ttl.lnc2.name");
 ttl.lnc2.rar = 2;
 ttl.lnc2.desc = i18n.t("content.ttl.lnc2.desc");
+ttl.lnc2.talent = function () {
+  skl.plrmc.p += 0.05;
+};
+ttl.lnc2.tdesc = i18n.t("content.ttl.lnc2.tdesc");
 
 ttl.lnc3 = new Title(37);
 ttl.lnc3.name = i18n.t("content.ttl.lnc3.name");
@@ -236,6 +281,10 @@ ttl.hmr2 = new Title(38);
 ttl.hmr2.name = i18n.t("content.ttl.hmr2.name");
 ttl.hmr2.rar = 2;
 ttl.hmr2.desc = i18n.t("content.ttl.hmr2.desc");
+ttl.hmr2.talent = function () {
+  skl.hmrc.p += 0.05;
+};
+ttl.hmr2.tdesc = i18n.t("content.ttl.hmr2.tdesc");
 
 ttl.hmr3 = new Title(39);
 ttl.hmr3.name = i18n.t("content.ttl.hmr3.name");
@@ -310,6 +359,10 @@ ttl.sld2 = new Title(50);
 ttl.sld2.name = i18n.t("content.ttl.sld2.name");
 ttl.sld2.rar = 2;
 ttl.sld2.desc = i18n.t("content.ttl.sld2.desc");
+ttl.sld2.talent = function () {
+  skl.shdc.p += 0.05;
+};
+ttl.sld2.tdesc = i18n.t("content.ttl.sld2.tdesc");
 
 ttl.sld3 = new Title(51);
 ttl.sld3.name = i18n.t("content.ttl.sld3.name");
@@ -337,6 +390,10 @@ ttl.seye2 = new Title(54);
 ttl.seye2.name = i18n.t("content.ttl.seye2.name");
 ttl.seye2.rar = 2;
 ttl.seye2.desc = i18n.t("content.ttl.seye2.desc");
+ttl.seye2.talent = function () {
+  you.crt += 0.002;
+};
+ttl.seye2.tdesc = i18n.t("content.ttl.seye2.tdesc");
 
 ttl.pet1 = new Title(55);
 ttl.pet1.name = i18n.t("content.ttl.pet1.name");
@@ -359,6 +416,10 @@ ttl.dngs2 = new Title(58);
 ttl.dngs2.name = i18n.t("content.ttl.dngs2.name");
 ttl.dngs2.rar = 2;
 ttl.dngs2.desc = i18n.t("content.ttl.dngs2.desc");
+ttl.dngs2.talent = function () {
+  skl.dngs.p += 0.05;
+};
+ttl.dngs2.tdesc = i18n.t("content.ttl.dngs2.tdesc");
 
 ttl.rtr1 = new Title(59);
 ttl.rtr1.name = i18n.t("content.ttl.rtr1.name");
@@ -432,11 +493,19 @@ ttl.dth2 = new Title(72);
 ttl.dth2.name = i18n.t("content.ttl.dth2.name");
 ttl.dth2.rar = 2;
 ttl.dth2.desc = i18n.t("content.ttl.dth2.desc");
+ttl.dth2.talent = function () {
+  you.hpa += 8;
+};
+ttl.dth2.tdesc = i18n.t("content.ttl.dth2.tdesc");
 
 ttl.dth3 = new Title(73);
 ttl.dth3.name = i18n.t("content.ttl.dth3.name");
 ttl.dth3.rar = 3;
 ttl.dth3.desc = i18n.t("content.ttl.dth3.desc");
+ttl.dth3.talent = function () {
+  you.hpa += 12;
+};
+ttl.dth3.tdesc = i18n.t("content.ttl.dth3.tdesc");
 
 ttl.sld5 = new Title(74);
 ttl.sld5.name = i18n.t("content.ttl.sld5.name");
@@ -451,6 +520,10 @@ ttl.seye3 = new Title(75);
 ttl.seye3.name = i18n.t("content.ttl.seye3.name");
 ttl.seye3.rar = 3;
 ttl.seye3.desc = i18n.t("content.ttl.seye3.desc");
+ttl.seye3.talent = function () {
+  you.crt += 0.004;
+};
+ttl.seye3.tdesc = i18n.t("content.ttl.seye3.tdesc");
 
 ttl.fmn1 = new Title(76);
 ttl.fmn1.name = i18n.t("content.ttl.fmn1.name");
@@ -460,11 +533,19 @@ ttl.fmn2 = new Title(77);
 ttl.fmn2.name = i18n.t("content.ttl.fmn2.name");
 ttl.fmn2.rar = 2;
 ttl.fmn2.desc = i18n.t("content.ttl.fmn2.desc");
+ttl.fmn2.talent = function () {
+  you.mods.sbonus += 0.02;
+};
+ttl.fmn2.tdesc = i18n.t("content.ttl.fmn2.tdesc");
 
 ttl.fmn3 = new Title(78);
 ttl.fmn3.name = i18n.t("content.ttl.fmn3.name");
 ttl.fmn3.rar = 3;
 ttl.fmn3.desc = i18n.t("content.ttl.fmn3.desc");
+ttl.fmn3.talent = function () {
+  you.mods.sbonus += 0.04;
+};
+ttl.fmn3.tdesc = i18n.t("content.ttl.fmn3.tdesc");
 
 ttl.shpt1 = new Title(79);
 ttl.shpt1.name = i18n.t("content.ttl.shpt1.name");
@@ -593,6 +674,10 @@ ttl.pet3 = new Title(105);
 ttl.pet3.name = i18n.t("content.ttl.pet3.name");
 ttl.pet3.rar = 3;
 ttl.pet3.desc = i18n.t("content.ttl.pet3.desc");
+ttl.pet3.talent = function () {
+  skl.pet.p += 0.1;
+};
+ttl.pet3.tdesc = i18n.t("content.ttl.pet3.tdesc");
 
 ttl.ndthextr = new Title(106);
 ttl.ndthextr.name = i18n.t("content.ttl.ndthextr.name");

@@ -3727,11 +3727,13 @@
       },
       "knf": {
         "name": "Butterfly",
-        "desc": "You always thought knives were cool. You aren't nearly precise with your knifework yet, But you will learn"
+        "desc": "You always thought knives were cool. You aren't nearly precise with your knifework yet, But you will learn",
+        "tdesc": "Knife mastery grows 5% faster"
       },
       "bll": {
         "name": "Bully",
-        "desc": "You have graduated from being a mere Weakling. You feel powerful! You still find it difficult to stand your own in a fight"
+        "desc": "You have graduated from being a mere Weakling. You feel powerful! You still find it difficult to stand your own in a fight",
+        "tdesc": "STR +2"
       },
       "cvl": {
         "name": "Civilian",
@@ -3743,7 +3745,8 @@
       },
       "fgt": {
         "name": "Fighter",
-        "desc": "You begin to start liking to fight! At the very least you can now somewhat defend yourself against mild threats and not just die in one hit"
+        "desc": "You begin to start liking to fight! At the very least you can now somewhat defend yourself against mild threats and not just die in one hit",
+        "tdesc": "Fighting grows 5% faster"
       },
       "pbg": {
         "name": "Weakling",
@@ -3764,7 +3767,8 @@
       },
       "slp2": {
         "name": "Heavy Sleeper",
-        "desc": "You learned to sleep very soundly, without any care for the outside world. Your body begins to adapt and grow stronger with every break you take"
+        "desc": "You learned to sleep very soundly, without any care for the outside world. Your body begins to adapt and grow stronger with every break you take",
+        "tdesc": "Sleeping grows 10% faster"
       },
       "slp3": {
         "name": "Dreamwatcher",
@@ -3772,7 +3776,8 @@
       },
       "tcvl": {
         "name": "Trained Civilian",
-        "desc": "You're still nearly useless in a real fight, but you have learned to at least move out of the way of danger"
+        "desc": "You're still nearly useless in a real fight, but you have learned to at least move out of the way of danger",
+        "tdesc": "AGL +2"
       },
       "plm": {
         "name": "Prick",
@@ -3789,7 +3794,8 @@
       },
       "eat2": {
         "name": "Hungry Child",
-        "desc": "You begin to gain some weight eating all this boring and dry food. But you're not complaining, at least you live"
+        "desc": "You begin to gain some weight eating all this boring and dry food. But you're not complaining, at least you live",
+        "tdesc": "Maximum energy +10"
       },
       "eat4": {
         "name": "Satiated",
@@ -3806,7 +3812,8 @@
       },
       "rok": {
         "name": "Rookie",
-        "desc": "A novice fighter. You have a knack for martial arts but it doesn't amount to much yet"
+        "desc": "A novice fighter. You have a knack for martial arts but it doesn't amount to much yet",
+        "tdesc": "STR +2, AGL +2"
       },
       "rnr": {
         "name": "Runner",
@@ -3829,7 +3836,8 @@
       },
       "und": {
         "name": "Uneducated",
-        "desc": "You are not very friendly with books, your entire literature knowledge is nothing but simple kiddie stories and fairy tales"
+        "desc": "You are not very friendly with books, your entire literature knowledge is nothing but simple kiddie stories and fairy tales",
+        "tdesc": "HP +5"
       },
       "aaa": {
         "name": "aaa",
@@ -3837,7 +3845,8 @@
       },
       "eat3": {
         "name": "Malnourished",
-        "desc": "You are clearly undereating, yet, eating something other than bland untasty bread leaves you in a positive mood "
+        "desc": "You are clearly undereating, yet, eating something other than bland untasty bread leaves you in a positive mood ",
+        "tdesc": "Maximum energy +15"
       },
       "srd1": {
         "name": "Aspiring Ronin",
@@ -3845,7 +3854,8 @@
       },
       "srd2": {
         "name": "Sword Trainee",
-        "desc": "You have only just began learning the Way of the Sword, which clearly shows. You still find it hard to wield the sword properly, let alone attempting to hit something with it"
+        "desc": "You have only just began learning the Way of the Sword, which clearly shows. You still find it hard to wield the sword properly, let alone attempting to hit something with it",
+        "tdesc": "Sword mastery grows 5% faster"
       },
       "srd3": {
         "name": "Squire",
@@ -3863,7 +3873,8 @@
       },
       "lnc2": {
         "name": "Village Militia",
-        "desc": "Your reflexes wielding a polearm got slightly better, at the very least you aren't dropping your weapon after every second swing anymore. You could be considered a part of a peasant spear group with your measly skills"
+        "desc": "Your reflexes wielding a polearm got slightly better, at the very least you aren't dropping your weapon after every second swing anymore. You could be considered a part of a peasant spear group with your measly skills",
+        "tdesc": "Polearm mastery grows 5% faster"
       },
       "lnc3": {
         "name": "Phlanger",
@@ -3872,7 +3883,8 @@
       },
       "hmr2": {
         "name": "Basher",
-        "desc": "Squashing things with a hammer or a club may seem simple, but it does require some skill to do so properly and effectively. You understand the basics but lack the strength for it, though"
+        "desc": "Squashing things with a hammer or a club may seem simple, but it does require some skill to do so properly and effectively. You understand the basics but lack the strength for it, though",
+        "tdesc": "Hammer mastery grows 5% faster"
       },
       "hmr3": {
         "name": "Heavy Hand",
@@ -3924,7 +3936,8 @@
       },
       "sld2": {
         "name": "Defender",
-        "desc": "Even if you're still full of openings and have a terrible time adjusting to the weight of a shield you're holding, you can still manage to reflect the slowest, stupidest and the most direct attack you're facing. Sometimes"
+        "desc": "Even if you're still full of openings and have a terrible time adjusting to the weight of a shield you're holding, you can still manage to reflect the slowest, stupidest and the most direct attack you're facing. Sometimes",
+        "tdesc": "Shield mastery grows 5% faster"
       },
       "sld3": {
         "name": "Protector",
@@ -3942,7 +3955,8 @@
       },
       "seye2": {
         "name": "Suspicious Eyes",
-        "desc": "You have confirmed it, bashing the enemy on the head makes your battles end slightly quicker. Is it only the head that does that?"
+        "desc": "You have confirmed it, bashing the enemy on the head makes your battles end slightly quicker. Is it only the head that does that?",
+        "tdesc": "Critical chance +0.2%"
       },
       "pet1": {
         "name": "Valley Cat",
@@ -3959,7 +3973,8 @@
       },
       "dngs2": {
         "name": "Careful",
-        "desc": "Avoiding hits to the vitals is much harder, as you found out. You must think of a way to take precautions to guarantee your own safety"
+        "desc": "Avoiding hits to the vitals is much harder, as you found out. You must think of a way to take precautions to guarantee your own safety",
+        "tdesc": "Dodging grows 5% faster"
       },
       "rtr1": {
         "name": "Coward",
@@ -4016,11 +4031,13 @@
       },
       "dth2": {
         "name": "Decadent",
-        "desc": "Often you manage to avoid death even after being heavily injured. Perhaps you have a very resilient body, or Heavens aren't willing to accept you yet"
+        "desc": "Often you manage to avoid death even after being heavily injured. Perhaps you have a very resilient body, or Heavens aren't willing to accept you yet",
+        "tdesc": "HP +8"
       },
       "dth3": {
         "name": "Cadaver",
-        "desc": ""
+        "desc": "",
+        "tdesc": "HP +12"
       },
       "sld5": {
         "name": "Bastion",
@@ -4029,7 +4046,8 @@
       },
       "seye3": {
         "name": "Dissector",
-        "desc": "By slaying foes as much as you did, you learned how to quickly notice your enemies' weak points. This knowledge will allow you quickly and effectively dispose of those standing in your way"
+        "desc": "By slaying foes as much as you did, you learned how to quickly notice your enemies' weak points. This knowledge will allow you quickly and effectively dispose of those standing in your way",
+        "tdesc": "Critical chance +0.4%"
       },
       "fmn1": {
         "name": "Scrawny",
@@ -4037,11 +4055,13 @@
       },
       "fmn2": {
         "name": "Bag Of Bones",
-        "desc": "Days of hunger took a toll on your body, yet made you learn to conserve your energy by other means, which shows. Just a bit"
+        "desc": "Days of hunger took a toll on your body, yet made you learn to conserve your energy by other means, which shows. Just a bit",
+        "tdesc": "Energy goes 2% further"
       },
       "fmn3": {
         "name": "Emaciated",
-        "desc": "Yesterdays's weakness is today's strength. Or so you've heard. You are not feeling as awful and weak by starving yourself, but there's still nothing to be proud of"
+        "desc": "Yesterdays's weakness is today's strength. Or so you've heard. You are not feeling as awful and weak by starving yourself, but there's still nothing to be proud of",
+        "tdesc": "Energy goes 4% further"
       },
       "shpt1": {
         "name": "Third-Rate Shopper",
@@ -4149,7 +4169,8 @@
       },
       "pet3": {
         "name": "Wild Kid",
-        "desc": "All that time you spent with your cat made you understand a whole lot about the habits and behaviour of vicious predators. You feel that knowledge might prove to be useful one day"
+        "desc": "All that time you spent with your cat made you understand a whole lot about the habits and behaviour of vicious predators. You feel that knowledge might prove to be useful one day",
+        "tdesc": "Animal Friend grows 10% faster"
       },
       "ndthextr": {
         "name": "Safehouse",
