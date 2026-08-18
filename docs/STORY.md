@@ -263,7 +263,7 @@ connections.
 | Asset                   | Amount             | State                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                                                                                                                                                                              |
-| **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area.                                                                                                                                                         |
+| **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. `lrck` is now the false wall in the western corridor and `ngtmr1` is the nightmare. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`, all five of them running entirely on constructor defaults — plus `lsprt` and `kksh`, statted but belonging to no area.                                   |
 | **Damp cellar**         | 1 area             | **Finished.** Reached from the marketplace as the near end of the missing-chisels thread. It had never been initialised once, and could not have spawned anything if it had been: neither population entry declared a spawn weight.                                                                                                                                                                                                                                                        |
 | **Marketplace sector**  | 1 sector           | **Finished.** Its table had been written and commented out, leaving seven scenes unsearchable; the village centre and the market now turn up small change and the things nobody would buy.                                                                                                                                                                                                                                                                                                 |
 | **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                                                                                                                                                                                      |
@@ -578,6 +578,46 @@ What the player takes away is a clue rather than a reward: the old man's own lis
 his cellar, then the family two doors down, then the houses by the well. The joiner's is
 the fourth, and the woman at the next stall has been saying for three weeks that the
 well is coming up cloudy. Four points, and the player is left to put them together.
+
+### The other end of the same thread
+
+The boy's errand answers itself two chapters later, underground, and neither half was
+written to be a fetch quest.
+
+`creature.lrck`, the Locked Rock, is a false wall. That is not an invention: its
+description has always said it closes off paths by mimicking a wall and that its fighting
+prowess is close to zero. What it did not have was an area, a scene, a drop, a single
+resistance, or any of the fields that decide what breaking it feels like — and it had
+9000 health behind an attack it never makes, which in the corridor it belongs to is
+thousands of rounds of no risk for nothing. The health is the slab's thickness now, and
+the not-fighting is left exactly as it was authored.
+
+Its resistances were pointing the wrong way round. `cls` is [blunt, edge, pierce] and a
+higher number turns more aside, so [90, 120, 60] described a rock that shrugged off
+hammers better than spears. Reversed, the encounter teaches the damage-class system
+without a word of explanation: a maul goes through the stone, an edge skates off it, a
+point finds nothing to open. Nobody is locked out, because the minimum-landed-damage
+floor means the wrong weapon is slow rather than useless.
+
+It stands in `chss.cata17`, the Stone Plate, which was a named piece of masonry with no
+mechanic attached to it. And it does not present itself to anyone walking past. The gate
+is `sector.cata1.data.gets[3]`, the scout find that puts a chisel handle out of a heap of
+bone and rag into the player's hands — so the idea that somebody carried tools down here
+arrives before the slab is worth looking at twice.
+
+What is behind it is the payoff for the cellar. The passage was cut: short overlapping
+strokes, all running one way, the work of somebody one-handed in a space too tight to
+swing. A chisel is lying in the spoil, snapped a third of the way down the shank, a
+village joiner's stamp still on the flat. Nine went missing out of a cellar that was
+locked and had not been forced.
+
+The two marks in these tunnels must not be confused, and the code has a test that says
+so. `threeAndAcross` is a hunter's route mark, cut deep by someone with time and a good
+blade, with the broken tip of a good sword under it — that is the Dein thread. These are
+a working man's chisel strokes. Something came up through the wall at the end of the
+catacombs from the far side; these passages were opened from this side, recently, with
+tools made in the village. Two different things have been working down here, and only one
+of them is dead. The game does not say who the other one is.
 
 ### Step 4 — East, and Dein
 

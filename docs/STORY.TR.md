@@ -260,14 +260,14 @@ yaratık türü, oyuncunun bir kez okuyup bir daha bakamadığı diyalogda öğr
 
 Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları eksik.
 
-| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                                                                         |
-| ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                                                        |
-| **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — artı statlı ama hiçbir alana ait olmayan `lrck`, `lsprt`, `kksh` ve `ngtmr1`.                                    |
-| **Rutubetli mahzen**   | 1 alan               | **Tamamlandı.** Kayıp keskiler ipinin yakın ucu olarak pazardan ulaşılıyor. Bir kez bile başlatılmamıştı ve başlatılsa da hiçbir şey doğuramazdı: iki popülasyon girdisinin hiçbiri doğma ağırlığı bildirmiyordu.                                                                                                                                             |
-| **Pazar yeri sektörü** | 1 sektör             | **Tamamlandı.** Tablosu yazılmış ve yoruma alınmıştı, yedi sahne aranamaz kalmıştı; köy merkezi ile pazar artık bozuk para ve kimsenin almayacağı şeyleri çıkarıyor.                                                                                                                                                                                          |
-| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                                                                |
-| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, ~35 silah ve yaklaşık 150 yiyecek dâhil. On dört kalkanın üçü artık dojo merdiveninden geliyor; Hoplit, Şövalye ve Dehşet kalkanları nadir diye listelenmiş ama hiç statı olmayan taslaklardı, yani 35. seviye ödülü boş elden fazla korumuyordu. |
+| Varlık                 | Miktar               | Durum                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                                                                                                                         |
+| **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. `lrck` artık batı koridorundaki yalancı duvar, `ngtmr1` de kâbus. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`; beşi de tamamen yapıcı varsayılanlarıyla çalışıyor — artı statlı ama hiçbir alana ait olmayan `lsprt` ve `kksh`. |
+| **Rutubetli mahzen**   | 1 alan               | **Tamamlandı.** Kayıp keskiler ipinin yakın ucu olarak pazardan ulaşılıyor. Bir kez bile başlatılmamıştı ve başlatılsa da hiçbir şey doğuramazdı: iki popülasyon girdisinin hiçbiri doğma ağırlığı bildirmiyordu.                                                                                                                                                                                                              |
+| **Pazar yeri sektörü** | 1 sektör             | **Tamamlandı.** Tablosu yazılmış ve yoruma alınmıştı, yedi sahne aranamaz kalmıştı; köy merkezi ile pazar artık bozuk para ve kimsenin almayacağı şeyleri çıkarıyor.                                                                                                                                                                                                                                                           |
+| **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                                                                                                                                 |
+| **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, ~35 silah ve yaklaşık 150 yiyecek dâhil. On dört kalkanın üçü artık dojo merdiveninden geliyor; Hoplit, Şövalye ve Dehşet kalkanları nadir diye listelenmiş ama hiç statı olmayan taslaklardı, yani 35. seviye ödülü boş elden fazla korumuyordu.                                                                  |
 
 Bu kümelerin birbirine oturması tesadüf okumakta zorlanacağımız kadar düzenli:
 karanlık 26 odalı bir zindan, hiçbir yerde satılmayan bir meşale, kilidi olmayan
@@ -570,6 +570,44 @@ Oyuncunun oradan aldığı şey ödül değil, ipucu: yaşlı adamın kendi list
 sonra iki kapı öteki aile, sonra kuyunun yanındaki evlerdi. Marangozun bodrumu
 dördüncüsü, ve yan tezgâhtaki kadın üç haftadır kuyunun bulanık geldiğini söylüyor. Dört
 nokta, ve bunları birleştirmek oyuncuya bırakılıyor.
+
+### Aynı ipin öteki ucu
+
+Çocuğun ayak işi kendi cevabını iki bölüm sonra, yerin altında veriyor, ve iki yarısı da
+getir-götür görevi olsun diye yazılmadı.
+
+`creature.lrck`, Kilitli Kaya, yalancı bir duvar. Bu bir icat değil: tarifi baştan beri
+yolları duvarı taklit ederek kapattığını ve dövüş kabiliyetinin sıfıra yakın olduğunu
+söylüyor. Sahip olmadığı şeyler alan, sahne, ganimet, tek bir direnç ve onu kırmanın nasıl
+hissettireceğine karar veren alanlardı — ve hiç yapmadığı bir saldırının arkasında 9000
+canı vardı; ait olduğu koridorda bu, bedelsiz ve karşılıksız binlerce tur demek. Artık can
+levhanın kalınlığı, tur almaması da tam yazıldığı gibi bırakıldı.
+
+Dirençleri ters yöne bakıyordu. `cls` [küt, keskin, delici] ve büyük sayı daha çok
+savuşturuyor; yani [90, 120, 60] çekiçleri mızraklardan daha iyi savuşturan bir kaya
+anlatıyordu. Ters çevrilince karşılaşma hasar-sınıfı sistemini tek kelime açıklamadan
+öğretiyor: balyoz taştan geçiyor, keskin kenar sıyırıp gidiyor, uç açacak bir şey
+bulamıyor. Kimse kilitlenmiyor, çünkü en-az-inen-hasar tabanı yanlış silahı işe yaramaz
+değil yavaş yapıyor.
+
+`chss.cata17`, yani Taş Levha'da duruyor; orası adı konmuş ama hiçbir mekaniği olmayan
+bir yontu parçasıydı. Ve önünden geçen herkese kendini sunmuyor. Kapı
+`sector.cata1.data.gets[3]`: kemik ve bez yığınından bir keski sapını oyuncunun eline
+veren keşif bulgusu. Yani birinin buraya alet indirdiği fikri, levhaya ikinci kez bakmaya
+değmeden önce geliyor.
+
+Arkasındaki şey bodrumun karşılığı. Geçit kesilmiş: kısa, üst üste binen, hepsi aynı yöne
+giden darbeler; savurmaya yer olmayan bir darlıkta tek elle çalışan birinin işi. Molozda
+bir keski duruyor; sapın üçte birinde kırılmış, düz yüzünde hâlâ bir köy marangozunun
+damgası var. Kilitli ve zorlanmamış bir bodrumdan dokuz tane kaybolmuştu.
+
+Bu tünellerdeki iki işaret birbirine karıştırılmamalı, ve kodda bunu söyleyen bir test
+var. `threeAndAcross` bir avcı rota işareti; vakti ve iyi bir bıçağı olan biri tarafından
+derin kesilmiş, altında iyi bir kılıcın kırık ucu duruyor — o, Dein ipi. Bunlar ise
+çalışan bir adamın keski darbeleri. Katakompların sonundaki duvardan bir şey öte taraftan
+yukarı geldi; bu geçitler ise bu taraftan, kısa süre önce, köyde yapılmış aletlerle
+açıldı. Aşağıda iki ayrı şey çalışıyor ve yalnızca biri ölü. Oyun ötekinin kim olduğunu
+söylemiyor.
 
 ### Adım 4 — Doğu ve Dein
 
