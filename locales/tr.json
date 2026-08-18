@@ -311,6 +311,10 @@
       "v478_26": [
         "İngilizce deyimi birebir taşıyan yedi madencilik metni yeniden yazıldı.",
         "Maden artık bir mumun yeteceğini söylüyor; çünkü mum, ellerini kazma için serbest bırakıyor."
+      ],
+      "v478_27": [
+        "Bir şey seninle dövüşürken araştırmaya ya da koşmaya başlayamıyorsun. Önce dövüşü bitir ya da odadan çık.",
+        "Madenciliğin 3, 6, 10 ve 15. seviyelerinde avantajları var — bunları alan ilk yetenek."
       ]
     },
     "lore": {
@@ -5440,7 +5444,8 @@
           "new_item_obtained": "Yeni eşya elde edildi: <span style=\"color:coral\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "item_acquired": "Eşya alındı: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "furniture_acquired": "Mobilya elde edildi: <span style=\"color:orange\">\"{furniture}\"</span>",
-          "find_your_way_back": "Yolunu bul ve geri dön"
+          "find_your_way_back": "Yolunu bul ve geri dön",
+          "not_while_something_is_fighting_you": "Bir şey seninle dövüşürken olmaz. Bitir, ya da odadan çık."
         }
       }
     },

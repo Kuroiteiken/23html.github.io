@@ -712,10 +712,28 @@ function renderAct(a) {
 function refreshAct(e, a) {
   e.style.color = "inherit";
   if (a.cond(false) !== true) e.style.color = "grey";
+  // Nothing starts while something is trying to kill you. Greyed here as well as
+  // refused in activateAct, so the bar reads as the truth rather than looking available
+  // and then declining.
+  if (global.flags.btl === true) e.style.color = "grey";
   if (a.active === true) e.style.color = "lime";
 }
 
 function activateAct(actn) {
+  // Searching a room, or running through it, while a creature is mid-swing at you. The
+  // actions each carry their own `cond`, and none of them knew about combat, so a fight
+  // was no obstacle to starting a search -- and the search then ran in parallel with it.
+  // One central refusal rather than a condition added to every action, because the rule
+  // is about the game's state and not about any particular action.
+  if (global.flags.btl === true) {
+    msg(
+      i18n.t(
+        "runtime.ui.interface.dialogue.not_while_something_is_fighting_you",
+      ),
+      "grey",
+    );
+    return;
+  }
   global.current_a.deactivate();
   actn.activate();
   global.current_a = actn;
@@ -3317,6 +3335,11 @@ const releaseNotes = [
     major: 478,
     minor: 26,
     read: () => i18n.get("ui.releaseNotes.v478_26"),
+  },
+  {
+    major: 478,
+    minor: 27,
+    read: () => i18n.get("ui.releaseNotes.v478_27"),
   },
 ];
 

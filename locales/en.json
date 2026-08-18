@@ -311,6 +311,10 @@
       "v478_26": [
         "Rewrote seven Turkish mining lines that were carrying English idiom word for word.",
         "The mine now tells you a candle is enough, since a candle leaves your hands free for the pickaxe."
+      ],
+      "v478_27": [
+        "You cannot start searching or running while something is fighting you. Finish the fight or leave the room first.",
+        "Mining has advantages at levels 3, 6, 10 and 15 — the first skill to get them."
       ]
     },
     "lore": {
@@ -5436,7 +5440,8 @@
           "new_item_obtained": "New item obtained: <span style=\"color:coral\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "item_acquired": "Item acquired: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "furniture_acquired": "Furniture acquired: <span style=\"color:orange\">\"{furniture}\"</span>",
-          "find_your_way_back": "Find your way back"
+          "find_your_way_back": "Find your way back",
+          "not_while_something_is_fighting_you": "Not while something is fighting you. Finish it, or get out of the room."
         }
       }
     },
