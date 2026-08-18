@@ -242,6 +242,13 @@ nervous man at the market). These are the hooks already sitting in the sources:
 
 ## Smaller things worth not losing
 
+- **The message board's statue encounter still only looks in the inventory.** The four
+  statues are furniture now, and `chss.mbrd` scans `inv` inside a `for` loop whose body
+  _is_ the encounter, so widening it to include a placed one means restructuring the
+  loop rather than changing a condition. A statue standing in the house does not
+  currently count towards the girl with emerald green eyes; carrying one does. Xiao
+  Xiao already accepts either.
+
 - **`chss.bsmnthm1.data.gets` has two entries but the third scout result writes
   `gets[2]`,** so that find is never latched as already taken.
 - **`rnk` above 9 gets no rank drop.** `ar = ((rnk - 1) / 3) << 0` indexes

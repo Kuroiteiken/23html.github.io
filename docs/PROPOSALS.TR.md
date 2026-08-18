@@ -234,6 +234,12 @@ gergin adam). Kaynaklarda hazır duran kancalar şunlar:
 
 ## Kaybetmemek için küçük notlar
 
+- **Mesaj panosundaki heykel karşılaşması hâlâ yalnızca envantere bakıyor.** Dört heykel
+  artık mobilya, ve `chss.mbrd` `inv`'i gövdesi karşılaşmanın _kendisi_ olan bir `for`
+  döngüsü içinde tarıyor; yerleştirilmiş olanı da kapsaması için koşulu değiştirmek
+  yetmiyor, döngünün yapısını değiştirmek gerekiyor. Evde duran bir heykel şu an zümrüt
+  yeşili gözlü kız için sayılmıyor, taşınan sayılıyor. Xiao Xiao ikisini de kabul ediyor.
+
 - **`chss.bsmnthm1.data.gets`** iki girdi taşıyor ama üçüncü keşif sonucu `gets[2]`
   yazıyor; o buluş "alındı" olarak hiç kilitlenmiyor.
 - **Rütbe 9'un üstü rütbe düşmesi almıyor.** `ar = ((rnk - 1) / 3) << 0`,

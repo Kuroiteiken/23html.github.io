@@ -4522,10 +4522,12 @@ chss.xpgdqt1.sl = () => {
     ),
     true,
   );
-  const dl1 = findbyid(inv, acc.wdl1.id);
-  const dl2 = findbyid(inv, acc.sdl1.id);
-  const dl3 = findbyid(inv, acc.bdl1.id);
-  const dl4 = findbyid(inv, acc.gdl1.id);
+  const shownStatue = (carried, placed) =>
+    findbyid(inv, carried.id) || (scanbyid(furn, placed.id) ? carried : null);
+  const dl1 = shownStatue(acc.wdl1, furniture.wdl1);
+  const dl2 = shownStatue(acc.sdl1, furniture.sdl1);
+  const dl3 = shownStatue(acc.bdl1, furniture.bdl1);
+  const dl4 = shownStatue(acc.gdl1, furniture.gdl1);
   if (dl1) {
     chs(
       i18n.t(

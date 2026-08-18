@@ -1617,14 +1617,16 @@ acc.sdl1.desc =
   i18n.t("content.acc.sdl1.desc") +
   dom.dseparator +
   i18n.t("content.acc.sdl1.bonus");
-acc.sdl1.slot = 8;
-acc.sdl1.stype = 3;
-acc.sdl1.oneq = function () {
-  you.caff[0] += 5;
+acc.sdl1.stype = 4;
+acc.sdl1.amount = 0;
+acc.sdl1.isf = true;
+acc.sdl1.parent = furniture.sdl1;
+acc.sdl1.use = function () {
+  const f = giveFurniture(furniture.sdl1);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
 };
-acc.sdl1.onuneq = function () {
-  you.caff[0] -= 5;
-};
+
 acc.sdl1.onGet = function () {
   if (acc.bdl1.have && acc.wdl1.have) {
     giveRcp(rcp.gdl1);
@@ -1703,16 +1705,16 @@ acc.wdl1.desc =
   dom.dseparator +
   i18n.t("content.acc.wdl1.bonus");
 acc.wdl1.ccls = [5, 5, 5];
-acc.wdl1.slot = 8;
-acc.wdl1.stype = 3;
-acc.wdl1.oneq = function () {
-  for (let afn = 0; afn < this.ccls.length; afn++)
-    you.ccls[afn] += this.ccls[afn];
+acc.wdl1.stype = 4;
+acc.wdl1.amount = 0;
+acc.wdl1.isf = true;
+acc.wdl1.parent = furniture.wdl1;
+acc.wdl1.use = function () {
+  const f = giveFurniture(furniture.wdl1);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
 };
-acc.wdl1.onuneq = function () {
-  for (let afn = 0; afn < this.ccls.length; afn++)
-    you.ccls[afn] -= this.ccls[afn];
-};
+
 acc.wdl1.onGet = function () {
   if (acc.sdl1.have && acc.bdl1.have) {
     giveRcp(rcp.gdl1);
@@ -1728,23 +1730,17 @@ acc.gdl1.desc =
   dom.dseparator +
   i18n.t("content.acc.gdl1.bonus");
 acc.gdl1.ccls = [4, 4, 4];
-acc.gdl1.slot = 8;
-acc.gdl1.stype = 3;
+acc.gdl1.stype = 4;
+acc.gdl1.amount = 0;
+acc.gdl1.isf = true;
+acc.gdl1.parent = furniture.gdl1;
+acc.gdl1.use = function () {
+  const f = giveFurniture(furniture.gdl1);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
+};
+
 acc.gdl1.rar = 2;
-acc.gdl1.oneq = function () {
-  you.caff[0] += 3;
-  you.caff[6] += 2;
-  for (let afn = 0; afn < this.ccls.length; afn++)
-    you.ccls[afn] += this.ccls[afn];
-  you.cmaff[3] += 6;
-};
-acc.gdl1.onuneq = function () {
-  you.caff[0] -= 3;
-  you.caff[6] -= 2;
-  for (let afn = 0; afn < this.ccls.length; afn++)
-    you.ccls[afn] -= this.ccls[afn];
-  you.cmaff[3] -= 6;
-};
 
 acc.rnsn = new Eqp();
 acc.rnsn.id = 40038;
@@ -1774,16 +1770,16 @@ acc.bdl1.desc =
   i18n.t("content.acc.bdl1.desc") +
   dom.dseparator +
   i18n.t("content.acc.bdl1.bonus");
-acc.bdl1.slot = 8;
-acc.bdl1.stype = 3;
-acc.bdl1.oneq = function () {
-  you.caff[6] += 5;
-  you.cmaff[3] += 5;
+acc.bdl1.stype = 4;
+acc.bdl1.amount = 0;
+acc.bdl1.isf = true;
+acc.bdl1.parent = furniture.bdl1;
+acc.bdl1.use = function () {
+  const f = giveFurniture(furniture.bdl1);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
 };
-acc.bdl1.onuneq = function () {
-  you.caff[6] -= 5;
-  you.cmaff[3] -= 5;
-};
+
 acc.bdl1.onGet = function () {
   if (acc.sdl1.have && acc.wdl1.have) {
     giveRcp(rcp.gdl1);
