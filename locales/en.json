@@ -245,6 +245,9 @@
       "v478_11": [
         "The smith sells. Shields mostly, which nobody in the village stocked before, plus coal and scrap for the forge.",
         "Twelve of the game’s seventeen shields had no source anywhere. The light ones are on his counter now."
+      ],
+      "v478_12": [
+        "The smith no longer sells coins. A Quarter cost 16 on his counter and gives 25 when you use it, which was free money for anyone who noticed."
       ]
     },
     "lore": {

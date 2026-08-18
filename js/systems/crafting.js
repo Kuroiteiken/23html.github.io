@@ -1291,6 +1291,11 @@ vendor.gens1.extra = function () {
 // item.coal1 is in the list because it is the one thing in the game with no source at
 // all -- not a vendor, not a drop, not a recipe -- while its own description says it
 // burns for a very long time and the fireplace already accepts it as fuel.
+//
+// No coins on this shelf. item.cq shipped here for one release because its description
+// calls it copper that poor smiths melt down for tools -- but using one gives 25 wealth
+// and it was priced at 12, so it was an infinite money press. scripts/check-economy.js
+// now fails any vendor line that sells a wealth-paying item below face value.
 vendor.smith = new Vendor();
 vendor.smith.name = i18n.t("content.vendor.smith.name");
 vendor.smith.time = vendor.smith.timeorig = 4;
@@ -1307,7 +1312,6 @@ vendor.smith.items = [
   { item: eqp.gnt, p: 95, c: 0.45, min: 1, max: 2 },
   { item: eqp.hkgd, p: 240, c: 0.2, min: 1, max: 1 },
   { item: item.coal1, p: 60, c: 0.7, min: 2, max: 6 },
-  { item: item.cq, p: 12, c: 0.8, min: 4, max: 20 },
 ];
 
 vendor.pha1 = new Vendor();
