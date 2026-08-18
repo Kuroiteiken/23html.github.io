@@ -1045,11 +1045,36 @@ creature.lsprt.atype = 1;
 creature.lsprt.str_r = 5;
 creature.lsprt.agl_r = 13;
 creature.lsprt.spd_r = 2;
+// The same slime table the scarecrow had, for the same copy-paste reason. A thing that
+// lives inside an oil lamp leaves a lamp behind.
 creature.lsprt.drop = [
-  { item: item.watr, chance: 0.03 },
-  { item: item.slm, chance: 0.06 },
-  { item: item.jll, chance: 0.02 },
+  { item: item.cndl, chance: 0.4, min: 1, max: 3 },
+  { item: wpn.trch, chance: 0.15 },
+  { item: item.coal1, chance: 0.2, min: 1, max: 2 },
 ];
+// Phantom, not Undead: it was never alive. Note the constructor's onDeath decrements
+// global.spirits for type 4 rather than incrementing it, which is the existing contract
+// for this kind and is left alone.
+creature.lsprt.type = 4;
+creature.lsprt.pts = 16;
+// Its description is its design: not sinister by nature, and it enjoys playing pranks.
+// So it does not fight so much as put your light out -- which in a mine is the whole
+// threat, and it costs the player a torch rather than health. The rest of the time it is
+// a weak nuisance. Sinking the light through the torch's own durability means the
+// existing degrade message fires and nothing new has to know about darkness.
+creature.lsprt.battle_ai = function (x, y) {
+  const lamp = you.eqp[1];
+  if (random() <= 0.3 && lamp && lamp.dp > 0 && you.mods.light > 0) {
+    lamp.dp = 0;
+    msg(
+      i18n.t("runtime.data.creatures.dialogue.spirit_snuffs_the_light"),
+      "darkgrey",
+    );
+    if (lamp.onDegrade) lamp.onDegrade();
+    return 0;
+  }
+  return attack(x, y);
+};
 creature.lsprt.rnk = 10;
 
 // The thing at the end of the corridor, and the proof of what is wrong: this

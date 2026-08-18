@@ -295,6 +295,12 @@
       "v478_22": [
         "Galerinin altındaki kat, su içinde duruyor. Aşağı inen kuyu yarı dolu ve basamağı yalnızca eğitimli bir madenci okuyabilir; yüzü işle ve bir madenci ol.",
         "O sudan biraz avucuna al ve çökmesini bekle. İçinden çıkanı daha önce gördün — köy kuyusunun taş ağzında."
+      ],
+      "v478_23": [
+        "Madenin dibi. Kuyudan aşağı halatla inilir — halat, lamba yağı ve tebeşir; on dört ay önce bir avcının aldığı şeyin tam kendisi.",
+        "Aşağıdaki izleri oku. O taşta iki el çalışmış ve yalnızca biri kesiyordu.",
+        "Derin galerilerde Lamba Ruhları yaşıyor. Dövüşmekten çok ışığını söndürüyorlar.",
+        "Demir cevheri — oyundaki ilk cevher; ve demirci artık stoğunu bakkal kadar sık yeniliyor."
       ]
     },
     "lore": {
@@ -3296,6 +3302,10 @@
       "jnlbk": {
         "name": "\"Boş Günlük\"",
         "desc": "Mürekkep lekesi değmemiş, kar kadar temiz ve tozlu eski bir cilt. Sanki sihirle arındırılmış. Ona bakınca karşılaşmalarını ve maceraların için önemli bulduğun her şeyi kaydetme isteği duyuyorsun{separator}<span style=\"color:lime\">Günlüğün kilidini açar</span>"
+      },
+      "iron1": {
+        "name": "Demir Cevheri",
+        "desc": "Pas renginde, göründüğünden ağır bir taş; vurulan yerinde metalik bir damar var. Ocağı olan biri için bir değeri var"
       }
     },
     "quest": {
@@ -4732,6 +4742,9 @@
       },
       "mine2": {
         "name": "Su basmış kat"
+      },
+      "mine3": {
+        "name": "Derin kesit"
       }
     },
     "lore": {
@@ -4862,6 +4875,10 @@
       "sameWater": {
         "name": "Maden ile kuyu aynı su",
         "desc": "Madenin alt katındaki durgun su gri, ve köy kuyusunun kovada dibe çöktürdüğü aynı ince taşla gri. Maden tarlaların yukarısında, tarlalar da kuyunun yukarısında. Yıllardır burada kömür kesen olmadı; yani bu suya taş öğüten şey bunu şimdi yapıyor, ve köydeki herkes üç haftadır onu içiyor."
+      },
+      "theHandWasHis": {
+        "name": "El avcınınmış",
+        "desc": "Madenin dibindeki kesikler dörtgen, sıralı ve kendinden emin; yanlarında göz hizasında, dönüşlerini numaralayan bir elin tebeşir işaretleri var. Bu, halat, lamba yağı ve bir kutu tebeşir alıp bir tezgâhtara bunu unutması için para ödeyen adam. Dein burada kaybolmadı ve kaçmıyordu; çalışıyordu — sistemli şekilde, bir şeye doğru kendi yolunu kesiyordu. Aşağıdaki öteki izler onun değil, ve onlar ters yönden geliyor."
       }
     }
   },
@@ -4895,7 +4912,8 @@
       "creatures": {
         "dialogue": {
           "area_cleared_3e728563": "Alan temizlendi",
-          "died": "{name} öldü"
+          "died": "{name} öldü",
+          "spirit_snuffs_the_light": "Lambanın içine giriyor. Ne sıcağı var ne sesi, ve sonra ışık da yok."
         },
         "interface": {
           "default_name": "Hiçbir şey",
@@ -5044,7 +5062,8 @@
           "basement_key_familiar": "Tanıdık görünüyor...",
           "pine_cone_reactions": ["*Çat..* ", "*Kırt..* ", "*Pat..* "],
           "threw_item": "{item} uzağa fırlattın",
-          "knot_practice": "Bir süre düğüm atma alıştırması yaptın ve <span style=\"color:orange\">\"{knot}\"</span> oluşturdun!"
+          "knot_practice": "Bir süre düğüm atma alıştırması yaptın ve <span style=\"color:orange\">\"{knot}\"</span> oluşturdun!",
+          "ore_is_dead_weight": "Bu taş. Ocağı olan biri eline aldığında demir olacak; o zamana kadar sadece ağırlık."
         },
         "interface": {
           "nbsp_e9caec8e": "<span style=\"color:grey;font-size:1.2em\">&nbsp煙<span>"
@@ -6054,7 +6073,14 @@
           "wade_the_lower_workings": "Galerilere doğru suya gir",
           "look_at_the_way_down": "Katın aşağı devam ettiği yeri ara",
           "way_down_blocked": "En uçta, kirişlerin bittiği yerin ötesinde, ve eğim değil kuyu.<br><br>Su onun içine gidiyor. İçinde durmuyor — gidiyor, ve yüzeydeki dönüş, bunun altında bir yerde gidecek yeri olduğu anlamına geliyor; bu katın dolu değil yalnızca su basmış olmasının tek sebebi de bu.<br><br>İçine su boşalan bir kuyudan aşağı inmiyorsun; ne taşıdıklarınla ne bildiklerinle. Şimdilik.",
-          "back_up_to_the_adit": "Galeriye geri çık"
+          "back_up_to_the_adit": "Galeriye geri çık",
+          "rope_down_the_shaft": "Halatı bağla ve kuyudan aşağı in",
+          "the_mine_deep_cut": "Maden, Derin Kesit",
+          "deep_cut_arrival": "Suyun altında maden değişiyor. Kirişleme bitiyor, çünkü burada taş kendini tutuyor, ve kesim üstündeki her şeyden ince.<br><br>Ayrıca bir kömür madeni için yanlış biçimde. Bir damarı izleyen kat olmaktan çıkıp bir yere giden geçit oluyor, ve içindeki hava kımıldıyor.",
+          "read_the_marks_down_here": "Duvarlardaki izleri oku",
+          "deep_cut_marks": "Bu taşta iki el çalışmış ve birbirlerine hiç benzemiyorlar.<br><br>Biri dörtgen, sıralı ve acelesiz; bunu daha önce yapmış ve geri dönmeyi bekleyen biri kesmiş: her ayrımda göz hizasında bir tebeşir işareti var, ve işaretler numaralı. Ok değil. Numara — ki adam çıkarken hangi dönüşü zaten denediğini bilebilsin.<br><br>Halat. Lamba yağı. Bir kutu tebeşir. On dört ay, ve alışverişi unutması için para ödenmiş bir tezgâhtar.<br><br>Öteki el kesmemiş. Geçmiş — öte taraftan, düzensiz ısırıklarla; katakompların sonundaki duvarın açıldığı gibi, ve kendi bodrumunun arkasındaki iki taşın harcından itildiği gibi.<br><br>Yani marangozun bodrumundan beri takip ettiğin alet izleri bir adamdı, ve o adam Dein'di, ve burada hiçbir şeyden kaçmıyordu. Ona doğru çalışıyordu.<br><br>Tebeşiri bitiyor. Numaralar on bire kadar çıkıyor, sonra duvar boş, ve ondan sonrası yalnızca öteki tür kesim.",
+          "into_the_deep_workings": "Derin galerilere doğru ilerle",
+          "climb_back_to_the_water": "Suyun olduğu kata geri tırman"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

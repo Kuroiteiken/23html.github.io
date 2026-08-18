@@ -295,6 +295,12 @@
       "v478_22": [
         "The level below the adit, standing in water. The winze down is half full and only a trained miner can read the footing, so work the face until you are one.",
         "Cup some of that water and let it settle. You have seen what comes out of it before, on the lip of the village well."
+      ],
+      "v478_23": [
+        "The bottom of the mine. Rope will get you down the shaft — rope, lamp oil and chalk, which is exactly what a hunter bought fourteen months ago.",
+        "Read the marks down there. Two hands worked that stone and only one of them was cutting.",
+        "Lamp Spirits live in the deep workings. They do not fight so much as put your light out.",
+        "Iron ore, the first ore in the game, and the smith turns his stock over as often as the general store now."
       ]
     },
     "lore": {
@@ -3296,6 +3302,10 @@
       "jnlbk": {
         "name": "\"Empty Journal\"",
         "desc": "Dusty old tome, pure as snow and untainted by ink. Feels like it was purified by magic. When you gaze upon it, you are compelled to record your encounters and anything else that you find important and crucial for your adventures{separator}<span style=\"color:lime\">Unlocks Journal</span>"
+      },
+      "iron1": {
+        "name": "Iron Ore",
+        "desc": "Rust-coloured rock, heavier than it looks, with a metallic streak where it has been struck. Worth something to anyone with a forge"
       }
     },
     "quest": {
@@ -4732,6 +4742,9 @@
       },
       "mine2": {
         "name": "The flooded level"
+      },
+      "mine3": {
+        "name": "The deep cut"
       }
     },
     "lore": {
@@ -4862,6 +4875,10 @@
       "sameWater": {
         "name": "The mine and the well are the same water",
         "desc": "The standing water on the mine's lower level is grey and it is grey with the same fine stone the village well settles out of a bucket. The mine is uphill of the fields and the fields are uphill of the well. Nobody has cut coal down here in years, so whatever is grinding stone into this water is doing it now, and everyone in the village has been drinking it for three weeks."
+      },
+      "theHandWasHis": {
+        "name": "The hand was the hunter's",
+        "desc": "The cuts at the bottom of the mine are square, coursed and confident, and there are chalk marks beside them at eye height in a hand that numbers its turnings. That is a man who bought rope, lamp oil and a box of chalk and paid a stallholder to forget it. Dein was not lost down here and he was not fleeing; he was working, methodically, cutting his own way toward something. The other marks down here are not his, and they come the other way."
       }
     }
   },
@@ -4895,7 +4912,8 @@
       "creatures": {
         "dialogue": {
           "area_cleared_3e728563": "Area cleared",
-          "died": "{name} died"
+          "died": "{name} died",
+          "spirit_snuffs_the_light": "It goes into your lamp. There is no heat to it and no sound, and then there is no light either."
         },
         "interface": {
           "default_name": "Nothing",
@@ -5044,7 +5062,8 @@
           "basement_key_familiar": "It looks familiar...",
           "pine_cone_reactions": ["*Crack..* ", "*Crunch..* ", "*Pop..* "],
           "threw_item": "You threw {item} into the distance",
-          "knot_practice": "You practiced knot tying for a short while and made <span style=\"color:orange\">\"{knot}\"</span>!"
+          "knot_practice": "You practiced knot tying for a short while and made <span style=\"color:orange\">\"{knot}\"</span>!",
+          "ore_is_dead_weight": "It is rock. It will be iron when somebody with a forge has had it, and until then it is weight."
         },
         "interface": {
           "nbsp_e9caec8e": "<span style=\"color:grey;font-size:1.2em\">&nbsp煙<span>"
@@ -6050,7 +6069,14 @@
           "wade_the_lower_workings": "Wade out into the workings",
           "look_at_the_way_down": "Look for where the level carries on down",
           "way_down_blocked": "It is at the far end, past where the timbers give out, and it is a shaft rather than a slope.<br><br>The water is going into it. Not standing in it — going, with a turn on the surface that means somewhere below this it has room to go, and that is the only reason this level is merely flooded rather than full.<br><br>You are not climbing down a shaft with water pouring into it, not with what you are carrying and not on what you know. Not yet.",
-          "back_up_to_the_adit": "Back up to the adit"
+          "back_up_to_the_adit": "Back up to the adit",
+          "rope_down_the_shaft": "Make the rope fast and go down the shaft",
+          "the_mine_deep_cut": "The Mine, The Deep Cut",
+          "deep_cut_arrival": "Below the water the mine changes. The timbering stops, because down here the stone holds itself up, and the cutting is finer than anything above it.<br><br>It is also the wrong shape for a coal mine. It stops being a level following a seam and becomes a passage going somewhere, and the air in it moves.",
+          "read_the_marks_down_here": "Read the marks on the walls",
+          "deep_cut_marks": "Two hands have worked this stone and they are nothing like each other.<br><br>One is square and coursed and unhurried, cut by somebody who has done it before and expected to come back: at every branch there is a chalk mark at eye height, and the marks are numbered. Not arrows. Numbers, so a man could tell on the way out which turning he had already tried.<br><br>Rope. Lamp oil. A box of chalk. Fourteen months, and a stallholder paid to forget the purchase.<br><br>The other hand did not cut. It came through — from the far side, in ragged bites, the way the wall at the end of the catacombs was opened and the way two stones at the back of your own cellar were pushed out of their mortar.<br><br>So the tool marks you have been following since the joiner's cellar were a man, and the man was Dein, and he was not running from anything down here. He was working toward it.<br><br>His chalk stops. The numbers go up to eleven and then the wall is bare, and past that there is only the other kind of cutting.",
+          "into_the_deep_workings": "Go on into the deep workings",
+          "climb_back_to_the_water": "Climb back up to the water"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

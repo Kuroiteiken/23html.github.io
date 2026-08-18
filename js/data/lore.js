@@ -89,6 +89,12 @@ lore.mortarPushed.desc = i18n.t("content.lore.mortarPushed.desc");
 defineLore("towardTheWell", 25, loreClue, 3);
 lore.towardTheWell.name = i18n.t("content.lore.towardTheWell.name");
 lore.towardTheWell.desc = i18n.t("content.lore.towardTheWell.desc");
+// The answer to "whose hand is holding the chisel?", which the catacombs opened. It
+// closes that question and deliberately opens nothing about what became of him: that is
+// the east, and the east is a chapter.
+defineLore("theHandWasHis", 33, loreAnswer, 3, 27);
+lore.theHandWasHis.name = i18n.t("content.lore.theHandWasHis.name");
+lore.theHandWasHis.desc = i18n.t("content.lore.theHandWasHis.desc");
 defineLore("sameWater", 32, loreClue, 3);
 lore.sameWater.name = i18n.t("content.lore.sameWater.name");
 lore.sameWater.desc = i18n.t("content.lore.sameWater.desc");

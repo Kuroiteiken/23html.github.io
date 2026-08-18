@@ -1250,6 +1250,8 @@ function workTheFace() {
 
   // The skill is the whole difference between chipping at a wall and taking coal off
   // it. At level 0 most swings find nothing; a trained miner rarely misses.
+  // The bottom of the mine is where the iron is, and the only place it is.
+  const deep = global.current_l === chss.mine3;
   const found = random() < 0.25 + Math.min(0.55, skl.mng.lvl * 0.05);
   if (!found) {
     msg(
@@ -1258,7 +1260,7 @@ function workTheFace() {
     );
   } else {
     const amount = rand(1, (2 + skl.mng.lvl / 4) << 0);
-    giveItem(item.coal1, amount);
+    giveItem(deep && random() < 0.45 ? item.iron1 : item.coal1, amount);
     msg(
       i18n.format(
         i18n.get("runtime.systems.simulation.dialogue.face_gives_coal"),

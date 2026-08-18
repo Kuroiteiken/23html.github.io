@@ -1298,7 +1298,14 @@ vendor.gens1.extra = function () {
 // now fails any vendor line that sells a wealth-paying item below face value.
 vendor.smith = new Vendor();
 vendor.smith.name = i18n.t("content.vendor.smith.name");
-vendor.smith.time = vendor.smith.timeorig = 4;
+// Three days, the same cycle as the general store. Four made him the slowest shop in
+// the village to turn over, and with several lines deliberately rare that read as a
+// counter that never changes rather than as a smith who works to order.
+// `data.time` is the counter onDayPass decrements; `timeorig` is what it resets to.
+// Only the grocery sets both -- gens1 and pha1 assign `vendor.X.time`, which nothing in
+// the game reads, so their first cycle is the constructor default of one day rather than
+// their own. Written the grocery way here so the first turnover matches every later one.
+vendor.smith.data.time = vendor.smith.timeorig = 3;
 vendor.smith.infl = 1.3;
 // No `dfl`. Four vendors set one and nothing in the game reads it; `repsc` is the
 // only one of the pair with a reader, at the reputation line in the shop panel.

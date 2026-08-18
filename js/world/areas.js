@@ -799,6 +799,31 @@ area.mine2.drop = [
   { item: item.watr, c: 0.04 },
 ];
 
+// The bottom of the mine. Appended last, as every new area must be. \`creature.lsprt\` has
+// been statted and standing nowhere since before this fork, and its description put it
+// in exactly this room: oil lamps, in a mine, where nobody comes.
+area.mine3 = new Area();
+area.mine3.id = 131;
+area.mine3.name = i18n.t("content.area.mine3.name");
+area.mine3.pop = [
+  { crt: creature.lsprt, lvlmin: 20, lvlmax: 26, c: 0.5 },
+  { crt: creature.cbat, lvlmin: 20, lvlmax: 26, c: 0.5 },
+];
+area.mine3.size = 28;
+z_bake(area.mine3);
+area.mine3.onEnd = function () {
+  roll(item.iron1, 0.6, 2, 6);
+  roll(item.coal1, 0.5, 2, 6);
+  roll(item.cndl, 0.4, 1, 4);
+  roll(wpn.trch, 0.15);
+  this.size = rand(12) + 20;
+  smove(chss.mine3);
+};
+area.mine3.drop = [
+  { item: item.iron1, c: 0.05 },
+  { item: item.cndl, c: 0.04 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

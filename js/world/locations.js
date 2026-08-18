@@ -3747,8 +3747,17 @@ chss.mine2.sl = () => {
         smove(chss.mine2, false);
       });
   });
-  // The way on. Described and not passable: what is past it is the bottom of the mine,
-  // and that is the next thing to be built.
+  // The shaft. It takes rope, which is the point rather than a lock: rope, lamp oil and
+  // chalk is the list a hunter bought and paid to have forgotten, and the player goes
+  // down carrying the same three things.
+  if (findbyid(inv, item.rope.id))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.rope_down_the_shaft"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      smove(chss.mine3);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.look_at_the_way_down"),
     false,
@@ -3774,6 +3783,86 @@ chss.mine2.sl = () => {
     false,
   ).addEventListener("click", () => {
     smove(chss.mine1);
+  });
+};
+
+// The bottom. The way down is a shaft with water going into it, so it takes rope -- and
+// rope, lamp oil and chalk is precisely the list a hunter bought at a market stall
+// fourteen months ago and paid the stallholder to forget. The player goes down carrying
+// the same three things.
+chss.mine3 = new Chs();
+chss.mine3.id = 182;
+chss.mine3.effectors = [{ e: effector.dark }];
+addtosector(sector.north, chss.mine3);
+chss.mine3.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.the_mine_deep_cut"));
+  global.lst_loc = 182;
+  if (!cansee()) {
+    chs(i18n.t("runtime.world.locations.dialogue.adit_dark"), true, "darkgrey");
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.mine2, false);
+    });
+    return;
+  }
+  chs(i18n.t("runtime.world.locations.dialogue.deep_cut_arrival"), true);
+  if (!knowsLore(33))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.read_the_marks_down_here"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.deep_cut_marks"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("theHandWasHis");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mine3, false);
+      });
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.work_the_coal_face"),
+    false,
+    "gold",
+    "",
+    null,
+    null,
+    null,
+    true,
+  ).addEventListener("click", () => {
+    workTheFace();
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.into_the_deep_workings"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.mine3);
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mine3, false);
+      });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.climb_back_to_the_water"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.mine2);
   });
 };
 

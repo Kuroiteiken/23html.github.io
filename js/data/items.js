@@ -6242,6 +6242,18 @@ item.cq.use = function (x) {
   dumb(x);
 };
 
+// The deep cut's own material. The game had no ore of any kind; this is the first, and
+// it stays a material rather than becoming equipment, because a region that pays in
+// numbers is the kind of region this project has been careful not to build.
+item.iron1 = new Item();
+item.iron1.id = 5066;
+item.iron1.name = i18n.t("content.item.iron1.name");
+item.iron1.desc = i18n.t("content.item.iron1.desc");
+item.iron1.stype = 5;
+item.iron1.use = function () {
+  msg(i18n.t("runtime.data.items.dialogue.ore_is_dead_weight"), "grey");
+};
+
 item.watr = new Item();
 item.watr.id = 5009;
 item.watr.name = i18n.t("content.item.watr.name");
