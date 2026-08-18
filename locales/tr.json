@@ -261,6 +261,10 @@
       "v478_14": [
         "Günlükte yeni bir sayfa: Bölgeler. Ayak bastığın her yer, ve orada yaşayanlar.",
         "Hiç öldürmediğin yaratıklar gizli kalıyor; yani sayfa sana yaptıklarını değil, hâlâ orada olanı gösteriyor."
+      ],
+      "v478_15": [
+        "Güney ormanı artık aranabiliyor ve tamamlanacak kendi keşfi var. Şimdiye kadar hiçbir bölgeye ait değildi.",
+        "Çukurda sekiz sürü lideri değil bir kurt sürüsü var. Orada avlanma süresiz; lider değil."
       ]
     },
     "lore": {
@@ -5941,7 +5945,10 @@
           "catacombs_grave_coins": "Sikkeler, tanımadığın bir düzende dizilmiş. Onları bırakan kişi oldukları yerde kalmalarını istemiş.",
           "catacombs_lantern": "Bir fener, yan devrilmiş, fitili hâlâ nemli. Bir aydır burada değil — ve yaşlı esnaf kendisinin alındığını söylemişti.",
           "catacombs_stolen_tools": "Kemik ve bez, bir şeyin işine yaramayan parçaları yığması gibi yığılmış. Yığının içinde bir keski sapı var, bir elin altında aşınmış.",
-          "market_discard": "Sökülmüş bir tezgâhın yerinde bir şey duruyor: yapanın satamadığı, eve de taşımak istemediği baştan savma bir iş."
+          "market_discard": "Sökülmüş bir tezgâhın yerinde bir şey duruyor: yapanın satamadığı, eve de taşımak istemediği baştan savma bir iş.",
+          "south_forest_mast": "Meşeler haftalardır dökülüyor ve buraya toplamaya çıkan olmamış. Avuç avuç palamut, ve nemin durduğu yaprak örtüsünde mantar.",
+          "south_forest_kill": "Burada bir şey devrilmiş ve düştüğü yerde yenmiş. Kemikler ilik için uzunlamasına kırılmış — hiçbir leş yiyici bu zahmete girmez — ve yanlarındaki toprakta ölen şeye ait olmayan bir diş var.",
+          "south_forest_snare": "Eski bir tuzak; geçiş yoluna kurulmuş ve hiç toplanmamış. Halat yosunun altında hâlâ sağlam, ve ona takılmış bir parça kumaş var; incelmiş ve solmuş."
         }
       }
     }

@@ -415,15 +415,34 @@ area.frstn9a1.drop = [
   { item: item.wdc, c: 0.06 },
 ];
 
-// The hollow at the far end of the southern forest, where the pack leader dens.
-// Appended rather than inserted: load() restores area sizes by position, so the
-// order of the definitions above is part of the save format. A single-creature
-// population keeps the hollow from becoming another grinding spot, and onEnd
-// restores the size so a player who retreats can sweep it again.
+// The hollow at the far end of the southern forest, where the pack dens. Appended
+// rather than inserted: load() restores area sizes by position, so the order of the
+// definitions above is part of the save format.
+//
+// The old comment here claimed a single-creature population kept this from becoming a
+// grinding spot. It did the opposite. One entry at `c: 1` across eight rooms meant
+// eight pack leaders per sweep at 900 experience each, and onEnd put the eight back, so
+// the hollow was the best experience farm in the game and it was farming a named boss.
+// The quest never noticed because its onDeath hook moves the player out on the first
+// kill; anyone who walked back in found the rest.
+//
+// A den holds a pack. The leader is now one roll in three and only while it is alive --
+// `cond` is checked by area_init, which rerolls when it fails -- so after it falls the
+// hollow settles into ordinary wolves at a band that suits the region. That is the
+// unlimited hunting the south was owed, without a boss on a respawn timer.
 area.frstn10a1 = new Area();
 area.frstn10a1.id = 119;
 area.frstn10a1.name = i18n.t("content.area.frstn10a1.name");
-area.frstn10a1.pop = [{ crt: creature.wolfa1, lvlmin: 12, lvlmax: 13, c: 1 }];
+area.frstn10a1.pop = [
+  {
+    crt: creature.wolfa1,
+    lvlmin: 12,
+    lvlmax: 13,
+    c: 0.3,
+    cond: () => !quest.pckld1.data.killed,
+  },
+  { crt: creature.wolf1, lvlmin: 10, lvlmax: 14, c: 0.7 },
+];
 area.frstn10a1.size = 8;
 z_bake(area.frstn10a1);
 area.frstn10a1.onEnd = function () {

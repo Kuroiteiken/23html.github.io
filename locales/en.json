@@ -261,6 +261,10 @@
       "v478_14": [
         "A new journal page: Regions. Everywhere you have set foot, and what lives there.",
         "Creatures you have never killed stay masked, so the page shows you what is still down there rather than only what you have already done."
+      ],
+      "v478_15": [
+        "The southern forest can be searched, and it has its own exploration to finish. It belonged to no region at all until now.",
+        "The hollow holds a wolf pack rather than eight pack leaders. Hunting there is unlimited; the leader is not."
       ]
     },
     "lore": {
@@ -5937,7 +5941,10 @@
           "catacombs_grave_coins": "Coins, laid out in a pattern you do not recognise. Whoever left them meant them to stay where they were.",
           "catacombs_lantern": "A lantern, on its side, wick still damp. It has not been down here a month — and the old shopkeeper said his was taken.",
           "catacombs_stolen_tools": "Bone and rag, piled the way something piles the parts it has no use for. A chisel handle is in the heap, worn smooth by a hand.",
-          "market_discard": "Something is lying where a stall was packed up: a botched piece of work its maker could not sell and would not carry home."
+          "market_discard": "Something is lying where a stall was packed up: a botched piece of work its maker could not sell and would not carry home.",
+          "south_forest_mast": "The oaks have been dropping for weeks and nobody has been out here to gather any of it. Acorns by the handful, and mushrooms in the leaf litter where the damp sits.",
+          "south_forest_kill": "Something was brought down here and eaten where it fell. The bones are cracked lengthways for the marrow, which no scavenger bothers with, and there is a tooth in the ground beside them that did not belong to the thing that died.",
+          "south_forest_snare": "An old snare, set at a run and never collected. The rope is sound under the moss and there is a strip of coat caught in it, worn thin and weathered pale."
         }
       }
     }

@@ -2609,6 +2609,7 @@ chss.frstn2a1.onEnter = function () {
 
 chss.frstn3main = new Chs();
 chss.frstn3main.id = 168;
+addtosector(sector.forest2, chss.frstn3main);
 chss.frstn3main.sl = () => {
   global.flags.inside = false;
   d_loc(
@@ -2639,6 +2640,7 @@ chss.frstn3main.sl = () => {
 
 chss.frstn9a1m = new Chs();
 chss.frstn9a1m.id = 169;
+addtosector(sector.forest2, chss.frstn9a1m);
 chss.frstn9a1m.sl = () => {
   global.flags.inside = false;
   d_loc(
@@ -2677,6 +2679,7 @@ chss.frstn9a1m.onEnter = function () {
 // and the crack it describes is the question Chapter III answers.
 chss.frstn10main = new Chs();
 chss.frstn10main.id = 170;
+addtosector(sector.forest2, chss.frstn10main);
 chss.frstn10main.sl = () => {
   global.flags.inside = false;
   d_loc(i18n.t("runtime.world.locations.dialogue.southern_forest_the_hollow"));

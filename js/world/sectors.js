@@ -152,6 +152,79 @@ sector.forest1.onStay = function () {
   }
 };
 
+// The southern forest. Three finished scenes and two populated areas, attached to no
+// sector at all, which is why the whole region had no searching, no exploration track
+// and no ambience -- the west has had all three since before this fork. The pack leader
+// is main-story content now, so the south being a pair of bare corridors was the last
+// thing about it that still read as a temporary quest venue.
+//
+// Its own track rather than a share of `sector.forest1`: the west is levels 1 to 11 and
+// the south starts where the west stops, so one counter across both would finish the
+// south's exploration on the strength of walking the west.
+sector.forest2 = new Sector();
+sector.forest2.id = 6;
+sector.forest2.data = {
+  scoutm: 9000,
+  scout: 0,
+  scoutf: false,
+  // One slot per entry below. Two shipped bugs in this file came from an array that
+  // declared fewer slots than the code wrote to.
+  gets: [false, false, false],
+  gotmod: 0,
+};
+sector.forest2.scout = [
+  {
+    c: 0.05,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.south_forest_mast"), "lime");
+      giveItem(item.acrn, rand(3, 9));
+      giveItem(item.mshr, rand(1, 4));
+      sector.forest2.data.gets[0] = true;
+    },
+    exp: 20,
+  },
+  {
+    c: 0.04,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.south_forest_kill"), "lime");
+      giveItem(item.sbone, rand(2, 5));
+      giveItem(item.wfng, rand(1, 2));
+      sector.forest2.data.gets[1] = true;
+    },
+    exp: 30,
+  },
+  {
+    c: 0.03,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.south_forest_snare"), "gold");
+      giveItem(item.rope, rand(1, 2));
+      giveItem(item.cclth, rand(1, 3));
+      sector.forest2.data.gets[2] = true;
+    },
+    exp: 35,
+  },
+];
+sector.forest2.onScout = function () {
+  scoutGeneric(this);
+};
+sector.forest2.onStay = function () {
+  if (!this.data.scoutf) {
+    if (this.data.scout <= this.data.scoutm) {
+      if (global.flags.btl || act.scout.active === true) {
+        this.data.scout += 0.1;
+        giveSkExp(skl.tpgrf, 0.001);
+      }
+    } else {
+      msg(
+        i18n.t("runtime.world.sectors.dialogue.area_explored_82dc9682"),
+        "lime",
+      );
+      this.data.scoutf = true;
+      giveExp(9000, true, true, true);
+    }
+  }
+};
+
 sector.cata1 = new Sector();
 sector.cata1.id = 4;
 sector.cata1.inside = true;
