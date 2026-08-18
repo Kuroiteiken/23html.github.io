@@ -174,6 +174,9 @@ wpn.pck.cls = [4, 0, 2];
 wpn.pck.ctype = 2;
 wpn.pck.dp = wpn.pck.dpmax = 45;
 wpn.pck.degrade = 0.05;
+// Wears out rather than breaks: at zero it stays in the pack as a broken tool so the
+// smith can put the head back on, which is the loop the mine was built around.
+wpn.pck.repairable = true;
 wpn.pck.wtype = 5;
 wpn.pck.rar = 2;
 wpn.pck.oneq = function () {

@@ -304,6 +304,9 @@
       ],
       "v478_24": [
         "The pickaxe is a weapon, as it should have been. It was describing itself as a book."
+      ],
+      "v478_25": [
+        "A worn-out pickaxe stays in your pack instead of vanishing, so the smith can actually put the head back on."
       ]
     },
     "lore": {

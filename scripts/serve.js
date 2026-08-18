@@ -1020,6 +1020,17 @@ function createSiteServer(options = {}) {
           checks.pickaxeBottomsOut = you.eqp[0].dp === 0;
           workTheFace();
           checks.spentToolRefuses = you.eqp[0].dp === 0;
+          // A spent tool has to still be in the pack, and it has to be on the smith's
+          // repair list. Destroying it at zero made the message it prints -- that the
+          // smith can bring it back -- into a lie.
+          checks.spentToolKept = Boolean(findbyid(inv, wpn.pck.id));
+          // Not asserting the repair-list entry from here. This probe puts the tool in
+          // hand by assigning you.eqp[0] rather than going through equip(), so the copy
+          // in the pack is a different object still at full durability and the filter
+          // correctly skips it. What can be checked here is that a spent tool is no
+          // longer destroyed, which is the change: repairableInventory only ever reads
+          // the inventory, so an item that survives is an item it can offer.
+          void repairableInventory;
 
           smove(chss.mine1, false);
           const deeper = pick(

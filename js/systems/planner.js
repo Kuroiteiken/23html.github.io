@@ -166,7 +166,11 @@ planner.itmwear.f = function () {
       planner.itmwear.data.items.splice(
         planner.itmwear.data.items.indexOf(itm),
       );
-      removeItem(itm);
+      // A torch that has burned down is gone, and that is the right behaviour for
+      // anything meant to be used up. A tool is not: the smith exists to put it back,
+      // and the repair list is built from the inventory, so destroying it at zero left
+      // the player holding a promise the game could not keep. Opt in to surviving.
+      if (itm.repairable !== true) removeItem(itm);
     }
   }
 };
