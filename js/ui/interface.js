@@ -3210,6 +3210,11 @@ const releaseNotes = [
     minor: 6,
     read: () => i18n.get("ui.releaseNotes.v478_6"),
   },
+  {
+    major: 478,
+    minor: 7,
+    read: () => i18n.get("ui.releaseNotes.v478_7"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -4961,7 +4966,14 @@ function dmg_calc(att, def, atk) {
     global.atkdftydt.c = atcs;
     global.atkdftydt.id = att.id;
   }
-  const pn = isyou === true ? 1 : 1 - skl.painr.use();
+  // Pain Resistance, and only when the player is the one being hit. Clamped through
+  // the same helper the poison and corruption resistances use: painr.use() is
+  // lvl * 0.004, so it reaches 1 at level 250 and passes it above that, which would
+  // turn the multiplier negative. Damage is floored at zero further down so it could
+  // never actually heal, but a resistance that silently becomes total immunity is not a
+  // resistance -- and js/data/effects.js already carries this exact clamp with the
+  // comment explaining why, for skills that cross the same line at level 20.
+  const pn = isyou === true ? 1 : resistanceFactor(skl.painr.use());
   dmg = dmg * def.res.ph * pn;
   if (ran < ctr_r) {
     let cpw = 1;

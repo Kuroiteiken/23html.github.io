@@ -226,6 +226,9 @@
       ],
       "v478_6": [
         "Item shortcut keys work in a fight. Pointing anywhere near your inventory could switch them off until you hovered a row and left it again, which is exactly when you need the potion key."
+      ],
+      "v478_7": [
+        "Pain Resistance is clamped like the poison and corruption resistances already were, so it cannot run past total and turn the sum against itself."
       ]
     },
     "lore": {
