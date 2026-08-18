@@ -4572,6 +4572,9 @@
       },
       "cata5a": {
         "name": "Yolculuğun sonu"
+      },
+      "ngtmr": {
+        "name": "Kâbus"
       }
     },
     "lore": {
@@ -5772,7 +5775,11 @@
           "marketplace_smithy": "Pazaryeri, Demirci",
           "smithy_4d2a1f70": "\"=> Demirci\"",
           "smith_greeting": "Demirci: Getir bakalım. Çoğu şeyin ağzını geri açarım, açamayacağımı da açıkça söylerim.",
-          "smith_repair_action": "\"=> Bir şey onart\""
+          "smith_repair_action": "\"=> Bir şey onart\"",
+          "nightmare_onset": "Günahların üstüne tırmanıyor.",
+          "nightmare_body": "Uyanıksın ve kıpırdayamıyorsun. Yatağın ayakucunda, bunca zaman köyün altında olan bir şey duruyor; yukarı çıkmayı ancak şimdi bitirdi. Sana dokunmuyor. Bekliyor, ve mesele tamamen o bekleyiş.",
+          "nightmare_wake": "\"Uyanmayı dene\"",
+          "nightmare_thins": "Oda birer kenar hâlinde geri geliyor. O şey gitmiyor, yalnızca seyreliyor."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

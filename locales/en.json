@@ -4572,6 +4572,9 @@
       },
       "cata5a": {
         "name": "The end of journey"
+      },
+      "ngtmr": {
+        "name": "Nightmare"
       }
     },
     "lore": {
@@ -5768,7 +5771,11 @@
           "marketplace_smithy": "Marketplace, The Smithy",
           "smithy_4d2a1f70": "\"=> The smithy\"",
           "smith_greeting": "Smith: Bring it here. I can put an edge back on most things, and what I cannot, I will tell you so.",
-          "smith_repair_action": "\"=> Have something repaired\""
+          "smith_repair_action": "\"=> Have something repaired\"",
+          "nightmare_onset": "Your sins are crawling up on you.",
+          "nightmare_body": "You are awake and you cannot move. Something is standing at the foot of the bed that has been under the village the whole time, and it is only now that it has finished coming up. It does not touch you. It waits, and the waiting is the whole of it.",
+          "nightmare_wake": "\"Try to wake\"",
+          "nightmare_thins": "The room comes back one edge at a time. Whatever it was does not leave so much as thin out."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

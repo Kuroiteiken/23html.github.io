@@ -5299,12 +5299,48 @@ chss.bsmnthm1.onScout = function () {
   scoutGeneric(this);
 };
 
+// Ending a nightmare where the player lies. Every other exit goes through smove,
+// which tears all of this down itself; this is only for the nightmare running out on
+// its own, when the player is still asleep and must not be moved.
+function endNightmare() {
+  global.flags.nmare = false;
+  global.flags.btl = false;
+  global.flags.civil = true;
+  global.current_z = area.nwh;
+  global.current_m = creature.default;
+  global.current_m.eff = [];
+  empty(dom.d101m);
+  update_m();
+  dom.d5_1_1m.update();
+  dom.d7m.update();
+  chss.hbed.data.nmt = 0;
+  chss.hbed.sl();
+}
+
 chss.hbed = new Chs();
 chss.hbed.id = 112;
 addtosector(sector.home, chss.hbed);
 chss.hbed.sl = () => {
   d_loc(i18n.t("runtime.world.locations.dialogue.your_home_bed_fa15732f"));
   global.lst_loc = 112;
+  if (global.flags.nmare) {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.nightmare_body"),
+      true,
+      "crimson",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.nightmare_wake"),
+      false,
+    ).addEventListener("click", () => {
+      // Elusion is "the ability to escape danger" and has never had a single source
+      // of experience anywhere in the game, despite another skill's milestone
+      // advertising a bonus to it. Waking out of a nightmare is what it is for.
+      giveSkExp(skl.rtr, 1);
+      for (const i in chss) if (chss[i].id === global.home_loc) smove(chss[i]);
+    });
+    return;
+  }
   let extra = "";
   if (you.alive === false) {
     chs(
@@ -5343,6 +5379,31 @@ chss.hbed.sl = () => {
 };
 chss.hbed.data = { warmrest: 0 };
 chss.hbed.onStay = function () {
+  // A nightmare is not rest. Nothing heals, the bed's quality buys nothing, and the
+  // fire outside does not reach you. What the night is good for is holding still --
+  // which is Patience -- and breathing the dark ki that put the thing there, which is
+  // Dark Absorption. Both rates are deliberately at or under something the game
+  // already grants freely: Dark Absorption is exactly the rate Air Absorption receives
+  // every tick unconditionally.
+  if (global.flags.nmare) {
+    chss.hbed.data.nmt = (chss.hbed.data.nmt || 0) + 1;
+    giveSkExp(skl.ptnc, 0.02);
+    giveSkExp(skl.abd, 0.004);
+    if (you.hp > 1 && random() < 0.05) {
+      you.hp--;
+      giveSkExp(skl.painr, 0.5);
+      dom.d5_1_1.update();
+    }
+    // It ends on its own after six hundred ticks. That bound is what makes an
+    // overnight background tab harmless: the tick is replayed up to eight hours' worth
+    // on return, and the nightmare simply resolves inside the replay rather than
+    // being waited out in real time.
+    if (chss.hbed.data.nmt >= 600) {
+      msg(i18n.t("runtime.world.locations.dialogue.nightmare_thins"), "plum");
+      endNightmare();
+    }
+    return;
+  }
   // A lit fire is worth resting beside. effect.fplc is active for exactly as long as
   // the fireplace has fuel -- its own use() reads the fuel as the effect's remaining
   // duration -- so this is simply "is the fire burning".
@@ -5367,13 +5428,35 @@ chss.hbed.onStay = function () {
   // had most of a night beside it. The counter lives on the scene's own data, which
   // the save keeps.
   if (warm) chss.hbed.data.warmrest = (chss.hbed.data.warmrest || 0) + 1;
-  // if(global.current_z.id!==-666&&random()<.00001){
-  //   let ta = new Area(); ta.id=-666;
-  //   ta.name = 'Nightmare';
-  //   ta.pop = [{crt:creature.ngtmr1,lvlmin:you.lvl,lvlmax:you.lvl,c:1}]; ta.protected=true;
-  //   ta.onEnd=function(){area_init(area.nwh);global.flags.civil=true; global.flags.btl=false;}; global.flags.civil=false; global.flags.btl=true;
-  //   ta.size = 1; z_bake(ta); area_init(ta); dom.d7m.update(); msg('Your sins are crawling up on you','red')
-  //}
+  // The cold the catacombs put in you comes up while you are asleep. This was written
+  // and commented out before this fork, and could not have been enabled as it stood:
+  // creature.ngtmr1 has a hundred million health and a battle_ai that returns false,
+  // so the fight it started could be neither won nor lost.
+  //
+  // The trick is that it is not a fight. area_init switches the battle on; turning btl
+  // straight back off means no round ever resolves -- ontick never calls fght and
+  // attack() returns on its first line -- so there is no weapon mastery to farm and no
+  // durability spent standing there. civil stays false, which is what keeps reading,
+  // the actions, the smoke bomb and the summoning vial refused.
+  //
+  // Gated on having stood at the end of the catacombs, so it can only reach a player
+  // the story has already explained it to. Lore is monotonic and saved, unlike a quest
+  // flag, so it cannot be un-earned.
+  if (!global.flags.btl && knowsLore(12) && random() < 0.0002) {
+    const ta = new Area();
+    ta.id = -666;
+    ta.name = i18n.t("content.area.ngtmr.name");
+    ta.pop = [{ crt: creature.ngtmr1, lvlmin: you.lvl, lvlmax: you.lvl, c: 1 }];
+    ta.protected = true;
+    ta.size = 1;
+    z_bake(ta);
+    area_init(ta);
+    global.flags.btl = false;
+    global.flags.nmare = true;
+    chss.hbed.data.nmt = 0;
+    msg(i18n.t("runtime.world.locations.dialogue.nightmare_onset"), "red");
+    chss.hbed.sl();
+  }
 };
 chss.hbed.onEnter = function () {
   global.flags.sleepmode = true;
@@ -5382,6 +5465,10 @@ chss.hbed.onEnter = function () {
 };
 chss.hbed.onLeave = function () {
   global.flags.sleepmode = false;
+  // Every way out of the bed ends the nightmare, death included -- You.onDeath leaves
+  // through smove, and smove runs this before it clears btl, civil and current_z.
+  global.flags.nmare = false;
+  chss.hbed.data.nmt = 0;
   global.timescale = 1;
   removeEff(effect.slep);
 };
