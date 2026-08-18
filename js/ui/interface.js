@@ -3225,6 +3225,11 @@ const releaseNotes = [
     minor: 9,
     read: () => i18n.get("ui.releaseNotes.v478_9"),
   },
+  {
+    major: 478,
+    minor: 10,
+    read: () => i18n.get("ui.releaseNotes.v478_10"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -8243,6 +8248,31 @@ function smove(where, lv) {
     empty(dom.d101m);
     dom.d5_1_1m.update();
     update_m();
+  }
+  // A room the player cannot leave is the worst failure this game has, because the
+  // only way out is to close the tab. It happens when a scene draws its narration,
+  // hands the screen to something that then draws nothing -- area_init with a spent
+  // area, or anything that throws part-way through -- and returns. The scene looks
+  // finished and there is not one button on it.
+  //
+  // Every scene ought to offer its own exits and they nearly all do, so this is a
+  // net rather than a policy. It fires only when there is no fight running and not a
+  // single choice on screen, and it counts every time it fires: the browser suite
+  // asserts that count is zero through normal play, so the net can never quietly
+  // become how the game works.
+  if (
+    global.flags.btl === false &&
+    !!dom.ctr_2 &&
+    dom.ctr_2.querySelectorAll(".chs").length === 0
+  ) {
+    global.stat.strandc = (global.stat.strandc || 0) + 1;
+    chs(
+      i18n.t("runtime.ui.interface.dialogue.find_your_way_back"),
+      false,
+      "orange",
+    ).addEventListener("click", () => {
+      smove(chss.home, false);
+    });
   }
 }
 

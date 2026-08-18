@@ -760,6 +760,66 @@ function createSiteServer(options = {}) {
             lines.length === 2 &&
             lines.every((line) => line.indexOf("content.quest.") === -1);
 
+          // The user walked into this at a level the area was never written for and
+          // was left in a room with no buttons at all. Reproduce their conditions
+          // exactly: a levelled character, the real accept path, and then assert
+          // the invariant that actually matters -- a scene must never render
+          // neither a fight nor a way out.
+          const stranded = [];
+          for (const lvl of [1, 12, 34, 60]) {
+            quest.chsls1.data = { t: 0, cleared: false, wall: false };
+            global.flags.clgdown = false;
+            if (you.lvl < lvl) lvlup(you, lvl - you.lvl);
+            you.mods.light = 1;
+            area.clg.size = 9;
+            smove(chss.clgmn, false);
+            const fighting = global.flags.btl === true;
+            const ways = document.querySelectorAll(".chs").length;
+            if (!fighting && ways === 0)
+              stranded.push("lvl" + you.lvl + ":nofight+noexit");
+            if (!fighting) stranded.push("lvl" + you.lvl + ":nofight");
+            // And a spent cellar must still let them climb the stair.
+            area.clg.size = 0;
+            smove(chss.clgmn, false);
+            if (document.querySelectorAll(".chs").length === 0)
+              stranded.push("lvl" + you.lvl + ":spent+noexit");
+          }
+          checks.neverStranded = stranded.length === 0;
+          // The net in smove must not be doing the work. If it fired during any of
+          // the walking above, a scene is failing to offer its own exits and that
+          // is the thing to fix, not the net.
+          checks.netNeverFired = !global.stat.strandc;
+          document.documentElement.dataset.cellarNetFires = String(
+            global.stat.strandc || 0,
+          );
+
+          // The one dimension a fresh game cannot cover: the player accepted, the
+          // game saved, and they came back. Area sizes are the part of the save
+          // that restores by position, so this is where a wired-in area is most
+          // likely to come back wrong.
+          quest.chsls1.data = { t: 0, cleared: false, wall: false, started: true };
+          area.clg.size = 9;
+          const roundTrip = save(true);
+          area.clg.size = 0;
+          load(roundTrip);
+          const restored = area.clg.size;
+          you.mods.light = 1;
+          smove(chss.clgmn, false);
+          const afterLoadFight = global.flags.btl === true;
+          const afterLoadWays = document.querySelectorAll(".chs").length;
+          checks.survivesReload =
+            restored === 9 && (afterLoadFight || afterLoadWays > 0);
+          document.documentElement.dataset.cellarReload =
+            "size=" + restored + ",fight=" + afterLoadFight + ",ways=" + afterLoadWays;
+
+          // Put the quest back the way the walk-through left it so the last
+          // assertion measures the product rather than this loop.
+          quest.chsls1.data.started = false;
+          quest.chsls1.data.done = true;
+
+
+          document.documentElement.dataset.cellarStrandDetail = stranded.join(",");
+
           // And it must not be on offer a second time.
           smove(chss.mrktvg1);
           checks.notRepeatable = !pick(

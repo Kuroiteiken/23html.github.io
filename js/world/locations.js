@@ -3148,6 +3148,18 @@ chss.clgmn.sl = () => {
     );
     global.flags.clgdown = true;
     area_init(area.clg);
+    // area_init draws a fight only when it can generate one. If the area is spent,
+    // or a roll lands outside every population band, or anything inside it throws,
+    // it returns having drawn nothing at all -- and a scene that returns here has
+    // left the player in a room with no choices and no way out. Never trust it to
+    // have taken over the screen.
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mrktvg1, false);
+      });
     return;
   }
   chs(i18n.t("runtime.world.locations.dialogue.joiners_cellar_quiet"), true);
@@ -5165,6 +5177,15 @@ chss.bsmnthm1.sl = () => {
       "red",
     );
     area_init(area.hmbsmnt);
+    // Same guarantee as the joiner's cellar: if no fight was drawn, there has to
+    // be a door.
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.home, false);
+      });
   } else {
     if (!cansee())
       chs(

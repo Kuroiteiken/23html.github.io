@@ -237,6 +237,10 @@
       "v478_9": [
         "Katakompların batı koridorundaki bir levha duvar değil. Önce aşağıda araştır: arkasındaki geçit, çocuğun keskilerinin nereye gittiğini söylüyor.",
         "Kilitli Kaya artık var. Ne alanı ne sahnesi vardı, ve hiç yapmadığı bir saldırının arkasında 9000 canı vardı."
+      ],
+      "v478_10": [
+        "Çıkılamayan bir oda düzeltildi. Marangozun bodrumuna inmek seni hiç butonsuz bırakabiliyordu ve tek çıkış sekmeyi kapatmaktı.",
+        "Artık hiçbir sahne seni mahsur bırakamıyor: dövüş de yoksa tıklanacak bir şey de yoksa, oyun sana her zaman bir dönüş yolu çiziyor."
       ]
     },
     "lore": {
@@ -5280,7 +5284,8 @@
           "new_item_obtained_single": "Yeni eşya elde edildi: <span style=\"color:coral\">{item}</span>",
           "new_item_obtained": "Yeni eşya elde edildi: <span style=\"color:coral\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "item_acquired": "Eşya alındı: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
-          "furniture_acquired": "Mobilya elde edildi: <span style=\"color:orange\">\"{furniture}\"</span>"
+          "furniture_acquired": "Mobilya elde edildi: <span style=\"color:orange\">\"{furniture}\"</span>",
+          "find_your_way_back": "Yolunu bul ve geri dön"
         }
       }
     },

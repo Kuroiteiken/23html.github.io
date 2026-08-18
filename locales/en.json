@@ -237,6 +237,10 @@
       "v478_9": [
         "A slab in the catacombs' western corridor is not a wall. Search down there first: the passage behind it answers where the boy's chisels went.",
         "The Locked Rock exists. It had no area, no scene, and 9000 health behind an attack it never makes."
+      ],
+      "v478_10": [
+        "Fixed a room you could not leave. Going down into the joiner’s cellar could leave you with no buttons at all, and the only way out was closing the tab.",
+        "No scene can strand you now: if there is no fight and nothing to click, the game always draws you a way back."
       ]
     },
     "lore": {
@@ -5276,7 +5280,8 @@
           "new_item_obtained_single": "New item obtained: <span style=\"color:coral\">{item}</span>",
           "new_item_obtained": "New item obtained: <span style=\"color:coral\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
           "item_acquired": "Item acquired: <span style=\"color:chartreuse\">{item}</span><span style=\"color:lime\"> x{amount}</span>",
-          "furniture_acquired": "Furniture acquired: <span style=\"color:orange\">\"{furniture}\"</span>"
+          "furniture_acquired": "Furniture acquired: <span style=\"color:orange\">\"{furniture}\"</span>",
+          "find_your_way_back": "Find your way back"
         }
       }
     },
