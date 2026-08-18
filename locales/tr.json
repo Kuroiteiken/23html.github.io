@@ -265,6 +265,10 @@
       "v478_15": [
         "Güney ormanı artık aranabiliyor ve tamamlanacak kendi keşfi var. Şimdiye kadar hiçbir bölgeye ait değildi.",
         "Çukurda sekiz sürü lideri değil bir kurt sürüsü var. Orada avlanma süresiz; lider değil."
+      ],
+      "v478_16": [
+        "Köyden kuzeye bir yol: bütün köyün içtiği kuyu ve ötesindeki tarlalar. Marangozun bodrumuna indikten sonra açılıyor.",
+        "Kuyudan bir kova çek ve dibe çökeni incele. O toprak değil."
       ]
     },
     "lore": {
@@ -4667,6 +4671,9 @@
       },
       "lrck1": {
         "name": "Taş levha"
+      },
+      "nfld1": {
+        "name": "Anız tarlaları"
       }
     },
     "lore": {
@@ -4777,6 +4784,10 @@
       "whoseHand": {
         "name": "Keskiyi tutan el kimin?",
         "desc": "Katakompların sonundaki duvardan bir şey öte taraftan yukarı geldi. Ama bu geçitler bu taraftan, kısa süre önce, köyde yapılmış aletlerle açıldı — ve o aletler kilitli ve zorlanmamış bodrumlardan alındı. Aşağıda iki ayrı şey çalışıyor ve yalnızca biri ölü."
+      },
+      "stoneDust": {
+        "name": "Kuyudaki tortu toprak değil",
+        "desc": "Köy kuyusundan bir kova çek ve beklet; dibe çöken şey gri bir kum; parmak arasında keskin ve toprağın kokusundan hiçbir iz yok. O taş — ince öğütülmüş. Su, üstünde bir yerde kesilmekte olan şeyi aşağı taşır, ve o kuyunun üstündeki her yer tarla."
       }
     }
   },
@@ -5905,7 +5916,19 @@
           "the_cut_passage": "Levhanın arkasındaki geçide bak",
           "stone_plate_opened": "Levhanın durduğu yerde bir geçit var ve kesilmiş. Pençelenmemiş, çökmemiş, suyun aşındırmasıyla açılmamış. Kesilmiş.<br><br>Darbeler kısa, üst üste biniyor ve hepsi aynı yöne gidiyor; savurmaya yer olmayan bir darlıkta tek elle çalışan biri öyle yapar. Bir kol boyu sürüyorlar, sonra lambanın yettiği yerden de öteye, ve dolanmıyorlar: bunları yapan, başlamadan önce hangi yöne gitmek istediğini biliyordu.<br><br>Geçidin ağzındaki molozun içinde bir şey duruyor. Bir keski; sapın üçte birinde kırılmış, metalin geri kalanı matlaşmışken kırık yeri hâlâ parlak. Düz yüzünde bir damga var — bir marangoz işareti; köy demircisinin parça başı ödendiği işe vurduğu türden.<br><br>Ölüler alet taşımaz. Onları bilemek için durmaz, ve kırıldığında küfredip bir kenara atmaz.",
           "smith_buy_action": "Bitirdiği bir şey var mı diye sor",
-          "yamato_board_is_empty": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Bugün tahtada sana iş yok. Üzerindeki her şey ya bitti ya da zaten senin elinde"
+          "yamato_board_is_empty": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Bugün tahtada sana iş yok. Üzerindeki her şey ya bitti ya da zaten senin elinde",
+          "take_the_north_road": "Kuzey yoluna sap, tarlalara doğru",
+          "north_road_the_well": "Kuzey Yolu, Köy Kuyusu",
+          "north_road_arrival": "Kuzey yolu köyden çıkan en geniş ve üzerindeki en boş yol. Hasatta arabaların kullandığı yol bu, ve hiç araba yok.<br><br>Kuyu evlerin bittiği yerde duruyor; havaya karşı çatılı, taş ağzı herkesin durduğu tarafta aşınıp çukurlaşmış. Ötesinde arazi açılıyor ve gitmeye devam ediyor: anız, çit, anız, ve çok uzakta alçak tepelerin omzu.",
+          "draw_from_the_well": "Bir kova çek ve ne geldiğine bak",
+          "well_water_examined": "Açık çay renginde geliyor ve sen bakarken durulmuyor.<br><br>Kovayı taş ağzın üstüne koyup zaman veriyorsun. Çöken şey fazla değil, ve beklediğin şey de değil: ne yaprak, ne çürük, kokusu olan hiçbir şey. Gri bir kum; un kadar ince ve parmakla baş parmak arasında ovunca keskin.<br><br>Toprak bunu yapmaz. Toprak kokar. Bu taş; küçüğe öğütülmüş, ve su ancak yukarıda içine katılanı taşır.<br><br>Bu kuyunun üstündeki her yer tarla.",
+          "go_on_to_the_fields": "Devam et, tarlalara çık",
+          "north_fields_the_stubble": "Kuzey Tarlaları, Anız",
+          "north_fields_arrival": "Biçilmiş, toplanmış ve bırakılmış; içinde çizmenden yükseğe duran hiçbir şey yok. Karşıya kadar görebiliyorsun; tarlaların ormana benzemeyen ilk yanı bu.<br><br>Aynı zamanda burada olan her şeyin de seni görebileceği anlamına geliyor.",
+          "walk_out_into_the_stubble": "İçine yürü",
+          "back_to_the_well_road": "Yoldan geri, kuyuya",
+          "notice_harvest_hands": "İlan: ırgat aranıyor",
+          "notice_harvest_hands_body": "Güzel bir elle yazılmış ve eğri çakılmış; yani yazan adam için başkası çakmış.<br><br><i>Kuzey tarlaları için ırgat aranıyor. Günlüğü altıydı, dokuz oldu, ve dün gece nerede yattığın sorulmaz. Değirmene başvurun.</i><br><br>Altında, başka bir elle ve çok daha küçük: <i>üç haftadır dokuz veriyor ve kimse almadı.</i>"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",
@@ -5948,7 +5971,10 @@
           "market_discard": "Sökülmüş bir tezgâhın yerinde bir şey duruyor: yapanın satamadığı, eve de taşımak istemediği baştan savma bir iş.",
           "south_forest_mast": "Meşeler haftalardır dökülüyor ve buraya toplamaya çıkan olmamış. Avuç avuç palamut, ve nemin durduğu yaprak örtüsünde mantar.",
           "south_forest_kill": "Burada bir şey devrilmiş ve düştüğü yerde yenmiş. Kemikler ilik için uzunlamasına kırılmış — hiçbir leş yiyici bu zahmete girmez — ve yanlarındaki toprakta ölen şeye ait olmayan bir diş var.",
-          "south_forest_snare": "Eski bir tuzak; geçiş yoluna kurulmuş ve hiç toplanmamış. Halat yosunun altında hâlâ sağlam, ve ona takılmış bir parça kumaş var; incelmiş ve solmuş."
+          "south_forest_snare": "Eski bir tuzak; geçiş yoluna kurulmuş ve hiç toplanmamış. Halat yosunun altında hâlâ sağlam, ve ona takılmış bir parça kumaş var; incelmiş ve solmuş.",
+          "north_gleaning": "Toplayanlar hızlı çalışmış ve istediklerinden fazlasını bırakmış. Anızın içinde tane, ve bir köşede birinin koca bir demeti düşürüp geri dönmediği kadar arpa.",
+          "north_hedge": "Tarlanın kenarındaki çit bütün mevsim boşa meyve vermiş. Geçmeye başlamış böğürtlenler, ve hendeğin çöktüğü yerde dışarı itilmiş birkaç kök.",
+          "north_left_behind": "Bir demet saman; kurumaya bırakıldığı gibi bağlanıp dikine oturtulmuş, üstünde katlanmış bir ceket. İkisi de birden fazla kez yağmur almış. Demeti kuran kişi aynı gün dönmeyi düşünüyordu."
         }
       }
     }

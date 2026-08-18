@@ -265,6 +265,10 @@
       "v478_15": [
         "The southern forest can be searched, and it has its own exploration to finish. It belonged to no region at all until now.",
         "The hollow holds a wolf pack rather than eight pack leaders. Hunting there is unlimited; the leader is not."
+      ],
+      "v478_16": [
+        "A road north out of the village, to the well the whole place drinks from and the fields beyond it. It opens once you have been down the joiner’s cellar.",
+        "Draw a bucket at the well and look at what settles. It is not soil."
       ]
     },
     "lore": {
@@ -4667,6 +4671,9 @@
       },
       "lrck1": {
         "name": "The stone plate"
+      },
+      "nfld1": {
+        "name": "The stubble fields"
       }
     },
     "lore": {
@@ -4777,6 +4784,10 @@
       "whoseHand": {
         "name": "Whose hand is holding the chisel?",
         "desc": "Something came up through the wall at the end of the catacombs from the far side. But these passages were opened from this side, recently, with tools made in the village — and the tools were taken out of cellars that were locked and not forced. Two different things have been working down here, and only one of them is dead."
+      },
+      "stoneDust": {
+        "name": "The silt in the well is not soil",
+        "desc": "Let a bucket from the village well stand and what settles out is grey grit, sharp between the fingers, with none of the smell soil has. That is stone, ground fine. Water carries down what is being cut somewhere above it, and everything above that well is fields."
       }
     }
   },
@@ -5901,7 +5912,19 @@
           "the_cut_passage": "Look into the passage behind the slab",
           "stone_plate_opened": "There is a passage where the slab was standing, and it was cut. Not clawed, not fallen, not worn through by water. Cut.<br><br>The strokes are short and they overlap and they all run the same way, which is what a person does working one-handed in a space too tight to swing properly. They go on for the length of your arm, and then further than your lamp reaches, and they do not wander: whoever made them knew which direction they wanted before they started.<br><br>Something is lying in the spoil at the mouth of it. A chisel, snapped a third of the way down the shank, the break still bright where the rest of the metal has gone dull. There is a stamp on the flat — a joiner's mark, the kind a village smith punches into work he is paid for by the piece.<br><br>The dead do not carry tools. They do not stop to sharpen them, and they do not swear and throw one away when it breaks.",
           "smith_buy_action": "Ask what he has finished",
-          "yamato_board_is_empty": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Nothing on the board for you today. Everything on it is either finished or already yours"
+          "yamato_board_is_empty": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Nothing on the board for you today. Everything on it is either finished or already yours",
+          "take_the_north_road": "Take the north road, out toward the fields",
+          "north_road_the_well": "North Road, The Village Well",
+          "north_road_arrival": "The road north is the widest out of the village and the emptiest on it. It is the one the carts use at harvest, and there are no carts.<br><br>The well stands where the houses stop, roofed against the weather, with a stone lip worn into a dip on the side everybody stands. Beyond it the land opens out and keeps going: stubble, hedge, stubble, and a long way off the shoulder of the low hills.",
+          "draw_from_the_well": "Draw a bucket and look at what comes up",
+          "well_water_examined": "It comes up the colour of weak tea and it does not clear while you watch it.<br><br>You stand the bucket on the lip and give it time. What settles is not much, and it is not what you expected: no leaf, no rot, nothing that smells of anything. Grey grit, fine as flour and sharp when you work it between finger and thumb.<br><br>Soil does not do that. Soil smells. This is stone, ground down small, and water only carries what is put into it further up.<br><br>Everything above this well is fields.",
+          "go_on_to_the_fields": "Go on, out into the fields",
+          "north_fields_the_stubble": "North Fields, The Stubble",
+          "north_fields_arrival": "Cut and gleaned and left, and nothing standing in it taller than your boot. You can see the whole way across, which is the first thing about the fields that is not like the woods.<br><br>It also means whatever is out here can see you.",
+          "walk_out_into_the_stubble": "Walk out into it",
+          "back_to_the_well_road": "Back along the road to the well",
+          "notice_harvest_hands": "Notice: hired hands",
+          "notice_harvest_hands_body": "Written in a good hand and pinned crooked, which means somebody else pinned it up for the man who wrote it.<br><br><i>Wanted, hands for the north fields. Was six a day, now nine, and no questions about where you slept last. Apply at the mill.</i><br><br>Underneath, in a different hand and much smaller: <i>he has been paying nine for three weeks and nobody has taken it.</i>"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",
@@ -5944,7 +5967,10 @@
           "market_discard": "Something is lying where a stall was packed up: a botched piece of work its maker could not sell and would not carry home.",
           "south_forest_mast": "The oaks have been dropping for weeks and nobody has been out here to gather any of it. Acorns by the handful, and mushrooms in the leaf litter where the damp sits.",
           "south_forest_kill": "Something was brought down here and eaten where it fell. The bones are cracked lengthways for the marrow, which no scavenger bothers with, and there is a tooth in the ground beside them that did not belong to the thing that died.",
-          "south_forest_snare": "An old snare, set at a run and never collected. The rope is sound under the moss and there is a strip of coat caught in it, worn thin and weathered pale."
+          "south_forest_snare": "An old snare, set at a run and never collected. The rope is sound under the moss and there is a strip of coat caught in it, worn thin and weathered pale.",
+          "north_gleaning": "The lifters worked fast and left more than they meant to. Grain in the stubble, and enough barley in one corner that somebody dropped a whole sheaf and did not come back for it.",
+          "north_hedge": "The hedge at the field's edge has been fruiting into nothing all season. Berries going over, and a few roots pushed out where the ditch has slumped.",
+          "north_left_behind": "A bundle of straw, tied and stood on end the way it is left to dry, and a coat folded on top of it. Both have been rained on more than once. Whoever set the bundle up meant to come back the same day."
         }
       }
     }

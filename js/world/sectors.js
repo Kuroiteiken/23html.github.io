@@ -225,6 +225,72 @@ sector.forest2.onStay = function () {
   }
 };
 
+// The north: the well road and the fields the village eats out of. What searching a
+// harvested field turns up is what the lifters missed and what the hedges dropped, so
+// that is what this table holds. Nothing here is worth much on its own, which is the
+// point of gleaning.
+sector.north = new Sector();
+sector.north.id = 7;
+sector.north.data = {
+  scoutm: 5000,
+  scout: 0,
+  scoutf: false,
+  gets: [false, false, false],
+  gotmod: 0,
+};
+sector.north.scout = [
+  {
+    c: 0.05,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.north_gleaning"), "lime");
+      giveItem(item.agrns, rand(2, 6));
+      giveItem(item.brly, rand(1, 4));
+      sector.north.data.gets[0] = true;
+    },
+    exp: 20,
+  },
+  {
+    c: 0.04,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.north_hedge"), "lime");
+      giveItem(item.wbrs, rand(2, 5));
+      giveItem(item.crrt, rand(1, 3));
+      sector.north.data.gets[1] = true;
+    },
+    exp: 25,
+  },
+  {
+    c: 0.03,
+    f: () => {
+      msg(i18n.t("runtime.world.sectors.dialogue.north_left_behind"), "gold");
+      giveItem(item.sstraw, rand(3, 8));
+      giveItem(item.cclth, rand(1, 2));
+      sector.north.data.gets[2] = true;
+    },
+    exp: 30,
+  },
+];
+sector.north.onScout = function () {
+  scoutGeneric(this);
+};
+sector.north.onStay = function () {
+  if (!this.data.scoutf) {
+    if (this.data.scout <= this.data.scoutm) {
+      if (global.flags.btl || act.scout.active === true) {
+        this.data.scout += 0.1;
+        giveSkExp(skl.tpgrf, 0.001);
+      }
+    } else {
+      msg(
+        i18n.t("runtime.world.sectors.dialogue.area_explored_82dc9682"),
+        "lime",
+      );
+      this.data.scoutf = true;
+      giveExp(8000, true, true, true);
+    }
+  }
+};
+
 sector.cata1 = new Sector();
 sector.cata1.id = 4;
 sector.cata1.inside = true;

@@ -789,6 +789,59 @@ function createSiteServer(options = {}) {
           // the walking above, a scene is failing to offer its own exits and that
           // is the thing to fix, not the net.
           checks.netNeverFired = !global.stat.strandc;
+          // The north. The road is gated on the cellar clue, so the region has to be
+          // invisible before that and reachable after it -- and the fields must be an
+          // area that actually spawns, which is the exact failure the damp cellar
+          // shipped with.
+          global.lore = [];
+          global.regions = [];
+          smove(chss.lsmain1);
+          checks.northHiddenBeforeClue = !pick(
+            "runtime.world.locations.dialogue.take_the_north_road",
+          );
+          learnLore("towardTheWell");
+          smove(chss.lsmain1);
+          const road = pick(
+            "runtime.world.locations.dialogue.take_the_north_road",
+          );
+          checks.northOpensOnClue = Boolean(road);
+          if (road) road.click();
+          checks.atTheWell = global.current_l === chss.nrd1;
+
+          const draw = pick("runtime.world.locations.dialogue.draw_from_the_well");
+          checks.wellOffered = Boolean(draw);
+          if (draw) draw.click();
+          checks.wellClueLearned = knowsLore(lore.stoneDust.id);
+          smove(chss.nrd1, false);
+          // Read once. A clue you can keep discovering is not a clue.
+          checks.wellReadOnce = !pick(
+            "runtime.world.locations.dialogue.draw_from_the_well",
+          );
+
+          const onward = pick(
+            "runtime.world.locations.dialogue.go_on_to_the_fields",
+          );
+          checks.fieldsReachable = Boolean(onward);
+          if (onward) onward.click();
+          checks.atTheFields = global.current_l === chss.nfld1;
+          const walkOut = pick(
+            "runtime.world.locations.dialogue.walk_out_into_the_stubble",
+          );
+          checks.stubbleOffered = Boolean(walkOut);
+          if (walkOut) walkOut.click();
+          checks.fieldSpawns = global.flags.btl === true;
+          checks.fieldCreature =
+            global.current_m.id === creature.rbt1.id ||
+            global.current_m.id === creature.slm1.id ||
+            global.current_m.id === creature.slm2.id;
+          // And the new region lands on the journal page that was added for it.
+          checks.fieldRecorded = global.regions.indexOf(area.nfld1.id) !== -1;
+          // The notice on the board follows the same clue.
+          smove(chss.mbrd);
+          checks.noticePosted = Boolean(
+            pick("runtime.world.locations.dialogue.notice_harvest_hands"),
+          );
+
           // The regions page. It only means anything if standing somewhere records it,
           // if the tab renders, and if a creature the player has never killed stays
           // masked -- that masking is the whole point of the page.
@@ -933,9 +986,15 @@ function createSiteServer(options = {}) {
           // inserted above an existing area silently reassigns every later size.
           // The new one has to be last, and the ones that were already there have
           // to be where they were.
+          // Pinned slots rather than "which one is last". The invariant the save format
+          // needs is that an area which already existed keeps its position, and every
+          // new one goes on the end -- so appending leaves these numbers alone, while
+          // inserting anywhere above them moves one and fails here. Asserting that
+          // lrck1 is last only held until the next area was appended after it.
           const order = Object.keys(area);
-          checks.newAreaIsLast = order[order.length - 1] === "lrck1";
           checks.clgKeepsItsSlot = order.indexOf("clg") === 6;
+          checks.cata5aKeepsItsSlot = order.indexOf("cata5a") === 23;
+          checks.lrckKeepsItsSlot = order.indexOf("lrck1") === 24;
 
           // A wall, not a fight: it never takes its turn, and the health is a
           // slab's thickness rather than the authored 9000.

@@ -2837,6 +2837,17 @@ chss.lsmain1.sl = () => {
   ).addEventListener("click", () => {
     smove(chss.home);
   });
+  // North, to the well and the fields. Gated on the cellar clue rather than on a level,
+  // because that is the beat where the village's water becomes a question the player is
+  // already carrying. Lore is monotonic and saved, so the road cannot close again.
+  if (knowsLore(25))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.take_the_north_road"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      smove(chss.nrd1);
+    });
   if (!global.flags.scrtgltt)
     chs(
       i18n.t("runtime.world.locations.dialogue.food_stand_7b76597c"),
@@ -3227,6 +3238,92 @@ chss.clgmn.sl = () => {
     false,
   ).addEventListener("click", () => {
     smove(chss.mrktvg1, false);
+  });
+};
+
+// The road out of the village to the north, and the well the whole place drinks from.
+// It opens on \`towardTheWell\` rather than on a level: that clue is the beat where the
+// village's water becomes something the player is carrying, and it is earned by going
+// down the joiner's cellar. Lore is monotonic and saved, so it cannot come undone.
+chss.nrd1 = new Chs();
+chss.nrd1.id = 174;
+addtosector(sector.north, chss.nrd1);
+chss.nrd1.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("runtime.world.locations.dialogue.north_road_the_well"));
+  global.lst_loc = 174;
+  chs(i18n.t("runtime.world.locations.dialogue.north_road_arrival"), true);
+  if (!knowsLore(28))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.draw_from_the_well"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.well_water_examined"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("stoneDust");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nrd1, false);
+      });
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.go_on_to_the_fields"),
+    false,
+    "lime",
+  ).addEventListener("click", () => {
+    smove(chss.nfld1);
+  });
+  chs(
+    i18n.t(
+      "runtime.world.locations.dialogue.return_back_to_the_village_center_f78bf32b",
+    ),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.lsmain1);
+  });
+};
+
+// The stubble. The fight is behind a choice rather than on arrival, the way the southern
+// forest's hollow does it, so walking in to look at the place is not an ambush.
+chss.nfld1 = new Chs();
+chss.nfld1.id = 175;
+addtosector(sector.north, chss.nfld1);
+chss.nfld1.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("runtime.world.locations.dialogue.north_fields_the_stubble"));
+  global.lst_loc = 175;
+  chs(i18n.t("runtime.world.locations.dialogue.north_fields_arrival"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.walk_out_into_the_stubble"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.nfld1);
+    // area_init draws a fight only when it can generate one. Never return from a
+    // scene without leaving a door.
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nfld1, false);
+      });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_to_the_well_road"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nrd1);
   });
 };
 
@@ -4701,6 +4798,31 @@ chss.mbrd.sl = () => {
       smove(chss.xpgdqt1, false);
     });
   }
+  // Why the north is worth walking to, posted where the village posts things. Not a
+  // gate -- the road is gated on the clue itself -- but a player who has only been told
+  // the well is cloudy has no reason to leave by that gate, and this is the reason.
+  if (knowsLore(25))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.notice_harvest_hands"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.notice_harvest_hands_body"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.i_see_ccf4fd83"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mbrd, false);
+      });
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.go_back_b9dc1fb2"),
     false,

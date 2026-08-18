@@ -662,6 +662,40 @@ area.lrck1.onEnd = function () {
 };
 area.lrck1.drop = [];
 
+// The stubble north of the village. Appended after every other area and it has to stay
+// that way: save() writes sizes in for...in order and load() reads them back by
+// position.
+//
+// The band is not the 1-6 these three creatures live at in the western woods. The north
+// opens on a Chapter III clue, so a player reaching it is past that, and a field of
+// level 2 rabbits would be an insult rather than a region. It is not a threat either:
+// what the fields are worth is what searching them turns up, and what is standing in
+// them later.
+area.nfld1 = new Area();
+area.nfld1.id = 126;
+area.nfld1.name = i18n.t("content.area.nfld1.name");
+area.nfld1.pop = [
+  { crt: creature.rbt1, lvlmin: 8, lvlmax: 13, c: 0.4 },
+  { crt: creature.slm1, lvlmin: 8, lvlmax: 13, c: 0.3 },
+  { crt: creature.slm2, lvlmin: 9, lvlmax: 14, c: 0.3 },
+];
+area.nfld1.size = 40;
+z_bake(area.nfld1);
+area.nfld1.onEnd = function () {
+  roll(item.agrns, 0.5, 2, 6);
+  roll(item.brly, 0.4, 1, 5);
+  roll(item.crrt, 0.3, 1, 3);
+  roll(item.sstraw, 0.6, 2, 7);
+  roll(item.mshr, 0.25, 1, 3);
+  roll(item.cp, 0.4, 1, 6);
+  this.size = rand(20) + 30;
+  smove(chss.nfld1);
+};
+area.nfld1.drop = [
+  { item: item.sstraw, c: 0.05 },
+  { item: item.agrns, c: 0.03 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`
