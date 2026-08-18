@@ -287,6 +287,10 @@
         "Değirmen, ve üç haftadır günü dokuza verip alıcı bulamayan değirmenci. Uzak tarlasını temizle, hasat içeri girer.",
         "Tahıl ambarı, ve pazarın içine girdiğini hatırladığı kurtlar.",
         "Ve değirmenin arkasındaki eski su yolu — on dört ay önce bir avcıya söylenen delik; aramayı biliyorsan."
+      ],
+      "v478_21": [
+        "Maden. Demirciden kazma al, ağzındaki göçüğü aç ve in. Madencilik artık gerçek bir yetenek — vardı ama geliştirecek ve okuyacak hiçbir şey yoktu.",
+        "Bir yüzü işlemek kazmayı yiyor, ve onu geri getirebilen tek kişi demirci."
       ]
     },
     "lore": {
@@ -1194,6 +1198,11 @@
       "mkrdwk": {
         "name": "İşaretli Wakizashi",
         "desc": "Kırmızı kabzalı eski bir wakizashi türü. Çizik ve çentiklerle dolu ağzı, geçmişte yoğun biçimde kullanıldığını gösteriyor"
+      },
+      "pck": {
+        "name": "Kazma",
+        "desc": "Dişbudak sapa geçirilmiş demir baş; işi kolun değil düşüşün yapacağı şekilde ağırlıklandırılmış. Dövüşmek için kötü, kazmak için tek şey",
+        "bonus": "<span style=\"color:lime\">Elindeyken bir taş yüzünü işlemeni sağlar</span><br>"
       }
     },
     "eqp": {
@@ -4713,6 +4722,9 @@
       },
       "ngrn1": {
         "name": "Tahıl ambarı"
+      },
+      "mine1": {
+        "name": "Galeri ağzı"
       }
     },
     "lore": {
@@ -4835,6 +4847,10 @@
       "millDrain": {
         "name": "Değirmenin yanındaki su yolu bir yere gidiyor",
         "desc": "Değirmenin arkasında, değirmenden eski bir taş kanal var; taş kesmeyi meslek edinmiş insanların kestiği gibi dörtgen. Üstündeki demir kapak çekilip kötü yerleştirilmiş, ve içeriden yerleştirilmiş. On dört ay önce bir avcı, köyün altına giden ikinci bir yolu sorduğunu unutması için bir tezgâhtara para ödedi; ona söylenen şey buydu."
+      },
+      "mineWorked": {
+        "name": "Maden kapandığından beri biri içine girmiş",
+        "desc": "Köy madeni, kimsenin adını anmayacağı kadar uzun süre önce kapanmış. Ağzındaki göçük bu yıl içinde elle karıştırılmış, ve içerideki taşta, yaparken keskin olan bir aletin açtığı kesikler var. On dört ay önce alınan halat, lamba yağı ve tebeşir. İşte onlar bunun içindi."
       }
     }
   },
@@ -5133,7 +5149,12 @@
           "title_earned": "Yeni Unvan Kazanıldı! {title}",
           "player_action": "{action}",
           "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) toplam ",
-          "time_caught_up": "<span style=\"color:grey\">Oyun arka plandayken {minutes} dakika geçti.</span>"
+          "time_caught_up": "<span style=\"color:grey\">Oyun arka plandayken {minutes} dakika geçti.</span>",
+          "need_a_pickaxe": "Elle olmaz, onunla da olmaz. Bu iş elde kazma ister.",
+          "pickaxe_blunt": "Baş körelmiş, sap gevşemiş. Demirci eline almadan bir daha taş kesmez.",
+          "face_gives_nothing": "Yüzey darbeyi alıyor ve toz ile sarsılmış bir bilekten başka bir şey vermiyor.",
+          "face_gives_coal": "Damardan kömür geliyor: {amount}.",
+          "pickaxe_spent": "Kazmanın son hâliydi bu. Demirci onu geri getirebilir."
         },
         "description": {
           "lunar_phase_0004b314": "Ay Evresi"
@@ -5999,7 +6020,19 @@
           "north_fields_grain_store": "Kuzey Tarlaları, Tahıl Ambarı",
           "grain_store_arrival": "Çatısı iyi, kapısı kötü, uzun ve basık bir bina. Mesele kapı: bir süredir alt menteşesinden çıkmış ve dibindeki aralık, eli olmayan bir şey tarafından genişletilmiş.<br><br>İçeride, arkadaki çuvallar yenmekten çok açılıp çiğnenmiş. Burada yaşayan şey tahılla yaşamıyor.",
           "go_in_after_them": "Peşlerinden içeri gir",
-          "back_to_the_mill": "Değirmene geri dön"
+          "back_to_the_mill": "Değirmene geri dön",
+          "up_the_road_to_the_hills": "Yolun yukarısına, alçak tepelere doğru git",
+          "low_hills_mine_mouth": "Alçak Tepeler, Maden Ağzı",
+          "mine_mouth_arrival": "Tarlalar tepelerin ilkine dayanıp bitiyor ve zemin bir adım içinde topraktan şiste dönüyor.<br><br>Burada bir işletme var, ve uzun süredir işletme değil. Yamaca dörtgen açılmış bir kesit, üstü kirişlenmiş, ve tamamının önünde şist ile çalı göçüğü.",
+          "clear_the_mine_mouth": "Ağzı kapatan göçüğü aç",
+          "mine_mouth_opened": "Göçük göründüğü kadar derin değil ve sıra sıra geliyor; onunla ilgili ilk yanlış olan şey de bu: bir yamaç tek bir ağırlık olarak iner. Bu iki kez inmiş, ve ikincisinde biri geçiş yolunu arayarak onu karıştırmış.<br><br>Arkasında kesit dörtgen, kirişli ve kuru, ve ışığın gittiğinden daha geriye gidiyor. Hemen içerideki duvarlardaki alet izleri, yaparken keskin olan bir şey tarafından açılmış — ki bu eski olmakla aynı şey değil.<br><br>Halat. Lamba yağı. Bir kutu tebeşir. İyi paltolu bir adam üçünü de aldı ve bir tezgâhtara bunu unutması için para ödedi, ve ona söylenen delik bu.",
+          "go_down_the_adit": "Galeriye in",
+          "the_mine_the_adit": "Maden, Galeri Ağzı",
+          "adit_dark": "Buradaki karanlık ağırlığı olan türden. Altı adım sonra tavanı tabandan ayırt edemiyorsun, ve bir yerde duyduğun ama bulamadığın bir su akıyor.<br><br>Işık olmadan daha ileri gitmiyorsun.",
+          "adit_arrival": "Dörtgen kesilmiş, kirişlenmiş ve tükenmiş: kömür duvarlardan omuz hizasına kadar uzun ve temiz ısırıklarla alınmış, sonra bırakılmış.<br><br>Ama hepsi gitmiş değil. Burada duran kişi damar bittiği için değil zorlaştığı için durmuş, ve zorluk ancak bunu geçimin için yapıyorsan sorundur.",
+          "work_the_coal_face": "Yüzü işle",
+          "go_deeper_into_the_workings": "Galerilerin derinine in",
+          "back_up_to_the_hills": "Yamaca geri çık"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

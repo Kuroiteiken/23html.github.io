@@ -3288,6 +3288,11 @@ const releaseNotes = [
     minor: 20,
     read: () => i18n.get("ui.releaseNotes.v478_20"),
   },
+  {
+    major: 478,
+    minor: 21,
+    read: () => i18n.get("ui.releaseNotes.v478_21"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -6670,6 +6675,13 @@ function renderItem(obj) {
 }
 
 function updateInv(slot) {
+  // This reaches three levels into a row the inventory panel may not have drawn --
+  // a slot outside the rendered list, or a list that has never been built. It is
+  // called from giveItem and reduce, which are gameplay rather than interface, so a
+  // missing row here used to throw out of whatever was handing the player an item.
+  // Nothing to update is not an error.
+  const row = dom.inv_con && dom.inv_con.children[slot];
+  if (!row || !row.children[0] || !row.children[0].children[1]) return;
   if (global.sm === 1)
     dom.inv_con.children[slot].children[0].children[1].innerHTML =
       " x" + inv[slot].amount;

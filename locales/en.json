@@ -287,6 +287,10 @@
         "The mill, and the miller who has been paying nine a day for three weeks with nobody taking it. Clear his far field and the harvest comes in.",
         "The grain store, and the wolves the market remembers getting into it.",
         "And the old drain behind the mill — the hole a hunter was told about fourteen months ago, if you know to look for it."
+      ],
+      "v478_21": [
+        "The mine. Buy a pickaxe from the smith, clear the fall across the mouth, and go down. Mining is a real skill now — it existed with nothing to train it and nothing reading it.",
+        "Working a face wears the pickaxe out, and the smith is the only one who can bring it back."
       ]
     },
     "lore": {
@@ -1194,6 +1198,11 @@
       "mkrdwk": {
         "name": "Marked Wakizashi",
         "desc": "Old wakizashi variant with red hilt. Scarred and chipped blade hints that it was used rather heavily in the past"
+      },
+      "pck": {
+        "name": "Pickaxe",
+        "desc": "Iron head on an ash haft, weighted so the work is done by the fall rather than the arm. A poor thing to fight with and the only thing to dig with",
+        "bonus": "<span style=\"color:lime\">Lets you work a rock face while it is in your hands</span><br>"
       }
     },
     "eqp": {
@@ -4713,6 +4722,9 @@
       },
       "ngrn1": {
         "name": "The grain store"
+      },
+      "mine1": {
+        "name": "The adit"
       }
     },
     "lore": {
@@ -4835,6 +4847,10 @@
       "millDrain": {
         "name": "The drain by the mill goes somewhere",
         "desc": "There is a stone culvert behind the mill, older than the mill, cut square by people who cut stone for a living. The grating over it was pulled and put back badly, and it was put back from the inside. Fourteen months ago a hunter paid a stallholder to forget he had asked where a second way under the village was, and this is what he was told."
+      },
+      "mineWorked": {
+        "name": "Somebody has been in the mine since it shut",
+        "desc": "The village mine was closed long enough ago that nobody mentions it. The fall across its mouth was pulled about by hand within the year, and there are cuts on the stone inside made by a tool that was sharp when it made them. Rope, lamp oil and chalk, bought fourteen months ago. This is what they were for."
       }
     }
   },
@@ -5133,7 +5149,12 @@
           "title_earned": "New Title Earned! {title}",
           "player_action": "You {action}",
           "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) for ",
-          "time_caught_up": "<span style=\"color:grey\">{minutes} minute(s) passed while the game was in the background.</span>"
+          "time_caught_up": "<span style=\"color:grey\">{minutes} minute(s) passed while the game was in the background.</span>",
+          "need_a_pickaxe": "Not with your hands, and not with that. This wants a pickaxe in them.",
+          "pickaxe_blunt": "The head is round and the haft is loose. It will not cut stone again until the smith has had it.",
+          "face_gives_nothing": "The face takes the blow and gives back nothing but dust and a jarred wrist.",
+          "face_gives_coal": "Coal comes away in the seam: {amount}.",
+          "pickaxe_spent": "That was the last of the pickaxe. The smith can bring it back."
         },
         "description": {
           "lunar_phase_0004b314": "Lunar Phase"
@@ -5995,7 +6016,19 @@
           "north_fields_grain_store": "North Fields, The Grain Store",
           "grain_store_arrival": "A long low building with a good roof and a bad door. The door is the point: it has been off its bottom hinge for a while and the gap at the foot of it has been widened by something that did not have hands.<br><br>Inside, the sacks at the back have been opened and trodden through rather than eaten. Whatever is living in here is not living on grain.",
           "go_in_after_them": "Go in after them",
-          "back_to_the_mill": "Go back to the mill"
+          "back_to_the_mill": "Go back to the mill",
+          "up_the_road_to_the_hills": "Up the road, toward the low hills",
+          "low_hills_mine_mouth": "The Low Hills, The Mine Mouth",
+          "mine_mouth_arrival": "The fields give out against the first of the hills and the ground goes from soil to shale in the space of a stride.<br><br>There is a working here, and it has not been a working for a long time. A cut squared into the hillside, timbered at the top, and a fall of shale and scrub across the whole of it.",
+          "clear_the_mine_mouth": "Clear the fall across the mouth",
+          "mine_mouth_opened": "The fall is not as deep as it looks and it comes away in courses, which is the first thing that is wrong with it: a hillside comes down as one weight. This came down twice, and the second time somebody pulled it about looking for the way through.<br><br>Behind it the cut is square and timbered and dry, and it goes back further than the light does. The tool marks on the walls just inside were made by something sharp at the time it made them, which is not the same as being old.<br><br>Rope. Lamp oil. A box of chalk. A man in a good coat bought all three and paid a stallholder to forget it, and this is the hole he was told about.",
+          "go_down_the_adit": "Go down into the adit",
+          "the_mine_the_adit": "The Mine, The Adit",
+          "adit_dark": "The dark down here is the kind that has weight to it. Six steps in you cannot tell the roof from the floor, and there is water moving somewhere that you can hear and not find.<br><br>You are not going any further without a light.",
+          "adit_arrival": "Square-cut, timbered, and worked out: the coal is gone out of the walls in long clean bites up to about shoulder height and then abandoned.<br><br>Except that it is not all gone. Whoever stopped here stopped because the seam got awkward rather than because it ended, and awkward is only a problem if you are doing it for a living.",
+          "work_the_coal_face": "Work the face",
+          "go_deeper_into_the_workings": "Go deeper into the workings",
+          "back_up_to_the_hills": "Back up to the hillside"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

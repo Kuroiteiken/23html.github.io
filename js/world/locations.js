@@ -3490,6 +3490,15 @@ chss.nmill.sl = () => {
   ).addEventListener("click", () => {
     smove(chss.ngrn1);
   });
+  // The miller points up the road once his harvest is in.
+  if (global.flags.hillsroad)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.up_the_road_to_the_hills"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      smove(chss.nhill);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.back_to_the_well_road"),
     false,
@@ -3526,6 +3535,118 @@ chss.ngrn1.sl = () => {
     false,
   ).addEventListener("click", () => {
     smove(chss.nmill);
+  });
+};
+
+// The low hills at the far edge of the fields, and the mouth of the mine. The road here
+// opens when the harvest arc closes, because the miller is the one who points at it.
+chss.nhill = new Chs();
+chss.nhill.id = 179;
+addtosector(sector.north, chss.nhill);
+chss.nhill.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("runtime.world.locations.dialogue.low_hills_mine_mouth"));
+  global.lst_loc = 179;
+  chs(i18n.t("runtime.world.locations.dialogue.mine_mouth_arrival"), true);
+  if (!global.flags.mineopen)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.clear_the_mine_mouth"),
+      false,
+      you.mods.mine ? "lime" : "grey",
+    ).addEventListener("click", () => {
+      if (!you.mods.mine) {
+        msg(
+          i18n.t("runtime.systems.simulation.dialogue.need_a_pickaxe"),
+          "grey",
+        );
+        return;
+      }
+      global.flags.mineopen = true;
+      chs(
+        i18n.t("runtime.world.locations.dialogue.mine_mouth_opened"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("mineWorked");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nhill, false);
+      });
+    });
+  else
+    chs(
+      i18n.t("runtime.world.locations.dialogue.go_down_the_adit"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      smove(chss.mine1);
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_to_the_mill"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nmill);
+  });
+};
+
+// The adit: the worked-out top level. Dark, so it wants a light of its own, which the
+// joiner's cellar has already taught the player is a real state and not decoration.
+chss.mine1 = new Chs();
+chss.mine1.id = 180;
+chss.mine1.effectors = [{ e: effector.dark }];
+addtosector(sector.north, chss.mine1);
+chss.mine1.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.the_mine_the_adit"));
+  global.lst_loc = 180;
+  if (!cansee()) {
+    chs(i18n.t("runtime.world.locations.dialogue.adit_dark"), true, "darkgrey");
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.nhill, false);
+    });
+    return;
+  }
+  chs(i18n.t("runtime.world.locations.dialogue.adit_arrival"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.work_the_coal_face"),
+    false,
+    "gold",
+    "",
+    null,
+    null,
+    null,
+    true,
+  ).addEventListener("click", () => {
+    workTheFace();
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.go_deeper_into_the_workings"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.mine1);
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mine1, false);
+      });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_up_to_the_hills"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nhill);
   });
 };
 

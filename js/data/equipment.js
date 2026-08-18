@@ -144,6 +144,39 @@ wpn.trch.onDegrade = function () {
   );
 };
 
+// The game had no pickaxe, no ore, no anvil and no smelter -- `skl.mng` "Mining" has
+// existed since before this fork with no grant path and nothing anywhere that reads it.
+// This is the tool that turns it on.
+//
+// Slot 0, so it competes with the player's weapon rather than sitting alongside it: you
+// go down the mine holding a pickaxe or holding a sword, and the torch still has the
+// other hand. `wtype = 5` puts it under Hammer Mastery, which is also the damage class
+// that gets through stone -- the same lesson the false wall in the catacombs teaches.
+//
+// It is a deliberately poor weapon. The strength is a tool's, and the durability is what
+// makes the smith part of the loop: digging wears it down and he is the only one who can
+// put it back.
+wpn.pck = new Eqp();
+wpn.pck.id = 10059;
+wpn.pck.name = i18n.t("content.wpn.pck.name");
+wpn.pck.desc =
+  i18n.t("content.wpn.pck.desc") +
+  dom.dseparator +
+  i18n.t("content.wpn.pck.bonus");
+wpn.pck.str = 8;
+wpn.pck.cls = [4, 0, 2];
+wpn.pck.ctype = 2;
+wpn.pck.dp = wpn.pck.dpmax = 45;
+wpn.pck.degrade = 0.05;
+wpn.pck.wtype = 5;
+wpn.pck.rar = 2;
+wpn.pck.oneq = function () {
+  you.mods.mine += 1;
+};
+wpn.pck.onuneq = function () {
+  you.mods.mine -= 1;
+};
+
 wpn.twg = new Eqp();
 wpn.twg.id = 10009;
 wpn.twg.name = i18n.t("content.wpn.twg.name");

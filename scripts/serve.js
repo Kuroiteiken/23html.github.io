@@ -952,6 +952,86 @@ function createSiteServer(options = {}) {
             global.current_m.id === creature.wolf1.id ||
             global.current_m.id === creature.rbt1.id;
 
+          // The mine. The road opens on the harvest, the mouth opens on the pickaxe,
+          // and the Mining skill has had no grant path at all until now.
+          global.flags.hillsroad = false;
+          global.flags.mineopen = false;
+          smove(chss.nmill, false);
+          checks.hillsHiddenBeforeHarvest = !pick(
+            "runtime.world.locations.dialogue.up_the_road_to_the_hills",
+          );
+          global.flags.hillsroad = true;
+          smove(chss.nmill, false);
+          const hills = pick(
+            "runtime.world.locations.dialogue.up_the_road_to_the_hills",
+          );
+          checks.hillsReachable = Boolean(hills);
+          if (hills) hills.click();
+          checks.atTheHills = global.current_l === chss.nhill;
+
+          // Bare-handed, the fall stays where it is.
+          const openEmpty = pick(
+            "runtime.world.locations.dialogue.clear_the_mine_mouth",
+          );
+          checks.mouthOfferedAlways = Boolean(openEmpty);
+          if (openEmpty) openEmpty.click();
+          checks.mouthNeedsTool = global.flags.mineopen !== true;
+
+          // The smith is the only source, so buy it the way a player would.
+          // Put it in hand directly rather than driving the inventory UI, which is
+          // not what is under test here and throws when its panel is not rendered.
+          // oneq is still the thing being exercised: it is what sets the mod the
+          // mine reads.
+          giveItem(wpn.pck);
+          you.eqp[0] = wpn.pck;
+          wpn.pck.oneq();
+          checks.pickaxeSetsMod = you.mods.mine > 0;
+          smove(chss.nhill, false);
+          const openTool = pick(
+            "runtime.world.locations.dialogue.clear_the_mine_mouth",
+          );
+          if (openTool) openTool.click();
+          checks.mouthOpens = global.flags.mineopen === true;
+          checks.mineClueLearned = knowsLore(lore.mineWorked.id);
+
+          smove(chss.nhill, false);
+          const adit = pick("runtime.world.locations.dialogue.go_down_the_adit");
+          checks.aditReachable = Boolean(adit);
+          you.mods.light = 0;
+          if (adit) adit.click();
+          // Dark, and the cellar has already taught the player that is a real state.
+          checks.aditDarkWithoutLight = !pick(
+            "runtime.world.locations.dialogue.work_the_coal_face",
+          );
+          you.mods.light = 1;
+          smove(chss.mine1, false);
+          const face = pick("runtime.world.locations.dialogue.work_the_coal_face");
+          checks.faceWorkable = Boolean(face);
+
+          // The skill this whole region exists to switch on.
+          const beforeExp = skl.mng.exp || 0;
+          const beforeDp = you.eqp[0].dp;
+          if (face) face.click();
+          checks.miningTrains = (skl.mng.exp || 0) > beforeExp || skl.mng.lvl > 0;
+          checks.diggingCostsTheTool = you.eqp[0].dp < beforeDp;
+
+          // Run it to nothing and it must refuse rather than go negative.
+          for (let i = 0; i < 60; i++) workTheFace();
+          checks.pickaxeBottomsOut = you.eqp[0].dp === 0;
+          workTheFace();
+          checks.spentToolRefuses = you.eqp[0].dp === 0;
+
+          smove(chss.mine1, false);
+          const deeper = pick(
+            "runtime.world.locations.dialogue.go_deeper_into_the_workings",
+          );
+          checks.workingsEnterable = Boolean(deeper);
+          if (deeper) deeper.click();
+          checks.mineSpawns = global.flags.btl === true;
+          checks.mineCreature =
+            global.current_m.id === creature.cbat.id ||
+            global.current_m.id === creature.spd1.id;
+
           // The furniture list. A furnished house pushed its rows straight out of the
           // panel and over the Return choice underneath. Stock the house well past what
           // fits, open the panel the way the scene opens it, and measure.

@@ -1311,6 +1311,9 @@ vendor.smith.items = [
   { item: sld.htr, p: 420, c: 0.12, min: 1, max: 1 },
   { item: eqp.gnt, p: 95, c: 0.45, min: 1, max: 2 },
   { item: eqp.hkgd, p: 240, c: 0.2, min: 1, max: 1 },
+  // The mine cannot open without one, and he is the only person in the village who
+  // makes them. Always in stock for that reason.
+  { item: wpn.pck, p: 260, c: 1, min: 1, max: 1 },
   { item: item.coal1, p: 60, c: 0.7, min: 2, max: 6 },
 ];
 

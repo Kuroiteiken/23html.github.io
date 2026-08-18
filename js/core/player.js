@@ -57,6 +57,10 @@ function You() {
     ckfre: 0,
     rnprtk: 0,
     light: 0,
+    // Set by holding a pickaxe, read by the mine. Derived from equipment the way
+    // `light` is, so it is never saved and can never drift out of step with what the
+    // player is actually carrying.
+    mine: 0,
     undc: 0,
     petxp: 0.005,
     stdstps: 1,

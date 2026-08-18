@@ -751,6 +751,31 @@ area.ngrn1.drop = [
   { item: item.sbone, c: 0.04 },
 ];
 
+// The worked-out top level of the mine. Appended last, as every new area must be.
+// `creature.cbat` is already statted and already lives underground, so the adit needed
+// no new creature -- what it needed was a way in.
+area.mine1 = new Area();
+area.mine1.id = 129;
+area.mine1.name = i18n.t("content.area.mine1.name");
+area.mine1.pop = [
+  { crt: creature.cbat, lvlmin: 14, lvlmax: 19, c: 0.6 },
+  { crt: creature.spd1, lvlmin: 13, lvlmax: 17, c: 0.4 },
+];
+area.mine1.size = 30;
+z_bake(area.mine1);
+area.mine1.onEnd = function () {
+  roll(item.coal1, 0.7, 2, 6);
+  roll(item.sbone, 0.4, 2, 5);
+  roll(item.cclth, 0.3, 1, 3);
+  roll(item.cndl, 0.25, 1, 2);
+  this.size = rand(12) + 22;
+  smove(chss.mine1);
+};
+area.mine1.drop = [
+  { item: item.coal1, c: 0.06 },
+  { item: item.sbone, c: 0.04 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

@@ -1224,6 +1224,56 @@ function levelGrantTotal(grant, lvl) {
 // subscribers at all -- it was constructed, documented, and fired on every level
 // gain into nothing. This is its first one. Creature level-ups fire the same hook,
 // hence the filter.
+// Working a coal face. The Mining skill has had no grant path since before this fork;
+// this is it. Every swing feeds the skill, the skill is what decides whether the swing
+// finds anything, and every swing costs the pickaxe a point of its life -- which is what
+// puts the smith in the loop, since he is the only one who can put it back.
+//
+// Gated on `you.mods.mine`, which only a held pickaxe sets, so a player who came down
+// with a sword can fight here but cannot dig.
+function workTheFace() {
+  const tool = you.eqp[0];
+  if (!you.mods.mine || !tool || tool.id !== wpn.pck.id)
+    return msg(
+      i18n.t("runtime.systems.simulation.dialogue.need_a_pickaxe"),
+      "grey",
+    );
+  if (tool.dp <= 0)
+    return msg(
+      i18n.t("runtime.systems.simulation.dialogue.pickaxe_blunt"),
+      "grey",
+    );
+
+  tool.dp = Math.max(0, tool.dp - 1);
+  giveSkExp(skl.mng, 0.6);
+  you.sat -= 2;
+
+  // The skill is the whole difference between chipping at a wall and taking coal off
+  // it. At level 0 most swings find nothing; a trained miner rarely misses.
+  const found = random() < 0.25 + Math.min(0.55, skl.mng.lvl * 0.05);
+  if (!found) {
+    msg(
+      i18n.t("runtime.systems.simulation.dialogue.face_gives_nothing"),
+      "grey",
+    );
+  } else {
+    const amount = rand(1, (2 + skl.mng.lvl / 4) << 0);
+    giveItem(item.coal1, amount);
+    msg(
+      i18n.format(
+        i18n.get("runtime.systems.simulation.dialogue.face_gives_coal"),
+        {
+          amount,
+        },
+      ),
+      "lime",
+    );
+  }
+  if (tool.dp <= 0)
+    msg(i18n.t("runtime.systems.simulation.dialogue.pickaxe_spent"), "orange");
+  you.stat_r();
+}
+
 function areaById(id) {
   for (const key in area) if (area[key].id === id) return area[key];
   return null;
