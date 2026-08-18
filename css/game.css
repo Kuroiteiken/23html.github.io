@@ -1391,3 +1391,23 @@ body {
 /* gmsgs rgb(40,30,70) */
 
 /* crf_r linear-gradient(0deg,rgb(32,7,41),rgb(36,21,68)) */
+
+/* The batch-craft row in the reagents panel. Three narrow buttons sharing the width,
+   so a long "All" in one language cannot push the others out of the panel. */
+#crafting-batch {
+  display: flex;
+  gap: 3px;
+  padding: 3px 4px;
+}
+#crafting-batch .crf_c_bts {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 2px 0;
+  border: 1px solid #3e4092;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}

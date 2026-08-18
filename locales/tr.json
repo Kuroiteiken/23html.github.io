@@ -125,7 +125,10 @@
       "repeatable": {
         "name": "Tekrarlı Üretimi Etkinleştir",
         "currentSpeed": "<span style='color:magenta'>Mevcut hız: </span><span style='color:orange'>{seconds} sn</span>"
-      }
+      },
+      "batchTimes": "x{count}",
+      "batchAll": "Tümü",
+      "batchNone": "Bunun bir tanesini bile yapamazsın."
     },
     "inventory": {
       "freshness": {

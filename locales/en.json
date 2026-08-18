@@ -125,7 +125,10 @@
       "repeatable": {
         "name": "Enable Repeatable Crafting",
         "currentSpeed": "<span style='color:magenta'>Current speed: </span><span style='color:orange'>{seconds} sec</span>"
-      }
+      },
+      "batchTimes": "x{count}",
+      "batchAll": "All",
+      "batchNone": "You cannot make even one of those."
     },
     "inventory": {
       "freshness": {

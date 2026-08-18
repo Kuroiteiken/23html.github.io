@@ -5101,6 +5101,29 @@ function renderRcp(rcp) {
     );
     this.ct_bt1_2a.style.textAlign = "center";
     this.ct_bt1_2a.style.borderBottom = "1px solid #3e4092";
+    // Batch buttons. Clicking the recipe itself still makes one, which is what a
+    // player expects from the row; these are for when you have forty of something and
+    // want it all turned into something else. "All" is solved rather than looped one
+    // at a time, so a stack of hundreds does not walk up from 1.
+    dom.crfbatch = addElement(dom.ct_bt1_2, "div", "crafting-batch");
+    for (const count of [5, 10, 0]) {
+      const b = addElement(dom.crfbatch, "small", null, "crf_c_bts");
+      b.innerHTML =
+        count === 0
+          ? i18n.t("ui.crafting.batchAll")
+          : i18n.t("ui.crafting.batchTimes", { count });
+      b.addEventListener("click", (event) => {
+        // The row underneath is a click target of its own, and it crafts one.
+        event.stopPropagation();
+        const wanted = count === 0 ? craftableCount(rcp) : count;
+        if (wanted < 1) {
+          msg(i18n.t("ui.crafting.batchNone"), "red");
+          return;
+        }
+        _fcraft(rcp, true, wanted);
+        refreshRcp(rcp);
+      });
+    }
     if (skl.crft.lvl > 0) {
       this.ct_bt1_2at = addElement(dom.ct_bt1_2, "div", "rptbn");
       if (!global.flags.rptbncgt) {
@@ -5293,6 +5316,26 @@ function renderRcp(rcp) {
   });
 }
 
+// The largest number of a recipe the reagents allow. canMake answers "can I make
+// exactly this many", so the answer is found by doubling until it fails and then
+// bisecting -- a couple of dozen checks for a stack of thousands, rather than one
+// check per unit.
+function craftableCount(rcp) {
+  if (!canMake(rcp, 1).success) return 0;
+  let low = 1;
+  let high = 2;
+  while (canMake(rcp, high).success && high < 100000) {
+    low = high;
+    high *= 2;
+  }
+  while (high - low > 1) {
+    const mid = ((low + high) / 2) << 0;
+    if (canMake(rcp, mid).success) low = mid;
+    else high = mid;
+  }
+  return low;
+}
+
 function refreshRcp(fl) {
   if (global.rm === 0 || !global.rm) {
     for (const a in global.rec_d)
@@ -5336,7 +5379,8 @@ function _refreshRcpCnt(r, t, t2) {
   else t.style.color = "rgb(188,254,254)";
 }
 
-function _fcraft(what, safe) {
+function _fcraft(what, safe, times) {
+  times = times || 1;
   if (safe) {
     safe = false;
     if (global.flags.sleepmode === true) {
@@ -5380,8 +5424,12 @@ function _fcraft(what, safe) {
       if (what.rec.length === ntest.y.length && ntest.o[0] !== 2) safe = true;
     }
     if (safe) {
-      make(what);
-      global.stat.crftt++;
+      // canMake was already asked for this many by the caller, but ask again here:
+      // a batch is not instantaneous from the player's side and the count came from a
+      // button they pressed a moment ago.
+      const affordable = canMake(what, times).success ? times : 1;
+      make(what, false, affordable);
+      global.stat.crftt += affordable;
       iftrunkopen(1);
     } else {
       if (global.flags.rptbncgtf) {
