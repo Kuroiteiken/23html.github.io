@@ -5704,7 +5704,9 @@
           "nervous_guy_confession": "Nervous Man: You let me be. The once. Everyone else in this market has had a go at me and you let me be, so it is going to be you.<br><br>Fourteen months. A hunter came to this stall — good coat, better sword, the kind that does not haggle. Rope. Lamp oil. A box of chalk. He paid over the odds and he asked me to forget he had been here, and I said yes, because he paid over the odds.<br><br>Then he never came back past me. And then the Head Hunter started asking after a man, and I said nothing, because I had already been paid to say nothing and a month had gone by and what was I going to say then?<br><br>I have stood here for fourteen months with that. Do you know what that is like.",
           "nervous_guy_second_way": "Nervous Man: He wanted to know about a second way down.<br><br>Not the burial ground — he knew about that, he said so, he said it like a man saying a thing he had already decided against. He wanted to know if there was another way under the village that did not go through it.<br><br>I told him about the old drain by the mill, because it was the only hole I know of and I wanted him to go away. He wrote it down. Chalk and rope and a hole he had to be told about by a man selling turnips.<br><br>He was not lost, hunter. He was going around something on purpose.",
           "sell_goods_action": "=> Sell something",
-          "sell_goods_sold": "Sold {item} x{amount}."
+          "sell_goods_sold": "Sold {item} x{amount}.",
+          "turn_in_for_the_night": "\"Turn in for the night\"",
+          "bed_rest_summary_good": "The mattress gives under you properly{extra}"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

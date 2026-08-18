@@ -4716,9 +4716,16 @@ chss.home.sl = () => {
       });
     });
   chs(
-    i18n.t(
-      "runtime.world.locations.dialogue.crash_down_and_take_a_nap_108f2e2c",
-    ),
+    // The game hands out straw bedding at the start and a proper bed can be bought
+    // later, but the label never noticed: it went on describing a crouch on the
+    // floor however good the bed in the corner was. sq is the bed's quality, 0.1 on
+    // the straw against 1 on the plain bed, and it is the same number that decides
+    // how fast resting heals.
+    home.bed && home.bed.sq >= 1
+      ? i18n.t("runtime.world.locations.dialogue.turn_in_for_the_night")
+      : i18n.t(
+          "runtime.world.locations.dialogue.crash_down_and_take_a_nap_108f2e2c",
+        ),
     false,
   ).addEventListener("click", () => {
     if (sector.home.data.smkp > 0) {
@@ -5263,7 +5270,13 @@ chss.hbed.sl = () => {
         i18n.get("runtime.world.locations.dialogue.bed_cat_rest_messages"),
       );
     chs(
-      i18n.t("runtime.world.locations.dialogue.bed_rest_summary", { extra }),
+      home.bed && home.bed.sq >= 1
+        ? i18n.t("runtime.world.locations.dialogue.bed_rest_summary_good", {
+            extra,
+          })
+        : i18n.t("runtime.world.locations.dialogue.bed_rest_summary", {
+            extra,
+          }),
       true,
     );
   }
@@ -5275,11 +5288,24 @@ chss.hbed.sl = () => {
   });
 };
 chss.hbed.onStay = function () {
+  // A lit fire is worth resting beside. effect.fplc is active for exactly as long as
+  // the fireplace has fuel -- its own use() reads the fuel as the effect's remaining
+  // duration -- so this is simply "is the fire burning".
+  //
+  // It is a half again on the rate rather than a doubling, and the energy it returns
+  // is a tenth of a point a minute against the drain the player is paying anyway. The
+  // fire is a reason to keep the woodpile stocked, not a way to sleep the game.
+  const warm = effect.fplc.active === true;
   const hpr =
-    (skl.sleep.use(home.bed) + (global.flags.catget ? 5 : 1) + 1) << 0;
+    ((skl.sleep.use(home.bed) + (global.flags.catget ? 5 : 1) + 1) *
+      (warm ? 1.5 : 1)) <<
+    0;
   if (!effect.fei1.active && you.hp < you.hpmax) {
     you.hp + hpr <= you.hpmax ? (you.hp += hpr) : (you.hp = you.hpmax);
     dom.d5_1_1.update();
+  }
+  if (warm && you.sat < you.satmax) {
+    you.sat = Math.min(you.satmax, you.sat + 0.1);
   }
   // if(global.current_z.id!==-666&&random()<.00001){
   //   let ta = new Area(); ta.id=-666;
