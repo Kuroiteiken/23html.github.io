@@ -3791,7 +3791,13 @@
       },
       "mng": {
         "name": "Mining",
-        "desc": "Ability to extract materials from stones and mountains"
+        "desc": "Ability to extract materials from stones and mountains",
+        "mlstn": {
+          "lv3": "A month of swinging one of these and your shoulders know it: <span style=\"color:lime\">STR +1</span>",
+          "lv6": "You have learned to pace a shift instead of spending it in the first hour: <span style=\"color:lime\">max satiation +15</span>",
+          "lv10": "You work the seam rather than the wall, and you last: <span style=\"color:lime\">STR +1, max HP +8</span>",
+          "lv15": "You can tell where a stone will part before you hit it: <span style=\"color:lime\">STR +2</span>"
+        }
       },
       "mntnc": {
         "name": "Maintanence",

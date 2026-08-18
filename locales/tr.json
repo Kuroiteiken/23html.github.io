@@ -3791,7 +3791,13 @@
       },
       "mng": {
         "name": "Madencilik",
-        "desc": "Taşlardan ve dağlardan malzeme çıkarma yeteneği"
+        "desc": "Taşlardan ve dağlardan malzeme çıkarma yeteneği",
+        "mlstn": {
+          "lv3": "Bir ay bunu savurunca omuzların bunu biliyor: <span style=\"color:lime\">GÜÇ +1</span>",
+          "lv6": "Bir vardiyayı ilk saatte harcamak yerine ona hız vermeyi öğrendin: <span style=\"color:lime\">azami tokluk +15</span>",
+          "lv10": "Duvarı değil damarı işliyorsun, ve dayanıyorsun: <span style=\"color:lime\">GÜÇ +1, azami CAN +8</span>",
+          "lv15": "Bir taşın nereden ayrılacağını vurmadan önce anlıyorsun: <span style=\"color:lime\">GÜÇ +2</span>"
+        }
       },
       "mntnc": {
         "name": "Bakım",

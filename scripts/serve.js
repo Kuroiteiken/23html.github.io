@@ -1029,6 +1029,30 @@ function createSiteServer(options = {}) {
           item.cndl.use();
           checks.candleLights = you.mods.light > 0;
           checks.canHoldToolAndLight = you.mods.light > 0 && you.mods.mine > 0;
+
+          // Mining now carries advantages. A milestone grant runs once and never again --
+          // the save keeps only the granted flag -- so every one of these has to write to
+          // a field that is itself saved, or the advantage quietly disappears on the next
+          // load. This checks the shape rather than the balance.
+          checks.miningHasPerks = (skl.mng.mlstn || []).length > 0;
+          checks.miningPerksDescribed = (skl.mng.mlstn || []).every(
+            (m) => typeof m.p === "string" && m.p.length > 0 && m.p.indexOf("content.skl.") === -1,
+          );
+          checks.miningPerksAscend = (skl.mng.mlstn || []).every(
+            (m, i, all) => i === 0 || all[i - 1].lv < m.lv,
+          );
+          // Every grant must land on saved player state. Run them and confirm they moved
+          // fields the save actually carries.
+          const beforePerk = {
+            stra: you.stra,
+            hpa: you.hpa,
+            sata: you.sata,
+          };
+          for (const m of skl.mng.mlstn || []) m.f();
+          checks.miningPerksTouchSavedState =
+            you.stra > beforePerk.stra &&
+            you.hpa > beforePerk.hpa &&
+            you.sata > beforePerk.sata;
           // A spent tool has to still be in the pack, and it has to be on the smith's
           // repair list. Destroying it at zero made the message it prints -- that the
           // smith can bring it back -- into a lie.

@@ -2071,6 +2071,45 @@ skl.mng.desc = i18n.t("content.skl.mng.desc");
 skl.mng.use = function (x, y) {
   return this.lvl;
 };
+skl.mng.mlstn = [
+  {
+    lv: 3,
+    f: () => {
+      you.stra += 1;
+      you.stat_r();
+    },
+    g: false,
+    p: i18n.t("content.skl.mng.mlstn.lv3"),
+  },
+  {
+    lv: 6,
+    f: () => {
+      you.sata += 15;
+      you.stat_r();
+    },
+    g: false,
+    p: i18n.t("content.skl.mng.mlstn.lv6"),
+  },
+  {
+    lv: 10,
+    f: () => {
+      you.stra += 1;
+      you.hpa += 8;
+      you.stat_r();
+    },
+    g: false,
+    p: i18n.t("content.skl.mng.mlstn.lv10"),
+  },
+  {
+    lv: 15,
+    f: () => {
+      you.stra += 2;
+      you.stat_r();
+    },
+    g: false,
+    p: i18n.t("content.skl.mng.mlstn.lv15"),
+  },
+];
 
 skl.mntnc = new Skill();
 skl.mntnc.id = 144;

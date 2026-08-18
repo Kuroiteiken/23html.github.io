@@ -1820,6 +1820,16 @@ let lastTickAt = Date.now();
 // instead and reported once, when the catching up stops.
 let caughtUpTicks = 0;
 
+// Whether this tab has actually been hidden since the last report. The elapsed-time
+// floor below is the main guard; this is the second one, because the message says the
+// game was in the background and it should not be able to say that about a tab that
+// never left the screen. Machine sleep fires this on wake, so a slept tab still counts.
+let wasEverHidden = false;
+if (typeof document !== "undefined" && document.addEventListener)
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) wasEverHidden = true;
+  });
+
 (function update() {
   const interval = 1000 / global.fps;
   setTimeout(function () {
@@ -1860,15 +1870,31 @@ let caughtUpTicks = 0;
     // the player is looking again.
     if (pending > 5) caughtUpTicks += ticks;
     else if (caughtUpTicks) {
-      const minutes = Math.round((caughtUpTicks * interval) / 60000) || 1;
+      const elapsed = caughtUpTicks * interval;
       caughtUpTicks = 0;
-      if (!global.flags.loadstate)
+      // Reported only when real time actually went missing.
+      //
+      // The replay above is still gated on the tick backlog, and that is right: it has
+      // to cover a hidden tab, a frozen tab and a slept machine alike. But a backlog is
+      // not evidence of any of those. Six ticks owed is about half a second behind, and
+      // half a second is an ordinary stall in a busy fight -- a wave of drops, a big
+      // heal, a long log -- so a player who was clicking the whole time was being told
+      // the game had been in the background.
+      //
+      // The rounding hid that rather than exposing it: Math.round of half a second is
+      // zero, and the fallback behind it turned that zero into a confident one minute.
+      // The floor is a whole minute now, and the tab also has to have actually been
+      // hidden, because that is what the sentence claims.
+      const minutes = Math.floor(elapsed / 60000);
+      if (minutes >= 1 && !global.flags.loadstate && wasEverHidden) {
         msg(
           i18n.t("runtime.systems.simulation.dialogue.time_caught_up", {
             minutes,
           }),
           "grey",
         );
+        wasEverHidden = false;
+      }
     }
   }, interval);
 })();
