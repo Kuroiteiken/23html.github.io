@@ -37,7 +37,12 @@
       "defencesWeapon": "Weapon",
       "defencesClass": "Damage",
       "defencesCrit": "Critical chance",
-      "defencesShield": "Shield"
+      "defencesShield": "Shield",
+      "regions": "Regions",
+      "regionsEmpty": "You have not set foot anywhere worth writing down yet.",
+      "regionsBand": "lv {band}",
+      "regionsKills": "{count} killed",
+      "regionsUnknown": "?????????"
     },
     "settings": {
       "backgroundColor": "BG Color",
@@ -252,6 +257,10 @@
       "v478_13": [
         "The smith’s counter has a way out of it again. Opening his stock cleared the Return with it.",
         "Yamato stops offering work he does not have. His board said “here is what’s available” over an empty wall."
+      ],
+      "v478_14": [
+        "A new journal page: Regions. Everywhere you have set foot, and what lives there.",
+        "Creatures you have never killed stay masked, so the page shows you what is still down there rather than only what you have already done."
       ]
     },
     "lore": {

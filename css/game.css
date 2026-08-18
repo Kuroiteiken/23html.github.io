@@ -1314,6 +1314,9 @@ input:focus {
 #jcell4:hover {
   background-color: #6f2a63;
 }
+#jcell6:hover {
+  background-color: #3f5d23;
+}
 .bksstt {
   position: absolute;
   border: solid lime 1px;

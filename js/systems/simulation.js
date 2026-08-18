@@ -1228,6 +1228,29 @@ function levelGrantTotal(grant, lvl) {
 // subscribers at all -- it was constructed, documented, and fired on every level
 // gain into nothing. This is its first one. Creature level-ups fire the same hook,
 // hence the filter.
+function areaById(id) {
+  for (const key in area) if (area[key].id === id) return area[key];
+  return null;
+}
+
+// The journal's regions page is a record of where the player has been, so the place to
+// write it is the moment the game decides they are somewhere: `area_init` fires
+// `onEnterArea` before it generates anything, and it only fires when the area has
+// rooms left. This is the callback's first subscriber since it was declared.
+//
+// No `data: { q: true }` on this hook. That flag marks quest hooks, which `load()`
+// drops and each started quest then rebuilds; this one is attached once when the
+// bundle loads and has to stay attached.
+attachCallback(callback.onEnterArea, {
+  f(where) {
+    if (!where || where.id === undefined) return;
+    // The training bench and the debug area are not places.
+    if (where.id === area.tst.id || where.id === area.nwh.id) return;
+    if (global.regions.indexOf(where.id) === -1) global.regions.push(where.id);
+  },
+  id: 9002,
+});
+
 attachCallback(callback.onLevel, {
   f(who, gained) {
     if (who.id !== you.id || !gained) return;

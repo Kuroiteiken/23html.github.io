@@ -60,7 +60,7 @@ global.ver = 478;
 // The point release within v478. Raised on every deploy that changes something a
 // player would notice, so a returning player is told about the four small updates they
 // missed rather than only about the last big one.
-global.subver = 13;
+global.subver = 14;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -200,6 +200,13 @@ global.flags = {
 };
 global.spirits = 100;
 global.bestiary = [{ a: false }];
+// Area ids the player has actually stood in, in the order they first did. Kept on
+// `global` and written into the `a1` globals object, which is a JSON blob rather than
+// a positional segment, so an older save yields undefined and the list simply starts
+// empty rather than reading someone else's numbers. Ids are stored rather than keys
+// because area ids are stable while the registry's insertion order is the thing the
+// save format is already fragile about.
+global.regions = [];
 global.shortcuts = [];
 global.msgs_max = 36;
 global.autosave_seconds = 15;
@@ -561,6 +568,7 @@ function save(lvr) {
     ),
     // What the player has worked out about the world, as unlocked entry ids.
     lore: global.lore,
+    rgn: global.regions,
     uid: global.uid,
     jj: global.stat,
     x: global.current_z.id,
@@ -1064,6 +1072,10 @@ function load(dt) {
     // correctly as a player who has not written anything down yet. Unknown ids
     // are dropped so a removed entry cannot leave a blank row behind.
     global.lore = (a1.lore || []).filter((id) => loreById(id));
+    // Drop any id no area answers to, the same way the lore list drops entries that
+    // no longer exist, so a save from a build with different content cannot put a
+    // blank row in the journal.
+    global.regions = (a1.rgn || []).filter((id) => areaById(id));
     for (const id in mastery) mastery[id].data.lvl = 0;
     for (const [id, lvl] of Object.entries(a1.mastery || {}))
       if (mastery[id]) mastery[id].data.lvl = lvl;

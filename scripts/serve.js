@@ -789,6 +789,44 @@ function createSiteServer(options = {}) {
           // the walking above, a scene is failing to offer its own exits and that
           // is the thing to fix, not the net.
           checks.netNeverFired = !global.stat.strandc;
+          // The regions page. It only means anything if standing somewhere records it,
+          // if the tab renders, and if a creature the player has never killed stays
+          // masked -- that masking is the whole point of the page.
+          global.flags.jnlu = true;
+          // Cleared first: the walk above already visited the cellar several times, so
+          // measuring growth without resetting would measure nothing.
+          global.regions = [];
+          const before = global.regions.length;
+          you.mods.light = 1;
+          area.clg.size = 9;
+          smove(chss.clgmn, false);
+          checks.regionRecorded =
+            global.regions.length > before &&
+            global.regions.indexOf(area.clg.id) !== -1;
+          checks.benchNotRecorded = global.regions.indexOf(area.tst.id) === -1;
+
+          dom.ct_bt6.click();
+          const regionTab = document.getElementById("jcell6");
+          checks.regionTabExists = Boolean(regionTab);
+          if (regionTab) regionTab.click();
+          const regionPanel = document.querySelector(".lore-panel");
+          const regionText = regionPanel ? regionPanel.textContent : "";
+          checks.regionPanelRendered =
+            Boolean(regionPanel) &&
+            regionText.indexOf(area.clg.name) !== -1 &&
+            regionText.indexOf("ui.panels.") === -1;
+          // clg holds bats and attic spiders; nothing has been killed in this probe,
+          // so both have to be masked rather than named.
+          checks.unkilledMasked =
+            regionText.indexOf(creature.bat.name) === -1 &&
+            regionText.indexOf(creature.spd1.name) === -1 &&
+            regionText.indexOf(i18n.t("ui.panels.regionsUnknown")) !== -1;
+          checks.regionPanelFits =
+            regionPanel &&
+            regionPanel.getBoundingClientRect().bottom <=
+              document.getElementById("ctrmg").getBoundingClientRect().bottom + 1;
+          dom.ct_bt6.click();
+
           // Every vendor line must price to a real number. The Vendor constructor
           // carries a comment about the child trader, whose shop had no inflation
           // multiplier, so every price resolved to NaN -- and NaN compares false, so

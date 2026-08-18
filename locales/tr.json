@@ -37,7 +37,12 @@
       "defencesWeapon": "Silah",
       "defencesClass": "Hasar",
       "defencesCrit": "Kritik şansı",
-      "defencesShield": "Kalkan"
+      "defencesShield": "Kalkan",
+      "regions": "Bölgeler",
+      "regionsEmpty": "Henüz kayda geçecek bir yere ayak basmadın.",
+      "regionsBand": "sv {band}",
+      "regionsKills": "{count} öldürüldü",
+      "regionsUnknown": "?????????"
     },
     "settings": {
       "backgroundColor": "Arka Plan Rengi",
@@ -252,6 +257,10 @@
       "v478_13": [
         "Demircinin tezgâhının yeniden bir çıkışı var. Stoğunu açmak Geri dön butonunu da siliyordu.",
         "Yamato olmayan işi teklif etmeyi bıraktı. Tahtası boş duvarın üstünde “mevcut işler bunlar” diyordu."
+      ],
+      "v478_14": [
+        "Günlükte yeni bir sayfa: Bölgeler. Ayak bastığın her yer, ve orada yaşayanlar.",
+        "Hiç öldürmediğin yaratıklar gizli kalıyor; yani sayfa sana yaptıklarını değil, hâlâ orada olanı gösteriyor."
       ]
     },
     "lore": {

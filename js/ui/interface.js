@@ -959,9 +959,7 @@ dom.ct_bt6.addEventListener("click", function () {
     this.jlbrw2s2 = addElement(this.jlbrw2, "div", "jcell4", "jcell");
     this.jlbrw3 = addElement(this.jlbod, "div", null, "jrow");
     this.jlbrw3s1 = addElement(this.jlbrw3, "div", "jcell5", "jcell");
-    // One tab on this row, so it takes the width. A hidden sibling would leave half
-    // the row empty and read as a missing button.
-    this.jlbrw3s1.style.width = "100%";
+    this.jlbrw3s2 = addElement(this.jlbrw3, "div", "jcell6", "jcell");
     this.jlbod.style.height = "150px";
     this.jlbod.style.width = "100%";
     dom.jlbrw1s1.innerHTML = i18n.t("ui.panels.quests");
@@ -985,6 +983,15 @@ dom.ct_bt6.addEventListener("click", function () {
       empty(dom.ctrwin6);
       global.lw_op = -5;
       renderDefences();
+    });
+    // Open from the moment the journal is, like the statistics and the gear totals:
+    // it reports where the player has already been rather than anything that has to
+    // be unlocked separately.
+    this.jlbrw3s2.innerHTML = i18n.t("ui.panels.regions");
+    this.jlbrw3s2.addEventListener("click", () => {
+      empty(dom.ctrwin6);
+      global.lw_op = -6;
+      renderRegions();
     });
     this.jlbrw2s1.addEventListener("click", () => {
       empty(dom.ctrwin6);
@@ -3244,6 +3251,11 @@ const releaseNotes = [
     major: 478,
     minor: 13,
     read: () => i18n.get("ui.releaseNotes.v478_13"),
+  },
+  {
+    major: 478,
+    minor: 14,
+    read: () => i18n.get("ui.releaseNotes.v478_14"),
   },
 ];
 
@@ -6742,6 +6754,72 @@ function renderLoreEntry(root, entry, kind) {
 // Read live from the same fields combat reads -- you.caff and you.ccls for what reaches
 // the player, the weapon for what the player reaches with -- rather than recomputed
 // from the equipment list, so this cannot drift from what the game actually does.
+// Where the player has been, and what was living there. The bestiary answers "what
+// have I killed"; this answers "where, and what else is down there that I have not met
+// yet", which is the half a kill counter cannot show.
+//
+// A region appears once the player has stood in it. Its creatures are listed from the
+// area's own population table, so the page cannot drift from what actually spawns, and
+// each one is masked until the player has killed it at least once -- the same contract
+// the bestiary tab runs on. The masked rows are the point: they are what is left.
+function renderRegions() {
+  const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
+  panel.style.height = windowPanelHeight(0.84);
+  const label = addElement(panel, "div", null, "lore-heading");
+  label.innerHTML = i18n.t("ui.panels.regions");
+  label.style.textAlign = "center";
+  const body = addElement(panel, "div", null, "gear-totals__body");
+  body.style.flex = "1";
+  body.style.minHeight = "0";
+  body.style.overflowY = "auto";
+
+  const seen = global.regions
+    .map((id) => areaById(id))
+    .filter((where) => where && where.pop && where.pop.length);
+
+  if (!seen.length) {
+    const empty = addElement(body, "div", null, "lore-open");
+    empty.innerHTML = i18n.t("ui.panels.regionsEmpty");
+    return;
+  }
+
+  for (const where of seen) {
+    const head = addElement(body, "div", null, "lore-entry__title");
+    head.innerHTML = where.name;
+
+    for (const entry of where.pop) {
+      if (!entry || !entry.crt) continue;
+      const row = addElement(body, "div", null, "lore-entry");
+      const left = addElement(row, "div", null, "lore-entry__title");
+      const right = addElement(row, "div", null, "lore-entry__body");
+      right.style.textAlign = "right";
+
+      let kills = 0;
+      for (const record of global.bestiary)
+        if (record.id === entry.crt.id) kills = record.kills;
+
+      // lvlmax is a getter on the areas whose ceiling follows the player, so it is
+      // read here rather than cached anywhere.
+      const band = entry.lvlmin + "-" + entry.lvlmax;
+      if (kills > 0) {
+        left.innerHTML = entry.crt.name;
+        left.style.color = "rgb(0,235,255)";
+        right.innerHTML =
+          i18n.t("ui.panels.regionsBand", { band }) +
+          " " +
+          col(i18n.t("ui.panels.regionsKills", { count: kills }), "lime");
+      } else {
+        left.innerHTML = i18n.t("ui.panels.regionsUnknown");
+        left.style.color = "grey";
+        right.innerHTML = col(
+          i18n.t("ui.panels.regionsBand", { band }),
+          "grey",
+        );
+      }
+    }
+  }
+}
+
 function renderDefences() {
   const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
   panel.style.height = windowPanelHeight(0.84);
