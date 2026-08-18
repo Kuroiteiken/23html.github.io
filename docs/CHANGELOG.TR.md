@@ -10,6 +10,29 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- `area.clg`, yani nemli bodrum, Bölüm III'ün kayıp keskiler ipinin yakın ucu olarak
+  oyuna bağlandı; pazardan, çocuğun anlattıkları okunduktan sonra ulaşılıyor.
+  `quest.chsls1` (id 10) ve `chss.clgmn` (id 173) yeni; alanın kendisi, popülasyonu ve
+  bitiş işleyicisi dışında ellenmedi, çünkü zaten bitmiş içerikti. Yeni alan
+  tanımlanmadığı için kayıt biçimindeki konumsal alan-boyutu yuvaları değişmedi.
+- `area.clg.pop` düzeltildi: iki girdinin hiçbiri `c` bildirmiyordu, bu yüzden
+  `z_bake` undefined biriktirip `popc`'yi `[[0, NaN], [NaN, 1]]` olarak pişiriyordu.
+  `area_init` içindeki her NaN karşılaştırması false olduğu için hiçbir dal
+  eşleşemezdi — hiçbir şey doğmaz, `global.flags.btl` hiç kurulmaz ve iniş sessizce
+  düşerdi. Alan hiç erişilebilir olmadığı için bu hiç görünmedi; ama olduğu anda
+  oyuncunun karşılaştığı ilk şey olurdu.
+- İnişin uzunluğu alanda yazılı olmak yerine görev kabul edilirken belirleniyor, çünkü
+  alan boyutları konumsal olarak geri yükleniyor ve mevcut her kayıt o yuvada zaten
+  yazılı 33'ü taşıyor.
+- `towardTheWell` eklendi (lore id 25, Bölüm III ipucu). Bodruma inmenin amacı bu:
+  yaşlı adamın saydıkları, marangozun bodrumu ve bulanık kuyu dört nokta ediyor ve
+  bunları birleştirmek oyuncuya bırakılıyor.
+- `__test-cellar-story.html` probe'u ve yan hikayeyi baştan sona oynayan bir tarayıcı
+  kontrolü eklendi — lore kapısı, çalınan lambanın yerine geçen karanlık, iniş, duvar
+  ve teslim — ayrıca hiçbir alanın `popc`'ye NaN pişirmediğine dair bir doğrulama.
+  Kaynağın doğru göründüğüne güvenmek yerine, popülasyon düzeltmesi geri alınıp
+  probe'un `noNaNWeights,fightStarts,rightCreature` adlarını verdiği doğrulandı.
+
 - `npm run check` içine `scripts/check-combat.js` eklendi. Orijinal oyunun getirdiği
   yaratıklardan iki bütçe ölçüyor -- seviye başına hasar azaltma ve seviye başına
   saldırı -- ve sonradan eklenmiş, bunlardan birini %15 payla aşan her yaratıkta hata

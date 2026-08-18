@@ -466,6 +466,61 @@ quest.nrvs1.goalsf = function () {
   ];
 };
 
+// The boy at the market, whose report is the third of Chapter III's signs. He is
+// not asking for the chisels back — they are not in the cellar and the player will
+// find out where they went much later, in the catacombs. He is asking to be
+// believed, which is why the goal is to look rather than to retrieve.
+quest.chsls1 = new Quest();
+quest.chsls1.id = 10;
+quest.chsls1.name = i18n.t("content.quest.chsls1.name");
+quest.chsls1.rar = 1;
+quest.chsls1.loc = i18n.t(
+  "runtime.world.locations.dialogue.village_center_marketplace_a6fb36a7",
+);
+quest.chsls1.desc = i18n.t("content.quest.chsls1.desc");
+quest.chsls1.data = { t: 0, cleared: false, wall: false };
+quest.chsls1.rwd = function () {
+  this.data.t++;
+  // He is paid what a joiner pays for a morning's work, not what a set of nine
+  // chisels is worth. The reward the quest is actually about is the last line of
+  // what he says.
+  you.karma++;
+  giveWealth(140);
+  giveExp(9000, true, true, true);
+};
+quest.chsls1.goals = function () {
+  return [
+    i18n.t("content.quest.chsls1.goalCellar", {
+      color: quest.chsls1.data.cleared ? "lime" : "yellow",
+      state: i18n.t(
+        quest.chsls1.data.cleared
+          ? "content.quest.chsls1.stateCellarDone"
+          : "content.quest.chsls1.stateCellarInProgress",
+      ),
+    }),
+    i18n.t("content.quest.chsls1.goalWall", {
+      color: quest.chsls1.data.wall ? "lime" : "yellow",
+      state: i18n.t(
+        quest.chsls1.data.wall
+          ? "content.quest.chsls1.stateWallDone"
+          : "content.quest.chsls1.stateWallInProgress",
+      ),
+    }),
+  ];
+};
+quest.chsls1.goalsf = function () {
+  return [
+    i18n.t("content.quest.chsls1.goalCellar", {
+      color: "lime",
+      state: i18n.t("content.quest.chsls1.stateCellarDone"),
+    }),
+    i18n.t("content.quest.chsls1.goalWall", {
+      color: "lime",
+      state: i18n.t("content.quest.chsls1.stateWallDone"),
+    }),
+  ];
+};
+
 ////////////////////////////////////////////
 
 function giveQst(q) {

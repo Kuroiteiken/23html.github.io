@@ -229,6 +229,10 @@
       ],
       "v478_7": [
         "Pain Resistance is clamped like the poison and corruption resistances already were, so it cannot run past total and turn the sum against itself."
+      ],
+      "v478_8": [
+        "A side story at the market: the boy whose father's chisels went missing out of a locked cellar. He is not asking for them back.",
+        "The damp cellar under the village can be entered. It has been finished content since before this fork and nothing could ever have spawned in it."
       ]
     },
     "lore": {
@@ -3279,6 +3283,16 @@
         "goal": "His account: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "not heard",
         "stateDone": "heard"
+      },
+      "chsls1": {
+        "name": "The Missing Chisels",
+        "desc": "A boy at the market was beaten for losing his father's chisels out of a cellar that was locked. He is not asking for them back. He is asking for someone else to go down and see that they are gone",
+        "goalCellar": "Go down and clear it out: <span style=\"color:{color}\">{state}</span>",
+        "stateCellarInProgress": "still crawling",
+        "stateCellarDone": "cleared",
+        "goalWall": "See what is at the back: <span style=\"color:{color}\">{state}</span>",
+        "stateWallInProgress": "not seen",
+        "stateWallDone": "seen"
       }
     },
     "skl": {
@@ -4713,6 +4727,10 @@
       "secondWayIn": {
         "name": "Dein was not looking for the catacombs",
         "desc": "He bought rope, lamp oil and chalk at the market fourteen months ago and paid the stallholder to forget it. What he asked about was a second way down — one that did not go through the burial ground. He already knew the catacombs were there, and he wanted around them."
+      },
+      "towardTheWell": {
+        "name": "Everything it has touched is near the well",
+        "desc": "The old man named his own cellar, then the family two doors down, then the houses by the well. The joiner's is the fourth. The woman at the next stall says the well has been coming up cloudy for three weeks, and that nobody wants to discuss it, because the alternative to drinking it is not drinking."
       }
     }
   },
@@ -5816,7 +5834,19 @@
           "nightmare_body": "You are awake and you cannot move. Something is standing at the foot of the bed that has been under the village the whole time, and it is only now that it has finished coming up. It does not touch you. It waits, and the waiting is the whole of it.",
           "nightmare_wake": "\"Try to wake\"",
           "nightmare_thins": "The room comes back one edge at a time. Whatever it was does not leave so much as thin out.",
-          "smith_sharpen_action": "\"=> Have a weapon sharpened\""
+          "smith_sharpen_action": "\"=> Have a weapon sharpened\"",
+          "joiners_cellar": "Village Center, The Joiner's Cellar",
+          "ask_the_boy_which_cellar": "Find the boy again and ask him which cellar",
+          "boy_cellar_account": "He checks where the fishmonger is standing before he says anything.<br><br>The cellar is his father's, three streets back toward the well. It is locked because it has always been locked. His father carries one key and he carries the other and there is no third one, and the lock was not forced, which is the part everyone stops listening at.<br><br>He counted them the night before. There were nine. He says the number twice, the way a person does when they have been called a liar about a number.<br><br>He does not ask you to get them back. He asks you to go down and see that there is nothing there, so that it has been seen by someone who is not him.",
+          "go_and_see_for_him": "Tell him you will go down and look",
+          "joiners_cellar_stair": "The joiner does not come down with you and does not thank you for coming. He turns the key, hands it over, and says that whatever you find down there you may keep, because there is nothing down there.<br><br>The stair is six steps and the air at the bottom is wet enough to taste. Something moves along the joists above your head. Something further back answers it.",
+          "joiners_cellar_dark": "There is a bracket on the wall by the stair, and a ring of soot on the stone above it where the glass sat for years.<br><br>There is no lamp in the bracket.<br><br>You cannot see your own hands. Whatever is moving at the back of the cellar can hear you perfectly well, and you are not taking another step without a light of your own.",
+          "joiners_cellar_infested": "They have had the run of the place long enough to stop being careful about it.",
+          "joiners_cellar_quiet": "Nothing moves on the joists now. The cellar is a cellar: cold, wet at the corners, and full of a family's food.",
+          "examine_the_back_wall": "Look at what the lamp was hanging over",
+          "joiners_cellar_back_wall": "The shelves are exactly as the man said. Two crocks of pickled turnip, a stone jar of lard, a string of onions gone soft, a sack of last year's apples. Nothing has been opened. Nothing has been gnawed at. A month of food for a family, and it is all still here.<br><br>The chest under the window is open and empty. It is lined with cloth, and the cloth still holds the shape of what sat in it: a long tray of narrow slots, laid out biggest to smallest. Nine of them.<br><br>The back wall is older than the rest of the cellar. The courses run differently and the mortar has been patched more than once. Two stones near the floor sit proud of the others, and the mortar around them has gone to powder, and the powder is on this side of the wall.<br><br>You have stood in front of this wall before. It is at the back of your own house.",
+          "go_up_and_tell_his_father": "Go up and tell his father what is behind his wall",
+          "joiners_cellar_father": "He listens to all of it. He lets you finish, which is more than the market did.<br><br>Then he says the lock was not forced. He says it exactly the way his son said nine.<br><br>He pays you for the vermin anyway, and while he is counting it into your hand he mentions, not to you, that the boy can sleep in the house again.<br><br>That is all of it. It is more than the boy asked for."
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

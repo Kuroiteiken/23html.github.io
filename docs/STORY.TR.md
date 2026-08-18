@@ -264,8 +264,8 @@ Asıl önemli kısım burası. Oyunun içeriği eksik değil; bağlantıları ek
 | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Katakomplar**        | 26 tamamlanmış sahne | **Tamamen erişilebilir ve tamamen dolu**, dört kademe hâlinde: `cata1a` giriş odaları, `cata2a` doğu çevrimi, `cata3a` batı koridoru, `cata4a` derin odalar, artı sondaki karşılaşma için `cata5a`. `sector.cata1`'in 11.000 puanlık takibi çalışıyor.                                                                                                        |
 | **Ölümsüz bestiyeri**  | 20'nin 9'u           | On biri statlandırıldı, Ölümsüz türüne alındı ve erişilebilir: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. Kalanlar bebek ve kukla ailesi — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — artı statlı ama hiçbir alana ait olmayan `lrck`, `lsprt`, `kksh` ve `ngtmr1`.                                    |
-| **Rutubetli mahzen**   | 1 alan               | `area.clg` doludur ama hiç başlatılmaz.                                                                                                                                                                                                                                                                                                                       |
-| **Pazar yeri sektörü** | 1 sektör             | `sector.vmain1` yedi sahneye bağlı ama tüm keşif tablosu ve işleyicisi yorum satırında.                                                                                                                                                                                                                                                                       |
+| **Rutubetli mahzen**   | 1 alan               | **Tamamlandı.** Kayıp keskiler ipinin yakın ucu olarak pazardan ulaşılıyor. Bir kez bile başlatılmamıştı ve başlatılsa da hiçbir şey doğuramazdı: iki popülasyon girdisinin hiçbiri doğma ağırlığı bildirmiyordu.                                                                                                                                             |
+| **Pazar yeri sektörü** | 1 sektör             | **Tamamlandı.** Tablosu yazılmış ve yoruma alınmıştı, yedi sahne aranamaz kalmıştı; köy merkezi ile pazar artık bozuk para ve kimsenin almayacağı şeyleri çıkarıyor.                                                                                                                                                                                          |
 | **Unvanlar**           | 108'in 22'si         | Verilme yolu yok. Kalanların neredeyse tamamı silah ustalığı kademeleri (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`); bunlar hikaye çalışması değil, öldürme sayacı eşikleri ister.                                                                                                                                                                |
 | **Eşya ve ekipman**    | 544'ün ~309'u        | Hiçbir düşme, tarif veya satıcı kaynağı yok. 7 anahtar, 6 öz, kalan 5 maske, 6 madalya, 16 element tılsımı, ~35 silah ve yaklaşık 150 yiyecek dâhil. On dört kalkanın üçü artık dojo merdiveninden geliyor; Hoplit, Şövalye ve Dehşet kalkanları nadir diye listelenmiş ama hiç statı olmayan taslaklardı, yani 35. seviye ödülü boş elden fazla korumuyordu. |
 
@@ -321,6 +321,9 @@ etrafındaki içeriği biçimlendirdiği için tutuluyor.
 - `js/data/quests.js` — nöbet görevinin tamamlanması `global.stat.jcom` yerine
   var olmayan `global.flags.jcom` değerini artırıyordu. Sonuç `NaN` oluyor ve
   arayüzün zaten gösterdiği iş sayacı hiç ilerlemiyordu.
+- `js/world/areas.js` — bodrum bağlanırken değiştirildi; aynı beş satırdaki ikinci
+  kusurla birlikte: iki popülasyon girdisinin hiçbiri `c` bildirmiyordu, yani doğma
+  tablosu NaN olarak pişiyordu ve orada hiçbir yaratık üretilemezdi.
 - `js/world/areas.js` — `area.clg.onEnd`, tanımlı olmayan `chss.q1lwn` ve
   `chss.q1l` sahnelerini çağırıyordu. Alan erişilebilir olsaydı hata fırlatırdı.
 - `chss.jbgd1`'in çıkış seçeneği yoktu; oyuncu saat 20 olana kadar tutuluyordu.
@@ -512,6 +515,40 @@ Katakompların sonunda durmuş olmaya bağlı. Lore tek yönlü ve kayıtlı, g�
 aksine; yani kâbus yalnızca hikayenin zaten anlattığı bir oyuncuya ulaşabiliyor — ki
 sahip olmaya değer olmasının bütün sebebi bu: oyuncu ölüm ki'si soluyor, ve bu onun
 faturası.
+
+### Çocuğun dövüldüğü bodrum
+
+Oyuncu yaşlı adamı sorduğunda pazar kendi kendini yalanlıyor ve sahnenin amacı da bu:
+köyde kimse tanık değil, insanlar sadece fikir sahibi. İçlerinden biri, babasının
+keskilerinin kilitli bir bodrumdan kaybolduğunu ve bunları kaybettiği için dövüldüğünü
+söyleyen bir çocuk.
+
+Artık tekrar bulunabiliyor. Keskileri geri istemiyor — aşağıda olmadıklarını zaten
+biliyor. Oyuncudan aşağı inip gitmiş olduklarını görmesini istiyor; kendisi olmayan biri
+de görmüş olsun diye. Ödülün tamamı bu, ve marangoz sonunda hâlâ ikisine de inanmıyor.
+
+Bu iş `area.clg`'de geçiyor ve neredeyse hiçbir şeye ihtiyacı yoktu: bu fork'tan önce de
+bitmiş içerikti, iki dilde adı ve otuz üç odalık yarasa ile örümceği vardı, ve bir kez
+bile başlatılmamıştı. İki şeyi bozuktu. Bitiş işleyicisi `chss.q1lwn` ile `chss.q1l`'i
+çağırıyordu, ikisi de hiç var olmadı; etrafındaki görevin kesilme sebebi de bu. Ve iki
+popülasyon girdisinin hiçbiri doğma ağırlığı bildirmiyordu, bu yüzden `z_bake` undefined
+biriktirip `popc`'yi `[[0, NaN], [NaN, 1]]` olarak pişiriyordu — `area_init`'in NaN ile
+yaptığı her karşılaştırma false olduğu için hiçbir dal eşleşemezdi. Hiçbir şey doğmaz,
+savaş bayrağı hiç kurulmaz ve iniş sessizce düşerdi. Kimse göremedi, çünkü kimse
+giremiyordu.
+
+Kayda değer iki karar var. İniş dokuz oda ve bu sayı alanda yazılı olmak yerine çocuk
+sorduğunda belirleniyor, çünkü alan boyutları konumsal geri yükleniyor ve var olan her
+kayıt o yuvada zaten yazılı 33'ü taşıyor — bir ayak işi bir akşam olmamalı. Ve bodrum
+karanlık, yani oyuncunun altıncı basamağı geçmek için kendi ışığı gerekiyor. Bu bir
+zorluk ayarı değil; o merdivenin başında duran lamba, bodrumdan kaybolan şeylerden biri,
+ve bütün ipin dayandığı lore satırı da şu: _alet ile feneri alıp yiyeceği bırakan şey aç
+değildir_.
+
+Oyuncunun oradan aldığı şey ödül değil, ipucu: yaşlı adamın kendi listesi kendi bodrumu,
+sonra iki kapı öteki aile, sonra kuyunun yanındaki evlerdi. Marangozun bodrumu
+dördüncüsü, ve yan tezgâhtaki kadın üç haftadır kuyunun bulanık geldiğini söylüyor. Dört
+nokta, ve bunları birleştirmek oyuncuya bırakılıyor.
 
 ### Adım 4 — Doğu ve Dein
 

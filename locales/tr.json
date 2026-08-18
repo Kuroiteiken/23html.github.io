@@ -229,6 +229,10 @@
       ],
       "v478_7": [
         "Ağrı Direnci, zehir ve çürüme dirençlerinde zaten olduğu gibi sınırlandırıldı; artık tamamı geçip hesabı kendi aleyhine çeviremiyor."
+      ],
+      "v478_8": [
+        "Pazarda bir yan hikaye: babasının keskileri kilitli bir bodrumdan kaybolan çocuk. Onları geri istemiyor.",
+        "Köyün altındaki nemli bodruma girilebiliyor. Bu fork'tan önce de bitmiş içerikti ve içinde hiçbir zaman hiçbir şey doğamazdı."
       ]
     },
     "lore": {
@@ -3279,6 +3283,16 @@
         "goal": "Anlattıkları: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "dinlenmedi",
         "stateDone": "dinlendi"
+      },
+      "chsls1": {
+        "name": "Kayıp Keskiler",
+        "desc": "Pazardaki bir çocuk, babasının keskilerini kilitli bir bodrumdan kaybettiği için dövüldü. Onları geri istemiyor. Aşağı inip gerçekten orada olmadıklarını başka birinin de görmesini istiyor",
+        "goalCellar": "Aşağı in ve temizle: <span style=\"color:{color}\">{state}</span>",
+        "stateCellarInProgress": "hâlâ kaynıyor",
+        "stateCellarDone": "temizlendi",
+        "goalWall": "Arkada ne olduğunu gör: <span style=\"color:{color}\">{state}</span>",
+        "stateWallInProgress": "görülmedi",
+        "stateWallDone": "görüldü"
       }
     },
     "skl": {
@@ -4713,6 +4727,10 @@
       "secondWayIn": {
         "name": "Dein katakompları aramıyordu",
         "desc": "On dört ay önce pazardan halat, kandil yağı ve tebeşir aldı ve tezgâh sahibine bunu unutması için para verdi. Sorduğu şey aşağı inen ikinci bir yoldu — mezarlığın içinden geçmeyen bir yol. Katakompların orada olduğunu zaten biliyordu ve onların etrafından dolanmak istiyordu."
+      },
+      "towardTheWell": {
+        "name": "Dokunduğu her yer kuyunun yakınında",
+        "desc": "Yaşlı adam önce kendi bodrumunu saydı, sonra iki kapı öteki aileyi, sonra kuyunun yanındaki evleri. Marangozun bodrumu dördüncüsü. Yan tezgâhtaki kadın kuyunun üç haftadır bulanık geldiğini, kimsenin bunu konuşmak istemediğini, çünkü onu içmemenin karşılığının susuz kalmak olduğunu söylüyor."
       }
     }
   },
@@ -5820,7 +5838,19 @@
           "nightmare_body": "Uyanıksın ve kıpırdayamıyorsun. Yatağın ayakucunda, bunca zaman köyün altında olan bir şey duruyor; yukarı çıkmayı ancak şimdi bitirdi. Sana dokunmuyor. Bekliyor, ve mesele tamamen o bekleyiş.",
           "nightmare_wake": "\"Uyanmayı dene\"",
           "nightmare_thins": "Oda birer kenar hâlinde geri geliyor. O şey gitmiyor, yalnızca seyreliyor.",
-          "smith_sharpen_action": "\"=> Bir silah keskinleştir\""
+          "smith_sharpen_action": "\"=> Bir silah keskinleştir\"",
+          "joiners_cellar": "Köy Merkezi, Marangozun Bodrumu",
+          "ask_the_boy_which_cellar": "Çocuğu tekrar bul ve hangi bodrum olduğunu sor",
+          "boy_cellar_account": "Konuşmadan önce balıkçının nerede durduğuna bakıyor.<br><br>Bodrum babasının; üç sokak öte, kuyuya doğru. Kilitli, çünkü her zaman kilitliydi. Bir anahtarı babası taşıyor, ötekini kendisi taşıyor, üçüncüsü yok, ve kilit zorlanmamış — herkesin dinlemeyi tam burada bıraktığı kısım da bu.<br><br>Bir gece önce saymış. Dokuz taneydi. Sayıyı iki kez söylüyor; insan bir sayı yüzünden yalancı sayıldığında öyle söyler.<br><br>Onları geri getirmeni istemiyor. Aşağı inip orada hiçbir şey olmadığını görmeni istiyor — kendisi olmayan biri de görmüş olsun diye.",
+          "go_and_see_for_him": "Aşağı inip bakacağını söyle",
+          "joiners_cellar_stair": "Marangoz seninle aşağı inmiyor ve geldiğin için teşekkür etmiyor. Anahtarı çeviriyor, sana uzatıyor ve aşağıda ne bulursan senin olabileceğini söylüyor, çünkü aşağıda hiçbir şey yok.<br><br>Merdiven altı basamak ve dipteki hava tadılacak kadar ıslak. Başının üstündeki kirişlerde bir şey yürüyor. Daha arkadan bir başkası ona karşılık veriyor.",
+          "joiners_cellar_dark": "Merdivenin yanındaki duvarda bir askı var; üstündeki taşta da camın yıllarca durduğu yerde bir is halkası.<br><br>Askıda lamba yok.<br><br>Kendi ellerini göremiyorsun. Bodrumun arkasında kımıldayan şey seni gayet iyi duyuyor ve sen kendi ışığın olmadan bir adım daha atmıyorsun.",
+          "joiners_cellar_infested": "Burayı, artık dikkat etmeyi bırakacak kadar uzun süredir kendilerinin sayıyorlar.",
+          "joiners_cellar_quiet": "Kirişlerde artık hiçbir şey kımıldamıyor. Bodrum yalnızca bir bodrum: soğuk, köşeleri ıslak ve bir ailenin yiyeceğiyle dolu.",
+          "examine_the_back_wall": "Lambanın üstünde durduğu şeye bak",
+          "joiners_cellar_back_wall": "Raflar tam adamın dediği gibi. İki küp turşu, bir taş kavanoz iç yağı, yumuşamış bir dizi soğan, geçen yılın elmalarından bir çuval. Hiçbiri açılmamış. Hiçbiri kemirilmemiş. Bir aileye bir aylık yiyecek, ve hepsi hâlâ burada.<br><br>Pencerenin altındaki sandık açık ve boş. İçi bezle kaplanmış ve bez, içinde duran şeyin biçimini hâlâ tutuyor: büyükten küçüğe dizilmiş, uzun ve dar yuvalı bir tabla. Dokuz yuva.<br><br>Arka duvar bodrumun geri kalanından eski. Sıralar farklı gidiyor ve harç birden fazla kez yamanmış. Zeminin yakınındaki iki taş diğerlerinden dışarı taşıyor, çevresindeki harç toz olmuş ve toz duvarın bu tarafında.<br><br>Bu duvarın önünde daha önce durdun. O, kendi evinin arkasında.",
+          "go_up_and_tell_his_father": "Yukarı çık ve babasına duvarının arkasında ne olduğunu anlat",
+          "joiners_cellar_father": "Hepsini dinliyor. Bitirmene izin veriyor — pazarın yaptığından fazlası.<br><br>Sonra kilidin zorlanmadığını söylüyor. Tam olarak oğlunun dokuz dediği gibi söylüyor.<br><br>Yine de haşere için sana ödeme yapıyor ve parayı eline sayarken, sana değil kendine, çocuğun yeniden evde yatabileceğini söylüyor.<br><br>Hepsi bu. Çocuğun istediğinden fazlası."
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

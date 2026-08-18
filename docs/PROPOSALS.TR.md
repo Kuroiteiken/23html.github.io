@@ -160,14 +160,13 @@ Brief en az sekiz istiyor. Üçü girdi: **Hiçbir Şey Söylemeyen Adam** (paza
 adam), **Kâbus** ([STORY.TR.md](STORY.TR.md)) ve pazarın kendi keşif tablosu.
 Kaynaklarda hâlâ duran kancalar şunlar:
 
-| Kanca                | Zaten var olan                                                                                                                           | İhtiyacı                                                        |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **Rutubetli mahzen** | `area.clg` tanımlı, dolu ve bir kez bile başlatılmıyor. Bitiş işleyicisi var olmayan iki sahneyi çağırıyordu, yani görevi kesilmiş.      | Ona ulaşacak bir sahne ve yeni bir bitiş işleyicisi.            |
-| **Korkuluk**         | `creature.kksh`, tamamen statlı, karanlıkla bozulmuş, pusu kurduğu yazılı — ve hiçbir alanda yok.                                        | Tarlaların olduğu bir yer.                                      |
-| **Mimik**            | `creature.lrck`, 9000 can, `battle_ai` false döndürüyor, mağara ve zindanlarda duvar taklidi yaptığı yazılı.                             | Yeraltında, olacağı bir duvar.                                  |
-| **Kandil ruhu**      | `creature.lsprt`, statlı, madenlerdeki kandillere musallat olduğu yazılı.                                                                | Madenler — demirci önerisine bakın.                             |
-| **Bebekler**         | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: ele geçirilme ve karanlık ritüellerle ilgili beş yaratık, hepsi taslak, hepsi erişilemez. | İstatistikler ve ritüelleri yapan biri.                         |
-| **Yedi anahtar**     | Oyunda hiçbir kilidi olmayan yedi anahtar eşyası.                                                                                        | Kilitler. İsimlendirilmiş odalardan oluşan bir zindan bariz ev. |
+| Kanca            | Zaten var olan                                                                                                                           | İhtiyacı                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Korkuluk**     | `creature.kksh`, tamamen statlı, karanlıkla bozulmuş, pusu kurduğu yazılı — ve hiçbir alanda yok.                                        | Tarlaların olduğu bir yer.                                      |
+| **Mimik**        | `creature.lrck`, 9000 can, `battle_ai` false döndürüyor, mağara ve zindanlarda duvar taklidi yaptığı yazılı.                             | Yeraltında, olacağı bir duvar.                                  |
+| **Kandil ruhu**  | `creature.lsprt`, statlı, madenlerdeki kandillere musallat olduğu yazılı.                                                                | Madenler — demirci önerisine bakın.                             |
+| **Bebekler**     | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: ele geçirilme ve karanlık ritüellerle ilgili beş yaratık, hepsi taslak, hepsi erişilemez. | İstatistikler ve ritüelleri yapan biri.                         |
+| **Yedi anahtar** | Oyunda hiçbir kilidi olmayan yedi anahtar eşyası.                                                                                        | Kilitler. İsimlendirilmiş odalardan oluşan bir zindan bariz ev. |
 
 ---
 

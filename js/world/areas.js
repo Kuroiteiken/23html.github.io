@@ -160,17 +160,37 @@ area.trn3.drop = [{ item: item.appl, c: 0.28 }];
 area.clg = new Area();
 area.clg.id = 106;
 area.clg.name = i18n.t("content.area.clg.name");
+// Neither entry declared `c`, so `z_bake` accumulated undefined and baked
+// `popc` as [[0, NaN], [NaN, 1]]. Every comparison in `area_init` against NaN is
+// false, so no branch would ever have matched: nothing could spawn, `btl` would
+// never have been set, and the descent would have fallen through in silence. The
+// area has never been reachable, so this has never been visible — but it would
+// have been the first thing a player saw the moment it was.
 area.clg.pop = [
-  { crt: creature.bat, lvlmin: 1, lvlmax: 4 },
-  { crt: creature.spd1, lvlmin: 2, lvlmax: 4 },
+  { crt: creature.bat, lvlmin: 1, lvlmax: 4, c: 0.5 },
+  { crt: creature.spd1, lvlmin: 2, lvlmax: 4, c: 0.5 },
 ];
 area.clg.size = 33;
 z_bake(area.clg);
-// This area belongs to a quest that was cut: its completion handler moved the
-// player to `chss.q1lwn` and `chss.q1l`, neither of which exists, so it would
-// throw the moment the area became reachable. The area itself is kept because
-// it is finished content; whoever wires it back in writes the handler then.
-// See docs/STORY.md.
+// The joiner's cellar, reached from the marketplace once the boy has said which
+// one it is. This handler replaces one that was cut with its quest: it moved the
+// player to `chss.q1lwn` and `chss.q1l`, neither of which has ever existed.
+//
+// The size is not restored here. Cleared means cleared, the way `area.hmbsmnt`
+// leaves its own basement at zero, because this is one errand for one family
+// rather than a place to grind. It is also why the authored 33 above is not the
+// number a player meets: sizes restore positionally from every existing save, so
+// `quest.chsls1` sets the descent's length when the boy asks.
+area.clg.onEnd = function () {
+  // He said the player could keep whatever they found, and meant that there was
+  // nothing to find. Offcuts, a few coins off the floor, and the apples.
+  roll(item.wdc, 0.5, 2, 6);
+  roll(item.appl, 0.4, 1, 3);
+  roll(item.cclth, 0.2, 1, 2);
+  roll(item.cp, 0.5, 2, 7);
+  quest.chsls1.data.cleared = true;
+  smove(chss.clgmn, false);
+};
 
 area.tst = new Area();
 area.tst.id = 108;

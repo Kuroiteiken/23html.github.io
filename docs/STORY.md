@@ -264,7 +264,7 @@ connections.
 | ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                                                                                                                                                                              |
 | **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area.                                                                                                                                                         |
-| **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Damp cellar**         | 1 area             | **Finished.** Reached from the marketplace as the near end of the missing-chisels thread. It had never been initialised once, and could not have spawned anything if it had been: neither population entry declared a spawn weight.                                                                                                                                                                                                                                                        |
 | **Marketplace sector**  | 1 sector           | **Finished.** Its table had been written and commented out, leaving seven scenes unsearchable; the village centre and the market now turn up small change and the things nobody would buy.                                                                                                                                                                                                                                                                                                 |
 | **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                                                                                                                                                                                      |
 | **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, ~35 weapons, roughly 150 foods. Three of the fourteen shields now come from the dojo ladder; the Hoplite, Knight and Dread shields had been listed as rare with no stats at all, so the level 35 reward defended exactly as well as an empty hand. |
@@ -322,6 +322,9 @@ kept because each one shaped the content around it.
   the job counter the interface already displayed never advanced.
 - `js/world/areas.js` — `area.clg.onEnd` called `chss.q1lwn` and `chss.q1l`,
   neither of which is defined. It would have thrown if the area were reachable.
+  Replaced when the cellar was wired in, along with a second defect in the same
+  five lines: neither population entry declared `c`, so the spawn table baked to
+  NaN and no creature could ever have been generated there.
 - `chss.jbgd1` had no exit choice, holding the player until hour 20.
 - `js/data/creatures.js` — `creature.wolf1.battle_ai` attacked with
   `abl.scratch`, which does not exist. `attack()` falls back to `abl.default`
@@ -516,6 +519,43 @@ It is gated on having stood at the end of the catacombs. Lore is monotonic and s
 unlike a quest flag, so the nightmare can only reach a player the story has already
 explained it to -- which is the whole reason it is worth having: the player has been
 breathing death ki, and this is the bill.
+
+### The cellar the boy was beaten over
+
+The market contradicts itself when the player asks about the old man, and that is the
+point of the scene: nobody in the village is a witness, they are people with opinions.
+One of them is a boy who says his father's chisels went missing out of a locked cellar
+and that he was beaten for losing them.
+
+He can be found again now. He does not ask for the chisels back — he already knows they
+are not down there. He asks the player to go down and see that they are gone, so that it
+has been seen by somebody who is not him. That is the whole reward, and the joiner still
+does not believe either of them at the end of it.
+
+`area.clg` is where it happens, and it needed almost nothing: it has been finished
+content since before this fork, with a name in both languages and thirty-three rooms of
+bats and spiders, and it had never been initialised once. Two things were wrong with it.
+Its completion handler called `chss.q1lwn` and `chss.q1l`, neither of which has ever
+existed, which is why the quest around it was cut. And neither population entry declared
+a spawn weight, so `z_bake` accumulated undefined and baked `popc` as
+`[[0, NaN], [NaN, 1]]` — every comparison `area_init` makes against NaN is false, so no
+branch could ever have matched. Nothing would have spawned, the battle flag would never
+have been set, and the descent would have fallen through in silence. Nobody could see
+it, because nobody could get in.
+
+Two decisions are worth recording. The descent is nine rooms, and that number is set
+when the boy asks rather than authored on the area, because area sizes restore
+positionally and every save that exists already carries the authored 33 in that slot —
+an errand should not be an evening. And the cellar is dark, so the player needs a light
+of their own to get past the sixth step. That is not a difficulty knob; the lamp that
+hung by that stair is one of the things that went missing out of the cellar, and the
+lore entry the whole thread hangs on is the sentence _what takes tools and a lantern and
+leaves the food is not hungry_.
+
+What the player takes away is a clue rather than a reward: the old man's own list was
+his cellar, then the family two doors down, then the houses by the well. The joiner's is
+the fourth, and the woman at the next stall has been saying for three weeks that the
+well is coming up cloudy. Four points, and the player is left to put them together.
 
 ### Step 4 — East, and Dein
 

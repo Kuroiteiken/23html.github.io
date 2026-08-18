@@ -645,6 +645,142 @@ function createSiteServer(options = {}) {
       return;
     }
 
+    if (options.enableTestRoutes && pathname === "/__test-cellar-story.html") {
+      const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
+      // The damp cellar had never been reachable, so nothing had ever run a line
+      // of it. This plays the whole side story rather than asserting the source
+      // looks right: the gate on the boy's report, the darkness standing in for
+      // the lamp that was taken, the descent itself -- which is the part that was
+      // broken, because the population declared no weight and z_bake put NaN in
+      // popc -- and the wall at the back.
+      const cellarProbe = `<script>
+        const cellarProbe = setInterval(() => {
+          if (!document.getElementById("ctrmg")) return;
+          if (typeof smove !== "function" || typeof learnLore !== "function")
+            return;
+          if (!window.chss || !chss.clgmn || !window.quest || !quest.chsls1)
+            return;
+          clearInterval(cellarProbe);
+
+          const pick = (key) => {
+            const want = i18n.t(key).trim();
+            return [...document.querySelectorAll(".chs")].find(
+              (el) => el.textContent.trim() === want,
+            );
+          };
+          const said = (key) => {
+            const el = document.getElementById("chs");
+            const head = i18n.t(key).split("<br>")[0];
+            return Boolean(el) && el.textContent.indexOf(head) !== -1;
+          };
+          const checks = {};
+
+          // No area may bake NaN into its spawn table. area.clg did, and every
+          // comparison in area_init against NaN is false, so the descent could
+          // only ever have fallen through in silence.
+          checks.noNaNWeights = Object.keys(area).every((key) =>
+            (area[key].popc || []).every((pair) =>
+              pair.every((n) => typeof n === "number" && !Number.isNaN(n)),
+            ),
+          );
+
+          // The boy's line lives inside the Chapter III market rumours, so the
+          // lore entry is the gate rather than a flag of its own.
+          smove(chss.mrktvg1);
+          checks.hiddenBeforeLore = !pick(
+            "runtime.world.locations.dialogue.ask_the_boy_which_cellar",
+          );
+
+          learnLore("lockedCellar");
+          smove(chss.mrktvg1);
+          const ask = pick(
+            "runtime.world.locations.dialogue.ask_the_boy_which_cellar",
+          );
+          checks.offeredAfterLore = Boolean(ask);
+          if (ask) ask.click();
+
+          const accept = pick(
+            "runtime.world.locations.dialogue.go_and_see_for_him",
+          );
+          checks.accountThenAccept =
+            said("runtime.world.locations.dialogue.boy_cellar_account") &&
+            Boolean(accept);
+          if (accept) accept.click();
+
+          checks.questStarted = quest.chsls1.data.started === true;
+          // Nine rooms, set when he asks, because every existing save restores
+          // the authored 33 out of its positional slot.
+          checks.descentSized = area.clg.size === 9;
+          checks.inCellar = global.current_l === chss.clgmn;
+
+          // The lamp that hung by the stair is one of the things that went. With
+          // no light of their own the player is told exactly that, and no fight
+          // starts.
+          checks.darkWithoutLight =
+            said("runtime.world.locations.dialogue.joiners_cellar_dark") &&
+            global.flags.btl === false;
+
+          // With a light the descent has to actually produce a fight, which is
+          // the whole point of the popc repair.
+          you.mods.light = 1;
+          smove(chss.clgmn);
+          checks.fightStarts = global.flags.btl === true;
+          checks.rightCreature =
+            global.current_m.id === creature.bat.id ||
+            global.current_m.id === creature.spd1.id;
+
+          // Cleared the way finishing the last room clears it.
+          area.clg.size = 0;
+          area.clg.onEnd();
+          checks.clearedRecorded = quest.chsls1.data.cleared === true;
+          checks.quietWhenCleared = said(
+            "runtime.world.locations.dialogue.joiners_cellar_quiet",
+          );
+
+          const wall = pick(
+            "runtime.world.locations.dialogue.examine_the_back_wall",
+          );
+          checks.wallOffered = Boolean(wall);
+          if (wall) wall.click();
+          checks.wallSeen = quest.chsls1.data.wall === true;
+          checks.loreLearned = knowsLore(lore.towardTheWell.id);
+
+          const tell = pick(
+            "runtime.world.locations.dialogue.go_up_and_tell_his_father",
+          );
+          checks.fatherOffered = Boolean(tell);
+          if (tell) tell.click();
+          checks.questDone =
+            quest.chsls1.data.done === true &&
+            quest.chsls1.data.started === false;
+          // Both goal lines have to render, in the finished form the journal uses
+          // for a completed quest, with no raw keys left in them.
+          const lines = quest.chsls1.goalsf();
+          checks.goalsRender =
+            lines.length === 2 &&
+            lines.every((line) => line.indexOf("content.quest.") === -1);
+
+          // And it must not be on offer a second time.
+          smove(chss.mrktvg1);
+          checks.notRepeatable = !pick(
+            "runtime.world.locations.dialogue.ask_the_boy_which_cellar",
+          );
+
+          document.documentElement.dataset.cellarStoryVerified = String(
+            Object.values(checks).every(Boolean),
+          );
+          document.documentElement.dataset.cellarStoryFailures = Object.keys(
+            checks,
+          )
+            .filter((name) => !checks[name])
+            .join(",");
+        }, 10);
+      </script>`;
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(index.replace("</body>", `${cellarProbe}</body>`));
+      return;
+    }
+
     if (options.enableTestRoutes && pathname === "/__test-window-panels.html") {
       const index = fs.readFileSync(path.join(siteRoot, "index.html"), "utf8");
       // Every panel rendered into #ctrm_2 asked for a percentage of a container

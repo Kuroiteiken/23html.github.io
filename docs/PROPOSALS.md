@@ -168,14 +168,13 @@ The brief asks for at least eight. Three are in: **The Man Who Said Nothing** (t
 nervous man at the market), **The Nightmare** (see [STORY.md](STORY.md)), and the
 marketplace's own search table. These are the hooks still sitting in the sources:
 
-| Hook                | What exists                                                                                                                                       | What it wants                                           |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| **The damp cellar** | `area.clg` is defined and populated and never initialised once. Its completion handler called two scenes that do not exist, so its quest was cut. | A scene to reach it from, and a new completion handler. |
-| **The scarecrow**   | `creature.kksh`, fully statted, dark-corrupted, described as ambushing — and in no area.                                                          | Somewhere with fields.                                  |
-| **The mimic**       | `creature.lrck`, 9000 hp, `battle_ai` returns false, described as pretending to be a wall in caves and dungeons.                                  | A wall to be, underground.                              |
-| **The lamp spirit** | `creature.lsprt`, statted, described as haunting oil lamps in mines.                                                                              | Mines — see the blacksmith proposal.                    |
-| **The dolls**       | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: five creatures about possession and dark rituals, all stubs, all unreachable.                      | Stats, and someone performing the rituals.              |
-| **The seven keys**  | Seven key items with no lock anywhere in the game.                                                                                                | Locks. A dungeon of named rooms is the obvious home.    |
+| Hook                | What exists                                                                                                                  | What it wants                                        |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **The scarecrow**   | `creature.kksh`, fully statted, dark-corrupted, described as ambushing — and in no area.                                     | Somewhere with fields.                               |
+| **The mimic**       | `creature.lrck`, 9000 hp, `battle_ai` returns false, described as pretending to be a wall in caves and dungeons.             | A wall to be, underground.                           |
+| **The lamp spirit** | `creature.lsprt`, statted, described as haunting oil lamps in mines.                                                         | Mines — see the blacksmith proposal.                 |
+| **The dolls**       | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: five creatures about possession and dark rituals, all stubs, all unreachable. | Stats, and someone performing the rituals.           |
+| **The seven keys**  | Seven key items with no lock anywhere in the game.                                                                           | Locks. A dungeon of named rooms is the obvious home. |
 
 ---
 

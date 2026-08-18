@@ -3029,6 +3029,52 @@ chss.mrktvg1.sl = () => {
         smove(chss.mrktvg1, false);
       });
     });
+  // The boy. His report is one line inside `market_rumours`, which the player can
+  // only have read by asking around during Chapter III, so the lore entry is the
+  // gate rather than a flag of its own: it is monotonic and it is saved.
+  if (knowsLore(7) && !quest.chsls1.data.started && !quest.chsls1.data.done)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.ask_the_boy_which_cellar"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.boy_cellar_account"),
+        true,
+        "yellow",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      chs(
+        i18n.t("runtime.world.locations.dialogue.go_and_see_for_him"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        giveQst(quest.chsls1);
+        // Set here rather than authored on the area: every save already carries
+        // 33 in that positional slot, so the authored value would never reach a
+        // player who has one. Nine rooms of cellar vermin is an errand; the
+        // thirty-three the area was written with is an evening.
+        area.clg.size = 9;
+        smove(chss.clgmn, false);
+      });
+      chs(
+        i18n.t("runtime.world.locations.dialogue.maybe_not_4436a58e"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.mrktvg1, false);
+      });
+    });
+  else if (quest.chsls1.data.started)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.joiners_cellar"),
+      false,
+      "gold",
+    ).addEventListener("click", () => {
+      smove(chss.clgmn);
+    });
   chs(
     i18n.t(
       "runtime.world.locations.dialogue.return_back_to_the_village_center_f78bf32b",
@@ -3059,6 +3105,98 @@ chss.mrktvg1.onEnter = function () {
 chss.mrktvg1.onLeave = function () {
   clearInterval(timers.mktwawa1);
   delete timers.mktwawa1;
+};
+
+// The cellar the boy was beaten over. It is dark, and the lamp that used to hang
+// by the stair is one of the things that went missing out of it, so the player
+// needs a light of their own to get past the first six steps — which is the lore
+// entry's own sentence made into the way in: what takes tools and a lantern and
+// leaves the food is not hungry.
+chss.clgmn = new Chs();
+chss.clgmn.id = 173;
+chss.clgmn.effectors = [{ e: effector.dark }];
+chss.clgmn.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.joiners_cellar"));
+  global.lst_loc = 173;
+  if (!cansee()) {
+    chs(
+      i18n.t("runtime.world.locations.dialogue.joiners_cellar_dark"),
+      true,
+      "darkgrey",
+    );
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.mrktvg1, false);
+    });
+    return;
+  }
+  if (area.clg.size > 0) {
+    // The joiner hands over the key once. A player who retreats and comes back
+    // gets the shorter line, so the flag is what separates them rather than the
+    // quest's own `cleared`, which cannot be true while there is anything left
+    // down here. It lives on `global.flags`, which is saved as JSON.
+    const down = global.flags.clgdown === true;
+    chs(
+      down
+        ? i18n.t("runtime.world.locations.dialogue.joiners_cellar_infested")
+        : i18n.t("runtime.world.locations.dialogue.joiners_cellar_stair"),
+      true,
+      down ? "red" : null,
+    );
+    global.flags.clgdown = true;
+    area_init(area.clg);
+    return;
+  }
+  chs(i18n.t("runtime.world.locations.dialogue.joiners_cellar_quiet"), true);
+  if (!quest.chsls1.data.wall)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.examine_the_back_wall"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.joiners_cellar_back_wall"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      quest.chsls1.data.wall = true;
+      learnLore("towardTheWell");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.go_up_and_tell_his_father"),
+        false,
+        "lime",
+      ).addEventListener("click", () => {
+        chs(
+          i18n.t("runtime.world.locations.dialogue.joiners_cellar_father"),
+          true,
+          "gold",
+          0,
+          0,
+          0,
+          ".9em",
+        );
+        finishQst(quest.chsls1);
+        chs(
+          i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+          false,
+        ).addEventListener("click", () => {
+          smove(chss.mrktvg1, false);
+        });
+      });
+    });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.mrktvg1, false);
+  });
 };
 
 chss.jbgd1 = new Chs();

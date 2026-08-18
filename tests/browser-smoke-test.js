@@ -356,6 +356,21 @@ async function main() {
       );
     }
 
+    const cellarStory = await runChrome(
+      `${baseUrl}/__test-cellar-story.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(cellarStory.stderr);
+    assertCommonStartup(cellarStory.stdout, port);
+    if (!cellarStory.stdout.includes('data-cellar-story-verified="true"')) {
+      const failures = cellarStory.stdout.match(
+        /data-cellar-story-failures="([^"]*)"/,
+      );
+      throw new Error(
+        `The damp cellar side story cannot be played through: ${failures?.[1] || "probe incomplete"}`,
+      );
+    }
+
     const windowPanels = await runChrome(
       `${baseUrl}/__test-window-panels.html?lang=tr`,
       profiles[0],
@@ -505,7 +520,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

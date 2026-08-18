@@ -10,6 +10,31 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- Wired `area.clg`, the damp cellar, into the game as the near end of Chapter III's
+  missing-chisels thread, reached from the marketplace once the boy's report has been
+  read. `quest.chsls1` (id 10) and `chss.clgmn` (id 173) are new; the area itself is
+  untouched apart from its population and a completion handler, because it was already
+  finished content. No new area was defined, so the positional area-size slots in the
+  save format are unchanged.
+- Fixed `area.clg.pop`: neither entry declared `c`, so `z_bake` accumulated undefined
+  and baked `popc` as `[[0, NaN], [NaN, 1]]`. Every comparison in `area_init` against
+  NaN is false, so no branch could ever match -- nothing would spawn, `global.flags.btl`
+  would never be set, and the descent would fall through in silence. The area has never
+  been reachable, so this has never been visible, but it would have been the first thing
+  a player met the moment it was.
+- The descent's length is set when the quest is accepted rather than authored on the
+  area, because area sizes restore positionally and every existing save already carries
+  the authored 33 in that slot.
+- Added `towardTheWell` (lore id 25, a Chapter III clue). It is what the cellar visit
+  is for: the old man's list, the joiner's cellar and the cloudy well are four points,
+  and the player is left to put them together.
+- Added a `__test-cellar-story.html` probe and a browser check that plays the side
+  story end to end -- the lore gate, the darkness that stands in for the stolen lamp,
+  the descent, the wall, and the turn-in -- plus an assertion that no area anywhere
+  bakes NaN into `popc`. Verified by reverting the population fix and confirming the
+  probe names `noNaNWeights,fightStarts,rightCreature`, rather than trusting that the
+  source looked right.
+
 - Added `scripts/check-combat.js` to `npm run check`. It measures two budgets from
   the creatures the original game shipped -- mitigation per level and attack per
   level -- and fails any creature added since that goes past either with 15% headroom.
