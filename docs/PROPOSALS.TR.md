@@ -16,6 +16,10 @@ karar verdik) veya **devam ediyor**.
 
 ---
 
+> **Kırsal bölge ve maden tasarlandı.** Her birini neyin açtığı, oyuncunun ne alması
+> beklendiği ve neyin kapattığı için [REGIONS.TR.md](REGIONS.TR.md). Korkuluk ve kandil
+> ruhu artık engelli değil; orada programlandı.
+
 ## Sahibinin sıraya aldığı işler
 
 Boş. Sahibinin istediği her şey girdi; ne yaptıkları changelog'da, hikayeye

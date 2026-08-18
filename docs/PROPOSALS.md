@@ -16,6 +16,10 @@ do it), or **in progress**.
 
 ---
 
+> **The rural region and the mine are designed.** See [REGIONS.md](REGIONS.md) for
+> what opens each one, what the player is expected to take away, and what closes it.
+> The scarecrow and the lamp spirit are no longer blocked; they are scheduled there.
+
 ## Queued by the repository owner
 
 Empty. Everything the owner had asked for is in; what it did is in the changelog, and
