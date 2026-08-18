@@ -301,6 +301,9 @@
         "Aşağıdaki izleri oku. O taşta iki el çalışmış ve yalnızca biri kesiyordu.",
         "Derin galerilerde Lamba Ruhları yaşıyor. Dövüşmekten çok ışığını söndürüyorlar.",
         "Demir cevheri — oyundaki ilk cevher; ve demirci artık stoğunu bakkal kadar sık yeniliyor."
+      ],
+      "v478_24": [
+        "Kazma artık silah — baştan öyle olmalıydı. Kendini kitap olarak tanıtıyordu."
       ]
     },
     "lore": {
@@ -4965,7 +4968,8 @@
         "dialogue": {
           "your_torch_burned_down_6826c194": "Meşalen yanıp tükendi",
           "you_feel_closer_to_the_sun_ab467ae5": "Kendini Güneş'e daha yakın hissediyorsun..",
-          "you_feel_closer_to_the_moon_88a50b7a": "Kendini Ay'a daha yakın hissediyorsun.."
+          "you_feel_closer_to_the_moon_88a50b7a": "Kendini Ay'a daha yakın hissediyorsun..",
+          "your_pickaxe_gave_out": "Baş saptan çıktı. Demirci onu geri takabilir."
         }
       },
       "furniture": {

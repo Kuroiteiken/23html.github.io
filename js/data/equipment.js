@@ -163,6 +163,12 @@ wpn.pck.desc =
   i18n.t("content.wpn.pck.desc") +
   dom.dseparator +
   i18n.t("content.wpn.pck.bonus");
+// slot 1 is the held slot -- every weapon in this file declares it, the sword and the
+// torch alike, and the constructor default of 0 is a different category entirely. Leaving
+// it at the default is why the pickaxe described itself as a book: the description picks
+// the weapon branch off wtype only after an outer split that slot 0 fails, so it fell
+// through to the branch that labels anything with an id over 9000 as reading material.
+wpn.pck.slot = 1;
 wpn.pck.str = 8;
 wpn.pck.cls = [4, 0, 2];
 wpn.pck.ctype = 2;
@@ -175,6 +181,15 @@ wpn.pck.oneq = function () {
 };
 wpn.pck.onuneq = function () {
   you.mods.mine -= 1;
+};
+// Required now that it sits in the held slot: the degrade machinery calls this on any
+// weapon that wears out and the constructor provides no default. The torch is the only
+// other tool in here and it carries one for the same reason.
+wpn.pck.onDegrade = function () {
+  msg(
+    i18n.t("runtime.data.equipment.dialogue.your_pickaxe_gave_out"),
+    "orange",
+  );
 };
 
 wpn.twg = new Eqp();

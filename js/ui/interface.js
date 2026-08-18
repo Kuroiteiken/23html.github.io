@@ -3303,6 +3303,11 @@ const releaseNotes = [
     minor: 23,
     read: () => i18n.get("ui.releaseNotes.v478_23"),
   },
+  {
+    major: 478,
+    minor: 24,
+    read: () => i18n.get("ui.releaseNotes.v478_24"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -6710,12 +6715,20 @@ function removeItem(obj, flag) {
       }
   }
   let idx;
+  // The row may not exist: the list may never have been built, or it may be showing a
+  // different category. This runs from removeItem, which is gameplay -- an item wearing
+  // out in combat or at a coal face -- so a missing row must not throw out of it. Same
+  // shape as updateInv reaching into a row that was never drawn.
+  const dropRow = (at) => {
+    const row = dom.inv_con && dom.inv_con.children[at];
+    if (row) dom.inv_con.removeChild(row);
+  };
   if (global.sm === 1) {
     idx = inv.indexOf(obj);
-    dom.inv_con.removeChild(dom.inv_con.children[idx]);
+    dropRow(idx);
   } else if (global.sm === obj.stype) {
     idx = global.sinv.indexOf(obj);
-    dom.inv_con.removeChild(dom.inv_con.children[idx]);
+    dropRow(idx);
     global.sinv.splice(idx, 1);
   }
   global.dscr.style.display = "none";

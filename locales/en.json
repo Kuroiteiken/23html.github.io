@@ -301,6 +301,9 @@
         "Read the marks down there. Two hands worked that stone and only one of them was cutting.",
         "Lamp Spirits live in the deep workings. They do not fight so much as put your light out.",
         "Iron ore, the first ore in the game, and the smith turns his stock over as often as the general store now."
+      ],
+      "v478_24": [
+        "The pickaxe is a weapon, as it should have been. It was describing itself as a book."
       ]
     },
     "lore": {
@@ -4965,7 +4968,8 @@
         "dialogue": {
           "your_torch_burned_down_6826c194": "Your torch burned down",
           "you_feel_closer_to_the_sun_ab467ae5": "You feel closer to the Sun..",
-          "you_feel_closer_to_the_moon_88a50b7a": "You feel closer to the Moon.."
+          "you_feel_closer_to_the_moon_88a50b7a": "You feel closer to the Moon..",
+          "your_pickaxe_gave_out": "The head has come off the haft. The smith can put it back on."
         }
       },
       "furniture": {

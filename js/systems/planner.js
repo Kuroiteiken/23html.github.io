@@ -159,7 +159,10 @@ planner.itmwear.f = function () {
     if (itm.dp - itm.degrade < 0) itm.dp = 0;
     else itm.dp -= itm.degrade;
     if (itm.dp <= 0) {
-      itm.onDegrade();
+      // Not every piece of equipment declares one, and the constructor provides no
+      // default, so a worn-out item without a message used to throw out of whatever was
+      // wearing it down -- combat, or digging.
+      if (typeof itm.onDegrade === "function") itm.onDegrade();
       planner.itmwear.data.items.splice(
         planner.itmwear.data.items.indexOf(itm),
       );
