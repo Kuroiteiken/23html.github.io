@@ -46,6 +46,7 @@ quest.fwd1.id = 2;
 quest.fwd1.name = i18n.t("content.quest.fwd1.name");
 quest.fwd1.rar = 1;
 quest.fwd1.desc = i18n.t("content.quest.fwd1.desc");
+quest.fwd1.hint = i18n.t("content.quest.fwd1.hint");
 quest.fwd1.loc = i18n.t(
   "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
 );
@@ -84,6 +85,7 @@ quest.hnt1.id = 3;
 quest.hnt1.name = i18n.t("content.quest.hnt1.name");
 quest.hnt1.rar = 1;
 quest.hnt1.desc = i18n.t("content.quest.hnt1.desc");
+quest.hnt1.hint = i18n.t("content.quest.hnt1.hint");
 quest.hnt1.loc = i18n.t(
   "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
 );
@@ -124,6 +126,7 @@ quest.grds1.loc = i18n.t(
   "runtime.world.locations.dialogue.village_center_marketplace_entry_gate_d83b4644",
 );
 quest.grds1.desc = i18n.t("content.quest.grds1.desc");
+quest.grds1.hint = i18n.t("content.quest.grds1.hint");
 quest.grds1.data.t = 0;
 quest.grds1.repeatable = true;
 quest.grds1.rwd = function () {
@@ -157,6 +160,7 @@ quest.lmfstkil1.loc = i18n.t(
   "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
 );
 quest.lmfstkil1.desc = i18n.t("content.quest.lmfstkil1.desc");
+quest.lmfstkil1.hint = i18n.t("content.quest.lmfstkil1.hint");
 quest.lmfstkil1.data = { t: 0, mkilled: 0 };
 quest.lmfstkil1.init = function () {
   this.callback();
@@ -236,6 +240,7 @@ quest.pckld1.loc = i18n.t(
   "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
 );
 quest.pckld1.desc = i18n.t("content.quest.pckld1.desc");
+quest.pckld1.hint = i18n.t("content.quest.pckld1.hint");
 quest.pckld1.data = { t: 0, killed: false };
 quest.pckld1.init = function () {
   this.callback();
@@ -331,6 +336,7 @@ quest.undcty1.loc = i18n.t(
   "runtime.world.locations.dialogue.village_center_9264705d",
 );
 quest.undcty1.desc = i18n.t("content.quest.undcty1.desc");
+quest.undcty1.hint = i18n.t("content.quest.undcty1.hint");
 quest.undcty1.data = { t: 0, signs: [], opened: false };
 quest.undcty1.rwd = function () {
   this.data.t++;
@@ -370,6 +376,7 @@ quest.undcty2.loc = i18n.t(
   "runtime.world.locations.dialogue.western_woods_hunter_s_lodge_375ce411",
 );
 quest.undcty2.desc = i18n.t("content.quest.undcty2.desc");
+quest.undcty2.hint = i18n.t("content.quest.undcty2.hint");
 quest.undcty2.data = { t: 0, killed: false };
 quest.undcty2.init = function () {
   this.callback();
@@ -438,6 +445,7 @@ quest.nrvs1.loc = i18n.t(
   "runtime.world.locations.dialogue.marketplace_stalls_e2ed2335",
 );
 quest.nrvs1.desc = i18n.t("content.quest.nrvs1.desc");
+quest.nrvs1.hint = i18n.t("content.quest.nrvs1.hint");
 quest.nrvs1.data = { t: 0, heard: false };
 quest.nrvs1.rwd = function () {
   this.data.t++;
@@ -478,6 +486,7 @@ quest.chsls1.loc = i18n.t(
   "runtime.world.locations.dialogue.village_center_marketplace_a6fb36a7",
 );
 quest.chsls1.desc = i18n.t("content.quest.chsls1.desc");
+quest.chsls1.hint = i18n.t("content.quest.chsls1.hint");
 quest.chsls1.data = { t: 0, cleared: false, wall: false };
 quest.chsls1.rwd = function () {
   this.data.t++;

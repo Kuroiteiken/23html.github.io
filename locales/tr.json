@@ -42,7 +42,8 @@
       "regionsEmpty": "Henüz kayda geçecek bir yere ayak basmadın.",
       "regionsBand": "sv {band}",
       "regionsKills": "{count} öldürüldü",
-      "regionsUnknown": "?????????"
+      "regionsUnknown": "?????????",
+      "questLeads": "Sorulmaya değer"
     },
     "settings": {
       "backgroundColor": "Arka Plan Rengi",
@@ -269,6 +270,10 @@
       "v478_16": [
         "Köyden kuzeye bir yol: bütün köyün içtiği kuyu ve ötesindeki tarlalar. Marangozun bodrumuna indikten sonra açılıyor.",
         "Kuyudan bir kova çek ve dibe çökeni incele. O toprak değil."
+      ],
+      "v478_17": [
+        "Görev listesi artık izler taşıyor: henüz bulmadığın işlerin her biri için bir satır; yeri ve sebebi söylüyor, butonu söylemiyor.",
+        "Konum adının yanındaki kapanmamış işaretleme düzeltildi; yandaki şeride renk ve boyut sızdırıyordu."
       ]
     },
     "lore": {
@@ -3275,50 +3280,58 @@
       "fwd1": {
         "name": "Yakacak Odun Toplama",
         "desc": "Avcı Yamato için 10 demet yakacak odun topla",
-        "goal": "Toplanan odun: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Toplanan odun: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "Kulübenin duvarında, girip soran herkes için duran bir iş var."
       },
       "hnt1": {
         "name": "İlk Av",
         "desc": "Avcı Yamato için 10 parça et avla",
-        "goal": "Toplanan çiğ et: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Toplanan çiğ et: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "O duvarda birden fazla iş var, ve ikincisi toplamak değil."
       },
       "grds1": {
         "name": "Koruma Görevi",
         "desc": "Pazar yerini gözetmek için koruma göreviyle görevlendirildin",
         "goal": "Kapıyı 20.00’a kadar koru (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "devam ediyor",
-        "stateDone": "tamamlandı!"
+        "stateDone": "tamamlandı!",
+        "hint": "Kontrol noktası sabahları başında biri istiyor. Erken sabah — öğlen gidersen kimse teşekkür etmez."
       },
       "lmfstkil1": {
         "name": "Canavarların Yok Edilmesi",
         "desc": "Tehlikeli canavarlar güney ormanını istila etti ve köylüleri terörize etti. Onlardan kurtulun!",
-        "goal": "Öldürülen kurt: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Öldürülen kurt: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "İki iş bitmişse Yamato üçüncüyü teklif eder, ama önce sana bir bakmak isteyecek."
       },
       "pckld1": {
         "name": "Sürü Lideri",
         "desc": "Yamato sözünü tuttu ve seni çağırttı. Öldürdüğün kurtlar aç ve hastaydı; onları kuzeye bir şey sürmüş. Çalılığın ötesindeki çukuru bul ve öldürmeden önce bak",
         "goal": "Sürü lideri (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "hâlâ dışarıda",
-        "stateDone": "öldürüldü"
+        "stateDone": "öldürüldü",
+        "hint": "Bir şey kurtları kuzeye itiyor ve Yamato artık buna baş belası demiyor."
       },
       "undcty1": {
         "name": "Köyün Altında",
         "desc": "Bodrumların oradaki yaşlı esnaf bir aydır insanların evinin altını bir şeyin kazdığını söylüyor ve kimse ona inanmadı. Yamato seni onu doğru dürüst dinlemeye yolladı. Bunun canavar işi olduğuna karar vermeden önce köyün neler bildiğini öğren",
-        "goal": "Bulunan iz: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Bulunan iz: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "Bakkaldaki yaşlı adam bir aydır aynı şeyi söylüyor ve köy onu duymayı bıraktı."
       },
       "undcty2": {
         "name": "Yolculuğun Sonu",
         "desc": "Yamato, köyün altındaki geçidin ne kadar derine gittiğini ve bir adamın mumla yürüyebileceği kısmın dibinde ne olduğunu bilmek istiyor. Taşıyabildiğin her şeyi al",
         "goal": "Uzak uç: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "ulaşılmadı",
-        "stateDone": "ulaşıldı"
+        "stateDone": "ulaşıldı",
+        "hint": "Yamato köyün altında olanla ilgili anlattıklarını okudu ve kendi sorusu var."
       },
       "nrvs1": {
         "name": "Hiçbir Şey Söylemeyen Adam",
         "desc": "Pazar tezgâhlarındaki gergin adam on dört aydır bir şey taşıyor ve bunu yalnızca onu bir zamanlar sıkıştırmak yerine rahat bırakan birine anlatacak",
         "goal": "Anlattıkları: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "dinlenmedi",
-        "stateDone": "dinlendi"
+        "stateDone": "dinlendi",
+        "hint": "Tezgâhlardaki gergin adam on dört aydır bir şey taşıyor, ve onu sıkıştırmak herkesin başarısız olduğu yol."
       },
       "chsls1": {
         "name": "Kayıp Keskiler",
@@ -3328,7 +3341,8 @@
         "stateCellarDone": "temizlendi",
         "goalWall": "Arkada ne olduğunu gör: <span style=\"color:{color}\">{state}</span>",
         "stateWallInProgress": "görülmedi",
-        "stateWallDone": "görüldü"
+        "stateWallDone": "görüldü",
+        "hint": "Pazardaki çocuk, babasının keskileri hakkında söylediklerini kimseye anlatmamanı istedi. Unutmanı istemedi."
       }
     },
     "skl": {

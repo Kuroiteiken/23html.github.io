@@ -42,7 +42,8 @@
       "regionsEmpty": "You have not set foot anywhere worth writing down yet.",
       "regionsBand": "lv {band}",
       "regionsKills": "{count} killed",
-      "regionsUnknown": "?????????"
+      "regionsUnknown": "?????????",
+      "questLeads": "Worth asking about"
     },
     "settings": {
       "backgroundColor": "BG Color",
@@ -269,6 +270,10 @@
       "v478_16": [
         "A road north out of the village, to the well the whole place drinks from and the fields beyond it. It opens once you have been down the joiner’s cellar.",
         "Draw a bucket at the well and look at what settles. It is not soil."
+      ],
+      "v478_17": [
+        "The quest list now carries leads: one line each toward work you have not found yet, naming the place and the reason but not the button.",
+        "Fixed unclosed markup beside the location name that was leaking colour and size into the bar next to it."
       ]
     },
     "lore": {
@@ -3275,50 +3280,58 @@
       "fwd1": {
         "name": "Firewood Gathering",
         "desc": "Secure 10 bundles of firewood for hunter Yamato",
-        "goal": "Firewood collected: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Firewood collected: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "The lodge keeps standing work on its wall for anyone who walks in and asks."
       },
       "hnt1": {
         "name": "First Hunt",
         "desc": "Hunt for 10 peices of meat for hunter Yamato",
-        "goal": "Raw meat collected: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Raw meat collected: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "There is more than one job on that wall, and the second is not gathering."
       },
       "grds1": {
         "name": "Guarding Duty",
         "desc": "You were tasked with guarding duty to watch over marketplace",
         "goal": "Guard the gate until 8PM (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "in progress",
-        "stateDone": "done!"
+        "stateDone": "done!",
+        "hint": "The checkpoint wants a body on it in the mornings. Early mornings — they will not thank you at noon."
       },
       "lmfstkil1": {
         "name": "Monster Eradication",
         "desc": "Dangerous monsters have invaded the southern forest and terrorizing the villagers. Get rid of them!",
-        "goal": "Wolves killed: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Wolves killed: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "Two jobs done is enough for Yamato to offer a third, and he will want to look at you first."
       },
       "pckld1": {
         "name": "The Pack Leader",
         "desc": "Yamato kept his word and sent for you. The wolves you killed were starving and sick; something drove them north. Find the hollow past the foliage, and look before you kill",
         "goal": "Pack leader (<span style=\"color:{color}\">{state}</span>)",
         "stateInProgress": "still out there",
-        "stateDone": "slain"
+        "stateDone": "slain",
+        "hint": "Something is pushing the wolves north and Yamato has stopped calling it a nuisance."
       },
       "undcty1": {
         "name": "Beneath the Village",
         "desc": "The old shopkeeper by the cellars has been saying for a month that something is digging under people's homes, and nobody believed him. Yamato sent you to hear him out properly. Find out what the village already knows before you decide it is monsters",
-        "goal": "Signs found: <span style=\"color:{color}\">{current}/{required}</span>"
+        "goal": "Signs found: <span style=\"color:{color}\">{current}/{required}</span>",
+        "hint": "An old man in the general store has been saying the same thing for a month and the village has stopped hearing it."
       },
       "undcty2": {
         "name": "The End of Journey",
         "desc": "Yamato wants to know how far the passage under the village goes, and what is at the bottom of the part a man can walk with a candle. Take everything you can carry",
         "goal": "The far end: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "not reached",
-        "stateDone": "reached"
+        "stateDone": "reached",
+        "hint": "Yamato has read your account of what is under the village and he has a question of his own."
       },
       "nrvs1": {
         "name": "The Man Who Said Nothing",
         "desc": "The nervous man at the market stalls has something he has been carrying for fourteen months, and he will only say it to someone who once let him alone instead of pressing him",
         "goal": "His account: <span style=\"color:{color}\">{state}</span>",
         "stateInProgress": "not heard",
-        "stateDone": "heard"
+        "stateDone": "heard",
+        "hint": "The nervous man at the stalls has been carrying something for fourteen months, and pressing him is how everyone else has failed."
       },
       "chsls1": {
         "name": "The Missing Chisels",
@@ -3328,7 +3341,8 @@
         "stateCellarDone": "cleared",
         "goalWall": "See what is at the back: <span style=\"color:{color}\">{state}</span>",
         "stateWallInProgress": "not seen",
-        "stateWallDone": "seen"
+        "stateWallDone": "seen",
+        "hint": "The boy at the market asked you not to repeat what he said about his father's chisels. He did not ask you to forget it."
       }
     },
     "skl": {

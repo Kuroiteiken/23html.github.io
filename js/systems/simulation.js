@@ -1071,25 +1071,21 @@ function d_loc(text) {
   global.current_l.locn = text;
 }
 
+// The effector glyphs beside the location name. Both loops opened a span and then
+// wrote another opening "<span>" where the close belonged, so every glyph left one
+// unclosed. The browser nests what follows inside them, which means the colour and the
+// 1.2em leak into whatever is rendered next in that bar -- and two effectors leak two
+// deep. Closing tags, and &nbsp; terminated, which was also missing its semicolon.
 function rfeff(what) {
   let t = "";
+  const glyph = (e) =>
+    '<span style="color:' + e.c + ';font-size:1.2em">&nbsp;' + e.x + "</span>";
   for (const a in what.sector)
     if (what.sector[a].effectors)
       for (const b in what.sector[a].effectors)
-        t +=
-          '<span style="color:' +
-          what.sector[a].effectors[b].e.c +
-          ';font-size:1.2em">&nbsp' +
-          what.sector[a].effectors[b].e.x +
-          "<span>";
+        t += glyph(what.sector[a].effectors[b].e);
   if (what.effectors)
-    for (const a in what.effectors)
-      t +=
-        '<span style="color:' +
-        what.effectors[a].e.c +
-        ';font-size:1.2em">&nbsp' +
-        what.effectors[a].e.x +
-        "<span>";
+    for (const a in what.effectors) t += glyph(what.effectors[a].e);
   dom.d_lctte.innerHTML = t;
 }
 

@@ -1156,6 +1156,7 @@ dom.ct_bt6.addEventListener("click", function () {
           });
         });
       }
+      renderQuestLeads(dom.qstbody);
     });
     dom.jlbrw1s2.addEventListener("click", function () {
       if (!global.flags.bstu) return;
@@ -3266,6 +3267,11 @@ const releaseNotes = [
     major: 478,
     minor: 16,
     read: () => i18n.get("ui.releaseNotes.v478_16"),
+  },
+  {
+    major: 478,
+    minor: 17,
+    read: () => i18n.get("ui.releaseNotes.v478_17"),
   },
 ];
 
@@ -6772,6 +6778,98 @@ function renderLoreEntry(root, entry, kind) {
 // area's own population table, so the page cannot drift from what actually spawns, and
 // each one is masked until the player has killed it at least once -- the same contract
 // the bestiary tab runs on. The masked rows are the point: they are what is left.
+// Leads: one line each toward work the player has not found yet.
+//
+// Every posting in this game sits behind a scene condition, so a player who has not
+// walked into the right room at the right hour has no way to know the job exists -- and
+// the quest list, which is where they would look, only shows what they already hold.
+// That is the gap these fill. They name a place and give a reason to go there, and
+// deliberately not what to click when you arrive.
+//
+// The `when` on each one is the same condition the scene uses to offer it. That matters
+// in both directions: a lead for something not yet findable is a spoiler for a later
+// chapter, and a lead for something already taken or finished is noise. The `q` and
+// `when` fields are functions because this table is built at load time, before any of
+// the quests or flags it reads have their runtime values.
+const questLeads = [
+  {
+    q: () => quest.fwd1,
+    when: () => global.flags.frstn1b1g1,
+  },
+  {
+    q: () => quest.hnt1,
+    when: () => global.flags.frstn1b1g1,
+  },
+  {
+    q: () => quest.grds1,
+    when: () => global.flags.grddtjb === true,
+  },
+  {
+    q: () => quest.lmfstkil1,
+    when: () => quest.fwd1.data.done && quest.hnt1.data.done,
+  },
+  {
+    q: () => quest.pckld1,
+    when: () => quest.lmfstkil1.data.done === true,
+  },
+  {
+    q: () => quest.undcty1,
+    when: () => global.flags.undercity1 === true,
+  },
+  {
+    q: () => quest.undcty2,
+    when: () => quest.undcty1.data.done === true,
+  },
+  {
+    q: () => quest.nrvs1,
+    when: () =>
+      global.flags.deintrail === true && global.flags.fdwrgkind === true,
+  },
+  {
+    q: () => quest.chsls1,
+    when: () => knowsLore(7),
+  },
+];
+
+function renderQuestLeads(root) {
+  const open = [];
+  for (const lead of questLeads) {
+    const q = lead.q();
+    if (!q || q.data.started || q.data.done) continue;
+    let available = false;
+    // A lead is decoration, not a mechanic. If its condition throws -- a flag renamed,
+    // a quest retired -- the quest list still has to render.
+    try {
+      available = lead.when() === true;
+    } catch (e) {
+      available = false;
+    }
+    if (available) open.push(q);
+  }
+  if (!open.length) return;
+
+  const head = addElement(root, "div");
+  head.innerHTML = i18n.t("ui.panels.questLeads");
+  head.style.textAlign = "center";
+  head.style.marginTop = "6px";
+  head.style.borderTop = "1px solid rgb(12,86,195)";
+  head.style.paddingTop = "4px";
+  head.style.color = "rgb(220,190,120)";
+
+  for (const q of open) {
+    const row = addElement(root, "div");
+    row.style.padding = "2px 6px";
+    row.style.textAlign = "left";
+    row.style.fontSize = ".8em";
+    const where = addElement(row, "div");
+    where.innerHTML = q.loc;
+    where.style.color = "rgb(150,200,255)";
+    const what = addElement(row, "div");
+    what.innerHTML = q.hint;
+    what.style.color = "rgb(190,190,190)";
+  }
+}
+
 function renderRegions() {
   const panel = addElement(dom.ctrwin6, "div", null, "lore-panel");
   panel.style.height = windowPanelHeight(0.84);
