@@ -307,6 +307,10 @@
       ],
       "v478_25": [
         "Tükenmiş kazma yok olmak yerine çantanda kalıyor; böylece demirci gerçekten başını geri takabiliyor."
+      ],
+      "v478_26": [
+        "İngilizce deyimi birebir taşıyan yedi madencilik metni yeniden yazıldı.",
+        "Maden artık bir mumun yeteceğini söylüyor; çünkü mum, ellerini kazma için serbest bırakıyor."
       ]
     },
     "lore": {
@@ -5187,12 +5191,12 @@
           "player_action": "{action}",
           "multihit": "{attacker} -> x{hits}(<span style=\"color:lightgrey\">{attempts}</span>) toplam ",
           "time_caught_up": "<span style=\"color:grey\">Oyun arka plandayken {minutes} dakika geçti.</span>",
-          "need_a_pickaxe": "Elle olmaz, onunla da olmaz. Bu iş elde kazma ister.",
+          "need_a_pickaxe": "Çıplak elle olmaz, elindekiyle de olmaz. Bu iş kazma ister.",
           "pickaxe_blunt": "Baş körelmiş, sap gevşemiş. Demirci eline almadan bir daha taş kesmez.",
-          "face_gives_nothing": "Yüzey darbeyi alıyor ve toz ile sarsılmış bir bilekten başka bir şey vermiyor.",
+          "face_gives_nothing": "Damar darbeyi yiyor ve karşılığında tozdan ve zonklayan bir bilekten başka bir şey vermiyor.",
           "face_gives_coal": "Damardan kömür geliyor: {amount}.",
           "pickaxe_spent": "Kazmanın son hâliydi bu. Demirci onu geri getirebilir.",
-          "not_trained_enough_to_dive": "İçini göremediğin suyun altındaki basamağı okuyamazsın. Bir madenci okur. Yüzü işle ve bir madenci ol."
+          "not_trained_enough_to_dive": "İçini göremediğin suyun altında nereye basacağını bilemezsin. Bir madenci bilir. Kömür damarında çalış ve bir madenci ol."
         },
         "description": {
           "lunar_phase_0004b314": "Ay Evresi"
@@ -6066,13 +6070,13 @@
           "mine_mouth_opened": "Göçük göründüğü kadar derin değil ve sıra sıra geliyor; onunla ilgili ilk yanlış olan şey de bu: bir yamaç tek bir ağırlık olarak iner. Bu iki kez inmiş, ve ikincisinde biri geçiş yolunu arayarak onu karıştırmış.<br><br>Arkasında kesit dörtgen, kirişli ve kuru, ve ışığın gittiğinden daha geriye gidiyor. Hemen içerideki duvarlardaki alet izleri, yaparken keskin olan bir şey tarafından açılmış — ki bu eski olmakla aynı şey değil.<br><br>Halat. Lamba yağı. Bir kutu tebeşir. İyi paltolu bir adam üçünü de aldı ve bir tezgâhtara bunu unutması için para ödedi, ve ona söylenen delik bu.",
           "go_down_the_adit": "Galeriye in",
           "the_mine_the_adit": "Maden, Galeri Ağzı",
-          "adit_dark": "Buradaki karanlık ağırlığı olan türden. Altı adım sonra tavanı tabandan ayırt edemiyorsun, ve bir yerde duyduğun ama bulamadığın bir su akıyor.<br><br>Işık olmadan daha ileri gitmiyorsun.",
-          "adit_arrival": "Dörtgen kesilmiş, kirişlenmiş ve tükenmiş: kömür duvarlardan omuz hizasına kadar uzun ve temiz ısırıklarla alınmış, sonra bırakılmış.<br><br>Ama hepsi gitmiş değil. Burada duran kişi damar bittiği için değil zorlaştığı için durmuş, ve zorluk ancak bunu geçimin için yapıyorsan sorundur.",
-          "work_the_coal_face": "Yüzü işle",
+          "adit_dark": "Buradaki karanlık ağırlığı olan türden. Altı adım sonra tavanı tabandan ayırt edemiyorsun, ve bir yerde duyduğun ama bulamadığın bir su akıyor.<br><br>Işık olmadan daha ileri gitmiyorsun.<br><br>Bir mum yeter, ve mum ellerini kazma için serbest bırakır.",
+          "adit_arrival": "Dörtgen kesilmiş, kirişlenmiş ve tükenmiş. Kömür, duvarlardan omuz hizasına kadar uzun ve düzgün sıralar hâlinde sökülmüş; sonrası bırakılmış.<br><br>Ama hepsi bitmiş değil. Burayı bırakan adam damar tükendiği için değil zorlaştığı için bırakmış — ve zorluk, ancak bu işi geçim için yapıyorsan sorundur.",
+          "work_the_coal_face": "Kömür damarını işle",
           "go_deeper_into_the_workings": "Galerilerin derinine in",
           "back_up_to_the_hills": "Yamaca geri çık",
           "down_the_flooded_winze": "Kuyudan aşağı in, suyun içine",
-          "winze_too_deep": "Aşağı inen kuyu, yarısı su dolu",
+          "winze_too_deep": "Aşağı inen kuyu — yarısına kadar su dolu",
           "the_mine_flooded_level": "Maden, Su Basmış Kat",
           "flooded_level_arrival": "Diz boyu, yer yer daha derin, kıpırtısız su; ve bütün katın sesi, onun kendi içine damlamasının sesi.<br><br>Galeriler altından devam ediyor. Kirişlerin tepelerinin karanlığa doğru gittiğini, kendi yansımalarının içinde durduğunu görebiliyorsun — birinin çıkıp gittiği bir maden için doğru olmaması gereken bir şey.",
           "taste_the_standing_water": "Avucuna biraz su al ve incele",
@@ -6083,7 +6087,7 @@
           "back_up_to_the_adit": "Galeriye geri çık",
           "rope_down_the_shaft": "Halatı bağla ve kuyudan aşağı in",
           "the_mine_deep_cut": "Maden, Derin Kesit",
-          "deep_cut_arrival": "Suyun altında maden değişiyor. Kirişleme bitiyor, çünkü burada taş kendini tutuyor, ve kesim üstündeki her şeyden ince.<br><br>Ayrıca bir kömür madeni için yanlış biçimde. Bir damarı izleyen kat olmaktan çıkıp bir yere giden geçit oluyor, ve içindeki hava kımıldıyor.",
+          "deep_cut_arrival": "Suyun altında maden değişiyor. Kirişleme bitiyor, çünkü burada taş kendini tutuyor; ve kesim, üstündeki her şeyden daha özenli.<br><br>Bir kömür madeni için de yanlış biçimde. Bir damarı izleyen kat olmaktan çıkıp bir yere giden geçide dönüşüyor, ve içindeki hava kımıldıyor.",
           "read_the_marks_down_here": "Duvarlardaki izleri oku",
           "deep_cut_marks": "Bu taşta iki el çalışmış ve birbirlerine hiç benzemiyorlar.<br><br>Biri dörtgen, sıralı ve acelesiz; bunu daha önce yapmış ve geri dönmeyi bekleyen biri kesmiş: her ayrımda göz hizasında bir tebeşir işareti var, ve işaretler numaralı. Ok değil. Numara — ki adam çıkarken hangi dönüşü zaten denediğini bilebilsin.<br><br>Halat. Lamba yağı. Bir kutu tebeşir. On dört ay, ve alışverişi unutması için para ödenmiş bir tezgâhtar.<br><br>Öteki el kesmemiş. Geçmiş — öte taraftan, düzensiz ısırıklarla; katakompların sonundaki duvarın açıldığı gibi, ve kendi bodrumunun arkasındaki iki taşın harcından itildiği gibi.<br><br>Yani marangozun bodrumundan beri takip ettiğin alet izleri bir adamdı, ve o adam Dein'di, ve burada hiçbir şeyden kaçmıyordu. Ona doğru çalışıyordu.<br><br>Tebeşiri bitiyor. Numaralar on bire kadar çıkıyor, sonra duvar boş, ve ondan sonrası yalnızca öteki tür kesim.",
           "into_the_deep_workings": "Derin galerilere doğru ilerle",

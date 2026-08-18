@@ -1020,6 +1020,15 @@ function createSiteServer(options = {}) {
           checks.pickaxeBottomsOut = you.eqp[0].dp === 0;
           workTheFace();
           checks.spentToolRefuses = you.eqp[0].dp === 0;
+          // The one thing that could have made this whole region undiggable: slot 1 is a
+          // single slot, so a pickaxe and a torch cannot both be held. Light has to be
+          // able to come from somewhere else, and a candle is a consumable that grants an
+          // effect rather than occupying a hand. Both at once, or the mine is a room you
+          // can stand in and not work.
+          you.mods.light = 0;
+          item.cndl.use();
+          checks.candleLights = you.mods.light > 0;
+          checks.canHoldToolAndLight = you.mods.light > 0 && you.mods.mine > 0;
           // A spent tool has to still be in the pack, and it has to be on the smith's
           // repair list. Destroying it at zero made the message it prints -- that the
           // smith can bring it back -- into a lie.

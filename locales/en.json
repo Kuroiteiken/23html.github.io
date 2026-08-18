@@ -307,6 +307,10 @@
       ],
       "v478_25": [
         "A worn-out pickaxe stays in your pack instead of vanishing, so the smith can actually put the head back on."
+      ],
+      "v478_26": [
+        "Rewrote seven Turkish mining lines that were carrying English idiom word for word.",
+        "The mine now tells you a candle is enough, since a candle leaves your hands free for the pickaxe."
       ]
     },
     "lore": {
@@ -6062,7 +6066,7 @@
           "mine_mouth_opened": "The fall is not as deep as it looks and it comes away in courses, which is the first thing that is wrong with it: a hillside comes down as one weight. This came down twice, and the second time somebody pulled it about looking for the way through.<br><br>Behind it the cut is square and timbered and dry, and it goes back further than the light does. The tool marks on the walls just inside were made by something sharp at the time it made them, which is not the same as being old.<br><br>Rope. Lamp oil. A box of chalk. A man in a good coat bought all three and paid a stallholder to forget it, and this is the hole he was told about.",
           "go_down_the_adit": "Go down into the adit",
           "the_mine_the_adit": "The Mine, The Adit",
-          "adit_dark": "The dark down here is the kind that has weight to it. Six steps in you cannot tell the roof from the floor, and there is water moving somewhere that you can hear and not find.<br><br>You are not going any further without a light.",
+          "adit_dark": "The dark down here is the kind that has weight to it. Six steps in you cannot tell the roof from the floor, and there is water moving somewhere that you can hear and not find.<br><br>You are not going any further without a light.<br><br>A candle is enough, and a candle leaves your hands free for the pickaxe.",
           "adit_arrival": "Square-cut, timbered, and worked out: the coal is gone out of the walls in long clean bites up to about shoulder height and then abandoned.<br><br>Except that it is not all gone. Whoever stopped here stopped because the seam got awkward rather than because it ended, and awkward is only a problem if you are doing it for a living.",
           "work_the_coal_face": "Work the face",
           "go_deeper_into_the_workings": "Go deeper into the workings",
