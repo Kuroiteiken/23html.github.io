@@ -132,7 +132,9 @@
       "perishable": "<span style=\"color:orange\">bozulabilir</span>",
       "talentEffect": "<small style=\"color:cyan\">yetenek etkisi<br></small><br><small style=\"color:darkorange\">{effect}</small>",
       "perkLevel": "sv {level}:<span style=\"color:yellow\"> {perk} </span>",
-      "durability": "Dayanıklılık"
+      "durability": "Dayanıklılık",
+      "killRank": "Kendi sayısıyla {rank}. rütbe: {bonus} hasar",
+      "killRankNext": "Sonraki rütbeye {remaining} tane daha"
     },
     "crafting": {
       "repeatable": {
@@ -315,6 +317,10 @@
       "v478_27": [
         "Bir şey seninle dövüşürken araştırmaya ya da koşmaya başlayamıyorsun. Önce dövüşü bitir ya da odadan çık.",
         "Madenciliğin 3, 6, 10 ve 15. seviyelerinde avantajları var — bunları alan ilk yetenek."
+      ],
+      "v478_28": [
+        "Bir silah kendi öldürme sayısıyla rütbe kazanıyor: 50, 150, 400, 1000, 2500, 5000, 10000 — her biri biraz daha hasar.",
+        "Rütbe o tek silaha ait, türüne değil. Üzerine gelince rütbeyi ve sonraki için kaç öldürme gerektiğini görüyorsun."
       ]
     },
     "lore": {

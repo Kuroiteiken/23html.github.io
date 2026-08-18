@@ -132,7 +132,9 @@
       "perishable": "<span style=\"color:orange\">perishable</span>",
       "talentEffect": "<small style=\"color:cyan\">talent effect<br></small><br><small style=\"color:darkorange\">{effect}</small>",
       "perkLevel": "lvl {level}:<span style=\"color:yellow\"> {perk} </span>",
-      "durability": "Durability"
+      "durability": "Durability",
+      "killRank": "Rank {rank} by its own count: {bonus} damage",
+      "killRankNext": "{remaining} more for the next rank"
     },
     "crafting": {
       "repeatable": {
@@ -315,6 +317,10 @@
       "v478_27": [
         "You cannot start searching or running while something is fighting you. Finish the fight or leave the room first.",
         "Mining has advantages at levels 3, 6, 10 and 15 — the first skill to get them."
+      ],
+      "v478_28": [
+        "A weapon earns ranks by its own kill count: 50, 150, 400, 1000, 2500, 5000, 10000, each worth a little more damage.",
+        "The rank belongs to that one weapon, not to the type. Hover it to see the rank and how many kills the next one wants."
       ]
     },
     "lore": {

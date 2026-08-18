@@ -1004,18 +1004,47 @@ const craftingForSharpen = fs.readFileSync(
   "utf8",
 );
 
-if (
-  !craftingForSharpen.includes(
-    "return (obj && obj.data && obj.data.plus) || 0;",
-  ) ||
-  !craftingForSharpen.includes(
-    "return obj.str * (1 + sharpenLevel(obj) * 0.06);",
-  )
-) {
-  throw new Error(
-    "Sharpening regression: the level must be read from data.plus and the strength derived from it, never written into str -- a save restores only dp and data onto a rebuilt item.",
-  );
+// Two bonuses now live on a weapon's `data` and are derived in weaponPower: the
+// sharpening level and the rank the blade has earned by its own kill count. The rule is
+// the same for both and it is the reason this check exists, so it is written as the rule
+// rather than as the exact expression -- pinning the literal meant adding the second
+// bonus tripped a check about the first.
+const derivedBonuses = [
+  {
+    what: "sharpening",
+    reader: "return (obj && obj.data && obj.data.plus) || 0;",
+    inPower: "sharpenLevel(obj)",
+  },
+  {
+    what: "kill rank",
+    reader: "const kills = (obj && obj.data && obj.data.kills) || 0;",
+    inPower: "weaponKillRank(obj)",
+  },
+];
+
+const powerBody = craftingForSharpen.slice(
+  craftingForSharpen.indexOf("function weaponPower(obj) {"),
+  craftingForSharpen.indexOf("function weaponPower(obj) {") + 400,
+);
+
+for (const bonus of derivedBonuses) {
+  if (!craftingForSharpen.includes(bonus.reader))
+    throw new Error(
+      `Derived bonus regression: ${bonus.what} must be read off the item's own data. A save restores only dp and data onto a rebuilt item, so anything kept elsewhere is silently lost on the next load.`,
+    );
+  if (!powerBody.includes(bonus.inPower))
+    throw new Error(
+      `Derived bonus regression: ${bonus.what} must be applied inside weaponPower, or it never reaches the damage calculation at all.`,
+    );
 }
+
+// And neither may be baked into the weapon's strength, which is the failure both readers
+// exist to avoid.
+for (const source of [craftingForSharpen, interfaceSource])
+  if (/\bobj\.str\s*=|\.obj\.str\s*=|eqp\[0\]\.str\s*=/.test(source))
+    throw new Error(
+      "Derived bonus regression: something assigns to a weapon's str. Bonuses have to be derived at damage time, because restoring a save rebuilds the item from the registry and copies back only dp and data.",
+    );
 
 if (!interfaceSource.includes("weaponPower(att.eqp[0])")) {
   throw new Error(

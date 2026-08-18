@@ -1486,9 +1486,47 @@ function sharpenLevel(obj) {
   return (obj && obj.data && obj.data.plus) || 0;
 }
 
+// What a blade earns by being the one that did the work.
+//
+// The kill counter already existed -- Creature.onDeath increments data.kills on whatever
+// is in the player's hand, and the item description has always displayed it -- and
+// nothing read it. These are the ranks it now buys.
+//
+// Derived from data.kills rather than written into the weapon's strength, and that is not
+// a stylistic choice: loading a save rebuilds every piece of equipment from the registry
+// and copies back only dp and data, so a bonus stored in str would vanish on the next
+// load. This is the same reason sharpening lives in data.plus. It also means the bonus
+// belongs to the individual weapon and travels nowhere -- a Takemitsu that has killed ten
+// thousand things is that particular Takemitsu, and a fresh one off a shelf is a fresh
+// one off a shelf.
+const KILL_RANKS = [50, 150, 400, 1000, 2500, 5000, 10000];
+// Five percent a rank, so the whole ladder is worth about a third more damage at the top.
+// Deliberately less than sharpening's fifty, which is bought with coin and risk in an
+// afternoon; this is bought with ten thousand kills.
+const KILL_RANK_STEP = 0.05;
+
+function weaponKillRank(obj) {
+  const kills = (obj && obj.data && obj.data.kills) || 0;
+  let rank = 0;
+  for (const at of KILL_RANKS) if (kills >= at) rank++;
+  return rank;
+}
+
+// The next threshold, for the description to show something to work toward. Null at the
+// top of the ladder.
+function weaponNextKillRank(obj) {
+  const kills = (obj && obj.data && obj.data.kills) || 0;
+  for (const at of KILL_RANKS) if (kills < at) return at;
+  return null;
+}
+
 // The effective strength of a weapon, its sharpening included. Read by dmg_calc.
 function weaponPower(obj) {
-  return obj.str * (1 + sharpenLevel(obj) * 0.06);
+  return (
+    obj.str *
+    (1 + sharpenLevel(obj) * 0.06) *
+    (1 + weaponKillRank(obj) * KILL_RANK_STEP)
+  );
 }
 
 // It gets harder and dearer as it goes: the first step is near certain and cheap, the

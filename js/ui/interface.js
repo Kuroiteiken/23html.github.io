@@ -3341,6 +3341,11 @@ const releaseNotes = [
     minor: 27,
     read: () => i18n.get("ui.releaseNotes.v478_27"),
   },
+  {
+    major: 478,
+    minor: 28,
+    read: () => i18n.get("ui.releaseNotes.v478_28"),
+  },
 ];
 
 // Shows what changed since the build the player last opened. Returns whether
@@ -3934,14 +3939,31 @@ function dscr(c, what, type, ttl, dsc, id) {
           null,
           "item-description-kills",
         );
-        sp.innerHTML = i18n.t("ui.itemDescription.kills", {
-          kills: col(what.data.kills, "yellow"),
-        });
-        clearInterval(timers.wpnkilsch);
-        timers.wpnkilsch = setInterval(function () {
-          sp.innerHTML = i18n.t("ui.itemDescription.kills", {
+        const killLine = () => {
+          let line = i18n.t("ui.itemDescription.kills", {
             kills: col(what.data.kills, "yellow"),
           });
+          const rank = weaponKillRank(what);
+          if (rank > 0)
+            line +=
+              "<br>" +
+              i18n.t("ui.itemDescription.killRank", {
+                rank: col(killRankNumeral(rank), "gold"),
+                bonus: col("+" + Math.round(rank * 5) + "%", "lime"),
+              });
+          const next = weaponNextKillRank(what);
+          if (next !== null)
+            line +=
+              "<br>" +
+              i18n.t("ui.itemDescription.killRankNext", {
+                remaining: col(next - what.data.kills, "yellow"),
+              });
+          return line;
+        };
+        sp.innerHTML = killLine();
+        clearInterval(timers.wpnkilsch);
+        timers.wpnkilsch = setInterval(function () {
+          sp.innerHTML = killLine();
         }, 1000);
       }
     } else {
@@ -6489,6 +6511,12 @@ function descsinfo(id) {
 
 // A weapon's name with its sharpening on it. The colour climbs with the level so a
 // glance at the inventory says which blade is the worked one.
+// Ranks read as ranks rather than as a number out of seven.
+const KILL_RANK_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII"];
+function killRankNumeral(rank) {
+  return KILL_RANK_NUMERALS[rank - 1] || String(rank);
+}
+
 function sharpenSuffix(obj) {
   const plus = sharpenLevel(obj);
   if (plus <= 0) return "";
