@@ -1760,6 +1760,24 @@
         "desc": "Book which you've already read. It doesn't contain any new useful information",
         "bonus": "<span style=\"color:deeppink\">Literacy EXP gain +1%</span>",
         "current": "Current:"
+      },
+      "psb": {
+        "name": "Pleasant Sleep Blanket",
+        "desc": "Soft and warm, and heavy enough to stay where you put it",
+        "bonus": "<span style=\"color:deeppink\">Sleeping mastery gain +80%</span>"
+      },
+      "hnhn": {
+        "name": "Teruterubōzu",
+        "desc": "Hung by the window, where the weather can see it",
+        "bonus": "<span style=\"color:deeppink\">LUCK +2</span>"
+      },
+      "ptng1": {
+        "name": "Tattered Painting",
+        "desc": "A lady, probably. Whoever she was, somebody once thought her worth painting"
+      },
+      "sktbad": {
+        "name": "A Failed Piece",
+        "desc": "Crooked, and fired anyway. It was meant to be displayed, so it is"
       }
     },
     "item": {

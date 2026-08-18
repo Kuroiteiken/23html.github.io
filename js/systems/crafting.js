@@ -1263,6 +1263,15 @@ vendor.gens1.items = [
   { item: item.cclth, p: 7, c: 0.85, min: 15, max: 50 },
   { item: item.thrdnl, p: 2, c: 0.85, min: 3, max: 70 },
   { item: acc.ndlb, p: 50, c: 0.73, min: 1, max: 15 },
+  // Household goods. All four of these existed with names and descriptions in both
+  // languages and no source anywhere in the game, so nobody could ever have owned
+  // one. A general store is where a blanket and a talisman come from; the painting
+  // and the failed pot turn up rarely, because that is how a shabby store gets
+  // hold of something like that at all.
+  { item: item.psb, p: 340, c: 0.4, min: 1, max: 1 },
+  { item: item.hnhn, p: 260, c: 0.35, min: 1, max: 2 },
+  { item: item.ptng1, p: 180, c: 0.12, min: 1, max: 1 },
+  { item: item.sktbad, p: 90, c: 0.18, min: 1, max: 1 },
 ];
 vendor.gens1.extra = function () {
   if (random() < 0.2) chss.gens1.data.gets[0] = false;

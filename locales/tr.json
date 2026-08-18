@@ -1760,6 +1760,24 @@
         "desc": "Zaten okuduğun bir kitap. Yeni ve işine yarayacak hiçbir bilgi içermiyor",
         "bonus": "<span style=\"color:deeppink\">Okuryazarlık DP kazanımı +%1</span>",
         "current": "Şu an:"
+      },
+      "psb": {
+        "name": "Hoş Uyku Battaniyesi",
+        "desc": "Yumuşak, sıcak ve bıraktığın yerde duracak kadar ağır",
+        "bonus": "<span style=\"color:deeppink\">Uyuma ustalığı kazanımı +%80</span>"
+      },
+      "hnhn": {
+        "name": "Teruterubuzu",
+        "desc": "Pencerenin kenarına asılı, havanın görebileceği yere",
+        "bonus": "<span style=\"color:deeppink\">ŞANS +2</span>"
+      },
+      "ptng1": {
+        "name": "Yırtık Tablo",
+        "desc": "Bir hanım, herhalde. Kim olursa olsun, biri onu bir zamanlar resmedilmeye değer bulmuş"
+      },
+      "sktbad": {
+        "name": "Başarısız Bir İş",
+        "desc": "Eğri, ve yine de pişirilmiş. Sergilenmek için yapılmıştı, öyle de oluyor"
       }
     },
     "item": {

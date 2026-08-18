@@ -284,3 +284,77 @@ furniture.bookgen.onRemove = function () {
   if (inSector(sector.home) && this.active) skl.rdg.p -= 0.01;
   this.data.p -= 0.01;
 };
+
+// A better blanket than furniture.bblkt, and one the game already described. Claims
+// the same home.blkt slot on quality, so owning both is not owning two.
+furniture.psb = new Furniture();
+furniture.psb.id = 16;
+furniture.psb.name = i18n.t("content.furniture.psb.name");
+furniture.psb.desc =
+  i18n.t("content.furniture.psb.desc") +
+  dom.dseparator +
+  i18n.t("content.furniture.psb.bonus");
+furniture.psb.data = { amount: 0 };
+furniture.psb.v = 4;
+furniture.psb.sq = 1.5;
+furniture.psb.removable = true;
+furniture.psb.activate = function () {
+  if (home.blkt && home.blkt.id === this.id) skl.sleep.p += 0.8;
+};
+furniture.psb.deactivate = function () {
+  if (home.blkt && home.blkt.id === this.id) skl.sleep.p -= 0.8;
+};
+furniture.psb.onGive = function () {
+  if (!home.blkt || home.blkt.sq < this.sq) home.blkt = this;
+};
+furniture.psb.onRemove = function () {
+  giveItem(item.psb, 1, true);
+};
+
+// The talisman asks to be hung where the weather reaches it, which is what it says.
+furniture.hnhn = new Furniture();
+furniture.hnhn.id = 17;
+furniture.hnhn.name = i18n.t("content.furniture.hnhn.name");
+furniture.hnhn.desc =
+  i18n.t("content.furniture.hnhn.desc") +
+  dom.dseparator +
+  i18n.t("content.furniture.hnhn.bonus");
+furniture.hnhn.data = { amount: 0 };
+furniture.hnhn.v = 3;
+furniture.hnhn.removable = true;
+furniture.hnhn.activate = function () {
+  you.luck += 2;
+  you.stat_r();
+};
+furniture.hnhn.deactivate = function () {
+  you.luck -= 2;
+  you.stat_r();
+};
+furniture.hnhn.onRemove = function () {
+  giveItem(item.hnhn, 1, true);
+};
+
+// Two display pieces. They raise the home's rating and nothing else, which is what
+// decoration is for -- and the rating is the one number in the game that has never
+// had anything to feed it beyond the furniture that came with the house.
+furniture.ptng1 = new Furniture();
+furniture.ptng1.id = 18;
+furniture.ptng1.name = i18n.t("content.furniture.ptng1.name");
+furniture.ptng1.desc = i18n.t("content.furniture.ptng1.desc");
+furniture.ptng1.data = { amount: 0 };
+furniture.ptng1.v = 4;
+furniture.ptng1.removable = true;
+furniture.ptng1.onRemove = function () {
+  giveItem(item.ptng1, 1, true);
+};
+
+furniture.sktbad = new Furniture();
+furniture.sktbad.id = 19;
+furniture.sktbad.name = i18n.t("content.furniture.sktbad.name");
+furniture.sktbad.desc = i18n.t("content.furniture.sktbad.desc");
+furniture.sktbad.data = { amount: 0 };
+furniture.sktbad.v = 2;
+furniture.sktbad.removable = true;
+furniture.sktbad.onRemove = function () {
+  giveItem(item.sktbad, 1, true);
+};

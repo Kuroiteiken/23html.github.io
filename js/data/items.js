@@ -6253,7 +6253,13 @@ item.psb.id = 5010;
 item.psb.name = i18n.t("content.item.psb.name");
 item.psb.desc = i18n.t("content.item.psb.desc");
 item.psb.stype = 5;
-item.psb.use = function () {};
+item.psb.isf = true;
+item.psb.parent = furniture.psb;
+item.psb.use = function () {
+  const f = giveFurniture(furniture.psb);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
+};
 
 item.wdc = new Item();
 item.wdc.id = 5011;
@@ -6408,7 +6414,13 @@ item.hnhn.name = i18n.t("content.item.hnhn.name");
 item.hnhn.desc = i18n.t("content.item.hnhn.desc");
 item.hnhn.stype = 5;
 item.hnhn.rar = 2;
-item.hnhn.use = function (x) {};
+item.hnhn.isf = true;
+item.hnhn.parent = furniture.hnhn;
+item.hnhn.use = function () {
+  const f = giveFurniture(furniture.hnhn);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
+};
 
 item.pcn = new Item();
 item.pcn.id = 5026;
@@ -6470,7 +6482,13 @@ item.ptng1.id = 5028;
 item.ptng1.name = i18n.t("content.item.ptng1.name");
 item.ptng1.desc = i18n.t("content.item.ptng1.desc");
 item.ptng1.stype = 5;
-item.ptng1.use = function () {};
+item.ptng1.isf = true;
+item.ptng1.parent = furniture.ptng1;
+item.ptng1.use = function () {
+  const f = giveFurniture(furniture.ptng1);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
+};
 
 item.fwd1 = new Item();
 item.fwd1.id = 5029;
@@ -6746,11 +6764,12 @@ item.sktbad.id = 5050;
 item.sktbad.name = i18n.t("content.item.sktbad.name");
 item.sktbad.desc = i18n.t("content.item.sktbad.desc");
 item.sktbad.stype = 5;
+item.sktbad.isf = true;
+item.sktbad.parent = furniture.sktbad;
 item.sktbad.use = function () {
-  msg(
-    i18n.t("runtime.data.items.dialogue.better_put_this_away_12002a26"),
-    "lightgrey",
-  );
+  const f = giveFurniture(furniture.sktbad);
+  if (inSector(sector.home)) activatef(f);
+  this.amount--;
 };
 
 item.bblkt = new Item();
