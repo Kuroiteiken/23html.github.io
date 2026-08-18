@@ -6930,7 +6930,11 @@ function renderrepairitem(root, line) {
     line.obj.dp = line.obj.dpmax;
     msg(i18n.t("ui.smith.repaired", { item: line.obj.name }), "lime");
     you.stat_r();
-    chs_spec(7, null);
+    // Rebuild the scene, not just the panel. chs_spec starts with clr_chs(), which
+    // also removes the Return choice the scene adds after it -- calling chs_spec
+    // directly left the player at the bench with no way back out. Same mistake, and
+    // the same fix, as the sell list.
+    smove(chss.smith, false);
   });
   return row;
 }
@@ -7813,6 +7817,11 @@ function removeFromContainer(cont, item, find) {
 }
 
 function clr_chs(index) {
+  // A hover description belongs to a row. Tearing the rows down while the pointer is
+  // still over one means that row's mouseleave never fires, so the description hangs
+  // on screen until the player happens to hover something else -- which is what the
+  // smith's bench does on every repair, and the sell list on every sale.
+  if (global.dscr) global.dscr.style.display = "none";
   if (!index) empty(dom.ctr_2);
   else dom.ctr_2.removeChild(dom.ctr_2.children[index]);
 }

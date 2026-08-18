@@ -951,6 +951,41 @@ if (
 
 console.log("Validated the quest list ordering.");
 
+// chs_spec opens with clr_chs(), which empties the whole choice column -- including
+// any choice the scene added after calling it. So a panel that rebuilds itself by
+// calling chs_spec directly takes the scene's own Return choice with it and strands
+// the player. This has now happened twice, at the sell list and at the smith's bench,
+// so it is pinned: a panel rebuild goes through smove.
+for (const [label, scene] of [
+  ["the sell list", "chss.gensell"],
+  ["the smith's bench", "chss.smith"],
+]) {
+  if (!interfaceSource.includes("smove(" + scene + ", false);")) {
+    throw new Error(
+      `Panel regression: ${label} must rebuild itself with smove(${scene}, false), not by calling chs_spec directly -- chs_spec clears the scene's own Return choice and leaves no way out.`,
+    );
+  }
+}
+
+// And a hover description belongs to the row under the pointer. If the rows are torn
+// down while the pointer is still over one, that row's mouseleave never fires and the
+// description stays on screen until something else is hovered.
+// Checked as plain text: the identifiers carry no regex metacharacters, and a
+// mangled escape cannot break what has none.
+const clrChsAt = interfaceSource.indexOf("function clr_chs(index) {");
+const clrChsBody =
+  clrChsAt < 0 ? "" : interfaceSource.slice(clrChsAt, clrChsAt + 600);
+if (
+  clrChsAt < 0 ||
+  !clrChsBody.includes('if (global.dscr) global.dscr.style.display = "none";')
+) {
+  throw new Error(
+    "Tooltip regression: clr_chs must hide the hover description, or tearing down the row under the pointer leaves its tooltip stuck.",
+  );
+}
+
+console.log("Validated panel rebuilds and hover teardown.");
+
 // The stale-build check fetches version.json, which build-site.js writes beside
 // index.html. Resolved against js/i18n-loader.js the bare name becomes
 // js/version.json, which 404s -- and because a non-ok response returned quietly,
