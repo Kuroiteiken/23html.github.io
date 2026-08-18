@@ -2471,6 +2471,22 @@ chss.frstn1b1j.sl = () => {
   ).addEventListener("click", () => {
     smove(chss.frstn1b1, false);
   });
+  // The greeting above promises work before the scene knows whether there is any.
+  // Every posting below is gated on a quest state, and there are reachable
+  // combinations where none of them draws anything -- the plainest being a player
+  // who has finished the pack leader, since that chain has a branch for not started
+  // and a branch for started and none for done. Yamato then invites you to look at
+  // an empty wall.
+  //
+  // Counting what actually got drawn beats restating eight quest conditions here,
+  // because a restatement drifts the first time a posting is added.
+  if (!!dom.ctr_2 && dom.ctr_2.querySelectorAll(".chs").length === 0) {
+    const greeting = document.getElementById("chs");
+    if (greeting)
+      greeting.innerHTML = i18n.t(
+        "runtime.world.locations.dialogue.yamato_board_is_empty",
+      );
+  }
 };
 
 chss.frstn1a1 = new Chs();
@@ -3766,6 +3782,23 @@ chss.smith.sl = () => {
         smove(chss.smith, false);
       }
     }, 1000);
+    // chs_spec empties the choice column before it draws the panel, so the exit has to
+    // be drawn after it -- and with the ignore flag set, so drawing it does not clear
+    // the menu state the panel is running on. Every other shop in the game does exactly
+    // this. I copied the restock watcher from the herbalist and left the door behind.
+    chs(
+      i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+      false,
+      "",
+      "",
+      null,
+      null,
+      null,
+      true,
+    ).addEventListener("click", () => {
+      clearInterval(timers.vndrstkchk);
+      smove(chss.smith, false);
+    });
   });
   chs(
     i18n.t("runtime.world.locations.dialogue.smith_sharpen_action"),

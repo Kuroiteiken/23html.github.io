@@ -248,6 +248,10 @@
       ],
       "v478_12": [
         "Demirci artık sikke satmıyor. Tezgâhında Çeyrek 16 akçeydi ve kullanınca 25 veriyordu; fark edenler için bedava paraydı."
+      ],
+      "v478_13": [
+        "Demircinin tezgâhının yeniden bir çıkışı var. Stoğunu açmak Geri dön butonunu da siliyordu.",
+        "Yamato olmayan işi teklif etmeyi bıraktı. Tahtası boş duvarın üstünde “mevcut işler bunlar” diyordu."
       ]
     },
     "lore": {
@@ -5887,7 +5891,8 @@
           "leave_it_alone": "Elini cebine geri koy ve yürümeye devam et",
           "the_cut_passage": "Levhanın arkasındaki geçide bak",
           "stone_plate_opened": "Levhanın durduğu yerde bir geçit var ve kesilmiş. Pençelenmemiş, çökmemiş, suyun aşındırmasıyla açılmamış. Kesilmiş.<br><br>Darbeler kısa, üst üste biniyor ve hepsi aynı yöne gidiyor; savurmaya yer olmayan bir darlıkta tek elle çalışan biri öyle yapar. Bir kol boyu sürüyorlar, sonra lambanın yettiği yerden de öteye, ve dolanmıyorlar: bunları yapan, başlamadan önce hangi yöne gitmek istediğini biliyordu.<br><br>Geçidin ağzındaki molozun içinde bir şey duruyor. Bir keski; sapın üçte birinde kırılmış, metalin geri kalanı matlaşmışken kırık yeri hâlâ parlak. Düz yüzünde bir damga var — bir marangoz işareti; köy demircisinin parça başı ödendiği işe vurduğu türden.<br><br>Ölüler alet taşımaz. Onları bilemek için durmaz, ve kırıldığında küfredip bir kenara atmaz.",
-          "smith_buy_action": "Bitirdiği bir şey var mı diye sor"
+          "smith_buy_action": "Bitirdiği bir şey var mı diye sor",
+          "yamato_board_is_empty": "<span style=\"color:limegreen\">Kelle Avcısı Yamato</span>: Bugün tahtada sana iş yok. Üzerindeki her şey ya bitti ya da zaten senin elinde"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

@@ -248,6 +248,10 @@
       ],
       "v478_12": [
         "The smith no longer sells coins. A Quarter cost 16 on his counter and gives 25 when you use it, which was free money for anyone who noticed."
+      ],
+      "v478_13": [
+        "The smith’s counter has a way out of it again. Opening his stock cleared the Return with it.",
+        "Yamato stops offering work he does not have. His board said “here is what’s available” over an empty wall."
       ]
     },
     "lore": {
@@ -5883,7 +5887,8 @@
           "leave_it_alone": "Put your hand back in your pocket and walk on",
           "the_cut_passage": "Look into the passage behind the slab",
           "stone_plate_opened": "There is a passage where the slab was standing, and it was cut. Not clawed, not fallen, not worn through by water. Cut.<br><br>The strokes are short and they overlap and they all run the same way, which is what a person does working one-handed in a space too tight to swing properly. They go on for the length of your arm, and then further than your lamp reaches, and they do not wander: whoever made them knew which direction they wanted before they started.<br><br>Something is lying in the spoil at the mouth of it. A chisel, snapped a third of the way down the shank, the break still bright where the rest of the metal has gone dull. There is a stamp on the flat — a joiner's mark, the kind a village smith punches into work he is paid for by the piece.<br><br>The dead do not carry tools. They do not stop to sharpen them, and they do not swear and throw one away when it breaks.",
-          "smith_buy_action": "Ask what he has finished"
+          "smith_buy_action": "Ask what he has finished",
+          "yamato_board_is_empty": "<span style=\"color:limegreen\">Head Hunter Yamato</span>: Nothing on the board for you today. Everything on it is either finished or already yours"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",
