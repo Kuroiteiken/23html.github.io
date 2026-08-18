@@ -217,6 +217,9 @@
       ],
       "v478_3": [
         "Günlükte yeni bir sayfa: donanımının toplamı. Taşıdığın her direnç ve neyle vurduğun tek yerde, günlük açıldığı andan itibaren açık."
+      ],
+      "v478_4": [
+        "Uzun bir konuşma altındaki seçenekleri artık gömmüyor. Yamato'nun kendi diyalog seçeneklerini pencerenin dışına itecek kadar uzun konuşmaları var; artık metin kayıyor, butonlar yerinde kalıyor."
       ]
     },
     "lore": {
