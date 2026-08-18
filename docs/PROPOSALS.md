@@ -23,48 +23,6 @@ work starts so nothing is lost between sessions. An item leaves this list when i
 ships, and what it did goes into the changelog and, if it touches the story, into
 [STORY.md](STORY.md).
 
-### 5. Creature statting is unverified, and some of it is unwinnable — **in progress**
-
-The pack leader at the hollow cannot be hurt at all. Measured against the original
-game's own hardest creature, `wolf1` at its spawn band of level 7-8, whose
-mitigation term comes to 125:
-
-| Creature             | Level | Mitigation | Ratio to wolf1 |
-| -------------------- | ----- | ---------- | -------------- |
-| `wolfa1` pack leader | 13    | 380        | 3.0x           |
-| `zmbk`               | 24    | 521        | 4.2x           |
-| `mumy`               | 27    | 586        | 4.7x           |
-| `dcrps1` chapter IV  | 28    | 798        | 6.4x           |
-
-The cause is that `aff` and `cls` enter the defence as
-`def.str * (100 + def.aff[atype] * 5 + def.cls[ctype] * 5) / 100`, so a value of 60
-is a six-fold multiplier rather than a percentage. No creature the original game
-shipped exceeds `aff[0]` 22 or `cls[0]` 36. Everything statted for chapters I to IV
-went well past that.
-
-Owner's instruction: run the simulation for **every** creature, not only the
-reported one, and add a standing check plus an instruction in
-[AGENTS.md](AGENTS.md) so content added later cannot reintroduce it.
-
-### 6. Weapon-mastery titles, and titles that speed mastery up
-
-Grant `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3` and `sld3`-`sld5`, which have no grant
-path. The kill-count milestone table added in v476 can already express what they
-want. Additionally: some titles should raise the rate a mastery gains while the
-matching weapon is equipped, not only its damage.
-
-### 7. The shield stubs
-
-Eleven of the fourteen shields carry `str = 0` and no resistances, so any of them
-defends exactly as well as an empty hand. Stat them from their own tier and the
-ranks below them, the way the dojo's three were.
-
-### 8. Shield mastery should grow while a shield is carried
-
-`skl.shdc` gains experience only at `js/ui/interface.js:4426`, in the branch where a
-creature's blow lands on the player. A player who is not being hit never trains it,
-and it is the skill that makes a shield worth carrying.
-
 ### 9. Furniture: more of it, and beds that mean something
 
 - More furniture generally.
@@ -101,22 +59,31 @@ appear until 1.7 MB of locale files and bundle have downloaded and run.
 
 ---
 
-### 14. Background progression, checked properly rather than assumed
+### 16. The smith: repair, and sharpening a weapon up to +9
 
-The owner reports again that an action like searching does not advance while the tab
-is in another window. v477 moved the tick to a catch-up loop and took the actions off
-their own timers, and running was verified -- but searching, fighting, reading and
-every other action need checking one at a time, with evidence, not by assuming the
-tick covers them.
+**Status:** in progress.
 
----
+The owner's sword ran its durability out, and nothing in the game restores it -- a
+spent weapon's contribution to damage collapses to the flat 0.1 the formula falls
+back on, with no way out of it. Repair is the part that closes an existing dead end
+and comes first.
 
-### 15. The bottom bar needs no viewport reservation — **resolved, revert it**
+On top of it: sharpening, +1 through +9, each step paid for and rolled for, raising
+the weapon's attack and showing itself in the item's name and colour.
 
-`fitGameToViewport` solves the body zoom against where the game's content ends plus
-the save bar's height, so the fixed bar cannot land on the bottom row of buttons.
-The owner has looked at it and the bar sits correctly on its own: the reservation,
-and the `saveBarGap` constant with it, should come out.
+**Already exists:** `dp`/`dpmax` on every piece of equipment and nothing anywhere
+that restores them; `repairCost` and `repairableInventory` in
+`js/systems/crafting.js`; the sell panel's `chs_spec` case as a template for the
+smith's own list; `data` on an equipment instance, which the save keeps.
+
+**Has to be new:** the smith's scene and dialogue, the enhancement roll, and the
+colour tiers.
+
+**Constraint found while reading the save:** the bonus cannot be written into
+`str`. Restoring an item rebuilds it from the registry and copies only `dp` and
+`data` back onto it (`js/core/bootstrap.js:1148-1156`), so anything written to
+`str` is lost on the next load. It has to be derived from `data.plus` at the point
+damage is calculated.
 
 ---
 

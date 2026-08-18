@@ -23,48 +23,6 @@ yazılıyor; böylece oturumlar arasında hiçbir şey kaybolmuyor. Bir madde
 tamamlandığında bu listeden çıkıyor, yaptığı iş changelog'a ve hikayeye
 dokunuyorsa [STORY.TR.md](STORY.TR.md) dosyasına geçiyor.
 
-### 5. Yaratık statları doğrulanmadı ve bir kısmı kazanılamaz durumda — **devam ediyor**
-
-Çukurdaki sürü liderine hiç hasar verilemiyor. Orijinal oyunun kendi en sert
-yaratığı `wolf1`'e göre ölçüldü — 7-8. seviye doğma bandında hasar azaltma terimi
-125:
-
-| Yaratık                 | Seviye | Azaltma | wolf1'e oranı |
-| ----------------------- | ------ | ------- | ------------- |
-| `wolfa1` sürü lideri    | 13     | 380     | 3,0x          |
-| `zmbk`                  | 24     | 521     | 4,2x          |
-| `mumy`                  | 27     | 586     | 4,7x          |
-| `dcrps1` dördüncü bölüm | 28     | 798     | 6,4x          |
-
-Sebep şu: `aff` ve `cls` savunmaya
-`def.str * (100 + def.aff[atype] * 5 + def.cls[ctype] * 5) / 100` olarak giriyor,
-yani 60 değeri bir yüzde değil altı katlık bir çarpan. Orijinal oyunun getirdiği
-hiçbir yaratıkta `aff[0]` 22'yi, `cls[0]` 36'yı geçmiyor. Birinci ve dördüncü bölüm
-için statlandırılan her şey bunun çok ötesine geçmiş.
-
-Sahibinin talimatı: simülasyonu **bütün** yaratıklar için çalıştır, yalnızca
-bildirileni için değil; ve sonradan eklenen içeriğin bunu tekrar getirememesi için
-kalıcı bir kontrol ile [AGENTS.md](AGENTS.md) dosyasına bir talimat ekle.
-
-### 6. Silah ustalığı ünvanları ve ustalığı hızlandıran ünvanlar
-
-Verilme yolu olmayan `srd3`, `srd4`, `lnc3`, `hmr3`, `axc3` ve `sld3`-`sld5`
-ünvanları verilsin. v476'da eklenen öldürme sayacı eşik tablosu istediklerini
-zaten ifade edebiliyor. Ayrıca: bazı ünvanlar, eşleşen silah takılıyken yalnızca
-hasarı değil ustalığın kazanım hızını da arttırmalı.
-
-### 7. Kalkan taslakları
-
-On dört kalkanın on birinde `str = 0` ve hiç direnç yok; yani herhangi biri boş
-elden fazla korumuyor. Dojonun üç kalkanında yapıldığı gibi, kendi kademelerine ve
-altlarındaki rütbelere göre statlandırılmalı.
-
-### 8. Kalkan ustalığı, kalkan taşınırken artmalı
-
-`skl.shdc` yalnızca `js/ui/interface.js:4426` satırında, bir yaratığın vuruşu
-oyuncuya isabet ettiği dalda deneyim kazanıyor. Vurulmayan bir oyuncu onu hiç
-geliştirmiyor — oysa kalkan taşımayı değerli kılan beceri o.
-
 ### 9. Mobilya: daha fazlası ve bir anlamı olan yataklar
 
 - Genel olarak daha fazla mobilya.
@@ -102,22 +60,30 @@ paket inip çalışana kadar hiçbir şey görünemiyor.
 
 ---
 
-### 14. Arkaplan ilerleyişi, varsayılmak yerine düzgün kontrol edilmeli
+### 16. Demirci: onarım ve silahı +9'a kadar keskinleştirme
 
-Sahibi, araştır gibi bir eylemin sekme başka pencerede olduğunda ilerlemediğini
-tekrar bildirdi. v477 tick'i bir yakalama döngüsüne aldı ve eylemleri kendi
-zamanlayıcılarından kurtardı; koşma da doğrulandı — ama araştırma, dövüş, kitap
-okuma ve diğer bütün eylemler tek tek, kanıtla kontrol edilmeli; tick hepsini
-kapsıyor varsayımıyla değil.
+**Durum:** devam ediyor.
 
----
+Sahibinin kılıcının dayanıklılığı bitti ve oyunda onu geri getiren hiçbir şey yok --
+tükenmiş bir silahın hasara katkısı, formülün düştüğü düz 0.1'e çöküyor ve bundan
+çıkış yok. Var olan bir çıkmazı kapatan kısım onarım, o yüzden önce o geliyor.
 
-### 15. Alt barın görüntü alanından yer ayırmasına gerek yok — **çözüldü, geri alınacak**
+Üstüne: keskinleştirme, +1'den +9'a, her adımı ücretli ve şansa bağlı; silahın
+saldırısını yükseltiyor ve eşyanın adında ve renginde kendini gösteriyor.
 
-`fitGameToViewport`, gövde yakınlaştırmasını oyunun içeriğinin bittiği yer artı
-kaydet çubuğunun yüksekliğine göre çözüyor; böylece sabit çubuk alt sıradaki
-butonların üzerine binemiyor. Sahibi baktı ve çubuk kendi başına doğru oturuyor:
-bu ayırma, yanındaki `saveBarGap` sabitiyle birlikte kaldırılmalı.
+**Zaten var:** her ekipman parçasında `dp`/`dpmax` ve hiçbir yerde onları geri
+getiren bir şey yok; `js/systems/crafting.js` içinde `repairCost` ve
+`repairableInventory`; demircinin kendi listesi için şablon olarak satış panelinin
+`chs_spec` durumu; ekipman örneğinde kaydın koruduğu `data` alanı.
+
+**Yeni olması gereken:** demircinin sahnesi ve diyalogları, yükseltme zarı ve renk
+kademeleri.
+
+**Kayıt okunurken bulunan kısıt:** bonus `str` içine yazılamaz. Bir eşya geri
+yüklenirken kayıttan değil kayıttaki tanımdan yeniden kuruluyor ve üzerine yalnızca
+`dp` ile `data` kopyalanıyor (`js/core/bootstrap.js:1148-1156`), yani `str`'ye
+yazılan her şey bir sonraki yüklemede kayboluyor. Hasarın hesaplandığı yerde
+`data.plus` üzerinden türetilmesi gerekiyor.
 
 ---
 
