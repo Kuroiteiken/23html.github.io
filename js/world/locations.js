@@ -3284,6 +3284,13 @@ chss.nrd1.sl = () => {
     smove(chss.nfld1);
   });
   chs(
+    i18n.t("runtime.world.locations.dialogue.follow_the_water_to_the_mill"),
+    false,
+    "gold",
+  ).addEventListener("click", () => {
+    smove(chss.nmill);
+  });
+  chs(
     i18n.t(
       "runtime.world.locations.dialogue.return_back_to_the_village_center_f78bf32b",
     ),
@@ -3390,6 +3397,135 @@ chss.nfld2.sl = () => {
     false,
   ).addEventListener("click", () => {
     smove(chss.nfld1);
+  });
+};
+
+// The mill. The village has mentioned it exactly once, in the nervous man's confession:
+// the only hole he knew of was the old drain by the mill, and that is what he told a
+// hunter with money who was looking for a way under the village. Fourteen months later
+// the player walks up to it.
+chss.nmill = new Chs();
+chss.nmill.id = 177;
+addtosector(sector.north, chss.nmill);
+chss.nmill.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.north_fields_mill"));
+  global.lst_loc = 177;
+  const arc = quest.hrvst1.data;
+  if (!arc.started && !arc.done)
+    chs(i18n.t("runtime.world.locations.dialogue.miller_greeting"), true);
+  else if (arc.done)
+    chs(i18n.t("runtime.world.locations.dialogue.miller_after"), true);
+  else if (arc.cleared >= arc.needed)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.miller_report"),
+      true,
+      "yellow",
+    );
+  else chs(i18n.t("runtime.world.locations.dialogue.miller_waiting"), true);
+
+  if (!arc.started && !arc.done)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.take_the_millers_work"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      giveQst(quest.hrvst1);
+      smove(chss.nmill, false);
+    });
+  else if (arc.started && arc.cleared >= arc.needed)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.tell_him_it_is_done"),
+      false,
+      "lime",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.miller_pays_up"),
+        true,
+        "gold",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      finishQst(quest.hrvst1);
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nmill, false);
+      });
+    });
+
+  // The drain. Only once the player knows a hunter asked about it, which is what makes
+  // it worth looking at rather than a hole behind a building.
+  if (knowsLore(24) && !knowsLore(30))
+    chs(
+      i18n.t("runtime.world.locations.dialogue.look_for_the_old_drain"),
+      false,
+      "yellow",
+    ).addEventListener("click", () => {
+      chs(
+        i18n.t("runtime.world.locations.dialogue.old_drain_found"),
+        true,
+        "orange",
+        0,
+        0,
+        0,
+        ".9em",
+      );
+      learnLore("millDrain");
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.nmill, false);
+      });
+    });
+
+  chs(
+    i18n.t("runtime.world.locations.dialogue.to_the_grain_store"),
+    false,
+    "gold",
+  ).addEventListener("click", () => {
+    smove(chss.ngrn1);
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_to_the_well_road"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nrd1);
+  });
+};
+
+// The grain store, and the wolves the market remembers being in it.
+chss.ngrn1 = new Chs();
+chss.ngrn1.id = 178;
+addtosector(sector.north, chss.ngrn1);
+chss.ngrn1.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("runtime.world.locations.dialogue.north_fields_grain_store"));
+  global.lst_loc = 178;
+  chs(i18n.t("runtime.world.locations.dialogue.grain_store_arrival"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.go_in_after_them"),
+    false,
+    "red",
+  ).addEventListener("click", () => {
+    area_init(area.ngrn1);
+    if (global.flags.btl !== true)
+      chs(
+        i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+        false,
+      ).addEventListener("click", () => {
+        smove(chss.ngrn1, false);
+      });
+  });
+  chs(
+    i18n.t("runtime.world.locations.dialogue.back_to_the_mill"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nmill);
   });
 };
 

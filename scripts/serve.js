@@ -877,6 +877,81 @@ function createSiteServer(options = {}) {
             (d) => d.item === item.slm || d.item === item.jll,
           );
 
+          // The mill, and the arc that closes the north.
+          smove(chss.nrd1);
+          const toMill = pick(
+            "runtime.world.locations.dialogue.follow_the_water_to_the_mill",
+          );
+          checks.millReachable = Boolean(toMill);
+          if (toMill) toMill.click();
+          checks.atTheMill = global.current_l === chss.nmill;
+
+          const takeWork = pick(
+            "runtime.world.locations.dialogue.take_the_millers_work",
+          );
+          checks.millerHiring = Boolean(takeWork);
+          if (takeWork) takeWork.click();
+          checks.harvestStarted = quest.hrvst1.data.started === true;
+          // Not finishable before the work is done.
+          checks.notPayableEarly = !pick(
+            "runtime.world.locations.dialogue.tell_him_it_is_done",
+          );
+
+          // The counter is a real onDeath hook, so drive it the way a kill does.
+          for (let i = 0; i < quest.hrvst1.data.needed + 3; i++)
+            callback.onDeath.fire(creature.kksh);
+          // It must stop at the target rather than run past it.
+          checks.counterCaps =
+            quest.hrvst1.data.cleared === quest.hrvst1.data.needed;
+          // And nothing else may advance it.
+          const atTarget = quest.hrvst1.data.cleared;
+          callback.onDeath.fire(creature.rbt1);
+          checks.counterIgnoresOthers = quest.hrvst1.data.cleared === atTarget;
+
+          smove(chss.nmill, false);
+          const payUp = pick(
+            "runtime.world.locations.dialogue.tell_him_it_is_done",
+          );
+          checks.millerPays = Boolean(payUp);
+          if (payUp) payUp.click();
+          checks.harvestDone =
+            quest.hrvst1.data.done === true &&
+            quest.hrvst1.data.started === false;
+          // Finishing the north is what opens the way to the hills, and the mine.
+          checks.hillsRoadOpened = global.flags.hillsroad === true;
+          // The hook has to be gone, or a later kill still counts.
+          const afterReward = quest.hrvst1.data.cleared;
+          callback.onDeath.fire(creature.kksh);
+          checks.hookDetached = quest.hrvst1.data.cleared === afterReward;
+
+          // The drain only shows itself once the player knows a hunter asked about it.
+          global.lore = global.lore.filter((id) => id !== 24 && id !== 30);
+          smove(chss.nmill, false);
+          checks.drainHiddenBeforeDein = !pick(
+            "runtime.world.locations.dialogue.look_for_the_old_drain",
+          );
+          learnLore("secondWayIn");
+          smove(chss.nmill, false);
+          const drain = pick(
+            "runtime.world.locations.dialogue.look_for_the_old_drain",
+          );
+          checks.drainFindable = Boolean(drain);
+          if (drain) drain.click();
+          checks.drainClueLearned = knowsLore(lore.millDrain.id);
+
+          // The grain store the market remembers wolves getting into.
+          smove(chss.nmill, false);
+          const store = pick("runtime.world.locations.dialogue.to_the_grain_store");
+          checks.grainStoreReachable = Boolean(store);
+          if (store) store.click();
+          const after = pick("runtime.world.locations.dialogue.go_in_after_them");
+          checks.grainStoreEnterable = Boolean(after);
+          if (after) after.click();
+          checks.grainStoreSpawns = global.flags.btl === true;
+          checks.grainStoreCreature =
+            global.current_m.id === creature.wolf1.id ||
+            global.current_m.id === creature.rbt1.id;
+
           // The furniture list. A furnished house pushed its rows straight out of the
           // panel and over the Return choice underneath. Stock the house well past what
           // fits, open the panel the way the scene opens it, and measure.

@@ -725,6 +725,32 @@ area.nfld2.drop = [
   { item: item.cclth, c: 0.03 },
 ];
 
+// The grain store. `market_rumours` has the fishmonger remembering wolves in it, in a
+// list of things he thinks the old man imagined -- so this is one of his examples turning
+// out to be true. Appended last, as every new area must be.
+area.ngrn1 = new Area();
+area.ngrn1.id = 128;
+area.ngrn1.name = i18n.t("content.area.ngrn1.name");
+area.ngrn1.pop = [
+  { crt: creature.wolf1, lvlmin: 12, lvlmax: 16, c: 0.75 },
+  { crt: creature.rbt1, lvlmin: 10, lvlmax: 14, c: 0.25 },
+];
+area.ngrn1.size = 16;
+z_bake(area.ngrn1);
+area.ngrn1.onEnd = function () {
+  roll(item.agrns, 0.8, 4, 12);
+  roll(item.brly, 0.6, 3, 9);
+  roll(item.rice, 0.4, 2, 6);
+  roll(item.sbone, 0.4, 2, 5);
+  roll(item.wfng, 0.2, 1, 2);
+  this.size = rand(8) + 12;
+  smove(chss.ngrn1);
+};
+area.ngrn1.drop = [
+  { item: item.agrns, c: 0.06 },
+  { item: item.sbone, c: 0.04 },
+];
+
 // A level band that follows the player upward without ever dropping below what
 // was authored for the place. `floor` is the hand-written ceiling, so a player
 // arriving for the first time meets exactly the fight that was designed; `behind`

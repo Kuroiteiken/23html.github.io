@@ -282,6 +282,11 @@
         "Anızın ötesindeki uzak tarla; figürlerin olduğu yer. Korkuluk bu fork'tan önce de tam statlıydı ve hiçbir yerde durmuyordu.",
         "Birine yaklaş ve düğüme bak. Bu köyde biri korkuluk yapmıyordu.",
         "Mobilya listesi kayıyor. İyi döşenmiş bir ev satırlarını panelin dışına ve Geri Dön butonunun üstüne taşırıyordu; geri dönüş yolu yoktu."
+      ],
+      "v478_20": [
+        "Değirmen, ve üç haftadır günü dokuza verip alıcı bulamayan değirmenci. Uzak tarlasını temizle, hasat içeri girer.",
+        "Tahıl ambarı, ve pazarın içine girdiğini hatırladığı kurtlar.",
+        "Ve değirmenin arkasındaki eski su yolu — on dört ay önce bir avcıya söylenen delik; aramayı biliyorsan."
       ]
     },
     "lore": {
@@ -3351,6 +3356,12 @@
         "stateWallInProgress": "görülmedi",
         "stateWallDone": "görüldü",
         "hint": "Pazardaki çocuk, babasının keskileri hakkında söylediklerini kimseye anlatmamanı istedi. Unutmanı istemedi."
+      },
+      "hrvst1": {
+        "name": "Günü Dokuz, Alıcısı Yok",
+        "desc": "Değirmenci üç haftadır piyasanın bir buçuk katını veriyor ve tek bir ırgat bile almadı. Sebebini tam olarak biliyor, ve uzak tarlasını başka biri görmeden bunu yüksek sesle söylemeyecek",
+        "goal": "Devrilen figür: <span style=\"color:{color}\">{needed} içinde {count}</span>",
+        "hint": "Değirmendeki biri üç haftadır günü dokuza veriyor ve köyde kimse almıyor."
       }
     },
     "skl": {
@@ -4699,6 +4710,9 @@
       },
       "nfld2": {
         "name": "Uzak tarla"
+      },
+      "ngrn1": {
+        "name": "Tahıl ambarı"
       }
     },
     "lore": {
@@ -4817,6 +4831,10 @@
       "strawBound": {
         "name": "Korkuluklar yapılmadı, bağlandı",
         "desc": "Bu tarlalardaki bir saman figürünün boğazındaki düğüm bilerek yanlış atılmış, ve içindeki tahtaya bir isim yazılmış. Saman heykelinin tarifi, o yapıdaki bebeklerin ne işe yaradığını açıkça söylüyor: yaşayanların ruhlarıyla bağ kurmak. Kuşları uzak tutmak için bunların içine bir şey konmuş, ve köyün altında birikmekte olan şey ona ulaştı."
+      },
+      "millDrain": {
+        "name": "Değirmenin yanındaki su yolu bir yere gidiyor",
+        "desc": "Değirmenin arkasında, değirmenden eski bir taş kanal var; taş kesmeyi meslek edinmiş insanların kestiği gibi dörtgen. Üstündeki demir kapak çekilip kötü yerleştirilmiş, ve içeriden yerleştirilmiş. On dört ay önce bir avcı, köyün altına giden ikinci bir yolu sorduğunu unutması için bir tezgâhtara para ödedi; ona söylenen şey buydu."
       }
     }
   },
@@ -5015,7 +5033,8 @@
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Tekrarlanabilir</span> görev kabul edildi: <span style=\"color:orange\">\"{quest}\"</span>",
           "pack_leader_falls": "Büyük kurt yere yığılıyor ve orman tek bir ses çıkarmıyor.",
           "undercity_sign_found": "Bunu bir kenara yazıyorsun. ({current}/{required})",
-          "the_end_falls_quiet": "Dağılıyor ve buraya indiğinden beri ilk kez koridor tamamen sessiz."
+          "the_end_falls_quiet": "Dağılıyor ve buraya indiğinden beri ilk kez koridor tamamen sessiz.",
+          "field_is_clear": "Uzak tarlada, bilerek dikilmemiş ayakta hiçbir şey kalmadı."
         }
       },
       "titles": {
@@ -5964,7 +5983,23 @@
           "examine_a_figure": "Figürlerden birine yaklaş",
           "scarecrow_examined": "Çuval bezi, sıkı doldurulmuş, kolları yukarı bağlanmış bir dişbudak çarmıhın üstünde. Sıradan bir iş, ve eski — omuzlardaki saman yağmurun durduğu yerde kararmış.<br><br>Boğazındaki düğüm yanlış. Kötü atılmış değil: bilerek yanlış atılmış, düğüm bir şeyi taşımak yerine bir şeyi tutmak için atıldığında yapıldığı gibi kendi üstüne çaprazlanmış.<br><br>Elini dikişten içeri sokuyorsun. İçinde bir tahta var; kimsenin kazara bulamayacağı şekilde direğe yatık duruyor, ve üstüne bir isim yazılmış.<br><br>Sen bunlardan bir tane yaptın. Tarif kendi kitabında ve o yapıdaki bebeklerin ne işe yaradığını tam bu kelimelerle söylüyor: yaşayanların ruhlarıyla bağ kurmak. Biri, bir ürünü kuşlardan korumak için bu tarladaki her figürün içine bir şey bağlamış.<br><br>Ve bu köyün altında uzun süredir bir şey birikiyor, ve tarlalar onun ulaştığı sonraki yer.",
           "go_in_among_the_figures": "Aralarına gir",
-          "back_to_the_stubble": "Anıza geri dön"
+          "back_to_the_stubble": "Anıza geri dön",
+          "follow_the_water_to_the_mill": "Suyu izleyip değirmene çık",
+          "north_fields_mill": "Kuzey Tarlaları, Değirmen",
+          "miller_greeting": "Çark dönüyor ve altına giden hiçbir şey yok. Yine de ona bakıyor; insan parasını verdiği şeye öyle bakar.<br><br><span style=\"color:khaki\">Değirmenci</span>: Kim olduğunu biliyorum. Haber yoldan yukarı çıkıyor.<br><br>Günü dokuz ve kimse gelmiyor. Yevmiye yüzünden değil, iş yüzünden de değil. Sana ürünün geçtiğini söyleyecekler, geçti de; ama geçti çünkü kimse onu biçmek için uzak tarlaya girmedi, ve sebebini yüksek sesle söyleyen ben olmayacağım.<br><br>Git ve bak. Sonra geri gel, sana ırgat gibi ödeyeceğim; para onun için duruyor.",
+          "take_the_millers_work": "İşi al. Uzak tarlayı temizleyeceğini söyle",
+          "miller_waiting": "<span style=\"color:khaki\">Değirmenci</span>: Hâlâ ayaktalar demek. Bilirim: tepelerini samanlık kapısından görüyorum.",
+          "miller_report": "<span style=\"color:khaki\">Değirmenci</span>: Samanlıktan saydım. O tarlada benim dikmediğim ayakta hiçbir şey yok.<br><br>Söyle öyleyse. Yüksek sesle, birinin söylediğini duymuş olayım.",
+          "tell_him_it_is_done": "Tarlasında ne olduğunu anlat",
+          "miller_pays_up": "Düğümle ilgili kısmı kolları bağlı dinliyor; içindeki isim yazılı tahtayla ilgili kısımda hiç kıpırdamıyor.<br><br><span style=\"color:khaki\">Değirmenci</span>: Onları babam dikti. Bir kısmını. O kadarını değil.<br><br>Parayı yavaş yavaş sayıyor ve ilk seferde doğru sayıyor; insanın başka bir şey düşünürken yapabildiği işlerden.<br><br><span style=\"color:khaki\">Değirmenci</span>: Artık ırgat gelir. Haber yoldan yukarı çıkıyor dedim ya; aşağı da iniyor.<br><br>Ürün gecikmiş ve yarısı yatmış, ve yine de biçilecek. Ona satın aldığın şeyin tamamı bu, ve neye mal olduğunu biliyor.",
+          "miller_after": "Tarlalarda insanlar var. Çok değil ve mevsimin sonunda, ama çarkın altına giden bir şey var ve sesi bütün binayı dolduruyor.<br><br><span style=\"color:khaki\">Değirmenci</span>: Buradayken yolun yukarısına bir bak. Tepelere doğru.",
+          "look_for_the_old_drain": "Değirmenin arkasında eski su yolunu ara",
+          "old_drain_found": "Değirmenin kendi suyunun dereye döndüğü yer, ve değirmenden çok daha eski. Dörtgen kesilmiş, sıralanmış; hendek açan çiftçilerin değil, taş kesmeyi zanaat edinmiş insanların işi.<br><br>Demir kapak yerine oturmuyor. Biri onu kaldırıp geri koymuş ve düz oturup oturmadığına aldırmamış, ve kenarın sürttüğü taştaki iz iç dudakta.<br><br>Aşağıdan yerleştirilmiş.<br><br>On dört ay önce iyi paltolu bir adam, köyün altına mezarlıktan geçmeyen bir yol olup olmadığını sorduğunu unutması için bir turp satıcısına para ödedi. Ona söylenen şey buydu. Delik bu.",
+          "to_the_grain_store": "Tahıl ambarına geç",
+          "north_fields_grain_store": "Kuzey Tarlaları, Tahıl Ambarı",
+          "grain_store_arrival": "Çatısı iyi, kapısı kötü, uzun ve basık bir bina. Mesele kapı: bir süredir alt menteşesinden çıkmış ve dibindeki aralık, eli olmayan bir şey tarafından genişletilmiş.<br><br>İçeride, arkadaki çuvallar yenmekten çok açılıp çiğnenmiş. Burada yaşayan şey tahılla yaşamıyor.",
+          "go_in_after_them": "Peşlerinden içeri gir",
+          "back_to_the_mill": "Değirmene geri dön"
         },
         "interface": {
           "items_returned_to_dojo": "{count} eşya dojaya iade edildi",

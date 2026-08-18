@@ -282,6 +282,11 @@
         "The far field, past the stubble, where the figures are. The Scarecrow has been fully statted and standing nowhere since before this fork.",
         "Get close to one of them and look at the knot. Somebody in this village was not building scarecrows.",
         "The furniture list scrolls. A well-furnished house pushed its rows out of the panel and over the Return button, so there was no way back."
+      ],
+      "v478_20": [
+        "The mill, and the miller who has been paying nine a day for three weeks with nobody taking it. Clear his far field and the harvest comes in.",
+        "The grain store, and the wolves the market remembers getting into it.",
+        "And the old drain behind the mill — the hole a hunter was told about fourteen months ago, if you know to look for it."
       ]
     },
     "lore": {
@@ -3351,6 +3356,12 @@
         "stateWallInProgress": "not seen",
         "stateWallDone": "seen",
         "hint": "The boy at the market asked you not to repeat what he said about his father's chisels. He did not ask you to forget it."
+      },
+      "hrvst1": {
+        "name": "Nine A Day And No Takers",
+        "desc": "The miller has been paying half again the going rate for three weeks and not one hand has taken it. He knows exactly why, and he will not say it out loud until somebody else has seen his far field",
+        "goal": "Figures put down: <span style=\"color:{color}\">{count} of {needed}</span>",
+        "hint": "Somebody at the mill has been paying nine a day for three weeks and nobody in the village will take it."
       }
     },
     "skl": {
@@ -4699,6 +4710,9 @@
       },
       "nfld2": {
         "name": "The far field"
+      },
+      "ngrn1": {
+        "name": "The grain store"
       }
     },
     "lore": {
@@ -4817,6 +4831,10 @@
       "strawBound": {
         "name": "The scarecrows were bound, not built",
         "desc": "A straw figure in these fields has a knot at the throat that is tied wrong on purpose, and a name written on the board inside it. The recipe for a straw effigy says plainly what dolls of that make are for: binding with the souls of the living. Something was put into these to keep the birds off, and whatever has been pooling under the village has reached it."
+      },
+      "millDrain": {
+        "name": "The drain by the mill goes somewhere",
+        "desc": "There is a stone culvert behind the mill, older than the mill, cut square by people who cut stone for a living. The grating over it was pulled and put back badly, and it was put back from the inside. Fourteen months ago a hunter paid a stallholder to forget he had asked where a second way under the village was, and this is what he was told."
       }
     }
   },
@@ -5015,7 +5033,8 @@
           "repeatable_quest_accepted": "<span style=\"color:cyan\">Repeatable</span> quest accepted: <span style=\"color:orange\">\"{quest}\"</span>",
           "pack_leader_falls": "The great wolf goes down, and the forest does not make a sound.",
           "undercity_sign_found": "You note it down. ({current}/{required})",
-          "the_end_falls_quiet": "It comes apart, and for the first time since you came down here the corridor is completely silent."
+          "the_end_falls_quiet": "It comes apart, and for the first time since you came down here the corridor is completely silent.",
+          "field_is_clear": "Nothing is standing in the far field that was not put there on purpose."
         }
       },
       "titles": {
@@ -5960,7 +5979,23 @@
           "examine_a_figure": "Get close to one of the figures",
           "scarecrow_examined": "Sacking, stuffed hard, on a cross of ash with the arms lashed high. Ordinary work, and old — the straw at the shoulders has gone black where the rain sits.<br><br>The knot at its throat is wrong. Not badly tied: tied wrong on purpose, crossed back on itself the way you do when the knot is meant to hold something rather than hold something up.<br><br>You put a hand in through the seam. There is a board inside, flat against the pole where nobody would find it by accident, and there is a name written on it.<br><br>You have made one of these. The recipe is in your own book and it says what dolls of that make are for, in as many words: binding with the souls of the living. Somebody bound something into every figure in this field to keep the birds off a crop.<br><br>And something has been pooling under this village for a long time, and the fields are what it reached next.",
           "go_in_among_the_figures": "Go in among them",
-          "back_to_the_stubble": "Go back to the stubble"
+          "back_to_the_stubble": "Go back to the stubble",
+          "follow_the_water_to_the_mill": "Follow the water up to the mill",
+          "north_fields_mill": "North Fields, The Mill",
+          "miller_greeting": "The wheel is turning and there is nothing going under it. He watches it anyway, the way a man watches a thing he paid for.<br><br><span style=\"color:khaki\">Miller</span>: I know who you are. Word gets up the road.<br><br>Nine a day and nobody will come. Not because of the wage and not because of the work. They will tell you the crop went over and it did, but it went over because nobody would go into the far field to cut it, and I am not going to be the one who says out loud why.<br><br>Go and look at it. Then come back and I will pay you like a hand, because that is what the money is for.",
+          "take_the_millers_work": "Take the work. Say you will clear the far field",
+          "miller_waiting": "<span style=\"color:khaki\">Miller</span>: Still standing, then. I would know: I can see the tops of them from the loft door.",
+          "miller_report": "<span style=\"color:khaki\">Miller</span>: I counted from the loft. There is nothing upright in that field that I did not put there myself.<br><br>Say it, then. Out loud, so I have heard somebody say it.",
+          "tell_him_it_is_done": "Tell him what was in his field",
+          "miller_pays_up": "He listens to the part about the knot with his arms folded, and to the part about the board with the name on it he does not move at all.<br><br><span style=\"color:khaki\">Miller</span>: My father set those. Some of them. Not that many of them.<br><br>He counts your money out slowly and gets it right first time, which is a thing he can do while thinking about something else.<br><br><span style=\"color:khaki\">Miller</span>: Hands will come now. Word gets up the road, like I said, and it gets down it too.<br><br>The crop is late and half of it is flat and it will still be cut. That is the whole of what you have bought him, and he knows what it cost.",
+          "miller_after": "There are people in the fields. Not many, and late in the season, but the wheel has something going under it and the noise of it fills the whole building.<br><br><span style=\"color:khaki\">Miller</span>: Take a look up the road while you are here. Toward the hills.",
+          "look_for_the_old_drain": "Look behind the mill for the old drain",
+          "old_drain_found": "It is where the mill's own water goes back to the stream, and it is much older than the mill. Cut square, coursed, done by people who cut stone as a trade rather than farmers making a ditch do.<br><br>The grating is not seated. Somebody lifted it and put it back and did not care whether it sat straight, and the scrape on the stone where the edge dragged is on the inside lip.<br><br>It was put back from underneath.<br><br>Fourteen months ago a man in a good coat paid a turnip seller to forget that he had asked where there was a way under the village that did not go through the burial ground. This is what he was told. This is the hole.",
+          "to_the_grain_store": "Over to the grain store",
+          "north_fields_grain_store": "North Fields, The Grain Store",
+          "grain_store_arrival": "A long low building with a good roof and a bad door. The door is the point: it has been off its bottom hinge for a while and the gap at the foot of it has been widened by something that did not have hands.<br><br>Inside, the sacks at the back have been opened and trodden through rather than eaten. Whatever is living in here is not living on grain.",
+          "go_in_after_them": "Go in after them",
+          "back_to_the_mill": "Go back to the mill"
         },
         "interface": {
           "items_returned_to_dojo": "{count} Items returned back to dojo",

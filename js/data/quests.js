@@ -530,6 +530,66 @@ quest.chsls1.goalsf = function () {
   ];
 };
 
+// The miller's work, and the close of the north. He has been paying nine a day for
+// three weeks with nobody taking it, and the reason is standing in his far field. This
+// is what makes the region an arc rather than two hunting grounds: it opens on a clue,
+// it is finished by clearing the thing that stopped the harvest, and it says plainly
+// that the harvest came in.
+quest.hrvst1 = new Quest();
+quest.hrvst1.id = 11;
+quest.hrvst1.name = i18n.t("content.quest.hrvst1.name");
+quest.hrvst1.rar = 2;
+quest.hrvst1.loc = i18n.t("runtime.world.locations.dialogue.north_fields_mill");
+quest.hrvst1.desc = i18n.t("content.quest.hrvst1.desc");
+quest.hrvst1.hint = i18n.t("content.quest.hrvst1.hint");
+quest.hrvst1.data = { t: 0, cleared: 0, needed: 12 };
+quest.hrvst1.init = function () {
+  this.callback();
+};
+// Rebuilt on load the way the other counting quests are: load() drops every hook marked
+// with `q` and then calls each started quest's callback again.
+quest.hrvst1.callback = function () {
+  if (!quest.hrvst1.data.done)
+    attachCallback(callback.onDeath, {
+      f(victim) {
+        if (victim.id !== creature.kksh.id) return;
+        if (quest.hrvst1.data.cleared >= quest.hrvst1.data.needed) return;
+        if (++quest.hrvst1.data.cleared === quest.hrvst1.data.needed)
+          msg(i18n.t("runtime.data.quests.dialogue.field_is_clear"), "lime");
+      },
+      id: 1008,
+      data: { q: true },
+    });
+};
+quest.hrvst1.rwd = function () {
+  this.data.t++;
+  you.karma++;
+  giveWealth(320);
+  giveExp(14000, true, true, true);
+  // The way on to the hills, and from there the mine. The north is what opens it.
+  global.flags.hillsroad = true;
+  detachCallback(callback.onDeath, 1008);
+};
+quest.hrvst1.goals = function () {
+  const done = quest.hrvst1.data.cleared >= quest.hrvst1.data.needed;
+  return [
+    i18n.t("content.quest.hrvst1.goal", {
+      color: done ? "lime" : "yellow",
+      count: quest.hrvst1.data.cleared,
+      needed: quest.hrvst1.data.needed,
+    }),
+  ];
+};
+quest.hrvst1.goalsf = function () {
+  return [
+    i18n.t("content.quest.hrvst1.goal", {
+      color: "lime",
+      count: quest.hrvst1.data.needed,
+      needed: quest.hrvst1.data.needed,
+    }),
+  ];
+};
+
 ////////////////////////////////////////////
 
 function giveQst(q) {
