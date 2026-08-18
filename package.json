@@ -8,7 +8,7 @@
     "build": "node scripts/build.js && node scripts/build-site.js",
     "build:game": "node scripts/build.js",
     "dev": "node scripts/dev.js",
-    "check": "node --check js/game.js && node tests/check-changelog.js && node tests/check-game-regressions.js && node tests/check-i18n.js && node scripts/check-refs.js && node scripts/check-combat.js && node tests/check-version.js && npm run test:dev-server && npm run test:save && npm run test:callbacks && npm run test:actions && eslint js scripts tests && stylelint css/game.css && npm run check:format",
+    "check": "node --check js/game.js && node tests/check-changelog.js && node tests/check-game-regressions.js && node tests/check-i18n.js && node scripts/check-refs.js && node scripts/check-flags.js && node scripts/check-combat.js && node tests/check-version.js && npm run test:dev-server && npm run test:save && npm run test:callbacks && npm run test:actions && eslint js scripts tests && stylelint css/game.css && npm run check:format",
     "check:format": "prettier --check . --ignore-path .gitignore",
     "format": "prettier --write . --ignore-path .gitignore",
     "serve": "node scripts/serve.js",

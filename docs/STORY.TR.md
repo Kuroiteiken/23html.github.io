@@ -310,6 +310,27 @@ yalnızca yıkımın tetiklenmesine izin vermediği bir olayda geri alan bir iş
 gerçekleştiği yerde yapmak. Buraya eklenen ve fare üzerine gelince durum tutan her şey
 baştan böyle yazılmalı.
 
+### Tek verilme yolu
+
+Bodruma dokunmadan önce bilinmesi gereken şey. `act.scout` — yani pazar tablosunun,
+katakomp tablosunun ve bodrumun kendi keşif listesinin dayandığı araştır eylemi —
+oyunun tamamında tek bir yerden veriliyor:
+
+    js/world/locations.js  giveAction(act.scout)
+
+Bodrumun "çevreni incele" dalının iki seçenek derinliğinde, "molozu karıştır" altında
+duruyor. O dal `if (!global.flags.bsmntchck)` arkasına yazılmıştı ve bu bayrak deponun
+tarihinde hiçbir yerde yazılmadı; yani koşul her zaman doğruydu ve dal her zaman
+sunuluyordu.
+
+Bu, bitmemiş bir tek-seferlik kapı gibi görünüyor ve tamamlamak cazip. Tamamlama. Bayrağı
+ilk incelemede kurmak, dalı açıp depo sandığını alıp çıkan her oyuncuyu mahsur bırakır:
+moloz seçeneği gider, araştır eylemi de onunla, o kayıtta kalıcı olarak. Dalın içindeki
+iki tek seferlik ödül kendi bayraklarını zaten taşıyor — `bsmntchstgt` ve `bsmntsctgt` —
+bir-kerelik davranışın yeri de orası. Dış kapı artık yarım görünecek şekilde bırakılmak
+yerine kaldırıldı, ve `scripts/check-flags.js` koşul olarak okunup hiçbir yerde
+yazılmayan her yeni bayrakta hata veriyor.
+
 ## Hikaye kodundaki hatalar
 
 Bunlar tasarım boşluğu değil, hataydı. Hepsi artık düzeltildi; liste, her biri

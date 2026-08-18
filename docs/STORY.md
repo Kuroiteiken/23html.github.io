@@ -310,6 +310,28 @@ The cure is the same each time: undo it where the destruction happens, not where
 pointer happens to be. Anything added here that attaches state on hover should be
 written that way from the start.
 
+### The one grant path
+
+Worth knowing before touching the basement. `act.scout` -- the search action, which the
+marketplace table, the catacombs table and the basement's own scout list all depend on
+-- has exactly one grant site in the whole game:
+
+    js/world/locations.js  giveAction(act.scout)
+
+It sits two choices deep inside the basement's "examine your surroundings" branch, under
+"rummage through rubble". That branch was written behind `if (!global.flags.bsmntchck)`,
+and that flag has never been written anywhere in this repository's history, so the
+condition was always true and the branch was always offered.
+
+That looks like an unfinished once-only gate, and it is tempting to complete it. Do not.
+Setting the flag on a first examine strands any player who opened the branch, took the
+storage chest and walked out: the rubble choice is gone, and with it the search action,
+permanently, on that save. The two one-off rewards inside the branch already carry their
+own flags -- `bsmntchstgt` and `bsmntsctgt` -- which is where once-only belongs. The
+outer gate is now removed rather than left looking incomplete, and
+`scripts/check-flags.js` fails any future flag that is read as a condition and written
+nowhere.
+
 ## Defects in story code
 
 These were bugs rather than design gaps. All of them are now fixed; the list is

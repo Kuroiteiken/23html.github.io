@@ -10,6 +10,29 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- Added `scripts/check-flags.js` to `npm run check`. It fails any `global.flags` entry
+  that is read as a condition and written nowhere. The baseline is clean, so the check
+  needs no allowances: it exists to stop the list growing again.
+- Removed the `if (!global.flags.bsmntchck)` gate on the basement's "examine your
+  surroundings" choice. Nothing in this repository's history has ever written that flag,
+  so the branch was always taken -- which was lucky rather than correct. The only call to
+  `giveAction(act.scout)` in the entire game sits inside it, so setting the flag on a
+  first examine would have permanently stranded any player who took the storage chest
+  and left: no search action, and with it no marketplace scout table and no catacomb
+  finds. The two one-off choices inside the branch carry their own flags, which is where
+  the once-only behaviour belongs. No behaviour changes; a trap is removed.
+- `chss.bsmnthm1.data.gets` declares three slots to match its three scout entries. The
+  third was writing `gets[2]` into an array declared with two. It worked -- a missing
+  index reads as undefined, both `canScout` and `scoutGeneric` test against `!== true`,
+  and this `data` is saved as a JSON object rather than a positional segment -- but
+  `sector.vmain1` had the same defect one slot lower, so it is worth the declaration
+  saying what the code does.
+- Extracted `stripComments` from `scripts/check-refs.js` into `scripts/strip-comments.js`,
+  shared with the new flag check so the two cannot drift on what counts as live code.
+- Verified the third item in the plan's technical-fixes list: `sector.cata1`'s scout
+  table is live with four entries and `onScout`, and what `docs/STORY.md` says about it
+  is accurate. No change needed.
+
 - Wired `area.clg`, the damp cellar, into the game as the near end of Chapter III's
   missing-chisels thread, reached from the marketplace once the boy's report has been
   read. `quest.chsls1` (id 10) and `chss.clgmn` (id 173) are new; the area itself is

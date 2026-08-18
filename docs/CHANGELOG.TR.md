@@ -10,6 +10,30 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- `npm run check` zincirine `scripts/check-flags.js` eklendi. Koşul olarak okunup
+  hiçbir yerde yazılmayan her `global.flags` girdisinde hata veriyor. Başlangıç durumu
+  temiz, yani muafiyet gerekmiyor: listenin yeniden büyümesini engellemek için var.
+- Bodrumdaki "çevreni incele" seçeneğindeki `if (!global.flags.bsmntchck)` kapısı
+  kaldırıldı. Bu deponun tarihinde o bayrak hiç yazılmamış, yani dal her zaman
+  alınıyordu — doğru olduğu için değil, şans eseri. Oyunun tamamındaki tek
+  `giveAction(act.scout)` çağrısı o dalın içinde; yani bayrağı ilk incelemede kurmak,
+  depo sandığını alıp çıkan her oyuncuyu kalıcı olarak mahsur bırakırdı: araştır eylemi
+  yok, dolayısıyla pazar keşif tablosu ve katakomp buluntuları da yok. Dalın içindeki
+  iki tek seferlik seçenek kendi bayraklarını taşıyor; bir-kerelik davranışın yeri de
+  orası. Davranış değişmiyor; bir tuzak kaldırılıyor.
+- `chss.bsmnthm1.data.gets`, üç keşif girdisiyle eşleşecek şekilde üç yuva bildiriyor.
+  Üçüncüsü, iki yuvayla bildirilmiş bir diziye `gets[2]` yazıyordu. Çalışıyordu —
+  eksik indeks undefined okunuyor, hem `canScout` hem `scoutGeneric` `!== true` ile
+  test ediyor ve bu `data` konumsal bir bölüm değil JSON nesnesi olarak kaydediliyor —
+  ama `sector.vmain1` bir yuva aşağıda aynı kusuru taşıyordu, o yüzden bildirimin
+  kodun yaptığını söylemesi değerli.
+- `stripComments`, `scripts/check-refs.js`'ten `scripts/strip-comments.js`'e çıkarıldı
+  ve yeni bayrak kontrolüyle paylaşıldı; böylece ikisi neyin canlı kod saydığı
+  konusunda ayrışamıyor.
+- Planın teknik düzeltmeler listesindeki üçüncü madde doğrulandı: `sector.cata1`'in
+  keşif tablosu dört girdi ve `onScout` ile canlı, ve `docs/STORY.md`'nin bu konuda
+  yazdığı doğru. Değişiklik gerekmedi.
+
 - `area.clg`, yani nemli bodrum, Bölüm III'ün kayıp keskiler ipinin yakın ucu olarak
   oyuna bağlandı; pazardan, çocuğun anlattıkları okunduktan sonra ulaşılıyor.
   `quest.chsls1` (id 10) ve `chss.clgmn` (id 173) yeni; alanın kendisi, popülasyonu ve

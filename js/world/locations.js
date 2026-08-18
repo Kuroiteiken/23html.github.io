@@ -5176,122 +5176,127 @@ chss.bsmnthm1.sl = () => {
       );
     else {
       chs(select(global.text.bssel), true);
-      if (!global.flags.bsmntchck)
-        chs(
-          i18n.t(
-            "runtime.world.locations.dialogue.examine_your_surroundings_bfd27add",
-          ),
-          false,
-        ).addEventListener("click", () => {
-          if (!cansee()) {
+      // Deliberately not gated. `global.flags.bsmntchck` was read here and has
+      // never been written anywhere in this repository's history, so the branch
+      // was always taken -- and it has to stay that way. Two one-off choices live
+      // inside it, and one of them, "rummage through rubble", is the only place in
+      // the entire game that calls `giveAction(act.scout)`. Setting the flag on a
+      // first examine would strand any player who took the chest and left: no
+      // search action, and with it no marketplace table, no catacomb finds, and
+      // no way back. The two sub-choices carry their own flags, which is where the
+      // once-only behaviour actually belongs.
+      chs(
+        i18n.t(
+          "runtime.world.locations.dialogue.examine_your_surroundings_bfd27add",
+        ),
+        false,
+      ).addEventListener("click", () => {
+        if (!cansee()) {
+          chs(
+            i18n.t(
+              "runtime.world.locations.dialogue.your_light_went_off_3ea9ffc4",
+            ),
+            true,
+            "darkgrey",
+          );
+          chs(
+            i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+            false,
+          ).addEventListener("click", () => {
+            smove(chss.home, false);
+          });
+        } else {
+          chs(
+            i18n.t("runtime.world.locations.dialogue.basement_debris_search", {
+              chestHint: !global.flags.bsmntchstgt
+                ? i18n.t(
+                    "runtime.world.locations.dialogue.basement_giant_chest_hint",
+                  )
+                : "",
+            }),
+            true,
+            "orange",
+          );
+          if (!global.flags.bsmntchstgt)
             chs(
               i18n.t(
-                "runtime.world.locations.dialogue.your_light_went_off_3ea9ffc4",
+                "runtime.world.locations.dialogue.seek_significance_of_a_massive_container_23a96f3f",
               ),
-              true,
-              "darkgrey",
-            );
-            chs(
-              i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
               false,
             ).addEventListener("click", () => {
-              smove(chss.home, false);
-            });
-          } else {
-            chs(
-              i18n.t(
-                "runtime.world.locations.dialogue.basement_debris_search",
-                {
-                  chestHint: !global.flags.bsmntchstgt
-                    ? i18n.t(
-                        "runtime.world.locations.dialogue.basement_giant_chest_hint",
-                      )
-                    : "",
-                },
-              ),
-              true,
-              "orange",
-            );
-            if (!global.flags.bsmntchstgt)
               chs(
                 i18n.t(
-                  "runtime.world.locations.dialogue.seek_significance_of_a_massive_container_23a96f3f",
+                  "runtime.world.locations.dialogue.it_looks_like_an_ordinary_coffer_except_it_a3d4e2ff",
+                ),
+                true,
+              );
+              chs(
+                i18n.t(
+                  "runtime.world.locations.dialogue.do_exactly_that_81f140cd",
                 ),
                 false,
+                "lime",
               ).addEventListener("click", () => {
-                chs(
+                global.flags.bsmntchstgt = true;
+                giveFurniture(furniture.strgbx);
+                smove(chss.home, false);
+                msg(
                   i18n.t(
-                    "runtime.world.locations.dialogue.it_looks_like_an_ordinary_coffer_except_it_a3d4e2ff",
+                    "runtime.world.locations.dialogue.phew_that_felt_like_a_workout_you_won_cdfe328c",
                   ),
-                  true,
+                  "orange",
                 );
-                chs(
+                msg(
                   i18n.t(
-                    "runtime.world.locations.dialogue.do_exactly_that_81f140cd",
+                    "runtime.world.locations.dialogue.your_muscles_feel_stronger_e119ebaf",
                   ),
-                  false,
                   "lime",
-                ).addEventListener("click", () => {
-                  global.flags.bsmntchstgt = true;
-                  giveFurniture(furniture.strgbx);
-                  smove(chss.home, false);
-                  msg(
-                    i18n.t(
-                      "runtime.world.locations.dialogue.phew_that_felt_like_a_workout_you_won_cdfe328c",
-                    ),
-                    "orange",
-                  );
-                  msg(
-                    i18n.t(
-                      "runtime.world.locations.dialogue.your_muscles_feel_stronger_e119ebaf",
-                    ),
-                    "lime",
-                  );
-                  msg(
-                    i18n.t(
-                      "runtime.world.locations.dialogue.str_increased_by_1_permanently_c7a659ee",
-                    ),
-                    "lime",
-                  );
-                  you.sat *= 0.5;
-                  you.stra++;
-                  you.stat_r();
-                });
+                );
+                msg(
+                  i18n.t(
+                    "runtime.world.locations.dialogue.str_increased_by_1_permanently_c7a659ee",
+                  ),
+                  "lime",
+                );
+                you.sat *= 0.5;
+                you.stra++;
+                you.stat_r();
               });
-            if (!global.flags.bsmntsctgt)
+            });
+          if (!global.flags.bsmntsctgt)
+            chs(
+              i18n.t(
+                "runtime.world.locations.dialogue.rummage_through_rubble_aefbe619",
+              ),
+              false,
+            ).addEventListener("click", () => {
               chs(
                 i18n.t(
-                  "runtime.world.locations.dialogue.rummage_through_rubble_aefbe619",
+                  "runtime.world.locations.dialogue.indeed_simply_glancing_over_the_rubble_won_t_b07d2843",
+                ),
+                true,
+              );
+              chs(
+                i18n.t(
+                  "runtime.world.locations.dialogue.prepare_for_further_examination_054dee7d",
                 ),
                 false,
               ).addEventListener("click", () => {
-                chs(
-                  i18n.t(
-                    "runtime.world.locations.dialogue.indeed_simply_glancing_over_the_rubble_won_t_b07d2843",
-                  ),
-                  true,
-                );
-                chs(
-                  i18n.t(
-                    "runtime.world.locations.dialogue.prepare_for_further_examination_054dee7d",
-                  ),
-                  false,
-                ).addEventListener("click", () => {
-                  global.flags.bsmntsctgt = true;
-                  giveAction(act.scout);
-                  global.current_a.deactivate();
-                  global.current_a = act.default;
-                  smove(chss.bsmnthm1, false);
-                });
+                global.flags.bsmntsctgt = true;
+                giveAction(act.scout);
+                global.current_a.deactivate();
+                global.current_a = act.default;
+                smove(chss.bsmnthm1, false);
               });
-            chs(
-              i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
-              false,
-            ).addEventListener("click", () => {
-              smove(chss.bsmnthm1, false);
             });
-          }
-        });
+          chs(
+            i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+            false,
+          ).addEventListener("click", () => {
+            smove(chss.bsmnthm1, false);
+          });
+        }
+      });
       // Chapter III. All of this needs light, which is the point: the old man told
       // the player to go and look at their own cellar wall properly, and you
       // cannot look at anything down here without a candle lit.
@@ -5375,7 +5380,13 @@ chss.bsmnthm1.data = {
   scoutm: 900,
   scout: 0,
   scoutf: false,
-  gets: [false, false],
+  // One slot per scout entry below, of which there are three. The third was
+  // writing `gets[2]` into an array declared with two. It worked, because a
+  // missing index reads as undefined and both `canScout` and `scoutGeneric`
+  // test against `!== true`, and because this `data` is saved as a JSON object
+  // rather than a positional segment -- but the declaration should say what the
+  // code does. `sector.vmain1` had the same defect one slot lower.
+  gets: [false, false, false],
   gotmod: 0,
 };
 chss.bsmnthm1.scout = [
