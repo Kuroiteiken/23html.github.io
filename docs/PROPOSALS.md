@@ -18,74 +18,13 @@ do it), or **in progress**.
 
 ## Queued by the repository owner
 
+Empty. Everything the owner had asked for is in; what it did is in the changelog, and
+what touches the story is in [STORY.md](STORY.md).
+
 Everything the owner has asked for that is not finished yet, recorded here before
 work starts so nothing is lost between sessions. An item leaves this list when it
 ships, and what it did goes into the changelog and, if it touches the story, into
 [STORY.md](STORY.md).
-
-### 9. Furniture: more of it, and beds that mean something
-
-- More furniture generally.
-- When a bed is present, resting should not still describe crouching on the floor
-  for a nap. It needs its own text.
-- A bed should raise the rate health returns while resting, by tier -- a plain bed
-  less than a good one.
-
-### 10. The fireplace should matter
-
-- While it is lit: faster healing, and a small energy gain.
-- Sleeping with it lit should grant a **Rested** buff for a while afterwards --
-  attack speed, attack damage and mastery gain.
-
-### 11. The Nightmare needs a way out
-
-`chss.hbed.onStay` holds a fully written nightmare that is commented out because
-`creature.ngtmr1` has 100,000,000 hp and never attacks, so the fight can be neither
-won nor lost. It does not need to be winnable: it needs a **wake up** choice. Trying
-to wake, and waking, is the exit. Staying in it could train a skill, which gives a
-reason to stay.
-
-### 12. The search action deserves more places to be used
-
-`global.flags.bsmntchck` is fine -- it is set by the search action once search is
-unlocked, so the basement's "Examine your surroundings" works as intended. The real
-gap is that search is used in exactly one place. It would make sense in others.
-
-### 13. A loading screen for the boot, and a note while a save migrates — **in progress**
-
-The player sees only the CSS background for the whole boot, and a save migration
-reports itself to the console alone. index.html has an empty body, so nothing can
-appear until 1.7 MB of locale files and bundle have downloaded and run.
-
----
-
-### 16. The smith: repair, and sharpening a weapon up to +9
-
-**Status:** in progress.
-
-The owner's sword ran its durability out, and nothing in the game restores it -- a
-spent weapon's contribution to damage collapses to the flat 0.1 the formula falls
-back on, with no way out of it. Repair is the part that closes an existing dead end
-and comes first.
-
-On top of it: sharpening, +1 through +9, each step paid for and rolled for, raising
-the weapon's attack and showing itself in the item's name and colour.
-
-**Already exists:** `dp`/`dpmax` on every piece of equipment and nothing anywhere
-that restores them; `repairCost` and `repairableInventory` in
-`js/systems/crafting.js`; the sell panel's `chs_spec` case as a template for the
-smith's own list; `data` on an equipment instance, which the save keeps.
-
-**Has to be new:** the smith's scene and dialogue, the enhancement roll, and the
-colour tiers.
-
-**Constraint found while reading the save:** the bonus cannot be written into
-`str`. Restoring an item rebuilds it from the registry and copies only `dp` and
-`data` back onto it (`js/core/bootstrap.js:1148-1156`), so anything written to
-`str` is lost on the next load. It has to be derived from `data.plus` at the point
-damage is calculated.
-
----
 
 ## Regions
 
@@ -142,7 +81,8 @@ connection, which is why it should follow the Dein arc rather than interrupt it.
 
 ### 3. The blacksmith
 
-**Status:** proposed.
+**Status:** half shipped. Repair and sharpening are in -- see
+[STORY.md](STORY.md). What is left is the mining half and the rescue.
 
 A smith the player rescues, who then becomes a standing service. The rescue is the
 quest; the service is the reward, which is a better shape than a smith who is simply
@@ -224,19 +164,18 @@ it cannot silently revert.
 
 ## Side stories still owed
 
-The brief asks for at least eight. One is in (**The Man Who Said Nothing**, the
-nervous man at the market). These are the hooks already sitting in the sources:
+The brief asks for at least eight. Three are in: **The Man Who Said Nothing** (the
+nervous man at the market), **The Nightmare** (see [STORY.md](STORY.md)), and the
+marketplace's own search table. These are the hooks still sitting in the sources:
 
-| Hook                       | What exists                                                                                                                                                                                       | What it wants                                                                                                                                                                                                                                                |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **The Nightmare**          | Fully written and commented out at `chss.hbed.onStay`: sleeping in your own bed could pull you into a nightmare area against `creature.ngtmr1`, with the line "Your sins are crawling up on you". | Restoring it as written would trap the player — the creature has 100,000,000 hp and a `battle_ai` that never attacks, so the fight can be neither won nor lost. Needs a real exit, and it now has a reason to exist: the player has been breathing death ki. |
-| **The damp cellar**        | `area.clg` is defined and populated and never initialised once. Its completion handler called two scenes that do not exist, so its quest was cut.                                                 | A scene to reach it from, and a new completion handler.                                                                                                                                                                                                      |
-| **The scarecrow**          | `creature.kksh`, fully statted, dark-corrupted, described as ambushing — and in no area.                                                                                                          | Somewhere with fields.                                                                                                                                                                                                                                       |
-| **The mimic**              | `creature.lrck`, 9000 hp, `battle_ai` returns false, described as pretending to be a wall in caves and dungeons.                                                                                  | A wall to be, underground.                                                                                                                                                                                                                                   |
-| **The lamp spirit**        | `creature.lsprt`, statted, described as haunting oil lamps in mines.                                                                                                                              | Mines — see the blacksmith proposal.                                                                                                                                                                                                                         |
-| **The dolls**              | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: five creatures about possession and dark rituals, all stubs, all unreachable.                                                                      | Stats, and someone performing the rituals.                                                                                                                                                                                                                   |
-| **The seven keys**         | Seven key items with no lock anywhere in the game.                                                                                                                                                | Locks. A dungeon of named rooms is the obvious home.                                                                                                                                                                                                         |
-| **The marketplace sector** | `sector.vmain1` is attached to seven scenes with its entire scout table commented out.                                                                                                            | Uncommenting and finishing it.                                                                                                                                                                                                                               |
+| Hook                | What exists                                                                                                                                       | What it wants                                           |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| **The damp cellar** | `area.clg` is defined and populated and never initialised once. Its completion handler called two scenes that do not exist, so its quest was cut. | A scene to reach it from, and a new completion handler. |
+| **The scarecrow**   | `creature.kksh`, fully statted, dark-corrupted, described as ambushing — and in no area.                                                          | Somewhere with fields.                                  |
+| **The mimic**       | `creature.lrck`, 9000 hp, `battle_ai` returns false, described as pretending to be a wall in caves and dungeons.                                  | A wall to be, underground.                              |
+| **The lamp spirit** | `creature.lsprt`, statted, described as haunting oil lamps in mines.                                                                              | Mines — see the blacksmith proposal.                    |
+| **The dolls**       | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: five creatures about possession and dark rituals, all stubs, all unreachable.                      | Stats, and someone performing the rituals.              |
+| **The seven keys**  | Seven key items with no lock anywhere in the game.                                                                                                | Locks. A dungeon of named rooms is the obvious home.    |
 
 ---
 

@@ -18,74 +18,13 @@ karar verdik) veya **devam ediyor**.
 
 ## Sahibinin sıraya aldığı işler
 
+Boş. Sahibinin istediği her şey girdi; ne yaptıkları changelog'da, hikayeye
+dokunanlar [STORY.TR.md](STORY.TR.md) dosyasında.
+
 Sahibinin istediği ve henüz bitmemiş her şey, işe başlamadan önce buraya
 yazılıyor; böylece oturumlar arasında hiçbir şey kaybolmuyor. Bir madde
 tamamlandığında bu listeden çıkıyor, yaptığı iş changelog'a ve hikayeye
 dokunuyorsa [STORY.TR.md](STORY.TR.md) dosyasına geçiyor.
-
-### 9. Mobilya: daha fazlası ve bir anlamı olan yataklar
-
-- Genel olarak daha fazla mobilya.
-- Yatak varken dinlenme hâlâ "yere çök ve biraz kestir" diye anlatılmamalı. Kendi
-  metnine ihtiyacı var.
-- Yatak, dinlenirken canın geri gelme hızını yükseltmeli; kademesine göre — sade
-  bir yatak iyi bir yataktan daha az.
-
-### 10. Şöminenin bir işe yaraması
-
-- Yanarken: daha hızlı iyileşme ve hafif bir enerji kazanımı.
-- Şömine yanarken uyumak, sonrasında bir süre **Dinlenmiş** etkisi vermeli —
-  saldırı hızı, saldırı hasarı ve ustalık kazanımı.
-
-### 11. Kâbusun bir çıkışı olmalı
-
-`chss.hbed.onStay` içinde tamamen yazılmış bir kâbus yorum satırında duruyor;
-çünkü `creature.ngtmr1`'in 100.000.000 canı var ve hiç saldırmıyor, yani dövüş ne
-kazanılabiliyor ne kaybedilebiliyor. Kazanılabilir olması gerekmiyor: bir
-**uyan** seçeneğine ihtiyacı var. Uyanmayı denemek ve uyanmak, çıkışın kendisi.
-İçinde kalmak bir beceriyi geliştirebilir; bu da kalmak için bir sebep verir.
-
-### 12. Araştır eylemi daha fazla yerde kullanılmalı
-
-`global.flags.bsmntchck` sorunlu değil — araştırma açıldıktan sonra araştır eylemi
-onu atıyor, yani bodrumdaki "Etrafını incele" amaçlandığı gibi çalışıyor. Asıl
-eksik, araştır eyleminin tam olarak tek bir yerde kullanılması. Başka yerlerde de
-mantıklı olurdu.
-
-### 13. Açılış için yükleme ekranı ve kayıt göçü sırasında bir not — **devam ediyor**
-
-Oyuncu bütün açılış boyunca yalnızca CSS arkaplanını görüyor ve kayıt göçü kendini
-sadece konsola bildiriyor. index.html'in gövdesi boş, yani 1,7 MB dil dosyası ve
-paket inip çalışana kadar hiçbir şey görünemiyor.
-
----
-
-### 16. Demirci: onarım ve silahı +9'a kadar keskinleştirme
-
-**Durum:** devam ediyor.
-
-Sahibinin kılıcının dayanıklılığı bitti ve oyunda onu geri getiren hiçbir şey yok --
-tükenmiş bir silahın hasara katkısı, formülün düştüğü düz 0.1'e çöküyor ve bundan
-çıkış yok. Var olan bir çıkmazı kapatan kısım onarım, o yüzden önce o geliyor.
-
-Üstüne: keskinleştirme, +1'den +9'a, her adımı ücretli ve şansa bağlı; silahın
-saldırısını yükseltiyor ve eşyanın adında ve renginde kendini gösteriyor.
-
-**Zaten var:** her ekipman parçasında `dp`/`dpmax` ve hiçbir yerde onları geri
-getiren bir şey yok; `js/systems/crafting.js` içinde `repairCost` ve
-`repairableInventory`; demircinin kendi listesi için şablon olarak satış panelinin
-`chs_spec` durumu; ekipman örneğinde kaydın koruduğu `data` alanı.
-
-**Yeni olması gereken:** demircinin sahnesi ve diyalogları, yükseltme zarı ve renk
-kademeleri.
-
-**Kayıt okunurken bulunan kısıt:** bonus `str` içine yazılamaz. Bir eşya geri
-yüklenirken kayıttan değil kayıttaki tanımdan yeniden kuruluyor ve üzerine yalnızca
-`dp` ile `data` kopyalanıyor (`js/core/bootstrap.js:1148-1156`), yani `str`'ye
-yazılan her şey bir sonraki yüklemede kayboluyor. Hasarın hesaplandığı yerde
-`data.plus` üzerinden türetilmesi gerekiyor.
-
----
 
 ## Bölgeler
 
@@ -139,7 +78,8 @@ yüzden Dein kolunu kesmek yerine ondan sonra gelmeli.
 
 ### 3. Demirci
 
-**Durum:** önerildi.
+**Durum:** yarısı girdi. Onarım ve keskinleştirme tamam —
+[STORY.TR.md](STORY.TR.md). Kalan iş madencilik yarısı ve kurtarma.
 
 Oyuncunun kurtardığı, sonrasında kalıcı bir hizmete dönüşen bir demirci. Kurtarma
 görev, hizmet ödül — bu, baştan beri orada duran bir demirciden daha iyi bir biçim.
@@ -216,19 +156,18 @@ engelleyen bir regresyon testi.
 
 ## Hâlâ borçlu olduğumuz yan hikayeler
 
-Brief en az sekiz istiyor. Biri girdi (**Hiçbir Şey Söylemeyen Adam**, pazardaki
-gergin adam). Kaynaklarda hazır duran kancalar şunlar:
+Brief en az sekiz istiyor. Üçü girdi: **Hiçbir Şey Söylemeyen Adam** (pazardaki gergin
+adam), **Kâbus** ([STORY.TR.md](STORY.TR.md)) ve pazarın kendi keşif tablosu.
+Kaynaklarda hâlâ duran kancalar şunlar:
 
-| Kanca                  | Zaten var olan                                                                                                                                                                                     | İhtiyacı                                                                                                                                                                                                                                                   |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Kâbus**              | `chss.hbed.onStay` içinde tamamen yazılmış ve yorum satırına alınmış: kendi yatağında uyurken `creature.ngtmr1`'e karşı bir kâbus alanına çekilebiliyordun, mesajı "Günahların üstüne tırmanıyor". | Olduğu gibi geri açmak oyuncuyu kilitler — yaratığın 100.000.000 canı var ve `battle_ai`'si hiç saldırmıyor, yani dövüş ne kazanılabilir ne kaybedilebilir. Gerçek bir çıkış gerekiyor; artık var olmak için bir sebebi de var: oyuncu ölüm ki'si soluyor. |
-| **Rutubetli mahzen**   | `area.clg` tanımlı, dolu ve bir kez bile başlatılmıyor. Bitiş işleyicisi var olmayan iki sahneyi çağırıyordu, yani görevi kesilmiş.                                                                | Ona ulaşacak bir sahne ve yeni bir bitiş işleyicisi.                                                                                                                                                                                                       |
-| **Korkuluk**           | `creature.kksh`, tamamen statlı, karanlıkla bozulmuş, pusu kurduğu yazılı — ve hiçbir alanda yok.                                                                                                  | Tarlaların olduğu bir yer.                                                                                                                                                                                                                                 |
-| **Mimik**              | `creature.lrck`, 9000 can, `battle_ai` false döndürüyor, mağara ve zindanlarda duvar taklidi yaptığı yazılı.                                                                                       | Yeraltında, olacağı bir duvar.                                                                                                                                                                                                                             |
-| **Kandil ruhu**        | `creature.lsprt`, statlı, madenlerdeki kandillere musallat olduğu yazılı.                                                                                                                          | Madenler — demirci önerisine bakın.                                                                                                                                                                                                                        |
-| **Bebekler**           | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: ele geçirilme ve karanlık ritüellerle ilgili beş yaratık, hepsi taslak, hepsi erişilemez.                                                           | İstatistikler ve ritüelleri yapan biri.                                                                                                                                                                                                                    |
-| **Yedi anahtar**       | Oyunda hiçbir kilidi olmayan yedi anahtar eşyası.                                                                                                                                                  | Kilitler. İsimlendirilmiş odalardan oluşan bir zindan bariz ev.                                                                                                                                                                                            |
-| **Pazar yeri sektörü** | `sector.vmain1` yedi sahneye bağlı ve tüm keşif tablosu yorum satırında.                                                                                                                           | Yorumdan çıkarıp tamamlamak.                                                                                                                                                                                                                               |
+| Kanca                | Zaten var olan                                                                                                                           | İhtiyacı                                                        |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Rutubetli mahzen** | `area.clg` tanımlı, dolu ve bir kez bile başlatılmıyor. Bitiş işleyicisi var olmayan iki sahneyi çağırıyordu, yani görevi kesilmiş.      | Ona ulaşacak bir sahne ve yeni bir bitiş işleyicisi.            |
+| **Korkuluk**         | `creature.kksh`, tamamen statlı, karanlıkla bozulmuş, pusu kurduğu yazılı — ve hiçbir alanda yok.                                        | Tarlaların olduğu bir yer.                                      |
+| **Mimik**            | `creature.lrck`, 9000 can, `battle_ai` false döndürüyor, mağara ve zindanlarda duvar taklidi yaptığı yazılı.                             | Yeraltında, olacağı bir duvar.                                  |
+| **Kandil ruhu**      | `creature.lsprt`, statlı, madenlerdeki kandillere musallat olduğu yazılı.                                                                | Madenler — demirci önerisine bakın.                             |
+| **Bebekler**         | `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll`: ele geçirilme ve karanlık ritüellerle ilgili beş yaratık, hepsi taslak, hepsi erişilemez. | İstatistikler ve ritüelleri yapan biri.                         |
+| **Yedi anahtar**     | Oyunda hiçbir kilidi olmayan yedi anahtar eşyası.                                                                                        | Kilitler. İsimlendirilmiş odalardan oluşan bir zindan bariz ev. |
 
 ---
 

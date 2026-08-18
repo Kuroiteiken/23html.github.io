@@ -265,7 +265,7 @@ connections.
 | **Catacombs**           | 26 finished scenes | **Fully reachable and fully populated**, in four tiers: `cata1a` entry rooms, `cata2a` eastern ring, `cata3a` western corridor, `cata4a` deep rooms, plus `cata5a` for the encounter at the end. `sector.cata1`'s 11,000-point track is live.                                                                                                                                                                                                                                              |
 | **Undead bestiary**     | 9 of 20 creatures  | Eleven are statted, typed as Undead, and reachable: `cbat`, `stirge`, `zomb1`, `zmbf`, `ghl`, `zmbm`, `ght`, `zmbk`, `mumy`, `unsctn`, `dcrps1`. What remains are the doll and puppet family — `puppet`, `bpuppet`, `doll`, `ndoll`, `cdoll` — plus `lrck`, `lsprt`, `kksh` and `ngtmr1`, which are statted but belong to no area.                                                                                                                                                         |
 | **Damp cellar**         | 1 area             | `area.clg`, populated, but never initialized.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Marketplace sector**  | 1 sector           | `sector.vmain1` is attached to seven scenes but its entire scout table and handler are commented out.                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Marketplace sector**  | 1 sector           | **Finished.** Its table had been written and commented out, leaving seven scenes unsearchable; the village centre and the market now turn up small change and the things nobody would buy.                                                                                                                                                                                                                                                                                                 |
 | **Titles**              | 22 of 108          | No grant path. What remains is almost entirely weapon-mastery tiers (`srd3`, `srd4`, `lnc3`, `hmr3`, `axc3`, `sld3`–`sld5`), which want kill-count milestones rather than story work.                                                                                                                                                                                                                                                                                                      |
 | **Items and equipment** | ~308 of 544        | No drop, recipe, or vendor source. `wpn.trch`, the torch, now drops from the upper catacombs — it was the only light source in the game that nothing sold. Still unsourced: 7 keys, 6 essences, 5 masks, 6 medals, 16 elemental charms, ~35 weapons, roughly 150 foods. Three of the fourteen shields now come from the dojo ladder; the Hoplite, Knight and Dread shields had been listed as rare with no stats at all, so the level 35 reward defended exactly as well as an empty hand. |
 
@@ -444,6 +444,57 @@ One balance question is deliberately left open rather than decided here, and is
 written up in [PROPOSALS.md](PROPOSALS.md): armour's class resistance appears twice
 in the mitigation term with opposite signs, and correcting it drops an unshielded
 player's damage taken to roughly a quarter of what it is today.
+
+## What the village became
+
+The chapters gave the village a story. This is what it gained as a place to live in,
+which is the other half of why a player stays there.
+
+**A smith at the market.** Durability sits on every piece of equipment, wears down in
+play, and nothing in the game restored it -- a weapon that ran out was spent, its
+damage collapsing to the flat fallback the formula uses for an empty hand. That was a
+dead end a player could walk into and not out of, and it is closed. He also sharpens a
+weapon +1 through +9, dearer and less certain as it climbs, and a failed attempt never
+destroys or sets back the blade. The level lives on the item's `data`, because
+restoring a save rebuilds each item from the registry and copies only `dp` and `data`
+onto it.
+
+He stands at the market rather than being rescued. The rescue is the better story and
+is still owed -- see [PROPOSALS.md](PROPOSALS.md) -- but a dead end should not wait for
+a quest to be built around it.
+
+**The house is worth furnishing.** The fireplace could not accumulate fuel at all: a
+stick thrown on a coal fire replaced it, so the blazing and roaring states the game
+describes were unreachable. It holds a day's burning now, resting beside a lit one
+heals half again as fast and returns a little energy, and sleeping a full night by it
+leaves you Rested for twelve hours after. Four more pieces of furniture come from items
+that already existed with names in both languages and no way on earth to obtain one --
+including a blanket whose own description had always claimed it helps you sleep.
+
+The four statues moved out of the accessory slot and into the house. The game had been
+asking the player to wear a straw effigy.
+
+**The marketplace can be searched.** `sector.vmain1` was attached to seven scenes with
+its whole scout table commented out, so the search action had exactly one place in the
+game to be used. What a market loses is small change and the things nobody would buy.
+
+**The nightmare happens.** It had been written and commented out since before this fork
+and could not have been enabled as it stood: `creature.ngtmr1` has a hundred million
+health and a `battle_ai` that returns false, so the fight it started could be neither
+won nor lost -- the player would have been held in their own bed until they closed the
+tab.
+
+It is not a fight now. `area_init` switches the battle on and the flag is turned
+straight back off, so no round ever resolves. That also closes the hazard rather than
+the symptom: a live fight against something that never attacks is unbounded
+weapon-mastery experience at no cost. The exit is one choice that always works and
+costs the rest of the night; staying trains Patience and Dark Absorption and it thins
+out by itself after ten hours.
+
+It is gated on having stood at the end of the catacombs. Lore is monotonic and saved,
+unlike a quest flag, so the nightmare can only reach a player the story has already
+explained it to -- which is the whole reason it is worth having: the player has been
+breathing death ki, and this is the bill.
 
 ### Step 4 — East, and Dein
 

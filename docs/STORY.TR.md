@@ -445,6 +445,54 @@ Bir denge sorusu bilinçli olarak burada karara bağlanmadı ve
 teriminde zıt işaretlerle iki kez geçiyor ve bunu da düzeltmek, kalkansız bir
 oyuncunun aldığı hasarı bugünkünün yaklaşık çeyreğine indiriyor.
 
+## Köyün ne hâle geldiği
+
+Bölümler köye bir hikaye verdi. Bu da onun yaşanacak bir yer olarak kazandıkları —
+oyuncunun orada kalmasının diğer yarısı.
+
+**Pazarda bir demirci.** Dayanıklılık her ekipman parçasında var, oyunda aşınıyor ve
+onu geri getiren hiçbir şey yoktu — tükenen bir silah bitmişti, hasarı formülün boş el
+için kullandığı düz değere çöküyordu. Oyuncunun girip çıkamadığı bir çıkmazdı ve
+kapandı. Ayrıca silahı +1'den +9'a keskinleştiriyor; yükseldikçe pahalı ve daha az
+kesin, ve başarısız bir deneme bıçağı asla yok etmiyor ya da geri almıyor. Seviye
+eşyanın `data`'sında yaşıyor, çünkü yükleme her eşyayı kayıttan değil tanımdan yeniden
+kurup üzerine yalnızca `dp` ile `data`'yı kopyalıyor.
+
+Kurtarılmak yerine pazarda duruyor. Kurtarma daha iyi hikaye ve hâlâ borçlu olduğumuz
+bir iş — [PROPOSALS.TR.md](PROPOSALS.TR.md) — ama bir çıkmaz, etrafına görev kurulmasını
+beklememeli.
+
+**Ev döşenmeye değer.** Şömine yakıtı hiç biriktiremiyordu: kor ateşin üzerine atılan
+bir çubuk onu değiştiriyordu, yani oyunun anlattığı harlı ve gürül hâller
+erişilemezdi. Artık bir günlük yanma tutuyor, yanan bir ateşin başında dinlenmek %50
+daha hızlı iyileştiriyor ve biraz enerji veriyor, ve başında bütün bir gece uyumak
+sonrasında on iki saat **Dinlenmiş** bırakıyor. Dört yeni mobilya, iki dilde de adı
+yazılmış ama elde edilmesi imkânsız eşyalardan geliyor — biri, kendi açıklaması bunca
+zamandır daha iyi uyuttuğunu söyleyen bir battaniye.
+
+Dört heykel aksesuar yuvasından çıkıp eve girdi. Oyun oyuncudan bir saman heykelini
+takmasını istiyordu.
+
+**Pazar aranabiliyor.** `sector.vmain1` yedi sahneye bağlıydı ve bütün keşif tablosu
+yorumdaydı, yani araştır eyleminin oyunda tam olarak tek bir kullanım yeri vardı. Bir
+pazarın kaybettiği şey bozuk para ve kimsenin almayacağı şeylerdir.
+
+**Kâbus gerçekleşiyor.** Fork'tan önce yazılıp yoruma alınmıştı ve o hâliyle
+açılamazdı: `creature.ngtmr1`'in yüz milyon canı var ve `battle_ai`'si false
+döndürüyor, yani başlattığı dövüş ne kazanılabilir ne kaybedilebilirdi — oyuncu sekmeyi
+kapatana kadar kendi yatağında tutulurdu.
+
+Artık bir dövüş değil. `area_init` savaşı açıyor, bayrak hemen geri kapatılıyor, yani
+hiçbir tur çözülmüyor. Bu, belirtiyi değil tehlikeyi kapatıyor: hiç saldırmayan bir
+şeye karşı canlı bir dövüş, bedelsiz ve sınırsız silah ustalığı demek. Çıkış her zaman
+işleyen tek bir seçenek ve bedeli gecenin kalanı; kalmak Sabır ile Karanlık Soğurma'yı
+geliştiriyor ve on saat sonra kendiliğinden seyreliyor.
+
+Katakompların sonunda durmuş olmaya bağlı. Lore tek yönlü ve kayıtlı, görev bayrağının
+aksine; yani kâbus yalnızca hikayenin zaten anlattığı bir oyuncuya ulaşabiliyor — ki
+sahip olmaya değer olmasının bütün sebebi bu: oyuncu ölüm ki'si soluyor, ve bu onun
+faturası.
+
 ### Adım 4 — Doğu ve Dein
 
 Yamato'nun "yakında doğuya gidiyoruz" sözü — sürü lideri raporunda artık geçici
