@@ -139,7 +139,7 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
 - GitHub Pages must use GitHub Actions as its source.
 - A push to `main` triggers `.github/workflows/deploy-pages.yml`.
 - Only `dist/` is uploaded as the Pages artifact.
-- The maintained deployment is `https://kuroiteiken.github.io/23html.github.io/`;
+- The maintained deployment is `https://kuroiteiken.github.io/Echoes-Beneath/`;
   the upstream deployment is `https://23html.github.io/`.
 - Internal links must work both at a domain root and below a GitHub Pages project
   path. Do not hard-code root-relative paths such as `/changelog/...`; use a

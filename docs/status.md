@@ -6,10 +6,12 @@ değerlendirilmiş sırayı taşır.
 
 ## Proje
 
-Kuroiteiken/23html.github.io fork'u, çalışma dizini `d:\GitRepos\23html.github.io`,
-adı Echoes Beneath. Tarayıcı RPG'si. `scripts/build.js` 25 kaynağı `js/game.js`'e
-birleştiriyor — `js/game.js` üretilmiş dosya, asla okuma/düzenleme. Gerçek
-kaynaklar `scripts/sources.js`'te listeli.
+`Kuroiteiken/Echoes-Beneath` (2026-08-19'a kadar `23html.github.io` adındaydı; yayın adresi
+artık `https://kuroiteiken.github.io/Echoes-Beneath/`). Yerel klasör adı bir tercih meselesi
+ve depo adıyla aynı olmak zorunda değil — kodda köke göre hiçbir yol yok, `localStorage`
+anahtarları origin bazlı, dolayısıyla ad değişikliği hiçbir şeyi kırmıyor. Tarayıcı RPG'si.
+`scripts/build.js` 28 kaynağı `js/game.js`'e birleştiriyor — `js/game.js` üretilmiş dosya,
+asla okuma/düzenleme. Gerçek kaynaklar `scripts/sources.js`'te listeli.
 
 ## Durum
 

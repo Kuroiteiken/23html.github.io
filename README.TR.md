@@ -137,7 +137,7 @@ Deployment build'i CSS, JavaScript ve dil isteklerine içerik özeti ekler; böy
 yeni sürüm, eski sürümden önbellekte kalan dosyalarla karışarak askıda kalmaz.
 
 Bakımı yapılan yayın
-[`https://kuroiteiken.github.io/23html.github.io/`](https://kuroiteiken.github.io/23html.github.io/)
+[`https://kuroiteiken.github.io/Echoes-Beneath/`](https://kuroiteiken.github.io/Echoes-Beneath/)
 adresindedir. Upstream proje ayrıca
 [`https://23html.github.io/`](https://23html.github.io/) adresinde çalışır. Forklar
 ve proje Pages siteleri repository alt yolunda yayınlanabileceği için dahili

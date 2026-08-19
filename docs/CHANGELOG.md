@@ -499,6 +499,19 @@ changes. Player-facing game content and release notes belong in
   too. Measured writes across all 146 entries: exp_t 43, hpa 38, stra 32, agla 25, sata 23,
   mods.sbonus 7, inta 6, mods.cpwr 3, luck 2, spda 1.
 
+- The repository is `Kuroiteiken/Echoes-Beneath`, renamed from `23html.github.io`, so the
+  maintained deployment is now `https://kuroiteiken.github.io/Echoes-Beneath/`. Updated in
+  docs/AGENTS.md, its Turkish counterpart, and both READMEs. The upstream URL
+  `https://23html.github.io/` is a different repository and is unchanged, as are the fork
+  attributions further down this file -- those record where a fix was found, not a dependency.
+- Nothing in the code needed changing, and that is worth recording as the reason rather than
+  the outcome. There is not one root-relative path in the project: the changelog link is built
+  with `new URL("changelog/changelog.html", document.baseURI)`, the loader derives every URL
+  from its own script src, and changelog.html links with `href="../"`. The rule in
+  docs/AGENTS.md that forbids hard-coding `/changelog/...` is what made a rename a
+  documentation edit. Saves survive it too: localStorage is keyed by origin, and the origin
+  did not change -- only the path below it.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

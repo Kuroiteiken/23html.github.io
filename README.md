@@ -136,7 +136,7 @@ so a new release cannot become stuck by mixing cached assets from an older
 release.
 
 The maintained deployment is
-[`https://kuroiteiken.github.io/23html.github.io/`](https://kuroiteiken.github.io/23html.github.io/).
+[`https://kuroiteiken.github.io/Echoes-Beneath/`](https://kuroiteiken.github.io/Echoes-Beneath/).
 The upstream project also runs at
 [`https://23html.github.io/`](https://23html.github.io/). Because forks and
 project Pages sites may be hosted below a repository path, internal links must be

@@ -500,6 +500,19 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   `stra` 32, `agla` 25, `sata` 23, `mods.sbonus` 7, `inta` 6, `mods.cpwr` 3, `luck` 2,
   `spda` 1.
 
+- Depo artık `Kuroiteiken/Echoes-Beneath`; `23html.github.io` adından değiştirildi, dolayısıyla
+  bakımı yapılan yayın adresi `https://kuroiteiken.github.io/Echoes-Beneath/`. `docs/AGENTS.md`,
+  Türkçe karşılığı ve iki README güncellendi. Upstream adresi `https://23html.github.io/` başka
+  bir depo ve değişmedi; bu dosyanın aşağısındaki fork atıfları da öyle -- onlar bir düzeltmenin
+  nerede tespit edildiğini kaydediyor, bir bağımlılığı değil.
+- Kodda hiçbir şeyin değişmesi gerekmedi ve bunu sonuç olarak değil sebep olarak kaydetmeye
+  değer. Projede köke göre tek bir yol yok: changelog bağlantısı
+  `new URL("changelog/changelog.html", document.baseURI)` ile kuruluyor, yükleyici her URL'i
+  kendi script `src`'inden türetiyor, `changelog.html` ise `href="../"` ile bağlanıyor.
+  `docs/AGENTS.md`'deki `/changelog/...` biçiminde sabit yol yazmayı yasaklayan kural, bir ad
+  değişikliğini bir dokümantasyon düzenlemesine indiren şey. Kayıtlar da sağ çıkıyor:
+  `localStorage` origin'e göre anahtarlanıyor ve origin değişmedi -- yalnızca altındaki yol.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

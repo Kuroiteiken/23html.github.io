@@ -140,7 +140,7 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
 - GitHub Pages kaynağı GitHub Actions olmalıdır.
 - `main` dalına push, `.github/workflows/deploy-pages.yml` akışını tetikler.
 - Yalnızca `dist/` Pages artifact'i olarak yüklenir.
-- Bakımı yapılan yayın `https://kuroiteiken.github.io/23html.github.io/`, upstream
+- Bakımı yapılan yayın `https://kuroiteiken.github.io/Echoes-Beneath/`, upstream
   yayın ise `https://23html.github.io/` adresindedir.
 - Dahili bağlantılar hem alan adı kökünde hem GitHub Pages proje alt yolunda
   çalışmalıdır. `/changelog/...` gibi köke göre yolları sabit kodlamayın; belge
