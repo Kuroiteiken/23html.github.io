@@ -58,6 +58,14 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   Yeni prob `tests/probes/player-name-safety.js`. Negatif kontrolü yapıldı ve
   katmanların ayrı ayrı korunduğu doğrulandı.
 - **P3.3 yapılmayacak**: depo sahibi minify istemiyor. Madde kapalı.
+- **v478.29 yayına hazır** (ilk oyuncuya dönük sürüm bu oturumda): dışa/içe aktarma
+  pencereleri `game-modal` iskeletine taşındı, kopyala/yapıştır eklendi,
+  `#save-bar-restore` alt barın tasarımına uyarlandı, iki tutamağa klavye erişimi.
+- **`createGameModal()` eklendi**: oyundaki her diyaloğun kurulduğu ortak iskelet.
+  Esc, arka plan tıklaması, odak geri verme ve kapanınca DOM'dan silinme onda.
+- **P4.5 kısmen**: `.gitignore` artıkları temizlendi. Ölü kod **silinmedi** —
+  gerekçe aşağıda.
+- **P4.4 kısmen**: alt barın iki tutamağı klavyeyle erişilebilir. `chs()` bekliyor.
 - İki değişiklik de regresyon testli ve **negatif kontrolü yapılmış** (koruma
   kaldırıldığında test kırılıyor).
 
@@ -110,6 +118,51 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   olduğunu doğruluyor — ağ yük taşımaya başlarsa test söyler.
 - Popülasyon girdisi `c` bildirmezse `z_bake` `popc`'ye `NaN` pişirir ve o alanda
   hiçbir şey doğamaz. **Artık `check-combat.js` bunu ayrıca denetliyor.**
+
+### Diyaloglar — `createGameModal()`
+
+Oyundaki her diyalog bu iskelet üzerine kuruluyor: native `<dialog class="game-modal">`,
+Esc ile kapanma, arka plan tıklaması, odağın açan öğeye dönmesi, kapanınca DOM'dan
+silinme.
+
+**Stil değil iskelet paylaşılıyor** ve bu bilinçli. Dışa/içe aktarma pencereleri elle
+kurulmuş overlay'lerdi: `top: 370px; left: 330px`, siyah çerçeveli `lightgrey`, kendi
+başlık çubuğundan sürüklenen. Yalnızca CSS'i paylaşan bir çözüm yeniden aynı şekilde
+yazılabilirdi; iskeleti paylaşmak yeni bir diyaloğun hepsini birden almasını sağlıyor.
+
+Kullanım:
+
+```js
+const panel = createGameModal({ title, wide: true, onClose });
+panel.action(label, handler); // eylem butonu, ilki odağı alır
+panel.danger(label, handler); // yıkıcı eylem
+panel.close(label); // kapatma butonu
+panel.open(); // showModal + odak
+panel.dismiss(); // programatik kapatma
+```
+
+`wide: true` → `game-modal--wide` (`min(640px, 100vw - 32px)`), alan için
+`game-modal__field`, gizli dosya seçici için `game-modal__file`.
+
+### Ölü kod neden silinmedi
+
+Plan P4.5'te "99 satır yoruma alınmış kod" siliniyor diyordu. Silinmedi ve
+silinmemeli: `js/data/equipment.js:2730-2731`'deki yoruma alınmış iki satır tam olarak
+**status.md kuyruk #2'nin konusu** —
+
+```js
+//  function(x){if(ttl.mone2.have===false){if(global.stat.moneyg>=GOLD){giveTitle(ttl.mone2)}}},
+//  function(x){if(ttl.mone3.have===false){if(global.stat.moneyg>=GOLD){giveTitle(ttl.mone3)}}},
+```
+
+İkisi de `mone1` ile aynı `>= GOLD` koşulunu paylaşıyor; kuyruk bunu "gizli hata"
+olarak kaydetmiş. Silmek bekleyen işin tek kaydını yok ederdi.
+
+Genel kural olarak: bu depodaki yoruma alınmış kod tarihsel kayıt ya da bekleyen iş
+olabiliyor (`scripts/strip-comments.js`'in kendi yorumu "terk edilmiş sahneler, eski bir
+hasar formülü, hiç bitirilmemiş bir Pill Tower" diyor). Toplu silme, hangisinin hangisi
+olduğunu tek tek incelemeden yapılmamalı. Bir düzeltme: plandaki "12 TODO/FIXME" sayısı
+yanlıştı — kaynaklarda **sıfır** tane var.
 
 ## Kontroller
 
@@ -223,12 +276,17 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 Faz 7 sürüyor. Kalanlar:
 
-1. **P4.5** — ölü kod (99 satır yoruma alınmış), `.gitignore`'daki Next.js/Vercel
-   artıkları, `for...in` notu, `Base64`.
-2. **P4.4** — `chs()` tek nokta olduğu için klavye erişimi tek yerden eklenebilir.
-3. **P1.4** — simülasyon katmanının DOM'a yazması.
-4. **P2.2** — `defineItem`; getirisi düşük, `check-refs`'in biçim varsayımına dokunuyor.
-5. ~~P3.3 minify~~ — **yapılmayacak**, depo sahibi kararı.
+1. **P4.4'ün kalanı** — `chs()` fabrikası. Alt barın iki tutamağı yapıldı; seçenek
+   satırları (545 tıklama dinleyicisinin çoğu) bekliyor. `chs()` tek nokta olduğu için
+   `tabIndex` + `role="button"` + Enter/Space bağlaması oradan eklenebilir.
+2. **P1.4** — simülasyon katmanının DOM'a yazması (76 satır içi stil, 30 `innerHTML`).
+3. **P2.2** — `defineItem`; getirisi düşük, `check-refs`'in biçim varsayımına dokunuyor.
+4. ~~P3.3 minify~~ — yapılmayacak, depo sahibi kararı.
+
+Arka planda bir **tasarım tutarlılık denetimi** çalışıyor (workflow): beş mercek
+(palet, overlay'ler, klavye, hover/focus durumları, yapı) ile `css/` ve `js/ui/`
+taranıyor, her bulgu ayrı bir ajan tarafından çürütülmeye çalışılıyor. Sonucu geldiğinde
+buradaki listeye eklenecek.
 
 ## Kuyruk — araştırılmış bulgularla
 
@@ -315,3 +373,22 @@ kontrol için `build-site.js`'e geçici bir bozma yapıldı ve `git checkout` il
 alındı — ama o dosyadaki **commit edilmemiş gerçek düzeltme de** silindi ve testler
 kırıldı. Geçici bozmayı geri almanın doğru yolu: bozmayı ters yönde uygulamak ya da
 önce dosyayı kopyalayıp sonra geri yazmak.
+
+## Kontrol edilecekler Ek maddeler
+
+- alt barda yapılan gibi atlanan tasarım yapıları varsa onlarda mevcut tasarıma uyarlanacak. bir örnek kaydı içe aktar dışarı aktar butonları sonrası açılan ufak bir modal.
+- Yeteneklerin hepsinde 15. seviyeye kadar avantaj olmalı
+- Üretim çeşitlendirilmeli.
+- Yıldız tozu gibi bazı ürünler boş kalıyor.
+- Ünvanlarda iyileştirme ve arttırım gerek.
+- Sağlık iksirlerinin açılması kontrol edilecek. en küçük şifa iksiri dışında da iksirler var. Üretim listesinde yok.
+- Bir bölgeyi belli bir defa temizledikten sonra sınırsız temizleme açılması gerek.
+- yan hikayelere devam et. işler yapıldıkça proposal dosyasından çıkar. Oyuncu panelindeki efekt şeridi ŞANS okumasına biniyor işini çıkar. kabul ediliyor. bilgi olarak veriyor yeterli.
+- silah ustalığı ünvanlarını verelim hatta bazı ünvanlar için eğer takılıysa ustalık hızının artışını ekleyelim.
+- kalkanların taslaklarını inceleyelim ve değerlerine ve önceki rütbelerine bakılması gerek.
+- araştır başka hiç bir yerde kullanılmıyor. başka yerlerde de mantıklı kullanılabilir.
+- bir kaç mobilya daha ekleyebiliriz. ayrıca eğer mobilyalarda yatak varsa yere çök ve biraz kestir yerine daha mantıklı bir açıklama ile yapabiliriz. sade yatak gibi yataklara dinlenme esnasında sağlık hızını arttırma ekleyelim. derecelerine göre artımlı olabilir.
+- eğer şömine yanıyorsa, iyileşme hızı artabilir. ayrıca hafif bir enerji kazanımı eklenebilir. şömine varken uyumalarda, bir süre sonra dinlendin buff'u ile saldırı hızı, saldırı hasarı, denetim kazanımı gibi belli bir sürelik artışlar verelim.
+- yazdığım tüm promptları başlamadan önce mutlaka proposals.md dosyalarına işle. tamamlandığında da proposals'tan çıkar, uygun md dosyalarına ekle, story.md dosyasını kontrol et.
+- ateş hasarı gibi durumlarda yaratığa yanma debuff'u verme şansı ekleyelim belli bir süre sağlığını düşürsün.
+- ağrı direnci ölümsüz direnci karanlık savunma gibi dirençler dövüş esnasında hasar azaltmak için dikkate alınıyor mu?

@@ -46,8 +46,17 @@
       "questLeads": "Worth asking about"
     },
     "settings": {
+      "autosaveInterval": "Autosave interval (seconds)",
       "backgroundColor": "BG Color",
       "backgroundPresets": "BG presets",
+      "cancelDelete": "Cancel",
+      "clipboardBlocked": "The clipboard is not available. Select the text and copy it yourself.",
+      "clipboardEmpty": "There is nothing on the clipboard.",
+      "confirmDelete": "Delete save",
+      "copied": "Copied",
+      "copyToClipboard": "Copy",
+      "deleteSaveConfirm": "This permanently removes your saved game. This action cannot be undone.",
+      "deleteSaveTitle": "Delete saved game?",
       "destroyGradients": "Destroy gradients",
       "export": "Export",
       "exportAsFile": "Export As File",
@@ -58,18 +67,14 @@
       "loadFile": "Load File",
       "loadSuccessful": "Load Successful",
       "messageLogLimit": "Message log limit",
+      "pasteFromClipboard": "Paste",
       "presets": {
         "grey": "grey",
         "night": "night",
         "special": "special",
         "white": "White"
       },
-      "saveInvalid": "Save Invalid",
-      "deleteSaveTitle": "Delete saved game?",
-      "deleteSaveConfirm": "This permanently removes your saved game. This action cannot be undone.",
-      "cancelDelete": "Cancel",
-      "confirmDelete": "Delete save",
-      "autosaveInterval": "Autosave interval (seconds)"
+      "saveInvalid": "Save Invalid"
     },
     "world": {
       "location": "Location: "
@@ -321,6 +326,12 @@
       "v478_28": [
         "A weapon earns ranks by its own kill count: 50, 150, 400, 1000, 2500, 5000, 10000, each worth a little more damage.",
         "The rank belongs to that one weapon, not to the type. Hover it to see the rank and how many kills the next one wants."
+      ],
+      "v478_29": [
+        "Exporting and importing a save opens a proper dialog now: it closes with Escape, it fits a small screen, and it does not have to be dragged out of the way.",
+        "Both of those dialogs have a clipboard button -- Copy on the way out, Paste on the way in -- and each one says whether it worked.",
+        "The handle that brings the save bar back matches the bar again, and both handles can be reached with the keyboard.",
+        "The page opens faster in Turkish: it was downloading the English text as well and never reading a word from it."
       ]
     },
     "lore": {

@@ -46,8 +46,17 @@
       "questLeads": "Sorulmaya değer"
     },
     "settings": {
+      "autosaveInterval": "Otomatik kayıt aralığı (saniye)",
       "backgroundColor": "Arka Plan Rengi",
       "backgroundPresets": "Arka plan hazır ayarları",
+      "cancelDelete": "Vazgeç",
+      "clipboardBlocked": "Pano kullanılamıyor. Metni seçip kendiniz kopyalayın.",
+      "clipboardEmpty": "Panoda bir şey yok.",
+      "confirmDelete": "Kaydı sil",
+      "copied": "Kopyalandı",
+      "copyToClipboard": "Kopyala",
+      "deleteSaveConfirm": "Kayıtlı oyun kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+      "deleteSaveTitle": "Kayıtlı oyun silinsin mi?",
       "destroyGradients": "Degradeleri yok et",
       "export": "Dışa Aktar",
       "exportAsFile": "Dosya Olarak Dışa Aktar",
@@ -58,18 +67,14 @@
       "loadFile": "Dosya Yükle",
       "loadSuccessful": "Yükleme Başarılı",
       "messageLogLimit": "Mesaj günlüğü sınırı",
+      "pasteFromClipboard": "Yapıştır",
       "presets": {
         "grey": "gri",
         "night": "gece",
         "special": "özel",
         "white": "Beyaz"
       },
-      "saveInvalid": "Geçersiz Kayıt",
-      "deleteSaveTitle": "Kayıtlı oyun silinsin mi?",
-      "deleteSaveConfirm": "Kayıtlı oyun kalıcı olarak silinecek. Bu işlem geri alınamaz.",
-      "cancelDelete": "Vazgeç",
-      "confirmDelete": "Kaydı sil",
-      "autosaveInterval": "Otomatik kayıt aralığı (saniye)"
+      "saveInvalid": "Geçersiz Kayıt"
     },
     "world": {
       "location": "Konum: "
@@ -321,6 +326,12 @@
       "v478_28": [
         "Bir silah kendi öldürme sayısıyla rütbe kazanıyor: 50, 150, 400, 1000, 2500, 5000, 10000 — her biri biraz daha hasar.",
         "Rütbe o tek silaha ait, türüne değil. Üzerine gelince rütbeyi ve sonraki için kaç öldürme gerektiğini görüyorsun."
+      ],
+      "v478_29": [
+        "Kaydı dışa ve içe aktarma artık gerçek bir pencerede açılıyor: Esc ile kapanıyor, küçük ekrana sığıyor ve yoldan çekmek için sürüklenmesi gerekmiyor.",
+        "İki pencerede de pano düğmesi var -- çıkarken Kopyala, girerken Yapıştır -- ve her biri işe yarayıp yaramadığını söylüyor.",
+        "Kaydet çubuğunu geri getiren tutamak yeniden çubukla aynı görünüyor, ve iki tutamağa da klavyeyle erişilebiliyor.",
+        "Türkçe oynarken sayfa daha hızlı açılıyor: İngilizce metni de indiriyordu ve ondan tek kelime okumuyordu."
       ]
     },
     "lore": {

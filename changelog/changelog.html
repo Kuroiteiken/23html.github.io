@@ -319,11 +319,42 @@
             <h2>v478</h2>
           </div>
           <div class="release-meta">
-            <span class="release-range">v477 → v478.28</span>
-            <time datetime="2026-08-18">2026/08/18</time>
+            <span class="release-range">v477 → v478.29</span>
+            <time datetime="2026-08-19">2026/08/19</time>
           </div>
         </header>
         <ul class="release-changes">
+          <li class="release-point">
+            <strong>v478.29</strong>
+          </li>
+          <li>
+            Exporting and importing a save opens a proper dialog instead of a
+            light-grey window pinned to one spot on the screen. It closes with
+            Escape or a click outside it, it fits a small screen, and it no
+            longer has to be dragged out of the way
+          </li>
+          <li>
+            Both of those dialogs have a button for the clipboard now &mdash;
+            Copy on the way out, Paste on the way in &mdash; and each says so
+            when it worked. If your browser refuses the clipboard it tells you
+            that instead of doing nothing
+          </li>
+          <li>
+            The handle that brings the save bar back was still wearing the old
+            light-grey look after the bar itself was redrawn. It matches the bar
+            now, and both handles can be reached with the keyboard
+          </li>
+          <li>
+            The page opens faster if you play in Turkish. It was downloading the
+            English text as well, all 348 KB of it, and never reading a word
+            from it. The game itself now starts downloading at the same time as
+            the text rather than waiting for it
+          </li>
+          <li>
+            A name typed into the character field is treated as a name and
+            nothing else. It could previously be written as markup, which
+            mattered because a save is a file people share
+          </li>
           <li class="release-point">
             <strong>v478.28</strong>
           </li>

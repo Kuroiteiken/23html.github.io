@@ -431,9 +431,12 @@ if (!guardedBaseStats.every((pattern) => pattern.test(bootstrapSource))) {
   );
 }
 
+// The old key is banned everywhere rather than in one file, and the write to the live key
+// is matched on the key rather than on the variable that happened to hold the save --
+// which is what pinned this to `t` and broke when the import panel was rewritten.
 if (
-  /"v0\.2a"/.test(interfaceSource) ||
-  !/storage\.setItem\("v0\.3", t\)/.test(interfaceSource)
+  /"v0\.2a"/.test(bundleSource) ||
+  !/localStorage\.setItem\("v0\.3",/.test(bundleSource)
 ) {
   throw new Error(
     "Import regression: imported saves must persist to the live v0.3 storage key.",

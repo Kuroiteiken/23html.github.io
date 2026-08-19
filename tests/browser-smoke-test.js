@@ -264,6 +264,67 @@ async function main() {
       );
     }
 
+    // The export and import panels were hand-positioned overlays outside the game's own
+    // look, with no Escape and no focus handling. They are dialogs on the shared shell
+    // now, so what is checked is what the shell provides.
+    const transferModal = await runChrome(
+      `${baseUrl}/__test-save-transfer-modal.html`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(transferModal.stderr);
+    assertCommonStartup(transferModal.stdout, port);
+    for (const [flag, complaint] of [
+      [
+        "transfer-is-dialog",
+        "the export panel is not a <dialog> on the shared shell",
+      ],
+      ["transfer-is-open", "the export dialog did not open modally"],
+      [
+        "transfer-is-wide",
+        "the export dialog is missing game-modal--wide, so its field has no room",
+      ],
+      [
+        "transfer-has-save",
+        "the export dialog opened without the save in its field",
+      ],
+      [
+        "transfer-closed-and-removed",
+        "Escape did not close the export dialog, or closing left it in the document",
+      ],
+      [
+        "transfer-flag-cleared",
+        "closing the export dialog left global.flags.expatv set, so it cannot be opened again",
+      ],
+      [
+        "transfer-import-is-dialog",
+        "the import panel is not a <dialog> on the shared shell",
+      ],
+      ["transfer-import-has-field", "the import dialog has no paste field"],
+      ["transfer-import-has-chooser", "the import dialog has no file chooser"],
+      [
+        "transfer-has-copy",
+        "the export dialog has no copy button, so a player on a locked-down profile has to select the text by hand",
+      ],
+      [
+        "transfer-copy-kept-field",
+        "pressing copy emptied or corrupted the field it was meant to copy from",
+      ],
+      ["transfer-has-paste", "the import dialog has no paste button"],
+      [
+        "transfer-paste-spoke",
+        "pressing paste with no clipboard permission left the field silent instead of saying so",
+      ],
+    ]) {
+      if (!transferModal.stdout.includes(`data-${flag}="true"`)) {
+        throw new Error(`Save transfer regression: ${complaint}.`);
+      }
+    }
+    if (!transferModal.stdout.includes('data-transfer-inline-top="none"')) {
+      throw new Error(
+        "The save transfer dialog sets an inline top offset. It was positioned at 370px from the document top, which is what put it off the edge of a small viewport; a dialog is centred by the browser.",
+      );
+    }
+
     const mobileChangelog = await runChrome(
       `${baseUrl}/changelog/changelog.html`,
       profiles[0],
@@ -625,7 +686,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

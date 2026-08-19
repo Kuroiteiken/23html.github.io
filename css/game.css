@@ -417,6 +417,42 @@ input:focus {
 .game-modal__message .release-notes__list li:last-child {
   margin-bottom: 0;
 }
+
+/* A dialog that carries a field rather than a sentence. The save transfer panels were
+   hand-positioned overlays 600px wide; the width is a clamp now, so a small viewport gets
+   a dialog that fits instead of one that hangs off the edge. */
+.game-modal--wide {
+  width: min(640px, calc(100vw - 32px));
+}
+.game-modal__body {
+  padding: 12px;
+}
+.game-modal__field {
+  box-sizing: border-box;
+  width: 100%;
+  height: min(360px, 50vh);
+  padding: 6px;
+  border: 1px solid #526988;
+  color: #dff7ff;
+  background: #04121f;
+  font: inherit;
+  resize: vertical;
+}
+.game-modal__field:focus-visible {
+  border-color: #9ecfff;
+  outline: 1px solid #9ecfff;
+}
+
+/* The file chooser is opened by a button in the action row, so the input itself is only
+   the mechanism. Kept in the layout rather than display:none, because a hidden input
+   cannot be clicked in every browser. */
+.game-modal__file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
 .game-modal__actions {
   display: flex;
   justify-content: flex-end;
@@ -621,6 +657,12 @@ input:focus {
   margin: 0 0 0 5px;
   vertical-align: middle;
 }
+
+/* The handle that brings the bar back. It kept the old light-grey chip look after the
+   bar itself was redrawn, which left the one control that is visible while the bar is
+   hidden as the only thing on screen still wearing the previous design. It sits outside
+   #sl -- it has to, the bar is display:none -- so the shared `#sl > .sl` rules cannot
+   reach it and its own rule carries them instead. */
 #save-bar-restore {
   right: 0;
   bottom: 0;
@@ -628,7 +670,18 @@ input:focus {
   position: fixed;
   width: auto;
   min-width: 24px;
-  background-color: lightgrey;
+  border-color: #3848c0;
+  border-top-left-radius: 3px;
+  padding: 3px 7px;
+  color: rgb(188 254 254);
+  background: linear-gradient(90deg, rgb(0 5 51 / 95%), rgb(0 55 92 / 95%));
+}
+#save-bar-restore:hover,
+#save-bar-restore:focus-visible {
+  border-color: #71e6b1;
+  outline: 1px solid #71e6b1;
+  color: #e7f5ff;
+  background: rgb(35 87 236 / 40%);
 }
 #chs {
   width: 100%;

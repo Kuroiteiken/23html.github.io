@@ -2589,171 +2589,147 @@ dom.ct_bt4_5b = addElement(dom.ct_bt4_5, "div", null, "opt_va");
 dom.ct_bt4_5a.innerHTML = i18n.t("ui.settings.export");
 dom.ct_bt4_5a.style.border = "1px lightgrey solid";
 dom.ct_bt4_5a.addEventListener("click", function () {
-  if (!global.flags.expatv) {
-    t = save(true);
-    global.flags.expatv = true;
-    dom.ct_bt4_5a_nc = addElement(document.body, "div");
-    dom.ct_bt4_5a_nc.style.position = "absolute";
-    dom.ct_bt4_5a_nc.style.padding = "2px";
-    dom.ct_bt4_5a_nc.style.top = "370px";
-    dom.ct_bt4_5a_nc.style.left = "330px";
-    dom.ct_bt4_5a_nc.style.width = "600px";
-    dom.ct_bt4_5a_nc.style.height = "400px";
-    dom.ct_bt4_5a_nc.style.border = "2px solid black";
-    dom.ct_bt4_5a_nc.style.backgroundColor = "lightgrey";
-    dom.ct_bt4_5a_nh = addElement(dom.ct_bt4_5a_nc, "div");
-    dom.ct_bt4_5a_nh.style.height = "20px";
-    dom.ct_bt4_5a_nh.style.borderBottom = "2px solid black";
-    dom.ct_bt4_5a_nhv = addElement(dom.ct_bt4_5a_nh, "div");
-    dom.ct_bt4_5a_nhv.style.float = "left";
-    dom.ct_bt4_5a_nhv.style.marginRight = "6px";
-    dom.ct_bt4_5a_nhv.style.backgroundColor = "grey";
-    dom.ct_bt4_5a_nhv.innerHTML = i18n.t("ui.settings.exportAsText");
-    dom.ct_bt4_5a_nhv.addEventListener("click", function () {
-      dom.ct_bt4_5a_nbc.value = t;
-    });
-    dom.ct_bt4_5a_nhz = addElement(dom.ct_bt4_5a_nh, "div");
-    dom.ct_bt4_5a_nhz.style.float = "left";
-    dom.ct_bt4_5a_nhz.style.backgroundColor = "grey";
-    dom.ct_bt4_5a_nhz.innerHTML = i18n.t("ui.settings.exportAsFile");
-    dom.ct_bt4_5a_nhz.addEventListener("click", function () {
-      const a = new Date();
-      const temp = document.createElement("a");
-      temp.href = "data:text/plain;charset=utf-8," + t;
-      let n = you.name;
-      if (/(<.*>)|(\(.*\))/.test(you.name)) n = "";
-      temp.download =
-        n +
-        " - v" +
-        global.ver +
-        " - " +
-        (a.getFullYear() +
-          "/" +
-          (a.getMonth() + 1) +
-          "/" +
-          a.getDate() +
-          " " +
-          a.getHours() +
-          "_" +
-          (a.getMinutes() >= 10 ? a.getMinutes() : "0" + a.getMinutes()) +
-          "_" +
-          (a.getSeconds() >= 10 ? a.getSeconds() : "0" + a.getSeconds())) +
-        " [Echoes Beneath]";
-      temp.click();
-    });
-    dom.ct_bt4_5a_nhx = addElement(dom.ct_bt4_5a_nh, "div");
-    draggable(dom.ct_bt4_5a_nh, dom.ct_bt4_5a_nc);
-    dom.ct_bt4_5a_nhx.innerHTML = "✖";
-    dom.ct_bt4_5a_nhx.style.float = "right";
-    dom.ct_bt4_5a_nhx.style.backgroundColor = "red";
-    dom.ct_bt4_5a_nhx.addEventListener("click", function () {
+  if (global.flags.expatv) return;
+  global.flags.expatv = true;
+  const saved = save(true);
+  const panel = createGameModal({
+    title: i18n.t("ui.settings.export"),
+    wide: true,
+    onClose: () => {
       global.flags.expatv = false;
-      empty(dom.ct_bt4_5a_nc);
-      document.body.removeChild(dom.ct_bt4_5a_nc);
-      kill(dom.ct_bt4_5a_nc);
-    });
-    dom.ct_bt4_5a_nb = addElement(dom.ct_bt4_5a_nc, "div");
-    dom.ct_bt4_5a_nbc = addElement(dom.ct_bt4_5a_nb, "textArea");
-    dom.ct_bt4_5a_nbc.style.fontFamily = "MS Gothic";
-    dom.ct_bt4_5a_nbc.style.width = "100%";
-    dom.ct_bt4_5a_nbc.style.height = "378px";
-    dom.ct_bt4_5a_nbc.style.overflow = "auto";
+    },
+  });
+  const field = addElement(panel.body, "textarea", null, "game-modal__field");
+  field.spellcheck = false;
+  field.value = saved;
+
+  // Says what happened. The clipboard write can be refused -- a page without a secure
+  // context, or a profile that has denied it -- and a button that silently does nothing
+  // is worse than one that tells the player to copy it themselves.
+  function report(button, message) {
+    const original = button.textContent;
+    button.textContent = message;
+    setTimeout(() => {
+      button.textContent = original;
+    }, 1600);
   }
+
+  panel.action(i18n.t("ui.settings.exportAsText"), () => {
+    field.value = saved;
+    field.select();
+  });
+  const copy = panel.action(i18n.t("ui.settings.copyToClipboard"), () => {
+    field.value = saved;
+    field.select();
+    navigator.clipboard
+      ?.writeText(saved)
+      .then(() => report(copy, i18n.t("ui.settings.copied")))
+      .catch(() => report(copy, i18n.t("ui.settings.clipboardBlocked")));
+    if (!navigator.clipboard)
+      report(copy, i18n.t("ui.settings.clipboardBlocked"));
+  });
+  panel.action(i18n.t("ui.settings.exportAsFile"), () => {
+    const stamp = new Date();
+    const link = document.createElement("a");
+    link.href = "data:text/plain;charset=utf-8," + saved;
+    // The name is already stripped of anything that could open a tag, but it can still
+    // hold a character a filesystem will not take, so the file name is built from a
+    // conservative subset rather than from the name as typed.
+    const safeName = you.name.replace(/[^\p{L}\p{N} _-]/gu, "").trim();
+    const twoDigits = (value) => String(value).padStart(2, "0");
+    link.download =
+      safeName +
+      " - v" +
+      global.ver +
+      " - " +
+      stamp.getFullYear() +
+      "-" +
+      twoDigits(stamp.getMonth() + 1) +
+      "-" +
+      twoDigits(stamp.getDate()) +
+      " " +
+      twoDigits(stamp.getHours()) +
+      "_" +
+      twoDigits(stamp.getMinutes()) +
+      "_" +
+      twoDigits(stamp.getSeconds()) +
+      " [Echoes Beneath]";
+    link.click();
+  });
+  panel.close(i18n.t("ui.common.close"));
+  panel.open();
 });
+
 dom.ct_bt4_5b.innerHTML = i18n.t("ui.settings.import");
 dom.ct_bt4_5b.style.border = "1px lightgrey solid";
 dom.ct_bt4_5b.addEventListener("click", function () {
-  if (!global.flags.impatv) {
-    global.flags.impatv = true;
-    dom.ct_bt4_5b_nc = addElement(document.body, "div");
-    dom.ct_bt4_5b_nc.style.position = "absolute";
-    dom.ct_bt4_5b_nc.style.padding = "2px";
-    dom.ct_bt4_5b_nc.style.top = "370px";
-    dom.ct_bt4_5b_nc.style.left = "330px";
-    dom.ct_bt4_5b_nc.style.width = "600px";
-    dom.ct_bt4_5b_nc.style.height = "400px";
-    dom.ct_bt4_5b_nc.style.border = "2px solid black";
-    dom.ct_bt4_5b_nc.style.backgroundColor = "lightgrey";
-    dom.ct_bt4_5b_nh = addElement(dom.ct_bt4_5b_nc, "div");
-    dom.ct_bt4_5b_nh.style.height = "20px";
-    dom.ct_bt4_5b_nh.style.borderBottom = "2px solid black";
-    dom.ct_bt4_5b_nhv = addElement(dom.ct_bt4_5b_nh, "div");
-    draggable(dom.ct_bt4_5b_nh, dom.ct_bt4_5b_nc);
-    dom.ct_bt4_5b_nhv.style.float = "left";
-    dom.ct_bt4_5b_nhv.style.backgroundColor = "grey";
-    dom.ct_bt4_5b_nhv.innerHTML = i18n.t("ui.settings.importAsText");
-    dom.ct_bt4_5b_nhv.style.marginRight = "6px";
-    dom.ct_bt4_5b_nhv.addEventListener("click", function () {
-      if (dom.ct_bt4_5b_nbc.value == "" || dom.ct_bt4_5b_nbc.value == "?") {
-        dom.ct_bt4_5b_nbc.value = "?";
-        return;
-      }
-      const storage = window.localStorage;
-      const t = dom.ct_bt4_5b_nbc.value;
-      bt = b64_to_utf8(dom.ct_bt4_5b_nbc.value);
-      if (/savevalid/g.test(bt)) {
-        storage.setItem("v0.3", t);
-        load(t);
-        global.flags.impatv = false;
-        empty(dom.ct_bt4_5b_nc);
-        document.body.removeChild(dom.ct_bt4_5b_nc);
-        kill(dom.ct_bt4_5b_nc);
-      } else {
-        dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.saveInvalid");
-        return;
-      }
-    });
-    dom.ct_bt4_5b_nhx = addElement(dom.ct_bt4_5b_nh, "div");
-    dom.ct_bt4_5b_nhx.innerHTML = "✖";
-    dom.ct_bt4_5b_nhx.style.float = "right";
-    dom.ct_bt4_5b_nhx.style.backgroundColor = "red";
-    dom.ct_bt4_5b_nhx.addEventListener("click", function () {
+  if (global.flags.impatv) return;
+  global.flags.impatv = true;
+  const panel = createGameModal({
+    title: i18n.t("ui.settings.import"),
+    wide: true,
+    onClose: () => {
       global.flags.impatv = false;
-      empty(dom.ct_bt4_5b_nc);
-      document.body.removeChild(dom.ct_bt4_5b_nc);
-    });
-    dom.ct_bt4_5b_nhz = addElement(dom.ct_bt4_5b_nh, "div");
-    dom.ct_bt4_5b_nhz.style.float = "left";
-    dom.ct_bt4_5b_nhz.style.backgroundColor = "grey";
-    dom.ct_bt4_5b_nhz.innerHTML = i18n.t("ui.settings.loadFile");
-    dom.ct_bt4_5b_nhz2 = addElement(dom.ct_bt4_5b_nhz, "input");
-    dom.ct_bt4_5b_nhz2.innerHTML = "323";
-    dom.ct_bt4_5b_nhz2.accept = ".txt";
-    dom.ct_bt4_5b_nhz2.type = "file";
-    dom.ct_bt4_5b_nhz2.style.opacity = 0;
-    dom.ct_bt4_5b_nhz2.style.position = "absolute";
-    dom.ct_bt4_5b_nhz2.style.left = "128px";
-    dom.ct_bt4_5b_nhz2.style.width = "81px";
-    dom.ct_bt4_5b_nhz2.style.top = 0;
-    dom.ct_bt4_5b_nhz2.style.height = "18px";
-    dom.ct_bt4_5b_nhz2.addEventListener("change", function () {
-      const r = new FileReader();
-      r.readAsText(this.files[0]);
-      const storage = window.localStorage;
-      r.addEventListener("load", function () {
-        const t = b64_to_utf8(r.result);
-        if (/savevalid/g.test(t)) {
-          dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.loadSuccessful");
-          storage.setItem("v0.3", r.result);
-          load(r.result);
-          global.flags.impatv = false;
-          empty(dom.ct_bt4_5b_nc);
-          document.body.removeChild(dom.ct_bt4_5b_nc);
-          kill(dom.ct_bt4_5b_nc);
-        } else {
-          dom.ct_bt4_5b_nbc.value = i18n.t("ui.settings.saveInvalid");
-          return;
-        }
-      });
-    });
-    dom.ct_bt4_5b_nb = addElement(dom.ct_bt4_5b_nc, "div");
-    dom.ct_bt4_5b_nbc = addElement(dom.ct_bt4_5b_nb, "textArea");
-    dom.ct_bt4_5b_nbc.style.fontFamily = "MS Gothic";
-    dom.ct_bt4_5b_nbc.style.width = "100%";
-    dom.ct_bt4_5b_nbc.style.height = "378px";
-    dom.ct_bt4_5b_nbc.style.overflow = "auto";
+    },
+  });
+  const field = addElement(panel.body, "textarea", null, "game-modal__field");
+  field.spellcheck = false;
+
+  // A save that does not carry the marker is rejected and said so in the field the
+  // player pasted into, rather than silently. Restoring from a bad string would leave
+  // the world half-built.
+  function accept(encoded) {
+    const decoded = b64_to_utf8(encoded);
+    if (!/savevalid/.test(decoded)) {
+      field.value = i18n.t("ui.settings.saveInvalid");
+      return false;
+    }
+    window.localStorage.setItem("v0.3", encoded);
+    load(encoded);
+    return true;
   }
+
+  panel.action(i18n.t("ui.settings.importAsText"), () => {
+    if (!field.value.trim()) return;
+    if (accept(field.value.trim())) panel.dismiss();
+  });
+  // Pastes into the field rather than importing straight away, so the player sees what
+  // arrived before it replaces their game. Reading the clipboard needs permission the
+  // player may refuse, and refusing it is not an error worth a dialog -- the field says
+  // so and they can paste by hand.
+  panel.action(i18n.t("ui.settings.pasteFromClipboard"), () => {
+    if (!navigator.clipboard?.readText) {
+      field.value = i18n.t("ui.settings.clipboardBlocked");
+      return;
+    }
+    navigator.clipboard
+      .readText()
+      .then((text) => {
+        field.value = text.trim() || i18n.t("ui.settings.clipboardEmpty");
+        field.focus();
+      })
+      .catch(() => {
+        field.value = i18n.t("ui.settings.clipboardBlocked");
+      });
+  });
+
+  const chooser = addElement(panel.body, "input", null, "game-modal__file");
+  chooser.type = "file";
+  chooser.accept = ".txt";
+  chooser.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      if (accept(String(reader.result).trim())) panel.dismiss();
+    });
+    reader.readAsText(file);
+  });
+  panel.action(i18n.t("ui.settings.loadFile"), () => chooser.click());
+  panel.close(i18n.t("ui.common.close"));
+  panel.open();
 });
+
 /*
 dom.ct_bt4_6 = addElement(dom.ctrwin4,'div',null,'opt_c');
 dom.ct_bt4_6a = addElement(dom.ct_bt4_6,'div',null,'opt_t');
@@ -3076,16 +3052,26 @@ dom.sl_l.innerHTML = i18n.t("runtime.ui.interface.interface.load_5dbc716c");
 dom.sl_l.addEventListener("click", () => load(null, true));
 dom.sl_h = addElement(dom.sl, "span", "save-bar-collapse", "sl");
 dom.sl_h.innerHTML = ">>";
+// Both handles are spans rather than buttons, so the two things a button would have given
+// them are set here: a place in the tab order and a role a screen reader can announce.
+// The restore handle is the only control on screen while the bar is hidden, so being
+// unable to reach it without a mouse leaves the bar hidden for good.
+dom.sl_h.tabIndex = 0;
+dom.sl_h.setAttribute("role", "button");
 dom.sl_h.addEventListener("click", () => {
   dom.sl.style.display = "none";
   if (dom.sl_h_n) empty(dom.sl_h_n);
   dom.sl_h_n = addElement(document.body, "span", "save-bar-restore", "sl");
   dom.sl_h_n.innerHTML = "<<";
+  dom.sl_h_n.tabIndex = 0;
+  dom.sl_h_n.setAttribute("role", "button");
   dom.sl_h_n.addEventListener("click", () => {
     dom.sl.style.display = "";
     empty(dom.sl_h_n);
     document.body.removeChild(dom.sl_h_n);
+    dom.sl_h.focus();
   });
+  dom.sl_h_n.focus();
 });
 dom.sl_extra = addElement(dom.sl, "span", "save-status", "sl");
 dom.sl_extra.style.borderLeft = "none";
@@ -3117,6 +3103,99 @@ dom.sl_kill.innerHTML = i18n.t(
 );
 dom.sl_kill.tabIndex = 0;
 dom.sl_kill.setAttribute("role", "button");
+
+// The shell every dialog in the game is built on: a native <dialog> styled as
+// `game-modal`, dismissable with Escape or a backdrop click, returning focus to whatever
+// opened it, and removed from the DOM when it closes so a caller can open one per
+// interaction without leaking elements.
+//
+// Shared as a shell rather than as a stylesheet on purpose. The save export and import
+// windows were hand-built overlays -- absolutely positioned at top 370px / left 330px,
+// lightgrey on a black border, dragged by their own title bar -- so they sat outside the
+// game's own look, could not be closed with Escape, took no focus, and drifted off a
+// small viewport. Anything that only shared the CSS could be written that way again;
+// sharing the shell means a new dialog gets all of it or none of it.
+let gameModalCount = 0;
+
+function createGameModal({ title, wide = false, onClose }) {
+  gameModalCount++;
+  const titleId = "game-modal-title-" + gameModalCount;
+  const modal = addElement(
+    document.body,
+    "dialog",
+    null,
+    wide ? "game-modal game-modal--wide" : "game-modal",
+  );
+  modal.setAttribute("aria-labelledby", titleId);
+  modal.setAttribute("aria-modal", "true");
+
+  const header = addElement(modal, "div", null, "game-modal__header");
+  const heading = addElement(header, "strong", titleId);
+  heading.textContent = title;
+
+  const body = addElement(modal, "div", null, "game-modal__body");
+  const actions = addElement(modal, "div", null, "game-modal__actions");
+
+  const restoreFocus = document.activeElement;
+  let first = null;
+
+  function dismiss() {
+    if (modal.open) modal.close();
+  }
+
+  modal.addEventListener("cancel", (event) => {
+    // Prevented so the close runs through one path: the listener below removes the
+    // element and hands focus back, and a default cancel would skip neither but would
+    // make two ways of closing to keep in step.
+    event.preventDefault();
+    dismiss();
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target !== modal) return;
+    const bounds = modal.getBoundingClientRect();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    )
+      dismiss();
+  });
+  modal.addEventListener("close", () => {
+    modal.remove();
+    restoreFocus?.focus();
+    onClose?.();
+  });
+
+  function button(label, handler, extraClass) {
+    const element = addElement(
+      actions,
+      "button",
+      null,
+      extraClass ? "game-modal__button " + extraClass : "game-modal__button",
+    );
+    element.type = "button";
+    element.textContent = label;
+    element.addEventListener("click", handler);
+    if (!first) first = element;
+    return element;
+  }
+
+  return {
+    modal,
+    body,
+    actions,
+    dismiss,
+    action: (label, handler) => button(label, handler),
+    danger: (label, handler) =>
+      button(label, handler, "game-modal__button--danger"),
+    close: (label) => button(label, dismiss),
+    open() {
+      modal.showModal();
+      (first || modal).focus();
+    },
+  };
+}
 
 // Shared confirmation dialog. Builds a native <dialog> using the same
 // `game-modal` styling as the save-deletion modal, so every confirmation in the
@@ -3350,6 +3429,11 @@ const releaseNotes = [
     major: 478,
     minor: 28,
     read: () => i18n.get("ui.releaseNotes.v478_28"),
+  },
+  {
+    major: 478,
+    minor: 29,
+    read: () => i18n.get("ui.releaseNotes.v478_29"),
   },
 ];
 
