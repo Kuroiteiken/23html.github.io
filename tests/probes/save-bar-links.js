@@ -40,6 +40,28 @@ const linksProbe = setInterval(() => {
     getComputedStyle(source).display !== "none" &&
       getComputedStyle(source).visibility !== "hidden",
   );
+  // The source link came out browser-blue and turned purple once it had been opened: .sl_link
+  // set the underline but no colour, so the user agent's own :link and :visited rules won.
+  // The version link only escaped because #game-version happened to set a colour of its own,
+  // which is why this compares the two rather than checking one in isolation.
+  //
+  // :visited cannot be measured from script -- getComputedStyle deliberately reports the
+  // unvisited colour for privacy -- so what is measured here is the resting colour the two
+  // links resolve to and the fact that it is not the user agent's.
+  //
+  // Measured before the focus check below, not after: focusing the link matches
+  // .sl_link:focus-visible and the first version of this read the focused colour off one link
+  // and the resting colour off the other, then reported the CSS as broken when it was correct.
+  const sourceColour = getComputedStyle(source).color;
+  const versionColour = version ? getComputedStyle(version).color : "";
+  root.dataset.barSourceColour = sourceColour;
+  root.dataset.barLinkColoursMatch = String(sourceColour === versionColour);
+  // rgb(0, 0, 238) is the user agent's unvisited link blue and rgb(85, 26, 139) its visited
+  // purple. Either one means the bar's own colour never reached the element.
+  root.dataset.barSourceNotUaColour = String(
+    sourceColour !== "rgb(0, 0, 238)" && sourceColour !== "rgb(85, 26, 139)",
+  );
+
   // An <a href> is focusable without help; this checks it was not made unreachable.
   source.focus();
   root.dataset.barSourceFocusable = String(document.activeElement === source);

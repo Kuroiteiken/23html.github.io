@@ -378,9 +378,25 @@ async function main() {
         "bar-source-underlined",
         "the source link is not underlined, so it reads as a button rather than a link",
       ],
+      [
+        "bar-link-colours-match",
+        "the two bar links resolve to different colours, so one of them is falling through to the user agent's link styling",
+      ],
+      [
+        "bar-source-not-ua-colour",
+        "the source link is the browser's own link blue or visited purple rather than the bar's colour",
+      ],
     ]) {
       if (!barLinks.stdout.includes(`data-${flag}="true"`)) {
-        throw new Error(`Save bar link regression: ${complaint}.`);
+        // The colour checks are the ones worth reporting with numbers: "different colours" on
+        // its own does not say which link went wrong or what it went to.
+        const measured = /data-bar-source-colour="([^"]*)"/.exec(
+          barLinks.stdout,
+        );
+        const detail = measured
+          ? ` The source link measured ${measured[1]}.`
+          : "";
+        throw new Error(`Save bar link regression: ${complaint}.${detail}`);
       }
     }
     if (

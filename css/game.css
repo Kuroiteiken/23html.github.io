@@ -616,9 +616,22 @@ input:focus {
 
 /* The two links in the bar: the version, which opens the changelog, and the source, which
    leaves for GitHub. Underlined so they read as links rather than as the buttons beside them;
-   this was an inline style on the version link alone before there were two of them. */
-.sl_link {
+   this was an inline style on the version link alone before there were two of them.
+
+   :link and :visited are named explicitly because a bare .sl_link loses to the user agent's
+   own link rules: the source link came out browser-blue and went purple once it had been
+   opened, which is the one colour pair the bar does not use anywhere. The version link was
+   already safe only because #game-version happens to set a colour of its own. */
+.sl_link,
+.sl_link:link,
+.sl_link:visited,
+.sl_link:active {
+  color: #9ecfff;
   text-decoration: underline;
+}
+.sl_link:hover,
+.sl_link:focus-visible {
+  color: #e7f5ff;
 }
 
 #sl > .sl:hover,
@@ -646,14 +659,6 @@ input:focus {
   background: none;
 }
 
-/* The version link was inline-styled black, which was only readable while the
-   bar was light grey. */
-#game-version {
-  color: #9ecfff;
-}
-#game-version:hover {
-  color: #e7f5ff;
-}
 #save-bar-controls {
   display: flex;
   align-items: center;
