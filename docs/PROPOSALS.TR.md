@@ -209,6 +209,16 @@ Yanlış öncülün altında, hiçbir tasarım sorusu bağlı olmayan iki gerçe
 Önce bu ikisini düzelt; araştırmayı daha ileri götürmek ondan sonra bir mekanik değil içerik
 seçimi.
 
+### 17. Yan hikâyelere devam
+
+**Durum:** önerildi. Kancalar aşağıdaki "Hâlâ borçlu olduğumuz yan hikayeler" bölümünde
+listeli; brief'in sekiz sayısı ona göre ölçülüyor.
+
+Sahibinin bir kararı burada bekleyen değil **kapanmış** olarak kaydedildi: oyuncu panelindeki
+efekt şeridinin ŞANS okumasına binmesi **olduğu gibi kabul edildi** -- bilgi olarak okunuyor ve
+bu yeterli. Değişiklik yok. Yazıya geçirilmesinin sebebi şu: aksi hâlde sonraki bir okuyucu
+binmeyi görüp kimsenin fark etmediği bir hata sanır.
+
 ### 18. Karanlık tasarımın atladığı yüzeyler
 
 **Durum:** kabul edildi — sahibi bunu doğrudan istedi ve bir maddesi v478.29'da zaten

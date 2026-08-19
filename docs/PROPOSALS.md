@@ -215,6 +215,16 @@ Underneath the wrong premise are two real bugs with no design question attached:
 Fix those two first; extending scouting further is then a content choice rather than a
 mechanic.
 
+### 17. Side stories, continued
+
+**Status:** proposed. The hooks are listed under "Side stories still owed" below, which the
+brief's count of eight is measured against.
+
+One decision from the owner is recorded here as **closed** rather than pending: the effect
+strip in the player panel overlapping the LUCK readout is **accepted as it is** -- it reads as
+information, and that is enough. No change. It is kept in writing because a later reader would
+otherwise see the overlap and treat it as a bug nobody had noticed.
+
 ### 18. The surfaces the dark redesign skipped
 
 **Status:** agreed — the owner asked for this directly, and one item of it already shipped

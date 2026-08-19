@@ -778,15 +778,15 @@ Her faz kendi içinde tamamlanıp `npm run format && npm run build && npm run ch
 ile doğrulanmalı, ardından `docs/AGENTS.md`'nin 9. maddesi uyarınca bir kontrol
 noktası commit'i alınmalı.
 
-| Faz  | İçerik                                                          | Beklenen sonuç                                           |
-| ---- | --------------------------------------------------------------- | -------------------------------------------------------- |
-| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP), P3.1 kademe 1 (`Promise.all`)    | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
-| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)               | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
-| 3 ◐  | P0.2 (formül) tamam — P1.1 (`combat.js`), P1.2 (utils) bekliyor | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
-| 4    | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)                 | ~4.000 satır eksilir, veri katmanı bakılabilir olur      |
-| 5    | P3.1 kademe 2, P3.2 (preload)                                   | Türkçe oyuncu için ~348 KB daha az indirme               |
-| 6    | P1.3 (`interface.js` bölünmesi), P4.3 (renk token'ları)         | Kademeli, her adım ayrı commit                           |
-| 7 ◐  | P4.1 tamam — P4.5, P4.4, P1.4, P2.2 bekliyor; P3.3 ⛔ kapalı    | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
+| Faz  | İçerik                                                       | Beklenen sonuç                                           |
+| ---- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP), P3.1 kademe 1 (`Promise.all`) | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
+| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)            | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
+| 3 ✅ | P0.2 (formül), P1.1 (`combat.js`), P1.2 (utils)              | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
+| 4 ✅ | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)              | ~4.000 satır eksildi, veri katmanı bakılabilir           |
+| 5 ✅ | P3.1 kademe 2, P3.2 (preload)                                | Türkçe oyuncu için 348 KB daha az indirme                |
+| 6 ◐  | P1.3 (3/4 adım), P4.3 (üç yüzey + denetimin yedi maddesi)    | Kısmi, gerekçeleri maddelerinde                          |
+| 7 ◐  | P4.1 tamam — P4.5, P4.4, P1.4, P2.2 bekliyor; P3.3 ⛔ kapalı | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
 
 **Kritik gözlem:** Faz 2 atlanırsa Faz 3 ve 4 çok daha pahalı ve riskli olur, çünkü
 mevcut regresyon testleri kaynak metnine bağlı ve her taşıma işlemi onları kırar.

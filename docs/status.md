@@ -276,19 +276,56 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 7 sürüyor. Kalanlar:
+Refactor planının yedi fazından beşi kapandı, ikisi gerekçeli kısmi. Yayın
+`https://kuroiteiken.github.io/Echoes-Beneath/` adresinde ayakta ve doğrulandı.
 
-1. **P4.4'ün kalanı** — `chs()` fabrikası. Alt barın iki tutamağı yapıldı; seçenek
-   satırları (545 tıklama dinleyicisinin çoğu) bekliyor. `chs()` tek nokta olduğu için
-   `tabIndex` + `role="button"` + Enter/Space bağlaması oradan eklenebilir.
-2. **P1.4** — simülasyon katmanının DOM'a yazması (76 satır içi stil, 30 `innerHTML`).
-3. **P2.2** — `defineItem`; getirisi düşük, `check-refs`'in biçim varsayımına dokunuyor.
-4. ~~P3.3 minify~~ — yapılmayacak, depo sahibi kararı.
+### Kararınızı bekleyen beş madde — bunlar iş kilitliyor
 
-Arka planda bir **tasarım tutarlılık denetimi** çalışıyor (workflow): beş mercek
-(palet, overlay'ler, klavye, hover/focus durumları, yapı) ile `css/` ve `js/ui/`
-taranıyor, her bulgu ayrı bir ajan tarafından çürütülmeye çalışılıyor. Sonucu geldiğinde
-buradaki listeye eklenecek.
+Bu maddeler "yapılacak" değil "karar verilecek", ve bir kısmı başka işin önünde duruyor.
+
+| #                       | Karar                                     | Neden bekliyor                                                                                                                                                                |
+| ----------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PROPOSALS 5             | Dirençler hasarı azaltmalı mı?            | Cevap ölçüldü: 12 `res` alanından 11'i `dmg_calc` tarafından okunmuyor. **Azaltmalı mı** sorusu sizin. Kalkan değerleri ve yanma tasarımı buna bağlı.                         |
+| PROPOSALS 4 + kuyruk #7 | Zırh çift sayımı düzeltilsin mi?          | Ölçtüm: tek başına düzeltmek hasarı **sıfıra** indiriyor (37,0 → 0,0). Ancak `def.str * eff` teriminin düşürülmesiyle birlikte mümkün, ve o düşüşün miktarı bir denge kararı. |
+| PROPOSALS 10            | Avantaj kapsamı hangi okuma?              | Dört okuma var: 32, ~230, 202 ya da 757 yeni girdi. Seçim yapılmadan maliyet belirsiz.                                                                                        |
+| PROPOSALS 11            | Ustalık bonusu unvan takılıyken mi olsun? | 22 unvanın 13'ünde bonus **zaten var**; yeni olan tek şey koşulu takılı olmaya bağlamak.                                                                                      |
+| PROPOSALS 15            | Kalan 10 alan sınırsız olsun mu?          | 31 alanın 21'i zaten kendini yeniliyor. Hangi 10'unun katılacağı içerik kararı.                                                                                               |
+
+### Karar beklemeden yapılabilecekler — hepsi "bitmiş ama bağlanmamış"
+
+Sıra, projenin kendi kuralına göre: daha fazlasını icat etmeden önce biteni bağla.
+
+1. **26 unvan** iki dilde yazılmış ve hiçbir verme yolu yok (PROPOSALS 6, kuyruk #2).
+   `equipment.js:2730-2731`'deki yorumdaki iki verme işlevi de bunun parçası.
+2. **19 tarif** bitmiş, çevrilmiş, öğrenilemiyor; **`item.stdst`** 62 tarifin hiçbirinde
+   kullanılmıyor (PROPOSALS 9).
+3. **`hptn2`** dengelenmiş, tekrarlanabilir kaynağı yok (PROPOSALS 8).
+4. **Yedi kalkanın** hiç kaynağı yok, ve **on yedisinin de `int`'i 0** — büyü dalında hiçbir
+   kalkan savunma yapmıyor (PROPOSALS 7).
+5. **İki araştırma hatası**: tablosu olmadığı hâlde kendini "arandı" bildiren bir orman, ve
+   araştırma yolu tamamlanamayan bir kömür madeni (PROPOSALS 16).
+6. **İki mobilya parçası** bitmiş, adı konmuş, elde edilemiyor (PROPOSALS 13).
+7. **Dojo madalyaları** (kuyruk #1): `acc.otpin` iki yerden veriliyor, `locations.js:839`
+   silinecek; `acc.medl1`-`medl6`'nın hiç statı yok, beşinin kaynağı yok.
+
+### Kalan refactor maddeleri
+
+| Madde                       | Durum | Not                                                                                                                                                                                                                                                                                                                               |
+| --------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P4.4 `chs()` klavye erişimi | ◐     | **En büyük erişilebilirlik açığı.** Oyun `js/world/locations.js`'te ~706 `chs()` çağrısıyla oynanıyor ve tek etkinleştirme yolu fare. Orta-yüksek risk: fabrikanın kendi `click`'i eylem yolu değil, o yüzden Enter gerçek bir `click` göndermeli; ve `clr_chs()` satırları sürekli yıkıp kurduğu için odak stratejisi gerekiyor. |
+| P1.3 `preferences.js`       | ◐     | Gerekçeli atlandı: tercih fonksiyonları DOM kurulumuyla iç içe ve `const` TDZ riski var. Ayırmak DOM kurulumunu bölmeyi gerektiriyor.                                                                                                                                                                                             |
+| P4.3 kalan renkler          | ◐     | `rgb(255,192,5)` / `rgb(0,235,255)` / `rgb(44,255,44)` bir `stype` skalası, `#e8421c` hava durumu. Anlamları doğrulanmadan isim vermek yanlış isimli token üretir.                                                                                                                                                                |
+| Denetimin kalan 11 maddesi  | ◐     | PROPOSALS 18: başlık seçme penceresi (karar gerekiyor — vazgeçme yolu akışı değiştirir), envanter çip kümesi (renkleri JS'te satır içi), `input:focus` daraltması.                                                                                                                                                                |
+| P1.4 simülasyon DOM'u       | ⏳    | 76 satır içi stil, 30 `innerHTML`. Saat/ay evresi/doygunluk ile başlanabilir.                                                                                                                                                                                                                                                     |
+| P2.2 `defineItem`           | ⏳    | Getirisi düşük; `check-refs`'in biçim varsayımına dokunuyor.                                                                                                                                                                                                                                                                      |
+| P4.5 kalanı                 | ⏳    | Ölü kod **bilinçli** bırakıldı (kuyruk #2'nin kaydı). `for...in` ve `Base64` getirisi riskinden düşük.                                                                                                                                                                                                                            |
+| P3.3 minify                 | ⛔    | Yapılmayacak, depo sahibi kararı.                                                                                                                                                                                                                                                                                                 |
+
+### Kayıt göçü gerektiren tek iş
+
+**Kuyruk #8 — aksesuar yuvaları.** v479 göçü gerekiyor. PROPOSALS 15 artık göç
+gerektirmediği için (21 alan zaten kendini yeniliyor) bu maddeyi eşleştirecek başka bir iş
+kalmadı; tek başına yapılacak.
 
 ## Kuyruk — araştırılmış bulgularla
 
