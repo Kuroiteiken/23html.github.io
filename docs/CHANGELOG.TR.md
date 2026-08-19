@@ -10,6 +10,45 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- `js/core/devmode.js` içinde geçici geliştirme araçları; oyunu `?devMode=true` ile açarak
+  erişiliyor. Her satıcıyı yeniliyor, bir gün ilerletiyor, para ve seviye veriyor, iyileştiriyor
+  ve `registry.key` ile herhangi bir eşyayı veriyor. Oyun duyurulmadan önce çıkması gerekiyor ve
+  altında istendiği iki özellik, anlatmaya değer olanlar.
+- **Tek düzenlemeyle çıkıyor, sonra iki.** `DEV_MODE_ENABLED = false` işaretçi dahil her özelliği
+  kapatıyor; dosyayı ve `scripts/sources.js`'teki satırını silmek tamamen kaldırıyor. O dosyanın
+  dışında hiçbir yer araçların adını bilmiyor ve başka bir yerdeki tek satır, `startGame`'in
+  sonundaki `initDevMode()` çağrısı.
+- **Konsoldan açılamıyor.** Bayrak adres çubuğundan bir kez, paket henüz değerlendirilirken, üst
+  düzey bir `const`'a okunuyor -- konsoldan okunabilir ama atanamaz, yani kurulacak bir
+  `global.devMode` yok. Araçlar global adlar değil `initDevMode`'un iç fonksiyonları, yani hiçbiri
+  çağrılabilir değil; ve `initDevMode` URL'yi değil yüklenirken yakalanan değeri okuyor, yani
+  `history.pushState` ardından yeni bir çağrı hiçbir şey yapmıyor. Açmak, sorgu dizesiyle
+  bilerek yeniden yüklemek anlamına geliyor.
+- Bunlar kaynak hakkında değil çalışan bir sayfa hakkında iddialar, o yüzden
+  `tests/probes/dev-mode.js` onları ölçüyor: aynı prob iki kez yükleniyor, biri bayrakla biri
+  bayraksız, ve bayraksız olan üç yolu da deniyor -- bayrağı atamak, `window.devMode` ve
+  `global.devMode` kurmak, URL'yi yeniden yazıp başlatıcıyı tekrar çağırmak -- ve hiçbirinin bir
+  panel üretmemesini şart koşuyor. Bayrak açıkken her aracı fonksiyonu çağırarak değil DOM
+  üzerinden tıklayarak çalıştırıyor, yenilemeden önce her satıcının stoğunu boşaltıyor ki
+  sonrasındaki dolu stok gerçek yenileme yolunun çalıştığı anlamına gelsin, ve saatin tam bir gün
+  ilerlediğini kontrol ediyor.
+- Testlerin geçmesiyle değil negatif kontrolle doğrulandı. Kapıyı
+  `DEV_MODE_ACTIVE = DEV_MODE_ENABLED` ile değiştirmek "the dev panel was built without
+  ?devMode=true" ile düşüyor; `initDevMode`'a ayrıca `global.devMode` okutmak "dev mode was opened
+  from the page after load" ile düşüyor. İkisi de önce alınmış bir yedekten `cp` ile geri yüklendi,
+  `git checkout` ile değil -- o, bu çalışmanın başında commit edilmemiş bir düzeltmeyi silmişti.
+- Yenileme aracı her satıcının kendi `onDayPass`'ini sürüyor -- geri sayımı bire indirip çağırmak
+  -- böylece yenileme, sayaç sıfırlaması, `onRestock` ve `extra` gerçek bir günün çalıştıracağı
+  gibi çalışıyor; `restock()` çağırıp gerisini adımdan düşürmek yerine. Verme alanı hedefini
+  bilerek dinamik olarak buluyor: `scripts/report-pending.js` artık düz `giveItem(acc.medl5)`
+  çağrılarını bir kaynak olarak sayıyor, yani geliştirme araçlarındaki sabit bir bağış, elde
+  edilemez bir eşyanın kendini elde edilebilir bildirmesine yol açardı.
+- Düzeltilmemiş bir güvenilirlik notu: kayıt aktarımının clipboard probu bu çalışma sırasında iki
+  kez düştü ve iki kez de tekrar çalıştırmada geçti; biri "Escape did not close the export
+  dialog", diğeri "pressing paste with no clipboard permission left the field silent" ile. Bu
+  oyunda değil tarayıcı suite'inde bir flake ve tekrar çalıştırana kadar bir negatif kontrolü
+  maskeledi.
+
 - Altı dojo madalyası statlandırıldı ve ilginç olan kısım, ölçümün neyi eklediği değil neyi
   dışladığı. `acc.medl1`-`medl6`'nın hepsi `str`/`int`/`agl`/`spd` sıfır, `oneq` boş ve
   açıklama yerinde `"proc"` ile çıkmıştı. `acc.medl5` 45. seviye dojo kademesinde veriliyor,

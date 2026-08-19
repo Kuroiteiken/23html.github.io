@@ -370,6 +370,9 @@
         "The values sit only where the game actually attacks. Of thirty-nine creatures, thirty-three swing physically, four with air and two with water -- nothing in the game uses earth, fire, light or dark, and nothing is a demon. So the two light-named medals earn their light against the undead, which the catacombs are full of, instead of carrying a resistance nothing could ever trigger.",
         "The White Boar Medal and the White Jade Medal are handed out at levels 40 and 50. The level-40 tier had been giving the Sword Medal, which the training quest already gives, so that tier was a second copy of something you were already wearing.",
         "The Moon, Little Light and Moonlight medals still have no source. They are the three lowest ranks and belong at earlier dojo tiers, but putting them there changes what a level-25 fighter can shrug off, so that one is a decision rather than a fix."
+      ],
+      "v478_37": [
+        "The link to the source code in the bottom bar is the bar's own colour. It was the browser's default link blue, and turned purple once you had opened it — the one colour pair the bar uses nowhere else. The version link beside it only escaped that by accident."
       ]
     },
     "lore": {

@@ -60,7 +60,7 @@ global.ver = 478;
 // The point release within v478. Raised on every deploy that changes something a
 // player would notice, so a returning player is told about the four small updates they
 // missed rather than only about the last big one.
-global.subver = 36;
+global.subver = 37;
 global.sm = 1;
 global.rm = 0;
 global.bg_g = global.bg_r = global.bg_b = 255;
@@ -428,6 +428,9 @@ function startGame() {
     clearLoadingScreen();
   }
   scheduleGameViewportFit();
+  // Temporary, and a no-op unless the page was opened with ?devMode=true. Built after
+  // load() so the player and the vendors it operates on exist. See js/core/devmode.js.
+  initDevMode();
 }
 
 window.addEventListener("resize", scheduleGameViewportFit);

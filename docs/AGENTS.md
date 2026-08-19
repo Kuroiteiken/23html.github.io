@@ -27,7 +27,8 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
 ## Source layout
 
 - `css/`: source styles.
-- `js/core/`: startup, save/load, and player state.
+- `js/core/`: startup, save/load, and player state. Includes `devmode.js`, which is
+  temporary -- see Development mode below.
 - `js/data/`: game-content definitions.
 - `js/systems/`: game systems.
 - `js/ui/`: DOM and rendering code.
@@ -133,6 +134,24 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
   viewport where practical, and test them at reduced viewport sizes.
 - Reply to the repository owner in Turkish. On forks, follow the current user's
   language preference.
+
+## Development mode
+
+`js/core/devmode.js` is temporary tooling, active only when the page is opened with
+`?devMode=true`. **It has to be removed before the game is announced.** Removing it:
+
+1. Set `DEV_MODE_ENABLED` to `false` in `js/core/devmode.js`. That disables every feature and
+   the on-screen marker.
+2. Delete `js/core/devmode.js`, its line in `scripts/sources.js`, the `initDevMode()` call at
+   the end of `startGame` in `js/core/bootstrap.js`, the `#dev-mode` block at the end of
+   `css/game.css`, `tests/probes/dev-mode.js`, and its two blocks in
+   `tests/browser-smoke-test.js`.
+
+Two rules while it exists. The flag is read once at load into a top-level `const` and the tools
+are inner functions, so there is deliberately nothing to set from a console -- do not add a
+writable global, and do not make any tool a top-level function. And do not write a literal
+`giveItem(acc.something)` in dev tooling: `scripts/report-pending.js` counts those as a source,
+so it would make an unobtainable item report itself as obtainable.
 
 ## Deployment
 

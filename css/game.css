@@ -1580,3 +1580,101 @@ body {
   list-style: none;
   margin-left: -20px;
 }
+
+/* Temporary development tooling, only ever on screen when the page was opened with
+   ?devMode=true. Deliberately loud: a dev build that looks like a normal build is one that
+   gets deployed by accident. Removing dev mode removes this block with it -- nothing else in
+   the stylesheet references these names.
+
+   Top-left rather than any corner the game already uses: the save bar and its restore handle
+   own the bottom, and #ctrmg and the title container sit centre and top-right. */
+#dev-mode {
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  box-sizing: border-box;
+  position: fixed;
+  max-width: 260px;
+  border: 1px solid #ff4d4d;
+  border-top: none;
+  border-left: none;
+  border-bottom-right-radius: 4px;
+  padding: 0;
+  color: #ffe9e9;
+  background: rgb(48 0 0 / 94%);
+  font-size: 12px;
+}
+#dev-mode-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 6px;
+  background: #8b0000;
+}
+.dev-mode-title {
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.dev-mode-collapse {
+  min-width: 20px;
+  border: 1px solid #ff9a9a;
+  border-radius: 2px;
+  padding: 0 4px;
+  color: #fff;
+  background: rgb(0 0 0 / 30%);
+  cursor: pointer;
+  line-height: 1.4;
+}
+.dev-mode-collapse:hover,
+.dev-mode-collapse:focus-visible {
+  background: rgb(255 154 154 / 30%);
+}
+#dev-mode-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+}
+.dev-mode--collapsed #dev-mode-body,
+.dev-mode--collapsed #dev-mode-status {
+  display: none;
+}
+.dev-mode-tool {
+  border: 1px solid #ff7a7a;
+  border-radius: 2px;
+  padding: 3px 6px;
+  color: #ffe9e9;
+  background: rgb(90 0 0 / 80%);
+  cursor: pointer;
+  font-size: 12px;
+  text-align: left;
+}
+.dev-mode-tool:hover,
+.dev-mode-tool:focus-visible {
+  border-color: #ffd0d0;
+  color: #fff;
+  background: rgb(150 10 10 / 90%);
+}
+.dev-mode-row {
+  display: flex;
+  gap: 4px;
+}
+.dev-mode-input {
+  min-width: 0;
+  border: 1px solid #ff7a7a;
+  border-radius: 2px;
+  padding: 2px 4px;
+  color: #ffe9e9;
+  background: rgb(20 0 0 / 90%);
+  flex: 1 1 auto;
+  font-family: inherit;
+  font-size: 12px;
+}
+#dev-mode-status {
+  border-top: 1px solid rgb(255 122 122 / 40%);
+  padding: 3px 6px;
+  color: #ffbdbd;
+  font-size: 11px;
+}

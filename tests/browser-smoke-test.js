@@ -353,6 +353,66 @@ async function main() {
       }
     }
 
+    // Dev mode, loaded twice: once with the flag and once without. The half without the flag is
+    // the one that matters -- it is the build a player gets, and what it has to show is nothing.
+    const devOff = await runChrome(
+      `${baseUrl}/__test-dev-mode.html`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(devOff.stderr);
+    assertCommonStartup(devOff.stdout, port);
+    for (const [flag, complaint] of [
+      ["dev-panel-exists", "the dev panel was built without ?devMode=true"],
+      [
+        "dev-console-cannot-open",
+        "dev mode was opened from the page after load, by assigning the flag, setting a global or rewriting the URL and re-running the initialiser",
+      ],
+    ]) {
+      const expected = flag === "dev-panel-exists" ? "false" : "true";
+      if (!devOff.stdout.includes(`data-${flag}="${expected}"`)) {
+        throw new Error(`Dev mode regression: ${complaint}.`);
+      }
+    }
+    if (!devOff.stdout.includes('data-dev-panel-count="0"')) {
+      throw new Error(
+        "Dev mode regression: a dev panel is in the document of a build opened without the flag.",
+      );
+    }
+
+    const devOn = await runChrome(
+      `${baseUrl}/__test-dev-mode.html?devMode=true`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(devOn.stderr);
+    assertCommonStartup(devOn.stdout, port);
+    for (const [flag, complaint] of [
+      ["dev-panel-exists", "the dev panel was not built with ?devMode=true"],
+      ["dev-panel-visible", "the dev panel is in the document but not visible"],
+      [
+        "dev-marker-text",
+        "the dev panel does not say DEV MODE, so a dev build does not look like one",
+      ],
+      [
+        "dev-restock-worked",
+        "the restock tool left every vendor's stock empty",
+      ],
+      [
+        "dev-day-advanced",
+        "the advance-a-day tool did not move the clock by a day",
+      ],
+      ["dev-levels-given", "the levelling tool did not add five levels"],
+      ["dev-healed", "the heal tool did not restore health"],
+    ]) {
+      if (!devOn.stdout.includes(`data-${flag}="true"`)) {
+        throw new Error(`Dev mode regression: ${complaint}.`);
+      }
+    }
+    if (!devOn.stdout.includes('data-dev-panel-count="1"')) {
+      throw new Error(
+        "Dev mode regression: re-running the initialiser built a second dev panel.",
+      );
+    }
+
     // The save bar's two links. The static check pins the source URL against package.json; this
     // checks the link is in the bar, visible, focusable and labelled in the player's language.
     const barLinks = await runChrome(
@@ -782,7 +842,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, keyboard navigation, save bar links, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Dev mode gating, slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, keyboard navigation, save bar links, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

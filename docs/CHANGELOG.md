@@ -10,6 +10,43 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- Temporary development tooling in `js/core/devmode.js`, reached by opening the game with
+  `?devMode=true`. It restocks every vendor, advances a day, gives money and levels, heals, and
+  grants any item by `registry.key`. It is meant to come out before the game is announced, and
+  the two properties it was asked for under are the ones worth describing.
+- **It comes out in one edit, then two.** `DEV_MODE_ENABLED = false` disables every feature
+  including the marker; deleting the file and its line in `scripts/sources.js` removes it
+  entirely. Nothing outside that file names any of the tools, and the only line anywhere else is
+  the `initDevMode()` call at the end of `startGame`.
+- **It cannot be opened from the console.** The flag is read from the address bar once, while the
+  bundle is still evaluating, into a top-level `const` -- readable from a console but not
+  assignable, so there is no `global.devMode` to set. The tools are inner functions of
+  `initDevMode` rather than global names, so none of them is callable, and `initDevMode` reads
+  the value captured at load rather than the URL, so `history.pushState` followed by another call
+  does nothing. Turning it on means reloading with the query string, deliberately.
+- Those are claims about a running page rather than about source, so `tests/probes/dev-mode.js`
+  measures them: the same probe is loaded twice, once with the flag and once without, and the
+  half without it attempts all three routes -- assigning the flag, setting `window.devMode` and
+  `global.devMode`, and rewriting the URL then re-running the initialiser -- and requires that
+  none of them produces a panel. With the flag on it clicks each tool through the DOM rather than
+  calling the function, empties every vendor's stock before restocking so a non-empty stock
+  afterwards is the real restock path having run, and checks the clock moved by exactly a day.
+- Verified by negative control rather than by the tests passing. Replacing the gate with
+  `DEV_MODE_ACTIVE = DEV_MODE_ENABLED` fails with "the dev panel was built without
+  ?devMode=true"; making `initDevMode` also read `global.devMode` fails with "dev mode was opened
+  from the page after load". Both were restored with `cp` from a backup taken first, not with
+  `git checkout`, which discarded an uncommitted fix earlier in this work.
+- The restock tool drives each vendor's own `onDayPass` -- countdown to one, then call it -- so
+  the restock, the timer reset, `onRestock` and `extra` all run the way a real day would run them,
+  rather than calling `restock()` and leaving the rest out of step. The grant field looks its
+  target up dynamically on purpose: `scripts/report-pending.js` now counts literal
+  `giveItem(acc.medl5)` calls as a source, so a hardcoded grant in dev tooling would make an
+  unobtainable item report itself as obtainable.
+- One reliability note, not fixed: the save-transfer clipboard probe failed twice during this
+  work and passed on re-run both times, once on "Escape did not close the export dialog" and once
+  on "pressing paste with no clipboard permission left the field silent". It is a flake in the
+  browser suite rather than in the game, and it masked a negative control until the re-run.
+
 - The six dojo medals were statted, and the interesting part is what the measurement ruled
   out rather than what it put in. `acc.medl1`-`medl6` all shipped with `str`/`int`/`agl`/`spd`
   at zero, an empty `oneq`, and `"proc"` in place of a description. `acc.medl5` is handed over

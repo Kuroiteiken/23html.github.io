@@ -135,6 +135,23 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
 - Repository sahibine Türkçe cevap verin. Forklarda mevcut kullanıcının dil
   tercihini izleyin.
 
+## Geliştirme modu
+
+`js/core/devmode.js` geçici bir araç; yalnızca sayfa `?devMode=true` ile açıldığında etkin.
+**Oyun duyurulmadan önce kaldırılması gerekiyor.** Kaldırma:
+
+1. `js/core/devmode.js` içinde `DEV_MODE_ENABLED`'ı `false` yap. Bu, her özelliği ve ekrandaki
+   işaretçiyi kapatır.
+2. `js/core/devmode.js`'i, `scripts/sources.js`'teki satırını, `js/core/bootstrap.js` içindeki
+   `startGame` sonundaki `initDevMode()` çağrısını, `css/game.css` sonundaki `#dev-mode` bloğunu,
+   `tests/probes/dev-mode.js`'i ve `tests/browser-smoke-test.js` içindeki iki bloğunu sil.
+
+Var olduğu sürece iki kural. Bayrak yüklenirken bir kez üst düzey bir `const`'a okunuyor ve
+araçlar iç fonksiyonlar, yani konsoldan kurulacak hiçbir şey bilerek yok -- yazılabilir bir global
+eklemeyin ve hiçbir aracı üst düzey fonksiyon yapmayın. Ve geliştirme araçlarında düz bir
+`giveItem(acc.birşey)` yazmayın: `scripts/report-pending.js` bunları bir kaynak olarak sayıyor,
+bu da elde edilemez bir eşyanın kendini elde edilebilir bildirmesine yol açar.
+
 ## Deployment
 
 - GitHub Pages kaynağı GitHub Actions olmalıdır.

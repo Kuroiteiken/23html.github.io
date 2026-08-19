@@ -36,4 +36,6 @@ module.exports = [
   "js/ui/map-and-mastery.js",
   "js/utils/random.js",
   "js/utils/encoding.js",
+  // Temporary development tooling. Removing dev mode is this line plus js/core/devmode.js.
+  "js/core/devmode.js",
 ];

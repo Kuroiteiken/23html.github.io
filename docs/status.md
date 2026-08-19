@@ -458,6 +458,34 @@ alındı — ama o dosyadaki **commit edilmemiş gerçek düzeltme de** silindi 
 kırıldı. Geçici bozmayı geri almanın doğru yolu: bozmayı ters yönde uygulamak ya da
 önce dosyayı kopyalayıp sonra geri yazmak.
 
+**Tırnaksız heredoc (`<<PY`) bash'e genişletme yapıyor.** Bu oturumda iki kez ısırdı:
+JavaScript şablon dizesi içindeki `${...}` bash tarafından yendi (değiştirme sessizce
+eşleşmedi ve test 1. seviye bir oyuncuya karşı geçti), ve Python dizesi içindeki ters
+tırnaklar komut olarak çalıştırıldı. Kural: **her zaman `<<'PY'` kullan**; içeriye yol
+gerekiyorsa ortam değişkeni ya da ayrı bir dosya üzerinden geçir, heredoc'a
+interpolasyon yaptırma.
+
+**Yanlış sebeple geçen prob.** Bu oturumda üç kez: `display:none` bir öğe ölçüldü,
+yanlış diyalog seçildi, ve bir bağlantının rengi `focus()` çağrısından _sonra_ ölçülüp
+`:focus-visible` rengi okundu (doğru CSS bozuk bildirildi). Bir prob yazdıktan sonra
+**negatif kontrol zorunlu**: kasıtlı olarak boz, testin düştüğünü ve _doğru mesajla_
+düştüğünü gör, sonra `cp` yedeğinden geri yükle.
+
+**Tarayıcı suite'inde bilinen flake.** `save-transfer-modal` clipboard probu bu oturumda
+iki kez düştü ve iki kez de tekrar çalıştırmada geçti ("Escape did not close the export
+dialog" ve "pressing paste with no clipboard permission left the field silent"). Oyunda
+değil testte bir sorun, ama bir negatif kontrolü maskeledi — bir düşüşü değerlendirmeden
+önce bir kez tekrar çalıştır.
+
+## Geçici: devMode
+
+`js/core/devmode.js` v478.37'de eklendi ve **oyun duyurulmadan önce kaldırılacak**.
+Kaldırma adımları `docs/AGENTS.md` içindeki "Development mode" bölümünde sırayla yazılı.
+Kısıt sahibinden geldiği gibi korundu: konsoldan açılamıyor (bayrak yüklenirken tek bir
+üst düzey `const`'a okunuyor, araçlar iç fonksiyonlar, yazılabilir global yok) ve tek bir
+`DEV_MODE_ENABLED = false` ile tamamen devre dışı kalıyor. Üç konsol saldırı yolu da
+`tests/probes/dev-mode.js` içinde ölçülüyor ve iki negatif kontrolle doğrulandı.
+
 ## Depo sahibinin sırası
 
 Bu bölüm ham istek listesi değil, **işlenmiş bir kuyruk**. Kuralı depo sahibi koydu:

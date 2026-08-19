@@ -370,6 +370,9 @@
         "Değerler yalnızca oyunun gerçekten saldırdığı yerlerde duruyor. Otuz dokuz yaratığın otuz üçü fiziksel, dördü hava, ikisi su ile vuruyor -- oyunda toprak, ateş, ışık ya da karanlık kullanan hiçbir şey yok, şeytan sınıfından da hiçbir şey yok. Bu yüzden ışık adı taşıyan iki madalya, ışığını hiçbir zaman tetiklenemeyecek bir dirençle değil, katakompların dolu olduğu ölümsüzlere karşı kazanıyor.",
         "Beyaz Domuz ve Beyaz Yeşim madalyaları 40. ve 50. seviyelerde veriliyor. 40. kademe şimdiye kadar Kılıç Madalyası veriyordu; onu eğitim görevi zaten veriyor, yani o kademe üzerinde taşıdığın şeyin ikinci bir kopyasıydı.",
         "Ay, Küçük Işık ve Ayışığı madalyalarının hâlâ kaynağı yok. Üçü de en alt rütbeler ve daha erken dojo kademelerine ait, ama oraya konmaları 25. seviyedeki bir dövüşçünün neyi göğüsleyebileceğini değiştirir -- o yüzden bu bir düzeltme değil, bir karar."
+      ],
+      "v478_37": [
+        "Alt bardaki kaynak kodu bağlantısı artık barın kendi renginde. Tarayıcının varsayılan bağlantı mavisiydi ve bir kez açtığınızda mora dönüyordu — barın başka hiçbir yerde kullanmadığı tek renk çifti. Yanındaki sürüm bağlantısı bundan yalnızca tesadüfen kurtulmuştu."
       ]
     },
     "lore": {
