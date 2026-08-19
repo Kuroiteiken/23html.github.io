@@ -910,7 +910,9 @@ function load(dt) {
       ttl[a].tget = false;
     }
     global.titles = [];
-    you.name = yu_s.name;
+    // A save is exported and shared as a file, so this is the point where somebody
+    // else's text enters the game.
+    you.name = sanitizePlayerName(yu_s.name);
     for (const o in ttl) if (ttl[o].id === yu_s.title) you.title = ttl[o];
     you.lvl = yu_s.lvl || 1;
     you.exp = yu_s.exp || 0;
@@ -1181,7 +1183,7 @@ function load(dt) {
           rcp[obj].have = true;
         }
     }
-    dom.d2.innerHTML = you.name;
+    dom.d2.textContent = you.name;
     eqpres();
     unequip(you.eqp[4], { save: true });
     unequip(you.eqp[5], { save: true });

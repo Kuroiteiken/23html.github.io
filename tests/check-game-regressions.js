@@ -111,14 +111,21 @@ const playerSource = fs.readFileSync(
 const playerNamePersistence = [
   /this\.name\s*=\s*i18n\.t\("runtime\.core\.player\.interface\.name"\)/,
   /const yu\s*=\s*{\s*name:\s*you\.name,/,
-  /you\.name\s*=\s*yu_s\.name;/,
+  // Restored through the sanitiser rather than assigned raw. A save is exported and
+  // shared as a file, so this is where another player's text enters the game, and the
+  // name reaches an innerHTML through the hover description and the combat log.
+  // Requiring the call here means the round trip and the cleaning cannot come apart.
+  /you\.name\s*=\s*sanitizePlayerName\(yu_s\.name\)/,
 ];
 
 if (
   !playerNamePersistence[0].test(playerSource) ||
   !playerNamePersistence
     .slice(1)
-    .every((pattern) => pattern.test(bootstrapSource))
+    .every((pattern) => pattern.test(bootstrapSource)) ||
+  // The one piece of player-authored text in the game must not be written as markup.
+  /dom\.d2\.innerHTML\s*=/.test(bundleSource) ||
+  !/function sanitizePlayerName\(/.test(bundleSource)
 ) {
   throw new Error(
     "Save regression: the localized player name must remain only a new-game default and custom names must round-trip through save/load.",

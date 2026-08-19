@@ -54,6 +54,10 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   (20 kullanım, iki yazım birleşti). Kalan renkler anlamları doğrulanmadığı için
   bırakıldı.
 - **Yeni prob**: `tests/probes/list-surfaces.js`.
+- **P4.1 tamamlandı**: oyuncu adı iki noktada temizleniyor, HUD `textContent` yazıyor.
+  Yeni prob `tests/probes/player-name-safety.js`. Negatif kontrolü yapıldı ve
+  katmanların ayrı ayrı korunduğu doğrulandı.
+- **P3.3 yapılmayacak**: depo sahibi minify istemiyor. Madde kapalı.
 - İki değişiklik de regresyon testli ve **negatif kontrolü yapılmış** (koruma
   kaldırıldığında test kırılıyor).
 
@@ -217,17 +221,14 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 6 tamamlandı (P1.3 ve P4.3 kısmen, gerekçeleri planda). Sıradaki **Faz 7** —
-plan bu fazı "getiri/risk oranına göre ayrı ayrı karar" diye tarif ediyor, o yüzden
-sırası değer sırasına göre:
+Faz 7 sürüyor. Kalanlar:
 
-1. **P4.1** — oyuncu adı `innerHTML` yerine `textContent`. Küçük, test edilebilir,
-   ve paylaşılan bir kayıt dosyası üzerinden gerçek bir yol açıyor.
-2. **P4.5** — ölü kod (99 satır yoruma alınmış), `.gitignore` artıkları.
-3. **P4.4** — `chs()` tek nokta olduğu için klavye erişimi tek yerden eklenebilir.
-4. **P1.4** — simülasyon katmanının DOM'a yazması.
-5. **P2.2 / P3.3** — getirisi en düşük ikisi; P2.2 `check-refs`'in biçim varsayımına
-   dokunuyor, P3.3 minify yeni bir hata sınıfı getiriyor.
+1. **P4.5** — ölü kod (99 satır yoruma alınmış), `.gitignore`'daki Next.js/Vercel
+   artıkları, `for...in` notu, `Base64`.
+2. **P4.4** — `chs()` tek nokta olduğu için klavye erişimi tek yerden eklenebilir.
+3. **P1.4** — simülasyon katmanının DOM'a yazması.
+4. **P2.2** — `defineItem`; getirisi düşük, `check-refs`'in biçim varsayımına dokunuyor.
+5. ~~P3.3 minify~~ — **yapılmayacak**, depo sahibi kararı.
 
 ## Kuyruk — araştırılmış bulgularla
 

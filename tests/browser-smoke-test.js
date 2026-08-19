@@ -234,6 +234,36 @@ async function main() {
       );
     }
 
+    // The player's name is the only player-authored text the game draws, and it reaches
+    // surfaces built as HTML. A save is a shared file, so this is not only a player's own
+    // problem. The probe types a payload that runs the moment it is parsed as markup.
+    const nameSafety = await runChrome(
+      `${baseUrl}/__test-player-name-safety.html`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(nameSafety.stderr);
+    assertCommonStartup(nameSafety.stdout, port);
+    if (!nameSafety.stdout.includes('data-name-probe-fired="false"')) {
+      throw new Error(
+        "A tag typed into the player's name executed. The name is drawn in the HUD, in its hover description and in the combat log, and a save is exported as a file -- so this runs in the page of whoever opens that save.",
+      );
+    }
+    if (!nameSafety.stdout.includes('data-name-hud-has-element="false"')) {
+      throw new Error(
+        "The HUD built the player's name as markup. It must be written with textContent.",
+      );
+    }
+    if (!nameSafety.stdout.includes('data-name-stored-has-bracket="false"')) {
+      throw new Error(
+        "The stored player name still contains < or >. sanitizePlayerName must strip them where the name enters the game, so the hover description and the combat log are safe too.",
+      );
+    }
+    if (!nameSafety.stdout.includes('data-name-log-has-element="false"')) {
+      throw new Error(
+        "The combat log built an element out of the player's name.",
+      );
+    }
+
     const mobileChangelog = await runChrome(
       `${baseUrl}/changelog/changelog.html`,
       profiles[0],
@@ -595,7 +625,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

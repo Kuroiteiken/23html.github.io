@@ -582,7 +582,7 @@ iki ayrı kaynak sayar ve 1,2 MB iki kez inerdi — yani hiç önyüklememekten 
 olurdu. Tarayıcı testi tam bunu doğruluyor ve damgalama kaldırıldığında kırılıyor;
 negatif kontrolü yapıldı.
 
-### P3.3 Paket minify edilmiyor
+### P3.3 ⛔ Paket minify edilmiyor
 
 **Kanıt:** `dist/js/game.js` 1.251.555 bayt, gzip sonrası 235 KB. Kaynak zaten
 üretilmiş bir çıktı olduğundan minify etmek okunabilirlik kaybı yaratmaz.
@@ -592,11 +592,16 @@ adımı yeni bir bağımlılık ve yeni bir hata sınıfı getirir (bu kod taban
 hoisting ve tek kapsam davranışına bağlı, agresif bir minifier bunu bozabilir).
 Kazanç, P3.1'in kazancından küçük olacağı için **sıra sonuncudur**.
 
+**Yapılmayacak — depo sahibi kararı (2026-08-19).** Paket minify edilmeyecek. Karar
+gerekçesiyle uyumlu: bu kod tabanı global hoisting ve tek kapsam davranışına bağlı,
+agresif bir minifier bunu bozabilir, ve kazanç P3.1'in kazancından küçük. Bu madde
+kapalıdır; tekrar önerilmemeli.
+
 ---
 
 ## P4 — Sağlamlaştırma ve hijyen
 
-### P4.1 Oyuncu adı ve mesaj günlüğü `innerHTML` üzerinden çiziliyor
+### P4.1 ✅ Oyuncu adı ve mesaj günlüğü `innerHTML` üzerinden çiziliyor
 
 **Kanıt:** [interface.js:13-23](../js/ui/interface.js#L13-L23) — `you.name`
 doğrudan bir `<input>` değerinden alınıp `dom.d2.innerHTML` içine yazılıyor;
@@ -623,6 +628,35 @@ kaybettireceği için önerilmiyor; kaynak temizlenince günlük de temiz olur.
 
 **Risk:** Çok düşük. Regresyon testi: adı `<b>x</b>` yapıp HUD'da birebir metin
 olarak göründüğünü doğrula.
+
+**Yapıldı, iki katman hâlinde.**
+
+`sanitizePlayerName()` (`js/core/player.js`) adın oyuna girdiği **her iki noktada**
+`<`, `>` ve `&` karakterlerini kaldırıyor: girdinin `focusout`'unda ve kayıt
+yüklemesinde. İkincisi asıl olan — `js/utils/encoding.js`'in kendi başlığı kayıtların
+dosya olarak paylaşıldığını söylüyor, yani başkasının kaydından gelen ad bu yoldan
+giriyor.
+
+HUD artık `textContent` yazıyor (üç yerde: ilk kurulum, `focusout`, kayıt yüklemesi).
+Girdiye `maxLength = 24` kondu — uzunluk burada değil eleman üzerinde sınırlandı, ki
+mevcut bir kayıt taşıdığı adı kaybetmesin.
+
+**İki katman ayrı ayrı korunuyor ve bu ayrım deneyle ortaya çıktı:**
+
+- `tests/probes/player-name-safety.js` ada, markup olarak ayrıştırıldığı anda kendi
+  kendine çalışan bir yük yazıyor ve dört şeyi kaydediyor: yükün çalışıp çalışmadığı,
+  HUD'un eleman kurup kurmadığı, saklanan adda köşeli parantez kalıp kalmadığı, ve
+  mesaj günlüğünün adı eleman olarak kurup kurmadığı.
+- `check-game-regressions.js` `dom.d2.innerHTML =` yazımını **yasaklıyor** ve
+  `sanitizePlayerName` tanımının varlığını zorunlu kılıyor. Kayıt turu iddiası da
+  artık `you.name = sanitizePlayerName(yu_s.name)` istiyor, yani turlama ile temizleme
+  birbirinden ayrılamıyor.
+
+Negatif kontrol iki korumayı tek tek kaldırarak yapıldı ve **derinliğin gerçek olduğunu
+gösterdi**: sanitize etkisizleştirildiğinde tarayıcı testi kırılıyor (yük gerçekten
+çalıştı), ama `textContent` `innerHTML`'e çevrildiğinde tarayıcı testi **kırılmıyor** —
+çünkü sanitize onu tutuyor. O katmanı koruyan şey statik yasak, ve o da kırıldığı
+doğrulandı. İkisi birlikte tam kapsama; biri tek başına değil.
 
 ### P4.2 ✅ `docs/ROADMAP.md` dört yerde referans veriliyor ama yok
 
@@ -752,7 +786,7 @@ noktası commit'i alınmalı.
 | 4    | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)                 | ~4.000 satır eksilir, veri katmanı bakılabilir olur      |
 | 5    | P3.1 kademe 2, P3.2 (preload)                                   | Türkçe oyuncu için ~348 KB daha az indirme               |
 | 6    | P1.3 (`interface.js` bölünmesi), P4.3 (renk token'ları)         | Kademeli, her adım ayrı commit                           |
-| 7    | P4.1, P4.4, P4.5, P1.4, P2.2, P3.3                              | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
+| 7 ◐  | P4.1 tamam — P4.5, P4.4, P1.4, P2.2 bekliyor; P3.3 ⛔ kapalı    | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
 
 **Kritik gözlem:** Faz 2 atlanırsa Faz 3 ve 4 çok daha pahalı ve riskli olur, çünkü
 mevcut regresyon testleri kaynak metnine bağlı ve her taşıma işlemi onları kırar.

@@ -10,17 +10,22 @@ dom.d1 = addElement(dom.d0, "div");
 dom.d101 = addElement(dom.d0, "div", "se_i");
 dom.d2c = addElement(dom.d1, "div", null, "d2");
 dom.d2 = addElement(dom.d2c, "div");
-dom.d2.innerHTML = you.name;
+// textContent rather than innerHTML: this is player-authored text. See
+// sanitizePlayerName in js/core/player.js for the whole of the reasoning.
+dom.d2.textContent = you.name;
 dom.d2_a = addElement(dom.d2c, "input", "nch");
+// Bounded on the element so an existing save keeps whatever name it already has, and so
+// a name long enough to push the HUD apart cannot be typed in the first place.
+dom.d2_a.maxLength = 24;
 dom.d2_a.addEventListener("focusin", function () {
   dom.d2_a.value = you.name;
   you.name = "";
-  dom.d2.innerHTML = "　";
+  dom.d2.textContent = "　";
 });
 dom.d2_a.addEventListener("focusout", function () {
-  you.name = dom.d2_a.value;
+  you.name = sanitizePlayerName(dom.d2_a.value);
   dom.d2_a.value = "";
-  dom.d2.innerHTML = you.name;
+  dom.d2.textContent = you.name;
 });
 addDesc(dom.d2c, null, 2, you.name, you.desc);
 dom.d3 = addElement(dom.d1, "div", null, "d3");

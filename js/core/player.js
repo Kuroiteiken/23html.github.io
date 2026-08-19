@@ -225,3 +225,19 @@ you.ai = function () {
   //if(you.hp*100/you.hpmax<50) item.hrb1.use();
   //if(you.sat*100/you.satmax<90) item.appl.use();
 };
+
+// The player types their own name, and it is drawn in the HUD, in the hover
+// description beside it, and in every combat line that mentions them. Those three
+// surfaces are built as HTML, so a name is the one piece of player-authored text that
+// reaches an innerHTML. On its own that is only self-inflicted -- but a save is
+// exported and shared as a file, so a name from somebody else's save would run in the
+// reader's page, and the message log persists under its own storage key, so it would
+// keep running after a reload.
+//
+// Both halves are closed: the characters that could open a tag are removed here, at
+// every point a name enters the game, and the HUD writes it with textContent. Length is
+// bounded on the input element rather than here, so an existing save keeps the name it
+// has.
+function sanitizePlayerName(raw) {
+  return String(raw ?? "").replace(/[<>&]/g, "");
+}
