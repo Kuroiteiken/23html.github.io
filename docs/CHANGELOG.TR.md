@@ -571,6 +571,23 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   README'sindeki tek göç notu içeride ESM'e geçiş; `node-version: 24` ile `cache: npm` aynen
   davranıyor.
 
+- Kaydet çubuğu depoya bağlantı veriyor; changelog'u açan sürüm numarasının yanında. Bir `<a>`,
+  `target="_blank"` ve `rel="noopener noreferrer"` ile -- ikinci yarı önemli, çünkü bu bağlantı
+  siteden çıkıyor ve referrer, oyuncunun bulunduğu sayfanın yayın yolunu üçüncü bir tarafa
+  verirdi. Yeni sekmede açılması da süs değil: yerinde takip etmek kaydedilmemiş bir oyunu
+  terk etmek olurdu.
+- URL pakete yazıldı, çünkü sayfa onu türetemiyor -- `document.baseURI` GitHub değil Pages
+  sunucusunu veriyor -- bu yüzden `package.json` bir `repository` alanı kazandı ve
+  `check-game-regressions.js` ikisinin uyuşmasını zorunlu kılıyor. Depo yeniden adlandırıldığında
+  yayın URL'inin sahip olmadığı koruma tam bu: dört doküman elle bulunup düzenlendi ve biri
+  atlanmış olsa hiçbir şey hata vermezdi.
+- İki bağlantı artık altı çizili olmak için `.sl_link` sınıfını paylaşıyor; sürüm bağlantısı bunu
+  satır içi stil olarak taşıyordu -- tek örnek olmaktan çıkan bir şeyin başına gelen şey.
+- İki taraftan da korunuyor. Statik denetim URL'i `package.json`'a karşı sabitliyor ve `rel` ile
+  `target`'ı zorunlu kılıyor; `tests/probes/save-bar-links.js` bağlantının çubuğun içinde,
+  onunla birlikte görünür, odaklanabilir, altı çizili ve ham bir çeviri anahtarı değil oyuncunun
+  dilinde etiketli olduğunu kontrol ediyor. İki yarının da bozulduğunda kırıldığı doğrulandı.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

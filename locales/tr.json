@@ -93,6 +93,8 @@
     },
     "save": {
       "lastSave": "Son kayıt: {date}",
+      "sourceCode": "Kaynak",
+      "sourceCodeTitle": "Kaynak deposunu GitHub’da aç",
       "unreadable": "Kayıtlı oyunun okunamadı, bu yüzden yeni bir oyun başlatıldı. Okunamayan kayıt yedek olarak saklandı ve üzerine yazılmadı."
     },
     "hud": {
@@ -345,6 +347,9 @@
       "v478_31": [
         "Her yaratık kendi silahıyla dövüşüyor. Hepsi tek bir silahı paylaşıyordu -- oyunun dosyalarında en son yazılanı -- yani bir yarasa, bir kurdun salladığını sallıyordu.",
         "Boş bir zırh yuvası artık seni korumuyor. Emmemesi gereken hasarı emiyordu, çünkü boş yuvalar ile yaratık silahları arka planda aynı nesneydi."
+      ],
+      "v478_32": [
+        "Kaydet çubuğunda, changelog'u açan sürüm numarasının yanında oyunun GitHub'daki kaynağına bir bağlantı var."
       ]
     },
     "lore": {

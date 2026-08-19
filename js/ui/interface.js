@@ -3127,12 +3127,24 @@ dom.autosves.addEventListener("change", function () {
   storeAutosavePreference();
 });
 
-dom.vrs = addElement(dom.sl_controls, "a", "game-version", "sl");
-dom.vrs.innerHTML = "v" + global.ver;
-dom.vrs.style.textDecoration = "underline";
+dom.vrs = addElement(dom.sl_controls, "a", "game-version", "sl sl_link");
+dom.vrs.textContent = "v" + global.ver;
 dom.vrs.href = new URL("changelog/changelog.html", document.baseURI).href;
 dom.vrs.target = "_blank";
 dom.vrs.rel = "noopener";
+
+// The source repository. Written out rather than derived, because the page has no way to know
+// where its own repository is -- document.baseURI gives the Pages host, not the GitHub one.
+// tests/check-game-regressions.js requires this to match the repository field in package.json,
+// so a rename cannot leave the two disagreeing the way it nearly did with the deployment URL.
+dom.src = addElement(dom.sl_controls, "a", "game-source", "sl sl_link");
+dom.src.textContent = i18n.t("ui.save.sourceCode");
+dom.src.href = "https://github.com/Kuroiteiken/Echoes-Beneath";
+dom.src.target = "_blank";
+// noreferrer as well as noopener: this one leaves the site, and the referrer would carry the
+// player's deployment path to a third party for no benefit.
+dom.src.rel = "noopener noreferrer";
+dom.src.title = i18n.t("ui.save.sourceCodeTitle");
 dom.sl_kill = addElement(dom.sl_controls, "span", null, "sl");
 dom.sl_kill.innerHTML = i18n.t(
   "runtime.ui.interface.interface.delete_the_save_b765bc3d",
@@ -3480,6 +3492,11 @@ const releaseNotes = [
     major: 478,
     minor: 31,
     read: () => i18n.get("ui.releaseNotes.v478_31"),
+  },
+  {
+    major: 478,
+    minor: 32,
+    read: () => i18n.get("ui.releaseNotes.v478_32"),
   },
 ];
 

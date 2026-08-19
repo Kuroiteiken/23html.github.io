@@ -613,6 +613,14 @@ input:focus {
   background: rgb(10 30 54 / 70%);
   flex: 0 0 auto;
 }
+
+/* The two links in the bar: the version, which opens the changelog, and the source, which
+   leaves for GitHub. Underlined so they read as links rather than as the buttons beside them;
+   this was an inline style on the version link alone before there were two of them. */
+.sl_link {
+  text-decoration: underline;
+}
+
 #sl > .sl:hover,
 #save-bar-controls > .sl:hover {
   border-color: #71e6b1;

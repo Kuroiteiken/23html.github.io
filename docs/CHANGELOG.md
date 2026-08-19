@@ -568,6 +568,23 @@ changes. Player-facing game content and release notes belong in
   and the v7 README's only migration note is an internal move to ESM, with `node-version: 24`
   and `cache: npm` behaving exactly as before.
 
+- The save bar links to the repository, beside the version number that opens the changelog. It
+  is an <a> with target="_blank" and rel="noopener noreferrer" -- the second half matters because
+  this link leaves the site, and the referrer would otherwise hand the deployment path of the
+  page the player is on to a third party. Opening in a new tab is not cosmetic either: following
+  it in place would abandon an unsaved run.
+- The URL is written into the bundle because the page cannot derive it -- document.baseURI gives
+  the Pages host, not the GitHub one -- so package.json gained a repository field and
+  check-game-regressions.js requires the two to agree. That is the protection the deployment URL
+  did not have when the repository was renamed: four documents had to be found and edited by
+  hand, and nothing would have failed if one had been missed.
+- Both links now share an .sl_link class for the underline rather than the version link carrying
+  it as an inline style, which is what happens to a one-off when it stops being one.
+- Covered from both sides. The static check pins the URL against package.json and requires the
+  rel and target; tests/probes/save-bar-links.js checks the link is inside the bar, visible with
+  it, focusable, underlined, and labelled in the player's language rather than showing a raw
+  translation key. Both halves confirmed to fail when broken.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

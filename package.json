@@ -1,6 +1,11 @@
 {
   "name": "proto23",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kuroiteiken/Echoes-Beneath.git"
+  },
+  "homepage": "https://github.com/Kuroiteiken/Echoes-Beneath",
   "license": "MIT",
   "engines": {
     "node": ">=22"

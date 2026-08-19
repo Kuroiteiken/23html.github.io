@@ -353,6 +353,58 @@ async function main() {
       }
     }
 
+    // The save bar's two links. The static check pins the source URL against package.json; this
+    // checks the link is in the bar, visible, focusable and labelled in the player's language.
+    const barLinks = await runChrome(
+      `${baseUrl}/__test-save-bar-links.html?lang=tr`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(barLinks.stderr);
+    assertCommonStartup(barLinks.stdout, port);
+    for (const [flag, complaint] of [
+      ["bar-source-exists", "the save bar has no source link"],
+      ["bar-version-exists", "the save bar lost its version link"],
+      [
+        "bar-source-in-bar",
+        "the source link is in the document but not inside the save bar",
+      ],
+      ["bar-source-visible", "the source link is not visible when the bar is"],
+      ["bar-source-focusable", "the source link cannot take focus"],
+      [
+        "bar-source-labelled",
+        "the source link rendered a raw translation key instead of a label",
+      ],
+      [
+        "bar-source-underlined",
+        "the source link is not underlined, so it reads as a button rather than a link",
+      ],
+    ]) {
+      if (!barLinks.stdout.includes(`data-${flag}="true"`)) {
+        throw new Error(`Save bar link regression: ${complaint}.`);
+      }
+    }
+    if (
+      !barLinks.stdout.includes(
+        'data-bar-source-href="https://github.com/Kuroiteiken/Echoes-Beneath"',
+      )
+    ) {
+      throw new Error(
+        "Save bar link regression: the source link does not point at the repository.",
+      );
+    }
+    if (
+      !barLinks.stdout.includes('data-bar-source-rel="noopener noreferrer"')
+    ) {
+      throw new Error(
+        "Save bar link regression: the source link is missing noopener or noreferrer.",
+      );
+    }
+    if (!barLinks.stdout.includes('data-bar-source-target="_blank"')) {
+      throw new Error(
+        "Save bar link regression: the source link does not open in a new tab, so following it abandons an unsaved run.",
+      );
+    }
+
     const mobileChangelog = await runChrome(
       `${baseUrl}/changelog/changelog.html`,
       profiles[0],
@@ -714,7 +766,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, keyboard navigation, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, keyboard navigation, save bar links, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

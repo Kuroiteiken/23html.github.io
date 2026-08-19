@@ -354,6 +354,48 @@ if (!/this\.eqp = \[new Eqp\(\), new Eqp\(\)\]/.test(creaturesLiveCode)) {
 
 console.log("Validated that creatures own their equipment.");
 
+// The source link in the save bar. Its URL has to be written into the bundle -- the page cannot
+// derive it, because document.baseURI gives the Pages host rather than the GitHub one -- so the
+// only protection against it drifting is requiring it to agree with the repository field in
+// package.json. The deployment URL nearly went stale across a rename for exactly this reason,
+// and it was only caught by reading four documents by hand.
+const manifestPackage = JSON.parse(
+  fs.readFileSync(path.join(root, "package.json"), "utf8"),
+);
+const declaredRepo = String(manifestPackage.repository?.url ?? "")
+  .replace(/^git\+/, "")
+  .replace(/\.git$/, "");
+if (!declaredRepo) {
+  throw new Error(
+    "Source link regression: package.json has no repository.url, which is what the save bar's source link is checked against.",
+  );
+}
+const linkedRepo = bundleSource.match(/dom\.src\.href = "([^"]+)"/);
+if (!linkedRepo) {
+  throw new Error(
+    "Source link regression: the save bar no longer sets dom.src.href, so there is no link to the source.",
+  );
+}
+if (linkedRepo[1] !== declaredRepo) {
+  throw new Error(
+    `Source link regression: the save bar links to ${linkedRepo[1]} while package.json declares ${declaredRepo}. A rename has to move both.`,
+  );
+}
+// Leaving the site: both halves of rel matter, and the target has to be a new tab or the player
+// loses an unsaved run to a click.
+if (!/dom\.src\.rel = "noopener noreferrer"/.test(bundleSource)) {
+  throw new Error(
+    'Source link regression: the source link must carry rel="noopener noreferrer" -- it leaves the site, so the referrer would hand the deployment path of the page the player is on to a third party.',
+  );
+}
+if (!/dom\.src\.target = "_blank"/.test(bundleSource)) {
+  throw new Error(
+    "Source link regression: the source link must open in a new tab, or following it abandons a run the player has not saved.",
+  );
+}
+
+console.log("Validated the save bar's source link.");
+
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,

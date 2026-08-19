@@ -93,6 +93,8 @@
     },
     "save": {
       "lastSave": "Last save: {date}",
+      "sourceCode": "Source",
+      "sourceCodeTitle": "Open the source repository on GitHub",
       "unreadable": "Your saved game could not be read, so a new game was started. The unreadable save was kept as a backup and has not been overwritten."
     },
     "hud": {
@@ -345,6 +347,9 @@
       "v478_31": [
         "Every creature fights with its own weapon. They were all sharing one -- whichever was written last in the game's files -- so a bat swung what a wolf swings.",
         "An empty armour slot no longer protects you. It was absorbing damage it had no business absorbing, because empty slots and creature weapons were the same object behind the scenes."
+      ],
+      "v478_32": [
+        "The save bar has a link to the game's source on GitHub, beside the version number that opens the changelog."
       ]
     },
     "lore": {
