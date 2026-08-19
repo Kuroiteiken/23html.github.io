@@ -1,3 +1,15 @@
+:root {
+  /* The three surfaces every list in the game is built from. A container is the
+     darkest, a row inside it sits one step lighter, and a row the player cannot
+     afford leans red. They were written out twenty times across two files, in two
+     spellings of the same colour -- rgb(10,30,54) and rgb(10, 30, 54) -- which is
+     what a repeated literal turns into. Read from JavaScript as
+     style.backgroundColor = "var(--list-row)", which is valid in an inline style. */
+  --list-well: rgb(0 20 44);
+  --list-row: rgb(10 30 54);
+  --list-row-denied: rgb(68 26 38);
+}
+
 html body {
   font: 1.1em "MS Gothic";
 }

@@ -328,6 +328,40 @@ changes. Player-facing game content and release notes belong in
   that happens only once -- neither is visible in the rendered page. Both assertions were
   confirmed to fail when the protection they describe is removed.
 
+- The three surfaces every list in the game is built from are custom properties defined
+  once in css/game.css: --list-well for a list's container, --list-row for a row inside
+  it, and --list-row-denied for a row the player cannot afford. They were written out
+  twenty times across two files, and in two spellings of the same colour --
+  rgb(10,30,54) and rgb(10, 30, 54) -- which is what a repeated literal turns into given
+  long enough. JavaScript sets them as style.backgroundColor = "var(--list-row)", which
+  is valid in an inline style.
+- Only those three. rgb(255,192,5), rgb(0,235,255) and rgb(44,255,44) are a scale chosen
+  by an item's stype, and #e8421c is the weather readout's background; naming them
+  without establishing what they mean risks a token whose name is wrong, and a wrongly
+  named token is worse than a literal because it misleads the next reader and then gets
+  used in the wrong place.
+- Both halves of that are protected, because this change fails invisibly. A custom
+  property that does not resolve makes the declaration invalid, so a row gets no
+  background at all rather than the wrong one, and nothing throws -- it would read as a
+  styling accident nobody introduced. check-game-regressions.js requires the three
+  definitions and fails if any of the six literal spellings comes back, which is how a
+  new panel copied from an old one would reintroduce them. tests/probes/list-surfaces.js
+  applies each token the way the game applies it and reads it back through
+  getComputedStyle. Both were confirmed to fail when a token name is misspelt.
+- js/ui/interface.js is 6,075 lines, down from 8,689. Hover descriptions are in
+  js/ui/tooltip.js, the message log in js/ui/message-log.js, the shop, smith, sell,
+  furniture and trunk rows in js/ui/panels.js, and combat in js/systems/combat.js.
+- tooltip.js is concatenated before interface.js rather than after it, unlike the others,
+  and that is the one real ordering rule here: a function declaration hoists across the
+  whole concatenated scope but a const does not. addDesc is called twenty-six times while
+  the interface is built, and the file owns two const label tables, so a const read by an
+  earlier file's definition-time code would be a ReferenceError.
+- The preferences block stayed where it is for the same reason, stated rather than
+  discovered later: autosaveSeconds, applyBackground and restoreBackgroundPreference are
+  not adjacent, DOM construction runs between them, restoreBackgroundPreference is called
+  at definition time, and the block owns const themeStorageKey and const
+  autosaveStorageKey. Separating it means splitting the DOM construction too.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

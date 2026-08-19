@@ -332,6 +332,40 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   kez gerçekleşen bir istek ve hiçbiri sayfanın çıktısında görünmüyor. Her iki iddianın
   da tarif ettiği koruma kaldırıldığında kırıldığı doğrulandı.
 
+- Oyundaki her listenin kurulduğu üç yüzey artık `css/game.css`'te bir kez tanımlanan
+  custom property: listenin kapsayıcısı için `--list-well`, içindeki bir satır için
+  `--list-row`, oyuncunun karşılayamadığı satır için `--list-row-denied`. İki dosyada
+  yirmi kez ve aynı rengin iki yazımıyla -- `rgb(10,30,54)` ve `rgb(10, 30, 54)` --
+  yazılmışlardı; yeterli zaman verildiğinde tekrarlanan bir sabitin dönüştüğü şey tam
+  olarak bu. JavaScript bunları `style.backgroundColor = "var(--list-row)"` olarak
+  atıyor; satır içi stilde custom property geçerli.
+- Yalnızca bu üçü. `rgb(255,192,5)`, `rgb(0,235,255)` ve `rgb(44,255,44)` bir eşyanın
+  `stype` değerine göre seçilen bir skala, `#e8421c` ise hava durumu göstergesinin arka
+  planı; ne anlama geldiklerini saptamadan isim vermek adı yanlış bir token üretme riski
+  taşıyor ve yanlış isimli bir token sabit renkten kötüdür, çünkü sonraki okuyucuyu
+  yanlış yönlendirir ve ardından yanlış yerde kullanılır.
+- Bunun iki yarısı da korunuyor, çünkü bu değişiklik görünmez biçimde bozuluyor.
+  Çözülmeyen bir custom property bildirimi geçersiz kılıyor; satır yanlış renk almıyor,
+  hiç arka plan almıyor ve hiçbir şey hata vermiyor -- kimsenin eklemediği bir stil
+  kazası gibi okunurdu. `check-game-regressions.js` üç tanımı zorunlu kılıyor ve altı
+  sabit yazımdan biri geri gelirse düşüyor; eski bir panelden kopyalanan yeni bir panel
+  onları tam olarak böyle geri getirirdi. `tests/probes/list-surfaces.js` her token'ı
+  oyunun uyguladığı gibi uygulayıp `getComputedStyle` ile geri okuyor. İkisinin de bir
+  token adı yanlış yazıldığında kırıldığı doğrulandı.
+- `js/ui/interface.js` 8.689 yerine 6.075 satır. Baloncuklar `js/ui/tooltip.js`'te,
+  mesaj günlüğü `js/ui/message-log.js`'te, dükkân/demirci/satış/mobilya/sandık satırları
+  `js/ui/panels.js`'te, savaş `js/systems/combat.js`'te.
+- `tooltip.js` diğerlerinin tersine `interface.js`'ten **sonra değil önce** birleştiriliyor
+  ve buradaki tek gerçek sıra kuralı bu: `function` bildirimi tüm birleşik kapsam boyunca
+  hoist edilir ama `const` edilmez. `addDesc` arayüz kurulurken yirmi altı kez çağrılıyor
+  ve dosya iki `const` etiket tablosu taşıyor; önceki bir dosyanın tanım anındaki kodu
+  tarafından okunan bir `const` `ReferenceError` olurdu.
+- Tercih bloğu aynı sebeple yerinde kaldı -- sonradan keşfedilmek yerine baştan yazıldı:
+  `autosaveSeconds`, `applyBackground` ve `restoreBackgroundPreference` bitişik değil,
+  aralarında DOM kurulumu çalışıyor, `restoreBackgroundPreference` tanım anında çağrılıyor
+  ve blok `const themeStorageKey` ile `const autosaveStorageKey`'i taşıyor. Ayırmak DOM
+  kurulumunu da bölmek demek.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

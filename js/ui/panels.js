@@ -17,7 +17,7 @@
 // roll at a shop belongs in a different game.
 function rendersharpenitem(root, line) {
   const row = addElement(root, "div", "bst_entrh", "bst_entr");
-  row.style.backgroundColor = "rgb(10,30,54)";
+  row.style.backgroundColor = "var(--list-row)";
   addDesc(row, line.obj);
   const left = addElement(row, "div", null, "bst_entr1");
   left.style.width = "62%";
@@ -34,7 +34,7 @@ function rendersharpenitem(root, line) {
   right.innerHTML = formatw(cost);
   if (you.wealth < cost) {
     right.style.color = "red";
-    row.style.backgroundColor = "rgb(68,26,38)";
+    row.style.backgroundColor = "var(--list-row-denied)";
   }
   row.addEventListener("click", () => {
     const due = sharpenCost(line.obj);
@@ -90,7 +90,7 @@ function openSmithBench(mode) {
 
 function renderrepairitem(root, line) {
   const row = addElement(root, "div", "bst_entrh", "bst_entr");
-  row.style.backgroundColor = "rgb(10,30,54)";
+  row.style.backgroundColor = "var(--list-row)";
   addDesc(row, line.obj);
   const left = addElement(row, "div", null, "bst_entr1");
   left.style.width = "70%";
@@ -109,7 +109,7 @@ function renderrepairitem(root, line) {
   right.innerHTML = formatw(cost);
   if (you.wealth < cost) {
     right.style.color = "red";
-    row.style.backgroundColor = "rgb(68,26,38)";
+    row.style.backgroundColor = "var(--list-row-denied)";
   }
   row.addEventListener("click", () => {
     const due = repairCost(line.obj);
@@ -132,7 +132,7 @@ function renderrepairitem(root, line) {
 // between this row being rendered and the player pressing it.
 function rendersellitem(root, line, vnd) {
   const row = addElement(root, "div", "bst_entrh", "bst_entr");
-  row.style.backgroundColor = "rgb(10,30,54)";
+  row.style.backgroundColor = "var(--list-row)";
   addDesc(row, line.obj);
   const left = addElement(row, "div", null, "bst_entr1");
   left.style.width = "74%";
@@ -184,7 +184,7 @@ function rendersellitem(root, line, vnd) {
 
 function renderFurniture(frn) {
   dom.ch_etn = addElement(dom.ch_1h, "div", "bst_entrh", "bst_entr");
-  dom.ch_etn.style.backgroundColor = "rgb(10,30,54)";
+  dom.ch_etn.style.backgroundColor = "var(--list-row)";
   dom.ch_etn1 = addElement(dom.ch_etn, "div", null, "bst_entr1");
   dom.ch_etn1.innerHTML = frn.name;
   switch (frn.id) {
@@ -280,7 +280,7 @@ function recshop() {
 
 function rendershopitem(root, itm, vnd) {
   dom.ch_etn = addElement(root, "div", "bst_entrh", "bst_entr");
-  dom.ch_etn.style.backgroundColor = "rgb(10,30,54)";
+  dom.ch_etn.style.backgroundColor = "var(--list-row)";
   addDesc(dom.ch_etn, itm[0]);
   dom.ch_etn1 = addElement(dom.ch_etn, "div", null, "bst_entr1");
   dom.ch_etn1.style.width = "79%";
@@ -320,7 +320,7 @@ function rendershopitem(root, itm, vnd) {
   dom.ch_etn2.style.textAlign = "left";
   if (you.wealth < p) {
     dom.ch_etn2.style.color = "red";
-    dom.ch_etn.style.backgroundColor = "rgb(68,26,38)";
+    dom.ch_etn.style.backgroundColor = "var(--list-row-denied)";
   }
   dom.ch_etn2_1 = addElement(dom.ch_etn2, "span");
   dom.ch_etn2_1.style.width = "33.3%";
@@ -666,7 +666,7 @@ function buycbs(itm, vnd) {
       )
     ) {
       dom.ch_1h.children[i].children[1].style.color = "red";
-      dom.ch_1h.children[i].style.backgroundColor = "rgb(68,26,38)";
+      dom.ch_1h.children[i].style.backgroundColor = "var(--list-row-denied)";
     }
   }
   for (const x in global.shptchk) global.shptchk[x](); //put it here for now

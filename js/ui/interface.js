@@ -1182,7 +1182,7 @@ dom.ct_bt6.addEventListener("click", function () {
       global.lw_op = -1;
       const bst_entr_case = addElement(dom.ctrwin6, "div");
       bst_entr_case.style.height = windowPanelHeight(0.84);
-      bst_entr_case.style.backgroundColor = "rgb(0,20,44)";
+      bst_entr_case.style.backgroundColor = "var(--list-well)";
       bst_entr_case.style.overflow = "auto";
       this.bst_entr_head = addElement(bst_entr_case, "div", null, "bst_entr");
       this.bst_entr_head.style.textAlign = "center";
@@ -1225,7 +1225,7 @@ dom.ct_bt6.addEventListener("click", function () {
           "bst_entrh",
           "bst_entr",
         );
-        this.bst_entr_m_case.style.backgroundColor = "rgb(10,30,54)";
+        this.bst_entr_m_case.style.backgroundColor = "var(--list-row)";
         // The encyclopedia listed only a name, a rank, and a kill count. Every
         // creature already carries a localized description, so hovering an
         // entry now shows what the book actually says about it.
@@ -1278,7 +1278,7 @@ dom.ct_bt6.addEventListener("click", function () {
               "bst_entrh",
               "bst_entr",
             );
-            this.bst_entr_m_case.style.backgroundColor = "rgb(10,30,54)";
+            this.bst_entr_m_case.style.backgroundColor = "var(--list-row)";
             this.bst_entr_m_e1 = addElement(
               this.bst_entr_m_case,
               "div",
@@ -5584,7 +5584,7 @@ function chs_spec(type, x) {
         clr_chs();
         dom.ch_1 = addElement(dom.ctr_2, "div");
         dom.ch_1.style.height = windowPanelHeight(0.76);
-        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.backgroundColor = "var(--list-well)";
         dom.flsthdr = addElement(dom.ch_1, "div");
         dom.flsthdra = addElement(dom.flsthdr, "div");
         dom.flsthdr.style.display = "flex";
@@ -5641,7 +5641,7 @@ function chs_spec(type, x) {
         global.cchest = x;
         dom.ch_1a = addElement(dom.ctr_2, "div");
         dom.ch_1a.style.height = windowPanelHeight(0.745);
-        dom.ch_1a.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1a.style.backgroundColor = "var(--list-well)";
         dom.ch_1a.style.display = "flex";
         dom.ch_1a.style.overflow = "hidden";
         dom.ch_1a.style.position = "relative";
@@ -5690,7 +5690,7 @@ function chs_spec(type, x) {
         // Taking the share from the window gives the column something definite
         // to divide up.
         dom.ch_1.style.height = windowPanelHeight(0.76);
-        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.backgroundColor = "var(--list-well)";
         // With a definite height the list can take whatever is left over and the
         // footer stays on the bottom edge whatever the shop stocks.
         dom.ch_1.style.display = "flex";
@@ -5714,7 +5714,7 @@ function chs_spec(type, x) {
           rendershopitem(dom.ch_1h, x.stock[it], x);
         }
         dom.ch_1c = addElement(dom.ch_1, "div");
-        dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        dom.ch_1c.style.backgroundColor = "var(--list-row)";
         // Both readouts are floated, so the strip needs a height of its own or it
         // would collapse to nothing.
         dom.ch_1c.style.height = "5%";
@@ -5758,7 +5758,7 @@ function chs_spec(type, x) {
         global.menuo = 7;
         dom.ch_1 = addElement(dom.ctr_2, "div");
         dom.ch_1.style.height = windowPanelHeight(0.76);
-        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.backgroundColor = "var(--list-well)";
         dom.ch_1.style.display = "flex";
         dom.ch_1.style.flexDirection = "column";
         dom.flsthdr = addElement(dom.ch_1, "div");
@@ -5789,7 +5789,7 @@ function chs_spec(type, x) {
           none.innerHTML = i18n.t("ui.smith.nothingWorn");
         } else for (const line of worn) renderrepairitem(dom.ch_1h, line);
         dom.ch_1c = addElement(dom.ch_1, "div");
-        dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        dom.ch_1c.style.backgroundColor = "var(--list-row)";
         dom.ch_1c.style.height = "5%";
         dom.ch_1c.style.minHeight = "1.2em";
         dom.ch_1c.style.flexShrink = "0";
@@ -5812,7 +5812,7 @@ function chs_spec(type, x) {
         global.shprf = x;
         dom.ch_1 = addElement(dom.ctr_2, "div");
         dom.ch_1.style.height = windowPanelHeight(0.76);
-        dom.ch_1.style.backgroundColor = "rgb(0,20,44)";
+        dom.ch_1.style.backgroundColor = "var(--list-well)";
         dom.ch_1.style.display = "flex";
         dom.ch_1.style.flexDirection = "column";
         dom.flsthdr = addElement(dom.ch_1, "div");
@@ -5834,7 +5834,7 @@ function chs_spec(type, x) {
           none.innerHTML = i18n.t("ui.shop.sellNothing");
         } else for (const line of lines) rendersellitem(dom.ch_1h, line, x);
         dom.ch_1c = addElement(dom.ch_1, "div");
-        dom.ch_1c.style.backgroundColor = "rgb(10, 30, 54)";
+        dom.ch_1c.style.backgroundColor = "var(--list-row)";
         dom.ch_1c.style.height = "5%";
         dom.ch_1c.style.minHeight = "1.2em";
         dom.ch_1c.style.flexShrink = "0";

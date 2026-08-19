@@ -214,6 +214,26 @@ async function main() {
       throw new Error("The cached-profile reload did not load English.");
     }
 
+    // The list surfaces are custom properties applied from JavaScript. A token that does
+    // not resolve leaves the declaration invalid, so a row loses its background entirely
+    // and nothing throws -- it would read as a styling accident nobody introduced.
+    const listSurfaces = await runChrome(
+      `${baseUrl}/__test-list-surfaces.html`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(listSurfaces.stderr);
+    assertCommonStartup(listSurfaces.stdout, port);
+    if (!listSurfaces.stdout.includes('data-list-surfaces-resolved="true"')) {
+      throw new Error(
+        "A --list-* custom property did not resolve to a colour. Every list in the game reads these, so a row would be drawn with no background at all.",
+      );
+    }
+    if (!listSurfaces.stdout.includes('data-list-row="rgb(10, 30, 54)"')) {
+      throw new Error(
+        "--list-row is not the colour every list row used to be given literally. The token replaced twenty copies of rgb(10,30,54); changing its value changes every list at once.",
+      );
+    }
+
     const mobileChangelog = await runChrome(
       `${baseUrl}/changelog/changelog.html`,
       profiles[0],
@@ -575,7 +595,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup, cached reload, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

@@ -644,7 +644,7 @@ büyük harf (`.MD`, diğerlerinde `.md`) ve İngilizce eşlenikleri yok; bu,
 kuralına aykırı. Uzantı düzeltmesi büyük/küçük harfe duyarsız dosya sistemlerinde
 iki adımlı `git mv` gerektirir.
 
-### P4.3 CSS renkleri kod ile stil sayfası arasında bölünmüş
+### P4.3 ◐ CSS renkleri kod ile stil sayfası arasında bölünmüş
 
 **Kanıt:** [game.css](../css/game.css) içinde 123 farklı renk değeri, buna karşılık
 yalnızca 12 satırda CSS değişkeni. Aynı zamanda `interface.js` 923 satır içi stil
@@ -659,6 +659,48 @@ yerde geçen renkler alınsa bile tema değiştirmek ya da kontrast düzeltmek t
 dosyalık bir işe döner.
 
 **Risk:** Düşük ama görsel; her adımda ekran görüntüsü karşılaştırması gerekir.
+
+**Kısmen yapıldı — bilinçli olarak dar tutuldu.**
+
+Önce bir düzeltme: bu maddenin ölçüsü "CSS'te 12 satırda değişken" diyordu. Yanlıştı;
+o sayı `--danger` gibi **sınıf adlarını** sayıyordu. `css/game.css`'te **hiç** custom
+property yoktu.
+
+Token'a çevrilenler, anlamı kaynaktan kesin olarak doğrulanabilen üç yüzey:
+
+| Token               | Değer           | Ne                                                 |
+| ------------------- | --------------- | -------------------------------------------------- |
+| `--list-well`       | `rgb(0 20 44)`  | Bir listenin kapsayıcısı (`bst_entr_case`, `ch_1`) |
+| `--list-row`        | `rgb(10 30 54)` | O listenin içindeki bir satır                      |
+| `--list-row-denied` | `rgb(68 26 38)` | Oyuncunun karşılayamadığı satır                    |
+
+Üçü tutarlı bir sistem: kapsayıcı en koyu, satır bir ton açık, karşılanamayan satır
+kırmızıya kayıyor. **20 kullanım** değişti ve `rgb(10,30,54)` ile `rgb(10, 30, 54)`
+yazımları birleşti — aynı rengin iki yazımı, tekrarlanan bir sabitin tam olarak
+dönüştüğü şey.
+
+JS tarafı `style.backgroundColor = "var(--list-row)"` yazıyor; satır içi stilde custom
+property geçerli.
+
+**Kalanlar bilinçli olarak bırakıldı.** `rgb(255,192,5)`, `rgb(0,235,255)`,
+`rgb(44,255,44)` bir eşyanın `stype` değerine göre seçilen bir renk skalası; `#e8421c`
+hava durumu göstergesinin arka planı. Anlamlarını doğrulamadan isim vermek, yanlış
+isimli bir token üretme riski taşıyor — ve yanlış isimli bir token, sabit renkten
+**kötüdür**: okuyucuyu yanlış yönlendirir ve yanlış yerde kullanılır.
+
+**Sessiz bozulma riski iki katmanla kapatıldı**, çünkü bu değişikliğin bozulma şekli
+görünmez: çözülmeyen bir custom property bildirimi geçersiz kılıyor, yani satır yanlış
+renk almıyor — **hiç arka plan almıyor** ve hiçbir şey hata vermiyor. Kimsenin
+eklemediği bir stil kazası gibi görünürdü.
+
+1. `check-game-regressions.js`: `css/game.css` üç tanımı da içermeli **ve** paketin
+   hiçbir yerinde o altı sabit yazım geri gelmemeli (eski bir panelden kopyalanan yeni
+   bir panel tam olarak böyle geri getirir).
+2. `tests/probes/list-surfaces.js`: her token oyunun uyguladığı gibi uygulanıp
+   `getComputedStyle` ile geri okunuyor. Çözülmeyen bir token `rgba(0, 0, 0, 0)`
+   dönüyor.
+
+İkisinin de token adı bozulduğunda kırıldığı doğrulandı.
 
 ### P4.4 Klavye erişilebilirliği yok
 
@@ -715,6 +757,22 @@ noktası commit'i alınmalı.
 **Kritik gözlem:** Faz 2 atlanırsa Faz 3 ve 4 çok daha pahalı ve riskli olur, çünkü
 mevcut regresyon testleri kaynak metnine bağlı ve her taşıma işlemi onları kırar.
 Sıra keyfi değil.
+
+### Kaynak sırası — `tooltip.js` neden `interface.js`'ten önce
+
+Bu kod tabanının gerçek tek sıra kuralı: **`function` bildirimi tüm birleşik kapsam
+boyunca hoist edilir, `const` edilmez.**
+
+- Çalışma anında çağrılan her şey nereye konursa konsun çalışır → `combat.js`,
+  `message-log.js`, `panels.js` `interface.js`'ten **sonra**.
+- Tanım anında çağrılan bir fonksiyon da çalışır (hoisting) → `dom.js`, `object.js`
+  `bootstrap.js`'ten sonra, `interface.js`'ten önce ama bu bir zorunluluk değil.
+- **Tanım anında okunan bir `const` çalışmaz.** `tooltip.js` iki `const` etiket
+  tablosu taşıyor ve `addDesc` arayüz kurulurken 26 kez çağrılıyor → bu dosya
+  `interface.js`'ten **önce** gelmek zorunda.
+- Aynı sebeple `preferences.js` ayrılamadı: `const themeStorageKey` ve
+  `const autosaveStorageKey`, tanım anında çağrılan `restoreBackgroundPreference()`
+  tarafından okunuyor.
 
 ## Dokunulmayacaklar
 

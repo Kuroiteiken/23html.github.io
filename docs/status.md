@@ -47,6 +47,13 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
 - **P3.1 kademe 2 tamamlandı**: `manifest.json`'a `complete` bayrağı; Türkçe oyuncu
   artık `en.json` (348 KB) indirmiyor. `check-i18n` bayrağı doğruluyor.
 - **P3.2 tamamlandı**: `index.html` paketi `?v=` damgalı `preload` ile önyüklüyor.
+- **P1.3 kısmen tamamlandı**: `message-log.js` (190), `panels.js` (975),
+  `tooltip.js` (795) çıkarıldı. **`interface.js` 8.689 → 6.075 satır (%30).**
+  `preferences.js` gerekçeli atlandı (DOM kurulumuyla iç içe + `const` TDZ).
+- **P4.3 kısmen tamamlandı**: üç liste yüzeyi CSS custom property'sine çevrildi
+  (20 kullanım, iki yazım birleşti). Kalan renkler anlamları doğrulanmadığı için
+  bırakıldı.
+- **Yeni prob**: `tests/probes/list-surfaces.js`.
 - İki değişiklik de regresyon testli ve **negatif kontrolü yapılmış** (koruma
   kaldırıldığında test kırılıyor).
 
@@ -210,16 +217,17 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 5 tamamlandı. Sıradaki **Faz 6**: P1.3 (`interface.js`'in kademeli bölünmesi —
-`message-log.js`, `preferences.js`, `tooltip.js`, `shops.js`) ve P4.3 (renk
-token'ları).
+Faz 6 tamamlandı (P1.3 ve P4.3 kısmen, gerekçeleri planda). Sıradaki **Faz 7** —
+plan bu fazı "getiri/risk oranına göre ayrı ayrı karar" diye tarif ediyor, o yüzden
+sırası değer sırasına göre:
 
-P1.3'ün her adımı ayrı commit olmalı ve her adımdan sonra `tests/fingerprint.js`
-karşılaştırması + `npm run test:browser` şart. `bundleSource` sayesinde regresyon
-iddiaları artık taşımalarda kırılmıyor.
-
-Ardından Faz 7: P4.1 (oyuncu adı `textContent`), P4.4 (klavye erişimi), P4.5
-(hijyen), P1.4 (simülasyon DOM'u), P2.2 (`defineItem`), P3.3 (minify).
+1. **P4.1** — oyuncu adı `innerHTML` yerine `textContent`. Küçük, test edilebilir,
+   ve paylaşılan bir kayıt dosyası üzerinden gerçek bir yol açıyor.
+2. **P4.5** — ölü kod (99 satır yoruma alınmış), `.gitignore` artıkları.
+3. **P4.4** — `chs()` tek nokta olduğu için klavye erişimi tek yerden eklenebilir.
+4. **P1.4** — simülasyon katmanının DOM'a yazması.
+5. **P2.2 / P3.3** — getirisi en düşük ikisi; P2.2 `check-refs`'in biçim varsayımına
+   dokunuyor, P3.3 minify yeni bir hata sınıfı getiriyor.
 
 ## Kuyruk — araştırılmış bulgularla
 

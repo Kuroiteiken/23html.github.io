@@ -160,6 +160,35 @@ console.log(
   "Validated theme, modal save deletion, combat log, and log-control contracts.",
 );
 
+// The three list surfaces are defined once in css/game.css and read as custom
+// properties. Written out literally they existed twenty times across two files, in two
+// spellings of the same colour, so nothing could restyle a list without finding all of
+// them. Both halves are checked: the definitions have to be there, and the literals must
+// not come back -- a new panel copied from an old one is exactly how they would.
+const listSurfaceTokens = ["--list-well", "--list-row", "--list-row-denied"];
+for (const token of listSurfaceTokens) {
+  if (!gameCss.includes(`${token}:`)) {
+    throw new Error(
+      `List surface regression: css/game.css no longer defines ${token}, which JavaScript sets as style.backgroundColor = "var(${token})". An unresolved custom property leaves the row with no background and throws nothing.`,
+    );
+  }
+}
+const revivedLiterals = [
+  "rgb(10,30,54)",
+  "rgb(10, 30, 54)",
+  "rgb(0,20,44)",
+  "rgb(0, 20, 44)",
+  "rgb(68,26,38)",
+  "rgb(68, 26, 38)",
+].filter((literal) => bundleSource.includes(`"${literal}"`));
+if (revivedLiterals.length > 0) {
+  throw new Error(
+    `List surface regression: ${revivedLiterals.join(", ")} written out literally again. Use var(--list-well), var(--list-row) or var(--list-row-denied) so a list can be restyled in one place.`,
+  );
+}
+
+console.log("Validated the list surface tokens.");
+
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,
