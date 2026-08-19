@@ -735,7 +735,8 @@ const messageLogHistory = [
 ];
 
 if (
-  !messageLogHistory.every((pattern) => pattern.test(interfaceSource)) ||
+  // The log moved to js/ui/message-log.js; the contract is about the program.
+  !messageLogHistory.every((pattern) => pattern.test(bundleSource)) ||
   // The invariant is the order, not adjacency: load() empties the log while it
   // rebuilds the world, so the history must go back before the loading screen comes
   // off, and anything the game wants to say about the load itself belongs between
@@ -747,7 +748,7 @@ if (
     bootstrapSource,
   ) ||
   /while \(dom\.gmsgs\.children\[1\]\.children\.length > global\.msgs_max/.test(
-    interfaceSource,
+    bundleSource,
   )
 ) {
   throw new Error(
@@ -981,7 +982,8 @@ for (const [label, scene] of [
   ["the sell list", "chss.gensell"],
   ["the smith's bench", "chss.smith"],
 ]) {
-  if (!interfaceSource.includes("smove(" + scene + ", false);")) {
+  // The panels are in js/ui/panels.js now; the rule is about the program.
+  if (!bundleSource.includes("smove(" + scene + ", false);")) {
     throw new Error(
       `Panel regression: ${label} must rebuild itself with smove(${scene}, false), not by calling chs_spec directly -- chs_spec clears the scene's own Return choice and leaves no way out.`,
     );

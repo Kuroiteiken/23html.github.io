@@ -26,6 +26,8 @@ module.exports = [
   "js/systems/crafting.js",
   "js/systems/actions.js",
   "js/ui/interface.js",
+  "js/ui/message-log.js",
+  "js/ui/panels.js",
   "js/systems/combat.js",
   "js/world/locations.js",
   "js/systems/simulation.js",

@@ -283,7 +283,7 @@ taşıdığı (`typeof o === "object"` kontrolü) yeni dosyada açıkça belgele
 bir yaratığın kendi `stat_r`'sini koruması buna dayanıyor ve `scripts/` altındaki
 denetimler bunu kullanıyor.
 
-### P1.3 `interface.js` yedi ayrı sorumluluğu taşıyor
+### P1.3 ◐ `interface.js` yedi ayrı sorumluluğu taşıyor
 
 **Kanıt:** Aynı dosyada: tema ve arka plan tercihi (2383-2500), otomatik kayıt
 zamanlayıcısı (2286-2380), mesaj günlüğü ve kalıcılığı (4368-4540), savaş
@@ -304,6 +304,30 @@ Geriye kalan `interface.js` yaklaşık 4.000 satırda, tek konulu bir dosya olar
 kalır.
 
 **Risk:** Düşük ama adım sayısı yüksek. Tek seferde yapılmamalı.
+
+**İki adım yapıldı, biri bilinçli olarak atlandı.**
+
+`js/ui/message-log.js` (190 satır) — `msg`, `msg_add`, kırpma, saklama, geri yükleme.
+`js/ui/panels.js` (975 satır) — demirci tezgâhı, dükkân tezgâhı, satış listesi, mobilya
+listesi ve sandığın iki yanı. Plan bu dosyaya `shops.js` diyordu; adı `panels.js`,
+çünkü mobilya listesi aynı bloğun ortasında duruyor ve aynı işi yapıyor — onu ayırmak
+bir adı tutturmak için yapılmış bir kesim olurdu.
+
+**`interface.js` 8.689 → 6.872 satır** (savaş, mesaj günlüğü ve paneller çıktıktan
+sonra; %21).
+
+**Atlanan: `preferences.js`.** Tercih fonksiyonları (`autosaveSeconds`,
+`applyBackground`, `restoreBackgroundPreference`, `setBackground`) bitişik değil — araya
+DOM kurulum kodu girmiş ve `restoreBackgroundPreference()` tanım anında çağrılıyor.
+Blok `const themeStorageKey` ve `const autosaveStorageKey` içeriyor; `const` bildirimi
+`function` gibi hoist edilmez, dolayısıyla dosyayı çağrı yerinden sonraya koymak
+doğrudan `ReferenceError` üretir. Ayırmak için DOM kurulumunu da bölmek gerekiyor ki bu
+planın kapsamı dışında. Yapılırsa dosya `interface.js`'ten **önce** gelmeli.
+
+Her iki adım da `tests/fingerprint.js` ile doğrulandı: parmak izi birebir aynı. Her
+adım `check-game-regressions.js`'te birer iddia kırdı (mesaj günlüğü sözleşmesi, panel
+yeniden çizim kuralı) ve ikisi de P1.1'de kurulan kurala göre `bundleSource`'a
+bağlandı.
 
 ### P1.4 Simülasyon katmanı DOM'a yazıyor
 
