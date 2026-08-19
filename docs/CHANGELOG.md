@@ -220,6 +220,37 @@ changes. Player-facing game content and release notes belong in
 - Added `docs/refactorplan.md`, a measured refactoring review, and rewrote
   `docs/status.md` as a session handover that reads the two together.
 
+- Combat moved out of the interface. js/systems/combat.js now holds allbuff, fght,
+  attack, tattack, dmg_calc, the landed-blow floor, hit_calc and the two weapon-wear
+  helpers -- 691 lines that used to sit in js/ui/interface.js between the inventory
+  drawing and the recipe panel, which is why the agent instructions had to describe
+  the damage formula as being somewhere inside an 8,000-line interface file. It is
+  8,000 lines of interface no longer. dumb and mf stayed behind: both draw a floating
+  number, so they are interface however close they sat to the arithmetic.
+- addElement and empty are in js/utils/dom.js, deepCopy and copy in
+  js/utils/object.js. They were at the bottom of js/systems/planner.js between the
+  daily plans and the test maps, which is nowhere anyone would look for the helper
+  the entire interface is built out of.
+- Both moves are verified rather than trusted. tests/fingerprint.js reduces the
+  bundle's behaviour to a text -- every global function name, every registry's keys,
+  the numeric shape of every item, weapon, piece of equipment and creature, and the
+  damage path across creatures, levels and weapon classes -- and the output before
+  and after each move is identical, 1,440 lines of it. It is deliberately not a test:
+  there is no expected output to store, because the figures should change whenever
+  behaviour legitimately changes. It answers one question, by comparison.
+- The combat move broke five assertions in check-game-regressions.js and not one of
+  them was about anything a player could notice: they read the text of
+  js/ui/interface.js and the text had moved. They are bound to the whole bundle now,
+  through a new bundleSource, and so are the bans beside them. A ban is only a ban if
+  it holds everywhere -- checked against one file it merely says the mistake is not in
+  that file -- and a contract about behaviour is about the program rather than about
+  which file currently holds the function. Later moves will not break these.
+- The two locale files are requested together instead of one after the other. A
+  Turkish player used to pay a full round trip for English before the request for
+  Turkish was even made, and neither file depends on the other. Dropping the English
+  fetch entirely is a separate change: it needs a per-locale completeness flag in the
+  manifest, even though check-i18n already proves the parity that would justify it.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

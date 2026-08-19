@@ -21,6 +21,15 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
 - **Refactor incelemesi** yazıldı: [`refactorplan.md`](refactorplan.md). Ölçüme
   dayalı, önceliklendirilmiş, tamamlananlar `✅` ile işaretleniyor.
 - **P0 tamamlandı** (üç madde birden, aşağıda ayrıntı).
+- **P1.1 tamamlandı**: savaş `js/systems/combat.js`'e taşındı (691 satır).
+  `interface.js` 8.689 → 8.013.
+- **P1.2 tamamlandı**: `addElement`/`empty` → `js/utils/dom.js`,
+  `deepCopy`/`copy` → `js/utils/object.js`. Her iki taşıma da parmak iziyle saf
+  olduğu kanıtlandı.
+- **P3.1 kademe 1 tamamlandı**: yerel dosyalar `Promise.all` ile paralel isteniyor.
+- **`tests/fingerprint.js` eklendi** — taşımaların saflığını kanıtlayan araç.
+- **`check-game-regressions.js`'e `bundleSource` eklendi**: yasaklar ve davranış
+  sözleşmeleri artık tek dosyaya değil paketin tamamına bağlı.
 - **P4.2 tamamlandı**: `docs/ROADMAP.md` referansları dört dosyadan kaldırıldı
   (dosyayı depo sahibi sildi).
 - **Pages workflow'u**: `.md`/`.MD` push'larında çalışmıyor (`paths-ignore`),
@@ -80,6 +89,12 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
 
 ## Kontroller
 
+`check-game-regressions.js` artık `bundleSource` (tüm kaynakların birleşimi)
+tanımlıyor. Yasak iddiaları ve davranış sözleşmeleri **tek dosyaya değil, pakete**
+bağlanmalı; yoksa her dosya taşıması onları kırar — P1.1'de beş tanesi kırıldı ve
+hiçbiri oyuncunun görebileceği bir şeye dair değildi. Yalnızca gerçekten konuma dair
+olan iddialar `interfaceSource` gibi dosya değişkenlerini kullansın.
+
 `npm run check` sekiz kontrol: `check-changelog`, `check-game-regressions`,
 `check-i18n`, `check-refs`, `check-flags`, `check-economy`, `check-combat`,
 `check-version` + node testleri + eslint/stylelint/prettier. Ayrıca
@@ -87,6 +102,24 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
 olarak (bunu `tests/probes/` altına taşımak refactor planında P2.3).
 
 `check-i18n` hesaplanmış dil anahtarını reddeder, metin tanım anında bağlanmalı.
+
+### `tests/fingerprint.js` — taşıma yapmadan önce oku
+
+Paketin davranışını 1.440 satırlık bir metne indiriyor: her global fonksiyon adı,
+her registry'nin anahtarları, eşya/silah/ekipman/yaratıkların sayısal şekli ve hasar
+yolunun yaratık × seviye × silah sınıfı boyunca çıktısı. Her taşımadan önce ve sonra
+çalıştırılır; `diff` boşsa taşıma saftır.
+
+```
+node tests/fingerprint.js > before.txt
+# ... taşımayı yap, npm run build ...
+node tests/fingerprint.js > after.txt
+diff before.txt after.txt
+```
+
+`npm run fingerprint` de var ama npm kendi başlığını stdout'a yazıyor; karşılaştırma
+için `--silent` ekle ya da doğrudan `node` çağır. P1.1 ve P1.2'nin saf olduğu bununla
+kanıtlandı.
 
 ### `tests/harness.js` — bu oturumda eklendi
 
@@ -145,14 +178,16 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-`refactorplan.md` Faz 1'in kalan tek maddesi: **P3.1 kademe 1** — yükleyicideki
-iki `await`'i `Promise.all`'a çevir (`js/i18n-loader.js:128-140`). Tek satırlık,
-risksiz.
+Faz 1, 2 ve 3 tamamlandı. Sıradaki **Faz 4**: P2.1 (221 yiyecek maddesinin aynı 12
+satırı kopyalaması → `eatUse()` fabrikası, ~2.400 satır) ve P2.3
+(`scripts/serve.js`'teki 16 gömülü tarayıcı probu → `tests/probes/`).
 
-Ardından Faz 3'ün kalanı: **P1.1** (`js/systems/combat.js` — saf taşıma) ve
-**P1.2** (`addElement`/`empty`/`deepCopy`/`copy` → `js/utils/`). İkisi de
-`scripts/sources.js` sırasına dokunuyor, yani taşıma sonrası
-`npm run build && npm run check` **ve** `npm run test:browser` zorunlu.
+P2.1 için parmak izi tek başına yetmez: eşya `use` davranışı orada görünmüyor. Önce
+tüm `item.*.use` çağrılarını aynı sahte durumla çalıştırıp sonucu karşılaştıran tek
+seferlik bir betik yazılmalı — harness bunu mümkün kılıyor.
+
+Alternatif olarak içerik kuyruğuna (#7 zırh, #6 `eqp.dummy`) geçilebilir: P0.2
+tamamlandığı için ikisi de artık güvenli ve savaş artık kendi dosyasında.
 
 ## Kuyruk — araştırılmış bulgularla
 

@@ -183,11 +183,29 @@ bu karşılaştırmaya dallanıyor ve başarısız olduğunda `setSeed`'e sonsuz
 özyineleniyor — hata bu şekilde bulundu. Harness dosyasının başındaki not bunu
 kaydediyor: o listeye yerleşik eklenmemeli.
 
+### Taşımaların doğrulama aracı: `tests/fingerprint.js`
+
+P1.1 ve P1.2 sırasında eklendi ve kalan her taşıma maddesinin (P1.3, P1.4, P2.1)
+ön koşulu. Paketin davranışını 1.440 satırlık bir metne indiriyor: her global
+fonksiyon adı, her registry'nin anahtar listesi, eşya/silah/ekipman/yaratıkların
+sayısal şekli ve hasar yolunun yaratık × seviye × silah sınıfı boyunca çıktısı.
+
+```
+node tests/fingerprint.js > before.txt
+# ... taşımayı yap, npm run build ...
+node tests/fingerprint.js > after.txt
+diff before.txt after.txt        # herhangi bir çıktı = taşıma saf değil
+```
+
+Bir test değil, bilerek: saklanacak bir beklenen çıktı yok, çünkü sayılar davranış
+meşru olarak değiştiğinde değişmeli. Tek bir soruyu yanıtlıyor — "bu refactor bir
+şey değiştirdi mi?" — ve karşılaştırarak yanıtlıyor.
+
 ---
 
 ## P1 — Yapısal ayrıştırma
 
-### P1.1 Savaş motoru arayüz dosyasının içinde yaşıyor
+### P1.1 ✅ Savaş motoru arayüz dosyasının içinde yaşıyor
 
 **Kanıt:** [interface.js:4599-5332](../js/ui/interface.js#L4599-L5332) arası ~734
 satır saf oyun mantığı: `allbuff`, `fght`, `attack`, `tattack`, `dmg_calc`,
@@ -210,7 +228,36 @@ var: mantık ayrı bir dosyada olsaydı denetim onu doğrudan okuyabilirdi.
 
 **Risk:** Düşük — dosyalar birleştirildiği için tek global kapsam değişmiyor.
 
-### P1.2 Genel amaçlı yardımcılar `planner.js` içinde
+**Yapıldı.** `js/systems/combat.js` oluşturuldu (691 satır) ve `scripts/sources.js`
+içinde `js/ui/interface.js` ile `js/world/locations.js` arasına yerleştirildi.
+`interface.js` 8.689 → **8.013** satıra indi.
+
+Taşınanlar: `allbuff`, `fght`, `attack`, `tattack`, `dmg_calc`,
+`MINIMUM_LANDED_SHARE`, `minimumLandedDamage`, `hit_calc`, `wpnhitstt`,
+`wpndiestt`. **Taşınmayanlar:** `dumb` ve `mf` — plan bunları savaş bloğunun
+parçası sayıyordu, ancak ikisi de yüzen hasar sayısı çizen görsel efekt, dolayısıyla
+arayüzde kaldı.
+
+**Saflık kanıtlandı.** `tests/fingerprint.js` (aşağıya bakın) taşımadan önce ve
+sonra çalıştırıldı: **1.440 satırlık davranış parmak izi birebir aynı**.
+
+**Beklenen maliyet gerçekleşti — ve P0.3 onu ucuzlattı.** Taşıma,
+`check-game-regressions.js` içindeki **beş** iddiayı kırdı; hepsi
+`interfaceSource` metnine bakıyordu: kalkan yakınlık terimi, kalkan ustalığı
+kazanımları, "yavaş vuruş tikte çözülmeli", `weaponPower(att.eqp[0])` okuyucusu ve
+yerelleştirilmiş ıskalama mesajı. Hiçbiri oyuncunun görebileceği bir şey değildi —
+planın P0.3 maddesinde tarif edilen kırılganlığın tam örneği.
+
+Düzeltme, iddiaları yeni dosyaya yönlendirmek **değil**: `bundleSource`
+(tüm kaynakların birleşimi, `harness.bundleSource()`) eklendi ve bu iddialar ona
+bağlandı. Gerekçe iki katmanlı. Bir **yasak** ("hiçbir yer silahın `str`'sine
+atama yapmasın") ancak her yerde geçerliyse yasaktır; tek dosyada aranırsa yalnızca
+"hata bu dosyada değil" demiş olur. Bir **davranış sözleşmesi** ("yavaş vuruş tikte
+çözülür") ise programa dairdir, fonksiyonun hangi dosyada durduğuna değil. Aynı
+sebeple `window.alert/confirm` ve `document.body.removeAttribute("style")` yasakları
+da pakete bağlandı. Sonuç: bundan sonraki taşımalar bu iddiaları kırmayacak.
+
+### P1.2 ✅ Genel amaçlı yardımcılar `planner.js` içinde
 
 **Kanıt:** [planner.js:211-245](../js/systems/planner.js#L211-L245) —
 `addElement`, `deepCopy`, `copy`, `empty`. Bunlardan `addElement` tüm arayüzün
@@ -225,6 +272,16 @@ konmalı, çünkü `interface.js` tanım anında `addElement` çağırıyor.
 
 **Risk:** Düşük, ama sıra hatası doğrudan boş ekranla sonuçlanır — bu yüzden taşıma
 sonrası tarayıcı testi (`npm run test:browser`) şart.
+
+**Yapıldı.** `js/utils/dom.js` (`addElement`, `empty`) ve `js/utils/object.js`
+(`deepCopy`, `copy`), `sources.js`'te `bootstrap.js`'ten hemen sonraya kondu.
+Parmak izi yine birebir aynı, `npm run check` ve `npm run test:browser` geçiyor.
+
+Not: `empty` plan metninde nesne yardımcılarıyla birlikte anılıyordu ama DOM işi
+yapıyor, o yüzden `dom.js`'e alındı. Ayrıca `deepCopy`'nin fonksiyonları referansla
+taşıdığı (`typeof o === "object"` kontrolü) yeni dosyada açıkça belgelendi — kopyalanan
+bir yaratığın kendi `stat_r`'sini koruması buna dayanıyor ve `scripts/` altındaki
+denetimler bunu kullanıyor.
 
 ### P1.3 `interface.js` yedi ayrı sorumluluğu taşıyor
 
@@ -350,7 +407,7 @@ girer, bir probu düzenlemek için sunucu dosyası açılmaz.
 
 ## P3 — Yükleme başarımı
 
-### P3.1 Türkçe oyuncu iki yerel dosyayı da, üstelik sırayla indiriyor
+### P3.1 ◐ Türkçe oyuncu iki yerel dosyayı da, üstelik sırayla indiriyor
 
 **Kanıt:** [i18n-loader.js:128-140](../js/i18n-loader.js#L128-L140) — önce
 `fallbackMessages` (en.json, 348 KB) `await` ediliyor, **sonra** `selectedMessages`
@@ -374,6 +431,11 @@ anahtar bile yok — 348 KB'lık indirme kanıtlanabilir biçimde gereksiz.
 Eksik çeviriye izin veren yeni bir dil eklendiğinde `complete: false` yazılır ve
 davranış bugünküne döner — `docs/AGENTS.md`'nin "İngilizce geri düşüşe dayanabilir"
 kuralı korunur.
+
+**Kademe 1 yapıldı.** İki `await` `Promise.all`'a çevrildi; Türkçe oyuncu artık
+İngilizce için tam bir gidiş-dönüş beklemeden Türkçeyi istemeye başlıyor. Tarayıcı
+takımının "Turkish startup" senaryosu doğruluyor. **Kademe 2 (manifest'te
+`complete` bayrağı, 348 KB tasarruf) hâlâ bekliyor.**
 
 ### P3.2 Paket, yerel dosyalar inmeden indirilmeye başlamıyor
 
@@ -517,15 +579,15 @@ Her faz kendi içinde tamamlanıp `npm run format && npm run build && npm run ch
 ile doğrulanmalı, ardından `docs/AGENTS.md`'nin 9. maddesi uyarınca bir kontrol
 noktası commit'i alınmalı.
 
-| Faz  | İçerik                                                                       | Beklenen sonuç                                           |
-| ---- | ---------------------------------------------------------------------------- | -------------------------------------------------------- |
-| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP) tamam — P3.1 kademe 1 (`Promise.all`) bekliyor | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
-| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)                            | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
-| 3 ◐  | P0.2 (formül) tamam — P1.1 (`combat.js`), P1.2 (utils) bekliyor              | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
-| 4    | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)                              | ~4.000 satır eksilir, veri katmanı bakılabilir olur      |
-| 5    | P3.1 kademe 2, P3.2 (preload)                                                | Türkçe oyuncu için ~348 KB daha az indirme               |
-| 6    | P1.3 (`interface.js` bölünmesi), P4.3 (renk token'ları)                      | Kademeli, her adım ayrı commit                           |
-| 7    | P4.1, P4.4, P4.5, P1.4, P2.2, P3.3                                           | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
+| Faz  | İçerik                                                          | Beklenen sonuç                                           |
+| ---- | --------------------------------------------------------------- | -------------------------------------------------------- |
+| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP), P3.1 kademe 1 (`Promise.all`)    | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
+| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)               | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
+| 3 ◐  | P0.2 (formül) tamam — P1.1 (`combat.js`), P1.2 (utils) bekliyor | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
+| 4    | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)                 | ~4.000 satır eksilir, veri katmanı bakılabilir olur      |
+| 5    | P3.1 kademe 2, P3.2 (preload)                                   | Türkçe oyuncu için ~348 KB daha az indirme               |
+| 6    | P1.3 (`interface.js` bölünmesi), P4.3 (renk token'ları)         | Kademeli, her adım ayrı commit                           |
+| 7    | P4.1, P4.4, P4.5, P1.4, P2.2, P3.3                              | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
 
 **Kritik gözlem:** Faz 2 atlanırsa Faz 3 ve 4 çok daha pahalı ve riskli olur, çünkü
 mevcut regresyon testleri kaynak metnine bağlı ve her taşıma işlemi onları kırar.

@@ -127,15 +127,17 @@
       manifest.locales.find(({ code }) => code === requestedLocale) ??
       manifest.locales.find(({ code }) => code === storedLocale) ??
       defaultDefinition;
-    const fallbackMessages = await getJson(
-      versioned(new URL(defaultDefinition.file, localeRoot)),
-    );
-    const selectedMessages =
+    // Requested together rather than one after the other. These were two awaits in
+    // sequence, so a Turkish player paid a full round trip for English before the
+    // request for Turkish was even made -- and neither file depends on the other.
+    // The fallback is still fetched: dropping it needs a per-locale completeness
+    // flag in the manifest, which is a separate change.
+    const [fallbackMessages, selectedMessages] = await Promise.all([
+      getJson(versioned(new URL(defaultDefinition.file, localeRoot))),
       selectedDefinition.code === defaultDefinition.code
-        ? fallbackMessages
-        : await getJson(
-            versioned(new URL(selectedDefinition.file, localeRoot)),
-          );
+        ? null
+        : getJson(versioned(new URL(selectedDefinition.file, localeRoot))),
+    ]).then(([fallback, selected]) => [fallback, selected ?? fallback]);
 
     window.i18n = {
       availableLocales: manifest.locales.map(({ code, name }) => ({

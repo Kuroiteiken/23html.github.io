@@ -208,38 +208,6 @@ planner.zrespawn.f = function () {
 };
 addPlan(planner.zrespawn);
 
-function addElement(parent_element, elem, id, cls) {
-  const newelem = document.createElement(elem);
-  if (id) newelem.id = id;
-  if (cls) newelem.className = cls;
-  parent_element.appendChild(newelem);
-  return newelem;
-}
-
-function deepCopy(o) {
-  let copy = o,
-    k;
-  if (o && typeof o === "object") {
-    copy = Object.prototype.toString.call(o) === "[object Array]" ? [] : {};
-    for (const k in o) {
-      copy[k] = deepCopy(o[k]);
-    }
-  }
-  return copy;
-}
-
-function copy(o) {
-  const res = {};
-  for (const a in o) res[a] = o[a];
-  return res;
-}
-
-function empty(dom) {
-  while (dom.lastChild) {
-    dom.removeChild(dom.lastChild);
-  }
-}
-
 test.maps = {};
 test.maps.cellsize = 20;
 test.maps.mapdata = [];

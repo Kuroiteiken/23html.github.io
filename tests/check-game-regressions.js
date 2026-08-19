@@ -3,6 +3,15 @@ const path = require("path");
 const espree = require("espree");
 
 const root = path.dirname(__dirname);
+
+// Every source, concatenated in load order. Two kinds of assertion belong here
+// rather than against one file. A ban -- nothing may assign to a weapon's str --
+// is only a ban if it holds everywhere; checked against a single file it merely says
+// the mistake is not in that file. And a contract about behaviour -- the slower blow
+// resolves inside the tick -- is about the program, not about which file currently
+// holds the function. Moving combat out of js/ui/interface.js broke five of these
+// while changing nothing a player could notice, which is that failure mode exactly.
+const bundleSource = require("./harness").bundleSource();
 const locations = fs.readFileSync(
   path.join(root, "js", "world", "locations.js"),
   "utf8",
@@ -124,15 +133,19 @@ const uiSafetyContracts = [
   /dom\.save_delete_modal\.addEventListener\("cancel"/,
   /dom\.save_delete_modal\.addEventListener\("close"/,
   /localStorage\.removeItem\("v0\.3"\);\s*window\.location\.reload\(\);/,
-  /i18n\.t\("runtime\.ui\.interface\.dialogue\.combat_missed"/,
   /addElement\(dom\.m_control, "small", "message-log-clear", "bts_m"\)/,
 ];
 
 if (
   !uiSafetyContracts.every((pattern) => pattern.test(interfaceSource)) ||
-  /window\.(?:alert|confirm)\(/.test(interfaceSource) ||
-  /document\.body\.removeAttribute\("style"\)/.test(interfaceSource) ||
-  /\.name \+ " missed"/.test(interfaceSource) ||
+  // The localized miss is written wherever the combat log is written, so it and the
+  // raw-string ban below it read the whole bundle rather than this one file.
+  !/i18n\.t\("runtime\.ui\.interface\.dialogue\.combat_missed"/.test(
+    bundleSource,
+  ) ||
+  /window\.(?:alert|confirm)\(/.test(bundleSource) ||
+  /document\.body\.removeAttribute\("style"\)/.test(bundleSource) ||
+  /\.name \+ " missed"/.test(bundleSource) ||
   !/\.bts_m_b:empty\s*{\s*display: none;\s*}/.test(gameCss) ||
   !/\.game-modal::backdrop\s*{/.test(gameCss) ||
   !/\.game-modal__button--danger\s*{/.test(gameCss)
@@ -645,11 +658,12 @@ if (!/^  this\.infl = 1;$/m.test(craftingSourceForSelling)) {
   );
 }
 
+// The shield half of the mitigation term, wherever the term is written.
 if (
   !/\(100 \+ you\.eqp\[1\]\.aff\[att\.atype\] \* 5 \* shdc\)/.test(
-    interfaceSource,
+    bundleSource,
   ) ||
-  /100 -\s*\n\s*\(you\.eqp\[1\]\.aff\[att\.atype\]/.test(interfaceSource)
+  /100 -\s*\n\s*\(you\.eqp\[1\]\.aff\[att\.atype\]/.test(bundleSource)
 ) {
   throw new Error(
     "Shield regression: a shield's affinity must scale the shield's own share of the mitigation, not be subtracted from the total.",
@@ -889,9 +903,7 @@ for (const [title, skill] of Object.entries(masteryTalents)) {
 
 // A shield trains its skill while it is carried, not only when a blow lands on the
 // player -- the grant used to exist solely in the branch where a creature hits you.
-if (
-  (interfaceSource.match(/giveSkExp\(skl\.shdc, [0-9.]+\)/g) || []).length < 2
-) {
+if ((bundleSource.match(/giveSkExp\(skl\.shdc, [0-9.]+\)/g) || []).length < 2) {
   throw new Error(
     "Shield regression: shield mastery must also be trained while the player attacks with a shield in hand, not only when a creature's blow lands.",
   );
@@ -915,8 +927,8 @@ console.log(
 // and landed in a clump, so the slower side stopped attacking, and any blow still
 // queued when the area ended was discarded by attack()'s !global.flags.btl guard.
 if (
-  interfaceSource.includes("timers.btl2") ||
-  !interfaceSource.includes("doSingleAttack(sc, inn, !isyouinn);")
+  bundleSource.includes("timers.btl2") ||
+  !bundleSource.includes("doSingleAttack(sc, inn, !isyouinn);")
 ) {
   throw new Error(
     "Combat regression: the slower combatant's blow must resolve inside the tick, not on a timer. A background tab throttles timers and the slower side stops attacking.",
@@ -1040,13 +1052,12 @@ for (const bonus of derivedBonuses) {
 
 // And neither may be baked into the weapon's strength, which is the failure both readers
 // exist to avoid.
-for (const source of [craftingForSharpen, interfaceSource])
-  if (/\bobj\.str\s*=|\.obj\.str\s*=|eqp\[0\]\.str\s*=/.test(source))
-    throw new Error(
-      "Derived bonus regression: something assigns to a weapon's str. Bonuses have to be derived at damage time, because restoring a save rebuilds the item from the registry and copies back only dp and data.",
-    );
+if (/\bobj\.str\s*=|\.obj\.str\s*=|eqp\[0\]\.str\s*=/.test(bundleSource))
+  throw new Error(
+    "Derived bonus regression: something assigns to a weapon's str. Bonuses have to be derived at damage time, because restoring a save rebuilds the item from the registry and copies back only dp and data.",
+  );
 
-if (!interfaceSource.includes("weaponPower(att.eqp[0])")) {
+if (!bundleSource.includes("weaponPower(att.eqp[0])")) {
   throw new Error(
     "Sharpening regression: dmg_calc must read the weapon's strength through weaponPower, or a sharpened blade hits exactly as hard as a blunt one.",
   );

@@ -6,6 +6,8 @@
 // is registered once.
 module.exports = [
   "js/core/bootstrap.js",
+  "js/utils/dom.js",
+  "js/utils/object.js",
   "js/data/titles.js",
   "js/data/effects.js",
   "js/data/furniture.js",
@@ -24,6 +26,7 @@ module.exports = [
   "js/systems/crafting.js",
   "js/systems/actions.js",
   "js/ui/interface.js",
+  "js/systems/combat.js",
   "js/world/locations.js",
   "js/systems/simulation.js",
   "js/systems/planner.js",

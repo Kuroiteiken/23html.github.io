@@ -224,6 +224,38 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   `docs/status.md`, ikisini birlikte okuyan bir oturum devir belgesi olarak yeniden
   yazıldı.
 
+- Savaş arayüzün dışına taşındı. `js/systems/combat.js` artık `allbuff`, `fght`,
+  `attack`, `tattack`, `dmg_calc`, inen vuruş tabanını, `hit_calc`'ı ve iki silah
+  aşınma yardımcısını tutuyor -- `js/ui/interface.js` içinde envanter çizimi ile
+  tarif paneli arasında duran 691 satır. Ajan yönergelerinin hasar formülünü "8.000
+  satırlık bir arayüz dosyasının içinde bir yerde" diye tarif etmek zorunda
+  kalmasının sebebi buydu. Arayüz artık 8.013 satır.
+  `dumb` ve `mf` yerinde kaldı: ikisi de yüzen bir sayı çiziyor, yani aritmetiğin ne
+  kadar yanında dursalar da arayüz işi.
+- `addElement` ve `empty` `js/utils/dom.js` içinde, `deepCopy` ve `copy`
+  `js/utils/object.js` içinde. `js/systems/planner.js`'in dibinde, günlük planlarla
+  test haritaları arasında duruyorlardı -- bütün arayüzün kendisiyle inşa edildiği
+  yardımcıyı kimsenin arayacağı bir yer değil.
+- İki taşıma da güvenilmedi, doğrulandı. `tests/fingerprint.js` paketin davranışını
+  bir metne indiriyor -- her global fonksiyon adı, her registry'nin anahtarları, her
+  eşyanın, silahın, ekipmanın ve yaratığın sayısal şekli, ve hasar yolunun yaratık,
+  seviye ve silah sınıfı boyunca çıktısı -- ve her taşımadan önceki ile sonraki çıktı
+  birebir aynı, 1.440 satır. Bilerek bir test değil: saklanacak bir beklenen çıktı
+  yok, çünkü davranış meşru olarak değiştiğinde sayılar da değişmeli. Tek bir soruyu,
+  karşılaştırarak yanıtlıyor.
+- Savaş taşıması `check-game-regressions.js` içindeki beş iddiayı kırdı ve hiçbiri
+  oyuncunun görebileceği bir şeye dair değildi: `js/ui/interface.js`'in metnini
+  okuyorlardı ve metin taşınmıştı. Artık yeni bir `bundleSource` üzerinden paketin
+  tamamına bağlılar; yanlarındaki yasaklar da öyle. Bir yasak ancak her yerde
+  geçerliyse yasaktır -- tek dosyaya karşı denetlenirse yalnızca "hata bu dosyada
+  değil" demiş olur -- ve bir davranış sözleşmesi, fonksiyonun şu an hangi dosyada
+  durduğuna değil, programa dairdir. Sonraki taşımalar bunları kırmayacak.
+- İki yerel dosya art arda değil, birlikte isteniyor. Türkçe oyuncu, Türkçe isteği
+  daha yapılmadan önce İngilizce için tam bir gidiş-dönüş ödüyordu; oysa dosyaların
+  hiçbiri diğerine bağlı değil. İngilizce isteğini tamamen kaldırmak ayrı bir
+  değişiklik: manifest'te yerel başına bir tamlık bayrağı gerekiyor -- `check-i18n`
+  bunu haklı çıkaracak pariteyi zaten kanıtlıyor olsa bile.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla
