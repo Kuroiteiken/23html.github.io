@@ -28,6 +28,11 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   olduğu kanıtlandı.
 - **P3.1 kademe 1 tamamlandı**: yerel dosyalar `Promise.all` ile paralel isteniyor.
 - **`tests/fingerprint.js` eklendi** — taşımaların saflığını kanıtlayan araç.
+- **P2.1 tamamlandı**: 186 yiyecek maddesi `eatUse()` fabrikasına indi,
+  `items.js` 7.639 → 5.437 satır. Plan 221 madde diyordu; envanter 30 ayrı şekil
+  buldu, yalnızca kalabalık ikisi (119 + 67) dönüştürüldü.
+- **`tests/fingerprint.js` genişletildi**: artık her eşyanın `use` handler'ını da
+  ölçüyor (352 handler). Veri katmanı refactor'ları için zorunlu araç.
 - **`check-game-regressions.js`'e `bundleSource` eklendi**: yasaklar ve davranış
   sözleşmeleri artık tek dosyaya değil paketin tamamına bağlı.
 - **P4.2 tamamlandı**: `docs/ROADMAP.md` referansları dört dosyadan kaldırıldı
@@ -117,6 +122,11 @@ node tests/fingerprint.js > after.txt
 diff before.txt after.txt
 ```
 
+Artık `use` handler'larını da kapsıyor: her eşyanın `use`'u sabit bir oyuncuya karşı
+çağrılıyor ve ne değiştirdiği kaydediliyor. Log ölçümü için her çağrı öncesi
+`clearMessageLog()` çağrılıyor — log `msgs_max` (36) ile sınırlı olduğundan dolu bir
+log'da satır sayısı anlamsızlaşıyor.
+
 `npm run fingerprint` de var ama npm kendi başlığını stdout'a yazıyor; karşılaştırma
 için `--silent` ekle ya da doğrudan `node` çağır. P1.1 ve P1.2'nin saf olduğu bununla
 kanıtlandı.
@@ -178,16 +188,18 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 1, 2 ve 3 tamamlandı. Sıradaki **Faz 4**: P2.1 (221 yiyecek maddesinin aynı 12
-satırı kopyalaması → `eatUse()` fabrikası, ~2.400 satır) ve P2.3
-(`scripts/serve.js`'teki 16 gömülü tarayıcı probu → `tests/probes/`).
+Faz 4'ün kalanı: **P2.3** — `scripts/serve.js`'teki 16 gömülü tarayıcı probu
+`tests/probes/` altına. Asıl kazanç satır sayısı değil: prob kodu şu an şablon
+dizesi içinde yaşadığı için ne `node --check` ne eslint görüyor, yazım hatası ancak
+çalışma anında ortaya çıkıyor.
 
-P2.1 için parmak izi tek başına yetmez: eşya `use` davranışı orada görünmüyor. Önce
-tüm `item.*.use` çağrılarını aynı sahte durumla çalıştırıp sonucu karşılaştıran tek
-seferlik bir betik yazılmalı — harness bunu mümkün kılıyor.
+Üç kategori var ve enjeksiyon noktaları farklı: çoğu `</body>` öncesine giriyor,
+`__test-boot-screen` yükleyici etiketinden **önce** girmek zorunda (oyunun hiçbir
+şeyi var olmadan önce ölçüm yapıyor), ve `/__test/corrupt-save` ile
+`/__test/unreadable-save` index.html'i hiç kullanmayıp kendi HTML'ini döndürüyor.
 
-Alternatif olarak içerik kuyruğuna (#7 zırh, #6 `eqp.dummy`) geçilebilir: P0.2
-tamamlandığı için ikisi de artık güvenli ve savaş artık kendi dosyasında.
+Ardından Faz 5 (P3.1 kademe 2, P3.2 preload) veya içerik kuyruğu (#7 zırh,
+#6 `eqp.dummy`).
 
 ## Kuyruk — araştırılmış bulgularla
 

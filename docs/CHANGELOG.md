@@ -251,6 +251,32 @@ changes. Player-facing game content and release notes belong in
   fetch entirely is a separate change: it needs a per-locale completeness flag in the
   manifest, even though check-i18n already proves the parity that would justify it.
 
+- One hundred and eighty-six food items stopped carrying their own copy of the eating
+  handler. `item.brd.use = eatUse(2);` is the whole of it now, and js/data/items.js is
+  5,437 lines rather than 7,639. Twelve lines copied into 186 places meant a change to
+  how eating works had to be made 186 times, and missing one of them was a near
+  certainty rather than a risk.
+- The count is 186 and not the 221 the review predicted, because the shapes were
+  inventoried with espree before anything was rewritten rather than counted by
+  grepping for the satiation line. Thirty distinct shapes carry that line; two of them
+  hold 119 and 67 items, and the remaining 35 items are spread across 28 shapes that
+  each do something of their own. Those were left alone. The rewrite asserts both
+  member counts before it touches anything, so a shape that has drifted since stops it
+  instead of being rewritten blindly.
+- The two big shapes differed only in whether `this.amount--` fell before or after the
+  readout and the message, and that difference is invisible rather than merely
+  probably-harmless: dom.d5_3_1.update() reads you.sat, you.satmax and
+  you.efficiency() and never looks at the stack the food came from, and the message
+  reads this.val. Both spellings are one function now.
+- tests/fingerprint.js covers use handlers, which is what made the rewrite checkable
+  instead of plausible. Every item's use is called against a fixed player and what it
+  changed is recorded: the player's own numbers, the stack it consumed from, the stat
+  counters it bumped, whether it refreshed the energy readout, and the text of the line
+  it wrote to the log. 352 handlers, no failures, and the output before and after the
+  rewrite differs by exactly one line -- the new eatUse appearing in the list of global
+  functions. The log is emptied before each call, because it is capped at msgs_max and
+  a full log makes a row count meaningless.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

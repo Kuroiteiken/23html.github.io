@@ -256,6 +256,31 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   değişiklik: manifest'te yerel başına bir tamlık bayrağı gerekiyor -- `check-i18n`
   bunu haklı çıkaracak pariteyi zaten kanıtlıyor olsa bile.
 
+- Yüz seksen altı yiyecek maddesi yeme handler'ının kendi kopyasını taşımayı bıraktı.
+  Artık hepsi `item.brd.use = eatUse(2);` ve `js/data/items.js` 7.639 yerine 5.437
+  satır. On iki satırın 186 yere kopyalanmış olması, yemenin nasıl işlediğine dair bir
+  değişikliğin 186 kez yapılması gerektiği anlamına geliyordu; birini atlamak risk
+  değil, neredeyse kesinlikti.
+- Sayı, incelemenin öngördüğü 221 değil 186; çünkü hiçbir şey yeniden yazılmadan önce
+  şekiller espree ile envanterlendi, doygunluk satırı grep'lenerek sayılmadı. O satırı
+  taşıyan otuz ayrı şekil var; ikisi 119 ve 67 madde tutuyor, kalan 35 madde ise her
+  biri kendine ait bir şey yapan 28 şekle dağılmış. Onlara dokunulmadı. Dönüşüm,
+  hiçbir şeye dokunmadan önce iki grubun üye sayısını doğruluyor; böylece o günden
+  bu yana kaymış bir şekil, körlemesine yeniden yazılmak yerine işlemi durduruyor.
+- İki büyük şekil yalnızca `this.amount--`'ın panel güncellemesi ile mesajdan önce mi
+  sonra mı geldiğinde ayrılıyordu ve bu fark "muhtemelen zararsız" değil, doğrudan
+  gözlemlenemez: `dom.d5_3_1.update()` yalnızca `you.sat`, `you.satmax` ve
+  `you.efficiency()` okuyor, yiyeceğin geldiği yığına hiç bakmıyor; mesaj da
+  `this.val` okuyor. İki yazım artık tek fonksiyon.
+- `tests/fingerprint.js` artık `use` handler'larını da kapsıyor; dönüşümü "makul"
+  olmaktan çıkarıp denetlenebilir yapan şey bu. Her eşyanın `use`'u sabit bir oyuncuya
+  karşı çağrılıyor ve ne değiştirdiği kaydediliyor: oyuncunun sayıları, tükettiği
+  yığın, arttırdığı istatistik sayaçları, enerji göstergesini yenileyip yenilemediği,
+  ve log'a yazdığı satırın metni. 352 handler, sıfır hata, ve dönüşüm öncesi ile
+  sonrası çıktı tam olarak bir satırda ayrılıyor: global fonksiyon listesine eklenen
+  yeni `eatUse`. Log her çağrı öncesi boşaltılıyor, çünkü `msgs_max` ile sınırlı ve
+  dolu bir log'da satır sayısı anlamsızlaşıyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

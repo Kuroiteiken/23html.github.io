@@ -26,9 +26,11 @@
 //
 // Every global function name, so a lost or renamed one shows. Every registry's key
 // list, so a content record that failed to define itself shows. The numeric shape of
-// items, weapons, equipment and creatures, so a changed stat shows. And the damage
-// path itself across creatures, levels and weapon classes, which is the part with the
-// most arithmetic and the least visible failure mode.
+// items, weapons, equipment and creatures, so a changed stat shows. The damage path
+// itself across creatures, levels and weapon classes, which is the part with the most
+// arithmetic and the least visible failure mode. And every item's use handler, called
+// against a fixed player, recording what it changed -- which is what makes a rewrite
+// of those handlers checkable rather than merely plausible.
 //
 // It is deliberately NOT a test: there is no expected output to store, because the
 // figures are meant to change whenever behaviour legitimately changes. It answers one
@@ -181,6 +183,89 @@ for (const key of Object.keys(game.creature).sort()) {
       );
     }
   }
+}
+
+// --- item use handlers ------------------------------------------------------
+//
+// Each handler is called against the same fixed player and the same stock, and what it
+// changed is recorded: the player's own numbers, the stack it consumed from, the stat
+// counters it bumped, whether it refreshed the energy readout, and the last line it
+// wrote to the log. Failures are recorded, not thrown, for the reason given above.
+const WATCHED_PLAYER = [
+  "sat",
+  "satmax",
+  "hp",
+  "hpmax",
+  "luck",
+  "wealth",
+  "str_r",
+  "int_r",
+  "agl_r",
+  "spd_r",
+  "exp",
+  "karma",
+  "ki",
+];
+
+// msg() builds a row and writes the coloured text into a span inside it, so the text
+// is one level down rather than on the row itself.
+function logText(node) {
+  let text = node.innerHTML || "";
+  for (const child of node.children) text += logText(child);
+  return text;
+}
+
+function fixedPlayer() {
+  const you = game.you;
+  Object.assign(you, game.deepCopy(pristinePlayer));
+  you.stat_r();
+  you.satmax = 100;
+  you.hpmax = 100;
+  you.sat = 40;
+  you.hp = 40;
+  return you;
+}
+
+for (const key of Object.keys(game.item).sort()) {
+  const record = game.item[key];
+  if (typeof record.use !== "function") {
+    say("use", key, "NO-HANDLER");
+    continue;
+  }
+  const you = fixedPlayer();
+  record.amount = 5;
+  // Emptied first: the log is capped at msgs_max, so once it is full a handler that
+  // writes one line and a handler that writes none both leave the row count alone.
+  // Cleared, both the count and the text below mean something.
+  game.clearMessageLog();
+  const statBefore = JSON.stringify(game.global.stat);
+  const readoutBefore = game.dom.d5_3_1.innerHTML;
+  const outcome = attempt(() => {
+    record.use();
+    return "ok";
+  });
+  const after = JSON.parse(statBefore);
+  const now = game.global.stat;
+  const bumped = Object.keys(now)
+    .filter(
+      (field) => JSON.stringify(now[field]) !== JSON.stringify(after[field]),
+    )
+    .sort()
+    .map((field) => `${field}=${JSON.stringify(now[field])}`)
+    .join(",");
+  say(
+    "use",
+    key,
+    outcome,
+    "amount=" + record.amount,
+    WATCHED_PLAYER.map(
+      (field) => `${field}=${JSON.stringify(you[field])}`,
+    ).join(" "),
+    "stat[" + bumped + "]",
+    "readoutChanged=" + (game.dom.d5_3_1.innerHTML !== readoutBefore),
+    "logRows=" + game.dom.mscont.children.length,
+    "log=" + JSON.stringify(logText(game.dom.mscont)),
+  );
 }
 
 say(

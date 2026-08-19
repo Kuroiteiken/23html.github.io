@@ -19,6 +19,36 @@ function Item() {
   this.use = function () {};
 }
 
+// Eating. One hundred and eighty-six of the game's food items had this same handler
+// copied into them -- twelve lines each, differing only in the gluttony level they
+// train -- which meant a change to how eating works had to be made in 186 places, and
+// missing one of them was a near certainty.
+//
+// They arrived in two spellings, differing only in whether `this.amount--` came
+// before or after the readout and the message. That difference is invisible:
+// dom.d5_3_1.update() reads you.sat, you.satmax and you.efficiency() and never looks
+// at the stack the food came from, and the message reads this.val. So both spellings
+// are this one function, and tests/fingerprint.js records what every item's use
+// handler does, which is how that was confirmed rather than assumed.
+function eatUse(gluttony) {
+  // A plain function, not an arrow: `this` has to be the item being eaten.
+  return function () {
+    you.sat + this.val > you.satmax
+      ? (you.sat = you.satmax)
+      : (you.sat += this.val);
+    skl.glt.use(gluttony);
+    global.stat.fooda++;
+    this.amount--;
+    dom.d5_3_1.update();
+    msg(
+      i18n.t("runtime.data.items.dialogue.restored_energy", {
+        amount: this.val,
+      }),
+      "lime",
+    );
+  };
+}
+
 item.rcs = new Item();
 item.rcs.id = 3000;
 item.rcs.name = i18n.t("content.item.rcs.name");
@@ -880,19 +910,7 @@ item.brd.desc = i18n.t("content.item.brd.desc", {
 });
 item.brd.stype = 4;
 item.brd.rot = [0.15, 0.25, 0.05, 0.15];
-item.brd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.brd.use = eatUse(2);
 item.brd.onChange = function (x, y) {
   if (y) return [item.spb, x];
   giveItem(item.spb, x);
@@ -907,19 +925,7 @@ item.crrt.desc = i18n.t("content.item.crrt.desc", {
   val: item.crrt.val,
 });
 item.crrt.stype = 4;
-item.crrt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.crrt.use = eatUse(1);
 item.crrt.onGet = function () {
   if (this.amount >= 20) {
     giveRcp(rcp.bcrrt);
@@ -963,19 +969,7 @@ item.eggn.desc = i18n.t("content.item.eggn.desc", {
   val: item.eggn.val,
 });
 item.eggn.stype = 4;
-item.eggn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.eggn.use = eatUse(2);
 
 item.mlkn = new Item();
 item.mlkn.id = 6;
@@ -1047,19 +1041,7 @@ item.rice.desc = i18n.t("content.item.rice.desc", {
   val: item.rice.val,
 });
 item.rice.stype = 4;
-item.rice.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rice.use = eatUse(2);
 
 item.borc = new Item();
 item.borc.id = 9;
@@ -1070,19 +1052,7 @@ item.borc.desc = i18n.t("content.item.borc.desc", {
   val: item.borc.val,
 });
 item.borc.stype = 4;
-item.borc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.borc.use = eatUse(3);
 
 item.begg = new Item();
 item.begg.id = 10;
@@ -1093,19 +1063,7 @@ item.begg.desc = i18n.t("content.item.begg.desc", {
   val: item.begg.val,
 });
 item.begg.stype = 4;
-item.begg.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.begg.use = eatUse(2);
 
 item.kit = new Item();
 item.kit.id = 11;
@@ -1117,19 +1075,7 @@ item.kit.desc = i18n.t("content.item.kit.desc", {
 });
 item.kit.stype = 4;
 item.kit.rar = 4;
-item.kit.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(390);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.kit.use = eatUse(390);
 
 item.bac = new Item();
 item.bac.id = 12;
@@ -1140,19 +1086,7 @@ item.bac.desc = i18n.t("content.item.bac.desc", {
   val: item.bac.val,
 });
 item.bac.stype = 4;
-item.bac.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bac.use = eatUse(6);
 
 item.bgt = new Item();
 item.bgt.id = 13;
@@ -1163,19 +1097,7 @@ item.bgt.desc = i18n.t("content.item.bgt.desc", {
   val: item.bgt.val,
 });
 item.bgt.stype = 4;
-item.bgt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bgt.use = eatUse(4);
 
 item.bhd = new Item();
 item.bhd.id = 14;
@@ -1186,19 +1108,7 @@ item.bhd.desc = i18n.t("content.item.bhd.desc", {
   val: item.bhd.val,
 });
 item.bhd.stype = 4;
-item.bhd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bhd.use = eatUse(8);
 
 item.spb = new Item();
 item.spb.id = 15;
@@ -1238,19 +1148,7 @@ item.wsb.desc = i18n.t("content.item.wsb.desc", {
   val: item.wsb.val,
 });
 item.wsb.stype = 4;
-item.wsb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.wsb.use = eatUse(7);
 
 item.onn = new Item();
 item.onn.id = 17;
@@ -1261,19 +1159,7 @@ item.onn.desc = i18n.t("content.item.onn.desc", {
   val: item.onn.val,
 });
 item.onn.stype = 4;
-item.onn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.onn.use = eatUse(8);
 
 item.sgr = new Item();
 item.sgr.id = 18;
@@ -1284,19 +1170,7 @@ item.sgr.desc = i18n.t("content.item.sgr.desc", {
   val: item.sgr.val,
 });
 item.sgr.stype = 4;
-item.sgr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.sgr.use = eatUse(1);
 
 item.wht = new Item();
 item.wht.id = 19;
@@ -1307,19 +1181,7 @@ item.wht.desc = i18n.t("content.item.wht.desc", {
   val: item.wht.val,
 });
 item.wht.stype = 4;
-item.wht.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.wht.use = eatUse(1);
 
 item.tmt = new Item();
 item.tmt.id = 20;
@@ -1330,19 +1192,7 @@ item.tmt.desc = i18n.t("content.item.tmt.desc", {
   val: item.tmt.val,
 });
 item.tmt.stype = 4;
-item.tmt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.tmt.use = eatUse(2);
 
 item.cbg = new Item();
 item.cbg.id = 21;
@@ -1353,19 +1203,7 @@ item.cbg.desc = i18n.t("content.item.cbg.desc", {
   val: item.cbg.val,
 });
 item.cbg.stype = 4;
-item.cbg.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cbg.use = eatUse(2);
 
 item.mshr = new Item();
 item.mshr.id = 22;
@@ -1376,19 +1214,7 @@ item.mshr.desc = i18n.t("content.item.mshr.desc", {
   val: item.mshr.val,
 });
 item.mshr.stype = 4;
-item.mshr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mshr.use = eatUse(2);
 
 item.bnn = new Item();
 item.bnn.id = 23;
@@ -1399,19 +1225,7 @@ item.bnn.desc = i18n.t("content.item.bnn.desc", {
   val: item.bnn.val,
 });
 item.bnn.stype = 4;
-item.bnn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bnn.use = eatUse(1);
 
 item.wbrs = new Item();
 item.wbrs.id = 24;
@@ -1422,19 +1236,7 @@ item.wbrs.desc = i18n.t("content.item.wbrs.desc", {
   val: item.wbrs.val,
 });
 item.wbrs.stype = 4;
-item.wbrs.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.wbrs.use = eatUse(1);
 
 item.strwb = new Item();
 item.strwb.id = 25;
@@ -1445,19 +1247,7 @@ item.strwb.desc = i18n.t("content.item.strwb.desc", {
   val: item.strwb.val,
 });
 item.strwb.stype = 4;
-item.strwb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.strwb.use = eatUse(3);
 
 item.orng = new Item();
 item.orng.id = 26;
@@ -1468,19 +1258,7 @@ item.orng.desc = i18n.t("content.item.orng.desc", {
   val: item.orng.val,
 });
 item.orng.stype = 4;
-item.orng.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.orng.use = eatUse(5);
 
 item.ches = new Item();
 item.ches.id = 27;
@@ -1491,19 +1269,7 @@ item.ches.desc = i18n.t("content.item.ches.desc", {
   val: item.ches.val,
 });
 item.ches.stype = 4;
-item.ches.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ches.use = eatUse(5);
 
 item.ltcc = new Item();
 item.ltcc.id = 28;
@@ -1514,19 +1280,7 @@ item.ltcc.desc = i18n.t("content.item.ltcc.desc", {
   val: item.ltcc.val,
 });
 item.ltcc.stype = 4;
-item.ltcc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ltcc.use = eatUse(2);
 
 item.brly = new Item();
 item.brly.id = 29;
@@ -1537,19 +1291,7 @@ item.brly.desc = i18n.t("content.item.brly.desc", {
   val: item.brly.val,
 });
 item.brly.stype = 4;
-item.brly.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.brly.use = eatUse(1);
 
 item.grlc = new Item();
 item.grlc.id = 30;
@@ -1560,19 +1302,7 @@ item.grlc.desc = i18n.t("content.item.grlc.desc", {
   val: item.grlc.val,
 });
 item.grlc.stype = 4;
-item.grlc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.grlc.use = eatUse(9);
 
 item.pmpk = new Item();
 item.pmpk.id = 31;
@@ -1583,19 +1313,7 @@ item.pmpk.desc = i18n.t("content.item.pmpk.desc", {
   val: item.pmpk.val,
 });
 item.pmpk.stype = 4;
-item.pmpk.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.pmpk.use = eatUse(3);
 
 item.lmn = new Item();
 item.lmn.id = 32;
@@ -1606,19 +1324,7 @@ item.lmn.desc = i18n.t("content.item.lmn.desc", {
   val: item.lmn.val,
 });
 item.lmn.stype = 4;
-item.lmn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.lmn.use = eatUse(10);
 
 item.grp = new Item();
 item.grp.id = 33;
@@ -1629,19 +1335,7 @@ item.grp.desc = i18n.t("content.item.grp.desc", {
   val: item.grp.val,
 });
 item.grp.stype = 4;
-item.grp.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.grp.use = eatUse(2);
 
 item.pnpl = new Item();
 item.pnpl.id = 34;
@@ -1652,19 +1346,7 @@ item.pnpl.desc = i18n.t("content.item.pnpl.desc", {
   val: item.pnpl.val,
 });
 item.pnpl.stype = 4;
-item.pnpl.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.pnpl.use = eatUse(3);
 
 item.rsmt = new Item();
 item.rsmt.id = 35;
@@ -1676,19 +1358,7 @@ item.rsmt.desc = i18n.t("content.item.rsmt.desc", {
   val: item.rsmt.val,
 });
 item.rsmt.stype = 4;
-item.rsmt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rsmt.use = eatUse(4);
 
 item.tbrwd = new Item();
 item.tbrwd.id = 36;
@@ -1699,19 +1369,7 @@ item.tbrwd.desc = i18n.t("content.item.tbrwd.desc", {
   val: item.tbrwd.val,
 });
 item.tbrwd.stype = 4;
-item.tbrwd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.tbrwd.use = eatUse(7);
 
 item.htbrwd = new Item();
 item.htbrwd.id = 37;
@@ -1722,19 +1380,7 @@ item.htbrwd.desc = i18n.t("content.item.htbrwd.desc", {
   val: item.htbrwd.val,
 });
 item.htbrwd.stype = 4;
-item.htbrwd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.htbrwd.use = eatUse(5);
 
 item.segg = new Item();
 item.segg.id = 38;
@@ -1745,19 +1391,7 @@ item.segg.desc = i18n.t("content.item.segg.desc", {
   val: item.segg.val,
 });
 item.segg.stype = 4;
-item.segg.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.segg.use = eatUse(7);
 
 item.irntl = new Item();
 item.irntl.id = 39;
@@ -2113,19 +1747,7 @@ item.cbun1.desc = i18n.t("content.item.cbun1.desc", {
   val: item.cbun1.val,
 });
 item.cbun1.stype = 4;
-item.cbun1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cbun1.use = eatUse(4);
 
 item.cbun2 = new Item();
 item.cbun2.id = 53;
@@ -2136,19 +1758,7 @@ item.cbun2.desc = i18n.t("content.item.cbun2.desc", {
   val: item.cbun2.val,
 });
 item.cbun2.stype = 4;
-item.cbun2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cbun2.use = eatUse(6);
 
 item.cbun3 = new Item();
 item.cbun3.id = 54;
@@ -2160,19 +1770,7 @@ item.cbun3.desc = i18n.t("content.item.cbun3.desc", {
 });
 item.cbun3.stype = 4;
 item.cbun3.rar = 2;
-item.cbun3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cbun3.use = eatUse(8);
 
 item.scak = new Item();
 item.scak.id = 55;
@@ -2183,19 +1781,7 @@ item.scak.desc = i18n.t("content.item.scak.desc", {
   val: item.scak.val,
 });
 item.scak.stype = 4;
-item.scak.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(13);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.scak.use = eatUse(13);
 
 item.atrt = new Item();
 item.atrt.id = 56;
@@ -2206,19 +1792,7 @@ item.atrt.desc = i18n.t("content.item.atrt.desc", {
   val: item.atrt.val,
 });
 item.atrt.stype = 4;
-item.atrt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.atrt.use = eatUse(8);
 
 item.strt = new Item();
 item.strt.id = 57;
@@ -2230,19 +1804,7 @@ item.strt.desc = i18n.t("content.item.strt.desc", {
 });
 item.strt.stype = 4;
 item.strt.rar = 2;
-item.strt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.strt.use = eatUse(10);
 
 item.ccak = new Item();
 item.ccak.id = 58;
@@ -2254,19 +1816,7 @@ item.ccak.desc = i18n.t("content.item.ccak.desc", {
 });
 item.ccak.stype = 4;
 item.ccak.rar = 2;
-item.ccak.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(15);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ccak.use = eatUse(15);
 
 item.icrm = new Item();
 item.icrm.id = 59;
@@ -2277,19 +1827,7 @@ item.icrm.desc = i18n.t("content.item.icrm.desc", {
   val: item.icrm.val,
 });
 item.icrm.stype = 4;
-item.icrm.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.icrm.use = eatUse(8);
 
 item.lnch1 = new Item();
 item.lnch1.id = 60;
@@ -2300,19 +1838,7 @@ item.lnch1.desc = i18n.t("content.item.lnch1.desc", {
   val: item.lnch1.val,
 });
 item.lnch1.stype = 4;
-item.lnch1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.lnch1.use = eatUse(12);
 
 item.lnch2 = new Item();
 item.lnch2.id = 61;
@@ -2324,19 +1850,7 @@ item.lnch2.desc = i18n.t("content.item.lnch2.desc", {
 });
 item.lnch2.stype = 4;
 item.lnch2.rar = 2;
-item.lnch2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(15);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.lnch2.use = eatUse(15);
 
 item.lnch3 = new Item();
 item.lnch3.id = 62;
@@ -2348,19 +1862,7 @@ item.lnch3.desc = i18n.t("content.item.lnch3.desc", {
 });
 item.lnch3.stype = 4;
 item.lnch3.rar = 2;
-item.lnch3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(22);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.lnch3.use = eatUse(22);
 
 item.orgs = new Item();
 item.orgs.id = 63;
@@ -2371,19 +1873,7 @@ item.orgs.desc = i18n.t("content.item.orgs.desc", {
   val: item.orgs.val,
 });
 item.orgs.stype = 4;
-item.orgs.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.orgs.use = eatUse(7);
 
 item.fsh1 = new Item();
 item.fsh1.id = 65;
@@ -2448,19 +1938,7 @@ item.ffsh1.desc = i18n.t("content.item.ffsh1.desc", {
   val: item.ffsh1.val,
 });
 item.ffsh1.stype = 4;
-item.ffsh1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ffsh1.use = eatUse(4);
 
 item.ffsh2 = new Item();
 item.ffsh2.id = 68;
@@ -2472,19 +1950,7 @@ item.ffsh2.desc = i18n.t("content.item.ffsh2.desc", {
 });
 item.ffsh2.stype = 4;
 item.ffsh2.rar = 2;
-item.ffsh2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ffsh2.use = eatUse(10);
 
 item.ssm = new Item();
 item.ssm.id = 69;
@@ -2496,19 +1962,7 @@ item.ssm.desc = i18n.t("content.item.ssm.desc", {
 });
 item.ssm.stype = 4;
 item.ssm.rar = 2;
-item.ssm.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ssm.use = eatUse(8);
 
 item.dssm = new Item();
 item.dssm.id = 70;
@@ -2520,19 +1974,7 @@ item.dssm.desc = i18n.t("content.item.dssm.desc", {
 });
 item.dssm.stype = 4;
 item.dssm.rar = 2;
-item.dssm.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(15);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.dssm.use = eatUse(15);
 
 item.mkzs = new Item();
 item.mkzs.id = 71;
@@ -2544,19 +1986,7 @@ item.mkzs.desc = i18n.t("content.item.mkzs.desc", {
 });
 item.mkzs.stype = 4;
 item.mkzs.rar = 2;
-item.mkzs.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(17);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mkzs.use = eatUse(17);
 
 item.nori = new Item();
 item.nori.id = 72;
@@ -2567,19 +1997,7 @@ item.nori.desc = i18n.t("content.item.nori.desc", {
   val: item.nori.val,
 });
 item.nori.stype = 4;
-item.nori.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.nori.use = eatUse(3);
 
 item.fnori = new Item();
 item.fnori.id = 73;
@@ -2590,19 +2008,7 @@ item.fnori.desc = i18n.t("content.item.fnori.desc", {
   val: item.fnori.val,
 });
 item.fnori.stype = 4;
-item.fnori.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.fnori.use = eatUse(7);
 
 item.swtch1 = new Item();
 item.swtch1.id = 74;
@@ -2613,19 +2019,7 @@ item.swtch1.desc = i18n.t("content.item.swtch1.desc", {
   val: item.swtch1.val,
 });
 item.swtch1.stype = 4;
-item.swtch1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.swtch1.use = eatUse(5);
 
 item.jll = new Item();
 item.jll.id = 75;
@@ -2636,19 +2030,7 @@ item.jll.desc = i18n.t("content.item.jll.desc", {
   val: item.jll.val,
 });
 item.jll.stype = 4;
-item.jll.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.jll.use = eatUse(4);
 
 item.flr = new Item();
 item.flr.id = 76;
@@ -2659,19 +2041,7 @@ item.flr.desc = i18n.t("content.item.flr.desc", {
   val: item.flr.val,
 });
 item.flr.stype = 4;
-item.flr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.flr.use = eatUse(2);
 
 item.pcns = new Item();
 item.pcns.id = 77;
@@ -2682,19 +2052,7 @@ item.pcns.desc = i18n.t("content.item.pcns.desc", {
   val: item.pcns.val,
 });
 item.pcns.stype = 4;
-item.pcns.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.pcns.use = eatUse(2);
 
 item.dgh = new Item();
 item.dgh.id = 78;
@@ -2705,19 +2063,7 @@ item.dgh.desc = i18n.t("content.item.dgh.desc", {
   val: item.dgh.val,
 });
 item.dgh.stype = 4;
-item.dgh.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.dgh.use = eatUse(3);
 
 item.hzlnt = new Item();
 item.hzlnt.id = 79;
@@ -2728,19 +2074,7 @@ item.hzlnt.desc = i18n.t("content.item.hzlnt.desc", {
   val: item.hzlnt.val,
 });
 item.hzlnt.stype = 4;
-item.hzlnt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.hzlnt.use = eatUse(2);
 
 item.hpck = new Item();
 item.hpck.id = 80;
@@ -2752,19 +2086,7 @@ item.hpck.desc = i18n.t("content.item.hpck.desc", {
 });
 item.hpck.stype = 4;
 item.hpck.rar = 2;
-item.hpck.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.hpck.use = eatUse(6);
 
 item.dfrt = new Item();
 item.dfrt.id = 81;
@@ -2775,19 +2097,7 @@ item.dfrt.desc = i18n.t("content.item.dfrt.desc", {
   val: item.dfrt.val,
 });
 item.dfrt.stype = 4;
-item.dfrt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.dfrt.use = eatUse(2);
 
 item.brdb = new Item();
 item.brdb.id = 82;
@@ -2823,19 +2133,7 @@ item.spcn.desc = i18n.t("content.item.spcn.desc", {
   val: item.spcn.val,
 });
 item.spcn.stype = 4;
-item.spcn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.spcn.use = eatUse(2);
 
 item.hney = new Item();
 item.hney.id = 84;
@@ -2846,19 +2144,7 @@ item.hney.desc = i18n.t("content.item.hney.desc", {
   val: item.hney.val,
 });
 item.hney.stype = 4;
-item.hney.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.hney.use = eatUse(2);
 
 item.brise = new Item();
 item.brise.id = 85;
@@ -2899,19 +2185,7 @@ item.steak.desc = i18n.t("content.item.steak.desc", {
 });
 item.steak.stype = 4;
 item.steak.rar = 2;
-item.steak.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(15);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.steak.use = eatUse(15);
 
 item.spc1 = new Item();
 item.spc1.id = 87;
@@ -2923,19 +2197,7 @@ item.spc1.desc = i18n.t("content.item.spc1.desc", {
 });
 item.spc1.stype = 4;
 item.spc1.rar = 2;
-item.spc1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.spc1.use = eatUse(7);
 
 item.cnmn = new Item();
 item.cnmn.id = 88;
@@ -2946,19 +2208,7 @@ item.cnmn.desc = i18n.t("content.item.cnmn.desc", {
   val: item.cnmn.val,
 });
 item.cnmn.stype = 4;
-item.cnmn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cnmn.use = eatUse(6);
 
 item.bttr = new Item();
 item.bttr.id = 89;
@@ -2969,19 +2219,7 @@ item.bttr.desc = i18n.t("content.item.bttr.desc", {
   val: item.bttr.val,
 });
 item.bttr.stype = 4;
-item.bttr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bttr.use = eatUse(3);
 
 item.cnmnb = new Item();
 item.cnmnb.id = 90;
@@ -2993,19 +2231,7 @@ item.cnmnb.desc = i18n.t("content.item.cnmnb.desc", {
 });
 item.cnmnb.stype = 4;
 item.cnmnb.rar = 2;
-item.cnmnb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cnmnb.use = eatUse(9);
 
 item.brth = new Item();
 item.brth.id = 91;
@@ -3016,19 +2242,7 @@ item.brth.desc = i18n.t("content.item.brth.desc", {
   val: item.brth.val,
 });
 item.brth.stype = 4;
-item.brth.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.brth.use = eatUse(4);
 
 item.eggsp = new Item();
 item.eggsp.id = 92;
@@ -3040,19 +2254,7 @@ item.eggsp.desc = i18n.t("content.item.eggsp.desc", {
 });
 item.eggsp.stype = 4;
 item.eggsp.rar = 2;
-item.eggsp.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.eggsp.use = eatUse(10);
 
 item.scln = new Item();
 item.scln.id = 93;
@@ -3063,19 +2265,7 @@ item.scln.desc = i18n.t("content.item.scln.desc", {
   val: item.scln.val,
 });
 item.scln.stype = 4;
-item.scln.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.scln.use = eatUse(10);
 
 item.crmchd = new Item();
 item.crmchd.id = 94;
@@ -3087,19 +2277,7 @@ item.crmchd.desc = i18n.t("content.item.crmchd.desc", {
 });
 item.crmchd.stype = 4;
 item.crmchd.rar = 2;
-item.crmchd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.crmchd.use = eatUse(10);
 
 item.chklt = new Item();
 item.chklt.id = 95;
@@ -3110,19 +2288,7 @@ item.chklt.desc = i18n.t("content.item.chklt.desc", {
   val: item.chklt.val,
 });
 item.chklt.stype = 4;
-item.chklt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.chklt.use = eatUse(3);
 
 item.fegg = new Item();
 item.fegg.id = 96;
@@ -3133,19 +2299,7 @@ item.fegg.desc = i18n.t("content.item.fegg.desc", {
   val: item.fegg.val,
 });
 item.fegg.stype = 4;
-item.fegg.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.fegg.use = eatUse(2);
 
 item.crn = new Item();
 item.crn.id = 97;
@@ -3156,19 +2310,7 @@ item.crn.desc = i18n.t("content.item.crn.desc", {
   val: item.crn.val,
 });
 item.crn.stype = 4;
-item.crn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.crn.use = eatUse(5);
 
 item.bcrn = new Item();
 item.bcrn.id = 98;
@@ -3179,19 +2321,7 @@ item.bcrn.desc = i18n.t("content.item.bcrn.desc", {
   val: item.bcrn.val,
 });
 item.bcrn.stype = 4;
-item.bcrn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bcrn.use = eatUse(6);
 
 item.pcrn = new Item();
 item.pcrn.id = 99;
@@ -3202,19 +2332,7 @@ item.pcrn.desc = i18n.t("content.item.pcrn.desc", {
   val: item.pcrn.val,
 });
 item.pcrn.stype = 4;
-item.pcrn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.pcrn.use = eatUse(2);
 
 item.cpcrn = new Item();
 item.cpcrn.id = 100;
@@ -3225,19 +2343,7 @@ item.cpcrn.desc = i18n.t("content.item.cpcrn.desc", {
   val: item.cpcrn.val,
 });
 item.cpcrn.stype = 4;
-item.cpcrn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.cpcrn.use = eatUse(4);
 
 item.fbrd = new Item();
 item.fbrd.id = 101;
@@ -3248,19 +2354,7 @@ item.fbrd.desc = i18n.t("content.item.fbrd.desc", {
   val: item.fbrd.val,
 });
 item.fbrd.stype = 4;
-item.fbrd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.fbrd.use = eatUse(2);
 
 item.gcce = new Item();
 item.gcce.id = 102;
@@ -3272,19 +2366,7 @@ item.gcce.desc = i18n.t("content.item.gcce.desc", {
 });
 item.gcce.stype = 4;
 item.gcce.rar = 2;
-item.gcce.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.gcce.use = eatUse(5);
 
 item.bcrc = new Item();
 item.bcrc.id = 103;
@@ -3295,19 +2377,7 @@ item.bcrc.desc = i18n.t("content.item.bcrc.desc", {
   val: item.bcrc.val,
 });
 item.bcrc.stype = 4;
-item.bcrc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bcrc.use = eatUse(3);
 
 item.snkb = new Item();
 item.snkb.id = 104;
@@ -3318,19 +2388,7 @@ item.snkb.desc = i18n.t("content.item.snkb.desc", {
   val: item.snkb.val,
 });
 item.snkb.stype = 4;
-item.snkb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.snkb.use = eatUse(5);
 
 item.dmtp = new Item();
 item.dmtp.id = 105;
@@ -3342,19 +2400,7 @@ item.dmtp.desc = i18n.t("content.item.dmtp.desc", {
 });
 item.dmtp.rar = 2;
 item.dmtp.stype = 4;
-item.dmtp.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(41);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.dmtp.use = eatUse(41);
 
 item.lkmc = new Item();
 item.lkmc.id = 106;
@@ -3365,19 +2411,7 @@ item.lkmc.desc = i18n.t("content.item.lkmc.desc", {
   val: item.lkmc.val,
 });
 item.lkmc.stype = 4;
-item.lkmc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.lkmc.use = eatUse(4);
 
 item.vgsn = new Item();
 item.vgsn.id = 107;
@@ -3388,19 +2422,7 @@ item.vgsn.desc = i18n.t("content.item.vgsn.desc", {
   val: item.vgsn.val,
 });
 item.vgsn.stype = 4;
-item.vgsn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.vgsn.use = eatUse(9);
 
 item.stgp = new Item();
 item.stgp.id = 108;
@@ -3411,19 +2433,7 @@ item.stgp.desc = i18n.t("content.item.stgp.desc", {
   val: item.stgp.val,
 });
 item.stgp.stype = 4;
-item.stgp.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(18);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.stgp.use = eatUse(18);
 
 item.tdpps = new Item();
 item.tdpps.id = 109;
@@ -3434,19 +2444,7 @@ item.tdpps.desc = i18n.t("content.item.tdpps.desc", {
   val: item.tdpps.val,
 });
 item.tdpps.stype = 4;
-item.tdpps.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.tdpps.use = eatUse(4);
 
 item.chstn = new Item();
 item.chstn.id = 110;
@@ -3457,19 +2455,7 @@ item.chstn.desc = i18n.t("content.item.chstn.desc", {
   val: item.chstn.val,
 });
 item.chstn.stype = 4;
-item.chstn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(1);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.chstn.use = eatUse(1);
 
 item.prfd = new Item();
 item.prfd.id = 111;
@@ -3481,19 +2467,7 @@ item.prfd.desc = i18n.t("content.item.prfd.desc", {
 });
 item.prfd.stype = 4;
 item.prfd.rar = 0;
-item.prfd.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.prfd.use = eatUse(8);
 
 item.brmt = new Item();
 item.brmt.id = 112;
@@ -3529,19 +2503,7 @@ item.mbsps.desc = i18n.t("content.item.mbsps.desc", {
   val: item.mbsps.val,
 });
 item.mbsps.stype = 4;
-item.mbsps.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(66);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mbsps.use = eatUse(66);
 
 item.spgt = new Item();
 item.spgt.id = 114;
@@ -3552,19 +2514,7 @@ item.spgt.desc = i18n.t("content.item.spgt.desc", {
   val: item.spgt.val,
 });
 item.spgt.stype = 4;
-item.spgt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.spgt.use = eatUse(5);
 
 item.mnj1 = new Item();
 item.mnj1.id = 115;
@@ -3575,19 +2525,7 @@ item.mnj1.desc = i18n.t("content.item.mnj1.desc", {
   val: item.mnj1.val,
 });
 item.mnj1.stype = 4;
-item.mnj1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mnj1.use = eatUse(4);
 
 item.mnj2 = new Item();
 item.mnj2.id = 116;
@@ -3625,19 +2563,7 @@ item.ntea1.desc = i18n.t("content.item.ntea1.desc", {
 });
 item.ntea1.rar = 2;
 item.ntea1.stype = 4;
-item.ntea1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ntea1.use = eatUse(3);
 
 item.jrk1 = new Item();
 item.jrk1.id = 118;
@@ -3648,19 +2574,7 @@ item.jrk1.desc = i18n.t("content.item.jrk1.desc", {
   val: item.jrk1.val,
 });
 item.jrk1.stype = 4;
-item.jrk1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.jrk1.use = eatUse(2);
 
 item.jrk2 = new Item();
 item.jrk2.id = 119;
@@ -3671,19 +2585,7 @@ item.jrk2.desc = i18n.t("content.item.jrk2.desc", {
   val: item.jrk2.val,
 });
 item.jrk2.stype = 4;
-item.jrk2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.jrk2.use = eatUse(5);
 
 item.ongr = new Item();
 item.ongr.id = 120;
@@ -3694,19 +2596,7 @@ item.ongr.desc = i18n.t("content.item.ongr.desc", {
   val: item.ongr.val,
 });
 item.ongr.stype = 4;
-item.ongr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.ongr.use = eatUse(2);
 
 item.rbmb = new Item();
 item.rbmb.id = 121;
@@ -3717,19 +2607,7 @@ item.rbmb.desc = i18n.t("content.item.rbmb.desc", {
   val: item.rbmb.val,
 });
 item.rbmb.stype = 4;
-item.rbmb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rbmb.use = eatUse(4);
 
 item.mchii = new Item();
 item.mchii.id = 122;
@@ -3740,19 +2618,7 @@ item.mchii.desc = i18n.t("content.item.mchii.desc", {
   val: item.mchii.val,
 });
 item.mchii.stype = 4;
-item.mchii.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mchii.use = eatUse(8);
 
 item.mchai = new Item();
 item.mchai.id = 123;
@@ -3763,19 +2629,7 @@ item.mchai.desc = i18n.t("content.item.mchai.desc", {
   val: item.mchai.val,
 });
 item.mchai.stype = 4;
-item.mchai.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.mchai.use = eatUse(12);
 
 item.igum = new Item();
 item.igum.id = 124;
@@ -3786,19 +2640,7 @@ item.igum.desc = i18n.t("content.item.igum.desc", {
   val: item.igum.val,
 });
 item.igum.stype = 4;
-item.igum.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.igum.use = eatUse(3);
 
 item.msoop = new Item();
 item.msoop.id = 125;
@@ -3809,19 +2651,7 @@ item.msoop.desc = i18n.t("content.item.msoop.desc", {
   val: item.msoop.val,
 });
 item.msoop.stype = 4;
-item.msoop.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.msoop.use = eatUse(4);
 
 item.rmn1 = new Item();
 item.rmn1.id = 126;
@@ -3832,19 +2662,7 @@ item.rmn1.desc = i18n.t("content.item.rmn1.desc", {
   val: item.rmn1.val,
 });
 item.rmn1.stype = 4;
-item.rmn1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rmn1.use = eatUse(6);
 
 item.rmn2 = new Item();
 item.rmn2.id = 127;
@@ -3855,19 +2673,7 @@ item.rmn2.desc = i18n.t("content.item.rmn2.desc", {
   val: item.rmn2.val,
 });
 item.rmn2.stype = 4;
-item.rmn2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rmn2.use = eatUse(5);
 
 item.rmn3 = new Item();
 item.rmn3.id = 128;
@@ -3878,19 +2684,7 @@ item.rmn3.desc = i18n.t("content.item.rmn3.desc", {
   val: item.rmn3.val,
 });
 item.rmn3.stype = 4;
-item.rmn3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.rmn3.use = eatUse(9);
 
 item.sqdyak = new Item();
 item.sqdyak.id = 129;
@@ -3901,19 +2695,7 @@ item.sqdyak.desc = i18n.t("content.item.sqdyak.desc", {
   val: item.sqdyak.val,
 });
 item.sqdyak.stype = 4;
-item.sqdyak.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.sqdyak.use = eatUse(7);
 
 item.mtbeer = new Item();
 item.mtbeer.id = 130;
@@ -4001,19 +2783,7 @@ item.krcsal.desc = i18n.t("content.item.krcsal.desc", {
   val: item.krcsal.val,
 });
 item.krcsal.stype = 4;
-item.krcsal.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.krcsal.use = eatUse(6);
 
 item.emdm = new Item();
 item.emdm.id = 134;
@@ -4024,19 +2794,7 @@ item.emdm.desc = i18n.t("content.item.emdm.desc", {
   val: item.emdm.val,
 });
 item.emdm.stype = 4;
-item.emdm.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.emdm.use = eatUse(2);
 
 item.skplt = new Item();
 item.skplt.id = 135;
@@ -4048,19 +2806,7 @@ item.skplt.desc = i18n.t("content.item.skplt.desc", {
 });
 item.skplt.stype = 4;
 item.skplt.rar = 2;
-item.skplt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.skplt.use = eatUse(10);
 
 item.skwre = new Item();
 item.skwre.id = 136;
@@ -4071,19 +2817,7 @@ item.skwre.desc = i18n.t("content.item.skwre.desc", {
   val: item.skwre.val,
 });
 item.skwre.stype = 4;
-item.skwre.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.skwre.use = eatUse(7);
 
 item.smfro = new Item();
 item.smfro.id = 137;
@@ -4094,19 +2828,7 @@ item.smfro.desc = i18n.t("content.item.smfro.desc", {
   val: item.smfro.val,
 });
 item.smfro.stype = 4;
-item.smfro.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.smfro.use = eatUse(6);
 
 item.fsqdnr = new Item();
 item.fsqdnr.id = 138;
@@ -4117,19 +2839,7 @@ item.fsqdnr.desc = i18n.t("content.item.fsqdnr.desc", {
   val: item.fsqdnr.val,
 });
 item.fsqdnr.stype = 4;
-item.fsqdnr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.fsqdnr.use = eatUse(6);
 
 item.sltyak = new Item();
 item.sltyak.id = 139;
@@ -4140,19 +2850,7 @@ item.sltyak.desc = i18n.t("content.item.sltyak.desc", {
   val: item.sltyak.val,
 });
 item.sltyak.stype = 4;
-item.sltyak.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.sltyak.use = eatUse(8);
 
 item.jcmncc = new Item();
 item.jcmncc.id = 140;
@@ -4163,19 +2861,7 @@ item.jcmncc.desc = i18n.t("content.item.jcmncc.desc", {
   val: item.jcmncc.val,
 });
 item.jcmncc.stype = 4;
-item.jcmncc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.jcmncc.use = eatUse(6);
 
 item.sbeanf = new Item();
 item.sbeanf.id = 141;
@@ -4186,19 +2872,7 @@ item.sbeanf.desc = i18n.t("content.item.sbeanf.desc", {
   val: item.sbeanf.val,
 });
 item.sbeanf.stype = 4;
-item.sbeanf.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sbeanf.use = eatUse(4);
 
 item.mgpch = new Item();
 item.mgpch.id = 142;
@@ -4209,19 +2883,7 @@ item.mgpch.desc = i18n.t("content.item.mgpch.desc", {
   val: item.mgpch.val,
 });
 item.mgpch.stype = 4;
-item.mgpch.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.mgpch.use = eatUse(3);
 
 item.maitake = new Item();
 item.maitake.id = 143;
@@ -4232,19 +2894,7 @@ item.maitake.desc = i18n.t("content.item.maitake.desc", {
   val: item.maitake.val,
 });
 item.maitake.stype = 4;
-item.maitake.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(2);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.maitake.use = eatUse(2);
 
 item.odens = new Item();
 item.odens.id = 144;
@@ -4255,19 +2905,7 @@ item.odens.desc = i18n.t("content.item.odens.desc", {
   val: item.odens.val,
 });
 item.odens.stype = 4;
-item.odens.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.odens.use = eatUse(5);
 
 item.onign1 = new Item();
 item.onign1.id = 145;
@@ -4278,19 +2916,7 @@ item.onign1.desc = i18n.t("content.item.onign1.desc", {
   val: item.onign1.val,
 });
 item.onign1.stype = 4;
-item.onign1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.onign1.use = eatUse(3);
 
 item.onign2 = new Item();
 item.onign2.id = 146;
@@ -4301,19 +2927,7 @@ item.onign2.desc = i18n.t("content.item.onign2.desc", {
   val: item.onign2.val,
 });
 item.onign2.stype = 4;
-item.onign2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.onign2.use = eatUse(4);
 
 item.onign3 = new Item();
 item.onign3.id = 147;
@@ -4324,19 +2938,7 @@ item.onign3.desc = i18n.t("content.item.onign3.desc", {
   val: item.onign3.val,
 });
 item.onign3.stype = 4;
-item.onign3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.onign3.use = eatUse(5);
 
 item.syakis = new Item();
 item.syakis.id = 148;
@@ -4347,19 +2949,7 @@ item.syakis.desc = i18n.t("content.item.syakis.desc", {
   val: item.syakis.val,
 });
 item.syakis.stype = 4;
-item.syakis.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.syakis.use = eatUse(9);
 
 item.kkbin = new Item();
 item.kkbin.id = 149;
@@ -4451,19 +3041,7 @@ item.cham1.desc = i18n.t("content.item.cham1.desc", {
   val: item.cham1.val,
 });
 item.cham1.stype = 4;
-item.cham1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.cham1.use = eatUse(8);
 
 item.cham2 = new Item();
 item.cham2.id = 153;
@@ -4475,19 +3053,7 @@ item.cham2.desc = i18n.t("content.item.cham2.desc", {
 });
 item.cham2.stype = 4;
 item.cham2.rar = 2;
-item.cham2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(11);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.cham2.use = eatUse(11);
 
 item.cham3 = new Item();
 item.cham3.id = 154;
@@ -4498,19 +3064,7 @@ item.cham3.desc = i18n.t("content.item.cham3.desc", {
   val: item.cham3.val,
 });
 item.cham3.stype = 4;
-item.cham3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(14);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.cham3.use = eatUse(14);
 
 item.cham4 = new Item();
 item.cham4.id = 155;
@@ -4521,19 +3075,7 @@ item.cham4.desc = i18n.t("content.item.cham4.desc", {
   val: item.cham4.val,
 });
 item.cham4.stype = 4;
-item.cham4.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.cham4.use = eatUse(7);
 
 item.sudon1 = new Item();
 item.sudon1.id = 156;
@@ -4544,19 +3086,7 @@ item.sudon1.desc = i18n.t("content.item.sudon1.desc", {
   val: item.sudon1.val,
 });
 item.sudon1.stype = 4;
-item.sudon1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sudon1.use = eatUse(9);
 
 item.sudon2 = new Item();
 item.sudon2.id = 157;
@@ -4567,19 +3097,7 @@ item.sudon2.desc = i18n.t("content.item.sudon2.desc", {
   val: item.sudon2.val,
 });
 item.sudon2.stype = 4;
-item.sudon2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sudon2.use = eatUse(8);
 
 item.sudon3 = new Item();
 item.sudon3.id = 158;
@@ -4591,19 +3109,7 @@ item.sudon3.desc = i18n.t("content.item.sudon3.desc", {
 });
 item.sudon3.stype = 4;
 item.sudon3.rar = 2;
-item.sudon3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sudon3.use = eatUse(10);
 
 item.sudon4 = new Item();
 item.sudon4.id = 159;
@@ -4614,19 +3120,7 @@ item.sudon4.desc = i18n.t("content.item.sudon4.desc", {
   val: item.sudon4.val,
 });
 item.sudon4.stype = 4;
-item.sudon4.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sudon4.use = eatUse(6);
 
 item.goza = new Item();
 item.goza.id = 160;
@@ -4637,19 +3131,7 @@ item.goza.desc = i18n.t("content.item.goza.desc", {
   val: item.goza.val,
 });
 item.goza.stype = 4;
-item.goza.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.goza.use = eatUse(5);
 
 item.dfrch = new Item();
 item.dfrch.id = 161;
@@ -4660,19 +3142,7 @@ item.dfrch.desc = i18n.t("content.item.dfrch.desc", {
   val: item.dfrch.val,
 });
 item.dfrch.stype = 4;
-item.dfrch.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.dfrch.use = eatUse(9);
 
 item.ynasl = new Item();
 item.ynasl.id = 162;
@@ -4683,19 +3153,7 @@ item.ynasl.desc = i18n.t("content.item.ynasl.desc", {
   val: item.ynasl.val,
 });
 item.ynasl.stype = 4;
-item.ynasl.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ynasl.use = eatUse(5);
 
 item.ramen1 = new Item();
 item.ramen1.id = 163;
@@ -4706,19 +3164,7 @@ item.ramen1.desc = i18n.t("content.item.ramen1.desc", {
   val: item.ramen1.val,
 });
 item.ramen1.stype = 4;
-item.ramen1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ramen1.use = eatUse(7);
 
 item.ramen2 = new Item();
 item.ramen2.id = 164;
@@ -4729,19 +3175,7 @@ item.ramen2.desc = i18n.t("content.item.ramen2.desc", {
   val: item.ramen2.val,
 });
 item.ramen2.stype = 4;
-item.ramen2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ramen2.use = eatUse(8);
 
 item.ramen3 = new Item();
 item.ramen3.id = 165;
@@ -4752,19 +3186,7 @@ item.ramen3.desc = i18n.t("content.item.ramen3.desc", {
   val: item.ramen3.val,
 });
 item.ramen3.stype = 4;
-item.ramen3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ramen3.use = eatUse(10);
 
 item.ramen4 = new Item();
 item.ramen4.id = 166;
@@ -4776,19 +3198,7 @@ item.ramen4.desc = i18n.t("content.item.ramen4.desc", {
 });
 item.ramen4.stype = 4;
 item.ramen4.rare = 2;
-item.ramen4.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ramen4.use = eatUse(12);
 
 item.bffbl = new Item();
 item.bffbl.id = 167;
@@ -4799,19 +3209,7 @@ item.bffbl.desc = i18n.t("content.item.bffbl.desc", {
   val: item.bffbl.val,
 });
 item.bffbl.stype = 4;
-item.bffbl.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.bffbl.use = eatUse(7);
 
 item.sposs = new Item();
 item.sposs.id = 168;
@@ -4849,19 +3247,7 @@ item.soban1.desc = i18n.t("content.item.soban1.desc", {
   val: item.soban1.val,
 });
 item.soban1.stype = 4;
-item.soban1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban1.use = eatUse(6);
 
 item.soban2 = new Item();
 item.soban2.id = 170;
@@ -4872,19 +3258,7 @@ item.soban2.desc = i18n.t("content.item.soban2.desc", {
   val: item.soban2.val,
 });
 item.soban2.stype = 4;
-item.soban2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban2.use = eatUse(8);
 
 item.soban3 = new Item();
 item.soban3.id = 171;
@@ -4895,19 +3269,7 @@ item.soban3.desc = i18n.t("content.item.soban3.desc", {
   val: item.soban3.val,
 });
 item.soban3.stype = 4;
-item.soban3.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban3.use = eatUse(9);
 
 item.soban4 = new Item();
 item.soban4.id = 172;
@@ -4918,19 +3280,7 @@ item.soban4.desc = i18n.t("content.item.soban4.desc", {
   val: item.soban4.val,
 });
 item.soban4.stype = 4;
-item.soban4.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban4.use = eatUse(10);
 
 item.soban5 = new Item();
 item.soban5.id = 173;
@@ -4941,19 +3291,7 @@ item.soban5.desc = i18n.t("content.item.soban5.desc", {
   val: item.soban5.val,
 });
 item.soban5.stype = 4;
-item.soban5.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(11);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban5.use = eatUse(11);
 
 item.soban6 = new Item();
 item.soban6.id = 174;
@@ -4965,19 +3303,7 @@ item.soban6.desc = i18n.t("content.item.soban6.desc", {
 });
 item.soban6.stype = 4;
 item.soban6.rar = 2;
-item.soban6.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(15);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban6.use = eatUse(15);
 
 item.soban7 = new Item();
 item.soban7.id = 175;
@@ -4988,19 +3314,7 @@ item.soban7.desc = i18n.t("content.item.soban7.desc", {
   val: item.soban7.val,
 });
 item.soban7.stype = 4;
-item.soban7.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban7.use = eatUse(9);
 
 item.katubo = new Item();
 item.katubo.id = 176;
@@ -5011,19 +3325,7 @@ item.katubo.desc = i18n.t("content.item.katubo.desc", {
   val: item.katubo.val,
 });
 item.katubo.stype = 4;
-item.katubo.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(11);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.katubo.use = eatUse(11);
 
 item.curry1 = new Item();
 item.curry1.id = 177;
@@ -5034,19 +3336,7 @@ item.curry1.desc = i18n.t("content.item.curry1.desc", {
   val: item.curry1.val,
 });
 item.curry1.stype = 4;
-item.curry1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(14);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.curry1.use = eatUse(14);
 
 item.soban8 = new Item();
 item.soban8.id = 178;
@@ -5057,19 +3347,7 @@ item.soban8.desc = i18n.t("content.item.soban8.desc", {
   val: item.soban8.val,
 });
 item.soban8.stype = 4;
-item.soban8.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.soban8.use = eatUse(8);
 
 item.yktr = new Item();
 item.yktr.id = 179;
@@ -5080,19 +3358,7 @@ item.yktr.desc = i18n.t("content.item.yktr.desc", {
   val: item.yktr.val,
 });
 item.yktr.stype = 4;
-item.yktr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.yktr.use = eatUse(6);
 
 item.tegs = new Item();
 item.tegs.id = 180;
@@ -5103,19 +3369,7 @@ item.tegs.desc = i18n.t("content.item.tegs.desc", {
   val: item.tegs.val,
 });
 item.tegs.stype = 4;
-item.tegs.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.tegs.use = eatUse(5);
 
 item.tamag = new Item();
 item.tamag.id = 181;
@@ -5126,19 +3380,7 @@ item.tamag.desc = i18n.t("content.item.tamag.desc", {
   val: item.tamag.val,
 });
 item.tamag.stype = 4;
-item.tamag.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.tamag.use = eatUse(3);
 
 item.magr = new Item();
 item.magr.id = 182;
@@ -5149,19 +3391,7 @@ item.magr.desc = i18n.t("content.item.magr.desc", {
   val: item.magr.val,
 });
 item.magr.stype = 4;
-item.magr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.magr.use = eatUse(5);
 
 item.ameb = new Item();
 item.ameb.id = 183;
@@ -5172,19 +3402,7 @@ item.ameb.desc = i18n.t("content.item.ameb.desc", {
   val: item.ameb.val,
 });
 item.ameb.stype = 4;
-item.ameb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ameb.use = eatUse(4);
 
 item.engw = new Item();
 item.engw.id = 184;
@@ -5195,19 +3413,7 @@ item.engw.desc = i18n.t("content.item.engw.desc", {
   val: item.engw.val,
 });
 item.engw.stype = 4;
-item.engw.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.engw.use = eatUse(5);
 
 item.skmsk = new Item();
 item.skmsk.id = 185;
@@ -5218,19 +3424,7 @@ item.skmsk.desc = i18n.t("content.item.skmsk.desc", {
   val: item.skmsk.val,
 });
 item.skmsk.stype = 4;
-item.skmsk.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.skmsk.use = eatUse(8);
 
 item.namatk = new Item();
 item.namatk.id = 186;
@@ -5241,19 +3435,7 @@ item.namatk.desc = i18n.t("content.item.namatk.desc", {
   val: item.namatk.val,
 });
 item.namatk.stype = 4;
-item.namatk.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.namatk.use = eatUse(7);
 
 item.hirame = new Item();
 item.hirame.id = 187;
@@ -5264,19 +3446,7 @@ item.hirame.desc = i18n.t("content.item.hirame.desc", {
   val: item.hirame.val,
 });
 item.hirame.stype = 4;
-item.hirame.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.hirame.use = eatUse(9);
 
 item.shmaj = new Item();
 item.shmaj.id = 188;
@@ -5287,19 +3457,7 @@ item.shmaj.desc = i18n.t("content.item.shmaj.desc", {
   val: item.shmaj.val,
 });
 item.shmaj.stype = 4;
-item.shmaj.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(6);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.shmaj.use = eatUse(6);
 
 item.kndma = new Item();
 item.kndma.id = 189;
@@ -5310,19 +3468,7 @@ item.kndma.desc = i18n.t("content.item.kndma.desc", {
   val: item.kndma.val,
 });
 item.kndma.stype = 4;
-item.kndma.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(7);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.kndma.use = eatUse(7);
 
 item.ikura = new Item();
 item.ikura.id = 190;
@@ -5333,19 +3479,7 @@ item.ikura.desc = i18n.t("content.item.ikura.desc", {
   val: item.ikura.val,
 });
 item.ikura.stype = 4;
-item.ikura.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.ikura.use = eatUse(10);
 
 item.akagi = new Item();
 item.akagi.id = 191;
@@ -5356,19 +3490,7 @@ item.akagi.desc = i18n.t("content.item.akagi.desc", {
   val: item.akagi.val,
 });
 item.akagi.stype = 4;
-item.akagi.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.akagi.use = eatUse(8);
 
 item.otor = new Item();
 item.otor.id = 192;
@@ -5380,19 +3502,7 @@ item.otor.desc = i18n.t("content.item.otor.desc", {
 });
 item.otor.stype = 4;
 item.otor.rar = 2;
-item.otor.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.otor.use = eatUse(12);
 
 item.awabi = new Item();
 item.awabi.id = 193;
@@ -5404,19 +3514,7 @@ item.awabi.desc = i18n.t("content.item.awabi.desc", {
 });
 item.awabi.stype = 4;
 item.awabi.rar = 2;
-item.awabi.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(13);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.awabi.use = eatUse(13);
 
 item.uni = new Item();
 item.uni.id = 194;
@@ -5428,19 +3526,7 @@ item.uni.desc = i18n.t("content.item.uni.desc", {
 });
 item.uni.stype = 4;
 item.uni.rar = 3;
-item.uni.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(16);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.uni.use = eatUse(16);
 
 item.klbi1 = new Item();
 item.klbi1.id = 195;
@@ -5451,19 +3537,7 @@ item.klbi1.desc = i18n.t("content.item.klbi1.desc", {
   val: item.klbi1.val,
 });
 item.klbi1.stype = 4;
-item.klbi1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.klbi1.use = eatUse(10);
 
 item.klbi2 = new Item();
 item.klbi2.id = 196;
@@ -5475,19 +3549,7 @@ item.klbi2.desc = i18n.t("content.item.klbi2.desc", {
 });
 item.klbi2.stype = 4;
 item.klbi2.rar = 2;
-item.klbi2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(25);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.klbi2.use = eatUse(25);
 
 item.srln1 = new Item();
 item.srln1.id = 197;
@@ -5498,19 +3560,7 @@ item.srln1.desc = i18n.t("content.item.srln1.desc", {
   val: item.srln1.val,
 });
 item.srln1.stype = 4;
-item.srln1.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.srln1.use = eatUse(12);
 
 item.srln2 = new Item();
 item.srln2.id = 198;
@@ -5522,19 +3572,7 @@ item.srln2.desc = i18n.t("content.item.srln2.desc", {
 });
 item.srln2.stype = 4;
 item.srln2.rar = 2;
-item.srln2.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(28);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.srln2.use = eatUse(28);
 
 item.sfdpl = new Item();
 item.sfdpl.id = 199;
@@ -5545,19 +3583,7 @@ item.sfdpl.desc = i18n.t("content.item.sfdpl.desc", {
   val: item.sfdpl.val,
 });
 item.sfdpl.stype = 4;
-item.sfdpl.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(38);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.sfdpl.use = eatUse(38);
 
 item.kmchc = new Item();
 item.kmchc.id = 200;
@@ -5568,19 +3594,7 @@ item.kmchc.desc = i18n.t("content.item.kmchc.desc", {
   val: item.kmchc.val,
 });
 item.kmchc.stype = 4;
-item.kmchc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(20);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.kmchc.use = eatUse(20);
 
 item.stnkbb = new Item();
 item.stnkbb.id = 201;
@@ -5591,19 +3605,7 @@ item.stnkbb.desc = i18n.t("content.item.stnkbb.desc", {
   val: item.stnkbb.val,
 });
 item.stnkbb.stype = 4;
-item.stnkbb.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(32);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.stnkbb.use = eatUse(32);
 
 item.spcbef = new Item();
 item.spcbef.id = 202;
@@ -5614,19 +3616,7 @@ item.spcbef.desc = i18n.t("content.item.spcbef.desc", {
   val: item.spcbef.val,
 });
 item.spcbef.stype = 4;
-item.spcbef.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(39);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.spcbef.use = eatUse(39);
 
 item.binigiri = new Item();
 item.binigiri.id = 203;
@@ -5638,19 +3628,7 @@ item.binigiri.desc = i18n.t("content.item.binigiri.desc", {
 });
 item.binigiri.stype = 4;
 item.binigiri.rar = 3;
-item.binigiri.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(48);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.binigiri.use = eatUse(48);
 
 item.infpdps = new Item();
 item.infpdps.id = 204;
@@ -5662,19 +3640,7 @@ item.infpdps.desc = i18n.t("content.item.infpdps.desc", {
 });
 item.infpdps.stype = 4;
 item.infpdps.rar = 3;
-item.infpdps.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(62);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.infpdps.use = eatUse(62);
 
 item.daikn = new Item();
 item.daikn.id = 205;
@@ -5685,19 +3651,7 @@ item.daikn.desc = i18n.t("content.item.daikn.desc", {
   val: item.daikn.val,
 });
 item.daikn.stype = 4;
-item.daikn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.daikn.use = eatUse(3);
 
 item.bonig = new Item();
 item.bonig.id = 206;
@@ -5738,19 +3692,7 @@ item.wdaikn.desc = i18n.t("content.item.wdaikn.desc", {
 });
 item.wdaikn.stype = 4;
 item.wdaikn.rar = 0;
-item.wdaikn.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.wdaikn.use = eatUse(4);
 
 item.oppr = new Item();
 item.oppr.id = 208;
@@ -5762,19 +3704,7 @@ item.oppr.desc = i18n.t("content.item.oppr.desc", {
 });
 item.oppr.stype = 4;
 item.oppr.rar = 2;
-item.oppr.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(42);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.oppr.use = eatUse(42);
 
 item.jdaik = new Item();
 item.jdaik.id = 209;
@@ -5786,19 +3716,7 @@ item.jdaik.desc = i18n.t("content.item.jdaik.desc", {
 });
 item.jdaik.stype = 4;
 item.jdaik.rar = 2;
-item.jdaik.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(35);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.jdaik.use = eatUse(35);
 
 item.bmshrm = new Item();
 item.bmshrm.id = 210;
@@ -5810,19 +3728,7 @@ item.bmshrm.desc = i18n.t("content.item.bmshrm.desc", {
 });
 item.bmshrm.stype = 4;
 item.bmshrm.rar = 2;
-item.bmshrm.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(16);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.bmshrm.use = eatUse(16);
 
 item.hlstw = new Item();
 item.hlstw.id = 211;
@@ -5833,19 +3739,7 @@ item.hlstw.desc = i18n.t("content.item.hlstw.desc", {
   val: item.hlstw.val,
 });
 item.hlstw.stype = 4;
-item.hlstw.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(8);
-  global.stat.fooda++;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-  this.amount--;
-};
+item.hlstw.use = eatUse(8);
 
 item.bcrrt = new Item();
 item.bcrrt.id = 212;
@@ -5856,19 +3750,7 @@ item.bcrrt.desc = i18n.t("content.item.bcrrt.desc", {
   val: item.bcrrt.val,
 });
 item.bcrrt.stype = 4;
-item.bcrrt.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.bcrrt.use = eatUse(5);
 
 item.jsdch = new Item();
 item.jsdch.id = 213;
@@ -5879,19 +3761,7 @@ item.jsdch.desc = i18n.t("content.item.jsdch.desc", {
   val: item.jsdch.val,
 });
 item.jsdch.stype = 4;
-item.jsdch.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(12);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.jsdch.use = eatUse(12);
 
 item.agrns = new Item();
 item.agrns.id = 214;
@@ -5902,19 +3772,7 @@ item.agrns.desc = i18n.t("content.item.agrns.desc", {
   val: item.agrns.val,
 });
 item.agrns.stype = 4;
-item.agrns.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(5);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.agrns.use = eatUse(5);
 item.agrns.onGet = function () {
   if (this.amount >= 10) {
     giveRcp(rcp.wsb);
@@ -5931,19 +3789,7 @@ item.eggfrc.desc = i18n.t("content.item.eggfrc.desc", {
   val: item.eggfrc.val,
 });
 item.eggfrc.stype = 4;
-item.eggfrc.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(9);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.eggfrc.use = eatUse(9);
 
 item.thme = new Item();
 item.thme.id = 216;
@@ -5954,19 +3800,7 @@ item.thme.desc = i18n.t("content.item.thme.desc", {
   val: item.thme.val,
 });
 item.thme.stype = 4;
-item.thme.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.thme.use = eatUse(3);
 
 item.wldhrbs = new Item();
 item.wldhrbs.id = 217;
@@ -5977,19 +3811,7 @@ item.wldhrbs.desc = i18n.t("content.item.wldhrbs.desc", {
   val: item.wldhrbs.val,
 });
 item.wldhrbs.stype = 4;
-item.wldhrbs.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(3);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.wldhrbs.use = eatUse(3);
 
 item.meffg = new Item();
 item.meffg.id = 218;
@@ -6000,19 +3822,7 @@ item.meffg.desc = i18n.t("content.item.meffg.desc", {
   val: item.meffg.val,
 });
 item.meffg.stype = 4;
-item.meffg.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(10);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.meffg.use = eatUse(10);
 
 item.rtnmt = new Item();
 item.rtnmt.id = 219;
@@ -6078,19 +3888,7 @@ item.frtplp.desc = i18n.t("content.item.frtplp.desc", {
   val: item.frtplp.val,
 });
 item.frtplp.stype = 4;
-item.frtplp.use = function () {
-  you.sat + this.val > you.satmax
-    ? (you.sat = you.satmax)
-    : (you.sat += this.val);
-  skl.glt.use(4);
-  global.stat.fooda++;
-  this.amount--;
-  dom.d5_3_1.update();
-  msg(
-    i18n.t("runtime.data.items.dialogue.restored_energy", { amount: this.val }),
-    "lime",
-  );
-};
+item.frtplp.use = eatUse(4);
 
 item.klngbr = new Item();
 item.klngbr.id = 222;

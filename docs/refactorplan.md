@@ -321,7 +321,7 @@ gerçek maliyet orası.
 
 ## P2 — Tekrarın kaldırılması
 
-### P2.1 221 yiyecek maddesi aynı 12 satırı kopyalıyor
+### P2.1 ✅ 221 yiyecek maddesi aynı 12 satırı kopyalıyor
 
 **Kanıt:** [items.js](../js/data/items.js) içinde
 `you.sat + this.val > you.satmax` kalıbı **221 kez** geçiyor. Her biri şu bloğun
@@ -364,6 +364,30 @@ ve ~11.200 fazlalık satır ölçüldü.
 sonrası `item` kaydının tüm `use` fonksiyonlarını aynı sahte durumla çağırıp
 sonucu karşılaştıran tek seferlik bir betik — P0.3'teki koşum ortamı bunu mümkün
 kılar.
+
+**Yapıldı — ölçüm plandan farklı çıktı, önerinin lehine.** Kalıp 221 maddede
+geçiyordu ama espree ile şekil envanteri çıkarıldığında **30 ayrı şekil** olduğu
+görüldü. İkisi kalabalık: **119** ve **67** madde, toplam **186**. Kalan 35 madde 28
+şekle dağılmış (çoğu tek üyeli, kendine özgü davranışlar) ve dokunulmadı.
+
+İki büyük şekil arasındaki tek fark `this.amount--`'ın konumu: birinde panel
+güncellemesi ve mesajdan **önce**, diğerinde **sonra**. Bu fark gözlemlenemez ve bu
+varsayılmadı, kanıtlandı: `dom.d5_3_1.update()` yalnızca `you.sat`, `you.satmax` ve
+`you.efficiency()` okuyor — eşyanın yığınına hiç bakmıyor — ve mesaj `this.val`
+okuyor. Dolayısıyla iki yazım tek fonksiyona indi.
+
+`item.brd.use = eatUse(2);` — 186 madde, her biri tek satır.
+**`items.js` 7.639 → 5.437 satır (2.202 satır eksildi).**
+
+Fabrika ok fonksiyonu değil normal `function` döndürüyor: `this` yenen eşya olmak
+zorunda.
+
+**Doğrulama:** `tests/fingerprint.js` bu iş için genişletildi — artık her eşyanın
+`use` handler'ını sabit bir oyuncuya karşı çağırıp ne değiştirdiğini kaydediyor
+(oyuncunun sayıları, tükettiği yığın, arttırdığı istatistik sayaçları, enerji
+göstergesini yenileyip yenilemediği, log'a yazdığı son satırın metni). 352 handler,
+sıfır hata. Dönüşüm öncesi ve sonrası çıktı **tek satır** dışında birebir aynı: yeni
+`eatUse` global'inin fonksiyon listesine eklenmesi.
 
 ### P2.2 Nesne tanımları mutasyonla kuruluyor
 
