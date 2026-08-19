@@ -22,13 +22,137 @@ do it), or **in progress**.
 
 ## Queued by the repository owner
 
-Empty. Everything the owner had asked for is in; what it did is in the changelog, and
-what touches the story is in [STORY.md](STORY.md).
-
-Everything the owner has asked for that is not finished yet, recorded here before
-work starts so nothing is lost between sessions. An item leaves this list when it
-ships, and what it did goes into the changelog and, if it touches the story, into
+Everything the owner has asked for that is not finished yet, recorded here before work
+starts so nothing is lost between sessions. An item leaves this list when it ships, and
+what it did goes into the changelog and, if it touches the story, into
 [STORY.md](STORY.md).
+
+> **These entries are being researched.** Each one is written down here first, as the
+> owner's rule requires, and is then filled in against the code: what already exists to
+> hang it on, what genuinely has to be new, and the numbers actually measured. Until an
+> entry carries that detail, treat it as a recorded request rather than a plan.
+
+**Answer first, then build.** Entry 5 is a question, not a feature, and two of the
+entries below depend on its answer: if a resistance field turns out never to be read,
+then the burn debuff (entry 12) and the shield values (entry 7) have to be designed
+differently. Work that rests on an unanswered question gets done twice.
+
+### 5. Are the resistance fields actually read in combat?
+
+**Status:** question, being measured.
+
+The owner asks whether resistances like pain resistance, undead resistance and dark
+defence are taken into account when damage is reduced. This is answerable rather than
+arguable: enumerate every field of `res`, find every place each is read, and prove the
+effect with `tests/harness.js` by changing one field and measuring `dmg_calc`. The
+outcome per field is one of read and effective, read but ineffective, or never read.
+
+### 6. Titles: the grant code left in a comment
+
+**Status:** agreed — it is a fix, not an addition.
+
+`js/data/equipment.js:2730-2731` holds two commented-out grants for `ttl.mone2` and
+`ttl.mone3`, and both test the same `global.stat.moneyg >= GOLD` condition that
+`ttl.mone1` already uses — so even uncommented they would fire together. `shpt2`,
+`shpt3` and `mone3` also have empty locale entries. The whole of the owner's "titles need
+improvement and additions" starts here, because a title nothing can grant is not content.
+
+### 7. Shields: the drafts, their values and their ranks
+
+**Status:** agreed — a fix before an addition.
+
+Eleven of the fourteen shields shipped with `str 0`, which means they contribute nothing
+to the mitigation term. Related and worth doing in the same pass: `you.eqp[5]` is always
+the shared `eqp.dummy`, which carries `cls [9,10,9]` and `aff[0] 14` written into it by
+`creature.wolfa1` — see queue item 6 in [status.md](status.md). Until that is cleaned up,
+"a shield always reduces damage" cannot be made true.
+
+### 8. The healing potions with no source
+
+**Status:** agreed — a fix.
+
+The owner reports that only the smallest healing item is craftable. Every healing item
+needs its source established — recipe, vendor, or drop — and the ones with none need one.
+This is the project's own rule applied: connect what exists before inventing more.
+
+### 9. Crafting: diversify, and stardust with nothing to do
+
+**Status:** proposed.
+
+Two halves of one problem. `item.stdst` is produced and then has nowhere to go, and the
+recipe list as a whole leans in one direction. Both need the current shape measured before
+anything is added, so that "diversify" means something checkable.
+
+### 10. A perk for every skill up to level 15
+
+**Status:** proposed.
+
+Of 60 skills, 37 have no milestone at all, and only five of those cannot be trained —
+so 32 trainable skills grant nothing. Queue item 3 in [status.md](status.md) has the
+detail, including a one-line fix beside it: `js/data/skills.js:2277` sets
+`skl.hvt.type` a second time inside the `skl.hst` block, so `skl.hst.type` is never set.
+
+Constraint that shapes the design: a milestone's `f()` runs once and is not repeated on
+load, so it may only write to fields that are themselves saved — `stra`, `agla`, `inta`,
+`spda`, `hpa`, `sata`.
+
+### 11. Weapon-mastery titles, and faster mastery while equipped
+
+**Status:** proposed.
+
+The second half has a constraint that decides how it must be written: equipment is
+rebuilt from the registry on load and only `dp` and `data` are copied back, so a bonus
+written into `str` disappears. The pattern used elsewhere is `oneq`/`onuneq` writing to
+`you.mods`, which the load path re-applies.
+
+### 12. A burn debuff on fire damage
+
+**Status:** proposed, and dependent on entry 5.
+
+A chance for fire damage to leave a creature burning for a while. What has to be
+established first: whether creatures can carry effects at all, and whether any
+damage-over-time already runs against a creature rather than against the player.
+
+### 13. Furniture: more of it, and a bed that means something
+
+**Status:** proposed.
+
+More furniture, and if a bed exists then "crouch on the floor and nap" should say
+something else. Plain beds should raise the healing rate while resting, by grade.
+
+### 14. A lit fireplace that is worth lighting
+
+**Status:** proposed.
+
+While the fireplace burns: a higher healing rate and a small energy gain. Sleeping beside
+it grants a "rested" buff after a while — attack speed, attack damage, skill gain — for a
+limited time. The buff has to be a real effect through `giveEff` so it ticks and expires
+with everything else.
+
+### 15. Unlimited clearing after an area has been cleared enough times
+
+**Status:** proposed, needs a save migration.
+
+Area sizes are part of the save and positional, and the last field is `area.mine3`
+(id 131), so a per-area counter can only be appended. Worth combining with the accessory
+slots in queue item 8, since both need a v479 migration and one migration is cheaper than
+two.
+
+### 16. Scouting used somewhere other than the one place
+
+**Status:** proposed.
+
+The scout action exists and is offered in a single location. The request is to find the
+places where it would fit — which is content connection rather than new mechanics, and so
+is the cheapest kind of addition this project allows.
+
+### 17. Side stories, continued
+
+**Status:** proposed. See "Side stories still owed" below, which already lists them.
+
+One decision from the owner is recorded as closed rather than pending: the effect strip
+in the player panel overlapping the LUCK readout is **accepted as it is** — it reads as
+information and that is enough. No change.
 
 ## Regions
 

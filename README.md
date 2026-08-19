@@ -33,15 +33,21 @@ Then open `http://127.0.0.1:8080`.
 - `css/`: game styles
 - `js/core/`: startup, save/load, and player state
 - `js/data/`: item, equipment, skill, quest, and creature definitions
-- `js/systems/`: action, crafting, effect, simulation, and planning systems
-- `js/ui/`: interface and rendering code
+- `js/systems/`: action, crafting, combat, effect, simulation, and planning systems
+- `js/ui/`: interface and rendering code, split by surface — the panels, the hover
+  descriptions, and the message log each have their own file
 - `js/world/`: areas, sectors, and locations
-- `js/utils/`: random-number and encoding helpers
+- `js/utils/`: general helpers — DOM construction, object copying, random numbers,
+  and save encoding
 - `locales/`: locale registry and JSON translation files
 - `scripts/`: bundle and deployment-output tools
 
 The legacy game expects all function declarations to be available before
 initialization starts. Therefore, `js/game.js` is a generated browser bundle.
+`scripts/sources.js` lists the sources in the order they are concatenated, and that
+order is load order: a function declaration hoists across the whole bundle but a
+`const` does not, so a file whose constants are read by another file's
+definition-time code has to come first. `js/ui/tooltip.js` is the one that does.
 After editing source files, rebuild the bundle and GitHub Pages output:
 
 ```sh

@@ -362,6 +362,32 @@ changes. Player-facing game content and release notes belong in
   at definition time, and the block owns const themeStorageKey and const
   autosaveStorageKey. Separating it means splitting the DOM construction too.
 
+- The requests the repository owner queued are in docs/PROPOSALS.md and its Turkish
+  counterpart, written down before any of them is started, which is the rule the owner
+  set: everything goes into PROPOSALS first, comes out when it ships, and what it did goes
+  to the changelog and to STORY.md if it touched the story. They are recorded as requests
+  rather than plans until each is filled in against the code, and the file says so.
+- One of them is a question rather than a feature -- whether the resistance fields are read
+  at all during combat -- and it is ordered first because two other entries depend on its
+  answer. Work resting on an unanswered question gets done twice.
+- One is recorded as closed rather than pending: the effect strip overlapping the LUCK
+  readout in the player panel is accepted as it is.
+- docs/status.md turns the owner's pasted list into a queue with a status per item and an
+  ordering rule that is dependency and risk rather than the order they were written: the
+  question first, then the fixes to content that already exists, then additions that do not
+  touch the save format, and last the two that need a v479 migration -- which are worth
+  combining, since one migration is cheaper than two.
+- The line references in that file were re-measured after this session's moves, because
+  four of them pointed into js/ui/interface.js at code that is now in js/systems/combat.js.
+  Two entries changed more than their numbers. The armour double-count is two branches with
+  two appearances each, at combat.js:438/444 and 490/496, not the four unrelated lines
+  recorded before. And the skill-type mistake is not what it was written as: skl.hvt.type is
+  set twice, correctly at skills.js:2050 and again inside the skl.hst block at 2277, so what
+  is actually wrong is that skl.hst.type is never set at all. Each entry now carries a grep
+  pattern as well as a line, because a pattern survives a move and a number does not.
+- README.md and README.TR.md describe the source layout as it is now, including why
+  scripts/sources.js order is load order and which file has to come first because of it.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

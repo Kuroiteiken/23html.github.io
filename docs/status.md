@@ -290,6 +290,13 @@ buradaki listeye eklenecek.
 
 ## Kuyruk — araştırılmış bulgularla
 
+> **Satır numaraları bu oturumda kaydı.** Savaş `js/ui/interface.js`'ten
+> `js/systems/combat.js`'e, panellerin çizimi `js/ui/panels.js`'e, imleç açıklamaları
+> `js/ui/tooltip.js`'e, mesaj günlüğü `js/ui/message-log.js`'e taşındı ve `interface.js`
+> 8.689'dan 6.075 satıra indi. Aşağıdaki referanslar bu taşımalardan **sonra** yeniden
+> ölçüldü. Yine de bir sonraki oturum için kural: **satır numarasına değil, verilen arama
+> kalıbına güven.** Kalıp taşımadan sağ çıkar, numara çıkmaz.
+
 1. **Dojo madalyaları.** `acc.otpin` "Kılıç Madalyası" iki yerden veriliyor:
    `locations.js:1182` (upstream, kalacak) ve `locations.js:839` (0a1bd4a
    commit'i, silinecek — üstündeki 837-838 gerekçe yorumuyla birlikte). Kademeyi
@@ -312,8 +319,17 @@ buradaki listeye eklenecek.
 3. **Boş yeteneklere avantaj.** 60 yetenek, 23'ünde kilometre taşı var, 37'sinde
    yok. O 37'nin yalnızca beşi (`bwc`, `hvt`, `glg`, `mntnc`, `swm`) hiç
    eğitilemiyor → 32 yetenek eğitilebilir olduğu hâlde avantaj vermiyor. Öbek
-   öbek göndermek gerekecek. `skills.js:2238`'de `skl.hvt.type = 8` yanlışlıkla
-   `skl.hst` bloğunun içinde.
+   öbek göndermek gerekecek.
+
+   **Yanında duran hata, yeniden ölçüldü ve tanısı değişti.** Kuyruk bunu
+   "`skills.js:2238`'de `skl.hvt.type = 8` yanlışlıkla `skl.hst` bloğunun içinde" diye
+   kaydetmişti. Doğrusu şu: `skl.hvt.type = 8` **iki kez** yazılmış —
+   `js/data/skills.js:2050`'de kendi bloğunda doğru şekilde, ve
+   `js/data/skills.js:2277`'de `skl.hst` bloğunun içinde yanlışlıkla. Yani `skl.hvt.type`
+   iki kez aynı değere ayarlanıyor (etkisiz tekrar) ve **`skl.hst.type` hiç
+   ayarlanmıyor** — yapıcı varsayılanında kalıyor. Düzeltme tek satır:
+   2277'deki `skl.hvt.type` → `skl.hst.type`. Arama kalıbı: `grep -n "skl.hvt.type"`
+   iki sonuç vermeli; ikincisi `skl.hst` bloğunun içindeki.
 
 4. **Balta + ağaç kesme.** Oyunda hiç balta yok (`wtype = 2` boş). `wpn.pck`
    şablonu: tutulan yuva (`slot = 1` — yapıcı varsayılanı 0 silah yuvası değil),
@@ -327,27 +343,40 @@ buradaki listeye eklenecek.
 6. **`eqp.dummy` — zırhtan ÖNCE.** Hiçbir ekipman slot 6 tanımlamıyor, yani
    `you.eqp[5]` (sağ el) her zaman paylaşılan `eqp.dummy`, ve o
    `creature.wolfa1`'in yazdığı `cls [9,10,9]` + `aff[0] 14`'ü taşıyor.
-   `a = 2 + rand(4)` vuruşların %25'ini oraya gönderiyor → Kalkan 25'te kalkan
+   Vuruşların %25'ini oraya gönderen satır artık
+   **`js/systems/combat.js:124`** (`const a = 2 + rand(4);`) → Kalkan 25'te kalkan
    yeteneğini eğitmek %30 daha fazla hasar (312 → 406). Ayrıca bütün kalkanların
    `int = 0` olması ve dummy'nin `aff[0] 14`'ü yüzünden büyü dalında ve `dp = 0`'da
    kalkansız daha iyi. Kullanıcının "kalkan her zaman hasarı azaltır" kuralı bu
    temizlenmeden sağlanamaz. **Not:** `check-combat.js` artık dört zırh yuvasını
    da ölçtüğü için bu düzeltmenin etkisi denetimde görünür olacak.
 
-7. **Zırh çift sayımı.** Dört yer: `interface.js:5021, 5027, 5073, 5079`.
-   `100 - global.target.cls[...]` yerine sabit. `K = 70` kullan — `K = 65`
-   kalkansız hasarı `def.str` 140'ta %6.5 arttırıyor. Sonuç: kalkan vuruş başına
-   4.56 hasara mal olmaktan 23.69 kazandırmaya geçiyor, Prostasia monotonlaşıyor
-   (352/415/517 → 280/245/205). **Artık güvenli:** P0.2 tamamlandığı için denetim
-   gerçek formülü ölçüyor.
+7. **Zırh çift sayımı.** Kuyruk "dört yer: `interface.js:5021, 5027, 5073, 5079`"
+   diyordu; taşımadan sonra yeniden ölçüldü ve sayı da tanı da netleşti. **İki dal, her
+   birinde iki görünüm**, hepsi `js/systems/combat.js` içinde:
+
+   - Fiziksel dal: **`combat.js:438`** içteki `global.target.cls[att.ctype] * 5 * ta`
+     (artı işaretiyle, hasar azaltmayı arttırıyor) ve **`combat.js:444`** dıştaki
+     `(100 - global.target.cls[att.ctype] * 5 * shdc * ta)` (eksi işaretiyle, aynı şeyi
+     geri alıyor).
+   - Büyü dalı: **`combat.js:490`** ve **`combat.js:496`**, aynı çift.
+
+   Arama kalıbı: `grep -n "100 - global.target.cls" js/systems/combat.js` → iki sonuç.
+
+   `K = 70` kullan — `K = 65` kalkansız hasarı `def.str` 140'ta %6.5 arttırıyor.
+   Sonuç: kalkan vuruş başına 4.56 hasara mal olmaktan 23.69 kazandırmaya geçiyor,
+   Prostasia monotonlaşıyor (352/415/517 → 280/245/205). **Artık güvenli:** P0.2
+   tamamlandığı için denetim gerçek formülü ölçüyor, formülün bir kopyasını değil.
 
 8. **Aksesuar yuvaları.** `you.eqp` zaten 10 girdi; 7/8/9 aksesuar konumları,
    ikisi "Kilitli" etiketli ve erişilemez. Statlar diziyi dolaşarak hesaplanıyor →
    dolan yuvalar kendiliğinden sayılır. Kapı tek yerde: 85 aksesuarın hepsi
-   `slot = 8` ve `equip` `you.eqp[w.slot - 1]` yapıyor. `interface.js:5890`
-   civarında yazarın yorumda bıraktığı çok-yuvalı mantık var. Kuşanılan yuva
+   `slot = 8` ve `equip` `you.eqp[w.slot - 1]` yapıyor. `equip` artık
+   **`js/ui/interface.js:4308`**; yazarın yorumda bıraktığı çok-yuvalı mantık onun
+   içinde (arama kalıbı: `grep -n "^function equip" js/ui/interface.js`). Kuşanılan yuva
    `data`'ya yazılmalı (kayıt onu taşır). Kural: 1. seviyede 1, 20'de 2., 40'ta 3.
-   yuva; kilitli etiket gereken seviyeyi söylesin. v479 göçü gerekir.
+   yuva; kilitli etiket gereken seviyeyi söylesin. v479 göçü gerekir — madde 7'nin
+   bölge sayacıyla aynı göçte birleştirilebilir.
 
 9. **md dosyaları.** `changelog.html` ve (bu oturumdan sonra) `CHANGELOG.md`/
    `.TR.md` güncel. `REGIONS.md`'nin yedi adımlı sözleşmesi kodda bitti ama
@@ -374,21 +403,56 @@ alındı — ama o dosyadaki **commit edilmemiş gerçek düzeltme de** silindi 
 kırıldı. Geçici bozmayı geri almanın doğru yolu: bozmayı ters yönde uygulamak ya da
 önce dosyayı kopyalayıp sonra geri yazmak.
 
-## Kontrol edilecekler Ek maddeler
+## Depo sahibinin sırası
 
-- alt barda yapılan gibi atlanan tasarım yapıları varsa onlarda mevcut tasarıma uyarlanacak. bir örnek kaydı içe aktar dışarı aktar butonları sonrası açılan ufak bir modal.
-- Yeteneklerin hepsinde 15. seviyeye kadar avantaj olmalı
-- Üretim çeşitlendirilmeli.
-- Yıldız tozu gibi bazı ürünler boş kalıyor.
-- Ünvanlarda iyileştirme ve arttırım gerek.
-- Sağlık iksirlerinin açılması kontrol edilecek. en küçük şifa iksiri dışında da iksirler var. Üretim listesinde yok.
-- Bir bölgeyi belli bir defa temizledikten sonra sınırsız temizleme açılması gerek.
-- yan hikayelere devam et. işler yapıldıkça proposal dosyasından çıkar. Oyuncu panelindeki efekt şeridi ŞANS okumasına biniyor işini çıkar. kabul ediliyor. bilgi olarak veriyor yeterli.
-- silah ustalığı ünvanlarını verelim hatta bazı ünvanlar için eğer takılıysa ustalık hızının artışını ekleyelim.
-- kalkanların taslaklarını inceleyelim ve değerlerine ve önceki rütbelerine bakılması gerek.
-- araştır başka hiç bir yerde kullanılmıyor. başka yerlerde de mantıklı kullanılabilir.
-- bir kaç mobilya daha ekleyebiliriz. ayrıca eğer mobilyalarda yatak varsa yere çök ve biraz kestir yerine daha mantıklı bir açıklama ile yapabiliriz. sade yatak gibi yataklara dinlenme esnasında sağlık hızını arttırma ekleyelim. derecelerine göre artımlı olabilir.
-- eğer şömine yanıyorsa, iyileşme hızı artabilir. ayrıca hafif bir enerji kazanımı eklenebilir. şömine varken uyumalarda, bir süre sonra dinlendin buff'u ile saldırı hızı, saldırı hasarı, denetim kazanımı gibi belli bir sürelik artışlar verelim.
-- yazdığım tüm promptları başlamadan önce mutlaka proposals.md dosyalarına işle. tamamlandığında da proposals'tan çıkar, uygun md dosyalarına ekle, story.md dosyasını kontrol et.
-- ateş hasarı gibi durumlarda yaratığa yanma debuff'u verme şansı ekleyelim belli bir süre sağlığını düşürsün.
-- ağrı direnci ölümsüz direnci karanlık savunma gibi dirençler dövüş esnasında hasar azaltmak için dikkate alınıyor mu?
+Bu bölüm ham istek listesi değil, **işlenmiş bir kuyruk**. Kuralı depo sahibi koydu:
+
+> Yazdığım tüm promptları başlamadan önce mutlaka `PROPOSALS.md` dosyalarına işle.
+> Tamamlandığında da PROPOSALS'tan çıkar, uygun md dosyalarına ekle, `STORY.md`
+> dosyasını kontrol et.
+
+Yani her maddenin yolu şu: **buraya yazılır → `docs/PROPOSALS.md` + `.TR.md`'ye
+araştırılmış hâliyle işlenir → yapılır → PROPOSALS'tan çıkarılır → changelog'a ve
+gerekiyorsa `STORY.md`'ye girer.**
+
+Maddelerin `PROPOSALS.md`'ye girmesi için önce kodda karşılıklarının araştırılması
+gerekiyor (o dosyanın standardı: "ne olduğu, üzerine kurulacak neyin zaten var olduğu,
+gerçekten yeni yazılması gerekenin ne olduğu"). Bu araştırma bir workflow ile yürütülüyor;
+sonucu geldiğinde PROPOSALS'a işlenecek ve buradaki satırlar oraya işaret edecek.
+
+### Durum tablosu
+
+| #   | İstek                                                                                                                                              | Durum                        | Not                                                                                                                                                             |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Atlanan tasarım yapıları mevcut tasarıma uyarlanacak (örnek: içe/dışa aktarma modalı)                                                              | ✅ **v478.29**               | Modal `game-modal` iskeletine taşındı, `#save-bar-restore` düzeltildi. Kalanı için tasarım denetimi workflow'u çalışıyor.                                       |
+| 2   | Yeteneklerin hepsinde 15. seviyeye kadar avantaj                                                                                                   | 🔍 araştırılıyor             | Kuyruk #3 ile aynı konu: 60 yetenekten 37'sinde kilometre taşı yok, 32'si eğitilebilir olduğu hâlde avantaj vermiyor.                                           |
+| 3   | Üretim çeşitlendirilmeli                                                                                                                           | 🔍 araştırılıyor             | Mevcut tarif dağılımı ölçülecek, "çeşitlendirme" bir şekle bağlanacak.                                                                                          |
+| 4   | Yıldız tozu gibi ürünler boş kalıyor                                                                                                               | 🔍 araştırılıyor             | `item.stdst` ve onu tüketen tarifler taranıyor.                                                                                                                 |
+| 5   | Ünvanlarda iyileştirme ve arttırım                                                                                                                 | 🔍 araştırılıyor             | Kuyruk #2: 108 unvan, 39'unda yetenek; `shpt2`/`shpt3`/`mone3` dil kayıtları boş ve veren kod yorumda.                                                          |
+| 6   | Sağlık iksirlerinin açılması; en küçük şifa iksiri dışındakiler üretim listesinde yok                                                              | 🔍 araştırılıyor             | Her iyileştirme eşyası için kaynak (tarif/satıcı/düşme) tek tek çıkarılıyor.                                                                                    |
+| 7   | Bir bölgeyi belli sayıda temizledikten sonra sınırsız temizleme                                                                                    | 🔍 araştırılıyor             | Kayıt biçimi kısıtı var: alan boyutları konumsal, son alan `area.mine3` (id 131).                                                                               |
+| 8   | Yan hikayelere devam                                                                                                                               | ⏳ sırada                    | `PROPOSALS`'ın "Side stories still owed" bölümü zaten var.                                                                                                      |
+| 8b  | Oyuncu panelindeki efekt şeridi ŞANS okumasına biniyor                                                                                             | ✅ **kabul: değişiklik yok** | Depo sahibi kararı: bilgi olarak veriyor, yeterli. Madde kapalı.                                                                                                |
+| 9   | Silah ustalığı ünvanları + takılıysa ustalık hızı artışı                                                                                           | 🔍 araştırılıyor             | `oneq`/`onuneq` → `you.mods` deseni gerekiyor; kayıt yüklemede `str`'ye yazılan bonus yok olur.                                                                 |
+| 10  | Kalkan taslakları, değerleri ve önceki rütbeleri                                                                                                   | 🔍 araştırılıyor             | Bilinen sorun: on dört kalkanın on biri `str 0` ile geldi. Kuyruk #6 (`eqp.dummy`) ile birlikte ele alınmalı.                                                   |
+| 11  | "Araştır" başka hiçbir yerde kullanılmıyor, mantıklı yerlerde kullanılabilir                                                                       | 🔍 araştırılıyor             | `canScout`/`scoutGeneric` nerede sunuluyor, nereye uyar.                                                                                                        |
+| 12  | Birkaç mobilya daha; yatak varsa "yere çök ve kestir" yerine mantıklı açıklama; yataklara dinlenmede sağlık hızı (derecesine göre artımlı)         | 🔍 araştırılıyor             | Mobilya envanteri, uyku akışı ve hp yenilenmesinin nerede olduğu çıkarılıyor.                                                                                   |
+| 13  | Şömine yanıyorsa iyileşme hızı + hafif enerji kazanımı; şöminede uyumada bir süre sonra "dinlendin" buff'ı (saldırı hızı/hasarı, yetenek kazanımı) | 🔍 araştırılıyor             | Süreli buff `giveEff` ile; hangi alanların kayıttan sağ çıktığı önemli.                                                                                         |
+| 14  | Ateş hasarında yaratığa yanma debuff'u verme şansı                                                                                                 | 🔍 araştırılıyor             | Yaratıkların efekt taşıyıp taşımadığı ve yaratığa karşı çalışan bir DoT olup olmadığı.                                                                          |
+| 15  | Ağrı/ölümsüz/karanlık gibi dirençler dövüşte hasar azaltmada dikkate alınıyor mu?                                                                  | 🔍 **soru, ölçülüyor**       | Bu bir özellik değil, cevaplanacak bir soru. `res` alanlarının her biri için "okunuyor ve etkili / okunuyor ama etkisiz / hiç okunmuyor" harness ile ölçülüyor. |
+
+### Sıra mantığı
+
+Yapılacak sıra istek sırası değil, **bağımlılık ve risk sırası**:
+
+1. **Önce cevaplanacak soru:** madde 15. Dirençler etkisizse madde 14 (yanma debuff'u)
+   ve madde 10 (kalkan değerleri) farklı tasarlanır. Bir soruya dayanan işi sorudan önce
+   yapmak, işi iki kez yapmaktır.
+2. **Sonra düzeltmeler:** madde 5'in gizli hatası (yorumda kalmış unvan verme kodu),
+   madde 6 (kaynağı olmayan iksirler), madde 10 (`str 0` kalkanlar). Bunlar var olan
+   içeriği çalışır hâle getiriyor — projenin "daha fazla icat etmeden önce biteni bağla"
+   kuralı bunları öne alıyor.
+3. **Sonra kayıt biçimine dokunmayan eklemeler:** madde 9, 12, 13, 14, 2.
+4. **En son kayıt göçü gerektirenler:** madde 7 (bölge sayacı) ve kuyruk #8 (aksesuar
+   yuvaları). İkisi birden bir v479 göçünde birleştirilebilir; ayrı ayrı iki göç
+   yapmaktan iyidir.

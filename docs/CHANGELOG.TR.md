@@ -366,6 +366,34 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   ve blok `const themeStorageKey` ile `const autosaveStorageKey`'i taşıyor. Ayırmak DOM
   kurulumunu da bölmek demek.
 
+- Depo sahibinin sıraya aldığı istekler `docs/PROPOSALS.md` ve Türkçe karşılığında, hiçbiri
+  başlanmadan önce yazıldı; kuralı sahibi koydu: her şey önce PROPOSALS'a girer, yayına
+  girdiğinde çıkar, ne yaptığı changelog'a ve hikâyeye dokunduysa `STORY.md`'ye gider. Her
+  biri kodla karşılaştırılıp doldurulana kadar plan değil kaydedilmiş istek olarak
+  duruyorlar ve dosya bunu söylüyor.
+- Bunlardan biri bir özellik değil bir soru -- direnç alanlarının dövüşte hiç okunup
+  okunmadığı -- ve ilk sıraya kondu, çünkü diğer iki madde onun cevabına bağlı.
+  Cevaplanmamış bir soruya dayanan iş iki kez yapılır.
+- Biri bekleyen değil kapanmış olarak kaydedildi: oyuncu panelinde efekt şeridinin ŞANS
+  okumasına binmesi olduğu gibi kabul edildi.
+- `docs/status.md` sahibinin yapıştırdığı listeyi madde başına durumu olan bir kuyruğa
+  çeviriyor, ve sırası yazılma sırası değil bağımlılık ile risk: önce soru, sonra hâlihazırda
+  var olan içeriğe yapılan düzeltmeler, sonra kayıt biçimine dokunmayan eklemeler, en sonda
+  v479 göçü gerektiren ikisi -- ki onları birleştirmeye değer, çünkü bir göç iki göçten
+  ucuzdur.
+- O dosyadaki satır referansları bu oturumun taşımalarından sonra yeniden ölçüldü, çünkü
+  dördü `js/ui/interface.js` içinde artık `js/systems/combat.js`'te olan koda işaret
+  ediyordu. İki madde numarasından fazlasını değiştirdi. Zırh çift sayımı, daha önce
+  kaydedilen dört ilgisiz satır değil, her birinde iki görünüm olan iki dal:
+  `combat.js:438/444` ve `490/496`. Ve yetenek türü hatası yazıldığı şey değil:
+  `skl.hvt.type` iki kez ayarlanıyor -- `skills.js:2050`'de doğru şekilde ve 2277'de
+  `skl.hst` bloğunun içinde yeniden -- yani asıl yanlış olan, `skl.hst.type`'ın hiç
+  ayarlanmaması. Her madde artık satırın yanında bir `grep` kalıbı da taşıyor, çünkü kalıp
+  bir taşımadan sağ çıkar, numara çıkmaz.
+- `README.md` ve `README.TR.md` kaynak yapısını bugünkü hâliyle anlatıyor;
+  `scripts/sources.js` sırasının neden yükleme sırası olduğu ve bu yüzden hangi dosyanın
+  önce gelmek zorunda olduğu da dâhil.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

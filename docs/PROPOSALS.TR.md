@@ -22,13 +22,136 @@ karar verdik) veya **devam ediyor**.
 
 ## Sahibinin sıraya aldığı işler
 
-Boş. Sahibinin istediği her şey girdi; ne yaptıkları changelog'da, hikayeye
-dokunanlar [STORY.TR.md](STORY.TR.md) dosyasında.
+Sahibinin istediği ve henüz bitmemiş her şey, oturumlar arasında hiçbir şey kaybolmasın
+diye işe başlanmadan önce buraya kaydedilir. Bir madde yayına girdiğinde bu listeden
+çıkar; ne yaptığı changelog'a, hikâyeye dokunuyorsa [STORY.md](STORY.md) dosyasına girer.
 
-Sahibinin istediği ve henüz bitmemiş her şey, işe başlamadan önce buraya
-yazılıyor; böylece oturumlar arasında hiçbir şey kaybolmuyor. Bir madde
-tamamlandığında bu listeden çıkıyor, yaptığı iş changelog'a ve hikayeye
-dokunuyorsa [STORY.TR.md](STORY.TR.md) dosyasına geçiyor.
+> **Bu maddeler araştırılıyor.** Her biri, sahibinin kuralı gereği önce buraya yazılıyor,
+> sonra kodla karşılaştırılıp doldurulacak: üzerine kurulacak neyin zaten var olduğu,
+> gerçekten yeni yazılması gerekenin ne olduğu ve ölçülen sayılar. Bir madde bu ayrıntıyı
+> taşımadığı sürece onu bir plan değil, kaydedilmiş bir istek say.
+
+**Önce cevap, sonra yapım.** 5. madde bir özellik değil bir soru ve aşağıdaki iki madde
+onun cevabına bağlı: bir direnç alanının hiç okunmadığı çıkarsa, yanma debuff'ı (12.
+madde) ve kalkan değerleri (7. madde) başka türlü tasarlanmak zorunda. Cevaplanmamış bir
+soruya dayanan iş iki kez yapılır.
+
+### 5. Direnç alanları dövüşte gerçekten okunuyor mu?
+
+**Durum:** soru, ölçülüyor.
+
+Sahibi, ağrı direnci, ölümsüz direnci ve karanlık savunma gibi dirençlerin hasar
+azaltmada dikkate alınıp alınmadığını soruyor. Bu tartışılacak değil cevaplanacak bir şey:
+`res` nesnesinin her alanı çıkarılır, her birinin okunduğu her yer bulunur ve etki
+`tests/harness.js` ile kanıtlanır — bir alan değiştirilip `dmg_calc` ölçülür. Alan başına
+sonuç üç şeyden biri: okunuyor ve etkili, okunuyor ama etkisiz, hiç okunmuyor.
+
+### 6. Unvanlar: yorumda bırakılmış verme kodu
+
+**Durum:** kabul edildi — bu bir düzeltme, ekleme değil.
+
+`js/data/equipment.js:2730-2731` `ttl.mone2` ve `ttl.mone3` için yoruma alınmış iki verme
+işlevi tutuyor ve ikisi de `ttl.mone1`'in zaten kullandığı `global.stat.moneyg >= GOLD`
+koşulunu deniyor — yani yorumdan çıkarılsalar bile birlikte tetiklenirlerdi. `shpt2`,
+`shpt3` ve `mone3`'ün dil kayıtları da boş. Sahibinin "unvanlarda iyileştirme ve arttırım"
+isteği buradan başlıyor, çünkü hiçbir şeyin veremediği bir unvan içerik değildir.
+
+### 7. Kalkanlar: taslakları, değerleri ve rütbeleri
+
+**Durum:** kabul edildi — eklemeden önce bir düzeltme.
+
+On dört kalkanın on biri `str 0` ile geldi, yani hasar azaltma terimine hiçbir katkı
+yapmıyorlar. İlgili ve aynı geçişte yapılmaya değer: `you.eqp[5]` her zaman paylaşılan
+`eqp.dummy` ve o, `creature.wolfa1`'in içine yazdığı `cls [9,10,9]` ile `aff[0] 14`'ü
+taşıyor — [status.md](status.md) kuyruk 6. madde. Bu temizlenmeden "kalkan her zaman
+hasarı azaltır" doğru hâle getirilemez.
+
+### 8. Kaynağı olmayan şifa iksirleri
+
+**Durum:** kabul edildi — düzeltme.
+
+Sahibi yalnızca en küçük şifa eşyasının üretilebildiğini bildiriyor. Her iyileştirme
+eşyasının kaynağı saptanmalı — tarif, satıcı ya da düşme — ve hiçbiri olmayanlara bir
+kaynak verilmeli. Bu, projenin kendi kuralının uygulanması: daha fazla icat etmeden önce
+var olanı bağla.
+
+### 9. Üretim: çeşitlendirme ve işe yaramayan yıldız tozu
+
+**Durum:** önerildi.
+
+Tek bir sorunun iki yarısı. `item.stdst` üretiliyor ve gidecek bir yeri yok; tarif
+listesinin tamamı da tek yöne eğilimli. İkisi için de bir şey eklenmeden önce mevcut şekil
+ölçülmeli, ki "çeşitlendirme" denetlenebilir bir anlam taşısın.
+
+### 10. Her yeteneğe 15. seviyeye kadar avantaj
+
+**Durum:** önerildi.
+
+60 yetenekten 37'sinde hiç kilometre taşı yok ve bunların yalnızca beşi eğitilemiyor —
+yani 32 eğitilebilir yetenek hiçbir şey vermiyor. Ayrıntısı [status.md](status.md) kuyruk 3. maddede, yanındaki tek satırlık düzeltmeyle birlikte:
+`js/data/skills.js:2277` `skl.hvt.type`'ı `skl.hst` bloğunun içinde ikinci kez ayarlıyor,
+dolayısıyla `skl.hst.type` hiç ayarlanmıyor.
+
+Tasarımı belirleyen kısıt: bir kilometre taşının `f()`'i bir kez çalışıyor ve yüklemede
+tekrarlanmıyor, o yüzden yalnızca kendisi kaydedilen alanlara yazabilir — `stra`, `agla`,
+`inta`, `spda`, `hpa`, `sata`.
+
+### 11. Silah ustalığı unvanları ve takılıyken hızlanan ustalık
+
+**Durum:** önerildi.
+
+İkinci yarının nasıl yazılacağını belirleyen bir kısıt var: ekipman yüklemede registry'den
+yeniden kuruluyor ve yalnızca `dp` ile `data` geri kopyalanıyor, dolayısıyla `str`'ye
+yazılan bir bonus yok oluyor. Başka yerde kullanılan desen `oneq`/`onuneq` ile
+`you.mods`'a yazmak; yükleme yolu onu yeniden uyguluyor.
+
+### 12. Ateş hasarında yanma debuff'ı
+
+**Durum:** önerildi, 5. maddeye bağlı.
+
+Ateş hasarının bir yaratığı bir süre yanık bırakma şansı. Önce saptanması gerekenler:
+yaratıkların efekt taşıyıp taşıyamadığı, ve oyuncuya değil bir yaratığa karşı çalışan bir
+zamana yayılı hasarın zaten var olup olmadığı.
+
+### 13. Mobilya: birkaç tane daha, ve anlamı olan bir yatak
+
+**Durum:** önerildi.
+
+Daha fazla mobilya, ve bir yatak varsa "yere çök ve biraz kestir" başka bir şey demeli.
+Sade yataklar dinlenirken iyileşme hızını yükseltmeli, derecesine göre artımlı.
+
+### 14. Yakmaya değer bir şömine
+
+**Durum:** önerildi.
+
+Şömine yandığı sürece: daha yüksek iyileşme hızı ve hafif bir enerji kazanımı. Yanında
+uyumak bir süre sonra "dinlendin" buff'ı veriyor — saldırı hızı, saldırı hasarı, yetenek
+kazanımı — belirli bir süre için. Buff, her şeyle birlikte tiklesin ve sona ersin diye
+`giveEff` üzerinden gerçek bir efekt olmak zorunda.
+
+### 15. Yeterince temizlenmiş bir bölgede sınırsız temizleme
+
+**Durum:** önerildi, kayıt göçü gerekiyor.
+
+Alan boyutları kaydın parçası ve konumsal; son alan `area.mine3` (id 131), dolayısıyla
+bölge başına bir sayaç ancak sona eklenebilir. Kuyruk 8. maddedeki aksesuar yuvalarıyla
+birleştirmeye değer: ikisi de bir v479 göçü gerektiriyor ve bir göç iki göçten ucuzdur.
+
+### 16. "Araştır"ın tek yer dışında da kullanılması
+
+**Durum:** önerildi.
+
+Araştırma eylemi var ve tek bir konumda sunuluyor. İstek, uyacağı yerleri bulmak — ki bu
+yeni mekanik değil içerik bağlamak, yani bu projenin izin verdiği en ucuz ekleme türü.
+
+### 17. Yan hikâyelere devam
+
+**Durum:** önerildi. Aşağıdaki "Hâlâ borçlu olunan yan hikâyeler" bölümü onları zaten
+listeliyor.
+
+Sahibinin bir kararı bekleyen değil **kapanmış** olarak kaydedildi: oyuncu panelindeki
+efekt şeridinin ŞANS okumasına binmesi **olduğu gibi kabul edildi** — bilgi olarak
+okunuyor ve bu yeterli. Değişiklik yok.
 
 ## Bölgeler
 

@@ -34,15 +34,21 @@ Ardından `http://127.0.0.1:8080` adresini açın.
 - `css/`: oyun stilleri
 - `js/core/`: başlangıç, kayıt/yükleme ve oyuncu durumu
 - `js/data/`: eşya, ekipman, yetenek, görev ve yaratık tanımları
-- `js/systems/`: aksiyon, üretim, efekt, simülasyon ve planlama sistemleri
-- `js/ui/`: arayüz ve render kodu
+- `js/systems/`: aksiyon, üretim, savaş, efekt, simülasyon ve planlama sistemleri
+- `js/ui/`: arayüz ve render kodu, yüzeyine göre bölünmüş — paneller, imleç
+  açıklamaları ve mesaj günlüğü ayrı dosyalarda
 - `js/world/`: bölgeler, sektörler ve konumlar
-- `js/utils/`: rastgele sayı ve kodlama yardımcıları
+- `js/utils/`: genel yardımcılar — DOM kurulumu, nesne kopyalama, rastgele sayı ve
+  kayıt kodlaması
 - `locales/`: dil kayıt listesi ve JSON çeviri dosyaları
 - `scripts/`: bundle ve yayın çıktısı araçları
 
 Eski oyun, tüm fonksiyon bildirimlerinin başlangıçtan önce erişilebilir olmasına
-bağımlıdır. Bu nedenle `js/game.js` üretilen tarayıcı bundle'ıdır. Kaynak dosyaları
+bağımlıdır. Bu nedenle `js/game.js` üretilen tarayıcı bundle'ıdır.
+`scripts/sources.js` kaynak dosyaları birleştirilme sırasına göre listeler ve bu sıra
+yükleme sırasıdır: `function` bildirimi tüm bundle boyunca hoist edilir, `const`
+edilmez — dolayısıyla sabitleri başka bir dosyanın tanım anındaki kodu tarafından
+okunan bir dosya önce gelmek zorundadır. Bunu yapan dosya `js/ui/tooltip.js`. Kaynak dosyaları
 düzenledikten sonra bundle ve GitHub Pages çıktısını yeniden oluşturun:
 
 ```sh
