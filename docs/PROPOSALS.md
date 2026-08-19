@@ -61,8 +61,15 @@ improvement and additions" starts here, because a title nothing can grant is not
 
 **Status:** agreed — a fix before an addition.
 
-Eleven of the fourteen shields shipped with `str 0`, which means they contribute nothing
-to the mitigation term. Related and worth doing in the same pass: `you.eqp[5]` is always
+**The premise recorded before is out of date.** "Eleven of the fourteen shields shipped
+with `str 0`" is no longer true: there are seventeen shields and not one has `str 0` --
+measured through the harness, they run from `csr` at 4 to `drd` at 23, with `aff[0]` and
+`cls` filled in throughout. So the values exist and what is actually left to review is
+whether the ladder is right, which is the other half of what the owner asked.
+
+One thing the old note missed and the measurement found: **every shield has `int 0`**, all
+seventeen of them. In the magic branch of `dmg_calc` a shield contributes through
+`you.eqp[1].int`, so no shield in the game defends against a spell at all. Related and worth doing in the same pass: `you.eqp[5]` is always
 the shared `eqp.dummy`, which carries `cls [9,10,9]` and `aff[0] 14` written into it by
 `creature.wolfa1` — see queue item 6 in [status.md](status.md). Until that is cleaned up,
 "a shield always reduces damage" cannot be made true.
@@ -153,6 +160,100 @@ is the cheapest kind of addition this project allows.
 One decision from the owner is recorded as closed rather than pending: the effect strip
 in the player panel overlapping the LUCK readout is **accepted as it is** — it reads as
 information and that is enough. No change.
+
+### 18. The surfaces the dark redesign skipped
+
+**Status:** agreed — the owner asked for this directly, and one item of it already shipped
+in v478.29 (the save transfer dialogs and `#save-bar-restore`).
+
+Audited with five lenses over `css/game.css` and `js/ui/` — palette, hand-built overlays,
+keyboard reach, hover/focus states, structure — with every candidate finding re-read by a
+separate pass told to refute it. Nineteen survived. Ordered by how visible the result is
+to a player.
+
+1. **The tooltip frame** (`css/game.css:974-989` `#dscr`, `730-733` `#d_l`). A
+   `5px lightgrey` border with a black outline outside it, over an interior already
+   darkened to `#333`/`#111`. This is the most frequently shown surface in the game and
+   the widest light band left on screen. Match `.game-modal`'s frame order
+   (`border: 3px solid #050912; outline: 2px solid #6676bd`), `color: white` →
+   `rgb(188 254 254)`, and the `#d_l` divider `darkgrey` → `#526988`. Note `#dscr` has no
+   `box-sizing`, so 5px → 3px narrows the panel by 4px; `positionDescription` measures
+   `offsetWidth`, so it adapts on its own.
+2. **The main navigation** (`css/game.css:308-314`): five top-level panel buttons with an
+   `orchid` border, no `tabIndex`, no `role`, no `keydown`, and no `.ct_bts:focus-visible`
+   rule. Border → `#3848c0`; the keyboard half follows the pattern already used by
+   `dom.sl_kill`.
+3. **The title-picker window** (`js/ui/interface.js:58-99`): a hand-built `div` at a fixed
+   `top: 50px / left: 81px`, with a literal copy of the `--list-row` value, and **no way to
+   cancel** — the only thing that closes it also writes `you.title`. Rebuild on
+   `createGameModal`. This carries a real bug with it: `js/core/bootstrap.js:1503` clears
+   `global.flags.ttlscrnopn` on load without removing the DOM node, leaving a window that
+   can neither be closed nor reopened.
+4. **The inventory row chips** (`.del_b`, `.dss_b`, `.eq_l`/`.eq_r`, `.spc_a`). The whole
+   cluster predates the redesign — `royalblue` under `#f80`, a `lime` hover border, and
+   `.dss_b:hover` turning the chip light grey with grey text on it. Two separate jobs: the
+   palette (low risk, but the `royalblue`/`crimson` values are written inline in JS at
+   `js/ui/interface.js:5037/5042/5062/5067`, so CSS alone will not hold), and keyboard
+   reach (high risk — the chips are built on `mouseenter` and destroyed on `mouseleave`, so
+   making them reachable means rebuilding the row mechanism).
+5. **The inventory panel's grey rules** (`css/game.css:1208-1212`, `1219-1225`, `136-140`):
+   plain `grey` borders framing a panel whose every other line is `#3848c0`/`#44c`/`#249`.
+   `.bts_b` is shared with the skills window, so the change shows in both — which is the
+   intent.
+6. **The settings panel**, three small things: the language `<select>` drops a white list
+   over the dark panel (`css/game.css:340-343`; note author `option` colours are honoured
+   on Windows Chromium/Firefox and ignored by macOS native menus); the Export/Import row
+   halves carry an inline `1px lightgrey solid` border (`js/ui/interface.js:2590`, `2664`)
+   left over from the windows that were replaced in v478.29 — and removing it must restore
+   `.opt_va`'s `border-left` column divider; and the background-preset chips have no hover
+   or focus state of their own, though their fills are a **preview of the colour** and must
+   not be touched.
+7. **The read-books window** (`js/ui/interface.js:1767-1776`): `#210445` behind a
+   `solid lime 1px` border, no title bar, no close control, no Escape — any click inside it
+   closes the list. Rebuild on `createGameModal`; the rarity colours in its rows are
+   semantic and move across unchanged.
+8. **`chs()` choice rows** (`js/ui/interface.js:5255`): the game is played through these —
+   roughly 706 calls in `js/world/locations.js` — and the only way to activate one is a
+   mouse click. The visual redesign reached them; the keyboard did not. Two things make
+   this medium-to-high risk rather than a one-line fix: the factory's own `click` listener
+   is not the action path (each caller binds its own), so Enter/Space has to dispatch a
+   real `click` event; and `clr_chs()` tears the rows down and rebuilds them constantly, so
+   focus needs a strategy or a keyboard user restarts from the top after every choice.
+9. **Status-effect icons** (`css/game.css:300-307`): an invisible `black` base border and a
+   `lime` hover, where the redesign settled on `#71e6b1`. Palette only — the verification
+   pass established these are not controls: the enemy-panel copies have no listener at all,
+   and the player-panel one calls `e.onClick()`, which is a no-op for every effect in the
+   game.
+10. **`#rptbn:hover`** (`css/game.css:1409-1421`): `lightgrey`, and **dead** — the control
+    writes its own background inline on creation and on every click, so the rule never
+    paints. The player never sees the light grey, but the control also has no hover
+    feedback at all while its neighbours do.
+11. **`input:focus { outline: none }`** (`css/game.css:104-106`): an unqualified type
+    selector removing the focus ring from every input in the game, written before
+    `:focus-visible` existed. The redesign has had to climb over it one element at a time.
+    `#nch` and `.opt_v` have no border and no background, so a keyboard user cannot see
+    which field they are in at all. Narrow it rather than deleting it.
+12. **`.i18n-load-error`** (`css/game.css:16-24`): a white card with `#900` text, sitting
+    directly beside `#save-unreadable`, which was converted to the dark error palette
+    (`#3a1a18` / `#a32219` / `#ffb4ae`). Last because it is invisible in practice: the
+    loader never removes the boot overlay, and `#loading-overlay` at `z-index: 9997` covers
+    the card — which is a separate bug worth noting, since a player whose locale files fail
+    sees a stuck loading screen rather than the message.
+
+**Deliberately not changed:** `positionDescription`'s measurement and pixel writing;
+`MS Gothic`, which is the project's typeface rather than a deviation; every rarity, tier,
+durability and drop-chance colour, and the per-effect inline colours on the status icons,
+all of which are data encoding; `#rptbn`'s `#a11`/`green` pair and `.eq_*`'s `crimson`,
+which carry on/off and "equipped in this hand" state; the background-preset fills; and
+anything inside a comment.
+
+**Already exists:** `createGameModal`, the three `--list-*` tokens, the save bar's
+border/gradient/hover as the reference for chrome, and `dom.sl_kill` as the reference for
+giving a span keyboard reach.
+
+**Has to be new:** a `.ct_bts:focus-visible` rule, a focus strategy for `chs()` rows
+across a rebuild, and a decision on item 4's second half, which is a row rewrite rather
+than a restyle.
 
 ## Regions
 
@@ -268,20 +369,31 @@ affinity now scales the shield's own share of the mitigation. The armour half is
 deliberately left alone, because it is doing real work. It is the only thing keeping
 combat dangerous.
 
-Measured on a level-35-ish character — STR 50, chest armour STR 12 at full
-durability with physical affinity 5 and edge resistance 4, Shield skill 10, against
-an attack term of 100:
+Re-measured through the real `dmg_calc` with `tests/harness.js`, on the character this
+was originally written against — STR 50, chest armour STR 12 at full durability with
+physical affinity 5 and edge resistance 4, Shield skill 10, `sld.hpt` (the Hoplite
+Shield, STR 18), against an attack term of 100:
 
 | Outer factor             | Unshielded damage taken | With the Hoplite Shield |
 | ------------------------ | ----------------------- | ----------------------- |
-| As it ships (armour `-`) | 36.9                    | 26.9                    |
-| Corrected (armour `+`)   | 9.9                     | 1.0                     |
+| As it ships (armour `-`) | 37.0                    | 27.0                    |
+| Corrected (armour `+`)   | 0.0                     | 0.0                     |
 
-So correcting it makes an unshielded player roughly four times more survivable and
-floors damage at 1 for anyone carrying a shield. That is not a fix, it is a
-rebalance of every fight in the game, and it should be a deliberate choice — most
-likely alongside lowering the flat `def.str * eff` term, which is what actually
-dominates the mitigation.
+**The corrected figures recorded here before were wrong, and being wrong changed the
+decision.** They said 9.9 and 1.0 — roughly four times more survivable. The measurement
+says zero and zero: with the sign corrected, the mitigation term exceeds the whole attack
+and the result is floored, so this creature stops being able to damage this player at all.
+`minimumLandedDamage` is deliberately only applied to the player's outgoing damage, so
+nothing floors a creature's blow at a minimum on the way in.
+
+That is not a rebalance to weigh, it is a change that cannot be made on its own. It only
+becomes possible alongside lowering the flat `def.str * eff` term, which is what actually
+dominates the mitigation — and the size of that reduction has to be derived from this
+measurement rather than guessed.
+
+Reproduce it: the scenario is a probe against `dmg_calc(creature, you, abl.default)` with
+`global.target` set to the struck piece; flipping the sign is a one-character edit in
+`js/systems/combat.js` at both `100 - global.target.cls[att.ctype]` sites.
 
 **Already exists:** the two terms, and a regression test pinning the shield half so
 it cannot silently revert.

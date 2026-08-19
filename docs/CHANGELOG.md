@@ -388,6 +388,40 @@ changes. Player-facing game content and release notes belong in
 - README.md and README.TR.md describe the source layout as it is now, including why
   scripts/sources.js order is load order and which file has to come first because of it.
 
+- The dark redesign was audited for the surfaces it skipped, which the owner asked for
+  directly. Five lenses over css/game.css and js/ui/ -- palette, hand-built overlays,
+  keyboard reach, hover and focus states, structure -- with every candidate finding re-read
+  by a separate pass whose job was to refute it. Nineteen survived, and they are entry 18 in
+  docs/PROPOSALS.md, ordered by how visible each one is to a player rather than by which
+  lens found it, because one edit often fixes several.
+- The largest is the tooltip frame: a 5px lightgrey border with a black outline outside it,
+  around an interior that had already been darkened. It is the most frequently shown surface
+  in the game. After it: five navigation buttons with an orchid border and no keyboard
+  reach, two more hand-built windows that should be dialogs, the inventory row chips as an
+  un-migrated cluster rather than one skipped chip, and an `input:focus { outline: none }`
+  written before :focus-visible existed that the redesign has been climbing over one element
+  at a time.
+- Two findings are worth having for reasons other than colour. The title-picker window has
+  no way to cancel -- the only thing that closes it also writes you.title -- and
+  bootstrap.js:1503 clears its open flag on load without removing the node, leaving a window
+  that can neither be closed nor reopened. And #rptbn:hover is dead: the control writes its
+  own background inline on creation and on every click, so the rule never paints, which
+  means the control has no hover feedback at all rather than the wrong one.
+- The armour double-count figures in PROPOSALS.md were wrong, and being wrong changed the
+  decision they were recorded to inform. They said correcting the sign makes an unshielded
+  player roughly four times more survivable: 36.9 damage taken becoming 9.9, and 1.0 with a
+  shield. Measured through the real dmg_calc with tests/harness.js, in the scenario the note
+  itself specifies, it is 37.0 becoming 0.0 -- and 27.0 becoming 0.0 with the Hoplite. With
+  the sign corrected the mitigation exceeds the whole attack and the result floors, so the
+  creature stops being able to damage the player at all; minimumLandedDamage is deliberately
+  only applied to the player's outgoing damage, so nothing floors a blow on the way in. It
+  is not a rebalance to weigh but a change that cannot be made alone, and the size of the
+  compensating cut to `def.str * eff` has to come from this measurement rather than a guess.
+- The shield premise was out of date too. "Eleven of the fourteen shields shipped with
+  str 0" is no longer true: there are seventeen and not one has str 0, running from 4 to 23
+  with aff[0] and cls filled in. What the measurement did find is that every one of them has
+  int 0, so in the magic branch of dmg_calc no shield in the game defends against a spell.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

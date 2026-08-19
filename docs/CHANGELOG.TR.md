@@ -394,6 +394,40 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   `scripts/sources.js` sırasının neden yükleme sırası olduğu ve bu yüzden hangi dosyanın
   önce gelmek zorunda olduğu da dâhil.
 
+- Karanlık tasarımın atladığı yüzeyler için bir denetim yapıldı; sahibi bunu doğrudan
+  istemişti. `css/game.css` ve `js/ui/` üzerinde beş mercek -- palet, elle kurulmuş
+  overlay'ler, klavye erişimi, hover ve focus halleri, yapı -- ve her aday bulgu, görevi onu
+  çürütmek olan ayrı bir geçiş tarafından yeniden okundu. On dokuzu ayakta kaldı ve
+  `docs/PROPOSALS.md` 18. madde olarak, her birinin oyuncuya ne kadar göründüğüne göre
+  sıralı duruyor.
+- En büyüğü ipucu panelinin çerçevesi: içi çoktan karartılmış bir panelin etrafında
+  `5px lightgrey` kenarlık ve onun dışında siyah outline. Oyunda en sık görünen yüzey.
+  Ardından: `orchid` kenarlıklı ve klavyeye kapalı beş navigasyon butonu, diyalog olması
+  gereken iki elle kurulmuş pencere daha, atlanmış tek bir çip değil göç etmemiş bir küme
+  olarak envanter satırı çipleri, ve `:focus-visible` var olmadan önce yazılmış, redesign'ın
+  eleman eleman üstüne tırmandığı bir `input:focus { outline: none }`.
+- İki bulgu renk dışındaki sebeplerle de değerli. Başlık seçme penceresinin vazgeçme yolu
+  yok -- onu kapatan tek şey aynı zamanda `you.title`'ı yazıyor -- ve `bootstrap.js:1503`
+  yükleme sırasında açık bayrağını sıfırlarken düğümü kaldırmıyor, yani ne kapanabilen ne
+  yeniden açılabilen bir pencere kalıyor. Ve `#rptbn:hover` ölü: kontrol kendi arka planını
+  hem kurulurken hem her tıklamada satır içi yazıyor, dolayısıyla kural hiç boyamıyor --
+  yani kontrolde yanlış bir hover değil, hiç hover yok.
+- `PROPOSALS.md` içindeki zırh çift sayımı sayıları yanlıştı ve yanlış olmaları, bilgi
+  vermek için kaydedildikleri kararı değiştiriyordu. İşareti düzeltmenin kalkansız bir
+  oyuncuyu yaklaşık dört kat dayanıklı yaptığını söylüyorlardı: alınan 36,9 hasar 9,9'a,
+  kalkanla 1,0'a. `tests/harness.js` ile gerçek `dmg_calc` üzerinden, notun kendi tarif
+  ettiği senaryoda ölçüldüğünde 37,0 → 0,0 ve Hoplit ile 27,0 → 0,0. İşaret
+  düzeltildiğinde hasar azaltma saldırının tamamını aşıyor ve sonuç tabana kırpılıyor, yani
+  yaratık oyuncuya hiç hasar veremiyor; `minimumLandedDamage` bilinçli olarak yalnızca
+  oyuncunun verdiği hasara uygulanıyor, dolayısıyla gelen bir vuruşu asgaride tutan hiçbir
+  şey yok. Bu tartılacak bir yeniden dengeleme değil, tek başına yapılamayacak bir
+  değişiklik.
+- Kalkan öncülü de eskimişti. "On dört kalkanın on biri `str 0` ile geldi" artık doğru
+  değil: on yedi kalkan var ve hiçbirinin `str`'si 0 değil, 4'ten 23'e uzanıyorlar ve
+  `aff[0]` ile `cls` dolu. Ölçümün bulduğu şey ise hepsinin `int`'inin 0 olması --
+  dolayısıyla `dmg_calc`'ın büyü dalında oyundaki hiçbir kalkan bir büyüye karşı savunma
+  yapmıyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

@@ -60,8 +60,15 @@ isteği buradan başlıyor, çünkü hiçbir şeyin veremediği bir unvan içeri
 
 **Durum:** kabul edildi — eklemeden önce bir düzeltme.
 
-On dört kalkanın on biri `str 0` ile geldi, yani hasar azaltma terimine hiçbir katkı
-yapmıyorlar. İlgili ve aynı geçişte yapılmaya değer: `you.eqp[5]` her zaman paylaşılan
+**Daha önce kaydedilen öncül eskimiş.** "On dört kalkanın on biri `str 0` ile geldi"
+artık doğru değil: on yedi kalkan var ve hiçbirinin `str`'si 0 değil — harness ile
+ölçüldü, `csr`'de 4'ten `drd`'de 23'e uzanıyorlar ve `aff[0]` ile `cls` baştan sona
+dolu. Yani değerler var; gerçekten gözden geçirilecek olan bu merdivenin doğru olup
+olmadığı — ki sahibinin istediğinin öbür yarısı da bu.
+
+Eski notun kaçırdığı ve ölçümün bulduğu bir şey: **her kalkanın `int`'i 0**, on yedisinin
+de. `dmg_calc`'ın büyü dalında bir kalkan `you.eqp[1].int` üzerinden katkı yapıyor,
+dolayısıyla oyundaki hiçbir kalkan bir büyüye karşı hiç savunma yapmıyor. İlgili ve aynı geçişte yapılmaya değer: `you.eqp[5]` her zaman paylaşılan
 `eqp.dummy` ve o, `creature.wolfa1`'in içine yazdığı `cls [9,10,9]` ile `aff[0] 14`'ü
 taşıyor — [status.md](status.md) kuyruk 6. madde. Bu temizlenmeden "kalkan her zaman
 hasarı azaltır" doğru hâle getirilemez.
@@ -152,6 +159,99 @@ listeliyor.
 Sahibinin bir kararı bekleyen değil **kapanmış** olarak kaydedildi: oyuncu panelindeki
 efekt şeridinin ŞANS okumasına binmesi **olduğu gibi kabul edildi** — bilgi olarak
 okunuyor ve bu yeterli. Değişiklik yok.
+
+### 18. Karanlık tasarımın atladığı yüzeyler
+
+**Durum:** kabul edildi — sahibi bunu doğrudan istedi ve bir maddesi v478.29'da zaten
+yayına girdi (kayıt aktarma diyalogları ve `#save-bar-restore`).
+
+`css/game.css` ve `js/ui/` beş mercekle denetlendi — palet, elle kurulmuş overlay'ler,
+klavye erişimi, hover/focus halleri, yapı — ve her aday bulgu, onu çürütmekle görevli ayrı
+bir geçiş tarafından yeniden okundu. On dokuzu ayakta kaldı. Sıra, oyuncunun gördüğü
+etkiye göre.
+
+1. **İpucu panelinin çerçevesi** (`css/game.css:974-989` `#dscr`, `730-733` `#d_l`).
+   İçi çoktan `#333`/`#111`'e karartılmış bir panelin etrafında `5px lightgrey` kenarlık ve
+   onun dışında siyah outline. Bu, oyunda en sık görünen yüzey ve ekranda kalan en geniş
+   açık gri bant. Çerçeve sırasını `.game-modal` ile eşitle
+   (`border: 3px solid #050912; outline: 2px solid #6676bd`), `color: white` →
+   `rgb(188 254 254)`, `#d_l` ayırıcısı `darkgrey` → `#526988`. Dikkat: `#dscr` üzerinde
+   `box-sizing` yok, 5px → 3px paneli 4px daraltır; `positionDescription` `offsetWidth`
+   ölçtüğü için kendiliğinden uyum sağlar.
+2. **Ana navigasyon** (`css/game.css:308-314`): `orchid` kenarlıklı beş üst düzey panel
+   butonu; `tabIndex` yok, `role` yok, `keydown` yok, `.ct_bts:focus-visible` kuralı yok.
+   Kenarlık → `#3848c0`; klavye yarısı `dom.sl_kill`'in zaten kullandığı deseni izler.
+3. **Başlık seçme penceresi** (`js/ui/interface.js:58-99`): sabit `top: 50px / left: 81px`
+   konumunda elle kurulmuş bir `div`, içinde `--list-row` değerinin literal kopyası, ve
+   **vazgeçme yolu yok** — pencereyi kapatan tek şey aynı zamanda `you.title`'ı yazıyor.
+   `createGameModal` ile yeniden kur. Yanında gerçek bir hata taşıyor:
+   `js/core/bootstrap.js:1503` yükleme sırasında `global.flags.ttlscrnopn` bayrağını
+   sıfırlıyor ama DOM düğümünü kaldırmıyor, yani ne kapanabilen ne yeniden açılabilen bir
+   pencere kalıyor.
+4. **Envanter satırı çipleri** (`.del_b`, `.dss_b`, `.eq_l`/`.eq_r`, `.spc_a`). Kümenin
+   tamamı redesign öncesinden — `#f80` altında `royalblue`, `lime` hover kenarlığı, ve
+   `.dss_b:hover` çipi açık griye çevirip yazısını gri yapıyor. İki ayrı iş: palet (düşük
+   risk, ama `royalblue`/`crimson` değerleri JS'te satır içi yazılıyor —
+   `js/ui/interface.js:5037/5042/5062/5067` — dolayısıyla yalnızca CSS tutmaz) ve klavye
+   erişimi (yüksek risk — çipler `mouseenter`'da kurulup `mouseleave`'de yok ediliyor, yani
+   erişilebilir kılmak satır mekanizmasını yeniden kurmak demek).
+5. **Envanter panelinin `grey` çizgileri** (`css/game.css:1208-1212`, `1219-1225`,
+   `136-140`): diğer her çizgisi `#3848c0`/`#44c`/`#249` olan bir paneli çerçeveleyen düz
+   `grey` kenarlıklar. `.bts_b` beceri penceresiyle paylaşılıyor, yani değişiklik ikisinde
+   birden görünür — istenen sonuç bu.
+6. **Ayarlar paneli**, üç küçük şey: dil `<select>`'i karanlık panelin üstüne beyaz bir
+   liste düşürüyor (`css/game.css:340-343`; not: yazar tarafından verilen `option` renkleri
+   Windows'ta Chromium/Firefox tarafından uygulanır, macOS'un yerel menüsünde yok sayılır);
+   Dışa/İçe aktar satırının iki yarısı, v478.29'da değiştirilen pencerelerden kalan satır
+   içi `1px lightgrey solid` kenarlığı taşıyor (`js/ui/interface.js:2590`, `2664`) — ve onu
+   kaldırmak `.opt_va`'nın `border-left` sütun ayırıcısını geri koymayı gerektirir; ve arka
+   plan ön ayarı çiplerinin kendi hover/focus hâli yok, ama dolguları **uygulanacak rengin
+   önizlemesi** olduğu için dokunulmamalı.
+7. **Okunan kitaplar penceresi** (`js/ui/interface.js:1767-1776`): `solid lime 1px`
+   kenarlık arkasında `#210445`, başlık çubuğu yok, kapatma kontrolü yok, Escape yok —
+   içindeki herhangi bir tıklama listeyi kapatıyor. `createGameModal` ile yeniden kur;
+   satırlarındaki nadirlik renkleri anlamsaldır, aynen taşınır.
+8. **`chs()` seçim satırları** (`js/ui/interface.js:5255`): oyun baştan sona bunlarla
+   oynanıyor — `js/world/locations.js`'te yaklaşık 706 çağrı — ve bir satırı etkinleştirmenin
+   tek yolu fare tıklaması. Görsel geçiş bunlara ulaştı, klavye ulaşmadı. Bunu tek satırlık
+   bir düzeltme değil orta-yüksek riskli yapan iki şey: fabrikanın kendi `click`
+   dinleyicisi eylem yolu değil (her çağıran kendi bağlıyor), dolayısıyla Enter/Space
+   gerçek bir `click` olayı göndermek zorunda; ve `clr_chs()` satırları sürekli yıkıp
+   yeniden kuruyor, yani odak için bir strateji gerekiyor, yoksa klavye kullanıcısı her
+   seçimden sonra baştan başlar.
+9. **Durum efekti ikonları** (`css/game.css:300-307`): görünmez `black` taban kenarlığı ve
+   `lime` hover; redesign `#71e6b1`'e yerleşmişti. Yalnızca palet — doğrulama geçişi bunların
+   kontrol olmadığını saptadı: düşman paneli kopyalarında hiç dinleyici yok, oyuncu
+   panelindeki ise `e.onClick()` çağırıyor ve bu oyundaki her efekt için işlemsiz.
+10. **`#rptbn:hover`** (`css/game.css:1409-1421`): `lightgrey`, ve **ölü** — kontrol kendi
+    arka planını hem kurulurken hem her tıklamada satır içi yazıyor, dolayısıyla kural hiç
+    boyamıyor. Oyuncu açık griyi hiç görmüyor, ama kontrolün komşuları hover'a yanıt
+    verirken kendisinde hiçbir geri bildirim yok.
+11. **`input:focus { outline: none }`** (`css/game.css:104-106`): `:focus-visible` var
+    olmadan önce yazılmış, niteliksiz bir tür seçici oyundaki her girdinin odak halkasını
+    kaldırıyor. Redesign bunun üstüne eleman eleman tırmanmak zorunda kaldı. `#nch` ve
+    `.opt_v`'nin ne kenarlığı ne arka planı var, yani klavye kullanıcısı hangi alanda
+    olduğunu hiç göremiyor. Silmek yerine daralt.
+12. **`.i18n-load-error`** (`css/game.css:16-24`): `#900` yazılı beyaz bir kart, ve tam
+    yanında karanlık hata paletine çevrilmiş `#save-unreadable` duruyor (`#3a1a18` /
+    `#a32219` / `#ffb4ae`). En sona konmasının nedeni pratikte görünmez olması: yükleyici
+    açılış katmanını hiç kaldırmıyor ve `z-index: 9997` ile `#loading-overlay` kartın
+    üstünü kapatıyor — ki bu, kaydedilmeye değer ayrı bir hata: yerel dosyaları
+    yüklenemeyen bir oyuncu mesajı değil takılı kalmış bir açılış ekranı görüyor.
+
+**Bilinçli olarak değiştirilmeyenler:** `positionDescription`'ın ölçümü ve piksel yazımı;
+sapma değil projenin yazı yüzü olan `MS Gothic`; bütün nadirlik, kademe, dayanıklılık ve
+düşme şansı renkleri ile durum ikonlarının efekt başına satır içi renkleri — hepsi veri
+kodlaması; aç/kapa ve "bu elde ekipli" durumunu taşıyan `#rptbn`'in `#a11`/`green` çifti ve
+`.eq_*`'in `crimson`'u; arka plan ön ayarı dolguları; ve yorum içindeki her şey.
+
+**Zaten var:** `createGameModal`, üç `--list-*` belirteci, krom için referans olan kaydetme
+çubuğunun kenarlık/gradyan/hover'ı, ve bir `span`'a klavye erişimi vermek için referans
+olan `dom.sl_kill`.
+
+**Yeni yazılması gereken:** bir `.ct_bts:focus-visible` kuralı, `chs()` satırları için
+yeniden çizim boyunca geçerli bir odak stratejisi, ve 4. maddenin ikinci yarısı için bir
+karar — o bir yeniden stillendirme değil, satırın yeniden kurulması.
 
 ## Bölgeler
 
@@ -260,19 +360,32 @@ O dıştaki çarpanın kalkan yarısı düpedüz hataydı ve düzeltildi: bir ka
 artık kalkanın kendi payını ölçekliyor. Zırh yarısı ise bilinçli olarak öyle
 bırakıldı, çünkü gerçek bir iş yapıyor: dövüşü tehlikeli tutan tek şey o.
 
-35. seviye civarı bir karakterde ölçüldü — GÜÇ 50, göğüs zırhı GÜÇ 12 ve dayanıklılığı
-    tam, fiziksel yakınlık 5 ve kesici direnci 4, Kalkan becerisi 10, saldırı terimi 100:
+`tests/harness.js` ile gerçek `dmg_calc` üzerinden yeniden ölçüldü; bu notun baştan
+yazıldığı karakterde — GÜÇ 50, göğüs zırhı GÜÇ 12 ve dayanıklılığı tam, fiziksel
+yakınlık 5 ve kesici direnci 4, Kalkan becerisi 10, `sld.hpt` (Hoplit Kalkanı, GÜÇ 18),
+saldırı terimi 100:
 
 | Dıştaki çarpan          | Kalkansız alınan hasar | Hoplit Kalkanı ile |
 | ----------------------- | ---------------------- | ------------------ |
-| Bugünkü hâli (zırh `-`) | 36,9                   | 26,9               |
-| Düzeltilmiş (zırh `+`)  | 9,9                    | 1,0                |
+| Bugünkü hâli (zırh `-`) | 37,0                   | 27,0               |
+| Düzeltilmiş (zırh `+`)  | 0,0                    | 0,0                |
 
-Yani bunu da düzeltmek, kalkansız bir oyuncuyu yaklaşık dört kat daha dayanıklı
-yapıyor ve kalkan taşıyan herkes için hasarı 1'e sabitliyor. Bu bir düzeltme değil,
-oyundaki her dövüşün yeniden dengelenmesi; o yüzden bilinçli bir tercih olmalı — ve
-muhtemelen hasar azaltmayı asıl domine eden düz `def.str * eff` terimini düşürmekle
-birlikte ele alınmalı.
+**Burada daha önce kayıtlı olan düzeltilmiş sayılar yanlıştı ve yanlış olmaları kararı
+değiştiriyordu.** 9,9 ve 1,0 diyorlardı — yaklaşık dört kat daha dayanıklı. Ölçüm sıfır
+ve sıfır diyor: işaret düzeltildiğinde hasar azaltma terimi saldırının tamamını aşıyor ve
+sonuç tabana kırpılıyor, yani bu yaratık bu oyuncuya hiç hasar veremez hâle geliyor.
+`minimumLandedDamage` bilinçli olarak yalnızca oyuncunun **verdiği** hasara uygulanıyor,
+dolayısıyla gelen bir yaratık vuruşunu asgari bir değerde tutan hiçbir şey yok.
+
+Yani bu, tartılacak bir yeniden dengeleme değil, tek başına yapılamayacak bir
+değişiklik. Ancak hasar azaltmayı asıl domine eden düz `def.str * eff` terimini
+düşürmekle birlikte mümkün hâle geliyor — ve o düşüşün miktarı tahmin edilmek yerine bu
+ölçümden türetilmek zorunda.
+
+Yeniden üretmek için: senaryo `dmg_calc(yaratık, you, abl.default)` çağrısına karşı bir
+sonda, `global.target` vurulan parçaya ayarlanmış hâlde; işareti çevirmek
+`js/systems/combat.js` içindeki iki `100 - global.target.cls[att.ctype]` noktasında tek
+karakterlik bir düzenleme.
 
 **Zaten var:** iki terim ve kalkan yarısını sabitleyen, sessizce geri dönmesini
 engelleyen bir regresyon testi.
