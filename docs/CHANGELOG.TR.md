@@ -513,6 +513,28 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   değişikliğini bir dokümantasyon düzenlemesine indiren şey. Kayıtlar da sağ çıkıyor:
   `localStorage` origin'e göre anahtarlanıyor ve origin değişmedi -- yalnızca altındaki yol.
 
+- `Creature()` her yaratığa kendi ekipmanını veriyor. Önceden `this.eqp = [eqp.dummy,
+eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
+  `js/data/creatures.js` içindeki her `creature.X.eqp[0].aff = [...]` o yaratığı kuşandırmak
+  yerine o nesneyi yeniden yazıyordu. 39 yaratığın hepsi en son bildirilen silahı paylaşıyordu:
+  ölçüldü, `creature.bat` ile `creature.cbat` birebir aynı nesneydi, ikisi de
+  `aff [14,26,4,-14,34,-48,66]` ve `cls [9,10,9]` taşıyordu.
+- Aynı hata oyuncuya da uzanıyordu ve önemli olan yarısı bu. Oyuncunun boş ekipman yuvaları da
+  `eqp.dummy` ve `dmg_calc` vurulan yuvanın `aff` ile `cls`'ini hasar azaltmaya okuyor --
+  yani boş bir yuva, bir yaratık silahının yakınlıklarını oyuncunun kendi savunmasına
+  katıyordu. Saldırı terimi 100'e karşı ölçüldü: vurulan boş bir yuva 50 hasarın 9'unu
+  emiyordu. Bir silah saldırıyı yükseltmeli ve alınan hasarı hiç etkilememeli; boş bir yuva ise
+  hiçbir şey yapmamalı.
+- Savaş bütçesi korundu ve bu, bunun bir yeniden dengeleme değil düzeltme olarak yayınlanmasının
+  sebebi. `scripts/check-combat.js` iki terimi de gerçek `dmg_calc` üzerinden ölçüyor: seviye
+  başına hasar azaltma 16,0'da değişmedi, saldırı 14,7'den 14,2'ye indi ve en dik yaratık
+  `wolf1` seviye 7'den `wolfa1` seviye 12'ye geçti -- yaratıklar artık herhangi birinin
+  bildirdiği en güçlü silahı değil kendi silahlarını kullanıyor. Eklenen 20 yaratığın hepsi
+  bütçe içinde kaldı.
+- `check-game-regressions.js` içinde sabitlendi, yorumları sıyrılmış kaynak üzerinde --
+  düzeltmeyi açıklayan yorum bozuk satırı alıntılıyor, ki bu oturumda beni ikinci kez yakalayan
+  şey bu ve `scripts/strip-comments.js`'in var olma sebebi.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

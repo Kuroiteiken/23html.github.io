@@ -10,7 +10,14 @@ function Creature() {
   this.lvl = 1;
   this.exp = 1;
   this.stat_p = [1, 1, 1, 1]; //hp, str, agl, int
-  this.eqp = [eqp.dummy, eqp.dummy];
+  // Its own pair, not the shared eqp.dummy. Writing `this.eqp = [eqp.dummy, eqp.dummy]`
+  // handed every creature a reference to one object, so `creature.bat.eqp[0].aff = [...]`
+  // did not equip the bat -- it rewrote the dummy, and the next creature to be defined
+  // rewrote it again. All 39 creatures ended up sharing whichever weapon was declared last,
+  // and because the player's empty equipment slots are the same dummy, an empty slot was
+  // contributing that weapon's aff and cls to the player's own mitigation. A weapon must
+  // raise attack and never affect damage taken; an empty slot must do nothing at all.
+  this.eqp = [new Eqp(), new Eqp()];
   this.cls = [0, 0, 0];
   this.aff = [0, 0, 0, 0, 0, 0, 0]; //phy air eth fir wtr lgt drk
   this.res = {

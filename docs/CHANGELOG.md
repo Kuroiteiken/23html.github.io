@@ -512,6 +512,28 @@ changes. Player-facing game content and release notes belong in
   documentation edit. Saves survive it too: localStorage is keyed by origin, and the origin
   did not change -- only the path below it.
 
+- Creature() gives each creature its own equipment. It was `this.eqp = [eqp.dummy, eqp.dummy]`
+  -- a reference to one shared object -- so every `creature.X.eqp[0].aff = [...]` in
+  js/data/creatures.js rewrote that object rather than equipping that creature. All 39
+  creatures ended up sharing whichever weapon was declared last: measured, `creature.bat` and
+  `creature.cbat` were literally the same object, both carrying `aff [14,26,4,-14,34,-48,66]`
+  and `cls [9,10,9]`.
+- The same bug reached the player, which is the half that mattered more. The player's empty
+  equipment slots are eqp.dummy too, and dmg_calc reads the struck slot's aff and cls into the
+  mitigation -- so an empty slot was contributing a creature weapon's affinities to the
+  player's own defence. Measured against an attack term of 100: a struck empty slot absorbed
+  9 of 50 damage. A weapon must raise attack and never affect damage taken, and an empty slot
+  must do nothing at all.
+- The combat budget held, which is the reason this could ship as a fix rather than a rebalance.
+  scripts/check-combat.js measures both terms through the real dmg_calc: mitigation per level
+  is unchanged at 16.0, and attack per level moved from 14.7 to 14.2 with the steepest creature
+  changing from wolf1 at level 7 to wolfa1 at level 12 -- creatures now use their own weapons
+  rather than the strongest one any of them declared. All 20 added creatures stay inside the
+  budget.
+- Pinned in check-game-regressions.js, on the source with comments stripped -- the comment
+  explaining the fix quotes the broken line, which is the second time that has caught me out
+  in this session and the reason scripts/strip-comments.js exists.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

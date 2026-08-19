@@ -328,6 +328,32 @@ if ((skillsLiveCode.match(/skl\.hvt\.type/g) || []).length !== 1) {
 
 console.log("Validated the milestone field writes and the skill type.");
 
+// Creature() must give each creature its own equipment rather than a reference to the shared
+// eqp.dummy. Writing `this.eqp = [eqp.dummy, eqp.dummy]` meant every
+// `creature.X.eqp[0].aff = [...]` rewrote that one object, so all 39 creatures shared whichever
+// weapon was declared last -- and because the player's empty slots are the same dummy, an empty
+// slot was contributing that weapon's aff and cls to the player's own mitigation. Measured: an
+// empty struck slot absorbed 9 of 50 damage that it has no business absorbing.
+const creaturesSource = fs.readFileSync(
+  path.join(root, "js", "data", "creatures.js"),
+  "utf8",
+);
+// Comments stripped, for the same reason the skill-type count strips them: the comment that
+// explains the fix quotes the broken line.
+const creaturesLiveCode = require("../scripts/strip-comments")(creaturesSource);
+if (/this\.eqp = \[eqp\.dummy/.test(creaturesLiveCode)) {
+  throw new Error(
+    "Shared dummy regression: Creature() hands out a reference to eqp.dummy again. Every creature.X.eqp[0] assignment then rewrites the same object -- all creatures share one weapon, and the player's empty armour slots start reducing damage.",
+  );
+}
+if (!/this\.eqp = \[new Eqp\(\), new Eqp\(\)\]/.test(creaturesLiveCode)) {
+  throw new Error(
+    "Shared dummy regression: Creature() no longer builds its own Eqp pair, so a creature's weapon stats have nowhere of their own to live.",
+  );
+}
+
+console.log("Validated that creatures own their equipment.");
+
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,

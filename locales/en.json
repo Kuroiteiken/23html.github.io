@@ -341,6 +341,10 @@
         "The list of books you have read opens in a proper window, with a title and a way to close it -- it used to vanish the moment you clicked anywhere inside it.",
         "The five panel buttons across the top can be reached with the keyboard: Tab used to skip the whole of the navigation, and Enter or Space opens a panel now.",
         "Two perks now give what their text promises: Gluttony's level 10 and Death's level 5 both advertise an EXP bonus and were giving nothing, because they wrote to a field the player does not have."
+      ],
+      "v478_31": [
+        "Every creature fights with its own weapon. They were all sharing one -- whichever was written last in the game's files -- so a bat swung what a wolf swings.",
+        "An empty armour slot no longer protects you. It was absorbing damage it had no business absorbing, because empty slots and creature weapons were the same object behind the scenes."
       ]
     },
     "lore": {

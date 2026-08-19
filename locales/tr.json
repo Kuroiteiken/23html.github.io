@@ -341,6 +341,10 @@
         "Okuduğun kitapların listesi başlığı ve kapatma yolu olan gerçek bir pencerede açılıyor -- eskiden içine tıkladığın anda kayboluyordu.",
         "Üstteki beş panel düğmesine klavyeyle erişilebiliyor: Tab tüm navigasyonu atlıyordu, artık Enter ya da Boşluk bir paneli açıyor.",
         "İki avantaj artık metninde yazanı veriyor: Oburluk'un 10. seviyesi ile Ölüm'ün 5. seviyesi EXP bonusu vaat ediyor ve hiçbir şey vermiyordu, çünkü oyuncuda olmayan bir alana yazıyorlardı."
+      ],
+      "v478_31": [
+        "Her yaratık kendi silahıyla dövüşüyor. Hepsi tek bir silahı paylaşıyordu -- oyunun dosyalarında en son yazılanı -- yani bir yarasa, bir kurdun salladığını sallıyordu.",
+        "Boş bir zırh yuvası artık seni korumuyor. Emmemesi gereken hasarı emiyordu, çünkü boş yuvalar ile yaratık silahları arka planda aynı nesneydi."
       ]
     },
     "lore": {

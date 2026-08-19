@@ -736,7 +736,7 @@ eklemediği bir stil kazası gibi görünürdü.
 
 İkisinin de token adı bozulduğunda kırıldığı doğrulandı.
 
-### P4.4 Klavye erişilebilirliği yok
+### P4.4 ⛔ Klavye erişilebilirliği yok
 
 **Kanıt:** `interface.js` ve `locations.js` toplam 545 `click` dinleyicisi
 tanımlıyor. Buna karşılık tüm kod tabanında 6 `aria-*` / `role` kullanımı var,
@@ -751,6 +751,18 @@ seçeneğe `tabindex="0"` ve `role="button"` ekle, `Enter` / `Space` tuşunu `cl
 bağla. `chs()` tek bir fonksiyon
 ([interface.js:6818](../js/ui/interface.js#L6818)), dolayısıyla değişiklik tek
 noktada.
+
+**İptal edildi — depo sahibi kararı (2026-08-19).** Oyunun klavye erişimi yalnızca hızlı eşya
+kullanımı için gerekli; sahnelerde klavyeyle ilerleme gibi bir gereksinim yok. `chs()`
+fabrikasına `tabIndex`/`role`/Enter-Space eklenmesi **yapılmayacak** ve `js/world/locations.js`
+içindeki ~706 çağrı için bir odak stratejisi aranmayacak.
+
+Bu oturumda yapılan iki klavye işi yerinde kalıyor, çünkü ikisi de "ilerleme" değil: kaydetme
+çubuğunun iki tutamağı (gizliyken tek görünen kontrol, fare olmadan bara dönüş yolu) ve beş
+panel butonu. Denetimin envanter çip kümesine klavye erişimi maddesi de bu kararla kapanıyor —
+onun palet yarısı ayrı ve açık kalıyor.
+
+Bu madde kapalıdır; tekrar önerilmemeli.
 
 ### P4.5 Küçük hijyen maddeleri
 
@@ -778,15 +790,15 @@ Her faz kendi içinde tamamlanıp `npm run format && npm run build && npm run ch
 ile doğrulanmalı, ardından `docs/AGENTS.md`'nin 9. maddesi uyarınca bir kontrol
 noktası commit'i alınmalı.
 
-| Faz  | İçerik                                                       | Beklenen sonuç                                           |
-| ---- | ------------------------------------------------------------ | -------------------------------------------------------- |
-| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP), P3.1 kademe 1 (`Promise.all`) | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
-| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)            | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
-| 3 ✅ | P0.2 (formül), P1.1 (`combat.js`), P1.2 (utils)              | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
-| 4 ✅ | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)              | ~4.000 satır eksildi, veri katmanı bakılabilir           |
-| 5 ✅ | P3.1 kademe 2, P3.2 (preload)                                | Türkçe oyuncu için 348 KB daha az indirme                |
-| 6 ◐  | P1.3 (3/4 adım), P4.3 (üç yüzey + denetimin yedi maddesi)    | Kısmi, gerekçeleri maddelerinde                          |
-| 7 ◐  | P4.1 tamam — P4.5, P4.4, P1.4, P2.2 bekliyor; P3.3 ⛔ kapalı | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
+| Faz  | İçerik                                                         | Beklenen sonuç                                           |
+| ---- | -------------------------------------------------------------- | -------------------------------------------------------- |
+| 1 ✅ | P0.1 (espree), P4.2 (ROADMAP), P3.1 kademe 1 (`Promise.all`)   | Tek oturumluk, sıfıra yakın riskli düzeltmeler           |
+| 2 ✅ | **P0.3 — test koşum ortamı** (`tests/harness.js`)              | Sonraki her fazın maliyetini düşürür. Kritik yol burası. |
+| 3 ✅ | P0.2 (formül), P1.1 (`combat.js`), P1.2 (utils)                | Savaş güvenlik ağı gerçekten çalışır hâle gelir          |
+| 4 ✅ | P2.1 (yiyecek fabrikası), P2.3 (prob dosyaları)                | ~4.000 satır eksildi, veri katmanı bakılabilir           |
+| 5 ✅ | P3.1 kademe 2, P3.2 (preload)                                  | Türkçe oyuncu için 348 KB daha az indirme                |
+| 6 ◐  | P1.3 (3/4 adım), P4.3 (üç yüzey + denetimin yedi maddesi)      | Kısmi, gerekçeleri maddelerinde                          |
+| 7 ◐  | P4.1 tamam — P4.5, P1.4, P2.2 bekliyor; P3.3 ve P4.4 ⛔ kapalı | İsteğe bağlı; getiri/risk oranına göre ayrı ayrı karar   |
 
 **Kritik gözlem:** Faz 2 atlanırsa Faz 3 ve 4 çok daha pahalı ve riskli olur, çünkü
 mevcut regresyon testleri kaynak metnine bağlı ve her taşıma işlemi onları kırar.
