@@ -1281,7 +1281,11 @@ skl.glt.mlstn = [
   {
     lv: 10,
     f: () => {
-      you.eqp_t += 0.13;
+      // exp_t, not eqp_t: the player has no eqp_t, so this read undefined and stored NaN on a
+      // property nothing reads. Both this perk and Death's advertise an EXP bonus in their
+      // own text and delivered none. exp_t is the multiplier simulation.js applies to every
+      // exp award, and it is saved.
+      you.exp_t += 0.13;
       giveTitle(ttl.eat3);
       you.sata += 20;
       you.hpa += 40;
@@ -1793,7 +1797,8 @@ skl.dth.mlstn = [
   {
     lv: 5,
     f: () => {
-      you.eqp_t += 0.05;
+      // See Gluttony's level 10 perk: exp_t, not eqp_t.
+      you.exp_t += 0.05;
       skl.tghs.p += 0.1;
       you.stat_r();
     },
@@ -2274,7 +2279,11 @@ skl.crptr.desc =
 
 skl.hst = new Skill();
 skl.hst.id = 159;
-skl.hvt.type = 8;
+// Written as skl.hvt.type until now, copied from skl.hvt's own block where the same value is
+// already set -- so it was a no-op for hvt and left skl.hst.type at the constructor default.
+// hst was the only skill in the game with type 0, and the skills panel's Type filter sorts by
+// it, so Harvesting sorted alone outside the gathering group it belongs to.
+skl.hst.type = 8;
 skl.hst.name = i18n.t("content.skl.hst.name");
 skl.hst.desc =
   i18n.t("content.skl.hst.desc") +

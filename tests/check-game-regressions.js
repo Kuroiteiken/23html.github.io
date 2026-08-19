@@ -295,6 +295,39 @@ if (/document\.body\.removeChild\(dom\.bkssttbd\)/.test(bundleSource)) {
 
 console.log("Validated the read-books dialog.");
 
+// Two milestone bugs of the same shape: a write to a field that is not the one the perk's own
+// text promises. Both were found by counting which fields every milestone f() writes and
+// looking for ones the player does not have.
+const skillsForFields = fs.readFileSync(
+  path.join(root, "js", "data", "skills.js"),
+  "utf8",
+);
+if (/you\.eqp_t/.test(bundleSource)) {
+  throw new Error(
+    "Milestone regression: a perk writes you.eqp_t, which does not exist -- undefined + a number is NaN, stored on a property nothing reads. The exp multiplier is you.exp_t, and both Gluttony's level 10 and Death's level 5 advertise an EXP bonus in their text.",
+  );
+}
+// And the type written onto the wrong object. skl.hst kept the constructor default, which
+// made it the only type 0 skill in the game while the skills panel sorts by type. Checked as
+// plain string work: these identifiers carry no regex metacharacters, and an escaping mistake
+// in a pattern is exactly what broke this assertion when it was first written.
+if (!skillsForFields.includes("skl.hst.type = 8;")) {
+  throw new Error(
+    "Skill type regression: skl.hst.type is not set. It was written as skl.hvt.type -- a no-op for hvt, since that block already sets it, and it left Harvesting as the only type 0 skill, sorting alone outside the gathering group.",
+  );
+}
+// Counted on the source with its comments stripped, using the same helper the other checks
+// use -- otherwise a comment explaining the fix counts as a second assignment, which is what
+// happened here.
+const skillsLiveCode = require("../scripts/strip-comments")(skillsForFields);
+if ((skillsLiveCode.match(/skl\.hvt\.type/g) || []).length !== 1) {
+  throw new Error(
+    "Skill type regression: skl.hvt.type is assigned more than once. The second one was inside the skl.hst block, which is how skl.hst.type came to be unset.",
+  );
+}
+
+console.log("Validated the milestone field writes and the skill type.");
+
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,

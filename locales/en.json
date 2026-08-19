@@ -339,7 +339,8 @@
         "Opening the language list no longer drops a white sheet over the settings panel, and the Export and Import rows lost their light-grey boxes.",
         "The repeat button in the crafting panel answers when you point at it. Its hover was written in a way the button's own colour overwrote.",
         "The list of books you have read opens in a proper window, with a title and a way to close it -- it used to vanish the moment you clicked anywhere inside it.",
-        "The five panel buttons across the top can be reached with the keyboard: Tab used to skip the whole of the navigation, and Enter or Space opens a panel now."
+        "The five panel buttons across the top can be reached with the keyboard: Tab used to skip the whole of the navigation, and Enter or Space opens a panel now.",
+        "Two perks now give what their text promises: Gluttony's level 10 and Death's level 5 both advertise an EXP bonus and were giving nothing, because they wrote to a field the player does not have."
       ]
     },
     "lore": {
