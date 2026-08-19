@@ -61,6 +61,13 @@ npm run check
 npm run test:browser
 ```
 
+`npm run check` runs seventeen steps from `scripts/check.js`, cheapest first, and stops at the
+first failure naming which step it was. While iterating on one of them:
+
+```sh
+npm run check -- --only=combat
+```
+
 The browser regression suite covers delayed assets, consistent cache-busting
 versions, Turkish startup, cached-profile reloads, malformed-save recovery,
 viewport fitting, save-bar layout, locale-independent calendar behavior, and

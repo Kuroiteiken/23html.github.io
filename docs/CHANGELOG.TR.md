@@ -535,6 +535,35 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   düzeltmeyi açıklayan yorum bozuk satırı alıntılıyor, ki bu oturumda beni ikinci kez yakalayan
   şey bu ve `scripts/strip-comments.js`'in var olma sebebi.
 
+- `tests/check-shared-state.js`, paylaşılan `eqp.dummy`'nin ait olduğu hata sınıfını kapatıyor —
+  yalnızca o tek örneği değil. 21 registry'yi dolaşıp mutable alanları **kimlik** üzerinden
+  karşılaştırıyor: aynı diziyi ya da nesneyi tutan iki girdi, kaynak nasıl görünürse görünsün,
+  hatanın kendisi. `Creature()` düzeltmesinden sonra tarandı: tek bir paylaşım kaldı ve o
+  kasıtlı — oyuncunun on boş ekipman yuvasının hepsi `eqp.dummy`'yi tutuyor, "hiçbir şey takılı
+  değil"in yerine geçen tek bir nesne. Bu, süzgeçle sessizce gizlenmek yerine denetimde izinli
+  bir durum olarak adlandırıldı; ve yalnızca dummy atıl kaldığı sürece güvenli olduğu için
+  denetimin ikinci yarısı `eqp.dummy`'nin `str` 0, `int` 0 ve `aff` ile `cls`'inin sıfır
+  olmasını zorunlu kılıyor.
+- Taramanın **bulamadığını** da söylemeye değer, çünkü endişe bunun yaygın olmasıydı:
+  `Creature()`'dan sonra başka hiçbir registry girdisi bir diğeriyle mutable nesne paylaşmıyor.
+  Eşyaların, ekipmanların, yeteneklerin, efektlerin ve gerisinin yapıcıları kendi dizilerini
+  kuruyor. Hata tek satırdı, ve denetim orada, çünkü tek satır yeterli.
+- `npm run check` artık `package.json` içinde `&&` ile birleştirilmiş on yedi komut değil,
+  `scripts/check.js`. O satır 492 karakterdi ve maliyeti düzenlilikten fazlaydı: bir adım
+  eklemek bir dizgeyi düzenlemek demekti, bir hata on yediden hangisi olduğuna dair hiçbir şey
+  söylemiyordu, ve zamanın nereye gittiğini kimse bildirmiyordu. Artık her adımın bir adı ve
+  tek satırlık bir gerekçesi var, koşucu başarısız adımı adıyla söylüyor ve yalnızca onu
+  yeniden çalıştıracak komutu yazıyor, özet de en yavaş üçünü bildiriyor. On yedi adım, 15,3
+  saniye, bunun 8,1'i Prettier.
+- Sıra bilinçli ve dosyada yazılı: paket, onu yükleyecek hiçbir şeyden önce ayrıştırılabilmeli;
+  sonra oyunu okuyan denetimler en ucuzdan başlayarak, ki bozuk bir registry yavaş bir adım
+  başlamadan bildirilsin; sonra davranış testleri; ve en sonda lint ile biçimlendirme — gerçek
+  bir kusur, eksik bir noktalı virgülden **sonra** bildirilmemeli.
+  `npm run check -- --only=combat` adı eşleşen adımları çalıştırıyor.
+- Eski zincirin çağırdığı dört `test:*` script'i `package.json`'dan kalktı. Zincirlenmek için
+  vardılar; koşucu doğrudan `node --test` çağırıyor ve ne dokümanlar ne workflow onlara referans
+  veriyordu.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

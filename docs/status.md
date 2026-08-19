@@ -174,11 +174,17 @@ bağlanmalı; yoksa her dosya taşıması onları kırar — P1.1'de beş tanesi
 hiçbiri oyuncunun görebileceği bir şeye dair değildi. Yalnızca gerçekten konuma dair
 olan iddialar `interfaceSource` gibi dosya değişkenlerini kullansın.
 
-`npm run check` sekiz kontrol: `check-changelog`, `check-game-regressions`,
-`check-i18n`, `check-refs`, `check-flags`, `check-economy`, `check-combat`,
-`check-version` + node testleri + eslint/stylelint/prettier. Ayrıca
-`npm run test:browser` — senaryolar `tests/probes/` altında birer dosya, `__test-*.html`
-yolları üzerinden çağrılıyor.
+`npm run check` artık `scripts/check.js`. On yedi adım, en ucuzdan başlayarak; ilk hatada
+hangi adım olduğunu söyleyip duruyor ve yalnızca onu yeniden çalıştıracak komutu yazıyor
+(`npm run check -- --only=<ad>`). Adımlar: `bundle-syntax`, `changelog`, `regressions`,
+`i18n`, `refs`, `flags`, `economy`, `combat`, `shared-state`, `version`, dört `test-*`,
+`eslint`, `stylelint`, `format`. Toplam ~15 sn, en yavaşı Prettier (~8 sn).
+
+**`shared-state` bu oturumda eklendi** ve bir hata sınıfını kapatıyor: iki registry girdisi
+aynı mutable nesneyi tutamaz. Kimlik üzerinden ölçüyor, kaynak okumuyor. Tek izinli paylaşım
+oyuncunun on boş ekipman yuvası (hepsi `eqp.dummy`) ve o da yalnızca dummy atıl kaldığı
+sürece güvenli — denetimin ikinci yarısı `eqp.dummy`'nin `str`/`int`/`aff`/`cls`'inin sıfır
+olmasını zorunlu kılıyor.
 
 `check-i18n` hesaplanmış dil anahtarını reddeder, metin tanım anında bağlanmalı.
 

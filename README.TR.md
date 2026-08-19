@@ -62,6 +62,13 @@ npm run check
 npm run test:browser
 ```
 
+`npm run check`, `scripts/check.js` içindeki on yedi adımı en ucuzdan başlayarak çalıştırır ve
+ilk hatada hangi adım olduğunu söyleyip durur. Bir adım üzerinde çalışırken:
+
+```sh
+npm run check -- --only=combat
+```
+
 Tarayıcı regresyon testleri geciken assetleri, tutarlı önbellek sürümlerini,
 Türkçe başlangıcı, önbellekli profille yeniden yüklemeyi, bozuk kayıt kurtarmayı,
 ekrana sığdırmayı, alt kayıt çubuğu yerleşimini, dilden bağımsız takvim davranışını

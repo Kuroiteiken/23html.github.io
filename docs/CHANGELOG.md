@@ -534,6 +534,33 @@ changes. Player-facing game content and release notes belong in
   explaining the fix quotes the broken line, which is the second time that has caught me out
   in this session and the reason scripts/strip-comments.js exists.
 
+- tests/check-shared-state.js closes the class of bug the shared eqp.dummy belonged to, rather
+  than only the one instance of it. It walks 21 registries and compares mutable fields by
+  identity: two entries holding the same array or object is the fault, whatever the source
+  looks like. Scanned after the Creature() fix, exactly one sharing remains and it is
+  deliberate -- the player's ten empty equipment slots all hold eqp.dummy, one object standing
+  for "nothing equipped". That is named in the check as an allowed case rather than filtered
+  away silently, and it is only safe while the dummy stays inert, so the second half of the
+  check requires eqp.dummy to have str 0, int 0, and zeroed aff and cls.
+- Worth stating what the scan did NOT find, because the concern was that this was widespread:
+  after Creature(), no other registry entry shares a mutable object with another. The
+  constructors for items, equipment, skills, effects and the rest all build their own arrays.
+  The bug was one line, and the check is there because one line is all it takes.
+- `npm run check` is scripts/check.js rather than seventeen commands joined by && in
+  package.json. The line was 492 characters, which cost more than tidiness: adding a step meant
+  editing a string, a failure said nothing about which of the seventeen it was, and nothing
+  reported where the time went. Each step now has a name and a one-line reason, the runner names
+  the failing step and prints the command to re-run just it, and the summary reports the three
+  slowest. Seventeen steps, 15.3 seconds, of which Prettier is 8.1.
+- The order is deliberate and written down in the file: the bundle has to parse before anything
+  loads it, then the checks that read the game cheapest-first so a broken registry is reported
+  before a slow step starts, then the behaviour tests, and lint and formatting last -- a real
+  defect should never be reported after a missing semicolon. `npm run check -- --only=combat`
+  runs the steps whose name matches, which is what you want while iterating on one.
+- The four `test:*` scripts the old chain called are gone from package.json. They existed to be
+  chained; the runner calls `node --test` directly, and nothing in the docs or the workflow
+  referenced them.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of
