@@ -145,7 +145,6 @@ translation stay at the repository root.
 - `docs/AGENTS.md`: the canonical development instructions for repository
   agents. The root `AGENTS.md` is a pointer kept only so agent tooling that
   looks for it at the root still resolves.
-- `docs/ROADMAP.md`: the fork integration roadmap and its phases.
 - `docs/STORY.md`: the current state of the quest chain, the story's end point,
   and the content that exists but is not yet reachable.
 - `docs/CHANGELOG.md`: repository changes.

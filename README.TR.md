@@ -146,7 +146,6 @@ Referans belgeler `docs/` altında tutulur; kökte yalnızca bu rehber ve Türk�
 - `docs/AGENTS.md`: projede çalışan ajanlar için kanonik geliştirme kuralları.
   Kökteki `AGENTS.md`, dosyayı kökte arayan ajan araçları çalışmaya devam etsin
   diye bırakılmış bir yönlendirmedir.
-- `docs/ROADMAP.md`: fork entegrasyon yol haritası ve fazları.
 - `docs/STORY.md`: görev zincirinin mevcut durumu, hikayenin bittiği nokta ve
   yazılmış ama henüz erişilemeyen içerik.
 - `docs/CHANGELOG.md`: repository değişiklikleri.

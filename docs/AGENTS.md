@@ -17,7 +17,6 @@ then keep `AGENTS.TR.md` synchronized as its Turkish translation.
   development change.
 - `docs/CHANGELOG.md` contains code, architecture, tooling, documentation, and
   deployment changes.
-- `docs/ROADMAP.md` holds the fork integration roadmap and its phases.
 - `docs/STORY.md` records the quest chain, where the story currently ends, and
   the content that exists but is not yet reachable. Update it whenever story
   content is added or a previously unreachable system is wired in.

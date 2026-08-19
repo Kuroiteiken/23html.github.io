@@ -164,6 +164,61 @@ changes. Player-facing game content and release notes belong in
   take: armour's class resistance is counted twice in the mitigation term with opposite
   signs, and correcting it alongside the shield half takes an unshielded player from
   36.9 damage taken to 9.9.
+- The Pages deploy skips Markdown-only pushes. `scripts/build-site.js` copies
+  `index.html`, three root assets, and the `changelog/`, `css/`, `icons/` and
+  `locales/` directories -- no `.md` file ever reaches `dist/`, so a documentation
+  push was rebuilding, checking and redeploying a byte-identical site. `paths-ignore`
+  lists both `**.md` and `**.MD`, because path filters are case-sensitive and `docs/`
+  still holds two files written with the uppercase extension. `workflow_dispatch` is
+  untouched, so a deploy can still be forced by hand.
+- Added `docs/refactorplan.md`, a measured refactoring review of the repository. Its
+  first finding is that `scripts/check-combat.js` rewrites the damage formula rather
+  than calling `dmg_calc`, so the check these instructions call critical validates a
+  copy that can drift away from the game in silence.
+
+- `tests/harness.js` loads the real bundle into a Node vm context and hands back its
+  global scope, so a check can ask the game what it does instead of asking the source
+  text what it looks like. It costs 57 ms, and the game does not start: bootstrap.js
+  sees `document.readyState` as "loading", registers its load listener and stops
+  there, so the registries are built while load(), the tick and the save restore are
+  not. The one trap it documents is the one that cost the most to find -- passing
+  Node's intrinsics (Math, Date, Number) into the context is not a convenience but a
+  bug, because a vm realm owns its own, and a number created inside the bundle then
+  fails `a[0].constructor === Number`. The Mersenne Twister in js/utils/random.js
+  branches on exactly that and recurses into setSeed until the stack goes.
+- `scripts/check-combat.js` no longer rewrites the damage formula. It had already
+  drifted from the game: dmg_calc floors a landed blow at a share of the swing and
+  lets weapon mastery pierce class resistance, and the copy knew about neither -- so
+  the check the agent instructions call critical was validating a formula the game
+  had stopped using, and staying green while it did, because both halves of its
+  comparison shared the same stale arithmetic. The mitigation term is now read out of
+  the real dmg_calc as the difference between a blow against the creature and the
+  same blow against the same creature with its armour stripped. The two calls differ
+  only in the armour, so the difference IS the subtracted term and no model of the
+  player is needed: everything that is not the creature cancels. Calibration is
+  unchanged and that is the proof -- the old check measured 16.0 mitigation per level
+  at wolf1 level 7 with a budget of 18.4, and so does this one. The attack term moved
+  from 13.4 to 14.7 because the old one omitted the shield contribution entirely.
+- Checking that list against the real registry immediately found that five of the
+  seventeen names in ORIGINAL match no creature at all -- rat1, rat2, bat1, zmb1,
+  gho1 -- and a sixth, skl1, was the test bench's skeleton written wrongly. A Set
+  entry that matches nothing exempts nothing, silently, so those names had been doing
+  no work. skl1 is corrected; the rest are reported as a warning rather than guessed
+  at, because which creature a stale name meant is a content decision. The check also
+  covers 20 added creatures now rather than 15, the extra ones being what the regular
+  expression could not see.
+- Declared `espree` in devDependencies. Four test files require it and it was only
+  ever present as a transitive dependency of eslint, so a version of eslint that
+  dropped it, or an install through a stricter package manager, would have taken out
+  a third of the suite and with it the deploy.
+- The Pages workflow skips Markdown-only pushes and is bounded. `paths-ignore` lists
+  both `**.md` and `**.MD` because path filters are case-sensitive; the build and
+  deploy jobs carry `timeout-minutes` so a hung headless Chrome ends in minutes
+  rather than burning a runner for six hours; and the checkout no longer persists
+  credentials, since nothing here pushes back to the repository.
+- Removed the four references to `docs/ROADMAP.md`, which no longer exists.
+- Added `docs/refactorplan.md`, a measured refactoring review, and rewrote
+  `docs/status.md` as a session handover that reads the two together.
 
 ### v477 — the tick, the journal, and the catacombs
 

@@ -17,7 +17,6 @@ değişikliklerini önce kanonik dosyada yapın, ardından bu çeviriyi eşitley
   geliştirme için buraya bir kayıt ekleyin.
 - `docs/CHANGELOG.md` kod, mimari, araç, dokümantasyon ve deployment
   değişikliklerini tutar.
-- `docs/ROADMAP.md` fork entegrasyon yol haritasını ve fazlarını tutar.
 - `docs/STORY.md` görev zincirini, hikayenin bittiği noktayı ve yazılmış ama
   henüz erişilemeyen içeriği kaydeder. Hikaye içeriği eklendiğinde veya daha önce
   erişilemeyen bir sistem bağlandığında bu dosyayı güncelleyin.

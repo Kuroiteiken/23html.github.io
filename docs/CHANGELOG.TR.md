@@ -165,6 +165,64 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   taşıyor, ve bu çalışmanın bilinçli olarak almadığı denge kararını da: zırhın sınıf
   direnci hasar azaltma teriminde zıt işaretlerle iki kez sayılıyor ve kalkan yarısıyla
   birlikte düzeltmek kalkansız bir oyuncunun aldığı hasarı 36,9'dan 9,9'a indiriyor.
+- Pages dağıtımı yalnızca Markdown içeren push'ları atlıyor. `scripts/build-site.js`
+  `index.html` dosyasını, üç kök varlığı ve `changelog/`, `css/`, `icons/`, `locales/`
+  dizinlerini kopyalıyor -- hiçbir `.md` dosyası `dist/` içine girmiyor, dolayısıyla bir
+  dokümantasyon push'u bayt bayt aynı siteyi yeniden kuruyor, denetliyor ve yeniden
+  dağıtıyordu. `paths-ignore` hem `**.md` hem `**.MD` kalıbını listeliyor, çünkü yol
+  süzgeçleri büyük/küçük harfe duyarlı ve `docs/` içinde uzantısı büyük harfle yazılmış
+  iki dosya duruyor. `workflow_dispatch` değişmedi; dağıtım hâlâ elle tetiklenebilir.
+- `docs/refactorplan.md` eklendi: deponun ölçüme dayalı bir refactor incelemesi. İlk
+  bulgusu, `scripts/check-combat.js` dosyasının `dmg_calc` çağırmak yerine hasar
+  formülünü yeniden yazdığı -- yani bu yönergelerin kritik ilan ettiği denetimin,
+  oyundan sessizce ayrışabilecek bir kopyayı doğruladığı.
+
+- `tests/harness.js` gerçek paketi bir Node `vm` bağlamına yükleyip global kapsamı
+  döndürüyor; böylece bir denetim kaynağın nasıl göründüğünü değil, oyunun ne
+  yaptığını sorabiliyor. Maliyeti 57 ms ve oyun başlamıyor: `bootstrap.js`
+  `document.readyState` değerini "loading" görüp `load` dinleyicisini kaydediyor ve
+  orada duruyor, dolayısıyla registry'ler kuruluyor ama `load()`, tik ve kayıt geri
+  yüklemesi çalışmıyor. Belgelediği tek tuzak, bulunması en pahalı olanı: Node'un
+  yerleşiklerini (`Math`, `Date`, `Number`) bağlama geçirmek bir kolaylık değil,
+  hatanın kendisi -- bir `vm` realm'ının kendi intrinsic'leri var ve paket içinde
+  üretilen bir sayı `a[0].constructor === Number` karşılaştırmasında düşüyor.
+  `js/utils/random.js`'teki Mersenne Twister tam da buna dallanıyor ve yığın bitene
+  kadar `setSeed`'e özyineleniyor.
+- `scripts/check-combat.js` artık hasar formülünü yeniden yazmıyor. Kopya çoktan
+  oyundan ayrışmıştı: `dmg_calc` bir vuruşu salınımın bir oranında tabanlıyor ve
+  silah ustalığının sınıf direncini delmesine izin veriyor, kopya ikisini de
+  bilmiyordu -- yani ajan yönergelerinin kritik ilan ettiği denetim, oyunun
+  kullanmayı bıraktığı bir formülü doğruluyor ve bunu yeşil yanarak yapıyordu, çünkü
+  karşılaştırmanın iki yarısı da aynı eski aritmetiği paylaşıyordu. Hasar azaltma
+  terimi artık gerçek `dmg_calc`'tan okunuyor: yaratığa inen bir vuruş ile aynı
+  yaratığın zırhı sökülmüş hâline inen aynı vuruş arasındaki fark. İki çağrı yalnızca
+  zırhta ayrıldığı için fark tam olarak çıkarılan terimdir ve bir oyuncu modeline
+  ihtiyaç kalmaz: yaratığa ait olmayan her şey birbirini götürür. Kalibrasyon
+  değişmedi ve kanıt da bu -- eski denetim `wolf1` seviye 7'de seviye başına 16.0
+  hasar azaltma ve 18.4 bütçe ölçüyordu, yenisi de aynısını ölçüyor. Saldırı terimi
+  13.4'ten 14.7'ye çıktı, çünkü eskisi kalkan katkısını hiç saymıyordu.
+- Bu listeyi gerçek registry'ye karşı doğrulamak, `ORIGINAL` içindeki on yedi addan
+  beşinin hiçbir yaratığa karşılık gelmediğini hemen ortaya çıkardı -- `rat1`, `rat2`,
+  `bat1`, `zmb1`, `gho1` -- altıncısı olan `skl1` ise test tezgâhının iskeleti, yanlış
+  yazılmış. Hiçbir şeyle eşleşmeyen bir `Set` girdisi hiçbir şeyi muaf tutmaz ve bunu
+  sessizce yapar, dolayısıyla bu adlar hiç iş görmüyordu. `skl1` düzeltildi; kalanlar
+  tahmin edilmek yerine uyarı olarak bildiriliyor, çünkü eskimiş bir adın hangi
+  yaratığı kastettiği bir içerik kararı. Denetim ayrıca artık 15 değil 20 eklenen
+  yaratığı kapsıyor; fazlası, düzenli ifadenin göremedikleri.
+- `espree` `devDependencies` altında bildirildi. Dört test dosyası onu `require`
+  ediyor ve yalnızca eslint'in geçişli bağımlılığı olarak bulunuyordu; onu bırakan bir
+  eslint sürümü ya da daha katı bir paket yöneticisiyle kurulum, test paketinin üçte
+  birini ve onunla birlikte dağıtımı düşürürdü.
+- Pages workflow'u yalnızca Markdown içeren push'ları atlıyor ve sınırlandırıldı.
+  `paths-ignore` hem `**.md` hem `**.MD` kalıbını listeliyor, çünkü yol süzgeçleri
+  büyük/küçük harfe duyarlı; build ve deploy işleri `timeout-minutes` taşıyor, böylece
+  takılan bir başsız Chrome altı saat runner yakmak yerine dakikalar içinde bitiyor;
+  ve checkout artık kimlik bilgisi saklamıyor, çünkü burada hiçbir şey depoya geri
+  yazmıyor.
+- Artık var olmayan `docs/ROADMAP.md` dosyasına yapılan dört referans kaldırıldı.
+- `docs/refactorplan.md` eklendi (ölçüme dayalı bir refactor incelemesi) ve
+  `docs/status.md`, ikisini birlikte okuyan bir oturum devir belgesi olarak yeniden
+  yazıldı.
 
 ### v477 — tick, günlük ve katakomplar
 

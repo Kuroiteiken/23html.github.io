@@ -4,6 +4,15 @@ on:
   push:
     branches:
       - main
+    # Markdown never reaches the deployed site: scripts/build-site.js copies
+    # index.html, the three root assets, and the changelog/css/icons/locales
+    # directories, none of which contain a .md file. A documentation-only push
+    # would therefore rebuild and redeploy a byte-identical dist/. Both spellings
+    # are listed because path filters are case-sensitive and docs/ still holds two
+    # files ending in .MD.
+    paths-ignore:
+      - "**.md"
+      - "**.MD"
   workflow_dispatch:
 
 permissions:
@@ -18,9 +27,18 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # The whole job is a one-second build, a twelve-second check and a headless
+    # Chrome run. A ceiling well above that still ends a hung browser in minutes
+    # rather than letting the default six-hour limit burn a runner.
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          # Nothing here pushes back to the repository; the deploy goes out as a
+          # Pages artifact. Leaving the token in .git/config would only widen what
+          # a compromised build step could reach.
+          persist-credentials: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -51,6 +69,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
