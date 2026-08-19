@@ -209,16 +209,43 @@ function attackPower(key, lvl) {
   let worst = null;
   const you = probe(REFERENCE_WEAPONS[0]);
   you.str = 0;
+  you.int = 0;
   const mob = spawn(key, lvl);
   game.global.current_m = mob;
-  for (let slot = 2; slot <= 5; slot++) {
-    const piece = you.eqp[slot];
-    game.global.target = stripArmour(deepCopy(piece));
-    game.global.t_n = slot;
-    const value = dmg_calc(mob, you, abl.default);
-    if (worst === null || value > worst.value) worst = { value, slot };
+  // Every ability the AI can reach, against every armour slot it can strike. The worst case is
+  // what a player meets, so the worst case is what the budget is measured against -- and the
+  // ability is named in the report, because "this creature hits too hard" is not actionable
+  // while knowing which of its attacks does it is.
+  for (const { name, ability } of abilitiesOf(key)) {
+    for (let slot = 2; slot <= 5; slot++) {
+      const piece = you.eqp[slot];
+      game.global.target = stripArmour(deepCopy(piece));
+      game.global.t_n = slot;
+      // Through the ability's own f(), not dmg_calc directly: an ability may scale the result,
+      // and spark's 1.2 is exactly the part that was invisible before.
+      const value = Number(ability.f(mob, you, 1));
+      if (!Number.isFinite(value)) continue;
+      if (worst === null || value > worst.value)
+        worst = { value, slot, ability: name };
+    }
   }
   return worst;
+}
+
+// Every ability a creature's battle_ai can actually reach, read out of the AI's own source.
+// Until now this file measured abl.default alone, and that is a hole a creature can drive
+// through: creature.zmbm rolls abl.spark on 40% of its swings, and spark carries affp 25 into a
+// branch that multiplies affp by fifteen and then scales the result by 1.2. Against abl.default
+// it measures as ordinary; against what it actually throws it is three times the budget.
+function abilitiesOf(key) {
+  const ai = String(creature[key].battle_ai ?? "");
+  const names = [...ai.matchAll(/abl\.([A-Za-z0-9_$]+)/g)].map((m) => m[1]);
+  const reachable = [...new Set(names)].filter((name) => abl[name]);
+  // battle_ai always falls through to a plain attack, so the default is always in play.
+  return [...new Set(["default", ...reachable])].map((name) => ({
+    name,
+    ability: abl[name],
+  }));
 }
 
 // --- Populations -------------------------------------------------------------
@@ -312,6 +339,22 @@ if (steepest <= 0) {
 const budgetPerLevel = steepest * BUDGET_HEADROOM;
 const attackBudgetPerLevel = steepestAttack * BUDGET_HEADROOM;
 
+// Creature/ability pairs that already exceed the attack budget, recorded the day this check
+// started measuring abilities instead of abl.default alone. Every one of them is real -- spark
+// on creature.zmbm measures 935 against a budget of 337 and kills a level-20 player in one hit,
+// on 40% of its swings -- and every one of them is a balance decision rather than a slip, because
+// correcting abl.spark.affp moves every caster in the game at once.
+//
+// They are listed rather than silenced so that the report says what is known and still fails on
+// anything new. Written up as PROPOSALS entry 19; delete an entry from here when it is fixed, and
+// never add one to make a new creature pass.
+const KNOWN_OVER_BUDGET = new Set([
+  "zmbf/bash",
+  "zmbm/spark",
+  "zmbk/dstab",
+  "dcrps1/spark",
+]);
+
 // --- Checks ------------------------------------------------------------------
 
 const problems = [];
@@ -329,10 +372,11 @@ for (const entry of populations) {
     const mob = creature[entry.creature];
     const hits = attackPower(entry.creature, lvl);
     const hitsAllowed = attackBudgetPerLevel * lvl;
-    if (hits.value > hitsAllowed) {
+    const pair = `${entry.creature}/${hits.ability}`;
+    if (hits.value > hitsAllowed && !KNOWN_OVER_BUDGET.has(pair)) {
       problems.push(
-        `area.${entry.area} / ${entry.creature} at level ${lvl}: hits for ${hits.value.toFixed(0)} against a budget of ${hitsAllowed.toFixed(0)}.\n` +
-          `      Measured through dmg_calc against an undefended target, worst struck slot eqp[${hits.slot}].\n` +
+        `area.${entry.area} / ${entry.creature} at level ${lvl}: hits for ${hits.value.toFixed(0)} against a budget of ${hitsAllowed.toFixed(0)}, using abl.${hits.ability}.\n` +
+          `      Measured through the ability's own f() against an undefended target, worst struck slot eqp[${hits.slot}].\n` +
           `      Its weapon's eqp[0].aff[${mob.atype}] and eqp[0].cls[${mob.ctype}] enter the attack at ten times each.\n` +
           `      Check that its own resistance array was not copied into its weapon's -- wolf1 resists physical at 22 and attacks with 12.`,
       );

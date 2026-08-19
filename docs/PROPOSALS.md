@@ -344,6 +344,50 @@ are written inline in JavaScript, and everything to do with keyboard reach, incl
 across a rebuild, and a decision on item 4's second half, which is a row rewrite rather
 than a restyle.
 
+### 19. Casters kill in one hit, and nothing defends against them
+
+**Status:** needs a decision. The measurement is done; the correction is a balance change.
+
+Found by extending `scripts/check-combat.js` to measure the abilities a creature's `battle_ai`
+can actually reach, rather than `abl.default` alone. It had never looked at anything else, which
+is why this survived.
+
+**What was measured**, all through the real `dmg_calc` and each ability's own `f()`:
+
+| Creature | Ability     | Level | Hits for | Budget |
+| -------- | ----------- | ----- | -------- | ------ |
+| `zmbm`   | `abl.spark` | 18    | 935      | 337    |
+| `zmbm`   | `abl.spark` | 22    | 1063     | 412    |
+| `dcrps1` | `abl.spark` | 26    | 792      | 487    |
+| `dcrps1` | `abl.spark` | 28    | 833      | 525    |
+| `zmbk`   | `abl.dstab` | 19    | 396      | 356    |
+| `zmbf`   | `abl.bash`  | 14    | 270      | 262    |
+
+A level-20 player has **421 hp**. `creature.zmbm.battle_ai` rolls `abl.spark` on **40% of its
+swings**, and `zmbm` is 30% of the population in `area.cata3a` -- the middle of the catacombs.
+`creature.dcrps1` rolls it on 30% and is the whole population of `area.cata5a`.
+
+**Where the number comes from.** `abl.spark` carries `affp 25`, and the magic branch of `dmg_calc`
+multiplies `atk.affp` by **fifteen** where the physical branch uses ten. `abl.spark.f` then scales
+the result by `1.2`. So `(100 + 25 * 15) / 100` is a 4.75x multiplier before the scaling.
+
+**And nothing on the player's side answers it.** In that branch a shield contributes through
+`you.eqp[1].int`, and every one of the seventeen shields has `int 0`. Giving the Hoplite `int 18`
+moves 487 to 473 -- 3%. So the shield gap in entry 7 is real but it is not the lever here.
+
+**The decision.** Three candidates, and they are not exclusive:
+
+1. Lower `abl.spark.affp` from 25 toward the physical abilities' range. This is the single
+   smallest edit and it moves every caster at once.
+2. Bring the magic branch's `affp * 15` down to the physical branch's `* 10`, which is a
+   consistency argument as much as a balance one.
+3. Give shields and armour real `int` values so the magic branch has a defence to read, which is
+   worth doing regardless but is not sufficient alone.
+
+Until one is chosen, the pairs are recorded in `KNOWN_OVER_BUDGET` in `scripts/check-combat.js`,
+so the check reports what is known and still fails on anything new. Do not add to that list to
+make a new creature pass.
+
 ## Regions
 
 ### 1. Below the crack — where Dein went

@@ -672,6 +672,23 @@ pending`. It exists because two of the owner's requests turned out to have shipp
   Guessing a registry key from its meaning rather than reading the registry is the same mistake
   the pending report made with vendor.stock an hour earlier.
 
+- scripts/check-combat.js measures the abilities a creature's battle_ai can actually reach, not
+  abl.default alone, and calls each through its own f() so an ability that scales its result is
+  measured with the scaling. It had never looked at anything but the default attack, and that hole
+  was hiding a creature that kills a level-20 player in one hit.
+- creature.zmbm rolls abl.spark on 40% of its swings and is 30% of the population in the middle of
+  the catacombs. Spark measures 935 against a budget of 337 at level 18, and 1063 at level 22,
+  against a level-20 player's 421 hp. creature.dcrps1 casts it too and is the whole population of
+  the last room. abl.spark carries affp 25 into a branch that multiplies affp by fifteen where the
+  physical branch uses ten, then scales the result by 1.2 -- a 4.75x multiplier before scaling.
+- Nothing on the player's side answers it: in that branch a shield contributes through
+  you.eqp[1].int, and all seventeen shields have int 0. Giving the Hoplite int 18 moves 487 to 473,
+  which is 3%, so the shield gap is real but is not the lever.
+- Correcting it moves every caster in the game at once, so it is written up as PROPOSALS entry 19
+  with three candidate levers rather than decided here. The six creature/ability pairs that exceed
+  the budget today are recorded in KNOWN_OVER_BUDGET so the check reports what is known and still
+  fails on anything new -- verified by removing one from the list and watching it fail.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

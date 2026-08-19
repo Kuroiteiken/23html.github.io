@@ -676,6 +676,25 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   anahtarını registry'yi okumak yerine anlamından tahmin etmek, bekleyen iş raporunun bir saat
   önce `vendor.stock` ile yaptığı hatanın aynısı.
 
+- `scripts/check-combat.js` artık bir yaratığın `battle_ai`'sinin gerçekten ulaşabildiği
+  yetenekleri ölçüyor, yalnızca `abl.default`'u değil; ve her birini kendi `f()`'i üzerinden
+  çağırıyor, böylece sonucunu ölçekleyen bir yetenek ölçeklemesiyle birlikte ölçülüyor. Daha önce
+  varsayılan saldırıdan başka hiçbir şeye bakmıyordu ve o boşluk, 20. seviye bir oyuncuyu tek
+  vuruşta öldüren bir yaratığı saklıyordu.
+- `creature.zmbm` vuruşlarının %40'ında `abl.spark` atıyor ve katakompların ortasındaki
+  popülasyonun %30'u. Spark 18. seviyede 337 bütçeye karşı 935, 22. seviyede 1063 ölçüyor; 20.
+  seviye bir oyuncunun canı 421. `creature.dcrps1` de atıyor ve son odanın popülasyonunun tamamı.
+  `abl.spark` `affp 25` taşıyor ve bunu, fiziksel dalın on ile çarptığı yerde `affp`'yi on beş ile
+  çarpan bir dala sokuyor, ardından sonucu 1,2 ile ölçekliyor -- ölçeklemeden önce 4,75 katlık bir
+  çarpan.
+- Oyuncu tarafında buna cevap veren hiçbir şey yok: o dalda bir kalkan `you.eqp[1].int` üzerinden
+  katkı yapıyor ve on yedi kalkanın hepsinin `int`'i 0. Hoplit'e `int 18` vermek 487'yi 473'e
+  taşıyor, yani %3; kalkan açığı gerçek ama kaldıraç o değil.
+- Düzeltmek oyundaki her büyücüyü birden etkiliyor, o yüzden burada karara bağlanmak yerine üç
+  aday kaldıraçla `PROPOSALS` 19. madde olarak yazıldı. Bugün bütçeyi aşan altı yaratık/yetenek
+  çifti `KNOWN_OVER_BUDGET`'ta kayıtlı; böylece denetim bilineni bildiriyor ve yeni olan her şeyde
+  düşmeye devam ediyor -- listeden biri çıkarılıp düştüğü görülerek doğrulandı.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

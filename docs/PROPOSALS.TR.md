@@ -323,6 +323,50 @@ kümesi, ve `chs()` dâhil klavye erişimine dair her şey.
 yeniden çizim boyunca geçerli bir odak stratejisi, ve 4. maddenin ikinci yarısı için bir
 karar — o bir yeniden stillendirme değil, satırın yeniden kurulması.
 
+### 19. Büyücüler tek vuruşta öldürüyor ve onlara karşı hiçbir savunma yok
+
+**Durum:** karar gerekiyor. Ölçüm bitti; düzeltme bir denge değişikliği.
+
+`scripts/check-combat.js`, bir yaratığın `battle_ai`'sinin gerçekten ulaşabildiği yetenekleri
+ölçecek şekilde genişletilerek bulundu; daha önce yalnızca `abl.default`'a bakıyordu. Bunun sağ
+kalma sebebi de o.
+
+**Ölçülenler**, hepsi gerçek `dmg_calc` ve her yeteneğin kendi `f()`'i üzerinden:
+
+| Yaratık  | Yetenek     | Seviye | Vuruş | Bütçe |
+| -------- | ----------- | ------ | ----- | ----- |
+| `zmbm`   | `abl.spark` | 18     | 935   | 337   |
+| `zmbm`   | `abl.spark` | 22     | 1063  | 412   |
+| `dcrps1` | `abl.spark` | 26     | 792   | 487   |
+| `dcrps1` | `abl.spark` | 28     | 833   | 525   |
+| `zmbk`   | `abl.dstab` | 19     | 396   | 356   |
+| `zmbf`   | `abl.bash`  | 14     | 270   | 262   |
+
+20. seviye bir oyuncunun **421 canı** var. `creature.zmbm.battle_ai` vuruşlarının **%40'ında**
+    `abl.spark` atıyor ve `zmbm`, katakompların ortası olan `area.cata3a`'nın popülasyonunun %30'u.
+    `creature.dcrps1` %30'unda atıyor ve `area.cata5a`'nın popülasyonunun tamamı.
+
+**Sayı nereden geliyor.** `abl.spark` `affp 25` taşıyor ve `dmg_calc`'ın büyü dalı `atk.affp`'yi
+fiziksel dalın on ile çarptığı yerde **on beş** ile çarpıyor. Ardından `abl.spark.f` sonucu `1.2`
+ile ölçekliyor. Yani `(100 + 25 * 15) / 100`, ölçeklemeden önce 4,75 katlık bir çarpan.
+
+**Ve oyuncu tarafında buna cevap veren hiçbir şey yok.** O dalda bir kalkan `you.eqp[1].int`
+üzerinden katkı yapıyor ve on yedi kalkanın hepsinin `int`'i 0. Hoplit'e `int 18` vermek 487'yi
+473'e taşıyor -- %3. Yani 7. maddedeki kalkan açığı gerçek ama buradaki kaldıraç o değil.
+
+**Karar.** Üç aday ve birbirlerini dışlamıyorlar:
+
+1. `abl.spark.affp`'yi 25'ten fiziksel yeteneklerin aralığına düşürmek. En küçük tek düzenleme
+   bu ve oyundaki her büyücüyü birden etkiliyor.
+2. Büyü dalındaki `affp * 15`'i fiziksel dalın `* 10`'una indirmek; bu bir denge argümanı olduğu
+   kadar bir tutarlılık argümanı.
+3. Kalkanlara ve zırhlara gerçek `int` değerleri vermek, ki bu her hâlükârda yapılmaya değer ama
+   tek başına yeterli değil.
+
+Biri seçilene kadar çiftler `scripts/check-combat.js` içindeki `KNOWN_OVER_BUDGET`'ta kayıtlı;
+böylece denetim bilineni bildiriyor ve yeni olan her şeyde düşmeye devam ediyor. Yeni bir
+yaratığı geçirmek için o listeye ekleme yapılmamalı.
+
 ## Bölgeler
 
 ### 1. Yarığın altı — Dein'in indiği yer
