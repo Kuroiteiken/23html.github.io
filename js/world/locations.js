@@ -834,9 +834,12 @@ chss.t3.sl = () => {
               ).addEventListener("click", () => {
                 global.flags.dj1rw8 = true;
                 giveWealth(600);
-                // The Sword Medal raises experience and mastery gain rather than
-                // any stat, which is the only kind of gift this man would give.
-                giveItem(acc.otpin);
+                // The Sword Medal used to be handed over here, but the training
+                // quest at chss.trne2e1 already gives it, so this tier was a
+                // duplicate of something the player was carrying. The dojo's own
+                // rank ladder finishes here instead: the White Boar at forty, Jade
+                // Skin at forty-five, White Jade at fifty.
+                giveItem(acc.medl4);
                 smove(chss.t3, false);
               });
             });
@@ -889,6 +892,8 @@ chss.t3.sl = () => {
               ).addEventListener("click", () => {
                 global.flags.dj1rw10 = true;
                 giveWealth(900);
+                // The last rank the dojo awards, at the last tier it awards anything.
+                giveItem(acc.medl6);
                 giveItem(sld.drd);
                 giveItem(item.stthbm1, 2);
                 giveItem(item.sp3, 3);

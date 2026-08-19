@@ -20,7 +20,12 @@
 // finding some; it exits non-zero only when a claim cannot be measured at all, because a claim
 // this file can no longer evaluate is the thing that would let the list rot again.
 
-const { loadGame } = require("../tests/harness");
+const { loadGame, bundleSource } = require("../tests/harness");
+const stripComments = require("./strip-comments");
+
+// The bundle's own text, needed both for claims about whether code exists and for finding the
+// dialogue grants that sourcedIds() counts, so it is read before anything uses it.
+const bundle = bundleSource();
 
 const game = loadGame();
 const {
@@ -88,13 +93,26 @@ function sourcedIds() {
       if (thing && thing.id !== undefined) ids.add(thing.id);
     }
   }
+  // A dialogue grant is a source too, and for some things it is the only one: the whole dojo
+  // reward ladder hands its medals and shields over through giveItem in a click handler, so a
+  // report that only walked vendors, recipes and drops called them unsourced and kept saying
+  // so after they had been wired up. Comments are stripped first, or a grant that was
+  // deliberately commented out would count.
+  const granted = stripComments(bundle).matchAll(
+    /giveItem\(\s*(acc|eqp|wpn|sld|item)\.([A-Za-z0-9_$]+)/g,
+  );
+  const registries = { acc, eqp, wpn, sld, item };
+  for (const [, registryName, key] of granted) {
+    const thing = registries[registryName]?.[key];
+    if (thing && thing.id !== undefined) ids.add(thing.id);
+  }
   return ids;
 }
 
 const sourced = sourcedIds();
 
-// The bundle's own text, for claims about whether code exists to do something.
-const source = require("../tests/harness").bundleSource();
+// Kept under its original name for the claims below that read it.
+const source = bundle;
 
 claim(
   "PROPOSALS 5 - resistances do not reduce damage",
@@ -220,13 +238,36 @@ claim(
       const numbers = ["str", "int", "agl", "spd", "hp", "sat", "crt"].map(
         (f) => a[f] ?? 0,
       );
-      const arrays = [a.aff ?? [], a.cls ?? []].flat();
-      return numbers.every((n) => n === 0) && arrays.every((n) => n === 0);
+      // The arrays that matter are caff/ccls/cmaff, not aff/cls: dmg_calc's defending side
+      // reads the player-wide arrays and never an accessory's own aff, so a medal with aff
+      // set would still do nothing. An empty oneq counts as statless for the same reason --
+      // the values only reach the player when the pair is installed.
+      const arrays = [a.caff ?? [], a.ccls ?? [], a.cmaff ?? []].flat();
+      const inert = String(a.oneq).replace(/\s+/g, " ") === "function () {}";
+      return (
+        numbers.every((n) => n === 0) && (arrays.every((n) => !n) || inert)
+      );
     });
     const noSource = medals.filter((key) => !sourced.has(acc[key].id));
     return {
       holds: statless.length > 0,
       detail: `${medals.length} medals; ${statless.length} with no stats (${statless.join(", ")}); ${noSource.length} with no source`,
+    };
+  },
+);
+
+claim(
+  "queue 1 - the three lowest medals have no source",
+  "medl1, medl2 and medl3 are granted from nowhere",
+  () => {
+    // The rest of the ladder is wired: medl4 at the level-40 dojo tier, medl5 at 45, medl6 at
+    // 50. These three are the ranks below that, and where they go is a balance decision rather
+    // than a gap -- a medal at the level-25 tier changes what a mid-game fighter shrugs off.
+    const medals = ["medl1", "medl2", "medl3"];
+    const noSource = medals.filter((key) => !sourced.has(acc[key].id));
+    return {
+      holds: noSource.length > 0,
+      detail: `${noSource.length} of ${medals.length} without a grant: ${noSource.join(", ") || "none"}`,
     };
   },
 );

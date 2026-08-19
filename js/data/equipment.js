@@ -2234,49 +2234,131 @@ acc.rgreed.onuneq = function () {
   recshop();
 };
 
+// The dojo's rank medals. All six shipped inert -- no stats, no oneq, and a "proc"
+// placeholder where the description belongs -- so acc.medl5, handed over at level 45
+// for clearing the ninth trial, was a reward that did nothing at all.
+//
+// They add to the player's own resistance arrays while worn and take the same amount
+// back off when removed. That is the only shape a wearable bonus can take here: save()
+// unequips before writing and load() rebuilds equipment from the registry, copying back
+// only dp and data, so a bonus written into str would be lost on reload and one written
+// without a matching onuneq would survive taking the medal off.
+//
+// The values sit only on indices the game actually rolls, which is the part worth
+// keeping. Of thirty-nine creatures, thirty-three attack with atype 0, four with air and
+// two with water; earth, fire, light and dark are used by nothing, so resistance to them
+// would print a bonus line the player can never feel. cmaff is read for every blow
+// through global.current_m.type -- beast 12 creatures, undead 10, elemental 16 -- and
+// ccls is read for every blow as well. So the light-named medals earn their light through
+// cmaff[2], against the undead, rather than through a dead caff[5].
+function rankMedal(medal, res) {
+  medal.caff = res.caff || [0, 0, 0, 0, 0, 0, 0];
+  medal.ccls = res.ccls || [0, 0, 0];
+  medal.cmaff = res.cmaff || [0, 0, 0, 0, 0, 0];
+  medal.oneq = function () {
+    for (const i in this.caff) you.caff[i] += this.caff[i];
+    for (const i in this.ccls) you.ccls[i] += this.ccls[i];
+    for (const i in this.cmaff) you.cmaff[i] += this.cmaff[i];
+  };
+  medal.onuneq = function () {
+    for (const i in this.caff) you.caff[i] -= this.caff[i];
+    for (const i in this.ccls) you.ccls[i] -= this.ccls[i];
+    for (const i in this.cmaff) you.cmaff[i] -= this.cmaff[i];
+  };
+}
+
 acc.medl1 = new Eqp();
 acc.medl1.id = 40064;
 acc.medl1.name = i18n.t("content.acc.medl1.name");
-acc.medl1.desc = i18n.t("content.acc.medl1.desc");
+acc.medl1.desc =
+  i18n.t("content.acc.medl1.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl1.bonus");
 acc.medl1.slot = 8;
 acc.medl1.stype = 3;
+// The first rank, and the least: a little of everything rather than much of anything.
+rankMedal(acc.medl1, { caff: [1, 0, 0, 0, 0, 0, 0], ccls: [1, 1, 1] });
 
 acc.medl2 = new Eqp();
 acc.medl2.id = 40065;
 acc.medl2.name = i18n.t("content.acc.medl2.name");
-acc.medl2.desc = i18n.t("content.acc.medl2.desc");
+acc.medl2.desc =
+  i18n.t("content.acc.medl2.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl2.bonus");
 acc.medl2.slot = 8;
 acc.medl2.stype = 3;
+// A little light, and what a little light is for.
+rankMedal(acc.medl2, {
+  caff: [1, 0, 0, 0, 0, 0, 0],
+  ccls: [1, 1, 1],
+  cmaff: [0, 0, 2, 0, 0, 0],
+});
 
 acc.medl3 = new Eqp();
 acc.medl3.id = 40066;
 acc.medl3.name = i18n.t("content.acc.medl3.name");
-acc.medl3.desc = i18n.t("content.acc.medl3.desc");
+acc.medl3.desc =
+  i18n.t("content.acc.medl3.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl3.bonus");
 acc.medl3.slot = 8;
 acc.medl3.stype = 3;
 acc.medl3.rar = 2;
+// The same light, full. Still the catacombs' medal rather than a general one.
+rankMedal(acc.medl3, {
+  caff: [1, 0, 0, 0, 0, 0, 0],
+  ccls: [1, 1, 1],
+  cmaff: [0, 0, 4, 0, 0, 0],
+});
 
 acc.medl4 = new Eqp();
 acc.medl4.id = 40067;
 acc.medl4.name = i18n.t("content.acc.medl4.name");
-acc.medl4.desc = i18n.t("content.acc.medl4.desc");
+acc.medl4.desc =
+  i18n.t("content.acc.medl4.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl4.bonus");
 acc.medl4.slot = 8;
 acc.medl4.stype = 3;
+// A boar's hide turns the tusk and the club, and a boar is what it is worn against.
+rankMedal(acc.medl4, { ccls: [0, 2, 2], cmaff: [0, 4, 0, 0, 0, 0] });
 
 acc.medl5 = new Eqp();
 acc.medl5.id = 40068;
 acc.medl5.name = i18n.t("content.acc.medl5.name");
-acc.medl5.desc = i18n.t("content.acc.medl5.desc");
+acc.medl5.desc =
+  i18n.t("content.acc.medl5.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl5.bonus");
 acc.medl5.slot = 8;
 acc.medl5.stype = 3;
+// Jade skin is the body itself rather than anything it is carrying, so this one is the
+// plain one: six matched points against every creature in the game rather than against a
+// family of them. It is the medal the dojo actually hands out, at level 45, and the only
+// one a player is guaranteed to own -- so it is the one that had to be reliable.
+rankMedal(acc.medl5, { caff: [4, 0, 0, 0, 0, 0, 0], ccls: [2, 2, 2] });
 
 acc.medl6 = new Eqp();
 acc.medl6.id = 40069;
 acc.medl6.name = i18n.t("content.acc.medl6.name");
-acc.medl6.desc = i18n.t("content.acc.medl6.desc");
+acc.medl6.desc =
+  i18n.t("content.acc.medl6.desc") +
+  dom.dseparator +
+  i18n.t("content.acc.medl6.bonus");
 acc.medl6.slot = 8;
 acc.medl6.stype = 3;
 acc.medl6.rar = 2;
+// The last rank. Eight matched points against almost anything, spread across the three
+// elements creatures actually attack with and the four families that exist, where medl5
+// puts six on physical alone. cmaff[0] and cmaff[5] are left at zero on purpose: no
+// creature in the game is type 0 or type 5, so a value there would be a printed bonus
+// nobody could ever feel.
+rankMedal(acc.medl6, {
+  caff: [3, 3, 0, 0, 3, 0, 0],
+  ccls: [2, 2, 2],
+  cmaff: [0, 3, 3, 3, 3, 0],
+});
 
 acc.coindct = new Eqp();
 acc.coindct.id = 40070;

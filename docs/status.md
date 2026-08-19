@@ -279,6 +279,8 @@ güvenle yapılabilir ve etkisi gerçek formül üzerinden ölçülür.
 Kuyruk #1, #2 ve #3 (dojo madalyaları, unvanlar, boş yeteneklere avantaj)
 refactor planından **tamamen bağımsız**. Refactor uzarsa içerik donar. Bunlar
 istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
+Kuyruk #1 v478.36'da kapandı (`medl1`-`medl3` kaynağı bir karar olarak açık);
+#2 ve #3 hâlâ bekliyor.
 
 ## Sonraki adım
 
@@ -313,8 +315,14 @@ Sıra, projenin kendi kuralına göre: daha fazlasını icat etmeden önce biten
 5. **İki araştırma hatası**: tablosu olmadığı hâlde kendini "arandı" bildiren bir orman, ve
    araştırma yolu tamamlanamayan bir kömür madeni (PROPOSALS 16).
 6. **İki mobilya parçası** bitmiş, adı konmuş, elde edilemiyor (PROPOSALS 13).
-7. **Dojo madalyaları** (kuyruk #1): `acc.otpin` iki yerden veriliyor, `locations.js:839`
-   silinecek; `acc.medl1`-`medl6`'nın hiç statı yok, beşinin kaynağı yok.
+7. **Dojo madalyaları** (kuyruk #1) — **v478.36'da kapandı, bir kalıntıyla.** Altı madalya
+   artık `rankMedal()` üzerinden `you.caff`/`you.ccls`/`you.cmaff`'e yazan eşleşmiş bir
+   `oneq`/`onuneq` çifti taşıyor; iki dilde gerçek açıklama ve bonus satırı var. Yinelenen
+   `acc.otpin` bağışı kaldırıldı, 40. kademe `acc.medl4`, 50. kademe `acc.medl6` veriyor.
+   `tests/check-medals.js` (`npm run check` içinde `medals` adımı) ölü indeks, simetri ve
+   metin/etki tutarlılığını sabitliyor. **Kalan:** `medl1`-`medl3` hâlâ kaynaksız — üçü de en
+   alt rütbeler ve 25/30/35. kademelere ait, ama oraya konmaları orta oyun dayanıklılığını
+   değiştirir, o yüzden sahibinin kararına bırakıldı.
 
 ### Kalan refactor maddeleri
 

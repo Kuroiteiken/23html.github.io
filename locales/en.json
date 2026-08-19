@@ -363,6 +363,13 @@
         "Every shield defends against magic now. All seventeen had an int of zero, which is the stat the spell branch reads, so a shield was worth nothing against a spell no matter how good it was.",
         "Eleven shields had no source at all -- not sold, not crafted, not dropped. The smith stocks eight of them now, priced on the curve his originals set, and the three strongest drop in the deep rooms, the mine's bottom and the last room of the catacombs.",
         "The second healing potion is on the herbalist's shelf. It was finished and balanced and there was no way to get one."
+      ],
+      "v478_36": [
+        "All six dojo medals do something now. Every one of them shipped with no stats, no worn effect, and \"proc\" where the description belongs -- so the Jade Skin Medal, handed over at level 45 for clearing the ninth trial, was a reward that did nothing at all.",
+        "They are a rank ladder: resistance to damage taken, rising from the Moon Medal to the White Jade Medal, and each one reduces what reaches you rather than raising what you deal.",
+        "The values sit only where the game actually attacks. Of thirty-nine creatures, thirty-three swing physically, four with air and two with water -- nothing in the game uses earth, fire, light or dark, and nothing is a demon. So the two light-named medals earn their light against the undead, which the catacombs are full of, instead of carrying a resistance nothing could ever trigger.",
+        "The White Boar Medal and the White Jade Medal are handed out at levels 40 and 50. The level-40 tier had been giving the Sword Medal, which the training quest already gives, so that tier was a second copy of something you were already wearing.",
+        "The Moon, Little Light and Moonlight medals still have no source. They are the three lowest ranks and belong at earlier dojo tiers, but putting them there changes what a level-25 fighter can shrug off, so that one is a decision rather than a fix."
       ]
     },
     "lore": {
@@ -1762,27 +1769,33 @@
       },
       "medl1": {
         "name": "Moon Medal",
-        "desc": "proc"
+        "desc": "The dojo's first rank, cast in dull pewter and no bigger than a thumbnail. It certifies that its holder has been taught how to stand",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +1</span><br><span style=\"color:crimson\">Edged DEF +1</span><br><span style=\"color:crimson\">Piercing DEF +1</span><br><span style=\"color:crimson\">Blunt DEF +1</span>"
       },
       "medl2": {
         "name": "Little Light Medal",
-        "desc": "proc"
+        "desc": "A pierced disc that catches what light there is and throws a little of it back. Given to students sent below ground for the first time, which is the only place the gesture means anything",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +1</span><br><span style=\"color:crimson\">Edged DEF +1</span><br><span style=\"color:crimson\">Piercing DEF +1</span><br><span style=\"color:crimson\">Blunt DEF +1</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Undead Class DEF +2</span>"
       },
       "medl3": {
         "name": "Moonlight Medal",
-        "desc": "proc"
+        "desc": "The same disc, struck properly in silver. Full moonlight rather than a borrowed sliver of it, and worn by those who came back up",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +1</span><br><span style=\"color:crimson\">Edged DEF +1</span><br><span style=\"color:crimson\">Piercing DEF +1</span><br><span style=\"color:crimson\">Blunt DEF +1</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Undead Class DEF +4</span>"
       },
       "medl4": {
         "name": "White Boar Medal",
-        "desc": "proc"
+        "desc": "A white boar in relief, tusks forward. The animal is not admired for its ferocity but for the hide across its shoulders, which turns a spear that would go through anything else",
+        "bonus": "<span style=\"color:crimson\">Piercing DEF +2</span><br><span style=\"color:crimson\">Blunt DEF +2</span><br><span style=\"color:orange\">Beast Class DEF +4</span>"
       },
       "medl5": {
         "name": "Jade Skin Medal",
-        "desc": "proc"
+        "desc": "Green jade worn smooth by the hands of everyone who held this rank before. The dojo teaches that the skin hardens before the will does, and this is the rank at which they say so out loud",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +4</span><br><span style=\"color:crimson\">Edged DEF +2</span><br><span style=\"color:crimson\">Piercing DEF +2</span><br><span style=\"color:crimson\">Blunt DEF +2</span>"
       },
       "medl6": {
         "name": "White Jade Medal",
-        "desc": "proc"
+        "desc": "White jade, unworn, because nobody keeps it long enough to wear it down. The last rank the dojo awards, and the only one that answers everything rather than something",
+        "bonus": "<span style=\"color:hotpink\">Physical DEF +3</span><br><span style=\"color:paleturquoise;text-shadow:teal 0px 0px 5px\">Air RES +3</span><br><span style=\"color:cornflowerblue;text-shadow:navy 0px 0px 5px\">Water RES +3</span><br><span style=\"color:crimson\">Edged DEF +2</span><br><span style=\"color:crimson\">Piercing DEF +2</span><br><span style=\"color:crimson\">Blunt DEF +2</span><br><span style=\"color:orange\">Beast Class DEF +3</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Undead Class DEF +3</span><br><span style=\"color:deepskyblue;text-shadow:royalblue 0px 0px 5px\">Elemental Class DEF +3</span><br><span style=\"color:yellowgreen;text-shadow:darkgreen 0px 0px 5px\">Plant Class DEF +3</span>"
       },
       "coindct": {
         "name": "Coin of Deceit",

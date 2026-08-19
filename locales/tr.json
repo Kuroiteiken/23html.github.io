@@ -363,6 +363,13 @@
         "Artık her kalkan büyüye karşı savunuyor. On yedisinin de `int`'i sıfırdı, ki büyü dalının okuduğu stat o -- yani bir kalkan ne kadar iyi olursa olsun bir büyüye karşı hiçbir şey etmiyordu.",
         "On bir kalkanın hiç kaynağı yoktu -- satılmıyor, üretilmiyor, düşmüyordu. Demirci artık sekizini tutuyor, kendi orijinallerinin kurduğu eğriye göre fiyatlanmış; en güçlü üçü ise derin odalarda, madenin dibinde ve katakompların son odasında düşüyor.",
         "İkinci şifa iksiri şifacının rafında. Bitmiş ve dengelenmişti, ve elde etmenin hiçbir yolu yoktu."
+      ],
+      "v478_36": [
+        "Altı dojo madalyasının hepsi artık bir işe yarıyor. Her biri statsız, takıldığında etkisiz ve açıklaması gereken yerde \"işlem\" yazan hâlde çıkmıştı -- yani dokuzuncu sınavı geçmenin karşılığı olarak 45. seviyede verilen Yeşim Derisi Madalyası, hiçbir şey yapmayan bir ödüldü.",
+        "Artık bir rütbe merdiveni: alınan hasara karşı direnç, Ay Madalyası'ndan Beyaz Yeşim Madalyası'na doğru yükseliyor. Her biri verdiğin hasarı arttırmıyor, sana ulaşanı azaltıyor.",
+        "Değerler yalnızca oyunun gerçekten saldırdığı yerlerde duruyor. Otuz dokuz yaratığın otuz üçü fiziksel, dördü hava, ikisi su ile vuruyor -- oyunda toprak, ateş, ışık ya da karanlık kullanan hiçbir şey yok, şeytan sınıfından da hiçbir şey yok. Bu yüzden ışık adı taşıyan iki madalya, ışığını hiçbir zaman tetiklenemeyecek bir dirençle değil, katakompların dolu olduğu ölümsüzlere karşı kazanıyor.",
+        "Beyaz Domuz ve Beyaz Yeşim madalyaları 40. ve 50. seviyelerde veriliyor. 40. kademe şimdiye kadar Kılıç Madalyası veriyordu; onu eğitim görevi zaten veriyor, yani o kademe üzerinde taşıdığın şeyin ikinci bir kopyasıydı.",
+        "Ay, Küçük Işık ve Ayışığı madalyalarının hâlâ kaynağı yok. Üçü de en alt rütbeler ve daha erken dojo kademelerine ait, ama oraya konmaları 25. seviyedeki bir dövüşçünün neyi göğüsleyebileceğini değiştirir -- o yüzden bu bir düzeltme değil, bir karar."
       ]
     },
     "lore": {
@@ -1762,27 +1769,33 @@
       },
       "medl1": {
         "name": "Ay Madalyası",
-        "desc": "işlem"
+        "desc": "Dojanın ilk kademesi; mat kurşundan dökülmüş ve bir tırnaktan büyük değil. Taşıyıcısına duruşun öğretildiğini belgeler",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAV +1</span><br><span style=\"color:crimson\">Kesici SAV +1</span><br><span style=\"color:crimson\">Delici SAV +1</span><br><span style=\"color:crimson\">Künt SAV +1</span>"
       },
       "medl2": {
         "name": "Küçük Işık Madalyası",
-        "desc": "işlem"
+        "desc": "Var olan ışığı yakalayıp bir parçasını geri veren delikli bir madalyon. İlk kez yer altına gönderilen öğrencilere verilir; jestin bir anlam taşıdığı tek yer de orasıdır",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAV +1</span><br><span style=\"color:crimson\">Kesici SAV +1</span><br><span style=\"color:crimson\">Delici SAV +1</span><br><span style=\"color:crimson\">Künt SAV +1</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Ölümsüz Sınıfı SAV +2</span>"
       },
       "medl3": {
         "name": "Ayışığı Madalyası",
-        "desc": "işlem"
+        "desc": "Aynı madalyon, bu kez gümüşe düzgünce dövülmüş. Ödünç alınmış bir kırıntı değil, dolu ay ışığı; ve yukarı geri dönenlerin taktığı madalya",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAV +1</span><br><span style=\"color:crimson\">Kesici SAV +1</span><br><span style=\"color:crimson\">Delici SAV +1</span><br><span style=\"color:crimson\">Künt SAV +1</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Ölümsüz Sınıfı SAV +4</span>"
       },
       "medl4": {
         "name": "Beyaz Domuz Madalyası",
-        "desc": "işlem"
+        "desc": "Kabartma hâlinde, dişleri öne dönük beyaz bir domuz. Hayvana duyulan hayranlık vahşiliği için değil, omuzlarındaki deri için; başka her şeyi delip geçecek bir mızrağı o deri çevirir",
+        "bonus": "<span style=\"color:crimson\">Delici SAV +2</span><br><span style=\"color:crimson\">Künt SAV +2</span><br><span style=\"color:orange\">Canavar Sınıfı SAV +4</span>"
       },
       "medl5": {
         "name": "Yeşim Derisi Madalyası",
-        "desc": "işlem"
+        "desc": "Bu kademeyi ondan önce taşıyan herkesin elinde pürüzsüzleşmiş yeşil yeşim. Doja, derinin iradeden önce sertleştiğini öğretir; bunu yüksek sesle söylediği kademe de burasıdır",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAV +4</span><br><span style=\"color:crimson\">Kesici SAV +2</span><br><span style=\"color:crimson\">Delici SAV +2</span><br><span style=\"color:crimson\">Künt SAV +2</span>"
       },
       "medl6": {
         "name": "Beyaz Yeşim Madalyası",
-        "desc": "işlem"
+        "desc": "Beyaz yeşim, aşınmamış; çünkü kimse onu aşındıracak kadar uzun süre elinde tutmuyor. Dojanın verdiği son kademe ve bir şeye değil her şeye karşılık veren tek kademe",
+        "bonus": "<span style=\"color:hotpink\">Fiziksel SAV +3</span><br><span style=\"color:paleturquoise;text-shadow:teal 0px 0px 5px\">Hava DİRENÇ +3</span><br><span style=\"color:cornflowerblue;text-shadow:navy 0px 0px 5px\">Su DİRENÇ +3</span><br><span style=\"color:crimson\">Kesici SAV +2</span><br><span style=\"color:crimson\">Delici SAV +2</span><br><span style=\"color:crimson\">Künt SAV +2</span><br><span style=\"color:orange\">Canavar Sınıfı SAV +3</span><br><span style=\"color:tomato;text-shadow:blueviolet 0px 0px 5px\">Ölümsüz Sınıfı SAV +3</span><br><span style=\"color:deepskyblue;text-shadow:royalblue 0px 0px 5px\">Element Sınıfı SAV +3</span><br><span style=\"color:yellowgreen;text-shadow:darkgreen 0px 0px 5px\">Bitki Sınıfı SAV +3</span>"
       },
       "coindct": {
         "name": "Aldatma Parası",

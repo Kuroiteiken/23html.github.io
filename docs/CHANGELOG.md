@@ -10,6 +10,56 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- The six dojo medals were statted, and the interesting part is what the measurement ruled
+  out rather than what it put in. `acc.medl1`-`medl6` all shipped with `str`/`int`/`agl`/`spd`
+  at zero, an empty `oneq`, and `"proc"` in place of a description. `acc.medl5` is handed over
+  at the level-45 dojo tier, so the game's own reward ladder ended in an item that did nothing.
+- The first thing measured was where a bonus on an accessory can even be read. `stat_r` sums
+  `int` and `agl` from equipment into `int_d`/`agl_d`, which are display figures the damage
+  path never reads; only `spd` reaches a real field. And `dmg_calc`'s defending side reads
+  `global.target` (the struck armour), `you.eqp[1]` (the shield) and the player-wide arrays
+  `you.caff`/`you.ccls`/`you.cmaff` -- an accessory's own `aff`/`cls` is never read at all. No
+  accessory in the game carries `aff` or `cls`, and now it is clear why: it would do nothing.
+  So the medals go through the arrays, via a `rankMedal()` factory that installs a matched
+  `oneq`/`onuneq` pair, which is also the shape the owner's "only while equipped" rule needs.
+- The second measurement is the one worth keeping. Walking the creature registry: of
+  thirty-nine creatures, thirty-three attack with `atype` 0, four with air, two with water.
+  **Nothing attacks with earth, fire, light or dark**, and no creature is `type` 0 or `type` 5.
+  So `caff[2]`, `caff[3]`, `caff[5]`, `caff[6]`, `cmaff[0]` and `cmaff[5]` are dead indices --
+  a value there prints a bonus line the player can never feel, which is a quieter version of
+  the bug being fixed. `acc.gsfk` carries `caff[6] += 35` and is dead for exactly this reason.
+  The light-named medals therefore earn their light through `cmaff[2]`, against the undead.
+- Calibrated rather than guessed. `caff[atype]`, `ccls[ctype]` and `cmaff[type]` all multiply
+  by ten into the same sum, so they are interchangeable levers and what matters is the matched
+  total. Measured at a level matched to the creature, one point is about 2.3% of the blow late
+  and 5.9% early; the ladder was set at 2, 4, 6, 6, 6 and 8 matched points, which lands the
+  level-45 medal at -13.2% against `dcrps1` and the capstone at -17.5%. The first attempt used
+  the magnitudes already in the game (`cmaff[2] += 12` on `acc.sltbg`, `+= 30` on `acc.wfar`)
+  and put a rank-three medal at **-74%**, because a family term applies to every blow a whole
+  family throws.
+- `tests/check-medals.js` is new and wired into `npm run check` as step `medals`. It pins the
+  worn-only symmetry, refuses any value on an index the creature registry says is dead
+  (measured, so adding a fire-breathing creature widens what is allowed rather than failing),
+  checks the printed bonus against the values on the object so text and effect cannot drift,
+  and measures that the level-45 medal reduces every sampled blow and the last rank is never
+  worse. The bonus strings were generated from the object once, and the check keeps them true.
+- Two mistakes worth recording, both caught by the checks rather than by reading. The first
+  draft gave `acc.medl6` `cmaff[5] = 4`, resistance to a creature class with no members, and
+  the dead-index check named it. Then the verifier itself was wrong: a level-45 player takes
+  zero damage from a level-8 wolf, so `base` was 0 and "the medal reduced the damage" could not
+  be asserted -- the sample now matches the player's level to the creature's. Worse, the fix
+  went in through an unquoted bash heredoc, so bash expanded the `${...}` in the JavaScript
+  template literals, the replacement silently failed to match, `lvl` arrived `undefined`, and
+  the test **passed against a level-1 player**. A probe that passes for the wrong reason is
+  the one failure mode a check cannot catch about itself. Turkish text and JS template
+  literals both go through the Write tool, never a heredoc.
+- `acc.otpin` was being granted from two places: the training quest at `chss.trne2e1` and the
+  level-40 dojo tier, so that tier handed the player a second copy of something already worn.
+  The tier gives `acc.medl4` now and the level-50 tier gives `acc.medl6`, which finishes the
+  dojo's own ladder at ranks four, five and six. `medl1`-`medl3` are still unsourced: they are
+  the three lowest ranks and belong at earlier tiers, but a medal at the level-25 tier changes
+  what a mid-game fighter shrugs off, so that is left as a decision rather than taken quietly.
+
 - Gave `chss.smith` a vendor. He had none: he repaired and sharpened what the player
   already owned and sold nothing, while twelve of the game's seventeen shields had no
   source anywhere -- no vendor, no drop, no recipe. The four light ones plus a heater,

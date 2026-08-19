@@ -89,6 +89,11 @@ const STEPS = [
     ...node("tests/check-shared-state.js"),
   },
   {
+    name: "medals",
+    why: "a reward that carries no effect, or one that keeps paying after it comes off",
+    ...node("tests/check-medals.js"),
+  },
+  {
     name: "version",
     why: "an announced release with no notes shows the player an empty list",
     ...node("tests/check-version.js"),

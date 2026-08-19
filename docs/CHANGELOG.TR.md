@@ -10,6 +10,60 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- Altı dojo madalyası statlandırıldı ve ilginç olan kısım, ölçümün neyi eklediği değil neyi
+  dışladığı. `acc.medl1`-`medl6`'nın hepsi `str`/`int`/`agl`/`spd` sıfır, `oneq` boş ve
+  açıklama yerinde `"proc"` ile çıkmıştı. `acc.medl5` 45. seviye dojo kademesinde veriliyor,
+  yani oyunun kendi ödül merdiveni hiçbir şey yapmayan bir eşyayla bitiyordu.
+- İlk ölçülen şey, bir aksesuardaki bonusun nerede okunabildiğiydi. `stat_r`, ekipmandan `int`
+  ve `agl`'yi `int_d`/`agl_d`'ye topluyor; bunlar hasar yolunun hiç okumadığı gösterim
+  değerleri, yalnızca `spd` gerçek bir alana ulaşıyor. `dmg_calc`'ın savunan tarafı ise
+  `global.target`'ı (vurulan zırh), `you.eqp[1]`'i (kalkan) ve oyuncu geneli dizileri
+  `you.caff`/`you.ccls`/`you.cmaff`'i okuyor -- bir aksesuarın kendi `aff`/`cls`'i hiç
+  okunmuyor. Oyunda `aff` ya da `cls` taşıyan hiçbir aksesuar yok ve nedeni artık belli:
+  hiçbir şey yapmazdı. Bu yüzden madalyalar dizilerden geçiyor; eşleşmiş bir `oneq`/`onuneq`
+  çifti kuran bir `rankMedal()` fabrikası üzerinden, ki bu aynı zamanda sahibinin "yalnızca
+  takılıyken" kuralının gerektirdiği şekil.
+- İkinci ölçüm, saklanmaya değer olan. Yaratık registry'si dolaşıldığında: otuz dokuz
+  yaratığın otuz üçü `atype` 0 ile, dördü hava, ikisi su ile saldırıyor. **Hiçbiri toprak,
+  ateş, ışık ya da karanlık ile saldırmıyor** ve hiçbir yaratık `type` 0 ya da `type` 5 değil.
+  Yani `caff[2]`, `caff[3]`, `caff[5]`, `caff[6]`, `cmaff[0]` ve `cmaff[5]` ölü indeksler --
+  oraya konan bir değer, oyuncunun asla hissedemeyeceği bir bonus satırı yazdırır ki bu da
+  düzeltilen hatanın daha sessiz bir versiyonu. `acc.gsfk` tam bu yüzden ölü bir
+  `caff[6] += 35` taşıyor. Dolayısıyla ışık adı taşıyan madalyalar ışığını `cmaff[2]`
+  üzerinden, ölümsüzlere karşı kazanıyor.
+- Tahmin edilmedi, kalibre edildi. `caff[atype]`, `ccls[ctype]` ve `cmaff[type]` aynı toplamın
+  içinde onla çarpılıyor, yani birbirinin yerine geçebilen kaldıraçlar ve önemli olan eşleşen
+  toplam. Yaratığa uygun bir seviyede ölçüldüğünde bir puan, geç oyunda vuruşun yaklaşık
+  %2,3'ü, erken oyunda %5,9'u; merdiven 2, 4, 6, 6, 6 ve 8 eşleşen puana kuruldu, bu da 45.
+  seviye madalyasını `dcrps1`'e karşı -%13,2'ye, zirveyi -%17,5'e oturtuyor. İlk deneme oyunda
+  hâlihazırda bulunan büyüklükleri kullandı (`acc.sltbg`'de `cmaff[2] += 12`, `acc.wfar`'da
+  `+= 30`) ve üçüncü rütbe madalyasını **-%74**'e çıkardı, çünkü bir aile terimi o ailenin
+  attığı her vuruşa uygulanıyor.
+- `tests/check-medals.js` yeni ve `npm run check`'e `medals` adımı olarak bağlı. Yalnızca
+  takılıyken simetrisini sabitliyor, yaratık registry'sinin ölü dediği hiçbir indekse değer
+  kabul etmiyor (ölçerek, yani ateş püskürten bir yaratık eklemek izin verileni genişletir,
+  denetimi düşürmez), yazdırılan bonusu nesnedeki değerlerle karşılaştırıyor ki metin ile etki
+  ayrışamasın, ve 45. seviye madalyasının örneklenen her vuruşu azalttığını, son rütbenin
+  hiçbir yerde daha kötü olmadığını ölçüyor. Bonus dizeleri bir kez nesneden üretildi, denetim
+  de doğru kalmalarını sağlıyor.
+- Kaydedilmeye değer iki hata, ikisi de okumayla değil denetimlerle yakalandı. İlk taslak
+  `acc.medl6`'ya `cmaff[5] = 4` verdi, yani hiç üyesi olmayan bir yaratık sınıfına direnç, ve
+  ölü indeks denetimi onu adıyla söyledi. Sonra doğrulayıcının kendisi yanlıştı: 45. seviye bir
+  oyuncu 8. seviye bir kurttan sıfır hasar alıyor, yani `base` 0'dı ve "madalya hasarı azalttı"
+  iddiası kurulamıyordu -- örnek artık oyuncunun seviyesini yaratığın seviyesiyle eşliyor. Daha
+  kötüsü, düzeltme tırnaksız bir bash heredoc'undan geçti, bash JavaScript template
+  literal'lerindeki `${...}`'leri genişletti, değiştirme sessizce eşleşmedi, `lvl` `undefined`
+  olarak geldi ve test **1. seviye bir oyuncuya karşı geçti**. Yanlış sebeple geçen bir prob,
+  bir denetimin kendisi hakkında yakalayamayacağı tek arıza türü. Türkçe metin de JS template
+  literal'leri de Write aracından geçer, heredoc'tan asla.
+- `acc.otpin` iki yerden veriliyordu: `chss.trne2e1`'deki eğitim görevi ve 40. seviye dojo
+  kademesi; yani o kademe oyuncuya üzerinde taşıdığı şeyin ikinci bir kopyasını veriyordu.
+  Kademe artık `acc.medl4`, 50. seviye kademesi de `acc.medl6` veriyor; bu da dojonun kendi
+  merdivenini dördüncü, beşinci ve altıncı rütbelerle bitiriyor. `medl1`-`medl3` hâlâ kaynaksız:
+  üçü de en alt rütbeler ve daha erken kademelere ait, ama 25. seviye kademesindeki bir madalya
+  orta oyun dövüşçüsünün neyi göğüslediğini değiştirir, o yüzden sessizce alınmak yerine bir
+  karar olarak bırakıldı.
+
 - `chss.smith`'e bir satıcı verildi. Hiç yoktu: oyuncunun sahip olduğu şeyi onarıp
   keskinleştiriyor, hiçbir şey satmıyordu; oysa oyundaki on yedi kalkanın on ikisinin
   hiçbir kaynağı yoktu — ne satıcı, ne düşürme, ne tarif. Dört hafif kalkan artı bir
