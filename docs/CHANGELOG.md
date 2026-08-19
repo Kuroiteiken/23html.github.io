@@ -468,6 +468,37 @@ changes. Player-facing game content and release notes belong in
   tests/probes/save-transfer-modal.js. Saying which of the two it is matters more than the
   count of tests.
 
+- The thirteen requests the owner queued were researched against the code before any of them
+  became a plan in PROPOSALS -- measured through the harness rather than recalled. The research
+  changed several entries and closed two outright.
+- **Two were already shipped.** The burn debuff on fire damage went in with c19c781; the
+  fireplace's healing rate, energy gain and the Rested buff after sleeping beside it went in
+  with ea8fa22 and 00295f7, both dated 2026-08-18. Two thirds of the furniture request is in
+  the same commit. Writing those into PROPOSALS as plans without measuring would have meant
+  building three things that already exist.
+- **Four premises were contradicted by measurement.** "A perk for every skill up to level 15":
+  level 15 is 1,151,201 cumulative experience against grants of 0.2 to 0.6 per action -- deep
+  endgame rather than a modest floor, and the existing design already knows it, with 69 of 143
+  milestone entries sitting at levels 1-5. "Unlimited clearing after N clears": 21 of the 31
+  areas already re-arm themselves on clear, and the unlock pattern ships twice elsewhere.
+  "Scouting is used nowhere else": it is wired into 12 places. "Let us give weapon-mastery
+  titles": 22 exist and 13 already carry a gain-rate bonus.
+- **The real work is not where the requests point, but in finished content that was never
+  connected.** 26 titles are written and translated in both locales and have no grant path. 19
+  recipes are finished, translated and unlearnable. hptn2 is balanced and has no repeatable
+  source. Seven of the seventeen shields have no source at all, and every one of them has
+  int 0, so no shield defends against a spell in the magic branch of dmg_calc. Zero of the 62
+  recipes touch item.stdst. The project's own rule already says to do this first.
+- **The resistance question is answered, and the answer is no.** Eleven of the 12 res fields
+  are never read by dmg_calc -- they gate whether an effect is applied, not how much damage
+  gets through. And two of the three things the owner named are not res fields at all: undead
+  resistance is you.maff / you.cmaff, and dark defence is aff[6]. Only pain resistance
+  (res.ph) is a res field, and it is the only one with a live reader.
+- **The constraint list in CLAUDE.md was incomplete.** The saved fields a milestone may write
+  are not just stra/agla/inta/spda/hpa/sata; exp_t, luck and the whole mods object are saved
+  too. Measured writes across all 146 entries: exp_t 43, hpa 38, stra 32, agla 25, sata 23,
+  mods.sbonus 7, inta 6, mods.cpwr 3, luck 2, spda 1.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

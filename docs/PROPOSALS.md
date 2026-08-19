@@ -27,139 +27,193 @@ starts so nothing is lost between sessions. An item leaves this list when it shi
 what it did goes into the changelog and, if it touches the story, into
 [STORY.md](STORY.md).
 
-> **These entries are being researched.** Each one is written down here first, as the
-> owner's rule requires, and is then filled in against the code: what already exists to
-> hang it on, what genuinely has to be new, and the numbers actually measured. Until an
-> entry carries that detail, treat it as a recorded request rather than a plan.
+> **These entries were researched against the code after they were recorded, and the
+> research changed several of them.** Two turned out to be already shipped. Four rested on a
+> premise that measurement contradicted. Two one-word bugs found along the way are already
+> fixed in v478.30. Each entry below says what the measurement found, because a request
+> written from memory and a request written from the code are not the same request.
 
-**Answer first, then build.** Entry 5 is a question, not a feature, and two of the
-entries below depend on its answer: if a resistance field turns out never to be read,
-then the burn debuff (entry 12) and the shield values (entry 7) have to be designed
-differently. Work that rests on an unanswered question gets done twice.
+### 5. Are the resistance fields read in combat? — **answered: mostly no**
 
-### 5. Are the resistance fields actually read in combat?
+**Status:** answered. What follows from it is a decision.
 
-**Status:** question, being measured.
+The `res` object has 12 fields, identical on the player (`js/core/player.js:89-102`) and on
+every creature. **Eleven of the twelve are never read by `dmg_calc` at all.** They gate
+whether an effect is applied, not how much damage gets through — `giveEff` consults them, the
+damage path does not.
 
-The owner asks whether resistances like pain resistance, undead resistance and dark
-defence are taken into account when damage is reduced. This is answerable rather than
-arguable: enumerate every field of `res`, find every place each is read, and prove the
-effect with `tests/harness.js` by changing one field and measuring `dmg_calc`. The
-outcome per field is one of read and effective, read but ineffective, or never read.
+And the three things the request names live in three different systems, only one of which is
+a `res` field:
 
-### 6. Titles: the grant code left in a comment
+- **Pain resistance** is `res.ph`, and it is the one field with a live reader.
+- **Undead resistance** is not a `res` field. It is `you.maff` / `you.cmaff` indexed by a
+  creature's `type`, which `dmg_calc` does read.
+- **Dark defence** is not a `res` field either. It is `aff[6]`, the dark element slot in the
+  affinity arrays.
 
-**Status:** agreed — it is a fix, not an addition.
+So the honest answer is: resistances do not reduce damage, with one exception; two of the
+three things named are not resistances. Whether they _should_ reduce damage is the decision,
+and it interacts with entry 4 — the mitigation term is already the dominant number in the
+formula.
 
-`js/data/equipment.js:2730-2731` holds two commented-out grants for `ttl.mone2` and
-`ttl.mone3`, and both test the same `global.stat.moneyg >= GOLD` condition that
-`ttl.mone1` already uses — so even uncommented they would fire together. `shpt2`,
-`shpt3` and `mone3` also have empty locale entries. The whole of the owner's "titles need
-improvement and additions" starts here, because a title nothing can grant is not content.
+**One unambiguous bug found while measuring:** `js/data/skills.js:499`, a milestone writing
+`you.res.ph += 0.01`. The sign is inverted relative to how `res.ph` is consumed. Confirm the
+direction before changing it; it is one line either way.
 
-### 7. Shields: the drafts, their values and their ranks
+### 6. Titles: 26 already written, translated, and never granted
 
-**Status:** agreed — a fix before an addition.
+**Status:** agreed, and cheaper than it looked.
 
-**The premise recorded before is out of date.** "Eleven of the fourteen shields shipped
-with `str 0`" is no longer true: there are seventeen shields and not one has `str 0` --
-measured through the harness, they run from `csr` at 4 to `drd` at 23, with `aff[0]` and
-`cls` filled in throughout. So the values exist and what is actually left to review is
-whether the ladder is right, which is the other half of what the owner asked.
+The request was "titles need improvement and additions". The measurement says the problem is
+not additions. **26 titles are fully written and translated in both locales and have no grant
+path at all.** The four biggest families already have live saved counters, so connecting them
+is wiring rather than design. `js/data/equipment.js:2730-2731` is part of this: two grants
+left in a comment, both testing the same `moneyg >= GOLD` condition `ttl.mone1` already uses,
+so uncommenting them as they stand would fire all three together.
 
-One thing the old note missed and the measurement found: **every shield has `int 0`**, all
-seventeen of them. In the magic branch of `dmg_calc` a shield contributes through
-`you.eqp[1].int`, so no shield in the game defends against a spell at all. Related and worth doing in the same pass: `you.eqp[5]` is always
-the shared `eqp.dummy`, which carries `cls [9,10,9]` and `aff[0] 14` written into it by
-`creature.wolfa1` — see queue item 6 in [status.md](status.md). Until that is cleaned up,
-"a shield always reduces damage" cannot be made true.
+This is the project's own rule with nothing added: connect what is finished before writing
+more.
 
-### 8. The healing potions with no source
+### 7. Shields: the ranks, the seven with no source, and `eqp.dummy`
+
+**Status:** agreed. The draft premise is stale; the `eqp.dummy` half is exactly right.
+
+"Eleven of the fourteen shields shipped with `str 0`" was never quite the shape of it and is
+no longer true at all: there are **seventeen** shields, none at `str 0`, running from `csr` at
+4 to `drd` at 23 with `aff[0]` and `cls` filled in throughout — finished in commit `ee65ee8`.
+
+What is actually left:
+
+- **Seven of the seventeen have no source** — no recipe, no vendor, no drop.
+- **Every one of the seventeen has `int 0`**, so in the magic branch of `dmg_calc`, where a
+  shield contributes through `you.eqp[1].int`, no shield in the game defends against a spell.
+- The `eqp.dummy` problem in queue item 6 of [status.md](status.md) stands as recorded, and
+  "a shield always reduces damage" cannot be made true until it is cleaned up.
+
+### 8. The healing items with no repeatable source
 
 **Status:** agreed — a fix.
 
-The owner reports that only the smallest healing item is craftable. Every healing item
-needs its source established — recipe, vendor, or drop — and the ones with none need one.
-This is the project's own rule applied: connect what exists before inventing more.
+Measured across all 352 items: six instant-heal items, three that raise maximum HP, and no
+HP-regeneration effect anywhere in the game. The specific gap the request points at is real:
+**`hptn2` is finished, translated, balanced for the level band the game actually reaches, and
+has no repeatable source.** One recipe closes it.
 
-### 9. Crafting: diversify, and stardust with nothing to do
+### 9. Crafting: 19 finished recipes nobody can learn, and stardust
 
-**Status:** proposed.
+**Status:** agreed.
 
-Two halves of one problem. `item.stdst` is produced and then has nowhere to go, and the
-recipe list as a whole leans in one direction. Both need the current shape measured before
-anything is added, so that "diversify" means something checkable.
+62 recipes exist. The measurement found the diversification problem is not where the request
+put it: **19 finished, fully translated recipes have no path by which a player can learn
+them.** Connect those first — again the project's own rule — and the remaining gap is about
+nine everyday cooking lines.
 
-### 10. A perk for every skill up to level 15
+`item.stdst` is worse than "left with nothing to do": **zero of the 62 recipes touch it**, and
+its entire `use()` is one message. The cheapest correct fix reuses `effect.cdlt`, which
+already exists.
 
-**Status:** proposed.
+### 10. A perk for every skill up to level 15 — **needs a decision on scope**
 
-Of 60 skills, 37 have no milestone at all, and only five of those cannot be trained —
-so 32 trainable skills grant nothing. Queue item 3 in [status.md](status.md) has the
-detail, including a one-line fix beside it: `js/data/skills.js:2277` sets
-`skl.hvt.type` a second time inside the `skl.hst` block, so `skl.hst.type` is never set.
+**Status:** needs a decision. The two bugs beside it are already fixed.
 
-Constraint that shapes the design: a milestone's `f()` runs once and is not repeated on
-load, so it may only write to fields that are themselves saved — `stra`, `agla`, `inta`,
-`spda`, `hpa`, `sata`.
+The premise is partly false in the way that matters most: **level 15 is not a modest floor,
+it is deep endgame.** `expnext()` is identical for all 60 skills, and cumulative experience
+runs 716 at level 5, 47,986 at level 10, and **1,151,201 at level 15** — against typical
+grants of 0.2 to 0.6 per action. The existing design already knows this: of 143 milestone
+entries at level ≤ 15, 69 sit at levels 1-5 and only 6 sit anywhere in 12-14.
 
-### 11. Weapon-mastery titles, and faster mastery while equipped
+The cost depends entirely on the reading, so this needs the owner to pick one:
 
-**Status:** proposed.
+| Reading                                            | New entries | New locale strings |
+| -------------------------------------------------- | ----------- | ------------------ |
+| At least one perk per skill by level 15            | 32          | ~64                |
+| Match existing density across the bare skills      | ~230        | ~460               |
+| Fill levels 1-15 for the 23 that already have some | 202         | ~404               |
+| A perk at every level 1-15 for all 60 skills       | 757         | ~1,514             |
 
-The second half has a constraint that decides how it must be written: equipment is
-rebuilt from the registry on load and only `dp` and `data` are copied back, so a bonus
-written into `str` disappears. The pattern used elsewhere is `oneq`/`onuneq` writing to
-`you.mods`, which the load path re-applies.
+The last is a content mill and does not justify itself by the project's own standard.
 
-### 12. A burn debuff on fire damage
+**Also measured:** five skills can never leave level 0 (`bwc`, `hvt`, `glg`, `mntnc`, `swm`),
+and four of them are referenced nowhere outside `skills.js` — inert definitions. `bwc`'s
+experience _rate_ is raised in five places, all of which multiply zero. Giving these perks
+before giving them an experience path would be writing perks nothing can trigger.
 
-**Status:** proposed, and dependent on entry 5.
+**Fixed in v478.30, both found here:** `skl.hvt.type` was written inside the `skl.hst` block,
+leaving `skl.hst.type` unset — Harvesting was the only type 0 skill and sorted alone. And two
+milestones wrote `you.eqp_t`, which does not exist, so Gluttony's level 10 and Death's level 5
+advertised an EXP bonus and delivered NaN.
 
-A chance for fire damage to leave a creature burning for a while. What has to be
-established first: whether creatures can carry effects at all, and whether any
-damage-over-time already runs against a creature rather than against the player.
+**Correction to the constraint recorded above:** the list of fields a milestone may write is
+wider than `stra`/`agla`/`inta`/`spda`/`hpa`/`sata`. `exp_t`, `luck` and the whole `mods`
+object are saved too — measured writes across all 146 entries: `exp_t` 43, `hpa` 38, `stra`
+32, `agla` 25, `sata` 23, `mods.sbonus` 7, `inta` 6, `mods.cpwr` 3, `luck` 2, `spda` 1.
 
-### 13. Furniture: more of it, and a bed that means something
+### 11. Weapon-mastery titles — **mostly already built**
 
-**Status:** proposed.
+**Status:** needs a decision on the one part that is new.
 
-More furniture, and if a bed exists then "crouch on the floor and nap" should say
-something else. Plain beds should raise the healing rate while resting, by grade.
+Both halves of the request already exist. **22 weapon-mastery titles are in the game, and 13
+of them already carry a mastery gain-rate bonus.** What does _not_ exist is the conditional
+the request implies: making that bonus depend on the title being _worn_. That is the only new
+part, and it is a design decision rather than a gap.
 
-### 14. A lit fireplace that is worth lighting
+### 12. ~~A burn debuff on fire damage~~ — **already shipped**
 
-**Status:** proposed.
+**Status:** closed. Nothing to build.
 
-While the fireplace burns: a higher healing rate and a small energy gain. Sleeping beside
-it grants a "rested" buff after a while — attack speed, attack damage, skill gain — for a
-limited time. The buff has to be a real effect through `giveEff` so it ticks and expires
-with everything else.
+Shipped in commit `c19c781`, "Let fire actually burn: a real burning effect, and a chance to
+catch". A fire hit rolls a chance to apply a burning effect that drains the creature's health
+over time — precisely what the request describes. Verified end to end in both locales. The
+only open detail is a `?? 1` guard in the effect's own code, which is a robustness note rather
+than a feature.
 
-### 15. Unlimited clearing after an area has been cleared enough times
+### 13. Furniture — **two thirds already shipped**
 
-**Status:** proposed, needs a save migration.
+**Status:** agreed on the remaining third.
 
-Area sizes are part of the save and positional, and the last field is `area.mine3`
-(id 131), so a per-area counter can only be appended. Worth combining with the accessory
-slots in queue item 8, since both need a v479 migration and one migration is cheaper than
-two.
+Shipped in commit `ea8fa22` (2026-08-18, "Notice which bed you own, and make a lit fire worth
+sleeping beside"): beds exist, `furniture.bed1` upward, and the "crouch on the floor" line
+already changes when the player owns one, with the healing rate rising by grade.
 
-### 16. Scouting used somewhere other than the one place
+What is left is the third the request also asked for: **two finished, named furniture pieces
+that no player can obtain.** Connecting them is the whole of it.
 
-**Status:** proposed.
+### 14. ~~A fireplace worth lighting~~ — **already shipped**
 
-The scout action exists and is offered in a single location. The request is to find the
-places where it would fit — which is content connection rather than new mechanics, and so
-is the cheapest kind of addition this project allows.
+**Status:** closed. Nothing to build.
 
-### 17. Side stories, continued
+Every clause of this request is in the game, across two commits both dated 2026-08-18:
+`ea8fa22` for the lit fire's healing and energy gain, and `00295f7` ("Leave a night by the
+fire on the player: the Rested effect") for the timed buff after sleeping beside it. Working
+in both locales. The only open item is a wrong comment.
 
-**Status:** proposed. See "Side stories still owed" below, which already lists them.
+### 15. Unlimited clearing — **the cap mostly does not exist**
 
-One decision from the owner is recorded as closed rather than pending: the effect strip
-in the player panel overlapping the LUCK readout is **accepted as it is** — it reads as
-information and that is enough. No change.
+**Status:** needs a decision, and it is smaller than it looked.
+
+Measured over all 31 areas: **21 of the 31 re-arm themselves on clear**, so clearing is
+already unlimited for most of the world. And the "clear it N times, then it opens" pattern the
+request asks for **already ships twice** elsewhere in the game.
+
+So the work is not a new mechanism. It is deciding which of the remaining 10 areas should
+behave like the 21, and whether the existing unlock pattern should be reused for any of them.
+That is a content decision and needs no save migration — which removes the reason this was
+paired with the accessory slots.
+
+### 16. Scouting elsewhere — **wired in 12 places, with two bugs**
+
+**Status:** agreed on the bugs; the extension is a smaller job than stated.
+
+"Used nowhere else" is false: scouting is wired into **12 places** — 7 locations and 5 sectors
+carry scout tables, and on a fresh game 52 of the 82 registered scenes can reach one.
+
+Underneath the wrong premise are two real bugs with no design question attached:
+
+- a forest that reports itself searched while having no table at all, and
+- a coal mine whose scout path cannot be completed.
+
+Fix those two first; extending scouting further is then a content choice rather than a
+mechanic.
 
 ### 18. The surfaces the dark redesign skipped
 

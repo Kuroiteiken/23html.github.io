@@ -26,139 +26,188 @@ Sahibinin istediği ve henüz bitmemiş her şey, oturumlar arasında hiçbir ş
 diye işe başlanmadan önce buraya kaydedilir. Bir madde yayına girdiğinde bu listeden
 çıkar; ne yaptığı changelog'a, hikâyeye dokunuyorsa [STORY.md](STORY.md) dosyasına girer.
 
-> **Bu maddeler araştırılıyor.** Her biri, sahibinin kuralı gereği önce buraya yazılıyor,
-> sonra kodla karşılaştırılıp doldurulacak: üzerine kurulacak neyin zaten var olduğu,
-> gerçekten yeni yazılması gerekenin ne olduğu ve ölçülen sayılar. Bir madde bu ayrıntıyı
-> taşımadığı sürece onu bir plan değil, kaydedilmiş bir istek say.
+> **Bu maddeler kaydedildikten sonra kodla karşılaştırıldı ve araştırma birkaçını
+> değiştirdi.** İkisinin zaten yayınlanmış olduğu çıktı. Dördü, ölçümün çürüttüğü bir öncüle
+> dayanıyordu. Yol boyunca bulunan iki tek-kelimelik hata v478.30'da düzeltildi. Aşağıdaki
+> her madde ölçümün ne bulduğunu söylüyor, çünkü akıldan yazılmış bir istek ile koddan
+> yazılmış bir istek aynı istek değildir.
 
-**Önce cevap, sonra yapım.** 5. madde bir özellik değil bir soru ve aşağıdaki iki madde
-onun cevabına bağlı: bir direnç alanının hiç okunmadığı çıkarsa, yanma debuff'ı (12.
-madde) ve kalkan değerleri (7. madde) başka türlü tasarlanmak zorunda. Cevaplanmamış bir
-soruya dayanan iş iki kez yapılır.
+### 5. Dirençler dövüşte okunuyor mu? — **cevap: çoğunlukla hayır**
 
-### 5. Direnç alanları dövüşte gerçekten okunuyor mu?
+**Durum:** cevaplandı. Ondan çıkan şey bir karar.
 
-**Durum:** soru, ölçülüyor.
+`res` nesnesinin 12 alanı var; oyuncuda (`js/core/player.js:89-102`) ve her yaratıkta
+birebir aynı. **On ikisinden on biri `dmg_calc` tarafından hiç okunmuyor.** Bir efektin
+uygulanıp uygulanmayacağını belirliyorlar, ne kadar hasar geçtiğini değil — `giveEff` onlara
+danışıyor, hasar yolu danışmıyor.
 
-Sahibi, ağrı direnci, ölümsüz direnci ve karanlık savunma gibi dirençlerin hasar
-azaltmada dikkate alınıp alınmadığını soruyor. Bu tartışılacak değil cevaplanacak bir şey:
-`res` nesnesinin her alanı çıkarılır, her birinin okunduğu her yer bulunur ve etki
-`tests/harness.js` ile kanıtlanır — bir alan değiştirilip `dmg_calc` ölçülür. Alan başına
-sonuç üç şeyden biri: okunuyor ve etkili, okunuyor ama etkisiz, hiç okunmuyor.
+Ve isteğin saydığı üç şey üç farklı sistemde yaşıyor; yalnızca biri bir `res` alanı:
 
-### 6. Unvanlar: yorumda bırakılmış verme kodu
+- **Ağrı direnci** `res.ph`, ve canlı bir okuyucusu olan tek alan.
+- **Ölümsüz direnci** bir `res` alanı değil. Yaratığın `type`'ına göre indekslenen
+  `you.maff` / `you.cmaff`, ki `dmg_calc` onu okuyor.
+- **Karanlık savunma** da bir `res` alanı değil. Yakınlık dizilerindeki karanlık element
+  yuvası, `aff[6]`.
 
-**Durum:** kabul edildi — bu bir düzeltme, ekleme değil.
+Dürüst cevap şu: dirençler hasarı azaltmıyor, bir istisna dışında; ve sayılan üç şeyin ikisi
+direnç değil. **Azaltmalı mı** sorusu bir karar ve 4. maddeyle etkileşiyor — hasar azaltma
+terimi formüldeki baskın sayı zaten.
 
-`js/data/equipment.js:2730-2731` `ttl.mone2` ve `ttl.mone3` için yoruma alınmış iki verme
-işlevi tutuyor ve ikisi de `ttl.mone1`'in zaten kullandığı `global.stat.moneyg >= GOLD`
-koşulunu deniyor — yani yorumdan çıkarılsalar bile birlikte tetiklenirlerdi. `shpt2`,
-`shpt3` ve `mone3`'ün dil kayıtları da boş. Sahibinin "unvanlarda iyileştirme ve arttırım"
-isteği buradan başlıyor, çünkü hiçbir şeyin veremediği bir unvan içerik değildir.
+**Ölçüm sırasında bulunan net bir hata:** `js/data/skills.js:499`, `you.res.ph += 0.01` yazan
+bir kilometre taşı. İşaret, `res.ph`'ın tüketilme yönüne göre ters. Değiştirmeden önce yönü
+doğrula; her hâlükârda tek satır.
 
-### 7. Kalkanlar: taslakları, değerleri ve rütbeleri
+### 6. Unvanlar: 26'sı yazılmış, çevrilmiş ve hiç verilmiyor
 
-**Durum:** kabul edildi — eklemeden önce bir düzeltme.
+**Durum:** kabul edildi, ve göründüğünden ucuz.
 
-**Daha önce kaydedilen öncül eskimiş.** "On dört kalkanın on biri `str 0` ile geldi"
-artık doğru değil: on yedi kalkan var ve hiçbirinin `str`'si 0 değil — harness ile
-ölçüldü, `csr`'de 4'ten `drd`'de 23'e uzanıyorlar ve `aff[0]` ile `cls` baştan sona
-dolu. Yani değerler var; gerçekten gözden geçirilecek olan bu merdivenin doğru olup
-olmadığı — ki sahibinin istediğinin öbür yarısı da bu.
+İstek "unvanlarda iyileştirme ve arttırım" idi. Ölçüm sorunun ekleme olmadığını söylüyor:
+**26 unvan iki dilde tamamen yazılmış, çevrilmiş ve hiçbir verme yolu yok.** En büyük dört
+aile zaten canlı, kaydedilen sayaçlar taşıyor, dolayısıyla bunları bağlamak tasarım değil
+kablolama. `js/data/equipment.js:2730-2731` bunun parçası: yorumda bırakılmış iki verme
+işlevi, ikisi de `ttl.mone1`'in zaten kullandığı `moneyg >= GOLD` koşulunu deniyor, yani
+oldukları gibi yorumdan çıkarılsalar üçü birden tetiklenirdi.
 
-Eski notun kaçırdığı ve ölçümün bulduğu bir şey: **her kalkanın `int`'i 0**, on yedisinin
-de. `dmg_calc`'ın büyü dalında bir kalkan `you.eqp[1].int` üzerinden katkı yapıyor,
-dolayısıyla oyundaki hiçbir kalkan bir büyüye karşı hiç savunma yapmıyor. İlgili ve aynı geçişte yapılmaya değer: `you.eqp[5]` her zaman paylaşılan
-`eqp.dummy` ve o, `creature.wolfa1`'in içine yazdığı `cls [9,10,9]` ile `aff[0] 14`'ü
-taşıyor — [status.md](status.md) kuyruk 6. madde. Bu temizlenmeden "kalkan her zaman
-hasarı azaltır" doğru hâle getirilemez.
+Bu, projenin kendi kuralı, üzerine hiçbir şey eklenmemiş hâli: daha fazlasını yazmadan önce
+biteni bağla.
 
-### 8. Kaynağı olmayan şifa iksirleri
+### 7. Kalkanlar: rütbeler, kaynağı olmayan yedisi ve `eqp.dummy`
+
+**Durum:** kabul edildi. Taslak öncülü eskimiş; `eqp.dummy` yarısı tam isabet.
+
+"On dört kalkanın on biri `str 0` ile geldi" hiçbir zaman tam olarak bu şekilde değildi ve
+artık hiç doğru değil: **on yedi** kalkan var, hiçbiri `str 0` değil, `csr`'de 4'ten `drd`'de
+23'e uzanıyorlar ve `aff[0]` ile `cls` baştan sona dolu — `ee65ee8` commit'inde bitirilmiş.
+
+Gerçekten kalan:
+
+- **On yedinin yedisinin hiç kaynağı yok** — ne tarif, ne satıcı, ne düşme.
+- **On yedisinin de `int`'i 0**, dolayısıyla `dmg_calc`'ın büyü dalında, bir kalkanın
+  `you.eqp[1].int` üzerinden katkı yaptığı yerde, oyundaki hiçbir kalkan bir büyüye karşı
+  savunma yapmıyor.
+- [status.md](status.md) kuyruk 6. maddedeki `eqp.dummy` sorunu kaydedildiği gibi duruyor ve
+  "kalkan her zaman hasarı azaltır" o temizlenmeden doğru hâle getirilemez.
+
+### 8. Tekrarlanabilir kaynağı olmayan iyileştirme eşyaları
 
 **Durum:** kabul edildi — düzeltme.
 
-Sahibi yalnızca en küçük şifa eşyasının üretilebildiğini bildiriyor. Her iyileştirme
-eşyasının kaynağı saptanmalı — tarif, satıcı ya da düşme — ve hiçbiri olmayanlara bir
-kaynak verilmeli. Bu, projenin kendi kuralının uygulanması: daha fazla icat etmeden önce
-var olanı bağla.
+352 eşyanın tamamı üzerinde ölçüldü: altı anlık iyileştirme eşyası, üçü azami HP'yi yükselten,
+ve oyunda **hiç** HP yenilenme efekti yok. İsteğin işaret ettiği açık gerçek: **`hptn2`
+bitmiş, çevrilmiş, oyunun gerçekten ulaştığı seviye bandı için dengelenmiş ve tekrarlanabilir
+hiçbir kaynağı yok.** Bir tarif bunu kapatıyor.
 
-### 9. Üretim: çeşitlendirme ve işe yaramayan yıldız tozu
+### 9. Üretim: kimsenin öğrenemediği 19 bitmiş tarif, ve yıldız tozu
 
-**Durum:** önerildi.
+**Durum:** kabul edildi.
 
-Tek bir sorunun iki yarısı. `item.stdst` üretiliyor ve gidecek bir yeri yok; tarif
-listesinin tamamı da tek yöne eğilimli. İkisi için de bir şey eklenmeden önce mevcut şekil
-ölçülmeli, ki "çeşitlendirme" denetlenebilir bir anlam taşısın.
+62 tarif var. Ölçüm, çeşitlendirme sorununun isteğin koyduğu yerde olmadığını buldu: **19
+bitmiş, tamamen çevrilmiş tarifin oyuncunun öğrenebileceği hiçbir yolu yok.** Önce onları
+bağla — yine projenin kendi kuralı — ve kalan açık yaklaşık dokuz gündelik yemek satırı.
 
-### 10. Her yeteneğe 15. seviyeye kadar avantaj
+`item.stdst` "boş kalıyor"dan kötü durumda: **62 tarifin sıfırı ona dokunuyor** ve `use()`'unun
+tamamı bir mesaj. En ucuz doğru düzeltme, zaten var olan `effect.cdlt`'yi yeniden kullanıyor.
 
-**Durum:** önerildi.
+### 10. Her yeteneğe 15. seviyeye kadar avantaj — **kapsam için karar gerekiyor**
 
-60 yetenekten 37'sinde hiç kilometre taşı yok ve bunların yalnızca beşi eğitilemiyor —
-yani 32 eğitilebilir yetenek hiçbir şey vermiyor. Ayrıntısı [status.md](status.md) kuyruk 3. maddede, yanındaki tek satırlık düzeltmeyle birlikte:
-`js/data/skills.js:2277` `skl.hvt.type`'ı `skl.hst` bloğunun içinde ikinci kez ayarlıyor,
-dolayısıyla `skl.hst.type` hiç ayarlanmıyor.
+**Durum:** karar gerekiyor. Yanındaki iki hata zaten düzeltildi.
 
-Tasarımı belirleyen kısıt: bir kilometre taşının `f()`'i bir kez çalışıyor ve yüklemede
-tekrarlanmıyor, o yüzden yalnızca kendisi kaydedilen alanlara yazabilir — `stra`, `agla`,
-`inta`, `spda`, `hpa`, `sata`.
+Öncül, en çok önem taşıyan biçimde kısmen yanlış: **15. seviye mütevazı bir taban değil, derin
+endgame.** `expnext()` 60 yeteneğin hepsinde aynı ve kümülatif deneyim 5. seviyede 716, 10.
+seviyede 47.986, **15. seviyede 1.151.201** — eylem başına 0,2 ile 0,6 arası tipik kazançlara
+karşı. Mevcut tasarım bunu zaten biliyor: seviye ≤ 15'teki 143 kilometre taşı girdisinin
+69'u 1-5 seviyelerinde ve yalnızca 6'sı 12-14 arasında bir yerde.
 
-### 11. Silah ustalığı unvanları ve takılıyken hızlanan ustalık
+Maliyet tamamen okumaya bağlı, o yüzden burada sahibinin birini seçmesi gerekiyor:
 
-**Durum:** önerildi.
+| Okuma                                               | Yeni girdi | Yeni dil dizgesi |
+| --------------------------------------------------- | ---------- | ---------------- |
+| Yetenek başına 15. seviyeye kadar en az bir avantaj | 32         | ~64              |
+| Boş yeteneklerde mevcut yoğunluğu tutmak            | ~230       | ~460             |
+| Zaten bir kısmı olan 23'te 1-15 arasını doldurmak   | 202        | ~404             |
+| 60 yeteneğin hepsinde her seviyede bir avantaj      | 757        | ~1.514           |
 
-İkinci yarının nasıl yazılacağını belirleyen bir kısıt var: ekipman yüklemede registry'den
-yeniden kuruluyor ve yalnızca `dp` ile `data` geri kopyalanıyor, dolayısıyla `str`'ye
-yazılan bir bonus yok oluyor. Başka yerde kullanılan desen `oneq`/`onuneq` ile
-`you.mods`'a yazmak; yükleme yolu onu yeniden uyguluyor.
+Son okuma bir içerik değirmeni ve projenin kendi ölçütüne göre kendini haklı çıkarmıyor.
 
-### 12. Ateş hasarında yanma debuff'ı
+**Ayrıca ölçüldü:** beş yetenek 0. seviyeden hiç çıkamıyor (`bwc`, `hvt`, `glg`, `mntnc`,
+`swm`) ve dördü `skills.js` dışında hiçbir yerde referans edilmiyor — atıl tanımlar. `bwc`'nin
+deneyim _oranı_ beş yerde yükseltiliyor ve hepsi sıfırı çarpıyor. Bu beşine deneyim yolu
+vermeden avantaj vermek, hiçbir şeyin tetikleyemeyeceği avantaz yazmak olurdu.
 
-**Durum:** önerildi, 5. maddeye bağlı.
+**v478.30'da düzeltildi, ikisi de burada bulundu:** `skl.hvt.type` `skl.hst` bloğunun içine
+yazılmıştı, `skl.hst.type` ayarsız kalıyordu — Harvesting tek type 0 yetenekti ve tek başına
+sıralanıyordu. Ve iki kilometre taşı var olmayan `you.eqp_t`'ye yazıyordu, dolayısıyla
+Oburluk'un 10. ve Ölüm'ün 5. seviyesi EXP bonusu vaat edip NaN veriyordu.
 
-Ateş hasarının bir yaratığı bir süre yanık bırakma şansı. Önce saptanması gerekenler:
-yaratıkların efekt taşıyıp taşıyamadığı, ve oyuncuya değil bir yaratığa karşı çalışan bir
-zamana yayılı hasarın zaten var olup olmadığı.
+**Yukarıda kaydedilen kısıta düzeltme:** bir kilometre taşının yazabileceği alanların listesi
+`stra`/`agla`/`inta`/`spda`/`hpa`/`sata`'dan geniş. `exp_t`, `luck` ve `mods` nesnesinin
+tamamı da kaydediliyor — 146 girdideki ölçülen yazımlar: `exp_t` 43, `hpa` 38, `stra` 32,
+`agla` 25, `sata` 23, `mods.sbonus` 7, `inta` 6, `mods.cpwr` 3, `luck` 2, `spda` 1.
 
-### 13. Mobilya: birkaç tane daha, ve anlamı olan bir yatak
+### 11. Silah ustalığı unvanları — **çoğu zaten kurulu**
 
-**Durum:** önerildi.
+**Durum:** yeni olan tek parça için karar gerekiyor.
 
-Daha fazla mobilya, ve bir yatak varsa "yere çök ve biraz kestir" başka bir şey demeli.
-Sade yataklar dinlenirken iyileşme hızını yükseltmeli, derecesine göre artımlı.
+İsteğin iki yarısı da zaten var. **22 silah ustalığı unvanı oyunda ve 13'ü zaten bir ustalık
+kazanç oranı bonusu taşıyor.** Var **olmayan** şey, isteğin ima ettiği koşul: o bonusu unvanın
+**takılı olmasına** bağlamak. Yeni olan tek parça bu, ve bir eksik değil bir tasarım kararı.
 
-### 14. Yakmaya değer bir şömine
+### 12. ~~Ateş hasarında yanma debuff'ı~~ — **zaten yayınlandı**
 
-**Durum:** önerildi.
+**Durum:** kapalı. Yapılacak bir şey yok.
 
-Şömine yandığı sürece: daha yüksek iyileşme hızı ve hafif bir enerji kazanımı. Yanında
-uyumak bir süre sonra "dinlendin" buff'ı veriyor — saldırı hızı, saldırı hasarı, yetenek
-kazanımı — belirli bir süre için. Buff, her şeyle birlikte tiklesin ve sona ersin diye
-`giveEff` üzerinden gerçek bir efekt olmak zorunda.
+`c19c781` commit'inde yayınlandı: "Let fire actually burn: a real burning effect, and a chance
+to catch". Bir ateş vuruşu, yaratığın sağlığını zamanla düşüren bir yanma efekti uygulama
+şansı atıyor — tam olarak isteğin tarif ettiği şey. İki dilde baştan sona doğrulandı. Açık kalan
+tek ayrıntı efektin kendi kodundaki bir `?? 1` koruması, ki o bir özellik değil sağlamlık notu.
 
-### 15. Yeterince temizlenmiş bir bölgede sınırsız temizleme
+### 13. Mobilya — **üçte ikisi zaten yayınlandı**
 
-**Durum:** önerildi, kayıt göçü gerekiyor.
+**Durum:** kalan üçte bir için kabul edildi.
 
-Alan boyutları kaydın parçası ve konumsal; son alan `area.mine3` (id 131), dolayısıyla
-bölge başına bir sayaç ancak sona eklenebilir. Kuyruk 8. maddedeki aksesuar yuvalarıyla
-birleştirmeye değer: ikisi de bir v479 göçü gerektiriyor ve bir göç iki göçten ucuzdur.
+`ea8fa22` commit'inde yayınlandı (2026-08-18, "Notice which bed you own, and make a lit fire
+worth sleeping beside"): yataklar var, `furniture.bed1` ve üstü, ve oyuncu bir yatağa sahip
+olduğunda "yere çök" satırı zaten değişiyor, iyileşme hızı da derecesine göre yükseliyor.
 
-### 16. "Araştır"ın tek yer dışında da kullanılması
+Kalan, isteğin de sorduğu üçte bir: **hiçbir oyuncunun elde edemediği, bitmiş ve adı konmuş
+iki mobilya parçası.** Onları bağlamak işin tamamı.
 
-**Durum:** önerildi.
+### 14. ~~Yakmaya değer bir şömine~~ — **zaten yayınlandı**
 
-Araştırma eylemi var ve tek bir konumda sunuluyor. İstek, uyacağı yerleri bulmak — ki bu
-yeni mekanik değil içerik bağlamak, yani bu projenin izin verdiği en ucuz ekleme türü.
+**Durum:** kapalı. Yapılacak bir şey yok.
 
-### 17. Yan hikâyelere devam
+Bu isteğin her cümlesi oyunda, ikisi de 2026-08-18 tarihli iki commit'te: yanan ateşin
+iyileşmesi ve enerji kazancı için `ea8fa22`, yanında uyuduktan sonraki süreli buff için
+`00295f7` ("Leave a night by the fire on the player: the Rested effect"). İki dilde çalışıyor.
+Açık kalan tek şey yanlış bir yorum.
 
-**Durum:** önerildi. Aşağıdaki "Hâlâ borçlu olunan yan hikâyeler" bölümü onları zaten
-listeliyor.
+### 15. Sınırsız temizleme — **kaldırılacak sınır çoğunlukla yok**
 
-Sahibinin bir kararı bekleyen değil **kapanmış** olarak kaydedildi: oyuncu panelindeki
-efekt şeridinin ŞANS okumasına binmesi **olduğu gibi kabul edildi** — bilgi olarak
-okunuyor ve bu yeterli. Değişiklik yok.
+**Durum:** karar gerekiyor, ve göründüğünden küçük.
+
+31 alanın tamamı üzerinde ölçüldü: **31'in 21'i temizlenince kendini yeniliyor**, dolayısıyla
+dünyanın büyük kısmı için temizleme zaten sınırsız. Ve isteğin sorduğu "N kez temizle, sonra
+açılır" deseni oyunun başka yerinde **zaten iki kez yayınlanmış**.
+
+Yani iş yeni bir mekanizma değil. Kalan 10 alandan hangilerinin 21'i gibi davranması gerektiğine
+ve mevcut açılma deseninin hangileri için yeniden kullanılacağına karar vermek. Bu bir içerik
+kararı ve kayıt göçü gerektirmiyor — ki bu, bu maddenin aksesuar yuvalarıyla eşleştirilme
+sebebini ortadan kaldırıyor.
+
+### 16. Araştırmanın başka yerlerde kullanılması — **12 yerde bağlı, iki hatayla**
+
+**Durum:** hatalar için kabul edildi; genişletme, söylendiğinden küçük bir iş.
+
+"Başka hiçbir yerde kullanılmıyor" yanlış: araştırma **12 yere** bağlı — 7 konum ve 5 sektör
+araştırma tablosu taşıyor ve yeni bir oyunda kayıtlı 82 sahnenin 52'si birine ulaşabiliyor.
+
+Yanlış öncülün altında, hiçbir tasarım sorusu bağlı olmayan iki gerçek hata var:
+
+- tablosu hiç olmadığı hâlde kendini "arandı" bildiren bir orman, ve
+- araştırma yolu tamamlanamayan bir kömür madeni.
+
+Önce bu ikisini düzelt; araştırmayı daha ileri götürmek ondan sonra bir mekanik değil içerik
+seçimi.
 
 ### 18. Karanlık tasarımın atladığı yüzeyler
 

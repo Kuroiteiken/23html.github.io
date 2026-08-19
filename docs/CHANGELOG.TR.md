@@ -471,6 +471,35 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   kuramıyordu; iskeletin kendi davranışını `tests/probes/save-transfer-modal.js` zaten
   kapsıyor. Hangisinin hangisi olduğunu söylemek, test sayısından önemli.
 
+- Sahibinin sıraya aldığı on üç istek, PROPOSALS'a plan olarak geçmeden önce kodla
+  karşılaştırıldı — harness ile ölçülerek, akıldan değil. Araştırma birkaç maddeyi değiştirdi
+  ve ikisini tamamen kapattı.
+- **İkisi zaten yayınlanmıştı.** Ateş hasarında yanma debuff'ı `c19c781`'de yapılmış; şöminenin
+  iyileşme hızı, enerji kazancı ve yanında uyuduktan sonraki "dinlendin" buff'ı `ea8fa22` ile
+  `00295f7`'de, ikisi de 2026-08-18'de. Mobilya isteğinin üçte ikisi de aynı commit'te.
+  Ölçmeden PROPOSALS'a plan olarak yazmak, var olan üç şeyi yeniden yapmak olurdu.
+- **Dört öncül ölçümle çürütüldü.** "Her yeteneğe 15. seviyeye kadar avantaj": 15. seviye
+  1.151.201 kümülatif deneyim, eylem başına 0,2-0,6 kazançla — mütevazı bir taban değil derin
+  endgame, ve mevcut tasarım bunu zaten biliyor (143 kilometre taşının 69'u 1-5 seviyelerinde).
+  "Bölge sınırsız temizleme": 31 alanın 21'i temizlenince kendini yeniliyor ve açılma deseni
+  başka yerde iki kez var. "Araştır tek yerde": 12 yerde bağlı. "Silah ustalığı unvanları":
+  22'si zaten var ve 13'ünde kazanç bonusu var.
+- **Asıl iş, isteklerin işaret ettiği yerde değil, bitmiş ama bağlanmamış içerikte.** 26 unvan
+  iki dilde yazılmış ve hiç verilmiyor. 19 tarif bitmiş, çevrilmiş ve öğrenilemiyor. `hptn2`
+  dengelenmiş ve tekrarlanabilir kaynağı yok. On yedi kalkanın yedisinin hiç kaynağı yok, ve
+  hepsinin `int`'i 0 olduğu için `dmg_calc`'ın büyü dalında hiçbir kalkan savunma yapmıyor.
+  `item.stdst`'ye 62 tarifin sıfırı dokunuyor. Projenin kendi kuralı zaten bunu söylüyor.
+- **Direnç sorusu cevaplandı ve cevap "hayır".** `res` nesnesinin 12 alanından 11'i `dmg_calc`
+  tarafından hiç okunmuyor — bir efektin uygulanıp uygulanmayacağını belirliyorlar, ne kadar
+  hasar geçtiğini değil. Ayrıca sahibinin saydığı üç şeyden ikisi `res` alanı bile değil:
+  ölümsüz direnci `you.maff`/`you.cmaff`, karanlık savunma ise `aff[6]`. Yalnızca ağrı direnci
+  (`res.ph`) bir `res` alanı ve canlı okuyucusu olan tek alan.
+- **`CLAUDE.md`'deki kısıt listesi eksikti.** Bir kilometre taşının yazabileceği kaydedilen
+  alanlar yalnızca `stra`/`agla`/`inta`/`spda`/`hpa`/`sata` değil; `exp_t`, `luck` ve `mods`
+  nesnesinin tamamı da kaydediliyor. 146 girdide ölçülen yazımlar: `exp_t` 43, `hpa` 38,
+  `stra` 32, `agla` 25, `sata` 23, `mods.sbonus` 7, `inta` 6, `mods.cpwr` 3, `luck` 2,
+  `spda` 1.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla
