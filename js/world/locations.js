@@ -2630,12 +2630,46 @@ chss.frstn3main.sl = () => {
   ).addEventListener("click", () => {
     smove(chss.frstn9a1m);
   });
+  // Opened by clearing the foliage once, the same way the west opens its own endless
+  // ground. Reuses the west's label: it is the same offer in a different wood.
+  if (global.flags.frstn9a2u)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hunt_indefinitely_3500bd58"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.frstn9a2);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
     false,
   ).addEventListener("click", () => {
     smove(chss.lsmain1);
   });
+};
+
+// The southern forest's endless ground. Built on chss.frstn1a3, the west's equivalent:
+// the scene itself only describes the place and offers a way back, because area_init
+// draws the fight and onEnter is what starts it.
+chss.frstn9a2 = new Chs();
+chss.frstn9a2.id = 183;
+addtosector(sector.forest2, chss.frstn9a2);
+chss.frstn9a2.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("content.area.frstn9a2.name"));
+  global.lst_loc = 183;
+  chs(
+    i18n.t("runtime.world.locations.dialogue.this_place_looks_dark_a6f528d6"),
+    true,
+  );
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_back_57c1bb08"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.frstn3main);
+  });
+};
+chss.frstn9a2.onEnter = function () {
+  area_init(area.frstn9a2);
 };
 
 chss.frstn9a1m = new Chs();
@@ -3326,6 +3360,16 @@ chss.nfld1.sl = () => {
         smove(chss.nfld1, false);
       });
   });
+  // Opened by clearing the stubble once. The fields keep working rather than hunting, so
+  // this reuses the west's label for the same reason the south does: what the player is
+  // being offered is an area that does not run out.
+  if (global.flags.nfld3u)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hunt_indefinitely_3500bd58"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.nfld3);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.on_to_the_far_field"),
     false,
@@ -3346,6 +3390,26 @@ chss.nfld1.sl = () => {
 // straw effigy in the game's own recipe book is described as a doll used to bind with
 // the souls of the living, appropriate for curses and dark magic. Field guardians in
 // this village were bound, not built, and the dark ki has reached what is in them.
+// The fields' endless ground, on the same shape as the west's and the south's.
+chss.nfld3 = new Chs();
+chss.nfld3.id = 184;
+addtosector(sector.north, chss.nfld3);
+chss.nfld3.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("content.area.nfld3.name"));
+  global.lst_loc = 184;
+  chs(i18n.t("runtime.world.locations.dialogue.north_fields_arrival"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nfld1);
+  });
+};
+chss.nfld3.onEnter = function () {
+  area_init(area.nfld3);
+};
+
 chss.nfld2 = new Chs();
 chss.nfld2.id = 176;
 addtosector(sector.north, chss.nfld2);

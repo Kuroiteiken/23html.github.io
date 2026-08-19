@@ -629,6 +629,27 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   için `text`/`diff`/`linguist-generated`'i doğru çözüyor, ve `git add --renormalize .` yeni
   kurallarla satır sonu çelişen hiçbir dosya bildirmiyor.
 
+- Güney ormanı ile kuzey tarlaları süresiz av sahalarına kavuştu. `area.frstn9a2` ve `area.nfld3`,
+  ikisi de `size -1` ve `protected`, `area.frstn9a1` ya da `area.nfld1` bir kez temizlenince
+  açılıyor -- batı ormanının `area.frstn1a3` ve `global.flags.frstn1a3u` ile baştan beri sahip
+  olduğu şeklin aynısı. Şimdiye kadar batı, oyunda tükenmeyen tek bölgeydi.
+- Popülasyonları, sınırlı kardeşlerinin popülasyonları; değiştirilmedi. Bu tembellik değil bilinçli:
+  süresiz bir alan oyuncunun grind yaptığı yer, dolayısıyla sunduğu dövüş bölgenin zaten kurduğu
+  dövüş olmak zorunda. `check-combat.js` ikisini de aynı bütçeye karşı ölçüyor ve artık 66 değil
+  71 popülasyon girdisi bildiriyor, hepsi bütçe içinde.
+- İkisi de diğer bütün alanlardan **sonra** eklendi ve haklarındaki değiştirilmesi serbest olmayan
+  tek şey bu: `save()` alan boyutlarını registry'yi `for...in` sırasıyla dolaşarak konumsal yazıyor,
+  `load()` da indeksle geri okuyor. Sona değil başka bir yere eklenen bir alan, kendisinden sonraki
+  her alanın kayıtlı boyutunu kaydırır -- var olan her kayıtta -- ve kaymış bir sayının hiçbir yeri
+  yanlış görünmez. `tests/check-shared-state.js` bu yüzden artık registry'nin kuyruğunu adlarıyla
+  sabitliyor; eklemek yerine araya sokmak, kayıtları sessizce bozmak yerine bir denetimi düşürüyor.
+- Aynı denetim `size -1` olan her alanın `protected` olmasını zorunlu kılıyor, çünkü korumasız
+  olan yeniden kurulabilir ve süresiz olmaktan çıkar. `area.tst`, `scripts/check-combat.js`'in onu
+  dışlamasıyla aynı sebeple dışlandı: geliştirici tezgâhı.
+- Kaynak olarak değil akış olarak doğrulandı: her sınırlı alanın `onEnd`'ini harness üzerinden
+  çağırmak kilit bayrağını `false`'tan `true`'ya çeviriyor, ve iki süresiz alan da `z_bake`'ten
+  spawn ağırlıkları kurulmuş hâlde çıkıyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

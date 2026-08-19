@@ -350,6 +350,10 @@
       ],
       "v478_32": [
         "The save bar has a link to the game's source on GitHub, beside the version number that opens the changelog."
+      ],
+      "v478_33": [
+        "The southern forest and the northern fields have endless hunting grounds now, the way the western woods already did. Clear the foliage or the stubble once and the region offers a place that does not run out.",
+        "You can tell them by the area readout: it shows the infinity sign instead of a count of what is left."
       ]
     },
     "lore": {
@@ -4705,63 +4709,6 @@
       }
     },
     "area": {
-      "nwh": {
-        "name": "Somewhere"
-      },
-      "trn": {
-        "name": "Training Grounds"
-      },
-      "trnf": {
-        "name": "Training Grounds"
-      },
-      "trn1": {
-        "name": "Training Grounds"
-      },
-      "trn2": {
-        "name": "Training Grounds"
-      },
-      "trn3": {
-        "name": "Training Grounds"
-      },
-      "clg": {
-        "name": "Damp cellar"
-      },
-      "tst": {
-        "name": "Test"
-      },
-      "frstn1a2": {
-        "name": "Western forest hunting area"
-      },
-      "hmbsmnt": {
-        "name": "Your basement"
-      },
-      "trne1": {
-        "name": "Training Grounds"
-      },
-      "frstn2a2": {
-        "name": "Western forest hunting area"
-      },
-      "trne2": {
-        "name": "Training Grounds"
-      },
-      "trne3": {
-        "name": "Training Grounds"
-      },
-      "frstn1a3": {
-        "name": "Western forest hunting area"
-      },
-      "frstn1a4": {
-        "name": "Western forest hidden area"
-      },
-      "trne4": {
-        "name": "Training Grounds"
-      },
-      "frstn9a1": {
-        "name": "Southern forest hunting area"
-      },
-      "frstn10a1": {
-        "name": "Southern forest hollow"
-      },
       "cata1a": {
         "name": "Upper catacombs"
       },
@@ -4777,20 +4724,35 @@
       "cata5a": {
         "name": "The end of journey"
       },
-      "ngtmr": {
-        "name": "Nightmare"
+      "clg": {
+        "name": "Damp cellar"
+      },
+      "frstn10a1": {
+        "name": "Southern forest hollow"
+      },
+      "frstn1a2": {
+        "name": "Western forest hunting area"
+      },
+      "frstn1a3": {
+        "name": "Western forest hunting area"
+      },
+      "frstn1a4": {
+        "name": "Western forest hidden area"
+      },
+      "frstn2a2": {
+        "name": "Western forest hunting area"
+      },
+      "frstn9a1": {
+        "name": "Southern forest hunting area"
+      },
+      "frstn9a2": {
+        "name": "Southern forest hunting grounds"
+      },
+      "hmbsmnt": {
+        "name": "Your basement"
       },
       "lrck1": {
         "name": "The stone plate"
-      },
-      "nfld1": {
-        "name": "The stubble fields"
-      },
-      "nfld2": {
-        "name": "The far field"
-      },
-      "ngrn1": {
-        "name": "The grain store"
       },
       "mine1": {
         "name": "The adit"
@@ -4800,6 +4762,54 @@
       },
       "mine3": {
         "name": "The deep cut"
+      },
+      "nfld1": {
+        "name": "The stubble fields"
+      },
+      "nfld2": {
+        "name": "The far field"
+      },
+      "nfld3": {
+        "name": "The open fields"
+      },
+      "ngrn1": {
+        "name": "The grain store"
+      },
+      "ngtmr": {
+        "name": "Nightmare"
+      },
+      "nwh": {
+        "name": "Somewhere"
+      },
+      "trn": {
+        "name": "Training Grounds"
+      },
+      "trn1": {
+        "name": "Training Grounds"
+      },
+      "trn2": {
+        "name": "Training Grounds"
+      },
+      "trn3": {
+        "name": "Training Grounds"
+      },
+      "trne1": {
+        "name": "Training Grounds"
+      },
+      "trne2": {
+        "name": "Training Grounds"
+      },
+      "trne3": {
+        "name": "Training Grounds"
+      },
+      "trne4": {
+        "name": "Training Grounds"
+      },
+      "trnf": {
+        "name": "Training Grounds"
+      },
+      "tst": {
+        "name": "Test"
       }
     },
     "lore": {

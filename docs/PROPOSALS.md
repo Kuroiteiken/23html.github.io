@@ -197,8 +197,13 @@ Measured over all 31 areas: **21 of the 31 re-arm themselves on clear**, so clea
 already unlimited for most of the world. And the "clear it N times, then it opens" pattern the
 request asks for **already ships twice** elsewhere in the game.
 
-So the work is not a new mechanism. It is deciding which of the remaining 10 areas should
-behave like the 21, and whether the existing unlock pattern should be reused for any of them.
+**Partly done in v478.33.** The owner asked for the endless-hunting pattern -- the one the west
+has had all along, where a cleared region opens a sibling area with `size -1` that reports the
+infinity glyph instead of a count -- to reach the south and the fields. `area.frstn9a2` and
+`area.nfld3` do that now, unlocked by clearing their bounded siblings once.
+
+What is left is the same decision as before, narrowed: which of the remaining regions should get
+one. The catacombs and the mine are the obvious candidates and neither has been decided.
 That is a content decision and needs no save migration — which removes the reason this was
 paired with the accessory slots.
 

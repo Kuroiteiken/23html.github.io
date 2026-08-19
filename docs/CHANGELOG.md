@@ -625,6 +625,27 @@ pending`. It exists because two of the owner's requests turned out to have shipp
   for a stylesheet, a png, a jpg and the lockfile, and `git add --renormalize .` reports no file
   whose line endings disagree with the new rules.
 
+- The southern forest and the northern fields have endless hunting grounds. area.frstn9a2 and
+  area.nfld3, both size -1 and protected, unlocked by clearing area.frstn9a1 or area.nfld1 once --
+  the same shape the western woods has had all along with area.frstn1a3 and
+  global.flags.frstn1a3u. Until now the west was the only region in the game that did not run out.
+- Their populations are their bounded siblings' populations, unchanged. That is deliberate rather
+  than lazy: an endless area is where a player grinds, so the fight it offers has to be the fight
+  the region already established. check-combat.js measures both against the same budget and
+  reports 71 population entries now rather than 66, all inside it.
+- Both are appended after every other area, and that is the one thing about them that is not free
+  to change: save() writes area sizes positionally by walking the registry in for...in order, and
+  load() reads them back by index. An area inserted anywhere but the end shifts the stored size of
+  every area after it, in every save that exists, and nothing about a shifted number looks wrong.
+  tests/check-shared-state.js now pins the tail of the registry by name for that reason, so
+  inserting rather than appending fails a check instead of corrupting saves quietly.
+- The same check requires every size -1 area to be protected, since an unprotected one can be
+  re-armed and stops being endless. area.tst is excluded as the developer bench, for the same
+  reason scripts/check-combat.js excludes it.
+- Verified as a flow rather than as source: calling each bounded area's onEnd through the harness
+  sets its unlock flag from false to true, and both endless areas come out of z_bake with their
+  spawn weights built.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

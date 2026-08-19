@@ -408,6 +408,16 @@ area.frstn9a1.onEnd = function () {
   roll(item.appl, 0.25, 2, 5);
   roll(item.pcn, 0.5, 1, 3);
   this.size = rand(20) + 40;
+  // Clearing it once opens the endless ground, announced the same way the west's is.
+  if (!global.flags.frstn9a2u) {
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
+    global.flags.frstn9a2u = true;
+  }
   smove(chss.frstn3main);
 };
 area.frstn9a1.drop = [
@@ -689,6 +699,15 @@ area.nfld1.onEnd = function () {
   roll(item.mshr, 0.25, 1, 3);
   roll(item.cp, 0.4, 1, 6);
   this.size = rand(20) + 30;
+  if (!global.flags.nfld3u) {
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
+    global.flags.nfld3u = true;
+  }
   smove(chss.nfld1);
 };
 area.nfld1.drop = [
@@ -822,6 +841,63 @@ area.mine3.onEnd = function () {
 area.mine3.drop = [
   { item: item.iron1, c: 0.05 },
   { item: item.cndl, c: 0.04 },
+];
+
+// Endless hunting grounds, one for the southern forest and one for the northern fields.
+//
+// Until now the west was the only place in the game that had one: clear area.frstn1a2 once and
+// global.flags.frstn1a3u opens area.frstn1a3, which has size -1 and so reports its remaining
+// size as the infinity glyph rather than a count. Everywhere else in the world runs out. These
+// two follow the same shape as the west exactly -- the pattern is deliberate rather than copied:
+// a bounded area whose onEnd sets the unlock flag, an unbounded sibling with size -1 and
+// protected = true so nothing re-arms it, and a choice in the region's own scene that only
+// appears once the flag is set.
+//
+// Appended after every other area, and this is the one thing about them that is not free to
+// change. save() writes area sizes positionally, walking the registry in for...in order, and
+// load() reads them back by index -- so a new area may only ever be added at the end. Insert one
+// in the middle and every save in existence has its area sizes shifted by one.
+//
+// Their populations are their bounded siblings' populations, unchanged. That is not laziness: an
+// endless area is where a player grinds, so the fight it offers has to be the fight the region
+// already established, and scripts/check-combat.js measures both against the same budget.
+
+area.frstn9a2 = new Area();
+area.frstn9a2.id = 132;
+area.frstn9a2.name = i18n.t("content.area.frstn9a2.name");
+area.frstn9a2.pop = [
+  { crt: creature.wolf1, lvlmin: 7, lvlmax: 8, c: 0.25 },
+  { crt: creature.slm5, lvlmin: 10, lvlmax: 11, c: 0.75 },
+];
+area.frstn9a2.size = -1;
+z_bake(area.frstn9a2);
+area.frstn9a2.protected = true;
+area.frstn9a2.drop = [
+  { item: item.hrb1, c: 0.03 },
+  { item: item.wdc, c: 0.06 },
+  { item: item.acrn, c: 0.004 },
+  { item: item.mshr, c: 0.006 },
+  { item: item.sbone, c: 0.005 },
+  { item: item.pcn, c: 0.004 },
+];
+
+area.nfld3 = new Area();
+area.nfld3.id = 133;
+area.nfld3.name = i18n.t("content.area.nfld3.name");
+area.nfld3.pop = [
+  { crt: creature.rbt1, lvlmin: 8, lvlmax: 13, c: 0.4 },
+  { crt: creature.slm1, lvlmin: 8, lvlmax: 13, c: 0.3 },
+  { crt: creature.slm2, lvlmin: 9, lvlmax: 14, c: 0.3 },
+];
+area.nfld3.size = -1;
+z_bake(area.nfld3);
+area.nfld3.protected = true;
+area.nfld3.drop = [
+  { item: item.sstraw, c: 0.05 },
+  { item: item.agrns, c: 0.03 },
+  { item: item.brly, c: 0.02 },
+  { item: item.crrt, c: 0.015 },
+  { item: item.mshr, c: 0.006 },
 ];
 
 // A level band that follows the player upward without ever dropping below what

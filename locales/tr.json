@@ -350,6 +350,10 @@
       ],
       "v478_32": [
         "Kaydet çubuğunda, changelog'u açan sürüm numarasının yanında oyunun GitHub'daki kaynağına bir bağlantı var."
+      ],
+      "v478_33": [
+        "Güney ormanı ile kuzey tarlaları artık batı ormanının zaten sahip olduğu gibi süresiz av sahalarına sahip. Yaprakları ya da anızı bir kez temizle, bölge tükenmeyen bir yer sunuyor.",
+        "Onları alan göstergesinden anlıyorsun: kalanın sayısı yerine sonsuz işareti gösteriyor."
       ]
     },
     "lore": {
@@ -4705,63 +4709,6 @@
       }
     },
     "area": {
-      "nwh": {
-        "name": "Bir yerde"
-      },
-      "trn": {
-        "name": "Eğitim Alanları"
-      },
-      "trnf": {
-        "name": "Eğitim Alanları"
-      },
-      "trn1": {
-        "name": "Eğitim Alanları"
-      },
-      "trn2": {
-        "name": "Eğitim Alanları"
-      },
-      "trn3": {
-        "name": "Eğitim Alanları"
-      },
-      "clg": {
-        "name": "Nemli kiler"
-      },
-      "tst": {
-        "name": "testi"
-      },
-      "frstn1a2": {
-        "name": "Batı ormanı avlanma alanı"
-      },
-      "hmbsmnt": {
-        "name": "Bodrumunuz"
-      },
-      "trne1": {
-        "name": "Eğitim Alanları"
-      },
-      "frstn2a2": {
-        "name": "Batı ormanı avlanma alanı"
-      },
-      "trne2": {
-        "name": "Eğitim Alanları"
-      },
-      "trne3": {
-        "name": "Eğitim Alanları"
-      },
-      "frstn1a3": {
-        "name": "Batı ormanı avlanma alanı"
-      },
-      "frstn1a4": {
-        "name": "Batı ormanı gizli alanı"
-      },
-      "trne4": {
-        "name": "Eğitim Alanları"
-      },
-      "frstn9a1": {
-        "name": "Güney ormanı avlanma alanı"
-      },
-      "frstn10a1": {
-        "name": "Güney ormanı çukuru"
-      },
       "cata1a": {
         "name": "Üst katakomplar"
       },
@@ -4777,20 +4724,35 @@
       "cata5a": {
         "name": "Yolculuğun sonu"
       },
-      "ngtmr": {
-        "name": "Kâbus"
+      "clg": {
+        "name": "Nemli kiler"
+      },
+      "frstn10a1": {
+        "name": "Güney ormanı çukuru"
+      },
+      "frstn1a2": {
+        "name": "Batı ormanı avlanma alanı"
+      },
+      "frstn1a3": {
+        "name": "Batı ormanı avlanma alanı"
+      },
+      "frstn1a4": {
+        "name": "Batı ormanı gizli alanı"
+      },
+      "frstn2a2": {
+        "name": "Batı ormanı avlanma alanı"
+      },
+      "frstn9a1": {
+        "name": "Güney ormanı avlanma alanı"
+      },
+      "frstn9a2": {
+        "name": "Güney orman av sahası"
+      },
+      "hmbsmnt": {
+        "name": "Bodrumunuz"
       },
       "lrck1": {
         "name": "Taş levha"
-      },
-      "nfld1": {
-        "name": "Anız tarlaları"
-      },
-      "nfld2": {
-        "name": "Uzak tarla"
-      },
-      "ngrn1": {
-        "name": "Tahıl ambarı"
       },
       "mine1": {
         "name": "Galeri ağzı"
@@ -4800,6 +4762,54 @@
       },
       "mine3": {
         "name": "Derin kesit"
+      },
+      "nfld1": {
+        "name": "Anız tarlaları"
+      },
+      "nfld2": {
+        "name": "Uzak tarla"
+      },
+      "nfld3": {
+        "name": "Açık tarlalar"
+      },
+      "ngrn1": {
+        "name": "Tahıl ambarı"
+      },
+      "ngtmr": {
+        "name": "Kâbus"
+      },
+      "nwh": {
+        "name": "Bir yerde"
+      },
+      "trn": {
+        "name": "Eğitim Alanları"
+      },
+      "trn1": {
+        "name": "Eğitim Alanları"
+      },
+      "trn2": {
+        "name": "Eğitim Alanları"
+      },
+      "trn3": {
+        "name": "Eğitim Alanları"
+      },
+      "trne1": {
+        "name": "Eğitim Alanları"
+      },
+      "trne2": {
+        "name": "Eğitim Alanları"
+      },
+      "trne3": {
+        "name": "Eğitim Alanları"
+      },
+      "trne4": {
+        "name": "Eğitim Alanları"
+      },
+      "trnf": {
+        "name": "Eğitim Alanları"
+      },
+      "tst": {
+        "name": "testi"
       }
     },
     "lore": {

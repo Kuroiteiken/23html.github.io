@@ -167,6 +167,55 @@ if (dirty.length > 0) {
   process.exit(1);
 }
 
+// --- endless areas, and where a new area may be added ------------------------
+//
+// An area whose size is -1 never runs out, and the HUD prints the infinity glyph for it rather
+// than a count. There is one per region that has one, and each is unlocked by clearing its
+// bounded sibling once.
+//
+// The order check is the important half. save() writes area sizes positionally by walking the
+// registry in for...in order and load() reads them back by index, so a new area may only ever be
+// appended. Inserting one in the middle shifts the sizes of every save in existence -- silently,
+// because nothing about a shifted number looks wrong.
+const areaKeys = Object.keys(game.area);
+// area.tst is the developer bench, excluded here for the same reason
+// scripts/check-combat.js excludes it: nobody plays it, and it is not content.
+const BENCH_AREAS = new Set(["tst"]);
+const endless = areaKeys.filter(
+  (key) => game.area[key].size === -1 && !BENCH_AREAS.has(key),
+);
+if (endless.length === 0) {
+  console.error(
+    "No area has size -1, so nothing in the world is endless and the infinity readout in the HUD is unreachable.",
+  );
+  process.exit(1);
+}
+for (const key of endless) {
+  if (game.area[key].protected !== true) {
+    console.error(
+      `area.${key} has size -1 but is not protected, so something can re-arm it and it stops being endless.`,
+    );
+    process.exit(1);
+  }
+}
+
+// The areas appended most recently, named so that appending another in front of them fails here
+// rather than surprising someone later. Add to this list when you append; never reorder it.
+const LAST_APPENDED = ["mine1", "mine2", "mine3", "frstn9a2", "nfld3"];
+const tail = areaKeys.slice(-LAST_APPENDED.length);
+if (tail.join(",") !== LAST_APPENDED.join(",")) {
+  console.error(
+    `The end of the area registry is ${tail.join(", ")} where it should be ${LAST_APPENDED.join(", ")}.`,
+  );
+  console.error(
+    "save() writes area sizes by position, so an area added anywhere but the end shifts every size in every existing save.",
+  );
+  console.error(
+    "If you appended one, add it to LAST_APPENDED in tests/check-shared-state.js. If you inserted one, move it to the end instead.",
+  );
+  process.exit(1);
+}
+
 console.log(
-  `check-shared-state: no registry entry shares a mutable object across ${REGISTRIES.length} registries, and eqp.dummy is inert.`,
+  `check-shared-state: no registry entry shares a mutable object across ${REGISTRIES.length} registries, eqp.dummy is inert, and ${endless.length} endless area(s) sit at the end of the registry.`,
 );
