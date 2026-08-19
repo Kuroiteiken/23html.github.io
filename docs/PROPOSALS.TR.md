@@ -249,6 +249,11 @@ kodlaması; aç/kapa ve "bu elde ekipli" durumunu taşıyan `#rptbn`'in `#a11`/`
 çubuğunun kenarlık/gradyan/hover'ı, ve bir `span`'a klavye erişimi vermek için referans
 olan `dom.sl_kill`.
 
+**v478.30’da uygulanan:** yukarıdaki 1, 6a, 6b, 9, 10 ve 12. maddeler; her biri
+`tests/check-game-regressions.js` içinde bir yasakla birlikte, kural geri gelemesin diye.
+Kalanlar 2, 3, 4, 5, 7, 8 ve 11 -- elle kurulmuş kalan iki pencere, envanter çip kümesi ve
+klavye erişimine dair her şey.
+
 **Yeni yazılması gereken:** bir `.ct_bts:focus-visible` kuralı, `chs()` satırları için
 yeniden çizim boyunca geçerli bir odak stratejisi, ve 4. maddenin ikinci yarısı için bir
 karar — o bir yeniden stillendirme değil, satırın yeniden kurulması.

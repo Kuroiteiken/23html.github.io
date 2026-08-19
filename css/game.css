@@ -13,13 +13,16 @@
 html body {
   font: 1.1em "MS Gothic";
 }
+
+/* The dark error palette #save-unreadable below already uses. These two sat side by side
+   in this file, one converted and one not. */
 .i18n-load-error {
   margin: 2rem auto;
   max-width: 42rem;
-  border: 2px solid crimson;
+  border: 2px solid #a32219;
   padding: 1rem;
-  background: #fff;
-  color: #900;
+  background: #3a1a18;
+  color: #ffb4ae;
   text-align: center;
 }
 #save-unreadable {
@@ -297,13 +300,18 @@ input:focus {
 .bts_m_b:empty {
   display: none;
 }
+
+/* The base border was black on a dark panel, so it was not there at all, and the hover
+   used the accent the redesign replaced with #71e6b1 everywhere else. Each icon's own
+   colour and background are written inline per effect and are data rather than chrome --
+   they are untouched. */
 .se_ia {
   width: 18px;
   height: 18px;
-  border: solid black 1px;
+  border: solid #526988 1px;
 }
 .se_ia:hover {
-  border: 1px lime solid;
+  border: 1px #71e6b1 solid;
 }
 .ct_bts {
   width: 20%;
@@ -337,9 +345,14 @@ input:focus {
   padding-left: 4px;
   color: inherit;
 }
+
+/* The select itself is transparent over a row already painted --list-row, so a white
+   dropped list was the last light sheet a live control could put on screen. Author colours
+   on <option> are honoured by Chromium and Firefox on Windows and ignored by macOS native
+   popup menus, so this is right where it is applied and cannot be enforced everywhere. */
 .opt_v option {
-  background: white;
-  color: black;
+  background: var(--list-well);
+  color: rgb(188 254 254);
 }
 #background-presets {
   box-sizing: border-box;
@@ -490,6 +503,18 @@ input:focus {
 }
 .opt_ta {
   padding-left: 4px;
+}
+
+/* The save export and import row. Both halves carried an inline
+   `border: 1px lightgrey solid` written in JavaScript -- left over from the hand-built
+   windows they used to open, which were replaced in v478.29. As a class the border can
+   follow the palette, and .opt_va keeps the column divider the inline rule was overwriting. */
+.opt_transfer {
+  border: 1px solid #3848c0;
+  border-radius: 3px;
+}
+.opt_va.opt_transfer {
+  border-left: 1px solid #3848c0;
 }
 .opt_va {
   border: none;
@@ -729,7 +754,7 @@ input:focus {
 }
 #d_l {
   padding-bottom: 5px;
-  border-bottom: solid 1px darkgrey;
+  border-bottom: solid 1px #526988;
 }
 #dr_l {
   position: absolute;
@@ -971,19 +996,25 @@ input:focus {
   border-left: 1px solid #9485ed;
   text-align: center;
 }
+
+/* The frame order the redesign settled on for .game-modal: a near-black border with a
+   structural outline outside it. This panel had the inverse -- a 5px light-grey band with
+   a black outline -- left over from when the game was light, while its interior had
+   already been darkened. It is the surface the game shows most often. positionDescription
+   measures offsetWidth, so narrowing the border from 5px to 3px needs no other change. */
 #dscr {
   position: absolute;
   pointer-events: none;
-  border: solid 5px lightgrey;
-  outline: solid 3px black;
+  border: solid 3px #050912;
+  outline: solid 2px #6676bd;
   background: linear-gradient(90deg, #333, #111);
   width: 320px;
   max-width: calc(100vw - 48px);
   height: auto;
   text-align: center;
-  box-shadow: 8px 8px rgb(220 20 60 / 80%);
+  box-shadow: 8px 8px rgb(84 12 48 / 80%);
   font: 0.9em "MS Gothic";
-  color: white;
+  color: rgb(188 254 254);
   padding: 6px;
   z-index: 99999;
 }
@@ -1416,8 +1447,15 @@ input:focus {
   text-align: center;
   color: lime;
 }
-#rptbn:hover {
-  background-color: lightgrey;
+
+/* The control writes its own background inline on creation and on every click, so a
+   background here never painted -- the light grey was never seen, and the control had no
+   hover feedback at all while its neighbours did. A border and an outline do not compete
+   with the inline background, so this one lands. */
+#rptbn:hover,
+#rptbn:focus-visible {
+  border-color: #71e6b1;
+  outline: 1px solid #9ecfff;
 }
 img,
 canvas {

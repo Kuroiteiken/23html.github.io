@@ -422,6 +422,33 @@ changes. Player-facing game content and release notes belong in
   with aff[0] and cls filled in. What the measurement did find is that every one of them has
   int 0, so in the magic branch of dmg_calc no shield in the game defends against a spell.
 
+- The seven most visible findings from the audit are applied. #dscr, the hover panel, takes
+  .game-modal's frame order -- a 3px #050912 border with a 2px #6676bd outline outside it --
+  with rgb(188 254 254) text, the palette's shadow, and #526988 for its inner divider. It was
+  the surface the game shows most often and the widest pale band left on screen. Narrowing
+  the border from 5px to 3px needed no other change, because positionDescription measures
+  offsetWidth.
+- The status-effect icons' base border went from black, which is invisible on a dark panel,
+  to #526988, and their hover from lime to #71e6b1. Each icon's per-effect inline colour is
+  data encoding and is untouched.
+- The language picker's dropped list uses var(--list-well) and rgb(188 254 254) rather than
+  `background: white; color: black`. Recorded with it: author colours on <option> are
+  honoured by Chromium and Firefox on Windows and ignored by macOS native popup menus, so the
+  fix is right where it applies but cannot be enforced everywhere.
+- The Export and Import row halves carry an .opt_transfer class. Their inline
+  `1px lightgrey solid` borders were left over from the windows replaced in v478.29, and they
+  were also overwriting .opt_va's column divider; the class restores both the palette and the
+  divider.
+- #rptbn:hover gives a border and an outline instead of a background. The control writes its
+  own background inline on creation and on every click, so the old rule never painted: the
+  player never saw the light grey, but the button had no hover feedback either.
+- .i18n-load-error takes the dark error palette that #save-unreadable, directly beside it in
+  the stylesheet, already used.
+- None of the seven is merely fixed; each is banned. check-game-regressions.js fails if any
+  of those rules returns, because the way they would come back is a new panel copied from an
+  old one -- which is how they spread in the first place. Confirmed to fail when one is put
+  back.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

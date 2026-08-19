@@ -428,6 +428,30 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   dolayısıyla `dmg_calc`'ın büyü dalında oyundaki hiçbir kalkan bir büyüye karşı savunma
   yapmıyor.
 
+- Denetimin en görünür yedi maddesi uygulandı. İpucu paneli (`#dscr`) `.game-modal`'ın
+  çerçeve sırasını aldı -- `3px #050912` kenarlık, dışında `2px #6676bd` outline -- metni
+  `rgb(188 254 254)`, gölgesi palet moru, iç ayırıcısı `#526988`. Oyunun en sık gösterdiği
+  yüzeydi ve ekranda kalan en geniş açık gri banttı. `positionDescription` `offsetWidth`
+  ölçtüğü için 5px → 3px başka hiçbir değişiklik gerektirmedi.
+- Durum efekti ikonlarının taban kenarlığı karanlık panelde görünmeyen siyahtan `#526988`'e,
+  hover'ı `lime`'dan `#71e6b1`'e geçti. Her ikonun efekt başına satır içi rengi veri
+  kodlaması, dokunulmadı.
+- Dil seçicinin açtığı liste `background: white; color: black` yerine `var(--list-well)` ve
+  `rgb(188 254 254)` kullanıyor. Yazar tarafından verilen `option` renklerinin Windows'ta
+  uygulandığı ama macOS'un yerel menüsünde yok sayıldığı kayda geçirildi -- düzeltme doğru
+  yerde ama her platformda garanti edilemez.
+- Dışa/İçe aktar satırının iki yarısı `.opt_transfer` sınıfını taşıyor. Satır içi
+  `1px lightgrey solid` kenarlıkları, v478.29'da değiştirilen pencerelerden kalmıştı ve
+  `.opt_va`'nın sütun ayırıcısını da eziyordu; sınıf hem paleti hem ayırıcıyı geri getiriyor.
+- `#rptbn:hover` artık bir arka plan değil kenarlık ve outline veriyor. Kontrol kendi arka
+  planını hem kurulurken hem her tıklamada satır içi yazıyor, dolayısıyla eski kural hiç
+  boyamıyordu: oyuncu açık griyi hiç görmedi ama düğmenin hiç hover geri bildirimi de yoktu.
+- `.i18n-load-error` kartı, tam yanında duran `#save-unreadable`'ın karanlık hata paletini
+  aldı.
+- Yedisi de yalnızca düzeltilmedi, **yasaklandı**: `check-game-regressions.js` bu kuralların
+  her birinin geri gelmesini kontrol ediyor, çünkü geri gelme yolu eski bir panelden
+  kopyalanan yeni bir panel -- ilk başta böyle yayıldılar. Yasağın kırıldığı doğrulandı.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

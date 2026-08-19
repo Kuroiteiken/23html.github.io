@@ -332,6 +332,12 @@
         "İki pencerede de pano düğmesi var -- çıkarken Kopyala, girerken Yapıştır -- ve her biri işe yarayıp yaramadığını söylüyor.",
         "Kaydet çubuğunu geri getiren tutamak yeniden çubukla aynı görünüyor, ve iki tutamağa da klavyeyle erişilebiliyor.",
         "Türkçe oynarken sayfa daha hızlı açılıyor: İngilizce metni de indiriyordu ve ondan tek kelime okumuyordu."
+      ],
+      "v478_30": [
+        "Her eşya ve yaratık için okuduğun imleç paneli geniş açık gri çerçevesini bıraktı; artık oyunun geri kalanıyla aynı kenarlığı taşıyor.",
+        "Durum efekti ikonlarının kenarlıklarını yeniden görüyorsun -- karanlık panelde siyahtılar -- ve birinin üzerine gelmek oyunun kendi vurgusuyla yanıt veriyor.",
+        "Dil listesini açmak ayarlar panelinin üstüne beyaz bir örtü düşürmüyor, ve Dışa/İçe aktar satırları açık gri kutularından kurtuldu.",
+        "Üretim panelindeki tekrar düğmesi üzerine gelince yanıt veriyor. Hover'ı, düğmenin kendi renginin ezdiği bir biçimde yazılmıştı."
       ]
     },
     "lore": {

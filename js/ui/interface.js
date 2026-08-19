@@ -2587,7 +2587,7 @@ dom.ct_bt4_5 = addElement(dom.ctrwin4, "div", null, "opt_c");
 dom.ct_bt4_5a = addElement(dom.ct_bt4_5, "div", null, "opt_ta");
 dom.ct_bt4_5b = addElement(dom.ct_bt4_5, "div", null, "opt_va");
 dom.ct_bt4_5a.innerHTML = i18n.t("ui.settings.export");
-dom.ct_bt4_5a.style.border = "1px lightgrey solid";
+dom.ct_bt4_5a.classList.add("opt_transfer");
 dom.ct_bt4_5a.addEventListener("click", function () {
   if (global.flags.expatv) return;
   global.flags.expatv = true;
@@ -2661,7 +2661,7 @@ dom.ct_bt4_5a.addEventListener("click", function () {
 });
 
 dom.ct_bt4_5b.innerHTML = i18n.t("ui.settings.import");
-dom.ct_bt4_5b.style.border = "1px lightgrey solid";
+dom.ct_bt4_5b.classList.add("opt_transfer");
 dom.ct_bt4_5b.addEventListener("click", function () {
   if (global.flags.impatv) return;
   global.flags.impatv = true;
@@ -3434,6 +3434,11 @@ const releaseNotes = [
     major: 478,
     minor: 29,
     read: () => i18n.get("ui.releaseNotes.v478_29"),
+  },
+  {
+    major: 478,
+    minor: 30,
+    read: () => i18n.get("ui.releaseNotes.v478_30"),
   },
 ];
 

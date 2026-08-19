@@ -251,6 +251,11 @@ anything inside a comment.
 border/gradient/hover as the reference for chrome, and `dom.sl_kill` as the reference for
 giving a span keyboard reach.
 
+**Applied in v478.30:** items 1, 6a, 6b, 9, 10 and 12 above, each with a ban in
+`tests/check-game-regressions.js` so the rule cannot return. What is left is items 2, 3, 4,
+5, 7, 8 and 11 -- the two remaining hand-built windows, the inventory chip cluster, and
+everything to do with keyboard reach.
+
 **Has to be new:** a `.ct_bts:focus-visible` rule, a focus strategy for `chs()` rows
 across a rebuild, and a decision on item 4's second half, which is a row rewrite rather
 than a restyle.

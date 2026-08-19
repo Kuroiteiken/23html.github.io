@@ -332,6 +332,12 @@
         "Both of those dialogs have a clipboard button -- Copy on the way out, Paste on the way in -- and each one says whether it worked.",
         "The handle that brings the save bar back matches the bar again, and both handles can be reached with the keyboard.",
         "The page opens faster in Turkish: it was downloading the English text as well and never reading a word from it."
+      ],
+      "v478_30": [
+        "The hover panel you read for every item and creature has lost its wide light-grey frame; it wears the same border as the rest of the game now.",
+        "You can see the status-effect icons' borders again -- they were black on a dark panel -- and pointing at one answers in the game's own accent.",
+        "Opening the language list no longer drops a white sheet over the settings panel, and the Export and Import rows lost their light-grey boxes.",
+        "The repeat button in the crafting panel answers when you point at it. Its hover was written in a way the button's own colour overwrote."
       ]
     },
     "lore": {

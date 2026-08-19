@@ -196,6 +196,62 @@ if (revivedLiterals.length > 0) {
 
 console.log("Validated the list surface tokens.");
 
+// The surfaces the dark redesign had skipped. Each of these was a live rule painting a
+// light sheet, an invisible border or a dead hover in a dark game, found by auditing
+// css/game.css against the parts that had already been converted. They are banned rather
+// than merely fixed, because the way they would come back is a new panel copied from an old
+// one -- which is how they spread in the first place.
+const bannedSurfaces = [
+  [
+    /#dscr\s*\{[^}]*lightgrey/,
+    "#dscr is framed in lightgrey again. It is the surface the game shows most often; match .game-modal's border/outline order.",
+  ],
+  [
+    /#d_l\s*\{[^}]*darkgrey/,
+    "#d_l's divider is darkgrey again; the palette's structural line is #526988.",
+  ],
+  [
+    /\.se_ia\s*\{[^}]*solid black/,
+    "The status-effect icon has a black base border again, which is invisible on a dark panel.",
+  ],
+  [
+    /\.se_ia:hover\s*\{[^}]*lime/,
+    "The status-effect icon hover is lime again; the redesign settled on #71e6b1.",
+  ],
+  [
+    /\.i18n-load-error\s*\{[^}]*background:\s*#fff/,
+    "The locale-failure card is white again. #save-unreadable beside it is the dark error palette to match.",
+  ],
+  [
+    /\.opt_v option\s*\{[^}]*background:\s*white/,
+    "The language picker drops a white list over the dark settings panel again.",
+  ],
+  [
+    /#rptbn:hover\s*\{[^}]*background-color/,
+    "#rptbn:hover sets a background again, which the control's own inline background overwrites -- so the rule paints nothing and the control has no hover feedback at all. Use a border or an outline.",
+  ],
+];
+for (const [pattern, complaint] of bannedSurfaces) {
+  if (pattern.test(gameCss)) {
+    throw new Error(`Dark theme regression: ${complaint}`);
+  }
+}
+
+// And the two halves of the save transfer row carry a class rather than an inline border,
+// so the border can follow the palette and .opt_va keeps its column divider.
+if (/style\.border = "1px lightgrey solid"/.test(bundleSource)) {
+  throw new Error(
+    "Dark theme regression: an inline `1px lightgrey solid` border is back. The save transfer row halves use the .opt_transfer class, which is what lets the palette reach them.",
+  );
+}
+if (!gameCss.includes(".opt_transfer {")) {
+  throw new Error(
+    "Dark theme regression: css/game.css no longer defines .opt_transfer, which the save transfer row halves are given in place of an inline border.",
+  );
+}
+
+console.log("Validated the converted dark-theme surfaces.");
+
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_reactions"/,
