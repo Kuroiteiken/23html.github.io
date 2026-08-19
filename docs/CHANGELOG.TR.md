@@ -10,6 +10,37 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
 
 ### v478 — sessizce bozulamayan statlandırma
 
+- Dev paneli mesaj logunun yanında duruyor ve konumu bir koordinat olarak yazılmak yerine logun
+  kendi kutusundan hesaplanıyor: `#gmsgs`, nominal olarak 1280 genişliğindeki bir düzende
+  yaklaşık x=1285'te bitiyor, yani sağda sabitlenecek bir kolon yok; ayrıca log `resize: both`
+  taşıyor, dolayısıyla sabit bir `left` biri onu sürüklediği anda kopuyor. Bir `ResizeObserver`
+  ikisini birlikte tutuyor.
+- Bu, ilk sürümdeki gerçek bir hatayı açığa çıkardı. Log, save bar'ın da sahip olduğu aynı kapı
+  olan `global.flags.aw_u`'ya kadar `display:none` ve gizli bir eleman 0'a 0 ölçülüyor -- yani
+  panel açılışta x=8'e yerleştirilip orada kalıyordu. Sıfır kutu artık "henüz ölçülemez, dokunma"
+  anlamına geliyor ve log göründüğünde observer paneli yerine koyuyor.
+- Ve prob yanlış sebeple geçiyordu; bu çalışmada dördüncü kez. "Panel logun sağında" ve "üstleri
+  hizalı" kontrolleri 0x0 bir kutuyla karşılaştırıyordu, dolayısıyla ikisi de bedava geçiyordu.
+  Prob artık logu önce gösteriyor, `dev-log-measurable` zorunlu bir iddia -- böylece bölüm
+  sessizce hiçbir şeyi ölçmeye geri dönemiyor -- ve geometri `getBoundingClientRect` yerine
+  `offsetLeft`/`offsetWidth`/`offsetTop`'tan okunuyor, çünkü oyun görünüm alanına sığdırmak için
+  `document.body.style.zoom` ayarlıyor ve ölçeklenmiş bir dikdörtgen üzerindeki piksel eşiği her
+  pencere boyutunda başka bir şey demek.
+- Hata mesajı ölçtüğü kutuları taşıyor. Negatif kontrol -- hesaplamayı sabit bir
+  `left: 1293px` ile değiştirmek -- artık `dev-log-width-before=376 dev-log-width-after=451
+dev-panel-left-before=1293 dev-panel-left-after=1293` bildiriyor; bu da yalnızca bir şeyin
+  kımıldamadığını değil, ikisinden hangisinin kımıldamadığını söylüyor.
+- Üç araç eklendi: her günlük girdisini açmak (panel aksi hâlde neredeyse tamamen hikâye
+  anlarına kilitli), seviye, kese ve saatin sağ kaldığını bildiren bir kaydet/yükle turu, ve
+  verme alanının yerine geçen tek bir komut alanı -- `acc.medl5` veriyor, `chss.t3` yolculuk
+  ediyor, `ttl.hstr3` unvan veriyor, `lore.underTheSouth` bir girdi açıyor, `skl.shdc 10` bir
+  ustalığın seviyesini kuruyor. Her şey hâlâ dinamik çözümleniyor, dolayısıyla hiçbiri
+  `scripts/report-pending.js` içinde bir kaynak olarak sayılmıyor.
+- `inv` envanter dizisi; `bootstrap.js` içinde `var inv = []` olarak tanımlı. Prob önce
+  `you.items`'a uzandı ve patladı -- `recipe.give`/`vendor.stock` ve
+  `sector.catacombs`/`sector.mine`'dan sonra, bu çalışmada bir alan adının kaynaktan okunmak
+  yerine anlamından varsayıldığı üçüncü kez.
+
 - `js/core/devmode.js` içinde geçici geliştirme araçları; oyunu `?devMode=true` ile açarak
   erişiliyor. Her satıcıyı yeniliyor, bir gün ilerletiyor, para ve seviye veriyor, iyileştiriyor
   ve `registry.key` ile herhangi bir eşyayı veriyor. Oyun duyurulmadan önce çıkması gerekiyor ve

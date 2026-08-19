@@ -1,7 +1,8 @@
 // Temporary development tooling, reached by opening the game with ?devMode=true in the
 // address bar. It exists to make the slow parts of testing fast -- waiting a day for a
-// vendor to restock, grinding to the level a piece of content is gated behind -- and it is
-// meant to come out before the game is announced.
+// vendor to restock, grinding to the level a piece of content is gated behind, walking to
+// the scene that content sits in -- and it is meant to come out before the game is
+// announced.
 //
 // Two properties it has to hold, both from the constraint it was asked for under: it must
 // come out cleanly, and it must not be openable from the console.
@@ -21,7 +22,7 @@
 //    query string in the address bar, deliberately.
 //
 // The panel is deliberately loud. A dev build that looks like a normal build is one that
-// gets deployed, so while this is active there is a red bar on screen that cannot be closed,
+// gets deployed, so while this is active there is a red box on screen that cannot be closed,
 // only collapsed.
 
 // The single switch. false disables dev mode completely.
@@ -59,6 +60,29 @@ function initDevMode() {
     const collapsed = panel.classList.toggle("dev-mode--collapsed");
     collapse.textContent = collapsed ? "+" : "−";
   });
+
+  // Beside the message log, measured from the log's own box rather than written as a
+  // coordinate. Two reasons: the log ends at about x=1285 in a layout that is nominally
+  // 1280 wide, so there is no fixed column to the right to hard-code, and #gmsgs carries
+  // `resize: both` -- the player can drag it -- so a fixed left would come unstuck the
+  // moment anyone did. offsetWidth includes the log's padding and border.
+  // The log starts hidden -- interface.js sets display:none on it until global.flags.aw_u --
+  // and a display:none element measures 0 by 0. Placing against that pinned the panel to
+  // x=8 and it stayed there, so a zero box means "not measurable yet, leave it alone" and the
+  // ResizeObserver below re-places it the moment the log appears. CSS carries a corner
+  // position as the starting point for that wait.
+  function placeBesideLog() {
+    const log = dom.gmsgs;
+    if (!log || !log.offsetWidth || !log.offsetHeight) return;
+    panel.style.left = `${log.offsetLeft + log.offsetWidth + 8}px`;
+    panel.style.top = `${log.offsetTop}px`;
+  }
+  placeBesideLog();
+  window.addEventListener("resize", placeBesideLog);
+  if (typeof ResizeObserver !== "undefined" && dom.gmsgs) {
+    // Fires on hidden-to-visible as well as on a drag of the log's resize handle.
+    new ResizeObserver(placeBesideLog).observe(dom.gmsgs);
+  }
 
   function report(text) {
     status.textContent = text;
@@ -127,53 +151,130 @@ function initDevMode() {
     return "Healed.";
   });
 
-  // Grants by registry and key, looked up at click time from a string the tester types.
-  // Deliberately not written as giveItem(acc.medl5): scripts/report-pending.js counts
-  // literal giveItem calls as a source of an item, so a hardcoded grant in here would make
-  // an unobtainable item report itself as obtainable.
-  const grantRow = addElement(body, "div", null, "dev-mode-row");
-  const grantInput = addElement(grantRow, "input", null, "dev-mode-input");
-  grantInput.type = "text";
-  grantInput.placeholder = "acc.medl5";
-  grantInput.title =
-    "registry.key -- one of item, eqp, wpn, sld, acc. Enter grants it.";
-  const grantButton = addElement(grantRow, "button", null, "dev-mode-tool");
-  grantButton.type = "button";
-  grantButton.textContent = "Grant";
+  tool(
+    "Learn all lore",
+    "Unlocks every journal entry, including the questions later chapters are built to answer. The panel is hard to review otherwise -- most of it is gated behind story beats.",
+    () => {
+      const keys = Object.keys(lore);
+      learnLore.apply(null, keys);
+      return `Journal now holds ${global.lore.length} of ${keys.length} entries.`;
+    },
+  );
 
-  function grant() {
-    const typed = grantInput.value.trim();
-    const parts = typed.split(".");
-    if (parts.length !== 2) {
+  tool(
+    "Save/load round trip",
+    "Saves and immediately reloads. The save format is positional, so a field written in the wrong order corrupts quietly -- this surfaces it straight away instead of on someone else's machine.",
+    () => {
+      const before = { lvl: you.lvl, wealth: you.wealth, minute: time.minute };
+      save();
+      load();
+      const same =
+        you.lvl === before.lvl &&
+        you.wealth === before.wealth &&
+        time.minute === before.minute;
+      return same
+        ? "Round trip clean: level, purse and clock survived."
+        : `Round trip CHANGED something: level ${before.lvl}->${you.lvl}, purse ${before.wealth}->${you.wealth}, minute ${before.minute}->${time.minute}.`;
+    },
+  );
+
+  // One command field rather than a field per registry. Grants an item, jumps to a scene,
+  // awards a title, unlocks a journal entry, or sets a mastery's level, dispatched on the
+  // registry the key names.
+  //
+  // Everything is looked up dynamically on purpose: scripts/report-pending.js counts
+  // literal giveItem(acc.medl5) calls as a source of an item, so a hardcoded grant in dev
+  // tooling would make an unobtainable item report itself as obtainable.
+  const commandRow = addElement(body, "div", null, "dev-mode-row");
+  const commandInput = addElement(commandRow, "input", null, "dev-mode-input");
+  commandInput.type = "text";
+  commandInput.placeholder = "acc.medl5";
+  commandInput.title = [
+    "registry.key, then Enter:",
+    "  item|eqp|wpn|sld|acc.key   grant it",
+    "  chss.key                   go to that scene",
+    "  ttl.key                    award that title",
+    "  lore.key                   unlock that journal entry",
+    "  skl.key 10                 set that mastery's level",
+  ].join("\n");
+  const commandButton = addElement(commandRow, "button", null, "dev-mode-tool");
+  commandButton.type = "button";
+  commandButton.textContent = "Run";
+
+  function runCommand() {
+    const typed = commandInput.value.trim();
+    if (!typed) {
+      report("Type registry.key. Hover the field for the list.");
+      return;
+    }
+    // A trailing number is an argument: "skl.shdc 10".
+    const spaced = typed.split(/\s+/);
+    const target = spaced[0];
+    const argument = spaced.length > 1 ? Number(spaced[1]) : undefined;
+    const dot = target.indexOf(".");
+    if (dot < 1) {
       report('Type registry.key, for example "acc.medl5".');
       return;
     }
-    const registries = { item, eqp, wpn, sld, acc };
-    const registry = registries[parts[0]];
+    const registryName = target.slice(0, dot);
+    const key = target.slice(dot + 1);
+
+    const grantRegistries = { item, eqp, wpn, sld, acc };
+    const handlers = {
+      chss: (thing) => {
+        smove(thing);
+        return `Moved to ${registryName}.${key}.`;
+      },
+      ttl: (thing) => {
+        giveTitle(thing);
+        return `Gave title ${thing.name}.`;
+      },
+      lore: () => {
+        const learned = learnLore(key);
+        return learned
+          ? `Unlocked lore.${key}.`
+          : `lore.${key} was already known.`;
+      },
+      skl: (thing) => {
+        if (!Number.isFinite(argument)) {
+          return `skl.${key} needs a level: "skl.${key} 10".`;
+        }
+        thing.lvl = argument;
+        return `${thing.name} is level ${thing.lvl}.`;
+      },
+    };
+
+    const registry = grantRegistries[registryName]
+      ? grantRegistries[registryName]
+      : { chss, ttl, lore, skl }[registryName];
     if (!registry) {
       report(
-        `No registry named "${parts[0]}". Try ${Object.keys(registries).join(", ")}.`,
+        `No registry named "${registryName}". Try ${[...Object.keys(grantRegistries), "chss", "ttl", "lore", "skl"].join(", ")}.`,
       );
       return;
     }
-    const thing = registry[parts[1]];
+    const thing = registry[key];
     if (!thing) {
-      report(`${parts[0]} has no "${parts[1]}".`);
+      report(`${registryName} has no "${key}".`);
       return;
     }
     try {
-      giveItem(thing);
-      report(`Gave ${thing.name}.`);
+      if (handlers[registryName]) {
+        report(handlers[registryName](thing));
+      } else {
+        giveItem(thing);
+        report(`Gave ${thing.name}.`);
+      }
     } catch (error) {
       report(`Failed: ${error && error.message ? error.message : error}`);
     }
   }
 
-  grantButton.addEventListener("click", grant);
-  grantInput.addEventListener("keydown", (event) => {
+  commandButton.addEventListener("click", runCommand);
+  commandInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      grant();
+      runCommand();
     }
     // The game binds number keys to quick item use, so a key pressed in this field must not
     // reach it.

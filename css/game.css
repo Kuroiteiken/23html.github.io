@@ -1586,19 +1586,23 @@ body {
    gets deployed by accident. Removing dev mode removes this block with it -- nothing else in
    the stylesheet references these names.
 
-   Top-left rather than any corner the game already uses: the save bar and its restore handle
-   own the bottom, and #ctrmg and the title container sit centre and top-right. */
+   Beside the message log. left and top are set from the log's own box in initDevMode rather
+   than written here: the log ends at about x=1285 in a layout that is nominally 1280 wide, so
+   there is no fixed column to the right to hard-code, and #gmsgs carries `resize: both`, so a
+   fixed position would come unstuck as soon as anyone dragged it. Absolute rather than fixed
+   so it shares the game's coordinate space and scales with the body zoom.
+
+   The top and left here are only the starting point: the log is display:none until
+   global.flags.aw_u, and placing against a hidden element would pin the panel to x=8. */
 #dev-mode {
-  top: 0;
-  left: 0;
+  top: 8px;
+  left: 8px;
   z-index: 9999;
   box-sizing: border-box;
-  position: fixed;
-  max-width: 260px;
-  border: 1px solid #ff4d4d;
-  border-top: none;
-  border-left: none;
-  border-bottom-right-radius: 4px;
+  position: absolute;
+  width: 210px;
+  border: 2px solid #ff4d4d;
+  border-radius: 4px;
   padding: 0;
   color: #ffe9e9;
   background: rgb(48 0 0 / 94%);

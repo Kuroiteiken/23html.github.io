@@ -107,6 +107,50 @@ const devModeProbe = setInterval(() => {
   root.dataset.devVendorsRestocked = String(vendorsWithStock);
   root.dataset.devRestockWorked = String(vendorsWithStock > 0);
 
+  // Beside the log. The log is display:none until global.flags.aw_u, exactly like the save
+  // bar, and the first version of this measured it hidden: a 0x0 box made "the panel is right
+  // of the log" and "their tops line up" pass trivially against zero, and the panel really was
+  // pinned to x=8. So the log is shown first, and dev-log-measurable is a required assertion --
+  // without it this whole section can go back to passing for the wrong reason.
+  //
+  // offsetLeft/offsetWidth/offsetTop rather than getBoundingClientRect: the game sets
+  // document.body.style.zoom to fit the viewport, so client rectangles are scaled and a
+  // pixel threshold on them means something different at every window size.
+  global.flags.aw_u = true;
+  dom.gmsgs.style.display = "";
+  const log = dom.gmsgs;
+  window.dispatchEvent(new Event("resize"));
+
+  root.dataset.devLogMeasurable = String(
+    log.offsetWidth > 0 && log.offsetHeight > 0,
+  );
+  root.dataset.devLogWidth = String(log.offsetWidth);
+  root.dataset.devPanelRightOfLog = String(
+    panel.offsetLeft >= log.offsetLeft + log.offsetWidth,
+  );
+  root.dataset.devPanelNearLog = String(
+    panel.offsetLeft - (log.offsetLeft + log.offsetWidth) < 40,
+  );
+  root.dataset.devPanelTopsAlign = String(
+    Math.abs(panel.offsetTop - log.offsetTop) < 4,
+  );
+
+  // Glued: widening the log has to move the panel with it. #gmsgs is resize: both, so this is
+  // something a person can do by dragging.
+  const leftBefore = panel.offsetLeft;
+  const widthBefore = log.offsetWidth;
+  log.style.width = `${log.offsetWidth + 60}px`;
+  window.dispatchEvent(new Event("resize"));
+  const leftAfter = panel.offsetLeft;
+  root.dataset.devLogWidthBefore = String(widthBefore);
+  root.dataset.devLogWidthAfter = String(log.offsetWidth);
+  root.dataset.devPanelLeftBefore = String(leftBefore);
+  root.dataset.devPanelLeftAfter = String(leftAfter);
+  root.dataset.devPanelStyleLeft = panel.style.left;
+  root.dataset.devPanelFollowsLog = String(leftAfter - leftBefore >= 50);
+  log.style.width = "";
+  window.dispatchEvent(new Event("resize"));
+
   const minuteBefore = time.minute;
   clickTool("Advance one day");
   root.dataset.devDayAdvanced = String(time.minute - minuteBefore === 1440);
@@ -118,6 +162,45 @@ const devModeProbe = setInterval(() => {
   you.hp = 1;
   clickTool("Full heal");
   root.dataset.devHealed = String(you.hp === you.hpmax);
+
+  // The command field, driven the way a tester would: type, press Enter, read the status line.
+  function runCommand(text) {
+    const input = panel.querySelector(".dev-mode-input");
+    input.value = text;
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
+    );
+    return (
+      document.getElementById("dev-mode-status").textContent || ""
+    ).trim();
+  }
+
+  runCommand("acc.medl5");
+  // `inv` is the inventory array -- declared `var inv = []` in bootstrap.js. Guessed as
+  // `you.items` first, which is undefined, and the probe threw: the third time in this work
+  // that a field name was assumed from its meaning rather than read from the source.
+  root.dataset.devGrantWorked = String(
+    inv.some((it) => it && it.id === acc.medl5.id),
+  );
+
+  runCommand("skl.shdc 12");
+  root.dataset.devSkillSet = String(skl.shdc.lvl === 12);
+
+  const loreBefore = global.lore.length;
+  runCommand("lore.underTheSouth");
+  root.dataset.devLoreLearned = String(global.lore.length > loreBefore);
+
+  root.dataset.devBadCommandReported = String(
+    runCommand("nosuch.thing").includes("No registry"),
+  );
+
+  const allLore = [...panel.querySelectorAll(".dev-mode-tool")].find(
+    (b) => b.textContent.trim() === "Learn all lore",
+  );
+  allLore.click();
+  root.dataset.devAllLoreLearned = String(
+    global.lore.length >= Object.keys(lore).length,
+  );
 
   root.dataset.devStatus = (
     document.getElementById("dev-mode-status")?.textContent || ""

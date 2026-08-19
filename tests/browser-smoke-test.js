@@ -402,9 +402,61 @@ async function main() {
       ],
       ["dev-levels-given", "the levelling tool did not add five levels"],
       ["dev-healed", "the heal tool did not restore health"],
+      [
+        "dev-log-measurable",
+        "the message log measured 0 by 0, so every geometry check below it would pass against nothing",
+      ],
+      [
+        "dev-panel-right-of-log",
+        "the dev panel is not to the right of the message log",
+      ],
+      [
+        "dev-panel-near-log",
+        "the dev panel is far from the log rather than beside it",
+      ],
+      [
+        "dev-panel-tops-align",
+        "the dev panel does not line up with the log's top edge",
+      ],
+      [
+        "dev-panel-follows-log",
+        "widening the log left the dev panel behind, so it is positioned by coordinate rather than from the log's box",
+      ],
+      ["dev-grant-worked", "the command field did not grant an item"],
+      ["dev-skill-set", "the command field did not set a mastery's level"],
+      ["dev-lore-learned", "the command field did not unlock a journal entry"],
+      [
+        "dev-bad-command-reported",
+        "an unknown registry was accepted silently instead of being reported",
+      ],
+      ["dev-all-lore-learned", "the learn-all-lore tool left entries locked"],
     ]) {
       if (!devOn.stdout.includes(`data-${flag}="true"`)) {
-        throw new Error(`Dev mode regression: ${complaint}.`);
+        // Position failures are unreadable without the boxes: "the panel did not follow" does
+        // not say whether the log moved, the panel moved, or neither.
+        const measured = [
+          "dev-log-measurable",
+          "dev-log-width",
+          "dev-log-width-before",
+          "dev-log-width-after",
+          "dev-panel-left-before",
+          "dev-panel-left-after",
+          "dev-panel-style-left",
+        ]
+          .map((name) => {
+            const found = new RegExp(`data-${name}="([^"]*)"`).exec(
+              devOn.stdout,
+            );
+            return found ? `${name}=${found[1]}` : null;
+          })
+          .filter(Boolean)
+          .join(" ");
+        const detail =
+          (flag.startsWith("dev-panel") || flag.startsWith("dev-log")) &&
+          measured
+            ? ` ${measured}`
+            : "";
+        throw new Error(`Dev mode regression: ${complaint}.${detail}`);
       }
     }
     if (!devOn.stdout.includes('data-dev-panel-count="1"')) {

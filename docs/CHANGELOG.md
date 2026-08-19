@@ -10,6 +10,37 @@ changes. Player-facing game content and release notes belong in
 
 ### v478 — statting that cannot silently break
 
+- The dev panel sits beside the message log, and its position is computed from the log's own box
+  rather than written as a coordinate: `#gmsgs` ends at about x=1285 in a layout that is nominally
+  1280 wide, so there is no fixed column to the right to hard-code, and the log carries
+  `resize: both`, so a fixed left comes unstuck the moment anyone drags it. A `ResizeObserver`
+  keeps them together.
+- That surfaced a real bug in the first version. The log is `display:none` until
+  `global.flags.aw_u`, the same gate the save bar has, and a hidden element measures 0 by 0 --
+  so the panel was placed at x=8 on startup and stayed there. A zero box now means "not
+  measurable yet, leave it alone", and the observer places the panel when the log appears.
+- And the probe had been passing for the wrong reason, which is the fourth time in this work. Its
+  "the panel is right of the log" and "their tops line up" checks were comparing against a 0x0
+  box, so both passed for free. The probe shows the log first, `dev-log-measurable` is now a
+  required assertion so the section cannot silently go back to measuring nothing, and the
+  geometry is read from `offsetLeft`/`offsetWidth`/`offsetTop` rather than
+  `getBoundingClientRect`, because the game sets `document.body.style.zoom` to fit the viewport
+  and a pixel threshold on a scaled rectangle means something different at every window size.
+- The failure message carries the boxes it measured. The negative control -- replacing the
+  computation with a fixed `left: 1293px` -- now reports `dev-log-width-before=376
+dev-log-width-after=451 dev-panel-left-before=1293 dev-panel-left-after=1293`, which says
+  which of the two did not move instead of only that something did not.
+- Three tools added: unlock every journal entry (the panel is otherwise almost entirely gated
+  behind story beats), a save/load round trip that reports whether level, purse and clock
+  survived, and one command field replacing the grant field -- `acc.medl5` grants,
+  `chss.t3` travels, `ttl.hstr3` awards a title, `lore.underTheSouth` unlocks an entry,
+  `skl.shdc 10` sets a mastery's level. Everything is still resolved dynamically, so none of it
+  registers as a source in `scripts/report-pending.js`.
+- `inv` is the inventory array, declared `var inv = []` in `bootstrap.js`. The probe reached for
+  `you.items` first and threw -- the third time in this work that a field name was assumed from
+  its meaning rather than read from the source, after `recipe.give`/`vendor.stock` and
+  `sector.catacombs`/`sector.mine`.
+
 - Temporary development tooling in `js/core/devmode.js`, reached by opening the game with
   `?devMode=true`. It restocks every vendor, advances a day, gives money and levels, heals, and
   grants any item by `registry.key`. It is meant to come out before the game is announced, and
