@@ -605,6 +605,26 @@ pending`. It exists because two of the owner's requests turned out to have shipp
   someone to fix a problem that does not exist. Checking the field names against the objects,
   rather than guessing them from their meaning, is what fixed it.
 
+- .gitattributes described a different project. It declared attributes for dist/bundle.js and
+  dist/bundle.js.map, neither of which exists here; its comment said "dist/ is committed so the
+  game can be served without a build step", when dist/ is in .gitignore and rebuilt by CI; it
+  credited esbuild and 730 KB of minified output, and this project neither minifies nor uses
+  esbuild; and it carried rules for resources/js/HackTimer/, a directory that is not in the
+  repository. Every one of those lines was doing nothing.
+- What replaced them is the same file measured against this repository. The `* text=auto eol=lf`
+  line stays and now says why it matters here specifically: development is on Windows with
+  core.autocrlf=true, so without it a checkout disagrees with Prettier. The binary list covers
+  png, jpg, ico and wav, which are the formats actually present, plus jpeg, gif, webp and svg --
+  those four are listed on purpose, because an image added later would otherwise be silently
+  corrupted by the normalization rule, and four unused lines are cheaper than finding that out
+  afterwards. Fonts are gone: there are none.
+- package-lock.json keeps `-diff linguist-generated` and is now the only generated file with
+  attributes, with a note saying why js/game.js and dist/ need none: both are generated too, but
+  both are gitignored.
+- Verified rather than assumed: `git check-attr` resolves text/diff/linguist-generated correctly
+  for a stylesheet, a png, a jpg and the lockfile, and `git add --renormalize .` reports no file
+  whose line endings disagree with the new rules.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

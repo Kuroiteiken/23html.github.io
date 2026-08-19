@@ -609,6 +609,26 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   yol açtı; birini var olmayan bir sorunu düzeltmeye gönderecek bir iddia. Alan adlarını
   anlamlarından tahmin etmek yerine nesnelere karşı kontrol etmek düzeltti.
 
+- `.gitattributes` başka bir projeyi tarif ediyordu. `dist/bundle.js` ve `dist/bundle.js.map`
+  için attribute tanımlıyordu, ikisi de burada yok; yorumu "dist/ commit ediliyor, böylece oyun
+  build adımı olmadan sunulabiliyor" diyordu, oysa `dist/` `.gitignore`'da ve CI tarafından
+  yeniden kuruluyor; esbuild'e ve 730 KB minify edilmiş çıktıya atıf yapıyordu, bu proje ne
+  minify ediyor ne esbuild kullanıyor; ve depoda olmayan bir dizin olan `resources/js/HackTimer/`
+  için kurallar taşıyordu. Bu satırların hepsi hiçbir şey yapmıyordu.
+- Yerine gelen şey, aynı dosyanın bu depoya karşı ölçülmüş hâli. `* text=auto eol=lf` satırı
+  kalıyor ve artık burada neden önemli olduğunu söylüyor: geliştirme Windows'ta
+  `core.autocrlf=true` ile yapılıyor, yani o satır olmadan checkout Prettier ile çelişiyor.
+  Binary listesi gerçekten mevcut olan png, jpg, ico ve wav'ı kapsıyor; artı jpeg, gif, webp ve
+  svg -- bu dördü bilinçli olarak listeli, çünkü sonradan eklenen bir görsel aksi hâlde
+  normalizasyon kuralı tarafından sessizce bozulurdu ve bunu sonradan öğrenmek dört kullanılmayan
+  satırdan pahalıdır. Fontlar kalktı: hiç yok.
+- `package-lock.json` `-diff linguist-generated`'i koruyor ve artık attribute'u olan tek
+  üretilmiş dosya; yanında `js/game.js` ile `dist/`'in neden hiçbirine ihtiyacı olmadığını
+  söyleyen bir not var: ikisi de üretilmiş, ama ikisi de gitignore'lu.
+- Varsayılmadı, doğrulandı: `git check-attr` bir stil sayfası, bir png, bir jpg ve lock dosyası
+  için `text`/`diff`/`linguist-generated`'i doğru çözüyor, ve `git add --renormalize .` yeni
+  kurallarla satır sonu çelişen hiçbir dosya bildirmiyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

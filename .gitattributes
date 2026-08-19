@@ -1,16 +1,25 @@
-# Prettier writes LF and every check in `npm run check` reads the working tree,
-# so the working tree is kept on LF as well. Without this, a Windows clone with
-# core.autocrlf=true converts files to CRLF on checkout, which makes Git warn on
-# every `git add` and leaves the checkout disagreeing with the formatter.
+# Prettier writes LF and every step in `npm run check` reads the working tree, so the
+# working tree is kept on LF as well. Without this, a Windows clone with
+# core.autocrlf=true converts files to CRLF on checkout, which makes Git warn on every
+# `git add` and leaves the checkout disagreeing with the formatter. This repository is
+# developed on Windows with autocrlf=true, so the line matters here rather than being
+# boilerplate.
 * text=auto eol=lf
 
-# Assets must never be line-ending normalized.
-*.png binary
-*.jpg binary
+# Assets, which must never be line-ending normalized. png, jpg, ico and wav are the
+# formats actually in the repository; jpeg, gif, webp and svg are listed because an
+# image added later would otherwise be corrupted silently by the rule above, and finding
+# that out afterwards is worse than four unused lines.
+*.png  binary
+*.jpg  binary
 *.jpeg binary
-*.gif binary
-*.ico binary
-*.wav binary
-*.mp3 binary
-*.woff binary
-*.woff2 binary
+*.gif  binary
+*.webp binary
+*.svg  binary
+*.ico  binary
+*.wav  binary
+
+# Machine-written and not worth reading as a diff. It is the only generated file that is
+# committed: js/game.js and dist/ are both generated too, but both are in .gitignore and
+# rebuilt by `npm run build`, so they need no attributes at all.
+package-lock.json -diff linguist-generated
