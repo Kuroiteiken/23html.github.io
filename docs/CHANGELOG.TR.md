@@ -452,6 +452,25 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   her birinin geri gelmesini kontrol ediyor, çünkü geri gelme yolu eski bir panelden
   kopyalanan yeni bir panel -- ilk başta böyle yayıldılar. Yasağın kırıldığı doğrulandı.
 
+- Okunan kitaplar listesi, `left: 445px / top: 370px` konumuna sabitlenmiş ve lime bir saç
+  teliyle çerçevelenmiş bir `div` değil, paylaşılan iskelet üzerine kurulu bir diyalog. Bir
+  başlık, kapatma düğmesi, Escape, odak yönetimi ve kayan bir gövde kazanıyor; satırlarındaki
+  nadirlik renkleri anlamsaldır ve aynen taşındı. Kazandığı davranış görünümünden daha
+  önemli: eskiden içindeki **herhangi** bir tıklamada kapanıyordu, yani bir satırı okumak ve
+  listeyi kapatmak aynı hareketti.
+- Yükleme sırasındaki yıkımı artık `if (dom.bkssttbd?.open) dom.bkssttbd.close()`. Eskiden
+  bayrağı sıfırlayıp düğümü `document.body`'den elle kaldırıyordu ki bu, ne kapanan ne
+  yeniden açılan bir pencere bırakmanın yolu — diyalog kendi kaldırılmasının sahibi,
+  dolayısıyla onu kapatmak yıkımın tamamı.
+- Envanter panelini çerçeveleyen iki çubuk ve alttaki çubuğun buton ayırıcısı düz `grey`
+  iken, o panelin diğer her çizgisi `#3848c0` / `#44c` / `#249`. Hiçbir durum taşımıyorlar —
+  `nograd()` yalnızca bir arka planı değiştiriyor, hiçbir kenarlığa dokunmuyor. `.bts_b`
+  beceri penceresiyle paylaşılıyor, yani değişiklik ikisinde birden görünüyor; istenen bu.
+- İkisi de sabitlendi. Okunan kitaplar diyaloğu bir probla değil statik olarak sabitlendi,
+  çünkü liste ancak bir kitap okunmuşsa var oluyor ve prob bunu güvenilir biçimde
+  kuramıyordu; iskeletin kendi davranışını `tests/probes/save-transfer-modal.js` zaten
+  kapsıyor. Hangisinin hangisi olduğunu söylemek, test sayısından önemli.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

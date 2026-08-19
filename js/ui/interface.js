@@ -1766,17 +1766,32 @@ dom.ct_bt6.addEventListener("click", function () {
         dom.tccon.addEventListener("click", function () {
           if (!global.flags.bksstt) {
             global.flags.bksstt = true;
-            dom.bkssttbd = addElement(document.body, "div", null, "bksstt");
-            dom.bkssttbd.addEventListener("click", function () {
-              empty(dom.bkssttbd);
-              document.body.removeChild(dom.bkssttbd);
-              global.flags.bksstt = false;
-              global.dscr.style.display = "none";
+            // A dialog on the shared shell rather than the div this used to be. That div
+            // was pinned at left 445px / top 370px behind a lime hairline, had no title,
+            // no close control and no Escape, and closed on ANY click inside it -- so
+            // reading the list and dismissing it were the same gesture.
+            const books = createGameModal({
+              title: i18n.t(
+                "runtime.ui.interface.description.click_to_list_known_books_0d0a2b7a",
+              ),
+              onClose: () => {
+                global.flags.bksstt = false;
+                global.dscr.style.display = "none";
+                dom.bkssttbd = null;
+              },
             });
+            books.close(i18n.t("ui.common.close"));
+            dom.bkssttbd = books.modal;
+            dom.bkssttlist = addElement(books.body, "div", null, "bksstt");
             const bks = [];
             for (const a in item) if (item[a].data.finished) bks.push(item[a]);
             for (const a in bks) {
-              dom.bkssttcell = addElement(dom.bkssttbd, "div", null, "blssttc");
+              dom.bkssttcell = addElement(
+                dom.bkssttlist,
+                "div",
+                null,
+                "blssttc",
+              );
               dom.bkssttcell.innerHTML = bks[a].name;
               addDesc(dom.bkssttcell, bks[a]);
               switch (bks[a].rar) {
@@ -1817,6 +1832,7 @@ dom.ct_bt6.addEventListener("click", function () {
                 }
               }
             }
+            books.open();
           }
         });
       }

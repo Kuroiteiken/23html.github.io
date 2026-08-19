@@ -137,8 +137,8 @@ input:focus {
   width: 20%;
 }
 .bts_b {
-  border-top: solid 1px grey;
-  border-right: solid 1px grey;
+  border-top: solid 1px #3848c0;
+  border-right: solid 1px #526988;
   position: relative;
   top: 7px;
 }
@@ -1236,9 +1236,14 @@ input:focus {
   min-height: 0;
   flex: 1 1 auto;
 }
+
+/* The two bars that frame the inventory panel, and the divider between the buttons in the
+   lower one. Every other line inside this panel is #3848c0 / #44c / #249; these three were
+   plain grey, carrying no state -- nograd() only changes #inv_control_b's background and
+   never touches a border. */
 #inv_control {
   display: flex;
-  border-bottom: solid 2px grey;
+  border-bottom: solid 2px #3848c0;
   flex: 0 0 auto;
 }
 #inv_ctx_b {
@@ -1252,7 +1257,7 @@ input:focus {
   align-items: center;
   width: 100%;
   background: linear-gradient(90deg, rgb(0 5 51), rgb(0 65 107));
-  border-top: solid 1px grey;
+  border-top: solid 1px #3848c0;
   flex: 0 0 auto;
 }
 
@@ -1413,15 +1418,16 @@ input:focus {
 #jcell6:hover {
   background-color: #3f5d23;
 }
+
+/* The list of read books, now the body of a dialog rather than a window of its own. It was
+   pinned at left 445px / top 370px behind a lime hairline on #210445, which is the palette
+   the redesign left behind. The dialog centres itself, so the position is gone. */
 .bksstt {
-  position: absolute;
-  border: solid lime 1px;
-  width: 350px;
   overflow: auto;
-  background-color: #210445;
-  left: 445px;
-  top: 370px;
-  max-height: 350px;
+  border: 1px solid #3848c0;
+  border-radius: 3px;
+  background: var(--list-well);
+  max-height: min(360px, 50vh);
 }
 .blssttc {
   border-bottom: thistle 1px solid;

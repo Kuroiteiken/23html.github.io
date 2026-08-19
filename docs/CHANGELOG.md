@@ -449,6 +449,25 @@ changes. Player-facing game content and release notes belong in
   old one -- which is how they spread in the first place. Confirmed to fail when one is put
   back.
 
+- The read-books list is a dialog on the shared shell rather than a div pinned at
+  left 445px / top 370px behind a lime hairline. It gains a title, a close button, Escape,
+  focus handling and a body that scrolls; the rarity colours in its rows are semantic and
+  moved across unchanged. The behaviour it gains matters more than the look: it used to close
+  on ANY click inside it, so reading an entry and dismissing the list were the same gesture.
+- Its teardown on load is now `if (dom.bkssttbd?.open) dom.bkssttbd.close()`. It used to
+  clear the flag and remove the node from document.body by hand, which is a way to leave a
+  window that neither closes nor reopens -- the dialog owns its own removal, so closing it is
+  the whole teardown.
+- The two bars framing the inventory panel and the divider between the buttons in the lower
+  one were plain grey while every other line in that panel is #3848c0 / #44c / #249. They
+  carry no state -- nograd() only changes a background and never touches a border. `.bts_b` is
+  shared with the skills window, so the change shows in both, which is the intent.
+- Both are pinned. The read-books dialog is pinned statically rather than with a probe,
+  because the list only exists once a book has been read and the probe could not arrange that
+  reliably; the shell's own behaviour is already covered by
+  tests/probes/save-transfer-modal.js. Saying which of the two it is matters more than the
+  count of tests.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

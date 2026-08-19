@@ -1517,12 +1517,10 @@ function load(dt) {
   // A stored background preference outranks whatever the save carried, since it
   // is the more recent explicit choice; without one, apply the save's values.
   if (!restoreBackgroundPreference()) applyBackground();
-  if (dom.bkssttbd) {
-    empty(dom.bkssttbd);
-    document.body.removeChild(dom.bkssttbd);
-    global.flags.bksstt = false;
-    kill(dom.bkssttbd);
-  }
+  // A dialog takes itself out of the document when it closes and clears the flag in its
+  // own onClose, so closing it is the whole teardown -- reaching into document.body for a
+  // node the dialog owns is what left a window behind that could neither close nor reopen.
+  if (dom.bkssttbd?.open) dom.bkssttbd.close();
   if (global.flags.expatv) {
     empty(dom.ct_bt4_5a_nc);
     document.body.removeChild(dom.ct_bt4_5a_nc);

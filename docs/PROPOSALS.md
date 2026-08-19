@@ -251,10 +251,16 @@ anything inside a comment.
 border/gradient/hover as the reference for chrome, and `dom.sl_kill` as the reference for
 giving a span keyboard reach.
 
-**Applied in v478.30:** items 1, 6a, 6b, 9, 10 and 12 above, each with a ban in
-`tests/check-game-regressions.js` so the rule cannot return. What is left is items 2, 3, 4,
-5, 7, 8 and 11 -- the two remaining hand-built windows, the inventory chip cluster, and
-everything to do with keyboard reach.
+**Applied in v478.30:** items 1, 5, 6a, 6b, 7, 9, 10 and 12 above, each pinned in
+`tests/check-game-regressions.js` so the rule cannot return. Item 7 gained behaviour as well
+as palette: the read-books list used to close on any click inside it, and its load-time
+teardown removed the node by hand while clearing the flag, which is how a window that
+neither closed nor reopened could be left behind.
+
+What is left is items 2, 3, 4, 8 and 11 -- the title-picker window (which needs a decision,
+because giving it a cancel path changes the flow), the inventory chip cluster whose colours
+are written inline in JavaScript, and everything to do with keyboard reach, including
+`chs()`.
 
 **Has to be new:** a `.ct_bts:focus-visible` rule, a focus strategy for `chs()` rows
 across a rebuild, and a decision on item 4's second half, which is a row rewrite rather

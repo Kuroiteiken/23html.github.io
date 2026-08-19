@@ -230,6 +230,14 @@ const bannedSurfaces = [
     /#rptbn:hover\s*\{[^}]*background-color/,
     "#rptbn:hover sets a background again, which the control's own inline background overwrites -- so the rule paints nothing and the control has no hover feedback at all. Use a border or an outline.",
   ],
+  [
+    /#inv_control\s*\{[^}]*solid 2px grey/,
+    "The inventory panel's top bar is framed in plain grey again; every other line in that panel is #3848c0 / #44c / #249.",
+  ],
+  [
+    /\.bts_b\s*\{[^}]*solid 1px grey/,
+    "The button divider in the inventory's lower bar is grey again. It is shared with the skills window, so it shows in both.",
+  ],
 ];
 for (const [pattern, complaint] of bannedSurfaces) {
   if (pattern.test(gameCss)) {
@@ -251,6 +259,41 @@ if (!gameCss.includes(".opt_transfer {")) {
 }
 
 console.log("Validated the converted dark-theme surfaces.");
+
+// The read-books list is a dialog on the shared shell, not the div it used to be. That div
+// was pinned at left 445px / top 370px behind a lime hairline, had no close control and no
+// Escape, and closed on ANY click inside it -- so reading an entry and dismissing the list
+// were the same gesture. Pinned here rather than in a browser probe because the list only
+// exists once a book has been read, which the probe could not arrange reliably; the shell's
+// own behaviour is covered by tests/probes/save-transfer-modal.js.
+if (
+  !/createGameModal\(\{[\s\S]{0,400}?global\.flags\.bksstt = false/.test(
+    bundleSource,
+  )
+) {
+  throw new Error(
+    "Read-books regression: the list must be built with createGameModal and clear global.flags.bksstt in its onClose, or it goes back to being a window with no way out.",
+  );
+}
+if (/\.bksstt\s*\{[^}]*position:\s*absolute/.test(gameCss)) {
+  throw new Error(
+    "Read-books regression: .bksstt is absolutely positioned again. It is the body of a dialog now, and the dialog centres itself.",
+  );
+}
+if (/\.bksstt\s*\{[^}]*lime/.test(gameCss)) {
+  throw new Error(
+    "Read-books regression: .bksstt is bordered in lime again; the palette's structural border is #3848c0.",
+  );
+}
+// And the load path closes the dialog rather than reaching into document.body for a node the
+// dialog owns -- doing that is what used to leave a window that neither closed nor reopened.
+if (/document\.body\.removeChild\(dom\.bkssttbd\)/.test(bundleSource)) {
+  throw new Error(
+    "Read-books regression: the load path removes the dialog's node by hand. Close the dialog and let it remove itself, or the flag is cleared while the window stays on screen.",
+  );
+}
+
+console.log("Validated the read-books dialog.");
 
 const localizedLocationText = [
   /i18n\.get\(\s*"runtime\.world\.locations\.dialogue\.free_meal_eating_sounds"/,
