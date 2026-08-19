@@ -54,7 +54,8 @@ const tooltipPositioning = [
   /dm\.addEventListener\("mousemove", \(a\) => \{\s*positionDescription\(a\);/,
 ];
 
-if (!tooltipPositioning.every((pattern) => pattern.test(interfaceSource))) {
+// Positioning lives in js/ui/tooltip.js now; the contract is about the program.
+if (!tooltipPositioning.every((pattern) => pattern.test(bundleSource))) {
   throw new Error(
     "Tooltip regression: hover descriptions need pixel-based, viewport-aware pointer positioning.",
   );

@@ -25,6 +25,7 @@ module.exports = [
   "js/systems/containers.js",
   "js/systems/crafting.js",
   "js/systems/actions.js",
+  "js/ui/tooltip.js",
   "js/ui/interface.js",
   "js/ui/message-log.js",
   "js/ui/panels.js",

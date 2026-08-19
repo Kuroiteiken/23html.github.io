@@ -313,8 +313,15 @@ listesi ve sandığın iki yanı. Plan bu dosyaya `shops.js` diyordu; adı `pane
 çünkü mobilya listesi aynı bloğun ortasında duruyor ve aynı işi yapıyor — onu ayırmak
 bir adı tutturmak için yapılmış bir kesim olurdu.
 
-**`interface.js` 8.689 → 6.872 satır** (savaş, mesaj günlüğü ve paneller çıktıktan
-sonra; %21).
+`js/ui/tooltip.js` (795 satır) — `positionDescription`, `dscr`, `addDesc` ve iki etiket
+tablosu. Bu dosya **`interface.js`'ten önce** geliyor ve bu, bu bölmedeki tek sıra
+kısıtı: `addDesc` arayüz kurulurken yirmi altı kez çağrılıyor, ve iki etiket tablosu
+`const`. Fonksiyon bildirimi tüm birleşik kapsam boyunca hoist edilir, `const`
+edilmez — dolayısıyla önceki bir dosyanın tanım anındaki kodundan okunan bir `const`
+doğrudan `ReferenceError` olur.
+
+**`interface.js` 8.689 → 6.075 satır** (savaş, mesaj günlüğü, paneller ve baloncuklar
+çıktıktan sonra; **%30**).
 
 **Atlanan: `preferences.js`.** Tercih fonksiyonları (`autosaveSeconds`,
 `applyBackground`, `restoreBackgroundPreference`, `setBackground`) bitişik değil — araya
