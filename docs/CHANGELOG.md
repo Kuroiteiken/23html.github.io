@@ -561,6 +561,13 @@ changes. Player-facing game content and release notes belong in
   chained; the runner calls `node --test` directly, and nothing in the docs or the workflow
   referenced them.
 
+- actions/setup-node moved from v6 to v7 in the Pages workflow. There was no reason for it to
+  be a version behind: checkout, configure-pages, upload-pages-artifact and deploy-pages were
+  all already on their latest major, and setup-node had simply been left. Checked before
+  changing rather than assumed -- the real tag list from `git ls-remote` confirms v7 is current,
+  and the v7 README's only migration note is an internal move to ESM, with `node-version: 24`
+  and `cache: npm` behaving exactly as before.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

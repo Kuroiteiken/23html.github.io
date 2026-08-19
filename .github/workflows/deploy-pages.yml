@@ -41,7 +41,11 @@ jobs:
           persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        # v7 is the current major. Its only change from v6 is an internal move to ESM, so
+        # node-version and cache behave identically -- checked against the v7 README rather
+        # than assumed, because the other five actions here are already on their latest major
+        # and this one being a version behind was an oversight rather than a decision.
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm

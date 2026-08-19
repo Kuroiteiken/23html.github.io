@@ -564,6 +564,13 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   vardılar; koşucu doğrudan `node --test` çağırıyor ve ne dokümanlar ne workflow onlara referans
   veriyordu.
 
+- Pages workflow'unda `actions/setup-node` v6'dan v7'ye alındı. Bir sürüm geride kalmasının bir
+  sebebi yoktu: `checkout`, `configure-pages`, `upload-pages-artifact` ve `deploy-pages` zaten
+  en son major'daydı, `setup-node` öylece kalmıştı. Değiştirmeden önce kontrol edildi, varsayılmadı
+  -- `git ls-remote`'tan gelen gerçek etiket listesi v7'nin güncel olduğunu doğruluyor ve v7
+  README'sindeki tek göç notu içeride ESM'e geçiş; `node-version: 24` ile `cache: npm` aynen
+  davranıyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla
