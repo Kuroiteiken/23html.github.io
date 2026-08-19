@@ -579,6 +579,26 @@ dom.ct_bt6.innerHTML = global.flags.jnlu
   : i18n.t("ui.common.unknown");
 dom.ct_bt7 = addElement(dom.ct_ctrl, "div", null, "ct_bts");
 dom.ct_bt7.innerHTML = i18n.t("ui.navigation.settings");
+// The five panel buttons are divs with a click listener, so they get the two things a
+// button would have given them: a place in the tab order and a role a screen reader can
+// announce. Enter and Space dispatch a real click rather than calling a handler, because
+// each button binds its own further down this file and there is no single action to call.
+// Same pattern as dom.sl_kill.
+for (const navButton of [
+  dom.ct_bt1,
+  dom.ct_bt2,
+  dom.ct_bt3,
+  dom.ct_bt6,
+  dom.ct_bt7,
+]) {
+  navButton.tabIndex = 0;
+  navButton.setAttribute("role", "button");
+  navButton.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    navButton.click();
+  });
+}
 dom.ct_bt1.style.borderLeft = "none";
 dom.ct_bt7.style.borderRight = "none";
 

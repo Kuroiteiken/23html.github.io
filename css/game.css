@@ -185,6 +185,11 @@ input:focus {
 .crf_c_bts:hover {
   background: linear-gradient(90deg, rgb(25 129 108), rgb(1 41 39));
 }
+
+.ct_bts:focus-visible {
+  outline: 1px solid #9ecfff;
+  outline-offset: -2px;
+}
 .crf_lg {
   font-size: 0.9em;
   background-color: rgb(46 41 169);
@@ -313,9 +318,13 @@ input:focus {
 .se_ia:hover {
   border: 1px #71e6b1 solid;
 }
+
+/* The top-level panel navigation. Its border was orchid, from before the dark palette, and
+   it had no focus-visible rule at all -- the shared :hover block above reaches it, focus
+   never did. */
 .ct_bts {
   width: 20%;
-  border: orchid 1px solid;
+  border: #3848c0 1px solid;
   padding-top: 1px;
   border-bottom: none;
   font-size: 0.9em;

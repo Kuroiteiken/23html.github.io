@@ -325,6 +325,34 @@ async function main() {
       );
     }
 
+    // The game's navigation was mouse-only: five divs with click listeners, no tab order, no
+    // role, no keydown, while the save bar below them was fully reachable.
+    const navKeyboard = await runChrome(
+      `${baseUrl}/__test-nav-keyboard.html`,
+      profiles[0],
+    );
+    assertNoUnexpectedErrors(navKeyboard.stderr);
+    assertCommonStartup(navKeyboard.stdout, port);
+    for (const [flag, complaint] of [
+      [
+        "nav-reachable",
+        "a panel button is missing its tab index or its button role",
+      ],
+      [
+        "nav-panel-started-closed",
+        "the settings panel was already open, so this scenario proves nothing",
+      ],
+      ["nav-took-focus", "a panel button cannot take focus"],
+      [
+        "nav-enter-opened-panel",
+        "pressing Enter on a panel button did not open its panel -- the attributes are there but the key does nothing",
+      ],
+    ]) {
+      if (!navKeyboard.stdout.includes(`data-${flag}="true"`)) {
+        throw new Error(`Navigation keyboard regression: ${complaint}.`);
+      }
+    }
+
     const mobileChangelog = await runChrome(
       `${baseUrl}/changelog/changelog.html`,
       profiles[0],
@@ -686,7 +714,7 @@ async function main() {
 
     assertVersionedRequests(requests);
     console.log(
-      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
+      "Slow assets, version consistency, Turkish startup without an English fallback fetch, a bundle preloaded once rather than twice, cached reload, list surface tokens, player-name safety, save transfer dialogs, keyboard navigation, malformed-save recovery, unreadable-save reporting, combat-panel separation, hover-description positioning, save-bar layout and clearance, the first-frame boot screen, collapsed log repeats, separated background presets, theme scaling, styled save-deletion modal, fresh-start reload after deletion, localized combat misses, message-log controls, locale-independent calendar behavior, locale-key rendering safety, player-name persistence, viewport fitting, the journal knowledge panel, the damp cellar side story, the stone plate, scrolling window panels, pinned inventory bars, new-version release notes, shop footer layout, changelog linking, and mobile changelog layout verified.",
     );
   } finally {
     if (server.listening) await close(server);

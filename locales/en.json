@@ -338,7 +338,8 @@
         "You can see the status-effect icons' borders again -- they were black on a dark panel -- and pointing at one answers in the game's own accent.",
         "Opening the language list no longer drops a white sheet over the settings panel, and the Export and Import rows lost their light-grey boxes.",
         "The repeat button in the crafting panel answers when you point at it. Its hover was written in a way the button's own colour overwrote.",
-        "The list of books you have read opens in a proper window, with a title and a way to close it -- it used to vanish the moment you clicked anywhere inside it."
+        "The list of books you have read opens in a proper window, with a title and a way to close it -- it used to vanish the moment you clicked anywhere inside it.",
+        "The five panel buttons across the top can be reached with the keyboard: Tab used to skip the whole of the navigation, and Enter or Space opens a panel now."
       ]
     },
     "lore": {
