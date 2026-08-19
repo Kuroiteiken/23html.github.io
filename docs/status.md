@@ -44,6 +44,11 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   `timeout-minutes` (build 20, deploy 10) ve `persist-credentials: false`
   eklendi.
 - `docs/CHANGELOG.md` ve `.TR.md` güncellendi.
+- **P3.1 kademe 2 tamamlandı**: `manifest.json`'a `complete` bayrağı; Türkçe oyuncu
+  artık `en.json` (348 KB) indirmiyor. `check-i18n` bayrağı doğruluyor.
+- **P3.2 tamamlandı**: `index.html` paketi `?v=` damgalı `preload` ile önyüklüyor.
+- İki değişiklik de regresyon testli ve **negatif kontrolü yapılmış** (koruma
+  kaldırıldığında test kırılıyor).
 
 ## Değişmez kurallar
 
@@ -205,18 +210,16 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 4 tamamlandı. Sıradaki **Faz 5**: P3.1 kademe 2 (`locales/manifest.json`'a yerel
-başına `complete` bayrağı → Türkçe oyuncu için 348 KB daha az indirme) ve P3.2
-(`index.html`'e `<link rel="preload" as="script">`, `build-site.js` içinde `?v=` ile
-damgalanmalı).
+Faz 5 tamamlandı. Sıradaki **Faz 6**: P1.3 (`interface.js`'in kademeli bölünmesi —
+`message-log.js`, `preferences.js`, `tooltip.js`, `shops.js`) ve P4.3 (renk
+token'ları).
 
-Ardından Faz 6 (P1.3 `interface.js` bölünmesi, P4.3 renk token'ları) ve Faz 7
-(P4.1 oyuncu adı `textContent`, P4.4 klavye erişimi, P4.5 hijyen, P1.4 simülasyon
-DOM'u, P2.2 `defineItem`, P3.3 minify).
+P1.3'ün her adımı ayrı commit olmalı ve her adımdan sonra `tests/fingerprint.js`
+karşılaştırması + `npm run test:browser` şart. `bundleSource` sayesinde regresyon
+iddiaları artık taşımalarda kırılmıyor.
 
-Refactor planı bittiğinde içerik kuyruğuna geçilecek — sıra kuyruğun kendi
-numaralandırması: #7 zırh çift sayımı ve #6 `eqp.dummy` ilk ikisi, çünkü ikisi de
-savaş dosyasında ve P0.2 sayesinde artık ölçülebilir.
+Ardından Faz 7: P4.1 (oyuncu adı `textContent`), P4.4 (klavye erişimi), P4.5
+(hijyen), P1.4 (simülasyon DOM'u), P2.2 (`defineItem`), P3.3 (minify).
 
 ## Kuyruk — araştırılmış bulgularla
 
@@ -297,3 +300,9 @@ oturumda doğrulandı ve incelticek bir ayrım çıktı:** kısa ve ASCII bir he
 bash'i `unexpected EOF` ile düşürdü. Kural: **çok satırlı veya Türkçe içerik için
 `Write` aracını kullan**, heredoc'u yalnızca kısa ASCII için sakla. Var olan bir
 dosyaya nokta atışı ekleme yapmak için `python - <<'PY'` bloğu güvenilir çalıştı.
+
+**`git checkout <dosya>` ile geçici bir değişikliği geri alma.** Bu oturumda negatif
+kontrol için `build-site.js`'e geçici bir bozma yapıldı ve `git checkout` ile geri
+alındı — ama o dosyadaki **commit edilmemiş gerçek düzeltme de** silindi ve testler
+kırıldı. Geçici bozmayı geri almanın doğru yolu: bozmayı ters yönde uygulamak ya da
+önce dosyayı kopyalayıp sonra geri yazmak.

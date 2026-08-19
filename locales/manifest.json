@@ -4,12 +4,14 @@
     {
       "code": "en",
       "name": "English",
-      "file": "en.json"
+      "file": "en.json",
+      "complete": true
     },
     {
       "code": "tr",
       "name": "Türkçe",
-      "file": "tr.json"
+      "file": "tr.json",
+      "complete": true
     }
   ]
 }

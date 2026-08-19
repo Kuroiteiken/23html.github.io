@@ -127,17 +127,31 @@
       manifest.locales.find(({ code }) => code === requestedLocale) ??
       manifest.locales.find(({ code }) => code === storedLocale) ??
       defaultDefinition;
-    // Requested together rather than one after the other. These were two awaits in
-    // sequence, so a Turkish player paid a full round trip for English before the
-    // request for Turkish was even made -- and neither file depends on the other.
-    // The fallback is still fetched: dropping it needs a per-locale completeness
-    // flag in the manifest, which is a separate change.
-    const [fallbackMessages, selectedMessages] = await Promise.all([
-      getJson(versioned(new URL(defaultDefinition.file, localeRoot))),
-      selectedDefinition.code === defaultDefinition.code
-        ? null
-        : getJson(versioned(new URL(selectedDefinition.file, localeRoot))),
-    ]).then(([fallback, selected]) => [fallback, selected ?? fallback]);
+    // A locale the manifest marks complete needs no English underneath it, so the
+    // fallback file is not asked for at all. That is 348 KB of en.json a Turkish
+    // player was downloading and never reading a key from -- tests/check-i18n.js
+    // fails the build on a single missing key in a locale claiming completeness, so
+    // "complete" is a checked fact rather than a promise. A locale that does not
+    // claim it is fetched alongside English, in parallel rather than after it, and
+    // get() falls through to English exactly as before.
+    const selectedIsDefault =
+      selectedDefinition.code === defaultDefinition.code;
+    const needsFallback = !selectedIsDefault && !selectedDefinition.complete;
+    const [selectedMessages, fallbackMessages] = await Promise.all([
+      getJson(
+        versioned(
+          new URL(
+            selectedIsDefault
+              ? defaultDefinition.file
+              : selectedDefinition.file,
+            localeRoot,
+          ),
+        ),
+      ),
+      needsFallback
+        ? getJson(versioned(new URL(defaultDefinition.file, localeRoot)))
+        : null,
+    ]).then(([selected, fallback]) => [selected, fallback ?? selected]);
 
     window.i18n = {
       availableLocales: manifest.locales.map(({ code, name }) => ({

@@ -157,6 +157,7 @@ async function main() {
     const port = await listen(server);
     const baseUrl = `http://127.0.0.1:${port}`;
 
+    const turkishFirstRequest = requests.length;
     const turkish = await runChrome(`${baseUrl}/?lang=tr`, profiles[0]);
     assertNoUnexpectedErrors(turkish.stderr);
     assertCommonStartup(turkish.stdout, port);
@@ -165,6 +166,45 @@ async function main() {
     }
     if (!turkish.stdout.includes(">Ayarlar</div>")) {
       throw new Error("The Turkish interface text was not rendered.");
+    }
+
+    // A locale the manifest marks complete is served without English underneath it, so
+    // en.json must not be asked for at all -- it is 348 KB, and check-i18n.js proves
+    // there is not one key in it a Turkish page would read. Asserted on the requests the
+    // server actually saw, because the saving is the request that does not happen and
+    // nothing in the rendered page could show it.
+    const turkishRequests = requests.slice(turkishFirstRequest);
+    if (
+      !turkishRequests.some(({ pathname }) => pathname === "/locales/tr.json")
+    ) {
+      throw new Error(
+        "The Turkish page did not request tr.json, so this scenario is not measuring what it claims.",
+      );
+    }
+    const fallbackFetch = turkishRequests.find(
+      ({ pathname }) => pathname === "/locales/en.json",
+    );
+    if (fallbackFetch) {
+      throw new Error(
+        "The Turkish page fetched en.json as a fallback. locales/manifest.json marks tr complete, so the loader must skip it -- that request is 348 KB the player waits for and never reads a key from.",
+      );
+    }
+
+    // index.html preloads the bundle so its transfer overlaps the locale requests
+    // instead of starting after them. The hint and the loader's own request have to be
+    // the same URL, version included, or the 1.2 MB file is fetched twice -- which
+    // would be slower than not preloading it at all.
+    const bundleRequests = turkishRequests.filter(
+      ({ pathname }) => pathname === "/js/game.js",
+    );
+    if (bundleRequests.length === 0) {
+      throw new Error("The page never requested the bundle.");
+    }
+    const bundleVersions = new Set(bundleRequests.map(({ search }) => search));
+    if (bundleVersions.size !== 1) {
+      throw new Error(
+        `The preload hint and the loader asked for different bundle URLs (${[...bundleVersions].join(" and ")}), so it is downloaded twice rather than once.`,
+      );
     }
 
     const cachedReload = await runChrome(`${baseUrl}/?lang=en`, profiles[0]);

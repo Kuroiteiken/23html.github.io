@@ -462,7 +462,7 @@ tamamı bu yolla çalışıyor, yani route'un dosyadan okuduğu davranış eskis
 
 ## P3 — Yükleme başarımı
 
-### P3.1 ◐ Türkçe oyuncu iki yerel dosyayı da, üstelik sırayla indiriyor
+### P3.1 ✅ Türkçe oyuncu iki yerel dosyayı da, üstelik sırayla indiriyor
 
 **Kanıt:** [i18n-loader.js:128-140](../js/i18n-loader.js#L128-L140) — önce
 `fallbackMessages` (en.json, 348 KB) `await` ediliyor, **sonra** `selectedMessages`
@@ -492,7 +492,28 @@ kuralı korunur.
 takımının "Turkish startup" senaryosu doğruluyor. **Kademe 2 (manifest'te
 `complete` bayrağı, 348 KB tasarruf) hâlâ bekliyor.**
 
-### P3.2 Paket, yerel dosyalar inmeden indirilmeye başlamıyor
+**Kademe 2 de yapıldı.** `locales/manifest.json`'daki her yerel tanımı artık bir
+`complete` bayrağı taşıyor. Yükleyici, seçili yerel tam işaretliyse geri düşüş
+dosyasını **hiç istemiyor** — Türkçe oyuncu için 348 KB'lık `en.json` isteği tamamen
+ortadan kalktı.
+
+`complete` bir söz değil, denetlenen bir olgu: `tests/check-i18n.js` tam işaretli bir
+yerelde tek bir eksik anahtar bulursa yapıyı düşürüyor ve hata mesajı ne yapılacağını
+söylüyor (çevir ya da bayrağı kaldır).
+
+**Bu arada mevcut bir tutarsızlık da düzeldi.** `docs/AGENTS.md` "İngilizce olmayan
+yereller, çeviriler tamamlanana kadar İngilizce geri düşüşe dayanabilir" diyordu ama
+`check-i18n` her yerelden **tam parite** istiyordu — yani kural yazılıydı, denetim onu
+imkânsız kılıyordu. Ayrım artık doğru yerden geçiyor: İngilizce'de olmayan bir anahtar
+her zaman hata (onu kimse okumuyor, ya yazım hatası ya artık), İngilizce'de olup
+yerelde olmayan bir anahtar ise yalnızca yerel kendini tam ilan ediyorsa hata.
+
+**Regresyon testi eklendi ve negatif kontrolü yapıldı.** Kazanç _gerçekleşmeyen_
+istekte olduğu için sayfanın içeriğinden görülemez; test sunucunun gerçekten gördüğü
+isteklere bakıyor. `tr`'nin `complete` bayrağı kaldırıldığında test kırılıyor —
+doğrulandı.
+
+### P3.2 ✅ Paket, yerel dosyalar inmeden indirilmeye başlamıyor
 
 **Kanıt:** Yükleyici manifest → geri düşüş → seçili yerel zincirini bitirdikten
 sonra `game.js` betiğini DOM'a ekliyor
@@ -513,6 +534,22 @@ yapıyor.
 
 **Risk:** Düşük. Ölçüm: Chrome'un ağ paneli veya `test:browser` içine eklenecek bir
 zamanlama iddiası.
+
+**Yapıldı.** `index.html` artık paketi önyüklüyor:
+
+```html
+<link rel="preload" as="script" href="js/game.js" />
+```
+
+`preload` yalnızca indiriyor, çalıştırmıyor — dolayısıyla `i18n`'in paketten önce var
+olması kuralı bozulmuyor, ama 1,2 MB'lık transfer yerel isteklerle **paralel**
+başlıyor.
+
+`scripts/build-site.js` ipucunu `?v=` ile damgalıyor. Bu ihmal edilebilir bir ayrıntı
+değil: ipucu ile yükleyicinin kendi isteği **birebir aynı URL** olmazsa tarayıcı bunu
+iki ayrı kaynak sayar ve 1,2 MB iki kez inerdi — yani hiç önyüklememekten yavaş
+olurdu. Tarayıcı testi tam bunu doğruluyor ve damgalama kaldırıldığında kırılıyor;
+negatif kontrolü yapıldı.
 
 ### P3.3 Paket minify edilmiyor
 

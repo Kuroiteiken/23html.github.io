@@ -81,6 +81,9 @@ const deployedIndex = fs
   // -- which is exactly what happened once the boot screen's inline script was added
   // above them, and it shipped a page whose bundle could never be cache-busted.
   .replace('href="css/game.css"', `href="css/game.css?v=${assetVersion}"`)
+  // The preload hint has to carry the same version as the loader's own request for the
+  // bundle, or the browser treats them as two resources and downloads it twice.
+  .replace('href="js/game.js"', `href="js/game.js?v=${assetVersion}"`)
   .replace(
     'src="js/i18n-loader.js"',
     `src="js/i18n-loader.js?v=${assetVersion}"`,

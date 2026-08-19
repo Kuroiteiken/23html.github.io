@@ -20,6 +20,14 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="icons/og-image.jpg" />
     <link rel="stylesheet" href="css/game.css" />
+    <!-- The bundle is the largest thing the page loads and the last thing asked for:
+         js/i18n-loader.js only injects it once the locale files have arrived, because
+         content modules call i18n.t() while defining themselves. A preload only
+         downloads, it does not execute, so this starts the transfer alongside the
+         locale requests without changing that order. build-site.js stamps the ?v= so
+         the hint and the loader's own request are the same URL -- if they differed the
+         file would be fetched twice instead of once. -->
+    <link rel="preload" as="script" href="js/game.js" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link
       rel="icon"

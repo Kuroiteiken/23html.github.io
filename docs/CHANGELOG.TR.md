@@ -305,6 +305,33 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   `index.html` kullanmıyor -- her biri kendi küçük belgesini döndürüyor -- dolayısıyla
   ikisi de genel route'a uymuyor.
 
+- Türkçe oyuncu artık `en.json` indirmiyor. `locales/manifest.json` içindeki her yerel
+  bir `complete` bayrağı taşıyor ve yükleyici, bu bayrağa sahip bir yerel için geri
+  düşüş dosyasını tamamen atlıyor -- oyuncunun beklediği ama tek bir anahtarını bile
+  okumadığı 348 KB, çünkü `check-i18n.js` her zaman tam parite zorunlu kılıyordu.
+- `complete` bir söz değil, denetlenen bir olgu: `check-i18n.js`, bunu iddia eden bir
+  yerelde tek bir anahtar eksikse yapıyı düşürüyor ve ne yapılacağını söylüyor --
+  çevirin ya da bayrağı kaldırın; bayrağı kaldırmak yükleyiciyi yeniden İngilizce
+  indirmeye döndürüyor.
+- Bu aynı zamanda bir çelişkiyi de çözdü. Ajan yönergeleri, İngilizce olmayan yerellerin
+  çevirileri tamamlanana kadar İngilizce geri düşüşe dayanabileceğini söylüyor; ama
+  `check-i18n` her yerelden tam parite istiyordu, dolayısıyla bu izin kullanılamıyordu.
+  Ayrım artık doğru yerden geçiyor: İngilizce'de olmayan bir anahtar her zaman hatadır --
+  onu kimse okumaz, ya yazım hatasıdır ya artıktır -- İngilizce'de olup bir yerelde
+  olmayan anahtar ise yalnızca o yerel kendini tam ilan ediyorsa hatadır.
+- `index.html` paketi önyüklüyor. Yükleyici `js/game.js`'i ancak yerel dosyalar
+  geldikten sonra enjekte edebiliyor, çünkü içerik modülleri kendilerini tanımlarken
+  `i18n.t()` çağırıyor; yani sayfanın yüklediği en büyük dosya aynı zamanda en son
+  istenendi. Önyükleme çalıştırmadan indirdiği için bu sırayı bozmuyor ve 1,2 MB'lık
+  transferi yerel isteklerle üst üste bindiriyor.
+- `build-site.js` önyükleme ipucunu diğer her şeyle aynı `?v=` ile damgalıyor ve bu bir
+  ayrıntı değil: ipucu ile yükleyicinin kendi isteği aynı URL olmazsa tarayıcı bunları
+  iki ayrı kaynak sayar ve paketi iki kez indirir -- ki bu hiç önyüklememekten kötüdür.
+- İki değişiklik de sunucunun gerçekten gördüğü isteklere bakan tarayıcı iddialarıyla
+  korunuyor; çünkü her iki durumda da doğrulanacak şey gerçekleşmeyen ya da yalnızca bir
+  kez gerçekleşen bir istek ve hiçbiri sayfanın çıktısında görünmüyor. Her iki iddianın
+  da tarif ettiği koruma kaldırıldığında kırıldığı doğrulandı.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

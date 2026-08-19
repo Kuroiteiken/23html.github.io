@@ -71,16 +71,28 @@ for (const locale of manifest.locales) {
     (key) =>
       key !== "meta.code" && key !== "meta.name" && !englishLeaves.has(key),
   );
-  if (missing.length || extra.length) {
+  // A key English does not have is always wrong: nothing reads it, and it is either a
+  // typo or a leftover. A key English has and this locale does not is only wrong if the
+  // manifest claims the locale is complete -- and that claim is what lets the loader
+  // skip fetching English underneath it, so it has to be true rather than aspirational.
+  // A locale that makes no such claim may be translated a piece at a time, which is
+  // what the agent instructions allow.
+  if (extra.length) {
     throw new Error(
-      `${locale.file} schema mismatch. Missing: ${missing.join(", ") || "none"}; extra: ${extra.join(", ") || "none"}`,
+      `${locale.file} defines keys English does not: ${extra.join(", ")}`,
+    );
+  }
+  if (locale.complete && missing.length) {
+    throw new Error(
+      `${locale.file} is marked complete in locales/manifest.json but is missing ${missing.length} key(s): ${missing.join(", ")}. Either translate them or drop the "complete" flag, which is what makes the loader stop fetching English as a fallback.`,
     );
   }
 
   const unsafeFormatting = contentPaths.filter(
     (key) =>
+      leaves.has(key) &&
       JSON.stringify(formattingTokens(englishLeaves.get(key))) !==
-      JSON.stringify(formattingTokens(leaves.get(key))),
+        JSON.stringify(formattingTokens(leaves.get(key))),
   );
   if (unsafeFormatting.length) {
     throw new Error(

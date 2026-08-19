@@ -301,6 +301,33 @@ changes. Player-facing game content and release notes belong in
 - /__test/corrupt-save and /__test/unreadable-save stayed in serve.js. Neither uses
   index.html -- each returns its own small document -- so neither fits the generic route.
 
+- A Turkish player no longer downloads en.json. Every locale in locales/manifest.json
+  carries a `complete` flag now, and the loader skips the fallback file entirely for a
+  locale that has it -- 348 KB the player used to wait for and never read a single key
+  from, because check-i18n.js has always required full parity.
+- `complete` is a checked fact rather than a promise: check-i18n.js fails the build if a
+  locale claiming it is missing even one key, and says what to do about it -- translate
+  them, or drop the flag, which is what makes the loader fetch English again.
+- That also settled a contradiction. The agent instructions say non-English locales may
+  rely on the English fallback while their translations are incomplete, but check-i18n
+  demanded full parity from every locale, so the allowance could not be used. The line
+  is in the right place now: a key English does not have is always wrong -- nothing reads
+  it, and it is a typo or a leftover -- while a key English has and a locale does not is
+  wrong only if that locale claims to be complete.
+- index.html preloads the bundle. The loader can only inject js/game.js after the locale
+  files arrive, because content modules call i18n.t() while defining themselves, so the
+  largest file the page loads was also the last one asked for. A preload downloads
+  without executing, which leaves that order alone and overlaps the 1.2 MB transfer with
+  the locale requests.
+- build-site.js stamps the preload hint with the same ?v= as everything else, and that is
+  not a detail: if the hint and the loader's own request are not the same URL the browser
+  treats them as two resources and fetches the bundle twice, which is worse than not
+  preloading at all.
+- Both changes are covered by browser assertions on the requests the server actually
+  saw, because in each case the thing to verify is a request that does not happen or one
+  that happens only once -- neither is visible in the rendered page. Both assertions were
+  confirmed to fail when the protection they describe is removed.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of
