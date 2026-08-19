@@ -1310,12 +1310,27 @@ vendor.smith.infl = 1.3;
 // No `dfl`. Four vendors set one and nothing in the game reads it; `repsc` is the
 // only one of the pair with a reader, at the reputation line in the shop panel.
 vendor.smith.repsc = 5;
+// Eleven of the seventeen shields had no source at all -- no vendor, no recipe, no drop -- so
+// the ladder existed in the files and not in the game. Eight of them are here now, priced on the
+// curve the four originals set (roughly str squared: str 9 at 90, str 12 at 165, str 16 at 420),
+// and the stock chance falls as the price rises so the heavy end stays something to wait for.
+// The three strongest are not here on purpose: jrt, knt and drd drop in the deep rooms instead,
+// because a shield that outclasses everything the smith can make should be found rather than
+// bought.
 vendor.smith.items = [
+  { item: sld.csr, p: 20, c: 0.8, min: 1, max: 2 },
+  { item: sld.bkl, p: 35, c: 0.7, min: 1, max: 2 },
   { item: sld.tge, p: 90, c: 0.6, min: 1, max: 2 },
   { item: sld.qad, p: 110, c: 0.5, min: 1, max: 2 },
   { item: sld.crc, p: 130, c: 0.45, min: 1, max: 2 },
   { item: sld.rnd, p: 165, c: 0.35, min: 1, max: 1 },
+  { item: sld.ovl, p: 175, c: 0.35, min: 1, max: 1 },
+  { item: sld.spk, p: 215, c: 0.3, min: 1, max: 1 },
+  { item: sld.kit, p: 265, c: 0.25, min: 1, max: 1 },
+  { item: sld.plt, p: 330, c: 0.2, min: 1, max: 1 },
   { item: sld.htr, p: 420, c: 0.12, min: 1, max: 1 },
+  { item: sld.twr, p: 520, c: 0.1, min: 1, max: 1 },
+  { item: sld.hpt, p: 620, c: 0.08, min: 1, max: 1 },
   { item: eqp.gnt, p: 95, c: 0.45, min: 1, max: 2 },
   { item: eqp.hkgd, p: 240, c: 0.2, min: 1, max: 1 },
   // The mine cannot open without one, and he is the only person in the village who
@@ -1340,6 +1355,10 @@ vendor.pha1.items = [
   { item: acc.mpst, p: 100, c: 0.8, min: 1, max: 6 },
   { item: acc.mshst, p: 480, c: 0.6, min: 1, max: 1 },
   { item: acc.mhhst, p: 600, c: 0.4, min: 1, max: 1 },
+  // hptn1 was the only healing item a player could buy repeatedly. hptn2 joins it here;
+  // hptn3, hptn4 and lifedr are stronger than anything this shop sells and want recipes
+  // rather than a shelf, which is PROPOSALS entry 8.
+  { item: item.hptn2, p: 110, c: 0.6, min: 1, max: 2 },
   { item: item.hptn1, p: 20, c: 1, min: 8, max: 35 },
   { item: item.atd1, p: 40, c: 0.7, min: 4, max: 13 },
   { item: item.psnwrd, p: 400, c: 0.25, min: 2, max: 5 },

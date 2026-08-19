@@ -358,6 +358,11 @@
       "v478_34": [
         "Korkuluk tarlası, maden ve katakomplar da süresiz sahalara kavuştu. Artık altı bölgede tükenmeyen bir yer var; bu haftadan önce yalnızca batı ormanında vardı.",
         "Katakompların sahası, derinlikleri değil orta koridorları üzerine kurulu. Beş katakomp alanı 9. seviyeden 28'e tırmanıyor, dolayısıyla en derinin üzerine kurulmuş bir saha yalnızca orayı çoktan bitirmiş birine yararlı olurdu."
+      ],
+      "v478_35": [
+        "Artık her kalkan büyüye karşı savunuyor. On yedisinin de `int`'i sıfırdı, ki büyü dalının okuduğu stat o -- yani bir kalkan ne kadar iyi olursa olsun bir büyüye karşı hiçbir şey etmiyordu.",
+        "On bir kalkanın hiç kaynağı yoktu -- satılmıyor, üretilmiyor, düşmüyordu. Demirci artık sekizini tutuyor, kendi orijinallerinin kurduğu eğriye göre fiyatlanmış; en güçlü üçü ise derin odalarda, madenin dibinde ve katakompların son odasında düşüyor.",
+        "İkinci şifa iksiri şifacının rafında. Bitmiş ve dengelenmişti, ve elde etmenin hiçbir yolu yoktu."
       ]
     },
     "lore": {

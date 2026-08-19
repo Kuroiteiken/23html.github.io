@@ -358,6 +358,11 @@
       "v478_34": [
         "The scarecrow field, the mine and the catacombs have endless grounds too. Six regions now have somewhere that does not run out; before this week only the western woods did.",
         "The catacombs' one is built on their middle corridors rather than their depths. The five catacomb areas climb from level 9 to 28, so a ground built on the deepest would only be any use to someone who had already finished the place."
+      ],
+      "v478_35": [
+        "Every shield defends against magic now. All seventeen had an int of zero, which is the stat the spell branch reads, so a shield was worth nothing against a spell no matter how good it was.",
+        "Eleven shields had no source at all -- not sold, not crafted, not dropped. The smith stocks eight of them now, priced on the curve his originals set, and the three strongest drop in the deep rooms, the mine's bottom and the last room of the catacombs.",
+        "The second healing potion is on the herbalist's shelf. It was finished and balanced and there was no way to get one."
       ]
     },
     "lore": {

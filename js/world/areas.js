@@ -636,6 +636,8 @@ area.cata4a.onEnd = function () {
   smove(chss.cata23);
 };
 area.cata4a.drop = [
+  // The Jazeraint. Stronger than anything the smith makes, so it is found rather than bought.
+  { item: sld.jrt, c: 0.006 },
   { item: item.sbone, c: 0.08 },
   { item: item.cndl, c: 0.04 },
   { item: item.cq, c: 0.02 },
@@ -655,7 +657,10 @@ area.cata5a.onEnd = function () {
   this.size = 1;
   smove(chss.cata25);
 };
-area.cata5a.drop = [];
+area.cata5a.drop = [
+  // The Dread shield, from the last room. The best in the game and the deepest thing in it.
+  { item: sld.drd, c: 0.02 },
+];
 
 // The false wall in the western corridor. Appended, and it has to stay last:
 // `save()` writes every area's size in `for...in` order and `load()` reads them back
@@ -867,6 +872,8 @@ area.mine3.onEnd = function () {
   smove(chss.mine3);
 };
 area.mine3.drop = [
+  // The Knight shield, at the bottom of the mine that made it.
+  { item: sld.knt, c: 0.005 },
   { item: item.iron1, c: 0.05 },
   { item: item.cndl, c: 0.04 },
 ];

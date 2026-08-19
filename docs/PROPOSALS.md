@@ -77,7 +77,19 @@ more.
 
 ### 7. Shields: the ranks, the seven with no source, and `eqp.dummy`
 
-**Status:** agreed. The draft premise is stale; the `eqp.dummy` half is exactly right.
+**Status:** done in v478.35, except the `eqp.dummy` half, which stands.
+
+Every shield has an `int` at half its `str` -- a shield is a physical answer, so against a spell
+it is worth half of what it is worth against a blade, which is present rather than absent. The
+best shield now takes a tenth off a spark where before every shield took nothing.
+
+All eleven unsourced shields have a source: the smith stocks eight, priced along the curve his
+original four set, and `jrt`, `knt` and `drd` drop in the deep rooms, the mine's bottom and the
+last room of the catacombs -- a shield that outclasses everything he makes should be found
+rather than bought.
+
+**What this did not fix, measured:** a spark still lands for 857 through the best shield in the
+game against a player with 421 hp. The shield gap was real and it was never the lever. See entry 19.
 
 "Eleven of the fourteen shields shipped with `str 0`" was never quite the shape of it and is
 no longer true at all: there are **seventeen** shields, none at `str 0`, running from `csr` at
@@ -94,7 +106,9 @@ What is actually left:
 
 ### 8. The healing items with no repeatable source
 
-**Status:** agreed — a fix.
+**Status:** partly done in v478.35. `hptn2` is on the herbalist's shelf at 110; `lifedr`,
+`hptn3` and `hptn4` are stronger than anything that shop sells and want recipes rather than a
+shelf.
 
 Measured across all 352 items: six instant-heal items, three that raise maximum HP, and no
 HP-regeneration effect anywhere in the game. The specific gap the request points at is real and larger than one item: **four healing items
