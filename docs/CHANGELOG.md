@@ -277,6 +277,30 @@ changes. Player-facing game content and release notes belong in
   functions. The log is emptied before each call, because it is capped at msgs_max and
   a full log makes a row count meaningless.
 
+- The sixteen browser probes are files under tests/probes/ instead of template literals
+  inside scripts/serve.js, which is 193 lines now rather than 1,961. The probes were 93%
+  of that file: sixteen near-identical blocks, each reading index.html, building one
+  template and injecting it. One generic route does that now, taking the name from the
+  path and the injection point from the probe's own header.
+- The point is not the line count. A template literal is invisible to node --check and
+  to eslint, so a typo in a probe could only be found by running it -- and a probe only
+  runs when the browser suite reaches it. As files they are linted and formatted with
+  everything else, and a syntax error fails the check.
+- Extracting them mechanically was safe because the shapes were inventoried first: not
+  one of the sixteen templates interpolates, and every block had the same five
+  statements. The exception is boot-screen, which injects before the loader tag rather
+  than before </body> because it has to record what exists before any of the game's code
+  runs. That is now a `// inject: before-loader` line in its header, which the route
+  reads.
+- The reasoning written above each probe moved with it. The extractor collected the
+  comments inside each block but outside its template and put them at the top of the
+  file, so nothing that explained why a probe measures what it measures was left behind.
+- The probe name goes into a file path, so it is restricted to lowercase letters, digits
+  and hyphens rather than resolved and then checked. A permissive rule there would have
+  turned this route into a way to read any file on disk.
+- /__test/corrupt-save and /__test/unreadable-save stayed in serve.js. Neither uses
+  index.html -- each returns its own small document -- so neither fits the generic route.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

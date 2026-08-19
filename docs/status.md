@@ -32,6 +32,9 @@ edilmedi. `npm run check` sıfır çıkış koduyla geçiyor.
   `items.js` 7.639 → 5.437 satır. Plan 221 madde diyordu; envanter 30 ayrı şekil
   buldu, yalnızca kalabalık ikisi (119 + 67) dönüştürüldü.
 - **`tests/fingerprint.js` genişletildi**: artık her eşyanın `use` handler'ını da
+- **P2.3 tamamlandı**: 16 gömülü tarayıcı probu `tests/probes/` altına taşındı.
+  `scripts/serve.js` 1.961 → 193 satır. Prob kodu artık eslint ve prettier
+  kapsamında; şablon dizesi içindeyken hiçbir denetim görmüyordu.
   ölçüyor (352 handler). Veri katmanı refactor'ları için zorunlu araç.
 - **`check-game-regressions.js`'e `bundleSource` eklendi**: yasaklar ve davranış
   sözleşmeleri artık tek dosyaya değil paketin tamamına bağlı.
@@ -103,10 +106,24 @@ olan iddialar `interfaceSource` gibi dosya değişkenlerini kullansın.
 `npm run check` sekiz kontrol: `check-changelog`, `check-game-regressions`,
 `check-i18n`, `check-refs`, `check-flags`, `check-economy`, `check-combat`,
 `check-version` + node testleri + eslint/stylelint/prettier. Ayrıca
-`npm run test:browser` — senaryolar `scripts/serve.js`'te `__test-*.html` yolları
-olarak (bunu `tests/probes/` altına taşımak refactor planında P2.3).
+`npm run test:browser` — senaryolar `tests/probes/` altında birer dosya, `__test-*.html`
+yolları üzerinden çağrılıyor.
 
 `check-i18n` hesaplanmış dil anahtarını reddeder, metin tanım anında bağlanmalı.
+
+### Tarayıcı probları — `tests/probes/`
+
+Her `/__test-<ad>.html` route'u tek bir dosya: `tests/probes/<ad>.js`. Dosya yalnızca
+tarayıcı kodunu tutuyor; `scripts/serve.js` onu `<script>` içine sarıp dağıtılan
+`index.html`'e enjekte ediyor. Yeni bir senaryo eklemek için sunucu dosyasını açmak
+gerekmiyor — dosyayı koy, `tests/browser-smoke-test.js` içinden route'u çağır.
+
+Enjeksiyon noktası prob başlığındaki yönergeden okunuyor: `// inject: before-loader`
+varsa yükleyici etiketinden önce, yoksa `</body>` öncesine. Oyunun hiçbir şeyi var
+olmadan ölçüm yapması gereken tek prob `boot-screen`.
+
+`/__test/corrupt-save` ve `/__test/unreadable-save` hâlâ `serve.js` içinde: ikisi de
+`index.html` kullanmayıp kendi HTML'ini döndürüyor.
 
 ### `tests/fingerprint.js` — taşıma yapmadan önce oku
 
@@ -178,7 +195,7 @@ güvenle yapılabilir ve etkisi gerçek formül üzerinden ölçülür.
 | #8 v479 göçü            | "Dokunulmayacaklar: kayıt biçimi" | Plan kayıt biçimini dokunulmaz saymıştı; kullanıcı göçe izin verdiği için bu varsayım gevşedi. Yukarıya not düşüldü.                                  |
 | #4 balta, #1-#3 içerik  | P2.1/P2.2 `items.js` fabrikası    | Doğrudan çakışma yok. Ama P2.2 yapılırsa yeni içerik yeni biçimde yazılmalı — bu da kullanıcının "önce refactor" sırasını destekliyor.                |
 | #9 md dosyaları eskimiş | P4.2                              | Kısmen kapandı: `ROADMAP` referansları kaldırıldı, `CHANGELOG.md`/`.TR.md` güncellendi. `REGIONS.md` ve `PROPOSALS` hâlâ eski.                        |
-| Kontroller bölümü       | P2.3 prob dosyaları               | P2.3 yapıldığında bu belgedeki "senaryolar `scripts/serve.js`'te" cümlesi güncellenmeli.                                                              |
+| Kontroller bölümü       | P2.3 prob dosyaları ✅            | Yapıldı: senaryolar artık `tests/probes/` altında ve bu belgenin Kontroller bölümü güncellendi.                                                       |
 
 ### Tek uyarı
 
@@ -188,18 +205,18 @@ istenirse paralel yürütülebilir; hiçbir refactor maddesini beklemiyorlar.
 
 ## Sonraki adım
 
-Faz 4'ün kalanı: **P2.3** — `scripts/serve.js`'teki 16 gömülü tarayıcı probu
-`tests/probes/` altına. Asıl kazanç satır sayısı değil: prob kodu şu an şablon
-dizesi içinde yaşadığı için ne `node --check` ne eslint görüyor, yazım hatası ancak
-çalışma anında ortaya çıkıyor.
+Faz 4 tamamlandı. Sıradaki **Faz 5**: P3.1 kademe 2 (`locales/manifest.json`'a yerel
+başına `complete` bayrağı → Türkçe oyuncu için 348 KB daha az indirme) ve P3.2
+(`index.html`'e `<link rel="preload" as="script">`, `build-site.js` içinde `?v=` ile
+damgalanmalı).
 
-Üç kategori var ve enjeksiyon noktaları farklı: çoğu `</body>` öncesine giriyor,
-`__test-boot-screen` yükleyici etiketinden **önce** girmek zorunda (oyunun hiçbir
-şeyi var olmadan önce ölçüm yapıyor), ve `/__test/corrupt-save` ile
-`/__test/unreadable-save` index.html'i hiç kullanmayıp kendi HTML'ini döndürüyor.
+Ardından Faz 6 (P1.3 `interface.js` bölünmesi, P4.3 renk token'ları) ve Faz 7
+(P4.1 oyuncu adı `textContent`, P4.4 klavye erişimi, P4.5 hijyen, P1.4 simülasyon
+DOM'u, P2.2 `defineItem`, P3.3 minify).
 
-Ardından Faz 5 (P3.1 kademe 2, P3.2 preload) veya içerik kuyruğu (#7 zırh,
-#6 `eqp.dummy`).
+Refactor planı bittiğinde içerik kuyruğuna geçilecek — sıra kuyruğun kendi
+numaralandırması: #7 zırh çift sayımı ve #6 `eqp.dummy` ilk ikisi, çünkü ikisi de
+savaş dosyasında ve P0.2 sayesinde artık ölçülebilir.
 
 ## Kuyruk — araştırılmış bulgularla
 

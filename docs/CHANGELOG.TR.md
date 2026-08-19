@@ -281,6 +281,30 @@ kaydeder. Oyuncuya dönük oyun içeriği ve sürüm notları
   yeni `eatUse`. Log her çağrı öncesi boşaltılıyor, çünkü `msgs_max` ile sınırlı ve
   dolu bir log'da satır sayısı anlamsızlaşıyor.
 
+- On altı tarayıcı probu artık `scripts/serve.js` içindeki şablon dizeleri değil,
+  `tests/probes/` altındaki dosyalar; sunucu da 1.961 yerine 193 satır. Problar o
+  dosyanın %93'üydü: her biri `index.html` okuyup tek bir şablon kuran ve onu enjekte
+  eden, birbirinin neredeyse aynısı on altı blok. Artık bunu tek bir genel route
+  yapıyor; adı yoldan, enjeksiyon noktasını probun kendi başlığından alıyor.
+- Mesele satır sayısı değil. Şablon dizesi `node --check`'e ve eslint'e görünmez, yani
+  bir probdaki yazım hatası ancak çalıştırılınca bulunabiliyordu -- ve bir prob yalnızca
+  tarayıcı takımı ona ulaştığında çalışıyor. Dosya olarak hepsi diğer her şeyle birlikte
+  lint'leniyor ve biçimlendiriliyor; sözdizimi hatası denetimi düşürüyor.
+- Mekanik olarak çıkarmak güvenliydi, çünkü şekiller önce envanterlendi: on altı
+  şablonun hiçbiri interpolasyon yapmıyor ve her blok aynı beş ifadeden oluşuyordu. Tek
+  istisna `boot-screen`; oyunun hiçbir kodu çalışmadan önce neyin var olduğunu kaydetmek
+  zorunda olduğu için `</body>` yerine yükleyici etiketinden önce enjekte ediliyor. Bu
+  artık başlığındaki bir `// inject: before-loader` satırı ve route onu okuyor.
+- Her probun üstünde yazılı gerekçe onunla birlikte taşındı. Çıkarma betiği her bloğun
+  içindeki ama şablonunun dışındaki yorumları toplayıp dosyanın başına koydu; bir probun
+  neyi neden ölçtüğünü açıklayan hiçbir şey geride kalmadı.
+- Prob adı bir dosya yoluna giriyor, bu yüzden çözülüp sonra kontrol edilmek yerine
+  küçük harf, rakam ve tireyle sınırlandırıldı. Oradaki izin verici bir kural, bu
+  route'u diskteki herhangi bir dosyayı okuma yoluna çevirirdi.
+- `/__test/corrupt-save` ve `/__test/unreadable-save` `serve.js` içinde kaldı. İkisi de
+  `index.html` kullanmıyor -- her biri kendi küçük belgesini döndürüyor -- dolayısıyla
+  ikisi de genel route'a uymuyor.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

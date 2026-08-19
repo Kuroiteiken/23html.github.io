@@ -403,7 +403,7 @@ daha küçük, dokunulan yüzey ise çok daha geniş. `check-refs.js`'in
 
 **Karar önerisi:** P0.3 tamamlanmadan bu maddeye girilmemeli.
 
-### P2.3 Geliştirme sunucusu tarayıcı testlerinin gövdesini barındırıyor
+### P2.3 ✅ Geliştirme sunucusu tarayıcı testlerinin gövdesini barındırıyor
 
 **Kanıt:** [serve.js](../scripts/serve.js) 1.960 satır ve tamamı **tek bir
 fonksiyon** (`createSiteServer`, 24. satırdan 1.960'a kadar). İçinde 16 adet gömülü
@@ -426,6 +426,37 @@ Kazanç: `serve.js` ~150 satıra iner, prob dosyaları eslint ve Prettier kapsam
 girer, bir probu düzenlemek için sunucu dosyası açılmaz.
 
 **Risk:** Düşük. `npm run test:browser` doğrudan doğrulama sağlar.
+
+**Yapıldı. `scripts/serve.js` 1.961 → 193 satır.**
+
+Envanter espree ile çıkarıldı ve çıkarmayı mekanik olarak güvenli kılan iki şey
+buldu: on altı şablonun **hiçbiri interpolasyon yapmıyor**, ve her blok aynı şekle
+sahip — `index.html` oku, tek şablon kur, başlığı yaz, enjekte et, dön. Tek istisna
+`boot-screen`: `</body>` yerine yükleyici etiketinden önce enjekte ediyor ve etiketin
+hâlâ orada olduğunu kontrol ediyor.
+
+Her prob artık `tests/probes/<ad>.js`. Sunucudaki tek genel kural adı yoldan alıyor,
+dosyayı okuyor, `<script>` içine sarıyor ve enjekte ediyor. Enjeksiyon noktası prob
+dosyasının başlığındaki `// inject: before-loader` yönergesinden okunuyor.
+
+Prob başlıklarındaki gerekçe yorumları korundu — çıkarma betiği blok içindeki, şablon
+dışındaki yorumları toplayıp prob dosyasının başına taşıdı. Bilgi kaybı yok.
+
+**Asıl kazanç satır sayısı değil:** şablon dizesi `node --check`'e ve eslint'e
+görünmez, dolayısıyla bir probdaki yazım hatası ancak çalıştırılınca bulunabiliyordu.
+Dosya olarak hepsi diğer her şeyle birlikte denetleniyor.
+
+**Ek olarak bir güvenlik sıkılaştırması:** prob adı bir dosya yoluna giriyor, bu
+yüzden `^[a-z0-9-]+$` ile sınırlandırıldı. Çözüp-sonra-kontrol etmek yerine baştan
+kısıtlamak, bu route'un diskte herhangi bir dosyayı okuma yoluna dönüşmesini
+engelliyor.
+
+**Taşınmayanlar:** `/__test/corrupt-save` ve `/__test/unreadable-save` (22 satır).
+İkisi de `index.html` kullanmıyor, kendi HTML'ini döndürüyor ve `__test-*.html`
+biçiminde değil; genel kurala uymadıkları için yerlerinde kaldı.
+
+**Doğrulama:** `npm run test:browser` 30 senaryonun tamamını geçiyor — probların
+tamamı bu yolla çalışıyor, yani route'un dosyadan okuduğu davranış eskisiyle aynı.
 
 ---
 
