@@ -585,6 +585,26 @@ changes. Player-facing game content and release notes belong in
   it, focusable, underlined, and labelled in the player's language rather than showing a raw
   translation key. Both halves confirmed to fail when broken.
 
+- scripts/report-pending.js measures whether the pending work recorded in PROPOSALS.md and
+  status.md is still pending, by asking the game rather than reading the document. `npm run
+pending`. It exists because two of the owner's requests turned out to have shipped months
+  earlier, and they were only caught because the code was read first -- a recorded list rots
+  silently, and the cost is doing something twice.
+- It is a report and not a check: pending work is not a failure, so it never exits non-zero for
+  finding some. It exits non-zero only when a claim cannot be measured at all, because a claim
+  the report can no longer evaluate is exactly how the list would rot again.
+- Run against all twelve recorded claims, every one is still true -- so the list is current. But
+  it also caught four figures recorded wrong, which is the other half of what it is for. Titles
+  with no grant path: 23 of 108, not 26. Shields with no source: 11 of 17, not 7. Healing items
+  with no source: four -- lifedr, hptn2, hptn3, hptn4 -- not just hptn2. Trainable skills that
+  grant nothing: 29, not 32. All four corrected in both languages.
+- Two of its own measurements were wrong first and are worth recording as such. It read
+  `recipe.give` and `vendor.stock`, and the game's fields are `recipe.res` and `vendor.items` --
+  `stock` is what restocking fills at run time and is empty in a freshly loaded game. That made
+  the first run claim all 17 shields and six healing items had no source, which would have sent
+  someone to fix a problem that does not exist. Checking the field names against the objects,
+  rather than guessing them from their meaning, is what fixed it.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

@@ -62,7 +62,7 @@ doğrula; her hâlükârda tek satır.
 **Durum:** kabul edildi, ve göründüğünden ucuz.
 
 İstek "unvanlarda iyileştirme ve arttırım" idi. Ölçüm sorunun ekleme olmadığını söylüyor:
-**26 unvan iki dilde tamamen yazılmış, çevrilmiş ve hiçbir verme yolu yok.** En büyük dört
+**108 unvanın 23'ünün hiçbir verme yolu yok** — `npm run pending` ile ölçüldü, ki buraya elle yazılmış herhangi bir sayıdan çok ona güvenilmeli. En büyük dört
 aile zaten canlı, kaydedilen sayaçlar taşıyor, dolayısıyla bunları bağlamak tasarım değil
 kablolama. `js/data/equipment.js:2730-2731` bunun parçası: yorumda bırakılmış iki verme
 işlevi, ikisi de `ttl.mone1`'in zaten kullandığı `moneyg >= GOLD` koşulunu deniyor, yani
@@ -81,7 +81,8 @@ artık hiç doğru değil: **on yedi** kalkan var, hiçbiri `str 0` değil, `csr
 
 Gerçekten kalan:
 
-- **On yedinin yedisinin hiç kaynağı yok** — ne tarif, ne satıcı, ne düşme.
+- **On yedinin on birinin hiç kaynağı yok** — ne tarif, ne satıcı, ne düşme: `bkl`, `plt`,
+  `twr`, `spk`, `kit`, `csr`, `ovl`, `knt` ve üç tane daha.
 - **On yedisinin de `int`'i 0**, dolayısıyla `dmg_calc`'ın büyü dalında, bir kalkanın
   `you.eqp[1].int` üzerinden katkı yaptığı yerde, oyundaki hiçbir kalkan bir büyüye karşı
   savunma yapmıyor.
@@ -93,9 +94,9 @@ Gerçekten kalan:
 **Durum:** kabul edildi — düzeltme.
 
 352 eşyanın tamamı üzerinde ölçüldü: altı anlık iyileştirme eşyası, üçü azami HP'yi yükselten,
-ve oyunda **hiç** HP yenilenme efekti yok. İsteğin işaret ettiği açık gerçek: **`hptn2`
-bitmiş, çevrilmiş, oyunun gerçekten ulaştığı seviye bandı için dengelenmiş ve tekrarlanabilir
-hiçbir kaynağı yok.** Bir tarif bunu kapatıyor.
+ve oyunda **hiç** HP yenilenme efekti yok. İsteğin işaret ettiği açık gerçek ve tek bir eşyadan büyük: **dört iyileştirme eşyasının hiç
+kaynağı yok** — `lifedr`, `hptn2`, `hptn3` ve `hptn4`. `hptn1` ve gerisi erişilebilir. Dört
+tarif ya da bir satıcı satırı bunu kapatıyor.
 
 ### 9. Üretim: kimsenin öğrenemediği 19 bitmiş tarif, ve yıldız tozu
 

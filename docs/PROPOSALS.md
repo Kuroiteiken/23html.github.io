@@ -65,8 +65,9 @@ direction before changing it; it is one line either way.
 **Status:** agreed, and cheaper than it looked.
 
 The request was "titles need improvement and additions". The measurement says the problem is
-not additions. **26 titles are fully written and translated in both locales and have no grant
-path at all.** The four biggest families already have live saved counters, so connecting them
+not additions. **23 of the 108 titles have no grant
+path at all** -- measured by `npm run pending`, which is the figure to trust over any
+number written here by hand. The four biggest families already have live saved counters, so connecting them
 is wiring rather than design. `js/data/equipment.js:2730-2731` is part of this: two grants
 left in a comment, both testing the same `moneyg >= GOLD` condition `ttl.mone1` already uses,
 so uncommenting them as they stand would fire all three together.
@@ -84,7 +85,8 @@ no longer true at all: there are **seventeen** shields, none at `str 0`, running
 
 What is actually left:
 
-- **Seven of the seventeen have no source** — no recipe, no vendor, no drop.
+- **Eleven of the seventeen have no source** — no recipe, no vendor, no drop: `bkl`, `plt`,
+  `twr`, `spk`, `kit`, `csr`, `ovl`, `knt` and three more.
 - **Every one of the seventeen has `int 0`**, so in the magic branch of `dmg_calc`, where a
   shield contributes through `you.eqp[1].int`, no shield in the game defends against a spell.
 - The `eqp.dummy` problem in queue item 6 of [status.md](status.md) stands as recorded, and
@@ -95,9 +97,9 @@ What is actually left:
 **Status:** agreed — a fix.
 
 Measured across all 352 items: six instant-heal items, three that raise maximum HP, and no
-HP-regeneration effect anywhere in the game. The specific gap the request points at is real:
-**`hptn2` is finished, translated, balanced for the level band the game actually reaches, and
-has no repeatable source.** One recipe closes it.
+HP-regeneration effect anywhere in the game. The specific gap the request points at is real and larger than one item: **four healing items
+have no source at all** -- `lifedr`, `hptn2`, `hptn3` and `hptn4`. `hptn1` and the rest are
+reachable. Four recipes, or a vendor line, closes it.
 
 ### 9. Crafting: 19 finished recipes nobody can learn, and stardust
 

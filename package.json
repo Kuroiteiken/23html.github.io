@@ -16,6 +16,7 @@
     "dev": "node scripts/dev.js",
     "fingerprint": "node tests/fingerprint.js",
     "check": "node scripts/check.js",
+    "pending": "node scripts/report-pending.js",
     "check:format": "prettier --check . --ignore-path .gitignore",
     "format": "prettier --write . --ignore-path .gitignore",
     "serve": "node scripts/serve.js",

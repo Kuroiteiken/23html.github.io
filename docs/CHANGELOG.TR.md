@@ -588,6 +588,27 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   onunla birlikte görünür, odaklanabilir, altı çizili ve ham bir çeviri anahtarı değil oyuncunun
   dilinde etiketli olduğunu kontrol ediyor. İki yarının da bozulduğunda kırıldığı doğrulandı.
 
+- `scripts/report-pending.js`, `PROPOSALS.md` ve `status.md` içinde kayıtlı bekleyen işin hâlâ
+  bekliyor olup olmadığını ölçüyor — belgeyi okuyarak değil, oyuna sorarak. `npm run pending`.
+  Var olma sebebi: sahibinin iki isteğinin aylar önce yayınlanmış olduğu çıktı ve bu yalnızca
+  koda önce bakıldığı için yakalandı. Kayıtlı bir liste sessizce çürür ve bedeli bir işi iki kez
+  yapmaktır.
+- Bir denetim değil rapor: bekleyen iş bir başarısızlık değil, o yüzden iş bulduğu için asla
+  sıfırdan farklı çıkmıyor. Yalnızca bir iddia hiç ölçülemediğinde çıkıyor, çünkü raporun artık
+  değerlendiremediği bir iddia, listenin yeniden çürümesinin tam yolu.
+- Kayıtlı on iki iddianın tamamına karşı çalıştırıldı ve hepsi hâlâ doğru — yani liste güncel.
+  Ama aynı zamanda **yanlış kaydedilmiş dört sayıyı** yakaladı, ki bu da onun öbür işi. Verme
+  yolu olmayan unvan: 108'in 23'ü, 26 değil. Kaynağı olmayan kalkan: 17'nin 11'i, 7 değil.
+  Kaynağı olmayan iyileştirme eşyası: dört tane — `lifedr`, `hptn2`, `hptn3`, `hptn4` — yalnızca
+  `hptn2` değil. Hiçbir şey vermeyen eğitilebilir yetenek: 29, 32 değil. Dördü de iki dilde
+  düzeltildi.
+- Kendi ölçümlerinden ikisi ilk seferde yanlıştı ve bunu böyle kaydetmeye değer. `recipe.give`
+  ile `vendor.stock` okuyordu; oyunun alanları `recipe.res` ve `vendor.items` -- `stock`,
+  yeniden stoklamanın çalışma anında doldurduğu şey ve yeni yüklenmiş bir oyunda boş. Bu, ilk
+  çalıştırmanın 17 kalkanın ve altı iyileştirme eşyasının hiç kaynağı olmadığını iddia etmesine
+  yol açtı; birini var olmayan bir sorunu düzeltmeye gönderecek bir iddia. Alan adlarını
+  anlamlarından tahmin etmek yerine nesnelere karşı kontrol etmek düzeltti.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

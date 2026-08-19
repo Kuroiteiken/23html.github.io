@@ -301,12 +301,14 @@ Bu maddeler "yapılacak" değil "karar verilecek", ve bir kısmı başka işin �
 
 Sıra, projenin kendi kuralına göre: daha fazlasını icat etmeden önce biteni bağla.
 
-1. **26 unvan** iki dilde yazılmış ve hiçbir verme yolu yok (PROPOSALS 6, kuyruk #2).
+1. **23 unvan** (108'in) hiçbir verme yolu olmadan duruyor (PROPOSALS 6, kuyruk #2).
    `equipment.js:2730-2731`'deki yorumdaki iki verme işlevi de bunun parçası.
 2. **19 tarif** bitmiş, çevrilmiş, öğrenilemiyor; **`item.stdst`** 62 tarifin hiçbirinde
    kullanılmıyor (PROPOSALS 9).
-3. **`hptn2`** dengelenmiş, tekrarlanabilir kaynağı yok (PROPOSALS 8).
-4. **Yedi kalkanın** hiç kaynağı yok, ve **on yedisinin de `int`'i 0** — büyü dalında hiçbir
+3. **Dört iyileştirme eşyasının** hiç kaynağı yok: `lifedr`, `hptn2`, `hptn3`, `hptn4`
+   (PROPOSALS 8).
+4. **On bir kalkanın** hiç kaynağı yok, ve **on yedisinin de `int`'i 0** → büyü dalında hiçbir
+   kalkan savunmuyor (PROPOSALS 7).
    kalkan savunma yapmıyor (PROPOSALS 7).
 5. **İki araştırma hatası**: tablosu olmadığı hâlde kendini "arandı" bildiren bir orman, ve
    araştırma yolu tamamlanamayan bir kömür madeni (PROPOSALS 16).
@@ -363,7 +365,7 @@ kalmadı; tek başına yapılacak.
 
 3. **Boş yeteneklere avantaj.** 60 yetenek, 23'ünde kilometre taşı var, 37'sinde
    yok. O 37'nin yalnızca beşi (`bwc`, `hvt`, `glg`, `mntnc`, `swm`) hiç
-   eğitilemiyor → 32 yetenek eğitilebilir olduğu hâlde avantaj vermiyor. Öbek
+   eğitilemiyor → 29'u eğitilebilir olduğu hâlde avantaj vermiyor (ölçüldü; daha önce 32 yazılmıştı). Öbek
    öbek göndermek gerekecek.
 
    **Yanında duran hata, yeniden ölçüldü ve tanısı değişti.** Kuyruk bunu
