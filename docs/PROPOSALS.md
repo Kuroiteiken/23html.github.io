@@ -202,8 +202,15 @@ has had all along, where a cleared region opens a sibling area with `size -1` th
 infinity glyph instead of a count -- to reach the south and the fields. `area.frstn9a2` and
 `area.nfld3` do that now, unlocked by clearing their bounded siblings once.
 
-What is left is the same decision as before, narrowed: which of the remaining regions should get
-one. The catacombs and the mine are the obvious candidates and neither has been decided.
+**Decided and done in v478.34.** The owner asked for the mine and the catacombs as well, and
+for the catacombs to get something in the middle rather than at the depth -- their five areas
+climb from level 9 to 28, so an endless ground at the bottom would only serve a player who had
+already finished. `area.cata6a` carries the middle corridors' population and opens when they are
+cleared; `area.mine4` carries the level above the deep cut and opens when the deep cut is.
+`area.nfld4` was added alongside them for the scarecrows specifically, since the fields' general
+endless ground has no scarecrow in its population.
+
+Six regions have one now. Nothing here is outstanding.
 That is a content decision and needs no save migration — which removes the reason this was
 paired with the accessory slots.
 

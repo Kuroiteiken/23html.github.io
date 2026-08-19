@@ -354,6 +354,10 @@
       "v478_33": [
         "The southern forest and the northern fields have endless hunting grounds now, the way the western woods already did. Clear the foliage or the stubble once and the region offers a place that does not run out.",
         "You can tell them by the area readout: it shows the infinity sign instead of a count of what is left."
+      ],
+      "v478_34": [
+        "The scarecrow field, the mine and the catacombs have endless grounds too. Six regions now have somewhere that does not run out; before this week only the western woods did.",
+        "The catacombs' one is built on their middle corridors rather than their depths. The five catacomb areas climb from level 9 to 28, so a ground built on the deepest would only be any use to someone who had already finished the place."
       ]
     },
     "lore": {
@@ -4724,6 +4728,9 @@
       "cata5a": {
         "name": "The end of journey"
       },
+      "cata6a": {
+        "name": "The middle corridors"
+      },
       "clg": {
         "name": "Damp cellar"
       },
@@ -4763,6 +4770,9 @@
       "mine3": {
         "name": "The deep cut"
       },
+      "mine4": {
+        "name": "The worked seam"
+      },
       "nfld1": {
         "name": "The stubble fields"
       },
@@ -4771,6 +4781,9 @@
       },
       "nfld3": {
         "name": "The open fields"
+      },
+      "nfld4": {
+        "name": "The bound figures"
       },
       "ngrn1": {
         "name": "The grain store"

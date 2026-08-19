@@ -3391,6 +3391,27 @@ chss.nfld1.sl = () => {
 // the souls of the living, appropriate for curses and dark magic. Field guardians in
 // this village were bound, not built, and the dark ki has reached what is in them.
 // The fields' endless ground, on the same shape as the west's and the south's.
+// The endless ground among the figures. Same shape as the west, the south and the open
+// fields; this one is where the scarecrows keep coming.
+chss.nfld4 = new Chs();
+chss.nfld4.id = 185;
+addtosector(sector.north, chss.nfld4);
+chss.nfld4.sl = () => {
+  global.flags.inside = false;
+  d_loc(i18n.t("content.area.nfld4.name"));
+  global.lst_loc = 185;
+  chs(i18n.t("runtime.world.locations.dialogue.scarecrow_field_arrival"), true);
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.nfld2);
+  });
+};
+chss.nfld4.onEnter = function () {
+  area_init(area.nfld4);
+};
+
 chss.nfld3 = new Chs();
 chss.nfld3.id = 184;
 addtosector(sector.north, chss.nfld3);
@@ -3440,6 +3461,16 @@ chss.nfld2.sl = () => {
       ).addEventListener("click", () => {
         smove(chss.nfld2, false);
       });
+    });
+  // Opened by clearing the field once. The figures are what the player came here to fight,
+  // so this is the endless ground for them specifically rather than for the fields in
+  // general -- area.nfld3 is the general one, and its population has no scarecrow in it.
+  if (global.flags.nfld4u)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hunt_indefinitely_3500bd58"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.nfld4);
     });
   chs(
     i18n.t("runtime.world.locations.dialogue.go_in_among_the_figures"),
@@ -3908,6 +3939,15 @@ chss.mine3.sl = () => {
   ).addEventListener("click", () => {
     workTheFace();
   });
+  // Opened by clearing the deep cut. Its fight is the level above's rather than this one's,
+  // so it stays useful on the way back down instead of only at the ceiling.
+  if (global.flags.mine4u)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hunt_indefinitely_3500bd58"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.mine4);
+    });
   chs(
     i18n.t("runtime.world.locations.dialogue.into_the_deep_workings"),
     false,
@@ -6954,6 +6994,53 @@ chss.cata13.sl = () => {
   ).addEventListener("click", () => {
     smove(chss.cata1);
   });
+  // The endless ground, offered from the room area.cata3a's clear returns to. Built on the
+  // middle of the catacombs rather than its end: the five areas climb 9-15 to 26-28, so a
+  // ground built on the deepest would only serve a player who had already finished.
+  if (global.flags.cata6au)
+    chs(
+      i18n.t("runtime.world.locations.dialogue.hunt_indefinitely_3500bd58"),
+      false,
+    ).addEventListener("click", () => {
+      smove(chss.cata6a);
+    });
+};
+
+// The two endless grounds under the village. Same shape as the ones above it.
+chss.cata6a = new Chs();
+chss.cata6a.id = 186;
+addtosector(sector.cata1, chss.cata6a);
+chss.cata6a.sl = () => {
+  d_loc(i18n.t("content.area.cata6a.name"));
+  global.lst_loc = 186;
+  chs(select(global.text.catasound), true, "lightgrey", "black");
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.cata13);
+  });
+};
+chss.cata6a.onEnter = function () {
+  area_init(area.cata6a);
+};
+
+chss.mine4 = new Chs();
+chss.mine4.id = 187;
+addtosector(sector.north, chss.mine4);
+chss.mine4.sl = () => {
+  global.flags.inside = true;
+  d_loc(i18n.t("content.area.mine4.name"));
+  global.lst_loc = 187;
+  chs(
+    i18n.t("runtime.world.locations.dialogue.return_5ced966d"),
+    false,
+  ).addEventListener("click", () => {
+    smove(chss.mine3);
+  });
+};
+chss.mine4.onEnter = function () {
+  area_init(area.mine4);
 };
 
 chss.cata14 = new Chs();

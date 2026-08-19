@@ -650,6 +650,32 @@ eqp.dummy]` idi -- tek bir paylaşılan nesneye referans -- dolayısıyla
   çağırmak kilit bayrağını `false`'tan `true`'ya çeviriyor, ve iki süresiz alan da `z_bake`'ten
   spawn ağırlıkları kurulmuş hâlde çıkıyor.
 
+- Üç süresiz saha daha: bağlanmış korkulukların arasında `area.nfld4`, işlenmiş damarda
+  `area.mine4`, ve katakompların orta koridorlarında `area.cata6a`. v478.33'ten gelen ikisiyle
+  birlikte, tükenmeyen bir yeri olan altı bölge -- haftanın başındaki bire karşı.
+- Katakompların sahası bilinçli olarak sonlarına kurulmadı ve gerekçesi saklanmaya değer. Beş
+  alanı 9-15, 13-19, 18-24, 21-27 ve 26-28 aralıklarında: ilk odadan son odaya on dokuz seviyelik
+  bir tırmanış. En derinin üzerine kurulmuş bir saha yalnızca orayı çoktan bitirmiş bir oyuncuya
+  hizmet ederdi; ilkinin üzerine kurulmuş olan birkaç seviyede değersizleşirdi. `area.cata6a`,
+  `area.cata3a`'nın popülasyonunu (18-24) taşıyor ve katakomplar bitirildiğinde değil o koridor
+  temizlendiğinde açılıyor -- yani ortaya ulaşmak onu kazandırıyor.
+- Madenin sahası aynı gerekçeyi daha küçük ölçekte izliyor. Üç seviyesi 13-26 aralığında,
+  dolayısıyla `area.mine4` `area.mine2`'nin popülasyonunu (16-24) taşıyor ve derin kesit
+  temizlenince açılıyor: madeni bitirmek onu kazandırıyor, ama sunduğu dövüş bir üstteki
+  seviyenin dövüşü, böylece yalnızca tepede değil dönüş yolunda da işe yarıyor.
+- `area.nfld4` var, çünkü korkuluklar kendi başına bir dövüş. Tarlaların genel süresiz sahası olan
+  `area.nfld3`'ün popülasyonunda hiç korkuluk yok -- yani "korkuluklara karşı süresiz avlanacak
+  bir yer" tarlaların değil uzak tarlanın popülasyonunu gerektiriyordu.
+- Akış olarak doğrulandı: beş sınırlı alanın her birinin `onEnd`'ini harness üzerinden çağırmak
+  kilit bayrağını `false`'tan `true`'ya çeviriyor, ve `check-shared-state` registry'nin sonunda
+  duran yedi süresiz alanı bildiriyor, hepsi `protected`.
+- Kaydedilmeye değer bir hata, çünkü denetim onu mümkün olan en yararlı şekilde yakaladı. İki yeni
+  sahne `sector.catacombs` ve `sector.mine`'a kaydedilmişti, ikisi de yok -- gerçek adlar
+  `sector.cata1` ve `sector.north`. `addtosector` paket yüklenirken hata verdi, dolayısıyla oyunu
+  yükleyen her denetim bir anda düştü ve `scripts/check.js` adımı adıyla söyledi. Bir registry
+  anahtarını registry'yi okumak yerine anlamından tahmin etmek, bekleyen iş raporunun bir saat
+  önce `vendor.stock` ile yaptığı hatanın aynısı.
+
 ### v477 — tick, günlük ve katakomplar
 
 - Eylem ilerleyişi `ontick()` üzerine taşındı. Koşma ve keşif kendi zamanlayıcılarıyla

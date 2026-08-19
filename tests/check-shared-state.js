@@ -201,7 +201,16 @@ for (const key of endless) {
 
 // The areas appended most recently, named so that appending another in front of them fails here
 // rather than surprising someone later. Add to this list when you append; never reorder it.
-const LAST_APPENDED = ["mine1", "mine2", "mine3", "frstn9a2", "nfld3"];
+const LAST_APPENDED = [
+  "mine1",
+  "mine2",
+  "mine3",
+  "frstn9a2",
+  "nfld3",
+  "nfld4",
+  "cata6a",
+  "mine4",
+];
 const tail = areaKeys.slice(-LAST_APPENDED.length);
 if (tail.join(",") !== LAST_APPENDED.join(",")) {
   console.error(

@@ -646,6 +646,32 @@ pending`. It exists because two of the owner's requests turned out to have shipp
   sets its unlock flag from false to true, and both endless areas come out of z_bake with their
   spawn weights built.
 
+- Three more endless grounds: area.nfld4 among the bound figures, area.mine4 on the worked seam,
+  and area.cata6a in the catacombs' middle corridors. With the two from v478.33 that is six
+  regions with somewhere that does not run out, against one at the start of the week.
+- The catacombs' is deliberately not built on their end, and the reasoning is worth keeping. Their
+  five areas run 9-15, 13-19, 18-24, 21-27 and 26-28 -- a nineteen-level climb from the first room
+  to the last. A ground built on the deepest would only serve a player who had already finished
+  the place; one built on the first would be worthless within a few levels. area.cata6a carries
+  area.cata3a's population, 18-24, and opens when that corridor is cleared rather than when the
+  catacombs are finished, so reaching the middle is what earns it.
+- The mine's follows the same reasoning at a smaller scale. Its three levels run 13-26, so
+  area.mine4 carries area.mine2's population, 16-24, and is opened by clearing the deep cut:
+  finishing the mine earns it, but the fight it offers is the level above's, so it stays useful on
+  the way back rather than only at the ceiling.
+- area.nfld4 exists because the scarecrows are their own fight. area.nfld3, the fields' general
+  endless ground, has no scarecrow in its population at all -- so "somewhere to fight scarecrows
+  indefinitely" needed the far field's population rather than the fields'.
+- Verified as flows: calling each of the five bounded areas' onEnd through the harness turns its
+  unlock flag from false to true, and check-shared-state reports seven endless areas sitting at
+  the end of the registry, all protected.
+- One mistake worth recording, because the check caught it in the most useful possible way. Both
+  new scenes were registered against sector.catacombs and sector.mine, and neither sector exists
+  -- the real ones are sector.cata1 and sector.north. addtosector threw while the bundle was
+  loading, so every check that loads the game failed at once, and scripts/check.js named the step.
+  Guessing a registry key from its meaning rather than reading the registry is the same mistake
+  the pending report made with vendor.stock an hour earlier.
+
 ### v477 — the tick, the journal, and the catacombs
 
 - Moved action progress onto `ontick()`. Running and scouting advanced on timers of

@@ -571,6 +571,16 @@ area.cata3a.onEnd = function () {
   roll(item.cn, 0.5, 2, 8);
   roll(item.cq, 0.2, 1, 3);
   this.size = rand(16) + 32;
+  // Clearing the middle of the catacombs opens the endless ground built on it.
+  if (!global.flags.cata6au) {
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
+    global.flags.cata6au = true;
+  }
   smove(chss.cata13);
 };
 area.cata3a.drop = [
@@ -737,6 +747,15 @@ area.nfld2.onEnd = function () {
   roll(item.cclth, 0.35, 1, 4);
   roll(acc.sdl1, 0.08);
   this.size = rand(10) + 18;
+  if (!global.flags.nfld4u) {
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
+    global.flags.nfld4u = true;
+  }
   smove(chss.nfld2);
 };
 area.nfld2.drop = [
@@ -836,6 +855,15 @@ area.mine3.onEnd = function () {
   roll(item.cndl, 0.4, 1, 4);
   roll(wpn.trch, 0.15);
   this.size = rand(12) + 20;
+  if (!global.flags.mine4u) {
+    msg(
+      i18n.t(
+        "runtime.world.areas.dialogue.you_have_discovered_a_new_hunting_area_d1406ac6",
+      ),
+      "lime",
+    );
+    global.flags.mine4u = true;
+  }
   smove(chss.mine3);
 };
 area.mine3.drop = [
@@ -898,6 +926,75 @@ area.nfld3.drop = [
   { item: item.brly, c: 0.02 },
   { item: item.crrt, c: 0.015 },
   { item: item.mshr, c: 0.006 },
+];
+
+area.nfld4 = new Area();
+area.nfld4.id = 134;
+area.nfld4.name = i18n.t("content.area.nfld4.name");
+area.nfld4.pop = [
+  { crt: creature.kksh, lvlmin: 14, lvlmax: 18, c: 0.7 },
+  { crt: creature.slm2, lvlmin: 12, lvlmax: 16, c: 0.3 },
+];
+area.nfld4.size = -1;
+z_bake(area.nfld4);
+area.nfld4.protected = true;
+area.nfld4.drop = [
+  { item: item.sstraw, c: 0.08 },
+  { item: item.cclth, c: 0.03 },
+  { item: item.agrns, c: 0.02 },
+];
+
+// The mine's endless level, and the catacombs' -- both deliberately drawn from the middle of
+// their region rather than from its end.
+//
+// The catacombs are the reason that distinction matters. Their five areas run 9-15, 13-19, 18-24,
+// 21-27 and 26-28: a nineteen-level climb from the first room to the last. An endless ground built
+// on the deepest of them would only serve a player who had already finished the place, and one
+// built on the first would be worthless within a few levels. So this one carries area.cata3a's
+// population, 18-24 -- the middle of the arc -- and it opens when that corridor is cleared rather
+// than when the catacombs are finished. A player who has reached the middle gets somewhere to
+// stand, whether they are still climbing or came back down.
+//
+// The mine is shallower, 13-26 across three levels, and the same reasoning puts its endless level
+// on area.mine2's population, 16-24, opened by clearing the deep cut. Finishing the mine is what
+// earns it; the fight it offers is the one from the level before, so it stays useful on the way
+// back rather than only at the ceiling.
+//
+// Appended, like every area since mine3, because save() writes area sizes by position. See the
+// note on area.frstn9a2.
+
+area.cata6a = new Area();
+area.cata6a.id = 135;
+area.cata6a.name = i18n.t("content.area.cata6a.name");
+area.cata6a.pop = [
+  { crt: creature.zmbm, lvlmin: 18, lvlmax: 22, c: 0.3 },
+  { crt: creature.ght, lvlmin: 18, lvlmax: 23, c: 0.35 },
+  { crt: creature.zmbk, lvlmin: 19, lvlmax: 24, c: 0.35 },
+];
+area.cata6a.size = -1;
+z_bake(area.cata6a);
+area.cata6a.protected = true;
+area.cata6a.drop = [
+  { item: item.sbone, c: 0.07 },
+  { item: item.cndl, c: 0.03 },
+  { item: item.cn, c: 0.03 },
+  { item: item.cclth, c: 0.02 },
+];
+
+area.mine4 = new Area();
+area.mine4.id = 136;
+area.mine4.name = i18n.t("content.area.mine4.name");
+area.mine4.pop = [
+  { crt: creature.cbat, lvlmin: 18, lvlmax: 24, c: 0.55 },
+  { crt: creature.slm1, lvlmin: 16, lvlmax: 21, c: 0.45 },
+];
+area.mine4.size = -1;
+z_bake(area.mine4);
+area.mine4.protected = true;
+area.mine4.drop = [
+  { item: item.iron1, c: 0.05 },
+  { item: item.coal1, c: 0.04 },
+  { item: item.cndl, c: 0.03 },
 ];
 
 // A level band that follows the player upward without ever dropping below what
